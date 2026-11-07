@@ -51,6 +51,15 @@ def test_broken_gate_is_failed_enforcement_not_supported():
     assert b["finding_label"] == "contradicted_in_scope"
     assert b["assessment"] == "enforcement_failed"
 
+    a = assess_permission(
+        WORLDS["A"],
+        true_observation(WORLDS["A"]),
+        gate_behavior="broken_deny_when_active",
+    )
+    assert a["decision"] == "deny"
+    assert a["required_decision"] == "allow"
+    assert a["conclusion_class"] == "failed_enforcement"
+
 
 def test_irrelevant_observation_stays_missing_evidence():
     a = assess_permission(WORLDS["A"], blind_observation(irrelevant=True))
@@ -63,7 +72,7 @@ def test_protocol_exercises_all_three_classes():
     score = evaluate_method_success(cases)
     assert score["passed"] is True
     assert score["three_way_classes_exercised"] is True
-    assert score["failed_enforcement_count"] >= 1
+    assert score["failed_enforcement_count"] >= 2
     assert score["missing_evidence_count"] >= 1
     assert score["supported_count"] >= 1
 

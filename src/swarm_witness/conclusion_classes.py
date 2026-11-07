@@ -29,11 +29,23 @@ CONCLUSION_TO_FINDING_LABEL: dict[ConclusionClass, str] = {
     "supported": "reproduced",
 }
 
+# Matched baseline comparisons use a dedicated success label when supported.
+SUPPORTED_COMPARISON_LABEL = "classical_baseline_matches"
+
+
+def finding_label_for(
+    conclusion_class: ConclusionClass, *, comparison: bool = False
+) -> str:
+    if conclusion_class == "supported" and comparison:
+        return SUPPORTED_COMPARISON_LABEL
+    return CONCLUSION_TO_FINDING_LABEL[conclusion_class]
+
 
 def classify_conclusion(
     *,
     evidence_complete: bool,
     property_holds: bool | None,
+    comparison: bool = False,
 ) -> dict[str, Any]:
     """Map evidence completeness + property outcome onto a conclusion class.
 
@@ -43,7 +55,7 @@ def classify_conclusion(
     if not evidence_complete:
         return {
             "conclusion_class": "missing_evidence",
-            "finding_label": CONCLUSION_TO_FINDING_LABEL["missing_evidence"],
+            "finding_label": finding_label_for("missing_evidence", comparison=comparison),
             "property_holds": None,
             "reason": "required discriminating evidence missing or incomplete",
         }
@@ -52,18 +64,47 @@ def classify_conclusion(
             "property_holds must be True or False when evidence_complete is True"
         )
     if property_holds:
+        cls: ConclusionClass = "supported"
         return {
-            "conclusion_class": "supported",
-            "finding_label": CONCLUSION_TO_FINDING_LABEL["supported"],
+            "conclusion_class": cls,
+            "finding_label": finding_label_for(cls, comparison=comparison),
             "property_holds": True,
             "reason": "evidence complete and property holds in scope",
         }
+    cls = "failed_enforcement"
     return {
-        "conclusion_class": "failed_enforcement",
-        "finding_label": CONCLUSION_TO_FINDING_LABEL["failed_enforcement"],
+        "conclusion_class": cls,
+        "finding_label": finding_label_for(cls, comparison=comparison),
         "property_holds": False,
         "reason": "evidence complete but exercised enforcement violates the property",
     }
+
+
+def classify_matched_comparison(
+    *,
+    evidence_complete: bool,
+    arms_agree: bool | None,
+    property_holds: bool | None,
+) -> dict[str, Any]:
+    """Three-way class for paired classical↔implementation comparisons.
+
+    Incomplete pairs → missing_evidence. Complete evidence with disagreement or
+    failed properties → failed_enforcement. Agreement + property success →
+    supported (Finding ``classical_baseline_matches``).
+    """
+    if not evidence_complete or arms_agree is None:
+        return classify_conclusion(
+            evidence_complete=False, property_holds=None, comparison=True
+        )
+    if not arms_agree:
+        return classify_conclusion(
+            evidence_complete=True, property_holds=False, comparison=True
+        )
+    if property_holds is None:
+        raise ValueError("property_holds required when arms agree under complete evidence")
+    return classify_conclusion(
+        evidence_complete=True, property_holds=property_holds, comparison=True
+    )
 
 
 def required_permission_decision(observed_grant: str) -> str:

@@ -20,7 +20,11 @@ from swarm_witness.conclusion_classes import (
 
 WorldId = Literal["A", "B"]
 GrantState = Literal["active", "revoked"]
-GateBehavior = Literal["correct", "broken_allow_when_revoked"]
+GateBehavior = Literal[
+    "correct",
+    "broken_allow_when_revoked",
+    "broken_deny_when_active",
+]
 AssessmentKind = Literal[
     "unsupported",
     "permission_justified",
@@ -67,6 +71,11 @@ def _gate_decide(observed_grant: GrantState, *, behavior: GateBehavior) -> str:
         # Defective enforcement: still allows after revocation.
         if observed_grant == "revoked":
             return "allow"
+        return required
+    if behavior == "broken_deny_when_active":
+        # Defective enforcement: denies a still-valid grant.
+        if observed_grant == "active":
+            return "deny"
         return required
     raise ValueError(f"unknown gate behavior: {behavior!r}")
 
@@ -255,7 +264,7 @@ def run_protocol_cases() -> list[dict[str, Any]]:
         }
     )
 
-    # --- failed_enforcement (broken gate under revoked grant) ---
+    # --- failed_enforcement (broken gates under complete evidence) ---
     world_b = WORLDS["B"]
     result = assess_permission(
         world_b,
@@ -273,8 +282,24 @@ def run_protocol_cases() -> list[dict[str, Any]]:
         }
     )
 
-    # Negative control: broken gate must not be labeled supported.
-    # Correct gate on same evidence must remain supported deny.
+    world_a = WORLDS["A"]
+    result = assess_permission(
+        world_a,
+        true_observation(world_a),
+        gate_behavior="broken_deny_when_active",
+    )
+    cases.append(
+        {
+            "case_id": "failed_enforcement_active_still_denies",
+            "name": "World A: active grant observed but gate still denies",
+            "role": "failed_enforcement",
+            "expected_assessment": "enforcement_failed",
+            "expected_conclusion_class": "failed_enforcement",
+            "result": result,
+        }
+    )
+
+    # Contrasts: correct gates on the same evidence remain supported.
     result_ok = assess_permission(world_b, true_observation(world_b))
     cases.append(
         {
@@ -284,6 +309,17 @@ def run_protocol_cases() -> list[dict[str, Any]]:
             "expected_assessment": "permission_refuted",
             "expected_conclusion_class": "supported",
             "result": result_ok,
+        }
+    )
+    result_ok_a = assess_permission(world_a, true_observation(world_a))
+    cases.append(
+        {
+            "case_id": "enforcement_held_active_allow",
+            "name": "World A: active grant + correct allow (contrast)",
+            "role": "enforcement_contrast",
+            "expected_assessment": "permission_justified",
+            "expected_conclusion_class": "supported",
+            "result": result_ok_a,
         }
     )
 
@@ -352,19 +388,25 @@ def evaluate_method_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
         ):
             errors.append(f"{case['case_id']}: irrelevant fact upgraded conclusion")
 
-    fail = next(
-        c for c in cases if c["case_id"] == "failed_enforcement_revoked_still_allows"
-    )
-    if fail["result"]["conclusion_class"] != "failed_enforcement":
-        errors.append("broken gate was not classified as failed_enforcement")
-    if fail["result"]["finding_label"] != "contradicted_in_scope":
-        errors.append("failed_enforcement did not map to contradicted_in_scope")
-    if fail["result"]["finding_label"] == "reproduced":
-        errors.append("failed_enforcement incorrectly mapped to reproduced")
+    for fail_id in (
+        "failed_enforcement_revoked_still_allows",
+        "failed_enforcement_active_still_denies",
+    ):
+        fail = next(c for c in cases if c["case_id"] == fail_id)
+        if fail["result"]["conclusion_class"] != "failed_enforcement":
+            errors.append(f"{fail_id}: not classified as failed_enforcement")
+        if fail["result"]["finding_label"] != "contradicted_in_scope":
+            errors.append(f"{fail_id}: did not map to contradicted_in_scope")
+        if fail["result"]["finding_label"] == "reproduced":
+            errors.append(f"{fail_id}: incorrectly mapped to reproduced")
 
-    held = next(c for c in cases if c["case_id"] == "enforcement_held_revoked_deny")
-    if held["result"]["conclusion_class"] != "supported":
-        errors.append("correct deny was not classified as supported")
+    for held_id in (
+        "enforcement_held_revoked_deny",
+        "enforcement_held_active_allow",
+    ):
+        held = next(c for c in cases if c["case_id"] == held_id)
+        if held["result"]["conclusion_class"] != "supported":
+            errors.append(f"{held_id}: correct gate was not classified as supported")
 
     for case in cases:
         if case.get("ground_truth_mismatch"):

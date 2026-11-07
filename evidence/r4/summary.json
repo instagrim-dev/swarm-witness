@@ -75,12 +75,30 @@
       "expected_conclusion_class": "failed_enforcement"
     },
     {
+      "case_id": "failed_enforcement_active_still_denies",
+      "role": "failed_enforcement",
+      "assessment": "enforcement_failed",
+      "conclusion_class": "failed_enforcement",
+      "decision": "deny",
+      "expected_assessment": "enforcement_failed",
+      "expected_conclusion_class": "failed_enforcement"
+    },
+    {
       "case_id": "enforcement_held_revoked_deny",
       "role": "enforcement_contrast",
       "assessment": "permission_refuted",
       "conclusion_class": "supported",
       "decision": "deny",
       "expected_assessment": "permission_refuted",
+      "expected_conclusion_class": "supported"
+    },
+    {
+      "case_id": "enforcement_held_active_allow",
+      "role": "enforcement_contrast",
+      "assessment": "permission_justified",
+      "conclusion_class": "supported",
+      "decision": "allow",
+      "expected_assessment": "permission_justified",
       "expected_conclusion_class": "supported"
     },
     {
@@ -108,11 +126,11 @@
     "indistinguishable_when_blind": true,
     "discriminator_separates_worlds": true,
     "three_way_classes_exercised": true,
-    "case_count": 11,
+    "case_count": 13,
     "unsupported_blind_count": 4,
     "missing_evidence_count": 4,
-    "failed_enforcement_count": 1,
-    "supported_count": 6
+    "failed_enforcement_count": 2,
+    "supported_count": 7
   },
   "finding_id": "r4-f-evidence-sufficiency",
   "label": "reproduced"

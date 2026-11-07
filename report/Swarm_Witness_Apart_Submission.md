@@ -213,16 +213,15 @@ process-restart correctness. Selected run:
 
 ## 4.5 R4 — Three-way conclusions (`reproduced`)
 
-Eleven synthetic cases under `r4-evidence-sufficiency-v1` exercise all three
-classes: **missing_evidence** (4 blind/irrelevant cases; Worlds A/B
-indistinguishable), **failed_enforcement** (1 case: revoked grant observed but
-broken gate still allows → would map to `contradicted_in_scope`), **supported**
-(6 cases: correct allow/deny, including contrast deny on the same revoked
-evidence). Finding `r4-f-evidence-sufficiency` label **`reproduced`**;
-`all_checks_pass: true`; `three_way_classes_exercised: true`. This is the
-methodological claim: the kit refuses success when evidence is missing, refuses
-success when enforcement fails, and issues support only when both evidence and
-property hold.
+Thirteen synthetic cases under `r4-evidence-sufficiency-v1` exercise all three
+classes: **missing_evidence** (4 blind/irrelevant; Worlds A/B indistinguishable),
+**failed_enforcement** (2 cases: revoked-still-allows and active-still-denies →
+`contradicted_in_scope`), **supported** (7 cases: correct allow/deny plus
+contrasts). The ledger comparator uses the same taxonomy via
+`classify_matched_comparison` (mutual property failure → failed_enforcement, not
+a success label). Cross-study map: `baselines/three_way_conclusion_map.md`.
+Finding `r4-f-evidence-sufficiency` label **`reproduced`**;
+`all_checks_pass: true`; `three_way_classes_exercised: true`.
 
 # 5. Discussion
 

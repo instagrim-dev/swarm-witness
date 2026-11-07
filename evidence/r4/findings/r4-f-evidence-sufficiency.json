@@ -10,7 +10,9 @@
     "r4-discriminated_world_b",
     "r4-valid_with_evidence",
     "r4-failed_enforcement_revoked_still_allows",
+    "r4-failed_enforcement_active_still_denies",
     "r4-enforcement_held_revoked_deny",
+    "r4-enforcement_held_active_allow",
     "r4-misbound_world_a",
     "r4-misbound_world_b",
     "r4-method-score"

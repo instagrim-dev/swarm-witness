@@ -1,3 +1,10 @@
+from swarm_witness.conclusion_classes import (
+    CONCLUSION_TO_FINDING_LABEL,
+    SUPPORTED_COMPARISON_LABEL,
+    classify_conclusion,
+    classify_matched_comparison,
+    finding_label_for,
+)
 from swarm_witness.evidence_index import (
     check_consistency,
     expected_index_from_findings,
@@ -15,11 +22,16 @@ from swarm_witness.schema import (
 
 __all__ = [
     "CONCLUSION_LABELS",
+    "CONCLUSION_TO_FINDING_LABEL",
+    "SUPPORTED_COMPARISON_LABEL",
     "Claim",
     "Finding",
     "Run",
     "check_consistency",
+    "classify_conclusion",
+    "classify_matched_comparison",
     "expected_index_from_findings",
+    "finding_label_for",
     "generate_and_write_index",
     "validate_claim",
     "validate_finding",

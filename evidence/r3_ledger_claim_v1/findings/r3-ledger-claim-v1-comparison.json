@@ -16,12 +16,13 @@
     "classical-T06",
     "r3-ledger-meta"
   ],
-  "proposition": "Across declared synthetic cases, ClassicalLedgerGate and native BMO L1 emitted equal dispositions and property-relevant projections at every step and both satisfied the one-use ledger-claim trace properties",
+  "proposition": "Across declared synthetic cases, ClassicalLedgerGate and native BMO L1 emitted equal dispositions and property-relevant projections at every step and both satisfied the one-use ledger-claim trace properties (supported)",
   "scope": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
   "label": "classical_baseline_matches",
   "basis": "computed",
   "supporting_observation_refs": [
     "r3-ledger-meta.observations.agreement.result",
     "r3-ledger-meta.observations.validity.valid"
-  ]
+  ],
+  "conclusion_class": "supported"
 }
