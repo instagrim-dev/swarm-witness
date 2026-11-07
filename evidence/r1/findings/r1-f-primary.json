@@ -1,0 +1,17 @@
+{
+  "id": "r1-f-primary",
+  "claim_id": "r1",
+  "run_ids": [
+    "r1-run-barrier-sweep"
+  ],
+  "proposition": "Barrier prohibited_effects==0 on pinned SoundGate recovery-barrier sweep",
+  "scope": "SoundGate 0.1.3 @ source revision 6568403 under intact acknowledged records",
+  "label": "reproduced",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "r1-run-barrier-sweep.observations.prohibited_effects_barrier",
+    "r1-run-barrier-sweep.observations.histories_per_policy",
+    "r1-run-barrier-sweep.observations.case_record_count",
+    "r1-run-barrier-sweep.observations.all_checks_pass"
+  ]
+}

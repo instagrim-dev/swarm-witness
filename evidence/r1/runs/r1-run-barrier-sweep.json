@@ -1,0 +1,61 @@
+{
+  "id": "r1-run-barrier-sweep",
+  "claim_id": "r1",
+  "protocol_id": "soundgate-recovery-barrier",
+  "case_id": "policy-barrier-sweep",
+  "source_pin": "6568403",
+  "execution_status": "completed",
+  "command": "python3 -B experiment.py --build local-build --output local-run; python3 -B analyze.py --raw local-run/raw.json",
+  "cwd": "third_party/r1/incident-sprint-artifact/recovery-barrier",
+  "exit_status": 0,
+  "stdout_path": "evidence/r1/experiment.log",
+  "stderr_path": "evidence/r1/analyze-local.log",
+  "observations": {
+    "analysis_path": "evidence/r1/local-run-analysis.json",
+    "histories_per_policy": 153,
+    "case_record_count": 459,
+    "cases_per_policy": {
+      "barrier": 153,
+      "original": 153,
+      "strict": 153
+    },
+    "prohibited_effects_by_policy": {
+      "original": 143,
+      "strict": 0,
+      "barrier": 0
+    },
+    "refused_before_ack_by_policy": {
+      "original": 4,
+      "strict": 147,
+      "barrier": 0
+    },
+    "supported_by_policy": {
+      "original": 6,
+      "strict": 6,
+      "barrier": 153
+    },
+    "status_tallies_by_policy": {
+      "barrier": {
+        "supported": 153
+      },
+      "original": {
+        "prohibited_effect": 143,
+        "refused_before_ack": 4,
+        "supported": 6
+      },
+      "strict": {
+        "refused_before_ack": 147,
+        "supported": 6
+      }
+    },
+    "prohibited_effects_original": 143,
+    "prohibited_effects_barrier": 0,
+    "strict_refusal_startup_refusals": 147,
+    "barrier_supported": 153,
+    "all_checks_pass": true,
+    "raw_sha256": "51b4acd6539a43eda2e51a2d0b82661fc237eec8a2f353f085261bb0a36e8244",
+    "analyzer_sha256": "2526cfc9ffc253f3c816adae318c479227a069c26dde25e062447e0f7cb83a04",
+    "cargo_wal_recovery_barrier_ok": true,
+    "denominator_source": "counted_from_cases"
+  }
+}

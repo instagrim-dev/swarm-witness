@@ -6,8 +6,10 @@ metrics:
   prohibited_effects_barrier: 0
   strict_refusal_startup_refusals: 147
   barrier_supported: 153
-  barrier_fresh_work: 153
 evidence_path: evidence/r1/summary.json
-notes: 'Fresh local rebuild+sweep via paper recovery-barrier harness (source 6568403);
-  barrier prohibited_effects=0; original=143; strict refusals=147. raw_sha256=51b4acd6539a43eda2e51a2d0b82661fc237eec8a2f353f085261bb0a36e8244.
+finding_path: evidence/r1/findings/r1-f-primary.json
+notes: 'Derived from retained case records in local-run-analysis.json (source 6568403);
+  counted histories_per_policy=153; barrier prohibited_effects=0; original=143; strict
+  refusals=147. raw_sha256=51b4acd6539a43eda2e51a2d0b82661fc237eec8a2f353f085261bb0a36e8244.
   Supplemental cargo test wal_recovery_barrier on 0.1.4: 3 passed.'
+authoritative: finding

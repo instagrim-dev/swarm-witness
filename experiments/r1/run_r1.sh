@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Clone/pin SoundGate, extract the paper recovery-barrier harness, rebuild, and
-# run the published 153-history byte-prefix sweep. Optionally run the 0.1.4
-# cargo regression test.
+# run the published byte-prefix sweep — or derive Run/Finding from retained
+# local-run-analysis.json. Never exits 0 as an empty no-op success.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -20,15 +20,11 @@ PDF="$TP/report.pdf"
 ZIP="$TP/incident-sprint-artifact.zip"
 ART="$TP/incident-sprint-artifact"
 RB="$ART/recovery-barrier"
+PARSE="$ROOT/experiments/r1/parse_summary.py"
 
-mkdir -p "$TP" "$EV"
+mkdir -p "$TP" "$EV" "$EV/runs" "$EV/findings"
 
 need() { command -v "$1" >/dev/null 2>&1 || { echo "missing dependency: $1" >&2; exit 1; }; }
-need git
-need curl
-need python3
-need cargo
-need rustc
 
 sha256_file() {
   if command -v shasum >/dev/null 2>&1; then
@@ -37,6 +33,50 @@ sha256_file() {
     sha256sum "$1" | awk '{print $1}'
   fi
 }
+
+write_failed() {
+  local notes="${1:-run_r1.sh failed before completed observations}"
+  local exit_code="${2:-1}"
+  python3 "$PARSE" \
+    --status failed \
+    --notes "$notes" \
+    --command "./experiments/r1/run_r1.sh" \
+    --cwd "$ROOT" \
+    --exit-status "$exit_code" \
+    --stdout-path "evidence/r1/experiment.log" \
+    --stderr-path "evidence/r1/build.log" \
+    --partial-output "$notes" >/dev/null || true
+}
+
+on_err() {
+  local code=$?
+  write_failed "run_r1.sh aborted with exit $code" "$code"
+  exit "$code"
+}
+
+# Prefer reusing retained analysis when asked (or when --derive-only).
+if [[ "${1:-}" == "--derive-only" || "${SWARM_WITNESS_R1_REUSE_ANALYSIS:-}" == "1" ]]; then
+  need python3
+  echo "==> derive Run/Finding from retained local-run-analysis.json (no clone/build)"
+  if [[ ! -f "$EV/local-run-analysis.json" ]]; then
+    python3 "$PARSE" \
+      --status unrun \
+      --notes "derive-only requested but evidence/r1/local-run-analysis.json missing" \
+      --command "./experiments/r1/run_r1.sh --derive-only" \
+      --cwd "$ROOT"
+    exit 1
+  fi
+  python3 "$PARSE"
+  exit $?
+fi
+
+trap on_err ERR
+
+need git
+need curl
+need python3
+need cargo
+need rustc
 
 echo "==> fetch report PDF"
 if [[ ! -f "$PDF" ]]; then
@@ -85,7 +125,7 @@ rm -rf "$RB/local-build" "$RB/local-run"
   python3 build.py --output local-build | tee "$EV/build.log"
 )
 
-echo "==> run published byte-prefix sweep (153 histories × 3 policies)"
+echo "==> run published byte-prefix sweep (histories counted from case records)"
 (
   cd "$RB"
   python3 -B experiment.py --build local-build --output local-run | tee "$EV/experiment.log"
@@ -107,7 +147,8 @@ git -C "$DEST" checkout --force "$BARRIER_FIX_REV"
 )
 git -C "$DEST" checkout --force "$PIN_REV"
 
-echo "==> parse summary.json + validate result.yaml"
-python3 "$ROOT/experiments/r1/parse_summary.py"
+trap - ERR
 
-echo "R1 complete. See $EV/summary.json and $EV/result.yaml"
+echo "==> derive Run/Finding from case records + validate"
+python3 "$PARSE"
+echo "R1 complete. See $EV/runs/ and $EV/findings/ (Finding authoritative; summary.json is a mirror)."
