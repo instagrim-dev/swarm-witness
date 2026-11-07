@@ -5,8 +5,8 @@ finding_path: findings/mas-f-multi-agent-sim.json
 metrics:
   case_count: 11
   missing_evidence_count: 4
-  failed_enforcement_count: 2
-  supported_count: 10
+  failed_enforcement_count: 3
+  supported_count: 9
   replay_stable: true
   all_checks_pass: true
 notes: Multi-agent causal interleaving simulator (post-submission research); not a

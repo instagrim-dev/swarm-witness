@@ -136,13 +136,17 @@
       "c-fresh": "deny"
     },
     "committed_effects": {
-      "b-late": true,
+      "b-late": false,
       "c-fresh": false
+    },
+    "effect_settlements": {
+      "b-late": "refused",
+      "c-fresh": "not_attempted"
     },
     "claim_conclusions": {
       "b-late": "failed_enforcement",
       "c-fresh": "supported"
     },
-    "authoritative_final_state": "revoked_or_spent"
+    "authoritative_final_state": "revoked"
   }
 }

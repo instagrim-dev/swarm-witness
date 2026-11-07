@@ -18,6 +18,8 @@ Decision = Literal["allow", "deny"]
 
 class Policy(Protocol):
     policy_id: PolicyId
+    # When True, ledger settlement refuses spent/revoked grants.
+    enforce_effect_boundary: bool
 
     def decide(
         self,
@@ -53,6 +55,7 @@ class ReferencePolicy:
     """Correct classical one-use gate over delivered local observations."""
 
     policy_id: PolicyId = "reference"
+    enforce_effect_boundary: bool = True
 
     def decide(
         self,
@@ -76,6 +79,8 @@ class MutantAlwaysAllowPolicy:
     """Defective: allows whenever any grant observation exists (ignores state)."""
 
     policy_id: PolicyId = "mutant_always_allow"
+    # Defective effect boundary: settles even when authoritative state forbids it.
+    enforce_effect_boundary: bool = False
 
     def decide(
         self,
@@ -95,6 +100,8 @@ class MutantIgnoreSpendPolicy:
     """Defective: treats spent grants as still claimable by assignees."""
 
     policy_id: PolicyId = "mutant_ignore_spend"
+    # Defective effect boundary: double-commit counterexample requires bypass.
+    enforce_effect_boundary: bool = False
 
     def decide(
         self,

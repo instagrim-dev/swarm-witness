@@ -70,8 +70,18 @@ class AuthoritativeLedger:
         agent: AgentId,
         call_id: str,
         decision_event_id: str,
-    ) -> dict[str, Any]:
+        enforce: bool = True,
+    ) -> dict[str, Any] | None:
+        """Attempt to settle an effect.
+
+        When ``enforce`` is True (reference arm), refuse spent/revoked grants so
+        a bad *decision* is not silently turned into an unauthorized committed
+        effect. Mutant arms may pass ``enforce=False`` to produce a concrete
+        one-use counterexample at the effect boundary.
+        """
         g = self.grants[grant_id]
+        if enforce and (bool(g["spent"]) or g["state"] in {"revoked", "spent"}):
+            return None
         g["spent"] = True
         g["state"] = "spent"
         self.owner_version += 1

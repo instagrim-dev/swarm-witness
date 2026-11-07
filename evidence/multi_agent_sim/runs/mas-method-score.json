@@ -11,8 +11,8 @@
     "three_way_classes_exercised": true,
     "case_count": 11,
     "missing_evidence_count": 4,
-    "failed_enforcement_count": 2,
-    "supported_count": 10,
+    "failed_enforcement_count": 3,
+    "supported_count": 9,
     "replay_stable": true,
     "errors": [],
     "observation_denominator_note": "Each claim evaluation records required_count/present_count for current_grant_observation plus irrelevant_count and receipt_count"

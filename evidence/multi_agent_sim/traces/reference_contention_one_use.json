@@ -1,5 +1,5 @@
 {
-  "schedule_id": "sched-ref-contend",
+  "schedule_id": "sched-toctou-contend",
   "seed": 404,
   "policy_id": "reference",
   "events": [
@@ -104,14 +104,44 @@
         },
         "observation_id": "obs-404-0004",
         "stale": false,
-        "note": "A receives current grant"
+        "observation_freshness": "current",
+        "note": "A observes active grant"
       }
     },
     {
-      "event_id": "evt-404-0006",
+      "event_id": "evt-404-0007",
+      "kind": "observation_deliver",
+      "actor": "scheduler",
+      "causal_predecessor": "evt-404-0005",
+      "epoch": "epoch-1",
+      "owner_version": 3,
+      "observed_source": "authoritative_ledger",
+      "payload": {
+        "target": "B",
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 3,
+          "assignees": [
+            "A",
+            "B",
+            "C"
+          ],
+          "spent": false
+        },
+        "observation_id": "obs-404-0006",
+        "stale": false,
+        "observation_freshness": "current",
+        "note": "B observes active grant before either claim"
+      }
+    },
+    {
+      "event_id": "evt-404-0008",
       "kind": "claim",
       "actor": "A",
-      "causal_predecessor": "evt-404-0005",
+      "causal_predecessor": "evt-404-0007",
       "epoch": "epoch-1",
       "owner_version": 3,
       "observed_source": "local_mailbox",
@@ -139,7 +169,8 @@
               ],
               "spent": false,
               "source_event_id": "evt-404-0005",
-              "observation_id": "obs-404-0004"
+              "observation_id": "obs-404-0004",
+              "observation_freshness": "current"
             }
           ],
           "receipts": [],
@@ -147,16 +178,17 @@
           "observation_ids": [
             "obs-404-0004"
           ],
-          "has_current_grant_observation": true
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false
         },
-        "note": "A claims first"
+        "note": "A claims with active local observation"
       }
     },
     {
-      "event_id": "evt-404-0007",
+      "event_id": "evt-404-0009",
       "kind": "effect_attempt",
       "actor": "A",
-      "causal_predecessor": "evt-404-0006",
+      "causal_predecessor": "evt-404-0008",
       "epoch": "epoch-1",
       "owner_version": 3,
       "observed_source": null,
@@ -164,14 +196,14 @@
         "call_id": "a-claim",
         "grant_id": "grant-shared",
         "decision": "allow",
-        "decision_event_id": "evt-404-0006"
+        "decision_event_id": "evt-404-0008"
       }
     },
     {
-      "event_id": "evt-404-0008",
+      "event_id": "evt-404-0010",
       "kind": "effect_settle",
       "actor": "ledger",
-      "causal_predecessor": "evt-404-0007",
+      "causal_predecessor": "evt-404-0009",
       "epoch": "epoch-1",
       "owner_version": 4,
       "observed_source": null,
@@ -181,39 +213,13 @@
           "grant_id": "grant-shared",
           "agent": "A",
           "call_id": "a-claim",
-          "decision_event_id": "evt-404-0006",
+          "decision_event_id": "evt-404-0008",
           "owner_version_at_commit": 4
         },
         "committed_effect": true,
-        "decision_event_id": "evt-404-0006"
-      }
-    },
-    {
-      "event_id": "evt-404-0010",
-      "kind": "observation_deliver",
-      "actor": "scheduler",
-      "causal_predecessor": "evt-404-0008",
-      "epoch": "epoch-1",
-      "owner_version": 4,
-      "observed_source": "authoritative_ledger",
-      "payload": {
-        "target": "B",
-        "grant": {
-          "grant_id": "grant-shared",
-          "owner": "A",
-          "state": "spent",
-          "epoch": "epoch-1",
-          "owner_version": 4,
-          "assignees": [
-            "A",
-            "B",
-            "C"
-          ],
-          "spent": true
-        },
-        "observation_id": "obs-404-0009",
-        "stale": false,
-        "note": "B receives post-spend grant"
+        "effect_settlement": "committed",
+        "effect_boundary_enforced": true,
+        "decision_event_id": "evt-404-0008"
       }
     },
     {
@@ -227,7 +233,7 @@
       "payload": {
         "call_id": "b-claim",
         "grant_id": "grant-shared",
-        "decision": "deny",
+        "decision": "allow",
         "required_decision": "deny",
         "policy_id": "reference",
         "local_evidence_complete": true,
@@ -238,27 +244,29 @@
             {
               "grant_id": "grant-shared",
               "owner": "A",
-              "state": "spent",
+              "state": "active",
               "epoch": "epoch-1",
-              "owner_version": 4,
+              "owner_version": 3,
               "assignees": [
                 "A",
                 "B",
                 "C"
               ],
-              "spent": true,
-              "source_event_id": "evt-404-0010",
-              "observation_id": "obs-404-0009"
+              "spent": false,
+              "source_event_id": "evt-404-0007",
+              "observation_id": "obs-404-0006",
+              "observation_freshness": "current"
             }
           ],
           "receipts": [],
           "irrelevant_facts": [],
           "observation_ids": [
-            "obs-404-0009"
+            "obs-404-0006"
           ],
-          "has_current_grant_observation": true
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false
         },
-        "note": "B claims after A spent"
+        "note": "B claims with stale-active local observation (no refresh)"
       }
     },
     {
@@ -272,7 +280,7 @@
       "payload": {
         "call_id": "b-claim",
         "grant_id": "grant-shared",
-        "decision": "deny",
+        "decision": "allow",
         "decision_event_id": "evt-404-0011"
       }
     },
@@ -288,8 +296,10 @@
         "call_id": "b-claim",
         "grant_id": "grant-shared",
         "committed_effect": false,
-        "decision_event_id": "evt-404-0011",
-        "reason": "decision_denied"
+        "effect_settlement": "refused",
+        "effect_refusal_reason": "authoritative_spent_or_revoked",
+        "effect_boundary_enforced": true,
+        "decision_event_id": "evt-404-0011"
       }
     }
   ],
@@ -306,7 +316,7 @@
         "grant_id": "grant-shared",
         "agent": "A",
         "call_id": "a-claim",
-        "decision_event_id": "evt-404-0006",
+        "decision_event_id": "evt-404-0008",
         "owner_version_at_commit": 4
       },
       "local_knowledge_at_decision": {
@@ -325,7 +335,8 @@
             ],
             "spent": false,
             "source_event_id": "evt-404-0005",
-            "observation_id": "obs-404-0004"
+            "observation_id": "obs-404-0004",
+            "observation_freshness": "current"
           }
         ],
         "receipts": [],
@@ -333,7 +344,8 @@
         "observation_ids": [
           "obs-404-0004"
         ],
-        "has_current_grant_observation": true
+        "has_current_grant_observation": true,
+        "has_stale_grant_observation": false
       },
       "authoritative_owner_state": {
         "grant": {
@@ -356,22 +368,25 @@
             "grant_id": "grant-shared",
             "agent": "A",
             "call_id": "a-claim",
-            "decision_event_id": "evt-404-0006",
+            "decision_event_id": "evt-404-0008",
             "owner_version_at_commit": 4
           }
         ],
         "ledger_owner_version": 4
       },
-      "decision_event_id": "evt-404-0006",
+      "decision_event_id": "evt-404-0008",
       "policy_id": "reference",
       "local_evidence_complete": true,
-      "use_foreign_receipt": false
+      "use_foreign_receipt": false,
+      "effect_settlement": "committed",
+      "effect_refusal_reason": null,
+      "effect_boundary_enforced": true
     },
     {
       "call_id": "b-claim",
       "agent": "B",
       "grant_id": "grant-shared",
-      "decision": "deny",
+      "decision": "allow",
       "required_decision": "deny",
       "committed_effect": false,
       "effect": null,
@@ -381,25 +396,27 @@
           {
             "grant_id": "grant-shared",
             "owner": "A",
-            "state": "spent",
+            "state": "active",
             "epoch": "epoch-1",
-            "owner_version": 4,
+            "owner_version": 3,
             "assignees": [
               "A",
               "B",
               "C"
             ],
-            "spent": true,
-            "source_event_id": "evt-404-0010",
-            "observation_id": "obs-404-0009"
+            "spent": false,
+            "source_event_id": "evt-404-0007",
+            "observation_id": "obs-404-0006",
+            "observation_freshness": "current"
           }
         ],
         "receipts": [],
         "irrelevant_facts": [],
         "observation_ids": [
-          "obs-404-0009"
+          "obs-404-0006"
         ],
-        "has_current_grant_observation": true
+        "has_current_grant_observation": true,
+        "has_stale_grant_observation": false
       },
       "authoritative_owner_state": {
         "grant": {
@@ -422,7 +439,7 @@
             "grant_id": "grant-shared",
             "agent": "A",
             "call_id": "a-claim",
-            "decision_event_id": "evt-404-0006",
+            "decision_event_id": "evt-404-0008",
             "owner_version_at_commit": 4
           }
         ],
@@ -431,7 +448,10 @@
       "decision_event_id": "evt-404-0011",
       "policy_id": "reference",
       "local_evidence_complete": true,
-      "use_foreign_receipt": false
+      "use_foreign_receipt": false,
+      "effect_settlement": "refused",
+      "effect_refusal_reason": "authoritative_spent_or_revoked",
+      "effect_boundary_enforced": true
     }
   ],
   "one_use_holds": {
@@ -459,7 +479,7 @@
           "grant_id": "grant-shared",
           "agent": "A",
           "call_id": "a-claim",
-          "decision_event_id": "evt-404-0006",
+          "decision_event_id": "evt-404-0008",
           "owner_version_at_commit": 4
         }
       ],

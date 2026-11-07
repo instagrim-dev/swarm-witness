@@ -187,14 +187,50 @@ def interleaving_b_first(seed: int = 202) -> ScenarioSpec:
     )
 
 
+def _toctou_contention_steps() -> list[ScheduleStep]:
+    """Both assignees observe active state before either claims (classic race)."""
+    steps = _seed_shared_grant_steps()
+    steps.extend(
+        [
+            ScheduleStep(
+                kind="observation_deliver",
+                actor="scheduler",
+                grant_id=GRANT,
+                target="A",
+                note="A observes active grant",
+            ),
+            ScheduleStep(
+                kind="observation_deliver",
+                actor="scheduler",
+                grant_id=GRANT,
+                target="B",
+                note="B observes active grant before either claim",
+            ),
+            ScheduleStep(
+                kind="claim",
+                actor="A",
+                grant_id=GRANT,
+                call_id="a-claim",
+                note="A claims with active local observation",
+            ),
+            ScheduleStep(
+                kind="claim",
+                actor="B",
+                grant_id=GRANT,
+                call_id="b-claim",
+                note="B claims with stale-active local observation (no refresh)",
+            ),
+        ]
+    )
+    return steps
+
+
 def revocation_late_observation(seed: int = 303) -> ScenarioSpec:
-    """Revoke then late/stale active observation; correct policy still denies on fresh view.
+    """Revoke then late/stale active observation; fresh view still denies.
 
     Schedule: issue → observe-to-C (active) → revoke → deliver stale active to B →
-    B claims (mutant would allow; reference with stale active would incorrectly
-    allow from local view). For the reference arm we deliver the *current*
-    revoked observation to C after revoke, and a late stale active to B so the
-    case exercises late observation explicitly.
+    B claims (local allow; authoritative ledger refuses commit under reference) →
+    C receives fresh revoked observation and denies.
     """
     steps = _seed_shared_grant_steps()
     steps.extend(
@@ -268,68 +304,73 @@ def revocation_late_observation(seed: int = 303) -> ScenarioSpec:
         ),
         policy_id="reference",
         expected={
-            # Reference trusts local observation: B allows on stale active —
-            # that is a decision matching local evidence but diverging from
-            # authoritative required deny. Scorer checks the recorded fields.
+            # Local allow on stale active diverges from authoritative deny, but
+            # the enforcing ledger refuses settlement — bad decision ≠ commit.
             "claim_decisions": {"b-late": "allow", "c-fresh": "deny"},
-            "committed_effects": {"b-late": True, "c-fresh": False},
+            "committed_effects": {"b-late": False, "c-fresh": False},
+            "effect_settlements": {"b-late": "refused", "c-fresh": "not_attempted"},
             "claim_conclusions": {
                 "b-late": "failed_enforcement",  # decision != authoritative required
                 "c-fresh": "supported",
             },
-            "authoritative_final_state": "revoked_or_spent",
+            "authoritative_final_state": "revoked",
         },
     )
 
 
 def reference_contention_arm(seed: int = 404) -> ScenarioSpec:
-    """Reference monitor on A-then-B contention: authorized progress + one-use."""
-    base = interleaving_a_first(seed=seed)
+    """Reference on TOCTOU contention: first commit allowed; second effect refused."""
+    steps = _toctou_contention_steps()
     return ScenarioSpec(
         case_id="reference_contention_one_use",
-        name="Reference monitor: authorized first claim, second denied, one-use holds",
+        name="Reference monitor: TOCTOU contention preserves one-use via effect boundary",
         role="reference_vs_mutant",
         schedule=Schedule(
-            schedule_id="sched-ref-contend",
+            schedule_id="sched-toctou-contend",
             seed=seed,
-            steps=base.schedule.steps,
-            description=base.schedule.description,
+            steps=tuple(steps),
+            description=(
+                "Both A and B observe active before either claims; reference "
+                "commits A and refuses B at the authoritative effect boundary"
+            ),
         ),
         policy_id="reference",
         expected={
-            "claim_decisions": {"a-claim": "allow", "b-claim": "deny"},
+            # Local views are both active at claim time, so both *decisions* allow;
+            # only the first effect commits under the enforcing ledger.
+            "claim_decisions": {"a-claim": "allow", "b-claim": "allow"},
             "committed_effects": {"a-claim": True, "b-claim": False},
+            "effect_settlements": {"a-claim": "committed", "b-claim": "refused"},
             "one_use_ok": True,
             "claim_conclusions": {
                 "a-claim": "supported",
-                "b-claim": "supported",
+                "b-claim": "failed_enforcement",
             },
         },
     )
 
 
 def mutant_contention_arm(seed: int = 404) -> ScenarioSpec:
-    """Identical schedule to reference arm; mutant ignores spend → double commit."""
-    base = interleaving_a_first(seed=seed)
-    # Mutant needs B to observe something; after A spends, deliver spent state.
-    # MutantIgnoreSpend still allows.
+    """Identical TOCTOU schedule; mutant bypasses effect boundary → double commit."""
+    steps = _toctou_contention_steps()
     return ScenarioSpec(
         case_id="mutant_ignore_spend_contention",
-        name="Mutant ignore-spend on identical contention schedule (counterexample)",
+        name="Mutant ignore-spend on identical TOCTOU schedule (counterexample)",
         role="reference_vs_mutant",
         schedule=Schedule(
-            schedule_id="sched-mut-contend",
+            schedule_id="sched-toctou-contend",
             seed=seed,
-            steps=base.schedule.steps,
+            steps=tuple(steps),
             description=(
-                "Same inputs/seed family as reference contention; mutant allows "
-                "second claim after spend"
+                "Same TOCTOU schedule/seed as reference contention; mutant "
+                "disables effect-boundary enforcement and double-commits"
             ),
         ),
         policy_id="mutant_ignore_spend",
         expected={
             "claim_decisions": {"a-claim": "allow", "b-claim": "allow"},
             "committed_effects": {"a-claim": True, "b-claim": True},
+            "effect_settlements": {"a-claim": "committed", "b-claim": "committed"},
             "one_use_ok": False,
             "claim_conclusions": {
                 "a-claim": "supported",

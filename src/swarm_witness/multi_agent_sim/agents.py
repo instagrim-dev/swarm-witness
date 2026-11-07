@@ -25,10 +25,12 @@ class AgentMailbox:
         observation_id: str,
         grant: dict[str, Any],
         source_event_id: str,
+        freshness: str = "current",
     ) -> None:
         payload = dict(grant)
         payload["source_event_id"] = source_event_id
         payload["observation_id"] = observation_id
+        payload["observation_freshness"] = freshness
         self.grant_observations[grant["grant_id"]] = payload
         self.observation_ids.append(observation_id)
 

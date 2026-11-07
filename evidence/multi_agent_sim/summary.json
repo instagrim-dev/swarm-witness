@@ -57,7 +57,7 @@
         {
           "call_id": "b-late",
           "decision": "allow",
-          "committed_effect": true,
+          "committed_effect": false,
           "conclusion_class": "failed_enforcement"
         },
         {
@@ -81,9 +81,9 @@
         },
         {
           "call_id": "b-claim",
-          "decision": "deny",
+          "decision": "allow",
           "committed_effect": false,
-          "conclusion_class": "supported"
+          "conclusion_class": "failed_enforcement"
         }
       ]
     },
@@ -193,8 +193,8 @@
     "source_pin": "swarm-witness-multi-agent-sim-v1",
     "three_way_classes_exercised": true,
     "missing_evidence_count": 4,
-    "failed_enforcement_count": 2,
-    "supported_count": 10,
+    "failed_enforcement_count": 3,
+    "supported_count": 9,
     "all_checks_pass": true
   },
   "finding_id": "mas-f-multi-agent-sim",

@@ -80,11 +80,22 @@ class LocalKnowledge:
     observation_ids: tuple[str, ...]
 
     def to_dict(self) -> dict[str, Any]:
+        current = [
+            g
+            for g in self.grant_observations
+            if g.get("observation_freshness", "current") == "current"
+        ]
+        stale = [
+            g
+            for g in self.grant_observations
+            if g.get("observation_freshness") == "stale"
+        ]
         return {
             "agent": self.agent,
             "grant_observations": [dict(g) for g in self.grant_observations],
             "receipts": [dict(r) for r in self.receipts],
             "irrelevant_facts": list(self.irrelevant_facts),
             "observation_ids": list(self.observation_ids),
-            "has_current_grant_observation": bool(self.grant_observations),
+            "has_current_grant_observation": bool(current),
+            "has_stale_grant_observation": bool(stale),
         }

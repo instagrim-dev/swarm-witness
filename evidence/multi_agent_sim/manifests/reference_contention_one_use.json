@@ -1,12 +1,12 @@
 {
   "case_id": "reference_contention_one_use",
-  "name": "Reference monitor: authorized first claim, second denied, one-use holds",
+  "name": "Reference monitor: TOCTOU contention preserves one-use via effect boundary",
   "role": "reference_vs_mutant",
   "policy_id": "reference",
   "schedule": {
-    "schedule_id": "sched-ref-contend",
+    "schedule_id": "sched-toctou-contend",
     "seed": 404,
-    "description": "A observes and claims before B; one-use safety holds",
+    "description": "Both A and B observe active before either claims; reference commits A and refuses B at the authoritative effect boundary",
     "steps": [
       {
         "kind": "grant_issue",
@@ -54,19 +54,7 @@
         "foreign_receipt_from": null,
         "irrelevant_fact": null,
         "stale_grant": null,
-        "note": "A receives current grant"
-      },
-      {
-        "kind": "claim",
-        "actor": "A",
-        "grant_id": "grant-shared",
-        "target": null,
-        "call_id": "a-claim",
-        "use_foreign_receipt": false,
-        "foreign_receipt_from": null,
-        "irrelevant_fact": null,
-        "stale_grant": null,
-        "note": "A claims first"
+        "note": "A observes active grant"
       },
       {
         "kind": "observation_deliver",
@@ -78,7 +66,19 @@
         "foreign_receipt_from": null,
         "irrelevant_fact": null,
         "stale_grant": null,
-        "note": "B receives post-spend grant"
+        "note": "B observes active grant before either claim"
+      },
+      {
+        "kind": "claim",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "a-claim",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "A claims with active local observation"
       },
       {
         "kind": "claim",
@@ -90,23 +90,27 @@
         "foreign_receipt_from": null,
         "irrelevant_fact": null,
         "stale_grant": null,
-        "note": "B claims after A spent"
+        "note": "B claims with stale-active local observation (no refresh)"
       }
     ]
   },
   "expected": {
     "claim_decisions": {
       "a-claim": "allow",
-      "b-claim": "deny"
+      "b-claim": "allow"
     },
     "committed_effects": {
       "a-claim": true,
       "b-claim": false
     },
+    "effect_settlements": {
+      "a-claim": "committed",
+      "b-claim": "refused"
+    },
     "one_use_ok": true,
     "claim_conclusions": {
       "a-claim": "supported",
-      "b-claim": "supported"
+      "b-claim": "failed_enforcement"
     }
   }
 }

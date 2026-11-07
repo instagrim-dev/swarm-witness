@@ -64,11 +64,39 @@ def _check_expected(case: dict[str, Any]) -> list[str]:
                     f"{case['case_id']}:{call_id}: conclusion {got!r} want {want!r}"
                 )
 
+    if "effect_settlements" in exp:
+        for call_id, want in exp["effect_settlements"].items():
+            got = claims[call_id].get("effect_settlement")
+            if got != want:
+                errors.append(
+                    f"{case['case_id']}:{call_id}: effect_settlement {got!r} "
+                    f"want {want!r}"
+                )
+
     if "one_use_ok" in exp and evaluation["one_use_ok"] != exp["one_use_ok"]:
         errors.append(
             f"{case['case_id']}: one_use_ok {evaluation['one_use_ok']!r} "
             f"want {exp['one_use_ok']!r}"
         )
+
+    if "authoritative_final_state" in exp:
+        want = exp["authoritative_final_state"]
+        finals = {
+            gid: state["grant"]["state"]
+            for gid, state in evaluation["final_owner_state"].items()
+        }
+        if want == "revoked":
+            if any(s != "revoked" for s in finals.values()):
+                errors.append(
+                    f"{case['case_id']}: authoritative_final_state {finals!r} "
+                    f"want all revoked"
+                )
+        elif want == "revoked_or_spent":
+            if any(s not in {"revoked", "spent"} for s in finals.values()):
+                errors.append(
+                    f"{case['case_id']}: authoritative_final_state {finals!r} "
+                    f"want revoked_or_spent"
+                )
 
     if "winners" in exp:
         winners = [
@@ -91,20 +119,40 @@ def _check_expected(case: dict[str, Any]) -> list[str]:
             "local_knowledge_at_decision",
             "evaluator_learned_afterward",
             "observation_denominators",
+            "effect_settlement",
         ):
             if key not in ceval:
                 errors.append(f"{case['case_id']}:{call_id}: missing field {key}")
 
-        # Bad decision must not be silently equated to committed effect.
+        # Decision and committed effect remain independent observations.
         if ceval["decision"] == "allow" and ceval["committed_effect"] is not True:
-            # allow without commit is allowed only if settlement refused — our
-            # model commits on allow; flag inconsistency.
-            errors.append(
-                f"{case['case_id']}:{call_id}: allow without committed_effect"
-            )
+            if ceval.get("effect_settlement") != "refused":
+                errors.append(
+                    f"{case['case_id']}:{call_id}: allow without commit must "
+                    f"record effect_settlement=refused "
+                    f"(got {ceval.get('effect_settlement')!r})"
+                )
         if ceval["decision"] == "deny" and ceval["committed_effect"]:
             errors.append(
                 f"{case['case_id']}:{call_id}: deny incorrectly recorded as committed"
+            )
+
+        denom = ceval.get("observation_denominators") or {}
+        present = denom.get("present_discriminators") or []
+        knowledge = ceval.get("local_knowledge_at_decision") or {}
+        if knowledge.get("has_stale_grant_observation") and (
+            "stale_grant_observation" not in present
+        ):
+            errors.append(
+                f"{case['case_id']}:{call_id}: stale observation not reflected "
+                f"in denominators {present!r}"
+            )
+        if "stale_grant_observation" in present and "current_grant_observation" in present:
+            # A single grant_id mailbox keeps one payload; both labels together
+            # would mean the denominator lied about freshness.
+            errors.append(
+                f"{case['case_id']}:{call_id}: denominators claim both current "
+                f"and stale for the same claim"
             )
 
     return errors
@@ -151,16 +199,28 @@ def evaluate_protocol_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
     if "revocation_late_observation_reference" not in by_id:
         errors.append("missing revocation_late_observation case")
 
-    # --- Reference vs mutant on identical step shape ---
+    # --- Reference vs mutant on identical TOCTOU step shape ---
     ref = by_id.get("reference_contention_one_use")
     mut = by_id.get("mutant_ignore_spend_contention")
     if ref and mut:
         if ref["manifest"]["schedule"]["steps"] != mut["manifest"]["schedule"]["steps"]:
             errors.append("reference/mutant schedules differ (must be identical inputs)")
+        if ref["manifest"]["schedule"]["seed"] != mut["manifest"]["schedule"]["seed"]:
+            errors.append("reference/mutant seeds differ (must be identical inputs)")
         if ref["evaluation"]["one_use_ok"] is not True:
-            errors.append("reference arm failed one-use safety")
+            errors.append("reference arm failed one-use safety under TOCTOU contention")
         if mut["evaluation"]["one_use_ok"] is not False:
             errors.append("mutant arm did not violate one-use (no counterexample)")
+        ref_b = ref["claims_by_id"].get("b-claim")
+        if not ref_b or ref_b.get("committed_effect") is not False:
+            errors.append(
+                "reference TOCTOU arm must refuse second committed effect "
+                f"(got {None if ref_b is None else ref_b.get('committed_effect')!r})"
+            )
+        if ref_b and ref_b.get("effect_settlement") != "refused":
+            errors.append(
+                "reference TOCTOU second claim must record effect_settlement=refused"
+            )
         # Concrete counterexample: second committed effect under mutant.
         mut_commits = [
             c["call_id"]
@@ -268,12 +328,21 @@ def evaluate_protocol_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
 
 def replay_traces_match(seed_schedule_policy: tuple[str, int, str] | None = None) -> bool:
     """Fresh-run verification: same seed/schedule/policy → identical relevant trace."""
-    from swarm_witness.multi_agent_sim.scenarios import interleaving_a_first
-
-    spec = interleaving_a_first()
+    specs = all_scenario_specs()
     if seed_schedule_policy:
-        # reserved for future parameterization
-        _ = seed_schedule_policy
-    first = run_scenario(spec)["trace"]
-    second = run_scenario(spec)["trace"]
-    return first == second
+        schedule_id, seed, policy_id = seed_schedule_policy
+        specs = [
+            s
+            for s in specs
+            if s.schedule.schedule_id == schedule_id
+            and s.schedule.seed == seed
+            and s.policy_id == policy_id
+        ]
+        if not specs:
+            return False
+    for spec in specs:
+        first = run_scenario(spec)["trace"]
+        second = run_scenario(spec)["trace"]
+        if first != second:
+            return False
+    return True

@@ -100,6 +100,7 @@
         },
         "observation_id": "obs-507-0004",
         "stale": false,
+        "observation_freshness": "current",
         "note": "discriminating current grant observation"
       }
     },
@@ -134,7 +135,8 @@
               ],
               "spent": false,
               "source_event_id": "evt-507-0005",
-              "observation_id": "obs-507-0004"
+              "observation_id": "obs-507-0004",
+              "observation_freshness": "current"
             }
           ],
           "receipts": [],
@@ -142,7 +144,8 @@
           "observation_ids": [
             "obs-507-0004"
           ],
-          "has_current_grant_observation": true
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false
         },
         "note": "claim after discriminating observation"
       }
@@ -174,6 +177,9 @@
         "call_id": "b-disc",
         "grant_id": "grant-shared",
         "committed_effect": false,
+        "effect_settlement": "not_attempted",
+        "effect_refusal_reason": "decision_denied",
+        "effect_boundary_enforced": true,
         "decision_event_id": "evt-507-0006",
         "reason": "decision_denied"
       }
@@ -203,7 +209,8 @@
             ],
             "spent": false,
             "source_event_id": "evt-507-0005",
-            "observation_id": "obs-507-0004"
+            "observation_id": "obs-507-0004",
+            "observation_freshness": "current"
           }
         ],
         "receipts": [],
@@ -211,7 +218,8 @@
         "observation_ids": [
           "obs-507-0004"
         ],
-        "has_current_grant_observation": true
+        "has_current_grant_observation": true,
+        "has_stale_grant_observation": false
       },
       "authoritative_owner_state": {
         "grant": {
@@ -233,7 +241,10 @@
       "decision_event_id": "evt-507-0006",
       "policy_id": "reference",
       "local_evidence_complete": true,
-      "use_foreign_receipt": false
+      "use_foreign_receipt": false,
+      "effect_settlement": "not_attempted",
+      "effect_refusal_reason": "decision_denied",
+      "effect_boundary_enforced": true
     }
   ],
   "one_use_holds": {

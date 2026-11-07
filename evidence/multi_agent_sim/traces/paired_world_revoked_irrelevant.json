@@ -118,7 +118,8 @@
           "observation_ids": [
             "irr-506-0004"
           ],
-          "has_current_grant_observation": false
+          "has_current_grant_observation": false,
+          "has_stale_grant_observation": false
         },
         "note": "irrelevant observation does not discriminate"
       }
@@ -150,6 +151,9 @@
         "call_id": "b-irr",
         "grant_id": "grant-shared",
         "committed_effect": false,
+        "effect_settlement": "not_attempted",
+        "effect_refusal_reason": "decision_denied",
+        "effect_boundary_enforced": true,
         "decision_event_id": "evt-506-0006",
         "reason": "decision_denied"
       }
@@ -174,7 +178,8 @@
         "observation_ids": [
           "irr-506-0004"
         ],
-        "has_current_grant_observation": false
+        "has_current_grant_observation": false,
+        "has_stale_grant_observation": false
       },
       "authoritative_owner_state": {
         "grant": {
@@ -196,7 +201,10 @@
       "decision_event_id": "evt-506-0006",
       "policy_id": "reference",
       "local_evidence_complete": false,
-      "use_foreign_receipt": false
+      "use_foreign_receipt": false,
+      "effect_settlement": "not_attempted",
+      "effect_refusal_reason": "decision_denied",
+      "effect_boundary_enforced": true
     }
   ],
   "one_use_holds": {

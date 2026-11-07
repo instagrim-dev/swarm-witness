@@ -18,13 +18,28 @@ def _observation_denominator(claim: ClaimOutcome) -> dict[str, Any]:
     """Explicit observation denominators retained for auditability."""
     knowledge = claim.local_knowledge
     grant_obs = knowledge.get("grant_observations") or []
+    present: list[str] = []
+    for obs in grant_obs:
+        freshness = obs.get("observation_freshness", "current")
+        if freshness == "stale":
+            label = "stale_grant_observation"
+        else:
+            label = "current_grant_observation"
+        if label not in present:
+            present.append(label)
     return {
         "required_discriminators": ["current_grant_observation"],
         "required_count": 1,
-        "present_discriminators": (
-            ["current_grant_observation"] if claim.local_evidence_complete else []
+        "present_discriminators": present,
+        "present_count": len(present),
+        "current_grant_observation_count": sum(
+            1
+            for obs in grant_obs
+            if obs.get("observation_freshness", "current") == "current"
         ),
-        "present_count": 1 if claim.local_evidence_complete else 0,
+        "stale_grant_observation_count": sum(
+            1 for obs in grant_obs if obs.get("observation_freshness") == "stale"
+        ),
         "irrelevant_count": len(knowledge.get("irrelevant_facts") or []),
         "receipt_count": len(knowledge.get("receipts") or []),
         "grant_observation_count": len(grant_obs),
@@ -52,12 +67,16 @@ def evaluate_claim(claim: ClaimOutcome) -> dict[str, Any]:
             "grant_id": claim.grant_id,
             "decision": claim.decision,
             "committed_effect": claim.committed_effect,
+            "effect_settlement": claim.effect_settlement,
+            "effect_refusal_reason": claim.effect_refusal_reason,
+            "effect_boundary_enforced": claim.effect_boundary_enforced,
             "authoritative_owner_state": claim.authoritative_owner_state,
             "required_decision": claim.required_decision,
             "local_knowledge_at_decision": claim.local_knowledge,
             "evaluator_learned_afterward": {
                 "authoritative_owner_state": claim.authoritative_owner_state,
                 "committed_effect": claim.committed_effect,
+                "effect_settlement": claim.effect_settlement,
                 "required_decision": claim.required_decision,
             },
             "observation_denominators": denominators,
@@ -96,6 +115,14 @@ def evaluate_claim(claim: ClaimOutcome) -> dict[str, Any]:
         effect_status = "committed"
     else:
         effect_status = "prevented"
+        # Wrong local allow that the ledger refused remains a decision-policy
+        # failure with a prevented effect — not an executed unauthorized effect.
+        if (
+            claim.decision == "allow"
+            and claim.required_decision == "deny"
+            and claim.effect_settlement == "refused"
+        ):
+            failure_origin = "decision_policy"
 
     diag = diagnosis(
         evidence_status="authentic",
@@ -109,12 +136,16 @@ def evaluate_claim(claim: ClaimOutcome) -> dict[str, Any]:
         "grant_id": claim.grant_id,
         "decision": claim.decision,
         "committed_effect": claim.committed_effect,
+        "effect_settlement": claim.effect_settlement,
+        "effect_refusal_reason": claim.effect_refusal_reason,
+        "effect_boundary_enforced": claim.effect_boundary_enforced,
         "authoritative_owner_state": claim.authoritative_owner_state,
         "required_decision": claim.required_decision,
         "local_knowledge_at_decision": claim.local_knowledge,
         "evaluator_learned_afterward": {
             "authoritative_owner_state": claim.authoritative_owner_state,
             "committed_effect": claim.committed_effect,
+            "effect_settlement": claim.effect_settlement,
             "required_decision": claim.required_decision,
             "one_use_effect_count": claim.authoritative_owner_state.get(
                 "committed_effect_count"
@@ -129,7 +160,8 @@ def evaluate_claim(claim: ClaimOutcome) -> dict[str, Any]:
         "reason": classified["reason"]
         + (
             f"; decision={claim.decision} required={claim.required_decision} "
-            f"committed_effect={claim.committed_effect}"
+            f"committed_effect={claim.committed_effect} "
+            f"effect_settlement={claim.effect_settlement}"
         ),
     }
 

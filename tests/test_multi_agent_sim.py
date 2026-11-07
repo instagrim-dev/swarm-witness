@@ -74,8 +74,16 @@ def test_reference_permits_progress_and_one_use_mutant_counterexample():
     ref = run_scenario(reference_contention_arm())
     mut = run_scenario(mutant_contention_arm())
     assert ref["manifest"]["schedule"]["steps"] == mut["manifest"]["schedule"]["steps"]
+    assert ref["manifest"]["schedule"]["seed"] == mut["manifest"]["schedule"]["seed"]
     assert ref["evaluation"]["one_use_ok"] is True
     assert mut["evaluation"]["one_use_ok"] is False
+    ref_b = ref["claims_by_id"]["b-claim"]
+    assert ref_b["decision"] == "allow"
+    assert ref_b["committed_effect"] is False
+    assert ref_b["effect_settlement"] == "refused"
+    assert ref_b["required_decision"] == "deny"
+    assert ref_b["conclusion_class"] == "failed_enforcement"
+    assert ref_b["diagnosis"]["effect_status"] == "prevented"
     mut_commits = [c for c in mut["evaluation"]["claims"] if c["committed_effect"]]
     assert len(mut_commits) == 2
     bad = next(c for c in mut["evaluation"]["claims"] if c["call_id"] == "b-claim")
@@ -85,6 +93,23 @@ def test_reference_permits_progress_and_one_use_mutant_counterexample():
     assert bad["conclusion_class"] == "failed_enforcement"
     assert bad["diagnosis"]["decision_status"] == "incorrect"
     assert bad["diagnosis"]["effect_status"] == "committed"
+
+
+def test_toctou_dual_observation_reference_preserves_one_use():
+    """Competing claims after dual active observations must not double-commit."""
+    ref = run_scenario(reference_contention_arm())
+    assert [s["kind"] for s in ref["manifest"]["schedule"]["steps"]].count(
+        "observation_deliver"
+    ) >= 2
+    kinds_before_claims = []
+    for step in ref["manifest"]["schedule"]["steps"]:
+        if step["kind"] == "claim":
+            break
+        kinds_before_claims.append(step["kind"])
+    assert kinds_before_claims.count("observation_deliver") >= 2
+    assert ref["evaluation"]["one_use_ok"] is True
+    assert ref["claims_by_id"]["a-claim"]["committed_effect"] is True
+    assert ref["claims_by_id"]["b-claim"]["committed_effect"] is False
 
 
 def test_paired_worlds_indistinguishable_until_distinguishing_observation():
@@ -132,9 +157,18 @@ def test_revocation_late_observation_case_present():
     b_late = late["claims_by_id"]["b-late"]
     c_fresh = late["claims_by_id"]["c-fresh"]
     assert b_late["conclusion_class"] == "failed_enforcement"
-    assert b_late["committed_effect"] is True
+    assert b_late["decision"] == "allow"
+    assert b_late["committed_effect"] is False
+    assert b_late["effect_settlement"] == "refused"
+    denom = b_late["observation_denominators"]
+    assert "stale_grant_observation" in denom["present_discriminators"]
+    assert "current_grant_observation" not in denom["present_discriminators"]
     assert c_fresh["conclusion_class"] == "supported"
     assert c_fresh["decision"] == "deny"
+    final_states = {
+        g["grant"]["state"] for g in late["evaluation"]["final_owner_state"].values()
+    }
+    assert final_states == {"revoked"}
 
 
 def test_runner_writes_valid_evidence(tmp_path: Path):

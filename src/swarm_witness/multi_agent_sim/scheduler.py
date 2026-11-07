@@ -92,6 +92,9 @@ class ClaimOutcome:
     policy_id: str
     local_evidence_complete: bool
     use_foreign_receipt: bool
+    effect_settlement: str = "not_attempted"
+    effect_refusal_reason: str | None = None
+    effect_boundary_enforced: bool = True
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -108,6 +111,9 @@ class ClaimOutcome:
             "policy_id": self.policy_id,
             "local_evidence_complete": self.local_evidence_complete,
             "use_foreign_receipt": self.use_foreign_receipt,
+            "effect_settlement": self.effect_settlement,
+            "effect_refusal_reason": self.effect_refusal_reason,
+            "effect_boundary_enforced": self.effect_boundary_enforced,
         }
 
 
@@ -251,8 +257,10 @@ class Simulator:
             assert step.grant_id and step.target
             if step.stale_grant is not None:
                 grant_payload = dict(step.stale_grant)
+                freshness = "stale"
             else:
                 grant_payload = self.ledger.snapshot(step.grant_id).to_dict()
+                freshness = "current"
             obs_id = self._next_id("obs")
             source = self._record(
                 "observation_deliver",
@@ -261,17 +269,19 @@ class Simulator:
                     "target": step.target,
                     "grant": grant_payload,
                     "observation_id": obs_id,
-                    "stale": step.stale_grant is not None,
+                    "stale": freshness == "stale",
+                    "observation_freshness": freshness,
                     "note": step.note,
                 },
                 observed_source="authoritative_ledger"
-                if step.stale_grant is None
+                if freshness == "current"
                 else "stale_or_adversarial",
             )
             self.agents.get(step.target).deliver_grant_observation(
                 observation_id=obs_id,
                 grant=grant_payload,
                 source_event_id=source.event_id,
+                freshness=freshness,
             )
             return
 
@@ -383,28 +393,55 @@ class Simulator:
 
         committed = False
         effect: dict[str, Any] | None = None
+        enforce = bool(getattr(self.policy, "enforce_effect_boundary", True))
+        settlement = "not_attempted"
+        refusal_reason: str | None = None
         # Settlement rule: only an allow decision may attempt commit. Reference
-        # and mutant both settle on allow so one-use violations surface as
-        # committed-effect counterexamples — without collapsing decision into
-        # effect in the observation schema.
+        # arms enforce the authoritative spent/revoked boundary so a bad
+        # decision is not automatically an unauthorized committed effect.
+        # Mutant arms may disable enforcement to surface concrete double-commit
+        # counterexamples — still recorded as separate decision vs effect fields.
         if decision == "allow":
             effect = self.ledger.commit_effect(
                 grant_id=step.grant_id,
                 agent=agent,
                 call_id=step.call_id,
                 decision_event_id=decision_evt.event_id,
+                enforce=enforce,
             )
-            committed = True
-            self._record(
-                "effect_settle",
-                "ledger",
-                payload={
-                    "effect": dict(effect),
-                    "committed_effect": True,
-                    "decision_event_id": decision_evt.event_id,
-                },
-            )
+            if effect is not None:
+                committed = True
+                settlement = "committed"
+                self._record(
+                    "effect_settle",
+                    "ledger",
+                    payload={
+                        "effect": dict(effect),
+                        "committed_effect": True,
+                        "effect_settlement": settlement,
+                        "effect_boundary_enforced": enforce,
+                        "decision_event_id": decision_evt.event_id,
+                    },
+                )
+            else:
+                settlement = "refused"
+                refusal_reason = "authoritative_spent_or_revoked"
+                self._record(
+                    "effect_settle",
+                    "ledger",
+                    payload={
+                        "call_id": step.call_id,
+                        "grant_id": step.grant_id,
+                        "committed_effect": False,
+                        "effect_settlement": settlement,
+                        "effect_refusal_reason": refusal_reason,
+                        "effect_boundary_enforced": enforce,
+                        "decision_event_id": decision_evt.event_id,
+                    },
+                )
         else:
+            settlement = "not_attempted"
+            refusal_reason = "decision_denied"
             self._record(
                 "effect_settle",
                 "ledger",
@@ -412,6 +449,9 @@ class Simulator:
                     "call_id": step.call_id,
                     "grant_id": step.grant_id,
                     "committed_effect": False,
+                    "effect_settlement": settlement,
+                    "effect_refusal_reason": refusal_reason,
+                    "effect_boundary_enforced": enforce,
                     "decision_event_id": decision_evt.event_id,
                     "reason": "decision_denied",
                 },
@@ -432,6 +472,9 @@ class Simulator:
                 policy_id=self.policy.policy_id,
                 local_evidence_complete=bool(rec["local_evidence_complete"]),
                 use_foreign_receipt=step.use_foreign_receipt,
+                effect_settlement=settlement,
+                effect_refusal_reason=refusal_reason,
+                effect_boundary_enforced=enforce,
             )
         )
 

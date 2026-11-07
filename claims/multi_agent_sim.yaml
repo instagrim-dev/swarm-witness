@@ -32,4 +32,6 @@ assumptions:
   - "Policies decide only from locally delivered observations"
   - "Oracle required decisions are computed from the authoritative ledger only"
   - "Effect settlement is recorded separately from the policy decision field"
+  - "Reference ledger settlement enforces spent/revoked refusal; mutants may disable that boundary"
+  - "Observation denominators distinguish current vs stale grant observations"
   - "Simulation validity claims remain separate from multihost execution"
