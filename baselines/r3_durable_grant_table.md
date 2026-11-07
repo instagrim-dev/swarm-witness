@@ -28,8 +28,9 @@
   arms with matching inputs and isomorphic BMO observations.
 - Package pass/fail counts are **not** BMO decisions.
 - When BMO cannot supply isomorphic observations for a shared case, that case
-  is `execution_status=missing` and the overall finding cannot be
-  `classical_baseline_matches` (honest label: `assumption_dependent`).
+  is `execution_status=missing` and the overall comparison Finding cannot be
+  `classical_baseline_matches` (honest label: `unresolved` — incomplete
+  comparative audit, not assumption-dependent affinity).
 
 ## Discriminating comparison (from latest run)
 
@@ -40,4 +41,4 @@
 | active_grant_execute | allow | None | False | missing |
 | stale_grant_version | deny | None | False | missing |
 
-Overall finding label: `assumption_dependent`.
+Overall finding label: `unresolved`.

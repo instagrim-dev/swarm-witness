@@ -91,10 +91,15 @@ def test_unmatched_bmo_case_cannot_yield_classical_baseline_matches(tmp_path):
         bmo_git_rev="4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
     )
     validate_finding(finding)
+    # Incomplete comparative audit → unresolved (not assumption_dependent affinity).
+    assert finding["label"] == "unresolved"
     assert finding["label"] != "classical_baseline_matches"
-    assert finding["label"] in {"assumption_dependent", "unresolved"}
+    assert finding["label"] != "assumption_dependent"
+    assert "incomplete" in finding["proposition"].lower() or (
+        "not performed" in finding["proposition"].lower()
+    )
+    assert "assumption-dependent" not in finding["proposition"].lower()
     assert any(p["bmo_status"] == "missing" for p in pairs)
-    assert finding["label"] != "classical_baseline_matches"
 
 
 def test_all_matched_decisions_may_emit_classical_baseline_matches():

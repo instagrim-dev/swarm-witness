@@ -1,5 +1,5 @@
 claim_id: r3
-label: assumption_dependent
+label: unresolved
 authoritative: finding
 finding_path: evidence/r3/findings/r3-f-comparison.json
 metrics:
@@ -9,5 +9,6 @@ metrics:
 evidence_path: evidence/r3/summary.json
 bmo_git_rev: 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe
 notes: Decision-model comparison only. BMO decisions require isomorphic observations;
-  missing probes yield assumption_dependent, never classical_baseline_matches. Package
-  pass counts are not decisions.
+  missing probes yield unresolved (incomplete comparative audit), never classical_baseline_matches
+  or assumption_dependent affinity. Package pass counts are metadata only and are
+  not decisions.

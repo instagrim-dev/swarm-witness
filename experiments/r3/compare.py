@@ -314,12 +314,12 @@ def build_comparison_finding(
         )
 
     if missing_bmo > 0:
-        # Scientific honesty: incomplete isomorphic BMO coverage.
-        label = "assumption_dependent"
+        # Incomplete comparative audit: required BMO observations absent.
+        label = "unresolved"
         proposition = (
-            "Matched ClassicalGate decision-model cases lack isomorphic BMO "
-            "observations for one or more shared cases; classical_baseline_matches "
-            "is not warranted"
+            "Matched decision-model comparison was not performed for one or more "
+            "required shared cases: isomorphic BMO observations are missing, so "
+            "the comparative audit is incomplete (not a matched affinity claim)"
         )
     elif completed_pairs == len(cases) and matched == len(cases):
         label = "classical_baseline_matches"
@@ -335,7 +335,10 @@ def build_comparison_finding(
         )
     else:
         label = "unresolved"
-        proposition = "R3 matched comparison incomplete"
+        proposition = (
+            "R3 matched decision-model comparison incomplete "
+            "(not all required case pairs completed)"
+        )
 
     finding = {
         "id": FINDING_ID,
@@ -449,8 +452,10 @@ def main(argv: list[str] | None = None) -> int:
         "label": finding["label"],
         "notes": (
             "Decision-model comparison only. BMO decisions require isomorphic "
-            "observations; missing probes yield assumption_dependent, never "
-            "classical_baseline_matches. Package pass counts are not decisions."
+            "observations; missing probes yield unresolved (incomplete "
+            "comparative audit), never classical_baseline_matches or "
+            "assumption_dependent affinity. Package pass counts are metadata "
+            "only and are not decisions."
         ),
     }
     write_json(SUMMARY, summary)
@@ -484,11 +489,12 @@ def main(argv: list[str] | None = None) -> int:
             }
         )
     )
-    # Exit 0 when comparison ran honestly (including assumption_dependent).
+    # Exit 0 when comparison ran honestly (including incomplete → unresolved).
     return 0 if finding["label"] in {
         "classical_baseline_matches",
-        "assumption_dependent",
+        "unresolved",
         "contradicted_in_scope",
+        "assumption_dependent",
     } else 1
 
 

@@ -52,4 +52,6 @@ Related preexisting BMO retained-grant surfaces (not edited):
 Honesty note: these BMO APIs are not isomorphic to ClassicalGate
 `(state, request, grant_version)` inputs; R3 therefore records BMO cases as
 `missing_isomorphic_observation` when no matching assertion/harness probe
-exists, and must not emit `classical_baseline_matches` from that gap.
+exists. The comparison Finding label is then `unresolved` (incomplete
+comparative audit)—not `classical_baseline_matches` or assumption-dependent
+affinity.

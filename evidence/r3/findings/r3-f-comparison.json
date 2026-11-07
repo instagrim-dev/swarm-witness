@@ -11,9 +11,9 @@
     "classical-stale_grant_version",
     "bmo-stale_grant_version"
   ],
-  "proposition": "Matched ClassicalGate decision-model cases lack isomorphic BMO observations for one or more shared cases; classical_baseline_matches is not warranted",
+  "proposition": "Matched decision-model comparison was not performed for one or more required shared cases: isomorphic BMO observations are missing, so the comparative audit is incomplete (not a matched affinity claim)",
   "scope": "R3 shared cases.yaml decision-model comparison at BMO git_rev 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
-  "label": "assumption_dependent",
+  "label": "unresolved",
   "basis": "computed",
   "supporting_observation_refs": [
     "classical-retained_start_claim_relaunch.observations.decision",

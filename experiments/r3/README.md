@@ -55,5 +55,9 @@ Optional (metadata only; does not supply isomorphic decisions):
 ## Success / honesty
 
 Unmatched or missing BMO cases **cannot** yield Finding
-`classical_baseline_matches`. Emitting `assumption_dependent` / `missing` when
-BMO lacks isomorphic observations is scientific success for this task.
+`classical_baseline_matches`. When any required BMO case lacks matched
+observations, the comparison Finding label is **`unresolved`** (incomplete
+comparative audit)—not `assumption_dependent`. Emitting `unresolved` /
+`execution_status=missing` when BMO lacks isomorphic observations is scientific
+success for this task. Optional `run_bmo_tests.sh` package passes are metadata
+only and do not supply a comparative Finding.

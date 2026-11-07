@@ -57,6 +57,6 @@
     }
   ],
   "finding_id": "r3-f-comparison",
-  "label": "assumption_dependent",
-  "notes": "Decision-model comparison only. BMO decisions require isomorphic observations; missing probes yield assumption_dependent, never classical_baseline_matches. Package pass counts are not decisions."
+  "label": "unresolved",
+  "notes": "Decision-model comparison only. BMO decisions require isomorphic observations; missing probes yield unresolved (incomplete comparative audit), never classical_baseline_matches or assumption_dependent affinity. Package pass counts are metadata only and are not decisions."
 }

@@ -6,5 +6,5 @@ results:
   label: reproduced
   finding_id: r2-f-primary
 - claim_id: r3
-  label: assumption_dependent
+  label: unresolved
   finding_id: r3-f-comparison
