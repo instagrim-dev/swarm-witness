@@ -449,3 +449,48 @@ def test_green_package_log_cannot_fill_observations(tmp_path: Path):
     # No NDJSON — package log alone must not yield matched.
     summary = compare.compare_run(run_dir, cases_path=PKG / "cases.yaml")
     assert summary["finding"]["label"] == "unresolved"
+
+
+def test_identical_wrong_task_id_fails_manifest_binding():
+    """Both arms agreeing on a wrong input must not pass pair validity."""
+    compare = _load("ledger_compare", PKG / "compare.py")
+    proto = _load("ledger_protocol", PKG / "protocol.py")
+    t03 = next(c for c in proto.load_cases(PKG / "cases.yaml")["cases"] if c.case_id == "T03")
+    c_steps = _t03_happy("c")
+    b_steps = _t03_happy("b")
+    for steps in (c_steps, b_steps):
+        for s in steps:
+            if s["op"] == "claim_first_edit":
+                s["inputs"]["task_id"] = "task-WRONG-IDENTICAL"
+    validity = compare.pair_validity(cases=[t03], classical_steps=c_steps, bmo_steps=b_steps)
+    assert validity["valid"] is False
+    assert any("case manifest" in e for e in validity["errors"])
+
+
+def test_undeclared_extra_step_fails_pair_validity():
+    compare = _load("ledger_compare", PKG / "compare.py")
+    proto = _load("ledger_protocol", PKG / "protocol.py")
+    t03 = next(c for c in proto.load_cases(PKG / "cases.yaml")["cases"] if c.case_id == "T03")
+    c_steps = _t03_happy("c")
+    b_steps = _t03_happy("b")
+    extra = _step(
+        "T03",
+        99,
+        "inspect",
+        adapter="c",
+        disposition="observed",
+        state={
+            "grant_spent": True,
+            "claim_count": 1,
+            "transfer_count": 1,
+            "claims": [],
+            "transfers": [],
+            "claim_call_ids": [],
+            "transfer_call_ids": [],
+        },
+    )
+    c_steps = c_steps + [extra]
+    b_steps = b_steps + [{**extra, "adapter_id": "b"}]
+    validity = compare.pair_validity(cases=[t03], classical_steps=c_steps, bmo_steps=b_steps)
+    assert validity["valid"] is False
+    assert any("undeclared extra" in e for e in validity["errors"])

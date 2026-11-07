@@ -15,6 +15,7 @@ from swarm_witness.evidence_sufficiency import (  # noqa: E402
     assess_permission,
     blind_observation,
     evaluate_method_success,
+    misbound_observation,
     run_protocol_cases,
     true_observation,
 )
@@ -65,6 +66,24 @@ def test_irrelevant_observation_stays_missing_evidence():
     a = assess_permission(WORLDS["A"], blind_observation(irrelevant=True))
     assert a["conclusion_class"] == "missing_evidence"
     assert a["justified_permission_claim"] is False
+
+
+def test_misbound_evidence_cannot_yield_supported_permission():
+    """Negative control: known-false observations are not unqualified support."""
+    for wid in ("A", "B"):
+        world = WORLDS[wid]
+        out = assess_permission(world, misbound_observation(world))
+        assert out["misbound_detected"] is True
+        assert out["observation_authentic"] is False
+        assert out["justified_permission_claim"] is False
+        assert out["conclusion_class"] != "supported"
+        assert out["conclusion_class"] == "failed_enforcement"
+        assert out["assessment"] == "enforcement_failed"
+        assert out["required_decision"] == (
+            "allow" if world.grant_current == "active" else "deny"
+        )
+        # Gate trusted the false observation, so decision disagrees with truth.
+        assert out["decision"] != out["required_decision"]
 
 
 def test_protocol_exercises_all_three_classes():

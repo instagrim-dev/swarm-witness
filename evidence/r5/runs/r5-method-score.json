@@ -16,6 +16,7 @@
       "B",
       "C"
     ],
+    "model": "sequential_shared_grant_multi_principal",
     "missing_evidence_count": 2,
     "failed_enforcement_count": 2,
     "supported_count": 6,

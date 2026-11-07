@@ -14,8 +14,8 @@ classical security, or primarily a dual replication.
 Pinned results: SoundGate (R1) **reproduced**; EvidenceGraph (R2) **reproduced**;
 legacy BMO decision-model (R3) **unresolved**; native L1 ledger-claim
 (r3-ledger-claim-v1) **classical_baseline_matches** (bounded); three-way
-evidence-sufficiency (R4) **reproduced**; multi-agent swarm generalization (R5)
-**reproduced**.
+evidence-sufficiency (R4) **reproduced** (synthetic conformance); multi-principal
+transfer (R5) **reproduced** (sequential shared-grant model).
 
 ## Submission PDF
 

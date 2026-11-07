@@ -138,15 +138,68 @@ def assess_permission(
         return out
 
     observed = observations.observed_grant
-    required = required_permission_decision(observed)
+    # Availability ≠ authenticity. Gate may trust the supplied observation,
+    # but conclusions about current authorization are scored against ground
+    # truth when the auditor has it. Known-false observations cannot yield
+    # an unqualified supported permission.
+    authentic = observed == world.grant_current
+    required_truth = required_permission_decision(world.grant_current)
     decision = _gate_decide(observed, behavior=gate_behavior)
+    out["decision"] = decision
+    out["required_decision"] = required_truth
+    out["observation_authentic"] = authentic
+    out["misbound_detected"] = not authentic
+
+    if not authentic:
+        holds = decision == required_truth
+        out["justified_permission_claim"] = False
+        if holds:
+            # Accidental agreement with truth under false evidence is still
+            # not warrant for support — treat as insufficient authenticity.
+            classified = classify_conclusion(
+                evidence_complete=False, property_holds=None
+            )
+            out.update(
+                {
+                    "conclusion_class": classified["conclusion_class"],
+                    "finding_label": classified["finding_label"],
+                    "property_holds": None,
+                    "assessment": "unsupported",
+                    "reason": (
+                        f"supplied grant observation {observed!r} misbinds "
+                        f"ground truth {world.grant_current!r}; observation "
+                        "not authentic — missing_evidence (no unqualified "
+                        "supported permission)"
+                    ),
+                }
+            )
+            return out
+        classified = classify_conclusion(
+            evidence_complete=True, property_holds=False
+        )
+        out.update(
+            {
+                "conclusion_class": classified["conclusion_class"],
+                "finding_label": classified["finding_label"],
+                "property_holds": False,
+                "assessment": "enforcement_failed",
+                "reason": (
+                    f"supplied grant observation {observed!r} misbinds "
+                    f"ground truth {world.grant_current!r}; gate decided "
+                    f"{decision!r} but truth requires {required_truth!r} — "
+                    "failed_enforcement (negative control: false evidence "
+                    "cannot support permission)"
+                ),
+            }
+        )
+        return out
+
+    required = required_truth
     holds = decision == required
     classified = classify_conclusion(
         evidence_complete=True, property_holds=holds
     )
 
-    out["decision"] = decision
-    out["required_decision"] = required
     out["conclusion_class"] = classified["conclusion_class"]
     out["finding_label"] = classified["finding_label"]
     out["property_holds"] = holds
@@ -163,13 +216,14 @@ def assess_permission(
     if decision == "allow":
         out["assessment"] = "permission_justified"
         out["reason"] = (
-            "current grant observed active; correct allow — supported"
+            "current grant observed active and authentic; correct allow — "
+            "supported"
         )
     else:
         out["assessment"] = "permission_refuted"
         out["reason"] = (
-            "current grant observed revoked; correct deny — supported "
-            "(enforcement held; permission claim refuted)"
+            "current grant observed revoked and authentic; correct deny — "
+            "supported (enforcement held; permission claim refuted)"
         )
     return out
 
@@ -323,23 +377,19 @@ def run_protocol_cases() -> list[dict[str, Any]]:
         }
     )
 
-    # Misbound observations (adversarial evidence quality — still complete,
-    # so classification follows observed grant vs gate decision).
+    # Misbound observations (adversarial authenticity): known-false grant
+    # evidence must not yield unqualified supported / permission_justified.
+    # With ground truth available, the wrong decision is failed_enforcement.
     for wid in ("A", "B"):
         world = WORLDS[wid]
         result = assess_permission(world, misbound_observation(world))
-        expected = (
-            "permission_refuted"
-            if world.grant_current == "active"
-            else "permission_justified"
-        )
         cases.append(
             {
                 "case_id": f"misbound_world_{wid.lower()}",
                 "name": f"World {wid} with flipped grant observation",
                 "role": "adversarial_misbind",
-                "expected_assessment": expected,
-                "expected_conclusion_class": "supported",
+                "expected_assessment": "enforcement_failed",
+                "expected_conclusion_class": "failed_enforcement",
                 "ground_truth_mismatch": True,
                 "result": result,
             }
@@ -579,6 +629,20 @@ def evaluate_method_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
             if obs == truth:
                 errors.append(f"{case['case_id']}: misbind did not flip observation")
             case["result"]["misbound_detected"] = obs != truth
+            if case["result"].get("justified_permission_claim"):
+                errors.append(
+                    f"{case['case_id']}: misbound evidence yielded "
+                    "unqualified permission_justified"
+                )
+            if case["result"]["conclusion_class"] == "supported":
+                errors.append(
+                    f"{case['case_id']}: misbound evidence classified as supported"
+                )
+            if case["result"]["conclusion_class"] != "failed_enforcement":
+                errors.append(
+                    f"{case['case_id']}: misbound with known ground truth "
+                    "must be failed_enforcement"
+                )
 
     classes_seen = {c["result"]["conclusion_class"] for c in cases}
     three_way = classes_seen == {
