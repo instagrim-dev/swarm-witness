@@ -33,13 +33,17 @@ python3 experiments/r2/parse_summary.py
 Requirements: Python 3.13+ via `uv`, `git`, `curl`, network for the first
 `uv sync --locked`.
 
-Paper commands (equivalent, after checkout of the pin):
+Upstream paper commands (from the pinned `evidencegraph` tree; output dir is
+arbitrary):
 
 ```bash
+cd third_party/r2/evidencegraph
 uv sync --locked
-uv run python scripts/incident_stress.py cases/reproduction --seeds 0 1 2
-uv run eg verify cases/reproduction/bundles/0-full_receipt_relay --recompute
+uv run python scripts/incident_stress.py NEW_DIRECTORY --seeds 0 1 2
+uv run eg verify NEW_DIRECTORY/bundles/0-full_receipt_relay --recompute
 ```
+
+`run_r2.sh` uses `third_party/r2/reproduction` (absolute path in `run.log`).
 
 Outputs land under `evidence/r2/` (`run.log`, `RESULTS.md`, `results.json`,
 `summary.json`, `result.yaml`).
