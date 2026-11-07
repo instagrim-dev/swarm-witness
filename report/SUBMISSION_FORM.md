@@ -30,8 +30,8 @@ Author hint (unconfirmed): git history on this repo includes commits by
 PDF: report/Swarm_Witness_Apart_Submission.pdf
 GitHub: https://github.com/instagrim-dev/swarm-witness (currently private —
 grant judge read access, publish a mirror, or attach
-`dist/swarm-witness-review-bundle.zip` from `bash scripts/pack_review_bundle.sh`;
-see `evidence/ACCESS.md`)
+`artifacts/swarm-witness-review-bundle.zip` from `bash scripts/pack_review_bundle.sh`;
+see `evidence/ACCESS.md` and `CHECKLIST.md` remaining user steps)
 Video: none unless completed
 
 ## Labels (v2; from evidence/index.yaml)

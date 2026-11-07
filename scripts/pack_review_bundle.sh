@@ -65,6 +65,11 @@ find "${STAGING}" -name '.DS_Store' -delete 2>/dev/null || true
   zip -qr swarm-witness-review-bundle.zip swarm-witness-review-bundle
 )
 
+# Also publish a repo-tree copy for judges with read access (dist/ is gitignored).
+mkdir -p "${ROOT}/artifacts"
+cp -f "${ZIP}" "${ROOT}/artifacts/swarm-witness-review-bundle.zip"
+
 echo "Wrote ${ZIP}"
+echo "Also wrote ${ROOT}/artifacts/swarm-witness-review-bundle.zip"
 unzip -l "${ZIP}" | tail -5
 du -h "${ZIP}"

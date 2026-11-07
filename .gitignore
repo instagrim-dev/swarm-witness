@@ -1,6 +1,8 @@
 .venv/
 .cursor/
 dist/
+# Keep the portable judge zip in-tree; regenerate via pack_review_bundle.sh
+!artifacts/swarm-witness-review-bundle.zip
 *.egg-info/
 __pycache__/
 third_party/*/target/
