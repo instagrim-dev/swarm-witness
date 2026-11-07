@@ -13,5 +13,6 @@
     "r2-run-incident-stress.observations.condition_by_seed_checks",
     "r2-run-incident-stress.observations.row_record_count",
     "r2-run-incident-stress.observations.all_contract_checks_pass"
-  ]
+  ],
+  "conclusion_class": "supported"
 }

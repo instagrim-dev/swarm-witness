@@ -15,6 +15,10 @@
     "r4-enforcement_held_active_allow",
     "r4-misbound_world_a",
     "r4-misbound_world_b",
+    "r4-handoff_blind_delegate",
+    "r4-handoff_delegate_grant_active",
+    "r4-handoff_failed_receipt_alone_allows",
+    "r4-handoff_delegate_grant_revoked_deny",
     "r4-method-score"
   ],
   "proposition": "The audit method distinguishes missing_evidence (blind/irrelevant Worlds A/B stay unresolved), failed_enforcement (revoked grant observed but broken gate still allows \u2192 contradicted_in_scope), and supported conclusions (correct allow/deny when discriminating evidence is present)",
@@ -27,5 +31,6 @@
     "r4-method-score.observations.indistinguishable_when_blind",
     "r4-method-score.observations.discriminator_separates_worlds",
     "r4-method-score.observations.all_checks_pass"
-  ]
+  ],
+  "conclusion_class": "supported"
 }

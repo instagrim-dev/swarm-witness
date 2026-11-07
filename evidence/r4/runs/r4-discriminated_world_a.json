@@ -19,6 +19,8 @@
     "include_current_grant": true,
     "include_irrelevant": false,
     "observed_grant": "active",
+    "delegate_id": null,
+    "principal_id": null,
     "reason": "current grant observed active; correct allow \u2014 supported",
     "expected_assessment": "permission_justified",
     "expected_conclusion_class": "supported",

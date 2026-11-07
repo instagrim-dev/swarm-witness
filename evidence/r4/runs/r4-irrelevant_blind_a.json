@@ -19,6 +19,8 @@
     "include_current_grant": false,
     "include_irrelevant": true,
     "observed_grant": null,
+    "delegate_id": null,
+    "principal_id": null,
     "reason": "old receipt available but current grant state unobserved; permission claim is missing_evidence (Worlds A and B indistinguishable from this evidence); irrelevant fact 'receipt_print_color=blue' does not discriminate",
     "expected_assessment": "unsupported",
     "expected_conclusion_class": "missing_evidence",

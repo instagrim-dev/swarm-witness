@@ -50,6 +50,8 @@ def build_runs(cases: list[dict]) -> list[dict]:
                 "include_current_grant": result["observations"]["include_current_grant"],
                 "include_irrelevant": result["observations"]["include_irrelevant"],
                 "observed_grant": result["observations"]["observed_grant"],
+                "delegate_id": result["observations"].get("delegate_id"),
+                "principal_id": result["observations"].get("principal_id"),
                 "reason": result["reason"],
                 "expected_assessment": case["expected_assessment"],
                 "expected_conclusion_class": case["expected_conclusion_class"],
@@ -122,6 +124,7 @@ def build_finding(runs: list[dict], score: dict) -> dict:
         ],
     }
     validate_finding(finding)
+    finding["conclusion_class"] = "supported"
     return finding
 
 

@@ -77,6 +77,27 @@ def test_protocol_exercises_all_three_classes():
     assert score["supported_count"] >= 1
 
 
+def test_handoff_receipt_alone_is_missing_or_failed_not_supported():
+    from swarm_witness.evidence_sufficiency import assess_delegate_handoff
+
+    blind = assess_delegate_handoff(
+        observe_delegate_grant=False, delegate_grant=None
+    )
+    assert blind["conclusion_class"] == "missing_evidence"
+    failed = assess_delegate_handoff(
+        observe_delegate_grant=True,
+        delegate_grant="revoked",
+        gate_uses_principal_receipt_alone=True,
+    )
+    assert failed["conclusion_class"] == "failed_enforcement"
+    ok = assess_delegate_handoff(
+        observe_delegate_grant=True,
+        delegate_grant="active",
+        gate_uses_principal_receipt_alone=False,
+    )
+    assert ok["conclusion_class"] == "supported"
+
+
 def test_runner_writes_valid_evidence(tmp_path: Path):
     spec = importlib.util.spec_from_file_location(
         "r4_run", ROOT / "experiments" / "evidence_sufficiency" / "run.py"

@@ -345,6 +345,170 @@ def run_protocol_cases() -> list[dict[str, Any]]:
             }
         )
 
+    # --- Delegation / handoff (bounded transferability) ---
+    # Principal A has an old receipt. Delegate B must not inherit standing
+    # permission from A's receipt alone; B needs B-scoped current grant evidence.
+    cases.extend(_handoff_cases())
+
+    return cases
+
+
+def assess_delegate_handoff(
+    *,
+    principal_receipt: dict[str, Any] | None = None,
+    observe_delegate_grant: bool,
+    delegate_grant: GrantState | None = None,
+    gate_uses_principal_receipt_alone: bool = False,
+) -> dict[str, Any]:
+    """Assess whether delegate B is authorized under handoff evidence rules.
+
+    A's receipt is always visible. Without B's current grant observation the
+    conclusion is ``missing_evidence``. If a broken gate allows B from A's
+    receipt alone while B's grant is revoked, that is ``failed_enforcement``.
+    Observing B's active grant with a correct gate is ``supported``.
+    """
+    receipt = dict(principal_receipt or OLD_RECEIPT)
+    receipt = {**receipt, "holder": "principal_A"}
+    out: dict[str, Any] = {
+        "world_id": "handoff",
+        "ground_truth_grant": delegate_grant,
+        "visible_receipt": receipt,
+        "observations": {
+            "include_current_grant": observe_delegate_grant,
+            "include_irrelevant": False,
+            "observed_grant": delegate_grant if observe_delegate_grant else None,
+            "irrelevant_fact": None,
+            "delegate_id": "agent_B",
+            "principal_id": "agent_A",
+        },
+        "gate_behavior": (
+            "handoff_allow_from_principal_receipt"
+            if gate_uses_principal_receipt_alone
+            else "correct"
+        ),
+        "decision": None,
+        "required_decision": None,
+        "assessment": "unsupported",
+        "justified_permission_claim": False,
+        "conclusion_class": "missing_evidence",
+        "finding_label": "unresolved",
+        "property_holds": None,
+        "reason": "",
+    }
+
+    if not observe_delegate_grant or delegate_grant is None:
+        classified = classify_conclusion(
+            evidence_complete=False, property_holds=None
+        )
+        out.update(
+            {
+                "conclusion_class": classified["conclusion_class"],
+                "finding_label": classified["finding_label"],
+                "reason": (
+                    "delegate presents principal receipt but delegate-scoped "
+                    "current grant is unobserved — missing_evidence "
+                    "(receipt handoff is not standing permission)"
+                ),
+            }
+        )
+        return out
+
+    required = required_permission_decision(delegate_grant)
+    if gate_uses_principal_receipt_alone:
+        # Broken handoff policy: treat principal receipt as sufficient allow.
+        decision = "allow"
+    else:
+        decision = required
+    holds = decision == required
+    classified = classify_conclusion(
+        evidence_complete=True, property_holds=holds
+    )
+    out["decision"] = decision
+    out["required_decision"] = required
+    out["conclusion_class"] = classified["conclusion_class"]
+    out["finding_label"] = classified["finding_label"]
+    out["property_holds"] = holds
+    out["justified_permission_claim"] = decision == "allow" and holds
+    if not holds:
+        out["assessment"] = "enforcement_failed"
+        out["reason"] = (
+            "delegate grant observed "
+            f"{delegate_grant}; gate decided {decision!r} required {required!r} "
+            "— failed_enforcement (principal receipt must not authorize alone)"
+        )
+    elif decision == "allow":
+        out["assessment"] = "permission_justified"
+        out["reason"] = (
+            "delegate-scoped grant observed active; correct allow — supported"
+        )
+    else:
+        out["assessment"] = "permission_refuted"
+        out["reason"] = (
+            "delegate-scoped grant observed revoked; correct deny — supported"
+        )
+    return out
+
+
+def _handoff_cases() -> list[dict[str, Any]]:
+    cases: list[dict[str, Any]] = []
+    blind = assess_delegate_handoff(
+        observe_delegate_grant=False, delegate_grant=None
+    )
+    cases.append(
+        {
+            "case_id": "handoff_blind_delegate",
+            "name": "Delegate B with only principal A's receipt",
+            "role": "handoff_missing",
+            "expected_assessment": "unsupported",
+            "expected_conclusion_class": "missing_evidence",
+            "result": blind,
+        }
+    )
+    supported = assess_delegate_handoff(
+        observe_delegate_grant=True,
+        delegate_grant="active",
+        gate_uses_principal_receipt_alone=False,
+    )
+    cases.append(
+        {
+            "case_id": "handoff_delegate_grant_active",
+            "name": "Delegate B with observed active grant",
+            "role": "handoff_supported",
+            "expected_assessment": "permission_justified",
+            "expected_conclusion_class": "supported",
+            "result": supported,
+        }
+    )
+    failed = assess_delegate_handoff(
+        observe_delegate_grant=True,
+        delegate_grant="revoked",
+        gate_uses_principal_receipt_alone=True,
+    )
+    cases.append(
+        {
+            "case_id": "handoff_failed_receipt_alone_allows",
+            "name": "Delegate B revoked but gate allows via principal receipt",
+            "role": "handoff_failed",
+            "expected_assessment": "enforcement_failed",
+            "expected_conclusion_class": "failed_enforcement",
+            "result": failed,
+        }
+    )
+    denied = assess_delegate_handoff(
+        observe_delegate_grant=True,
+        delegate_grant="revoked",
+        gate_uses_principal_receipt_alone=False,
+    )
+    cases.append(
+        {
+            "case_id": "handoff_delegate_grant_revoked_deny",
+            "name": "Delegate B revoked + correct deny",
+            "role": "handoff_supported",
+            "expected_assessment": "permission_refuted",
+            "expected_conclusion_class": "supported",
+            "result": denied,
+        }
+    )
     return cases
 
 
@@ -424,6 +588,18 @@ def evaluate_method_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
     }
     if not three_way:
         errors.append(f"protocol did not exercise all three classes: {sorted(classes_seen)}")
+
+    handoff_blind = next(c for c in cases if c["case_id"] == "handoff_blind_delegate")
+    if handoff_blind["result"]["conclusion_class"] != "missing_evidence":
+        errors.append("handoff without delegate grant was not missing_evidence")
+    handoff_fail = next(
+        c for c in cases if c["case_id"] == "handoff_failed_receipt_alone_allows"
+    )
+    if handoff_fail["result"]["conclusion_class"] != "failed_enforcement":
+        errors.append("handoff allow-from-principal-receipt was not failed_enforcement")
+    handoff_ok = next(c for c in cases if c["case_id"] == "handoff_delegate_grant_active")
+    if handoff_ok["result"]["conclusion_class"] != "supported":
+        errors.append("handoff with active delegate grant was not supported")
 
     return {
         "passed": not errors,

@@ -114,3 +114,32 @@ def required_permission_decision(observed_grant: str) -> str:
     if observed_grant == "revoked":
         return "deny"
     raise ValueError(f"unknown observed_grant: {observed_grant!r}")
+
+
+def conclusion_class_for_label(label: str) -> ConclusionClass | None:
+    """Best-effort reverse map from Finding.label to conclusion class."""
+    if label == "unresolved" or label == "assumption_dependent":
+        return "missing_evidence"
+    if label == "contradicted_in_scope":
+        return "failed_enforcement"
+    if label in {"reproduced", "classical_baseline_matches"}:
+        return "supported"
+    return None
+
+
+def assert_label_matches_conclusion(label: str, conclusion_class: str) -> None:
+    expected = finding_label_for(
+        conclusion_class,  # type: ignore[arg-type]
+        comparison=(label == SUPPORTED_COMPARISON_LABEL),
+    )
+    # supported may be reproduced or classical_baseline_matches
+    if conclusion_class == "supported":
+        if label not in {"reproduced", SUPPORTED_COMPARISON_LABEL}:
+            raise ValueError(
+                f"supported conclusion incompatible with Finding label {label!r}"
+            )
+        return
+    if label != expected:
+        raise ValueError(
+            f"conclusion_class {conclusion_class!r} expects label {expected!r}, got {label!r}"
+        )

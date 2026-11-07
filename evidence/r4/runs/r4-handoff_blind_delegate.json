@@ -1,0 +1,32 @@
+{
+  "id": "r4-handoff_blind_delegate",
+  "claim_id": "r4",
+  "protocol_id": "r4-evidence-sufficiency-v1",
+  "case_id": "handoff_blind_delegate",
+  "source_pin": "swarm-witness-r4-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "handoff_missing",
+    "assessment": "unsupported",
+    "conclusion_class": "missing_evidence",
+    "finding_label": "unresolved",
+    "property_holds": null,
+    "decision": null,
+    "required_decision": null,
+    "gate_behavior": "correct",
+    "justified_permission_claim": false,
+    "ground_truth_grant": null,
+    "include_current_grant": false,
+    "include_irrelevant": false,
+    "observed_grant": null,
+    "delegate_id": "agent_B",
+    "principal_id": "agent_A",
+    "reason": "delegate presents principal receipt but delegate-scoped current grant is unobserved \u2014 missing_evidence (receipt handoff is not standing permission)",
+    "expected_assessment": "unsupported",
+    "expected_conclusion_class": "missing_evidence",
+    "assessment_match": true,
+    "conclusion_match": true,
+    "ground_truth_mismatch": false,
+    "misbound_detected": null
+  }
+}
