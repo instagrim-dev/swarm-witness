@@ -640,10 +640,21 @@ def _check_references(
                 )
         for slot in claim["evidence_slots"]:
             source_id(slot["source_id"], f"{slot['id']}.source_id")
-            if slot["blocks_upgrade"] and source_unavailable(sources[slot["source_id"]]):
+            if not slot["blocks_upgrade"]:
+                continue
+            source = sources[slot["source_id"]]
+            # A gate is legal only for bytes this audit holds. Unavailable
+            # originals, unpinned narratives, duplicates, and broken custody
+            # cannot prevent supported.
+            if source_unavailable(source):
                 raise ValueError(
                     f"{slot['id']}: unavailable source {slot['source_id']} "
                     "cannot be an upgrade gate"
+                )
+            if not record_integrity(source):
+                raise ValueError(
+                    f"{slot['id']}: blocks_upgrade on {slot['source_id']} "
+                    "requires evidence this audit holds"
                 )
 
 
@@ -1174,12 +1185,13 @@ def qualify_claim(
 ) -> dict[str, Any]:
     """Derive one claim verdict from normalized lineage. Does not read a confidence score.
 
-    A ``blocks_upgrade`` slot on a held source prevents ``supported`` until a
-    verified supporting event uses that source. An unavailable original is
-    recorded and is not a gate. A second report of the same record does not
-    add an independent observation. Absence of a sink row is evidence of no
-    effect only when a declared coverage assumption is complete for that
-    operation and interval.
+    A ``blocks_upgrade`` slot prevents ``supported`` only for evidence this
+    audit holds (``record_integrity``). Validation rejects the flag otherwise.
+    On held evidence the slot stays until a verified supporting event uses
+    that source. An unavailable original is recorded and is not a gate. A
+    second report of the same record does not add an independent observation.
+    Absence of a sink row is evidence of no effect only when a declared
+    coverage assumption is complete for that operation and interval.
     """
     validate_graph(graph)
     sources = {node["id"]: node for node in graph["source_records"]}
@@ -1292,8 +1304,8 @@ def qualify_claim(
                 }
             )
         verifies_claim = slot["source_id"] in verified_necessary
-        # Validation already rejects this flag on an unavailable source.
-        # A remaining gate on a held source still prevents supported.
+        # Validation rejects this flag unless record_integrity holds.
+        # A remaining gate on held evidence still prevents supported.
         if slot["blocks_upgrade"] and not verifies_claim:
             blockers.append(
                 {
