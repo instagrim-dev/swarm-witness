@@ -68,6 +68,8 @@
         "policy_id": "reference",
         "local_evidence_complete": false,
         "use_foreign_receipt": false,
+        "authoritative_grant_version_at_decision": 2,
+        "evidence_integrity": "missing",
         "local_knowledge_at_decision": {
           "agent": "B",
           "grant_observations": [],
@@ -75,7 +77,8 @@
           "irrelevant_facts": [],
           "observation_ids": [],
           "has_current_grant_observation": false,
-          "has_stale_grant_observation": false
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 2
         },
         "note": "blind claim; worlds share empty local evidence"
       }
@@ -131,7 +134,8 @@
         "irrelevant_facts": [],
         "observation_ids": [],
         "has_current_grant_observation": false,
-        "has_stale_grant_observation": false
+        "has_stale_grant_observation": false,
+        "authoritative_grant_version_at_decision": 2
       },
       "authoritative_owner_state": {
         "grant": {
@@ -154,6 +158,8 @@
       "policy_id": "reference",
       "local_evidence_complete": false,
       "use_foreign_receipt": false,
+      "authoritative_grant_version_at_decision": 2,
+      "evidence_integrity": "missing",
       "effect_settlement": "not_attempted",
       "effect_refusal_reason": "decision_denied",
       "effect_boundary_enforced": true

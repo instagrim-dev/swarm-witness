@@ -28,6 +28,8 @@
         "effect_settlement": "refused",
         "effect_refusal_reason": "authoritative_spent_or_revoked",
         "effect_boundary_enforced": true,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 4,
         "authoritative_owner_state": {
           "grant": {
             "grant_id": "grant-shared",
@@ -64,6 +66,7 @@
               "spent": false,
               "source_event_id": "evt-303-0008",
               "observation_id": "obs-303-0007",
+              "delivered_freshness": "stale",
               "observation_freshness": "stale"
             }
           ],
@@ -73,7 +76,8 @@
             "obs-303-0007"
           ],
           "has_current_grant_observation": false,
-          "has_stale_grant_observation": true
+          "has_stale_grant_observation": true,
+          "authoritative_grant_version_at_decision": 4
         },
         "evaluator_learned_afterward": {
           "authoritative_owner_state": {
@@ -97,6 +101,8 @@
           "committed_effect": false,
           "effect_settlement": "refused",
           "required_decision": "deny",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 4,
           "one_use_effect_count": 0
         },
         "observation_denominators": {
@@ -110,6 +116,7 @@
           "present_count": 1,
           "current_grant_observation_count": 0,
           "stale_grant_observation_count": 1,
+          "authoritative_grant_version_at_decision": 4,
           "irrelevant_count": 0,
           "receipt_count": 0,
           "grant_observation_count": 1,
@@ -125,7 +132,7 @@
           "effect_status": "prevented",
           "failure_origin": "decision_policy"
         },
-        "reason": "evidence complete but exercised enforcement violates the property; decision=allow required=deny committed_effect=False effect_settlement=refused"
+        "reason": "evidence complete but exercised enforcement violates the property; evidence_integrity=authentic; decision=allow required=deny committed_effect=False effect_settlement=refused"
       },
       {
         "call_id": "c-fresh",
@@ -136,6 +143,8 @@
         "effect_settlement": "not_attempted",
         "effect_refusal_reason": "decision_denied",
         "effect_boundary_enforced": true,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 4,
         "authoritative_owner_state": {
           "grant": {
             "grant_id": "grant-shared",
@@ -172,6 +181,7 @@
               "spent": false,
               "source_event_id": "evt-303-0013",
               "observation_id": "obs-303-0012",
+              "delivered_freshness": "current",
               "observation_freshness": "current"
             }
           ],
@@ -182,7 +192,8 @@
             "obs-303-0012"
           ],
           "has_current_grant_observation": true,
-          "has_stale_grant_observation": false
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 4
         },
         "evaluator_learned_afterward": {
           "authoritative_owner_state": {
@@ -206,6 +217,8 @@
           "committed_effect": false,
           "effect_settlement": "not_attempted",
           "required_decision": "deny",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 4,
           "one_use_effect_count": 0
         },
         "observation_denominators": {
@@ -219,6 +232,7 @@
           "present_count": 1,
           "current_grant_observation_count": 1,
           "stale_grant_observation_count": 0,
+          "authoritative_grant_version_at_decision": 4,
           "irrelevant_count": 0,
           "receipt_count": 0,
           "grant_observation_count": 1,
@@ -234,7 +248,7 @@
           "effect_status": "prevented",
           "failure_origin": "none"
         },
-        "reason": "evidence complete and property holds in scope; decision=deny required=deny committed_effect=False effect_settlement=not_attempted"
+        "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=deny required=deny committed_effect=False effect_settlement=not_attempted"
       }
     ],
     "expected": {

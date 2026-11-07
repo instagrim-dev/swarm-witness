@@ -87,6 +87,16 @@ def test_reference_permits_progress_and_one_use_mutant_counterexample():
     assert ref_b["required_decision"] == "deny"
     assert ref_b["conclusion_class"] == "failed_enforcement"
     assert ref_b["diagnosis"]["effect_status"] == "prevented"
+    assert ref_b["diagnosis"]["evidence_status"] == "authentic"
+    assert ref_b["diagnosis"]["failure_origin"] == "decision_policy"
+    denom_b = ref_b["observation_denominators"]
+    assert denom_b["current_grant_observation_count"] == 0
+    assert denom_b["stale_grant_observation_count"] == 1
+    assert "current_grant_observation" not in denom_b["present_discriminators"]
+    assert "stale_grant_observation" in denom_b["present_discriminators"]
+    denom_a = ref["claims_by_id"]["a-claim"]["observation_denominators"]
+    assert denom_a["current_grant_observation_count"] == 1
+    assert denom_a["stale_grant_observation_count"] == 0
     mut_commits = [c for c in mut["evaluation"]["claims"] if c["committed_effect"]]
     assert len(mut_commits) == 2
     bad = next(c for c in mut["evaluation"]["claims"] if c["call_id"] == "b-claim")
@@ -190,6 +200,9 @@ def test_forged_assignee_reference_refuses_mutant_commits():
     assert ref_b["effect_refusal_reason"] == "agent_not_assignee"
     assert ref_b["conclusion_class"] == "failed_enforcement"
     assert ref_b["diagnosis"]["effect_status"] == "prevented"
+    assert ref_b["diagnosis"]["evidence_status"] == "misbound"
+    assert ref_b["diagnosis"]["failure_origin"] == "evidence"
+    assert ref_b["evidence_integrity"] == "misbound"
     assert "stale_grant_observation" in ref_b["observation_denominators"][
         "present_discriminators"
     ]
@@ -198,6 +211,8 @@ def test_forged_assignee_reference_refuses_mutant_commits():
     assert mut_b["conclusion_class"] == "failed_enforcement"
     assert mut_b["diagnosis"]["effect_status"] == "committed"
     assert mut_b["diagnosis"]["failure_origin"] == "effect_boundary"
+    assert mut_b["diagnosis"]["evidence_status"] == "misbound"
+    assert mut_b["evidence_integrity"] == "misbound"
     finals = ref["evaluation"]["final_owner_state"]
     assert all(s["grant"]["state"] == "active" for s in finals.values())
     assert all(s["committed_effect_count"] == 0 for s in finals.values())

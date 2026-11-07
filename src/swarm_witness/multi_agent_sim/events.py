@@ -99,3 +99,68 @@ class LocalKnowledge:
             "has_current_grant_observation": bool(current),
             "has_stale_grant_observation": bool(stale),
         }
+
+
+def decision_time_observation_freshness(
+    obs: dict[str, Any],
+    *,
+    authoritative_version: int | None,
+    relevant_grant_id: str | None = None,
+) -> str:
+    """Freshness of one grant observation at a decision point.
+
+    Delivery-time labels are not the audit's freshness. An explicit stale
+    delivery stays stale. A live delivery is current only when its
+    ``owner_version`` equals the authoritative grant version retained
+    immediately before the decision. When ``relevant_grant_id`` is set, only
+    that grant's observation is version-checked.
+    """
+    delivered = obs.get("delivered_freshness", obs.get("observation_freshness", "current"))
+    if delivered == "stale":
+        return "stale"
+    if relevant_grant_id is not None and obs.get("grant_id") != relevant_grant_id:
+        return "current"
+    if authoritative_version is None:
+        return "stale"
+    observed = obs.get("owner_version")
+    if observed is None:
+        return "stale"
+    try:
+        if int(observed) != int(authoritative_version):
+            return "stale"
+    except (TypeError, ValueError):
+        return "stale"
+    return "current"
+
+
+def annotate_decision_freshness(
+    knowledge: dict[str, Any],
+    *,
+    grant_id: str,
+    authoritative_version: int,
+) -> dict[str, Any]:
+    """Copy local knowledge with freshness judged at the decision point."""
+    observations: list[dict[str, Any]] = []
+    current = 0
+    stale = 0
+    for raw in knowledge.get("grant_observations") or []:
+        obs = dict(raw)
+        if "delivered_freshness" not in obs:
+            obs["delivered_freshness"] = obs.get("observation_freshness", "current")
+        fresh = decision_time_observation_freshness(
+            obs,
+            authoritative_version=authoritative_version,
+            relevant_grant_id=grant_id,
+        )
+        obs["observation_freshness"] = fresh
+        observations.append(obs)
+        if fresh == "stale":
+            stale += 1
+        else:
+            current += 1
+    updated = dict(knowledge)
+    updated["grant_observations"] = observations
+    updated["has_current_grant_observation"] = current > 0
+    updated["has_stale_grant_observation"] = stale > 0
+    updated["authoritative_grant_version_at_decision"] = authoritative_version
+    return updated

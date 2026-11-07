@@ -28,6 +28,8 @@
         "effect_settlement": "committed",
         "effect_refusal_reason": null,
         "effect_boundary_enforced": false,
+        "evidence_integrity": "misbound",
+        "authoritative_grant_version_at_decision": 1,
         "authoritative_owner_state": {
           "grant": {
             "grant_id": "grant-shared",
@@ -70,6 +72,7 @@
               "spent": false,
               "source_event_id": "evt-606-0003",
               "observation_id": "obs-606-0002",
+              "delivered_freshness": "stale",
               "observation_freshness": "stale"
             }
           ],
@@ -79,7 +82,8 @@
             "obs-606-0002"
           ],
           "has_current_grant_observation": false,
-          "has_stale_grant_observation": true
+          "has_stale_grant_observation": true,
+          "authoritative_grant_version_at_decision": 1
         },
         "evaluator_learned_afterward": {
           "authoritative_owner_state": {
@@ -110,6 +114,8 @@
           "committed_effect": true,
           "effect_settlement": "committed",
           "required_decision": "deny",
+          "evidence_integrity": "misbound",
+          "authoritative_grant_version_at_decision": 1,
           "one_use_effect_count": 1
         },
         "observation_denominators": {
@@ -123,6 +129,7 @@
           "present_count": 1,
           "current_grant_observation_count": 0,
           "stale_grant_observation_count": 1,
+          "authoritative_grant_version_at_decision": 1,
           "irrelevant_count": 0,
           "receipt_count": 0,
           "grant_observation_count": 1,
@@ -133,12 +140,12 @@
         "finding_label": "contradicted_in_scope",
         "property_holds": false,
         "diagnosis": {
-          "evidence_status": "authentic",
+          "evidence_status": "misbound",
           "decision_status": "incorrect",
           "effect_status": "committed",
           "failure_origin": "effect_boundary"
         },
-        "reason": "evidence complete but exercised enforcement violates the property; decision=allow required=deny committed_effect=True effect_settlement=committed"
+        "reason": "grant observation is misbound; evidence integrity is separate from freshness and completeness; evidence_integrity=misbound; decision=allow required=deny committed_effect=True effect_settlement=committed effect_refusal_reason=None"
       }
     ],
     "expected": {

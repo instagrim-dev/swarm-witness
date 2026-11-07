@@ -16,6 +16,9 @@ class AuthoritativeLedger:
     receipts: dict[str, dict[str, Any]] = field(default_factory=dict)
     committed_effects: list[dict[str, Any]] = field(default_factory=list)
     owner_version: int = 0
+    # grant_id -> owner_version -> snapshot at that version. Used to tell a
+    # faithful older observation from a fabricated payload.
+    grant_history: dict[str, dict[int, dict[str, Any]]] = field(default_factory=dict)
 
     def issue_grant(
         self,
@@ -33,6 +36,7 @@ class AuthoritativeLedger:
             "assignees": {owner},
             "spent": False,
         }
+        self._remember(grant_id)
         return self.snapshot(grant_id)
 
     def delegate(self, grant_id: str, delegate: AgentId) -> GrantSnapshot:
@@ -40,6 +44,7 @@ class AuthoritativeLedger:
         g["assignees"] = set(g["assignees"]) | {delegate}
         self.owner_version += 1
         g["owner_version"] = self.owner_version
+        self._remember(grant_id)
         return self.snapshot(grant_id)
 
     def revoke(self, grant_id: str) -> GrantSnapshot:
@@ -48,6 +53,7 @@ class AuthoritativeLedger:
             g["state"] = "revoked"
         self.owner_version += 1
         g["owner_version"] = self.owner_version
+        self._remember(grant_id)
         return self.snapshot(grant_id)
 
     def snapshot(self, grant_id: str) -> GrantSnapshot:
@@ -92,6 +98,7 @@ class AuthoritativeLedger:
         g["state"] = "spent"
         self.owner_version += 1
         g["owner_version"] = self.owner_version
+        self._remember(grant_id)
         receipt_id = f"receipt-{call_id}"
         receipt = {
             "receipt_id": receipt_id,
@@ -124,3 +131,69 @@ class AuthoritativeLedger:
             ],
             "ledger_owner_version": self.owner_version,
         }
+
+    def _remember(self, grant_id: str) -> None:
+        snap = self.snapshot(grant_id).to_dict()
+        self.grant_history.setdefault(grant_id, {})[int(snap["owner_version"])] = snap
+
+    @staticmethod
+    def _projection(raw: dict[str, Any]) -> dict[str, Any]:
+        """Grant body, ignoring observation-delivery metadata."""
+        version = raw.get("owner_version")
+        try:
+            version_n = None if version is None else int(version)
+        except (TypeError, ValueError):
+            version_n = None
+        return {
+            "grant_id": raw.get("grant_id"),
+            "owner": raw.get("owner"),
+            "state": raw.get("state"),
+            "epoch": raw.get("epoch"),
+            "owner_version": version_n,
+            "assignees": tuple(sorted(raw.get("assignees") or [])),
+            "spent": bool(raw.get("spent")),
+        }
+
+    @staticmethod
+    def _binding(raw: dict[str, Any]) -> dict[str, Any]:
+        """Who the grant is bound to. State drift is freshness, not integrity."""
+        return {
+            "grant_id": raw.get("grant_id"),
+            "owner": raw.get("owner"),
+            "assignees": tuple(sorted(raw.get("assignees") or [])),
+        }
+
+    def evidence_integrity(
+        self, observation: dict[str, Any] | None, grant_id: str
+    ) -> str:
+        """Integrity of one local observation, separate from freshness.
+
+        ``authentic`` — the payload matches the authoritative snapshot at the
+        version it claims, or its owner/assignee binding still matches the
+        grant. A faithful older snapshot stays authentic; state or version
+        drift is freshness, not a fabricated binding.
+
+        ``misbound`` — the payload matches neither that historical snapshot
+        nor the current binding (fabricated assignee list, wrong owner).
+
+        ``missing`` — no observation.
+        """
+        if observation is None:
+            return "missing"
+        if observation.get("grant_id") not in (None, grant_id):
+            return "misbound"
+        claimed = observation.get("owner_version")
+        historical: dict[str, Any] | None = None
+        if claimed is not None:
+            try:
+                historical = self.grant_history.get(grant_id, {}).get(int(claimed))
+            except (TypeError, ValueError):
+                historical = None
+        if historical is not None and self._projection(observation) == self._projection(
+            historical
+        ):
+            return "authentic"
+        current = self.snapshot(grant_id).to_dict()
+        if self._binding(observation) == self._binding(current):
+            return "authentic"
+        return "misbound"

@@ -30,6 +30,9 @@ class AgentMailbox:
         payload = dict(grant)
         payload["source_event_id"] = source_event_id
         payload["observation_id"] = observation_id
+        # Delivery label. Decision-time freshness is rechecked against the
+        # authoritative grant version and may differ from this value.
+        payload["delivered_freshness"] = freshness
         payload["observation_freshness"] = freshness
         self.grant_observations[grant["grant_id"]] = payload
         self.observation_ids.append(observation_id)

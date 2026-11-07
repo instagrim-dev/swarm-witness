@@ -178,6 +178,8 @@
         "policy_id": "reference",
         "local_evidence_complete": true,
         "use_foreign_receipt": false,
+        "authoritative_grant_version_at_decision": 4,
+        "evidence_integrity": "authentic",
         "local_knowledge_at_decision": {
           "agent": "B",
           "grant_observations": [
@@ -195,6 +197,7 @@
               "spent": false,
               "source_event_id": "evt-303-0008",
               "observation_id": "obs-303-0007",
+              "delivered_freshness": "stale",
               "observation_freshness": "stale"
             }
           ],
@@ -204,7 +207,8 @@
             "obs-303-0007"
           ],
           "has_current_grant_observation": false,
-          "has_stale_grant_observation": true
+          "has_stale_grant_observation": true,
+          "authoritative_grant_version_at_decision": 4
         },
         "note": "B claims on stale active observation after revoke"
       }
@@ -287,6 +291,8 @@
         "policy_id": "reference",
         "local_evidence_complete": true,
         "use_foreign_receipt": false,
+        "authoritative_grant_version_at_decision": 4,
+        "evidence_integrity": "authentic",
         "local_knowledge_at_decision": {
           "agent": "C",
           "grant_observations": [
@@ -304,6 +310,7 @@
               "spent": false,
               "source_event_id": "evt-303-0013",
               "observation_id": "obs-303-0012",
+              "delivered_freshness": "current",
               "observation_freshness": "current"
             }
           ],
@@ -314,7 +321,8 @@
             "obs-303-0012"
           ],
           "has_current_grant_observation": true,
-          "has_stale_grant_observation": false
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 4
         },
         "note": "C claims with fresh revoked observation"
       }
@@ -380,6 +388,7 @@
             "spent": false,
             "source_event_id": "evt-303-0008",
             "observation_id": "obs-303-0007",
+            "delivered_freshness": "stale",
             "observation_freshness": "stale"
           }
         ],
@@ -389,7 +398,8 @@
           "obs-303-0007"
         ],
         "has_current_grant_observation": false,
-        "has_stale_grant_observation": true
+        "has_stale_grant_observation": true,
+        "authoritative_grant_version_at_decision": 4
       },
       "authoritative_owner_state": {
         "grant": {
@@ -413,6 +423,8 @@
       "policy_id": "reference",
       "local_evidence_complete": true,
       "use_foreign_receipt": false,
+      "authoritative_grant_version_at_decision": 4,
+      "evidence_integrity": "authentic",
       "effect_settlement": "refused",
       "effect_refusal_reason": "authoritative_spent_or_revoked",
       "effect_boundary_enforced": true
@@ -442,6 +454,7 @@
             "spent": false,
             "source_event_id": "evt-303-0013",
             "observation_id": "obs-303-0012",
+            "delivered_freshness": "current",
             "observation_freshness": "current"
           }
         ],
@@ -452,7 +465,8 @@
           "obs-303-0012"
         ],
         "has_current_grant_observation": true,
-        "has_stale_grant_observation": false
+        "has_stale_grant_observation": false,
+        "authoritative_grant_version_at_decision": 4
       },
       "authoritative_owner_state": {
         "grant": {
@@ -476,6 +490,8 @@
       "policy_id": "reference",
       "local_evidence_complete": true,
       "use_foreign_receipt": false,
+      "authoritative_grant_version_at_decision": 4,
+      "evidence_integrity": "authentic",
       "effect_settlement": "not_attempted",
       "effect_refusal_reason": "decision_denied",
       "effect_boundary_enforced": true

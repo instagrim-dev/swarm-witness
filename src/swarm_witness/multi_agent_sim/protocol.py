@@ -236,6 +236,36 @@ def evaluate_protocol_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
                 f"authoritative_spent_or_revoked "
                 f"(got {None if ref_b is None else ref_b.get('effect_refusal_reason')!r})"
             )
+        # Freshness is judged against the grant version retained immediately
+        # before the decision. B's pre-spend observation is stale after A commits.
+        if ref_b:
+            denom_b = ref_b.get("observation_denominators") or {}
+            present_b = denom_b.get("present_discriminators") or []
+            if denom_b.get("current_grant_observation_count") != 0 or (
+                "current_grant_observation" in present_b
+            ):
+                errors.append(
+                    "reference TOCTOU second claim must have no current grant "
+                    f"observation (got {denom_b!r})"
+                )
+            if (
+                denom_b.get("stale_grant_observation_count") != 1
+                or "stale_grant_observation" not in present_b
+            ):
+                errors.append(
+                    "reference TOCTOU second claim must count stale evidence "
+                    f"(got {denom_b!r})"
+                )
+        ref_a = ref["claims_by_id"].get("a-claim")
+        if ref_a:
+            denom_a = ref_a.get("observation_denominators") or {}
+            if denom_a.get("current_grant_observation_count") != 1 or (
+                denom_a.get("stale_grant_observation_count") != 0
+            ):
+                errors.append(
+                    "reference TOCTOU first claim must still have a current "
+                    f"grant observation (got {denom_a!r})"
+                )
         # Concrete counterexample: second committed effect under mutant.
         mut_commits = [
             c["call_id"]
@@ -282,6 +312,42 @@ def evaluate_protocol_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
                 "mutant forged-assignee arm must commit unauthorized effect "
                 f"(got {None if mut_f is None else mut_f.get('committed_effect')!r})"
             )
+        # Fabricated assignee evidence is misbound. The reference refusal and
+        # the mutant commit stay independent effect-boundary outcomes.
+        if ref_f:
+            ref_diag = ref_f.get("diagnosis") or {}
+            if ref_diag.get("evidence_status") != "misbound":
+                errors.append(
+                    "reference forged-assignee observation must be misbound "
+                    f"(got {ref_diag.get('evidence_status')!r})"
+                )
+            if ref_diag.get("failure_origin") != "evidence":
+                errors.append(
+                    "reference forged-assignee failure_origin must be evidence "
+                    f"(got {ref_diag.get('failure_origin')!r})"
+                )
+            if ref_diag.get("effect_status") != "prevented":
+                errors.append(
+                    "reference forged-assignee effect must stay prevented "
+                    f"(got {ref_diag.get('effect_status')!r})"
+                )
+        if mut_f:
+            mut_diag = mut_f.get("diagnosis") or {}
+            if mut_diag.get("evidence_status") != "misbound":
+                errors.append(
+                    "mutant forged-assignee observation must be misbound "
+                    f"(got {mut_diag.get('evidence_status')!r})"
+                )
+            if mut_diag.get("failure_origin") != "effect_boundary":
+                errors.append(
+                    "mutant forged-assignee must keep effect_boundary origin "
+                    f"(got {mut_diag.get('failure_origin')!r})"
+                )
+            if mut_diag.get("effect_status") != "committed":
+                errors.append(
+                    "mutant forged-assignee effect must stay committed "
+                    f"(got {mut_diag.get('effect_status')!r})"
+                )
         # Authoritative grant must remain unspent under reference.
         ref_final = forge_ref["evaluation"]["final_owner_state"]
         for gid, state in ref_final.items():

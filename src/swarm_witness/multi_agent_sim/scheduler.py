@@ -10,7 +10,11 @@ from dataclasses import dataclass, field
 from typing import Any, Literal
 
 from swarm_witness.multi_agent_sim.agents import AgentStore
-from swarm_witness.multi_agent_sim.events import AgentId, SimEvent
+from swarm_witness.multi_agent_sim.events import (
+    AgentId,
+    SimEvent,
+    annotate_decision_freshness,
+)
 from swarm_witness.multi_agent_sim.ledger import AuthoritativeLedger
 from swarm_witness.multi_agent_sim.oracle import (
     authoritative_required_decision,
@@ -92,6 +96,10 @@ class ClaimOutcome:
     policy_id: str
     local_evidence_complete: bool
     use_foreign_receipt: bool
+    # Grant version captured immediately before this decision (pre-commit).
+    authoritative_grant_version_at_decision: int
+    # authentic | misbound | missing. Independent of freshness and completeness.
+    evidence_integrity: str
     effect_settlement: str = "not_attempted"
     effect_refusal_reason: str | None = None
     effect_boundary_enforced: bool = True
@@ -111,6 +119,10 @@ class ClaimOutcome:
             "policy_id": self.policy_id,
             "local_evidence_complete": self.local_evidence_complete,
             "use_foreign_receipt": self.use_foreign_receipt,
+            "authoritative_grant_version_at_decision": (
+                self.authoritative_grant_version_at_decision
+            ),
+            "evidence_integrity": self.evidence_integrity,
             "effect_settlement": self.effect_settlement,
             "effect_refusal_reason": self.effect_refusal_reason,
             "effect_boundary_enforced": self.effect_boundary_enforced,
@@ -347,7 +359,15 @@ class Simulator:
         assert step.grant_id and step.call_id and step.actor in {"A", "B", "C"}
         agent: AgentId = step.actor  # type: ignore[assignment]
         mailbox = self.agents.get(agent)
-        knowledge = mailbox.knowledge().to_dict()
+        # Retain authority before the decision and before any commit bumps it.
+        authoritative_version = self.ledger.snapshot(step.grant_id).owner_version
+        observed = mailbox.observed_grant(step.grant_id)
+        evidence_integrity = self.ledger.evidence_integrity(observed, step.grant_id)
+        knowledge = annotate_decision_freshness(
+            mailbox.knowledge().to_dict(),
+            grant_id=step.grant_id,
+            authoritative_version=authoritative_version,
+        )
         rec = decision_record(
             self.policy,
             mailbox,
@@ -373,6 +393,8 @@ class Simulator:
                 "policy_id": self.policy.policy_id,
                 "local_evidence_complete": rec["local_evidence_complete"],
                 "use_foreign_receipt": step.use_foreign_receipt,
+                "authoritative_grant_version_at_decision": authoritative_version,
+                "evidence_integrity": evidence_integrity,
                 "local_knowledge_at_decision": knowledge,
                 "note": step.note,
             },
@@ -472,6 +494,8 @@ class Simulator:
                 policy_id=self.policy.policy_id,
                 local_evidence_complete=bool(rec["local_evidence_complete"]),
                 use_foreign_receipt=step.use_foreign_receipt,
+                authoritative_grant_version_at_decision=authoritative_version,
+                evidence_integrity=evidence_integrity,
                 effect_settlement=settlement,
                 effect_refusal_reason=refusal_reason,
                 effect_boundary_enforced=enforce,

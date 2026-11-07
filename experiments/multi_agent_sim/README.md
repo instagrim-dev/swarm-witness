@@ -27,7 +27,12 @@ reference arm's ledger **refuses** spent/revoked and non-assignee settlement
 a local policy decision was `allow`.
 
 Observation denominators distinguish `current_grant_observation` from
-`stale_grant_observation`; adversarial late deliveries are not labeled current.
+`stale_grant_observation`. Freshness is rechecked against the authoritative
+grant version retained immediately before each decision, so a delivery that
+was current can be stale at the claim. Adversarial late deliveries are not
+labeled current. Evidence integrity is a separate axis from freshness and
+completeness: a fabricated observation is `misbound` (`failure_origin=evidence`)
+while effect settlement stays an independent outcome.
 
 ## Cases
 

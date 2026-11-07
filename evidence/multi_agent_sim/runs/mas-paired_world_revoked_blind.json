@@ -28,6 +28,8 @@
         "effect_settlement": "not_attempted",
         "effect_refusal_reason": "decision_denied",
         "effect_boundary_enforced": true,
+        "evidence_integrity": "missing",
+        "authoritative_grant_version_at_decision": 3,
         "authoritative_owner_state": {
           "grant": {
             "grant_id": "grant-shared",
@@ -53,7 +55,8 @@
           "irrelevant_facts": [],
           "observation_ids": [],
           "has_current_grant_observation": false,
-          "has_stale_grant_observation": false
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 3
         },
         "evaluator_learned_afterward": {
           "authoritative_owner_state": {
@@ -75,7 +78,10 @@
           },
           "committed_effect": false,
           "effect_settlement": "not_attempted",
-          "required_decision": "deny"
+          "required_decision": "deny",
+          "evidence_integrity": "missing",
+          "authoritative_grant_version_at_decision": 3,
+          "one_use_effect_count": 0
         },
         "observation_denominators": {
           "required_discriminators": [
@@ -86,6 +92,7 @@
           "present_count": 0,
           "current_grant_observation_count": 0,
           "stale_grant_observation_count": 0,
+          "authoritative_grant_version_at_decision": 3,
           "irrelevant_count": 0,
           "receipt_count": 0,
           "grant_observation_count": 0,

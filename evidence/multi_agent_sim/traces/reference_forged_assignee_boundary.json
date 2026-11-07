@@ -70,6 +70,8 @@
         "policy_id": "reference",
         "local_evidence_complete": true,
         "use_foreign_receipt": false,
+        "authoritative_grant_version_at_decision": 1,
+        "evidence_integrity": "misbound",
         "local_knowledge_at_decision": {
           "agent": "B",
           "grant_observations": [
@@ -86,6 +88,7 @@
               "spent": false,
               "source_event_id": "evt-606-0003",
               "observation_id": "obs-606-0002",
+              "delivered_freshness": "stale",
               "observation_freshness": "stale"
             }
           ],
@@ -95,7 +98,8 @@
             "obs-606-0002"
           ],
           "has_current_grant_observation": false,
-          "has_stale_grant_observation": true
+          "has_stale_grant_observation": true,
+          "authoritative_grant_version_at_decision": 1
         },
         "note": "B claims on forged assignee observation"
       }
@@ -159,6 +163,7 @@
             "spent": false,
             "source_event_id": "evt-606-0003",
             "observation_id": "obs-606-0002",
+            "delivered_freshness": "stale",
             "observation_freshness": "stale"
           }
         ],
@@ -168,7 +173,8 @@
           "obs-606-0002"
         ],
         "has_current_grant_observation": false,
-        "has_stale_grant_observation": true
+        "has_stale_grant_observation": true,
+        "authoritative_grant_version_at_decision": 1
       },
       "authoritative_owner_state": {
         "grant": {
@@ -190,6 +196,8 @@
       "policy_id": "reference",
       "local_evidence_complete": true,
       "use_foreign_receipt": false,
+      "authoritative_grant_version_at_decision": 1,
+      "evidence_integrity": "misbound",
       "effect_settlement": "refused",
       "effect_refusal_reason": "agent_not_assignee",
       "effect_boundary_enforced": true

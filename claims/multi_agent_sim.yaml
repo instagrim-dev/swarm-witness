@@ -34,4 +34,6 @@ assumptions:
   - "Effect settlement is recorded separately from the policy decision field"
   - "Reference ledger settlement enforces spent/revoked and non-assignee refusal; mutants may disable that boundary"
   - "Observation denominators distinguish current vs stale grant observations"
+  - "Grant-observation freshness is judged against the authoritative grant version retained immediately before the decision"
+  - "Evidence integrity is evaluated separately from freshness and completeness; a fabricated observation is misbound"
   - "Simulation validity claims remain separate from multihost execution"

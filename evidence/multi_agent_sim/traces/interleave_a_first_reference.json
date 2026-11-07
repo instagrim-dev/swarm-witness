@@ -124,6 +124,8 @@
         "policy_id": "reference",
         "local_evidence_complete": true,
         "use_foreign_receipt": false,
+        "authoritative_grant_version_at_decision": 3,
+        "evidence_integrity": "authentic",
         "local_knowledge_at_decision": {
           "agent": "A",
           "grant_observations": [
@@ -141,6 +143,7 @@
               "spent": false,
               "source_event_id": "evt-101-0005",
               "observation_id": "obs-101-0004",
+              "delivered_freshness": "current",
               "observation_freshness": "current"
             }
           ],
@@ -150,7 +153,8 @@
             "obs-101-0004"
           ],
           "has_current_grant_observation": true,
-          "has_stale_grant_observation": false
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 3
         },
         "note": "A claims first"
       }
@@ -238,6 +242,8 @@
         "policy_id": "reference",
         "local_evidence_complete": true,
         "use_foreign_receipt": false,
+        "authoritative_grant_version_at_decision": 4,
+        "evidence_integrity": "authentic",
         "local_knowledge_at_decision": {
           "agent": "B",
           "grant_observations": [
@@ -255,6 +261,7 @@
               "spent": true,
               "source_event_id": "evt-101-0010",
               "observation_id": "obs-101-0009",
+              "delivered_freshness": "current",
               "observation_freshness": "current"
             }
           ],
@@ -264,7 +271,8 @@
             "obs-101-0009"
           ],
           "has_current_grant_observation": true,
-          "has_stale_grant_observation": false
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 4
         },
         "note": "B claims after A spent"
       }
@@ -337,6 +345,7 @@
             "spent": false,
             "source_event_id": "evt-101-0005",
             "observation_id": "obs-101-0004",
+            "delivered_freshness": "current",
             "observation_freshness": "current"
           }
         ],
@@ -346,7 +355,8 @@
           "obs-101-0004"
         ],
         "has_current_grant_observation": true,
-        "has_stale_grant_observation": false
+        "has_stale_grant_observation": false,
+        "authoritative_grant_version_at_decision": 3
       },
       "authoritative_owner_state": {
         "grant": {
@@ -379,6 +389,8 @@
       "policy_id": "reference",
       "local_evidence_complete": true,
       "use_foreign_receipt": false,
+      "authoritative_grant_version_at_decision": 3,
+      "evidence_integrity": "authentic",
       "effect_settlement": "committed",
       "effect_refusal_reason": null,
       "effect_boundary_enforced": true
@@ -408,6 +420,7 @@
             "spent": true,
             "source_event_id": "evt-101-0010",
             "observation_id": "obs-101-0009",
+            "delivered_freshness": "current",
             "observation_freshness": "current"
           }
         ],
@@ -417,7 +430,8 @@
           "obs-101-0009"
         ],
         "has_current_grant_observation": true,
-        "has_stale_grant_observation": false
+        "has_stale_grant_observation": false,
+        "authoritative_grant_version_at_decision": 4
       },
       "authoritative_owner_state": {
         "grant": {
@@ -450,6 +464,8 @@
       "policy_id": "reference",
       "local_evidence_complete": true,
       "use_foreign_receipt": false,
+      "authoritative_grant_version_at_decision": 4,
+      "evidence_integrity": "authentic",
       "effect_settlement": "not_attempted",
       "effect_refusal_reason": "decision_denied",
       "effect_boundary_enforced": true
