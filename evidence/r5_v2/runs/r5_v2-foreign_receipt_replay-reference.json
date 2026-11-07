@@ -20,7 +20,7 @@
       "incorrect_decisions": 0,
       "violation_events": [],
       "incorrect_decision_events": [],
-      "causal_events": 7
+      "causal_events": 6
     },
     "case_passed": true,
     "trace_file": "artifacts/r5_v2/foreign_receipt_replay.reference.json"

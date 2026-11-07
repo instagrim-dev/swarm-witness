@@ -3,7 +3,7 @@ label: reproduced
 authoritative: finding
 finding_path: findings/r5_v2-f-property.json
 metrics:
-  scenario_count: 13
-  arm_count: 26
+  scenario_count: 14
+  arm_count: 28
   dimension_count: 9
   passed: true

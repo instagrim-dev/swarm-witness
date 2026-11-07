@@ -74,6 +74,30 @@ def test_bad_local_policy_produces_independent_oracle_counterexample():
                independent_oracle(tampered)['violation_events'])
 
 
+def test_foreign_receipt_replay_isolates_receipt_possession():
+    """Receipt-present vs receipt-absent; C has no qualifying local view."""
+    cs={c['id']:c for c in cases('causal_swarm')}
+    present=cs['foreign_receipt_replay']
+    absent=cs['foreign_receipt_absent']
+    for case in (present, absent):
+        # No qualifying local grant snapshot is delivered to C.
+        assert not any(s['op']=='deliver_view' and s.get('recipient')=='C'
+                       for s in case['schedule'])
+    tp=simulate(present,'broken_local')
+    ta=simulate(absent,'broken_local')
+    cp=next(e for e in tp['events'] if e.get('call_id')=='c1')
+    ca=next(e for e in ta['events'] if e.get('call_id')=='c1')
+    assert cp['local_view_before'] is None
+    assert ca['local_view_before'] is None
+    assert cp.get('receipt_id')=='receipt-a1'
+    assert ca.get('receipt_id') in (None, '')
+    assert cp['decision']=='allow'
+    assert ca['decision']=='deny'
+    assert independent_oracle(tp)['unauthorized_effects']==1
+    assert independent_oracle(ta)['unauthorized_effects']==0
+    assert independent_oracle(simulate(present,'reference'))['unauthorized_effects']==0
+
+
 def test_missing_causal_parent_refused():
     rt=Runtime('reference')
     try:rt.step({'id':'not-first','op':'issue','grant_id':'g','task_id':'t','owner':'A','epoch':'e',

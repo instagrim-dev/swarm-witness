@@ -3,7 +3,7 @@ label: reproduced
 authoritative: finding
 finding_path: findings/causal_swarm-f-property.json
 metrics:
-  scenario_count: 8
-  arm_count: 16
+  scenario_count: 9
+  arm_count: 18
   dimension_count: 6
   passed: true

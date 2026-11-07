@@ -1,0 +1,229 @@
+{
+  "scenario_id": "foreign_receipt_absent",
+  "policy": "broken_local",
+  "model": "deterministic_causal_interleavings_v1",
+  "agents": [
+    "A",
+    "B",
+    "C"
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "e1",
+      "parents": [],
+      "op": "issue",
+      "actor": "system",
+      "grant_id": "g",
+      "task_id": "compile",
+      "epoch": "e1",
+      "call_id": null,
+      "receipt_id": null,
+      "decision": null,
+      "effect_attempted": false,
+      "effect_committed": false,
+      "policy": "broken_local",
+      "local_view_before": null,
+      "current_authority_visible_to_actor": false,
+      "owner": "A",
+      "result": "issued",
+      "authority_after": {
+        "grant_id": "g",
+        "task_id": "compile",
+        "owner": "A",
+        "epoch": "e1",
+        "assignees": [
+          "A"
+        ],
+        "active": true,
+        "spent": false,
+        "revision": 1,
+        "source_event": "e1"
+      }
+    },
+    {
+      "seq": 2,
+      "event_id": "e2",
+      "parents": [
+        "e1"
+      ],
+      "op": "delegate",
+      "actor": "A",
+      "grant_id": "g",
+      "task_id": null,
+      "epoch": null,
+      "call_id": null,
+      "receipt_id": null,
+      "decision": "allow",
+      "effect_attempted": false,
+      "effect_committed": false,
+      "policy": "broken_local",
+      "local_view_before": null,
+      "current_authority_visible_to_actor": false,
+      "delegate": "C",
+      "result": "assigned",
+      "authority_after": {
+        "grant_id": "g",
+        "task_id": "compile",
+        "owner": "A",
+        "epoch": "e1",
+        "assignees": [
+          "A",
+          "C"
+        ],
+        "active": true,
+        "spent": false,
+        "revision": 2,
+        "source_event": "e2"
+      }
+    },
+    {
+      "seq": 3,
+      "event_id": "e3",
+      "parents": [
+        "e2"
+      ],
+      "op": "deliver_view",
+      "actor": "transport",
+      "grant_id": "g",
+      "task_id": null,
+      "epoch": null,
+      "call_id": null,
+      "receipt_id": null,
+      "decision": null,
+      "effect_attempted": false,
+      "effect_committed": false,
+      "policy": "broken_local",
+      "local_view_before": null,
+      "current_authority_visible_to_actor": false,
+      "recipient": "A",
+      "source_capture": null,
+      "delivered_view": {
+        "grant_id": "g",
+        "task_id": "compile",
+        "owner": "A",
+        "epoch": "e1",
+        "assignees": [
+          "A",
+          "C"
+        ],
+        "active": true,
+        "spent": false,
+        "revision": 2,
+        "source_event": "e3"
+      },
+      "result": "delivered",
+      "authority_after": {
+        "grant_id": "g",
+        "task_id": "compile",
+        "owner": "A",
+        "epoch": "e1",
+        "assignees": [
+          "A",
+          "C"
+        ],
+        "active": true,
+        "spent": false,
+        "revision": 2,
+        "source_event": "e3"
+      }
+    },
+    {
+      "seq": 4,
+      "event_id": "e4",
+      "parents": [],
+      "op": "claim",
+      "actor": "A",
+      "grant_id": "g",
+      "task_id": "compile",
+      "epoch": "e1",
+      "call_id": "a1",
+      "receipt_id": null,
+      "decision": "allow",
+      "effect_attempted": true,
+      "effect_committed": true,
+      "policy": "broken_local",
+      "local_view_before": {
+        "grant_id": "g",
+        "task_id": "compile",
+        "owner": "A",
+        "epoch": "e1",
+        "assignees": [
+          "A",
+          "C"
+        ],
+        "active": true,
+        "spent": false,
+        "revision": 2,
+        "source_event": "e3"
+      },
+      "current_authority_visible_to_actor": false,
+      "committed_receipt": {
+        "receipt_id": "receipt-a1",
+        "grant_id": "g",
+        "call_id": "a1",
+        "agent": "A",
+        "source_event": "e4"
+      },
+      "result": "claimed",
+      "authority_after": {
+        "grant_id": "g",
+        "task_id": "compile",
+        "owner": "A",
+        "epoch": "e1",
+        "assignees": [
+          "A",
+          "C"
+        ],
+        "active": true,
+        "spent": true,
+        "revision": 3,
+        "source_event": "e4"
+      }
+    },
+    {
+      "seq": 5,
+      "event_id": "e5",
+      "parents": [],
+      "op": "claim",
+      "actor": "C",
+      "grant_id": "g",
+      "task_id": "compile",
+      "epoch": "e1",
+      "call_id": "c1",
+      "receipt_id": null,
+      "decision": "deny",
+      "effect_attempted": false,
+      "effect_committed": false,
+      "policy": "broken_local",
+      "local_view_before": null,
+      "current_authority_visible_to_actor": false,
+      "result": "refused",
+      "authority_after": {
+        "grant_id": "g",
+        "task_id": "compile",
+        "owner": "A",
+        "epoch": "e1",
+        "assignees": [
+          "A",
+          "C"
+        ],
+        "active": true,
+        "spent": true,
+        "revision": 3,
+        "source_event": "e5"
+      }
+    }
+  ],
+  "effect_log": [
+    {
+      "source_event": "e4",
+      "grant_id": "g",
+      "task_id": "compile",
+      "epoch": "e1",
+      "actor": "A",
+      "call_id": "a1",
+      "receipt_id": "receipt-a1"
+    }
+  ]
+}
