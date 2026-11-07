@@ -14,9 +14,14 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from swarm_witness.schema import validate_claim, validate_finding, validate_run  # noqa: E402
 from swarm_witness.swarm_audit_v2 import (  # noqa: E402
+    SIM_PIN_SOURCE_COMMIT,
+    SwarmStateV2,
     compare_boundaries_to_v1,
     coverage_report,
     evaluate_r5_v2_success,
+    gate_policy_decision,
+    gate_policy_ignore_scope,
+    held_out_binding_errors,
     load_case_expectations,
     load_concurrency_trace_cases,
     load_held_out_cases,
@@ -146,9 +151,16 @@ def test_held_out_fixtures_bind_ground_truth():
         result = case["result"]
         assert result.get("trusted_ground_truth")
         assert result.get("held_out_artifact")
+        assert result["fixture_valid"] is True
+        assert result["fixture_binding_errors"] == []
+        assert result["reference_source"] == "held_out_trusted_ground_truth"
         expected = result.get("fixture_expected")
         assert expected
         assert result["conclusion_class"] == expected["conclusion_class"]
+        agent = str(result["agent"]).lower()
+        assert result["required_decision"] == result["trusted_ground_truth"][
+            f"required_decision_for_{agent}"
+        ]
         assert str(case["evidence_source"]).startswith("held_out:")
     wired = [
         c
@@ -156,6 +168,65 @@ def test_held_out_fixtures_bind_ground_truth():
         if str(c.get("evidence_source", "")).startswith("held_out:")
     ]
     assert wired and all(c.get("expected") for c in wired)
+
+
+def test_contradictory_scope_fixture_is_invalid(tmp_path: Path):
+    """A substituted scope truth must not pass as deny/supported."""
+    source = json.loads(
+        (
+            ROOT
+            / "experiments"
+            / "swarm_r5_v2"
+            / "held_out"
+            / "scope_attenuated_out_of_task.json"
+        ).read_text(encoding="utf-8")
+    )
+    source["trusted_ground_truth"]["assignee_c_scope"] = "task-*"
+    source["trusted_ground_truth"]["required_decision_for_c"] = "allow"
+    source["trusted_ground_truth"]["effect_may_commit"] = True
+    (tmp_path / "scope_attenuated_out_of_task.json").write_text(
+        json.dumps(source), encoding="utf-8"
+    )
+    loaded = load_held_out_cases(tmp_path)
+    assert len(loaded) == 1
+    result = loaded[0]["result"]
+    # The setup still denies; the declaration does not rewrite that execution.
+    assert result["decision"] == "deny"
+    assert result["conclusion_class"] == "supported"
+    assert result["effect_committed"] is False
+    assert result["fixture_valid"] is False
+    assert result["reference_source"] == "rejected_held_out_ground_truth"
+    assert any("assignee_c_scope" in msg for msg in result["fixture_binding_errors"])
+    assert any("required_decision_for_c" in msg for msg in result["fixture_binding_errors"])
+    assert any("effect_may_commit" in msg for msg in result["fixture_binding_errors"])
+
+    cases = [
+        c
+        for c in run_r5_v2_protocol_cases()
+        if not str(c.get("evidence_source", "")).startswith("held_out:")
+    ]
+    cases.extend(loaded)
+    score = evaluate_r5_v2_success(cases)
+    assert score["passed"] is False
+    assert any("invalidated" in err for err in score["errors"])
+
+    # The shipped fixture's own binding helper accepts the unsubstitued file.
+    shipped = json.loads(
+        (
+            ROOT
+            / "experiments"
+            / "swarm_r5_v2"
+            / "held_out"
+            / "scope_attenuated_out_of_task.json"
+        ).read_text(encoding="utf-8")
+    )
+    state = SwarmStateV2()
+    state.seed_shared_grant("g-held-3", owner="A", task_scope="task-*")
+    state.assign_delegate("g-held-3", by="A", delegate="B", task_scope="task-edit-*")
+    state.assign_delegate(
+        "g-held-3", by="B", delegate="C", task_scope="task-edit-doc"
+    )
+    assert held_out_binding_errors(shipped, state, result) == []
 
 
 def test_concurrency_rows_cite_simulator_not_live_swarm():
@@ -183,13 +254,50 @@ def test_concurrency_rows_cite_simulator_not_live_swarm():
     assert mutant["result"]["effect_committed"] is True
     assert mutant["result"]["failure_origin"] == "effect_boundary"
     assert mutant["result"]["conclusion_class"] == "failed_enforcement"
+    loser = next(
+        c
+        for c in sim_cases
+        if c["case_id"].endswith("reference_contention_one_use__b-claim")
+    )
+    assert loser["result"]["has_current_grant_observation"] is False
+    assert loser["result"]["observation_freshness"] == "stale"
+    assert loser["result"]["effect_settlement"] == "refused"
+    assert loser["result"]["effect_committed"] is False
+    late = next(
+        c
+        for c in sim_cases
+        if c["case_id"].endswith("revocation_late_observation_reference__b-late")
+    )
+    assert late["result"]["decision"] == "allow"
+    assert late["result"]["effect_committed"] is False
+    assert late["result"]["effect_settlement"] == "refused"
+    assert late["result"]["failure_origin"] == "decision_policy"
+    forged = next(
+        c
+        for c in sim_cases
+        if c["case_id"].endswith("reference_forged_assignee_boundary__b-forge")
+    )
+    assert forged["result"]["evidence_status"] == "misbound"
+    assert forged["result"]["failure_origin"] == "evidence"
+    assert forged["result"]["effect_status"] == "prevented"
+    assert forged["result"]["effect_committed"] is False
 
 
 def test_pinned_trace_digests_match_provenance():
     errors = verify_pinned_concurrency_digests()
     assert not errors, errors
     digests = pinned_concurrency_trace_digests()
-    assert len(digests) == 5
+    assert len(digests) == 7
+    prov = (
+        ROOT
+        / "experiments"
+        / "swarm_r5_v2"
+        / "concurrency_traces"
+        / "PROVENANCE.md"
+    ).read_text(encoding="utf-8")
+    assert f"source commit `{SIM_PIN_SOURCE_COMMIT}`" in prov
+    assert "490d0bd5c6bbb4159b9e002e7a3ce4a22ca7e38e" not in prov.split("Superseded")[0]
+    assert "c23f2954660e22ea5dace762197107c604f13bb8" not in prov.split("Superseded")[0]
 
 
 def test_boundary_comparison_retains_v1():
@@ -212,6 +320,81 @@ def test_oracle_separated_from_gate():
         },
     )
     assert required == "deny"
+    # The correct gate and its one-rule mutant do not call the oracle.
+    for fn in (gate_policy_decision, gate_policy_ignore_scope):
+        assert "oracle_required_decision" not in fn.__code__.co_names
+    observed = {
+        "state": "active",
+        "spent": False,
+        "assignees": {"A", "B", "C"},
+        "task_scopes": {
+            "A": "task-*",
+            "B": "task-edit-*",
+            "C": "task-edit-doc",
+        },
+    }
+    assert (
+        oracle_required_decision(
+            agent="C", authoritative_grant=observed, task_id="task-admin"
+        )
+        == "deny"
+    )
+    assert (
+        gate_policy_decision(
+            agent="C", observed_grant=observed, task_id="task-admin"
+        )
+        == "deny"
+    )
+    assert (
+        gate_policy_ignore_scope(
+            agent="C", observed_grant=observed, task_id="task-admin"
+        )
+        == "allow"
+    )
+    revoked = {**observed, "state": "revoked"}
+    assert (
+        gate_policy_ignore_scope(
+            agent="C", observed_grant=revoked, task_id="task-admin"
+        )
+        == "deny"
+    )
+    cases = {c["case_id"]: c for c in run_r5_v2_protocol_cases()}
+    mutant = cases["v2_deleg_scope_mutant_ignore_scope"]
+    assert mutant["result"]["decision"] == "allow"
+    assert mutant["result"]["required_decision"] == "deny"
+    assert mutant["result"]["conclusion_class"] == "failed_enforcement"
+    assert mutant["result"]["failure_origin"] == "decision_policy"
+    assert mutant["result"]["effect_committed"] is False
+    correct = cases["v2_deleg_scope_rule_correct_deny"]["result"]
+    assert correct["decision"] == "deny"
+    assert correct["conclusion_class"] == "supported"
+    hidden = dict(mutant)
+    hidden["result"] = {
+        **mutant["result"],
+        "decision": "deny",
+        "property_holds": True,
+        "conclusion_class": "supported",
+        "failure_origin": "none",
+        "decision_status": "correct",
+        "effect_status": "not_applicable",
+        "assessment": "permission_refuted",
+    }
+    hidden["expected"] = {
+        **mutant["expected"],
+        "conclusion_class": "supported",
+        "decision": "deny",
+        "decision_status": "correct",
+        "effect_status": "not_applicable",
+        "failure_origin": "none",
+        "assessment": "permission_refuted",
+    }
+    missed = [
+        hidden if c["case_id"] == mutant["case_id"] else c
+        for c in cases.values()
+    ]
+    score = evaluate_r5_v2_success(missed)
+    assert score["passed"] is False
+    assert any("was not detected" in err for err in score["errors"])
 
 
 def test_runner_writes_valid_evidence(tmp_path: Path):

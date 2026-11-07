@@ -9,8 +9,11 @@ notes: >
   Orthogonal scenario families for the versioned R5 extension. Concurrency
   rows consume pinned multi-agent-sim-v1 traces (issue #10); sequential and
   observation-quality rows are independent. No live concurrent swarm claim.
-  Reference vs mutant contention pins share seed+event_count; schedule_id
-  strings differ in the upstream sim evidence and are not re-proven here.
+  Reference vs mutant contention pins share seed, event_count, and
+  schedule_id sched-toctou-contend (simulator commit 28b3642, PR #23).
+  The run documents are not byte-identical, so
+  reference_vs_mutant_byte_identical_schedule_id stays untested.
+  PR #15 and PR #19 snapshots are not the current pins.
 
 dimensions:
   - id: authority_observation

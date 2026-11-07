@@ -26,6 +26,8 @@ GateMode = Literal[
     "broken_allow",  # wrong allow; effect prevented (decision_policy)
     "broken_deny",  # wrong deny; no effect
     "broken_allow_and_commit",  # wrong allow that settles (effect_boundary)
+    # One gate-local rule: skip scope attenuation. Oracle is unchanged.
+    "mutant_ignore_scope",
 ]
 ObservationMode = Literal[
     "authentic",
@@ -46,6 +48,8 @@ ReceiptKind = Literal[
 PROTOCOL_ID = "r5-swarm-audit-v2"
 SOURCE_PIN = "swarm-witness-r5-v2"
 CLAIM_ID = "r5_v2"
+# Corrected simulator evidence (PR #23, stacked on #19). #15 and #19 are not current.
+SIM_PIN_SOURCE_COMMIT = "28b364251a0c4205483aad4f6d49cdedea8b5d5c"
 SWARM_AGENTS: tuple[AgentId, ...] = ("A", "B", "C")
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -224,10 +228,10 @@ def oracle_required_decision(
     task_id: str | None = None,
     presented_receipt: dict[str, Any] | None = None,
 ) -> str:
-    """Ground-truth required decision from *authoritative* ledger state.
+    """Authoritative reference decision from ledger state.
 
-    Intentionally separate from gate policies so expected and actual decisions
-    are never computed from the same predicate.
+    This is the only reference. Gate policies must not call it. A gate is
+    scored by comparing its observed-input decision to this value.
     """
     if authoritative_grant is None:
         return "deny"
@@ -258,9 +262,116 @@ def oracle_required_decision(
     return "allow"
 
 
-def _gate_decide(required: str, gate_mode: GateMode) -> str:
+def _observed_grant_for_gate(
+    observed: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    """Project a delivered observation into the gate's input record."""
+    if observed is None:
+        return None
+    return {
+        "owner": observed.get("owner"),
+        "state": observed.get("state"),
+        "spent": observed.get("state") == "spent",
+        "assignees": set(observed.get("assignees") or []),
+        "task_scopes": dict(observed.get("task_scopes") or {}),
+        "epoch": observed.get("epoch"),
+    }
+
+
+def gate_policy_decision(
+    *,
+    agent: AgentId,
+    observed_grant: dict[str, Any] | None,
+    task_id: str | None = None,
+    presented_receipt: dict[str, Any] | None = None,
+) -> str:
+    """Correct gate: classical rules over the observed snapshot only.
+
+    Implemented separately from ``oracle_required_decision``. The two agree
+    when the observation matches the ledger and diverge when it does not.
+    """
+    if observed_grant is None:
+        return "deny"
+    if observed_grant.get("spent") or observed_grant.get("state") in {
+        "revoked",
+        "spent",
+    }:
+        return "deny"
+    assignees = observed_grant.get("assignees") or set()
+    if agent not in assignees:
+        return "deny"
+    if task_id is not None:
+        scopes = observed_grant.get("task_scopes") or {}
+        agent_scope = scopes.get(agent, "task-*")
+        if not _scope_allows(agent_scope, task_id):
+            return "deny"
+    if presented_receipt is not None:
+        if presented_receipt.get("agent") != agent:
+            return "deny"
+        if presented_receipt.get("authentic", True) is False:
+            return "deny"
+        if presented_receipt.get("binding") not in {None, "ledger", "own"}:
+            return "deny"
+        return "deny"
+    return "allow"
+
+
+def gate_policy_ignore_scope(
+    *,
+    agent: AgentId,
+    observed_grant: dict[str, Any] | None,
+    task_id: str | None = None,
+    presented_receipt: dict[str, Any] | None = None,
+) -> str:
+    """Gate-only mutation: the scope-attenuation rule is omitted.
+
+    Spent, revoked, assignee, and receipt rules match ``gate_policy_decision``.
+    The oracle is not modified and is not consulted.
+    """
+    if observed_grant is None:
+        return "deny"
+    if observed_grant.get("spent") or observed_grant.get("state") in {
+        "revoked",
+        "spent",
+    }:
+        return "deny"
+    assignees = observed_grant.get("assignees") or set()
+    if agent not in assignees:
+        return "deny"
+    if presented_receipt is not None:
+        if presented_receipt.get("agent") != agent:
+            return "deny"
+        if presented_receipt.get("authentic", True) is False:
+            return "deny"
+        if presented_receipt.get("binding") not in {None, "ledger", "own"}:
+            return "deny"
+        return "deny"
+    return "allow"
+
+
+def _gate_decide(
+    gate_mode: GateMode,
+    *,
+    agent: AgentId,
+    observed_grant: dict[str, Any] | None,
+    task_id: str | None,
+    presented_receipt: dict[str, Any] | None,
+) -> str:
+    """Apply a gate mode to the observed input. Never reads the oracle."""
     if gate_mode == "correct":
-        return required
+        return gate_policy_decision(
+            agent=agent,
+            observed_grant=observed_grant,
+            task_id=task_id,
+            presented_receipt=presented_receipt,
+        )
+    if gate_mode == "mutant_ignore_scope":
+        return gate_policy_ignore_scope(
+            agent=agent,
+            observed_grant=observed_grant,
+            task_id=task_id,
+            presented_receipt=presented_receipt,
+        )
     if gate_mode == "broken_allow":
         return "allow"
     if gate_mode == "broken_deny":
@@ -383,22 +494,14 @@ def attempt_claim_v2(
         }
 
     if observation_mode == "misbound":
-        # Gate trusts the false observation; oracle still uses authoritative truth.
-        false_required = oracle_required_decision(
+        # Gate reads only the false observation. The reference stays auth_view.
+        decision = _gate_decide(
+            gate_mode,
             agent=agent,
-            authoritative_grant={
-                **(auth_view or {}),
-                "state": observed["state"],
-                "spent": observed["state"] == "spent",
-                "assignees": set(observed.get("assignees") or []),
-                "task_scopes": dict(observed.get("task_scopes") or {}),
-            }
-            if observed is not None
-            else None,
+            observed_grant=_observed_grant_for_gate(observed),
             task_id=task_id,
             presented_receipt=presented_receipt,
         )
-        decision = _gate_decide(false_required, gate_mode)
         # Property is scored against authoritative required, not the misbound view.
         holds = decision == required
         classified = classify_conclusion(
@@ -473,23 +576,15 @@ def attempt_claim_v2(
             ),
         }
 
-    observed_for_gate = {
-        "owner": observed["owner"],
-        "state": observed["state"],
-        "spent": observed["state"] == "spent",
-        "assignees": set(observed.get("assignees") or []),
-        "task_scopes": dict(observed.get("task_scopes") or {}),
-        "epoch": observed.get("epoch"),
-    }
-    # Stale active observation after revoke/epoch bump: gate may see active
-    # while oracle (authoritative) requires deny.
-    gate_required = oracle_required_decision(
+    # Stale active observation after revoke/epoch bump: the gate sees active
+    # while the authoritative reference requires deny.
+    decision = _gate_decide(
+        gate_mode,
         agent=agent,
-        authoritative_grant=observed_for_gate,
+        observed_grant=_observed_grant_for_gate(observed),
         task_id=task_id,
         presented_receipt=presented_receipt,
     )
-    decision = _gate_decide(gate_required, gate_mode)
     holds = decision == required
     classified = classify_conclusion(evidence_complete=True, property_holds=holds)
 
@@ -627,6 +722,11 @@ _SIM_CONTENTION_PAIR_ID = "sim:contention_one_use_seed404"
 _SIM_CONTENTION_CASE_IDS = {
     "reference_contention_one_use",
     "mutant_ignore_spend_contention",
+}
+_SIM_FORGED_PAIR_ID = "sim:forged_assignee_seed606"
+_SIM_FORGED_CASE_IDS = {
+    "reference_forged_assignee_boundary",
+    "mutant_forged_assignee_boundary",
 }
 
 
@@ -870,6 +970,31 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
                 task_id="task-admin",
                 gate_mode="broken_allow",
             ),
+        )
+    )
+
+    # Fresh grant so the only deny reason is scope. The mutant drops that one
+    # gate rule; the oracle on the same ledger still denies.
+    cases.append(
+        _case(
+            "v2_deleg_scope_rule_correct_deny",
+            family="delegation_scope",
+            name="Fresh attenuated grant: correct gate denies task-admin",
+            mechanism_arm="correct",
+            paired_input_id="deleg_scope_rule",
+            seams=["scope_exceeded_deny"],
+            result=_run_scope_rule_correct_deny(),
+        )
+    )
+    cases.append(
+        _case(
+            "v2_deleg_scope_mutant_ignore_scope",
+            family="delegation_scope",
+            name="Gate-only scope mutation allows task-admin; oracle denies",
+            mechanism_arm="mutant_ignore_scope",
+            paired_input_id="deleg_scope_rule",
+            seams=["scope_exceeded_deny", "incorrect_allow_prevented"],
+            result=_run_scope_mutant_ignore_scope(),
         )
     )
 
@@ -1136,6 +1261,38 @@ def _run_own_bound_after_spend() -> dict[str, Any]:
     )
 
 
+def _fresh_attenuated_scope_state() -> SwarmStateV2:
+    st = SwarmStateV2()
+    st.seed_shared_grant("g-scope-rule", owner="A", task_scope="task-*")
+    st.assign_delegate("g-scope-rule", by="A", delegate="B", task_scope="task-edit-*")
+    st.assign_delegate(
+        "g-scope-rule", by="B", delegate="C", task_scope="task-edit-doc"
+    )
+    return st
+
+
+def _run_scope_rule_correct_deny() -> dict[str, Any]:
+    return attempt_claim_v2(
+        _fresh_attenuated_scope_state(),
+        agent="C",
+        grant_id="g-scope-rule",
+        call_id="v2-scope-rule-correct",
+        task_id="task-admin",
+        gate_mode="correct",
+    )
+
+
+def _run_scope_mutant_ignore_scope() -> dict[str, Any]:
+    return attempt_claim_v2(
+        _fresh_attenuated_scope_state(),
+        agent="C",
+        grant_id="g-scope-rule",
+        call_id="v2-scope-rule-mutant",
+        task_id="task-admin",
+        gate_mode="mutant_ignore_scope",
+    )
+
+
 def _run_obs_partial_broken_allow() -> dict[str, Any]:
     """Faulty arm on obs_partial_b inputs: unknown must not become allow."""
     st = SwarmStateV2()
@@ -1151,41 +1308,186 @@ def _run_obs_partial_broken_allow() -> dict[str, Any]:
     )
 
 
+def _apply_held_out_setup(fixture: dict[str, Any]) -> SwarmStateV2:
+    st = SwarmStateV2()
+    setup = fixture["setup"]
+    st.seed_shared_grant(
+        setup["grant_id"],
+        owner=setup["owner"],
+        epoch=setup.get("epoch", "epoch-1"),
+        task_scope=setup.get("task_scope", "task-*"),
+    )
+    for hop in setup.get("assignees_via") or []:
+        st.assign_delegate(
+            setup["grant_id"],
+            by=hop["by"],
+            delegate=hop["delegate"],
+            task_scope=hop.get("task_scope"),
+        )
+    if setup.get("revoke"):
+        st.revoke(setup["grant_id"])
+    for rx in setup.get("seed_receipts") or []:
+        st.add_receipt(
+            rx["receipt_id"],
+            agent=rx["agent"],
+            grant_id=setup["grant_id"],
+            call_id=rx["call_id"],
+            authentic=rx.get("authentic", True),
+            binding=rx.get("binding", "ledger"),
+        )
+    return st
+
+
+def held_out_binding_errors(
+    fixture: dict[str, Any],
+    state: SwarmStateV2,
+    result: dict[str, Any],
+) -> list[str]:
+    """Bind fixture truth to setup, the authoritative reference, and effect permission.
+
+    ``trusted_ground_truth`` is the held-out reference. It must agree with the
+    ledger the setup actually built, with ``expected.decision`` when the claim
+    shows that ledger to a correct gate, and with whether an effect is permitted.
+    """
+    errors: list[str] = []
+    setup = fixture.get("setup") or {}
+    claim = fixture.get("agent_visible_claim") or {}
+    truth = fixture.get("trusted_ground_truth")
+    expected = fixture.get("expected")
+    if not isinstance(truth, dict):
+        return ["missing trusted_ground_truth object"]
+    if not isinstance(expected, dict):
+        return ["missing expected object"]
+
+    grant_id = setup.get("grant_id")
+    grant = state.grants.get(grant_id) if grant_id else None
+    if grant is None:
+        return [f"setup did not create grant {grant_id!r}"]
+
+    agent = claim.get("agent")
+    if agent not in {"A", "B", "C"}:
+        return [f"agent_visible_claim.agent {agent!r} is not A, B, or C"]
+
+    actual_state = "spent" if grant.get("spent") else grant.get("state")
+    actual_scope = (grant.get("task_scopes") or {}).get(agent)
+    actual_assignees = sorted(grant.get("assignees") or [])
+    derived_required = oracle_required_decision(
+        agent=agent,
+        authoritative_grant={
+            "owner": grant.get("owner"),
+            "state": actual_state,
+            "spent": bool(grant.get("spent")),
+            "assignees": set(grant.get("assignees") or []),
+            "task_scopes": dict(grant.get("task_scopes") or {}),
+        },
+        task_id=claim.get("task_id"),
+        presented_receipt=result.get("presented_receipt"),
+    )
+    derived_effect_may_commit = derived_required == "allow"
+
+    if "grant_state" in truth and truth["grant_state"] != actual_state:
+        errors.append(
+            f"grant_state {truth['grant_state']!r} contradicts setup state "
+            f"{actual_state!r}"
+        )
+    if "spent" in truth and bool(truth["spent"]) != bool(grant.get("spent")):
+        errors.append(
+            f"spent {truth['spent']!r} contradicts setup spent={bool(grant.get('spent'))}"
+        )
+    if "assignees" in truth and list(truth["assignees"]) != actual_assignees:
+        errors.append(
+            f"assignees {list(truth['assignees'])!r} contradict setup {actual_assignees!r}"
+        )
+    scope_key = f"assignee_{str(agent).lower()}_scope"
+    if scope_key in truth and truth[scope_key] != actual_scope:
+        errors.append(
+            f"{scope_key} {truth[scope_key]!r} contradicts setup scope {actual_scope!r}"
+        )
+    if "claimed_task" in truth and truth["claimed_task"] != claim.get("task_id"):
+        errors.append(
+            f"claimed_task {truth['claimed_task']!r} contradicts "
+            f"agent_visible_claim.task_id {claim.get('task_id')!r}"
+        )
+
+    decision_key = f"required_decision_for_{str(agent).lower()}"
+    if decision_key not in truth:
+        errors.append(f"trusted_ground_truth missing {decision_key}")
+        declared_required = None
+    else:
+        declared_required = truth[decision_key]
+        if declared_required != derived_required:
+            errors.append(
+                f"{decision_key} {declared_required!r} contradicts setup reference "
+                f"{derived_required!r}"
+            )
+
+    if "effect_may_commit" not in truth:
+        errors.append("trusted_ground_truth missing effect_may_commit")
+        declared_effect = None
+    else:
+        declared_effect = bool(truth["effect_may_commit"])
+        if declared_effect != derived_effect_may_commit:
+            errors.append(
+                "effect_may_commit "
+                f"{truth['effect_may_commit']!r} contradicts permitted effect "
+                f"{derived_effect_may_commit}"
+            )
+        if declared_required is not None and declared_effect != (
+            declared_required == "allow"
+        ):
+            errors.append(
+                "effect_may_commit "
+                f"{truth['effect_may_commit']!r} contradicts "
+                f"{decision_key} {declared_required!r}"
+            )
+
+    observation_mode = claim.get("observation_mode", "authentic")
+    gate_mode = claim.get("gate_mode", "correct")
+    expected_decision = expected.get("decision")
+    expected_effect = expected.get("effect_committed")
+    if declared_effect is False and expected_effect is True:
+        errors.append(
+            "expected.effect_committed is true but ground truth forbids the effect"
+        )
+    if observation_mode == "authentic" and gate_mode == "correct":
+        if declared_required is not None and expected_decision != declared_required:
+            errors.append(
+                f"expected.decision {expected_decision!r} contradicts "
+                f"{decision_key} {declared_required!r}"
+            )
+        if declared_effect is not None and bool(expected_effect) != declared_effect:
+            errors.append(
+                f"expected.effect_committed {expected_effect!r} contradicts "
+                f"effect_may_commit {truth.get('effect_may_commit')!r}"
+            )
+    elif (
+        declared_required is not None
+        and expected_decision != declared_required
+        and expected.get("conclusion_class") == "supported"
+    ):
+        errors.append(
+            "expected conclusion supported while decision "
+            f"{expected_decision!r} is not the trusted required decision "
+            f"{declared_required!r}"
+        )
+    return errors
+
+
 def load_held_out_cases(
     held_out_dir: Path | None = None,
 ) -> list[dict[str, Any]]:
-    """Load externally authored fixtures; expectations are not classifier-built."""
+    """Load externally authored fixtures; expectations are not classifier-built.
+
+    The fixture's trusted ground truth is the reference for the case. A
+    declaration that contradicts the setup, the expected decision, or the
+    permitted effect invalidates the fixture.
+    """
     directory = held_out_dir or HELD_OUT_DIR
     cases: list[dict[str, Any]] = []
     for path in sorted(directory.glob("*.json")):
         fixture = json.loads(path.read_text(encoding="utf-8"))
-        st = SwarmStateV2()
+        st = _apply_held_out_setup(fixture)
         setup = fixture["setup"]
-        st.seed_shared_grant(
-            setup["grant_id"],
-            owner=setup["owner"],
-            epoch=setup.get("epoch", "epoch-1"),
-            task_scope=setup.get("task_scope", "task-*"),
-        )
-        for hop in setup.get("assignees_via") or []:
-            st.assign_delegate(
-                setup["grant_id"],
-                by=hop["by"],
-                delegate=hop["delegate"],
-                task_scope=hop.get("task_scope"),
-            )
-        if setup.get("revoke"):
-            st.revoke(setup["grant_id"])
-        for rx in setup.get("seed_receipts") or []:
-            st.add_receipt(
-                rx["receipt_id"],
-                agent=rx["agent"],
-                grant_id=setup["grant_id"],
-                call_id=rx["call_id"],
-                authentic=rx.get("authentic", True),
-                binding=rx.get("binding", "ledger"),
-            )
-
         claim = fixture["agent_visible_claim"]
         result = attempt_claim_v2(
             st,
@@ -1201,10 +1503,24 @@ def load_held_out_cases(
             stale_epoch=claim.get("stale_epoch"),
             irrelevant_fact=claim.get("irrelevant_fact"),
         )
-        # Attach trusted ground truth from the fixture (not from the classifier).
-        result["trusted_ground_truth"] = fixture["trusted_ground_truth"]
+        truth = fixture.get("trusted_ground_truth") or {}
+        binding_errors = held_out_binding_errors(fixture, st, result)
+        agent_key = str(claim.get("agent") or "").lower()
+        declared_required = truth.get(f"required_decision_for_{agent_key}")
+        result["trusted_ground_truth"] = truth
         result["held_out_artifact"] = path.name
-        result["fixture_expected"] = fixture["expected"]
+        result["fixture_expected"] = fixture.get("expected")
+        result["fixture_binding_errors"] = binding_errors
+        result["fixture_valid"] = not binding_errors
+        if binding_errors:
+            # Keep the executed decision visible, but do not adopt the
+            # contradictory declaration as the reference.
+            result["reference_source"] = "rejected_held_out_ground_truth"
+        else:
+            result["required_decision"] = declared_required
+            result["reference_source"] = "held_out_trusted_ground_truth"
+            if result.get("decision") is not None:
+                result["property_holds"] = result["decision"] == declared_required
         cases.append(
             _case(
                 fixture["case_id"],
@@ -1235,6 +1551,11 @@ def load_concurrency_trace_cases(
         # Project each claim into an R5-v2 case row, preserving sim diagnoses.
         for claim in obs["claims"]:
             diag = claim.get("diagnosis") or {}
+            local = claim.get("local_knowledge_at_decision") or {}
+            grant_obs = local.get("grant_observations") or []
+            freshness = None
+            if grant_obs and isinstance(grant_obs[0], dict):
+                freshness = grant_obs[0].get("observation_freshness")
             result = {
                 "agent": claim["agent"],
                 "grant_id": claim.get("grant_id"),
@@ -1252,6 +1573,15 @@ def load_concurrency_trace_cases(
                 "decision": claim["decision"],
                 "required_decision": claim.get("required_decision"),
                 "effect_committed": claim["committed_effect"],
+                "effect_settlement": claim.get("effect_settlement"),
+                "effect_refusal_reason": claim.get("effect_refusal_reason"),
+                "has_current_grant_observation": local.get(
+                    "has_current_grant_observation"
+                ),
+                "has_stale_grant_observation": local.get(
+                    "has_stale_grant_observation"
+                ),
+                "observation_freshness": freshness,
                 "assessment": claim.get("assessment"),
                 "conclusion_class": claim["conclusion_class"],
                 "finding_label": claim.get("finding_label"),
@@ -1279,6 +1609,8 @@ def load_concurrency_trace_cases(
             sim_case = run["case_id"]
             if sim_case in _SIM_CONTENTION_CASE_IDS:
                 paired = _SIM_CONTENTION_PAIR_ID
+            elif sim_case in _SIM_FORGED_CASE_IDS:
+                paired = _SIM_FORGED_PAIR_ID
             else:
                 paired = f"sim:{sim_case}"
             seams: list[str] = []
@@ -1371,9 +1703,158 @@ def verify_pinned_concurrency_digests(
                 "reference/mutant contention pins disagree on event_count "
                 f"({ref_obs.get('event_count')!r} vs {mut_obs.get('event_count')!r})"
             )
-        if ref_obs.get("schedule_id") == mut_obs.get("schedule_id"):
-            # Documented upstream difference; if ids ever unify, fine — no error.
-            pass
+        if ref_obs.get("schedule_id") != "sched-toctou-contend":
+            errors.append(
+                "reference contention pin schedule_id "
+                f"{ref_obs.get('schedule_id')!r} is not the corrected "
+                "sched-toctou-contend reference"
+            )
+        if mut_obs.get("schedule_id") != "sched-toctou-contend":
+            errors.append(
+                "mutant contention pin schedule_id "
+                f"{mut_obs.get('schedule_id')!r} is not sched-toctou-contend"
+            )
+    errors.extend(_superseded_reference_arm_errors(directory))
+    return errors
+
+
+def _claim_by_id(run: dict[str, Any], call_id: str) -> dict[str, Any] | None:
+    claims = (run.get("observations") or {}).get("claims") or []
+    for claim in claims:
+        if claim.get("call_id") == call_id:
+            return claim
+    return None
+
+
+def _local_freshness(claim: dict[str, Any]) -> tuple[Any, Any, Any]:
+    local = claim.get("local_knowledge_at_decision") or {}
+    grants = local.get("grant_observations") or []
+    freshness = None
+    if grants and isinstance(grants[0], dict):
+        freshness = grants[0].get("observation_freshness")
+    return (
+        local.get("has_current_grant_observation"),
+        local.get("has_stale_grant_observation"),
+        freshness,
+    )
+
+
+def _superseded_reference_arm_errors(directory: Path) -> list[str]:
+    """Reject #15 and #19 rows labeled as the current reference arm.
+
+    PR #23 (``SIM_PIN_SOURCE_COMMIT``): the contention loser is stale at the
+    decision (no current grant observation), the revoked-grant reference effect
+    is refused, and a forged assignee observation is misbound evidence with the
+    effect prevented.
+    """
+    errors: list[str] = []
+    prov_path = directory / "PROVENANCE.md"
+    if not prov_path.is_file():
+        errors.append("PROVENANCE.md missing; cannot record simulator source commit")
+        return errors
+    prov = prov_path.read_text(encoding="utf-8")
+    if f"source commit `{SIM_PIN_SOURCE_COMMIT}`" not in prov:
+        errors.append(
+            "PROVENANCE.md does not record current simulator source commit "
+            f"{SIM_PIN_SOURCE_COMMIT} (PR #23)"
+        )
+    # Older snapshots may be named only as superseded history.
+    for stale in (
+        "490d0bd5c6bbb4159b9e002e7a3ce4a22ca7e38e",
+        "c23f2954660e22ea5dace762197107c604f13bb8",
+    ):
+        if f"source commit `{stale}`" in prov:
+            errors.append(
+                f"PROVENANCE.md records superseded commit {stale} as current"
+            )
+
+    revoked = directory / "mas-revocation_late_observation_reference.json"
+    if not revoked.is_file():
+        errors.append("missing mas-revocation_late_observation_reference.json")
+    else:
+        claim = _claim_by_id(
+            json.loads(revoked.read_text(encoding="utf-8")), "b-late"
+        )
+        if claim is None:
+            errors.append("revoked-grant reference arm: missing b-late")
+        else:
+            if claim.get("committed_effect") is not False:
+                errors.append(
+                    "revoked-grant reference arm b-late still commits "
+                    f"(committed_effect={claim.get('committed_effect')!r})"
+                )
+            if claim.get("effect_settlement") != "refused":
+                errors.append(
+                    "revoked-grant reference arm b-late effect_settlement "
+                    f"{claim.get('effect_settlement')!r} is not refused"
+                )
+            if claim.get("decision") != "allow":
+                errors.append(
+                    "revoked-grant reference arm b-late decision "
+                    f"{claim.get('decision')!r} is not allow"
+                )
+            origin = (claim.get("diagnosis") or {}).get("failure_origin")
+            if origin == "effect_boundary":
+                errors.append(
+                    "revoked-grant reference arm is still the superseded "
+                    "effect_boundary commit"
+                )
+
+    contention = directory / "mas-reference_contention_one_use.json"
+    if not contention.is_file():
+        errors.append("missing mas-reference_contention_one_use.json")
+    else:
+        claim = _claim_by_id(
+            json.loads(contention.read_text(encoding="utf-8")), "b-claim"
+        )
+        if claim is None:
+            errors.append("contention reference loser: missing b-claim")
+        else:
+            current, stale, freshness = _local_freshness(claim)
+            if current is not False or stale is not True or freshness != "stale":
+                errors.append(
+                    "contention reference loser is not stale at decision "
+                    f"(current={current!r}, stale={stale!r}, freshness={freshness!r})"
+                )
+            if claim.get("effect_settlement") != "refused":
+                errors.append(
+                    "contention reference loser effect_settlement "
+                    f"{claim.get('effect_settlement')!r} is not refused"
+                )
+            if claim.get("committed_effect") is not False:
+                errors.append("contention reference loser still commits")
+
+    forged = directory / "mas-reference_forged_assignee_boundary.json"
+    if not forged.is_file():
+        errors.append(
+            "missing mas-reference_forged_assignee_boundary.json "
+            "(forged-assignee reference is part of the current pin set)"
+        )
+    else:
+        claim = _claim_by_id(
+            json.loads(forged.read_text(encoding="utf-8")), "b-forge"
+        )
+        if claim is None:
+            errors.append("forged assignee reference: missing b-forge")
+        else:
+            diag = claim.get("diagnosis") or {}
+            if diag.get("evidence_status") != "misbound":
+                errors.append(
+                    "forged assignee reference evidence_status "
+                    f"{diag.get('evidence_status')!r} is not misbound"
+                )
+            if diag.get("failure_origin") != "evidence":
+                errors.append(
+                    "forged assignee reference failure_origin "
+                    f"{diag.get('failure_origin')!r} is not evidence"
+                )
+            if diag.get("effect_status") != "prevented":
+                errors.append(
+                    "forged assignee reference effect_status "
+                    f"{diag.get('effect_status')!r} is not prevented"
+                )
+            if claim.get("committed_effect") is not False:
+                errors.append("forged assignee reference effect was not prevented")
     return errors
 
 
@@ -1448,11 +1929,15 @@ def evaluate_r5_v2_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
                 "conclusion_class",
                 "decision",
                 "effect_committed",
+                "effect_settlement",
                 "decision_status",
                 "effect_status",
                 "failure_origin",
                 "evidence_status",
                 "assessment",
+                "has_current_grant_observation",
+                "has_stale_grant_observation",
+                "observation_freshness",
             ):
                 if key in expected and result.get(key) != expected[key]:
                     errors.append(
@@ -1594,6 +2079,67 @@ def evaluate_r5_v2_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
     held = [c for c in cases if str(c.get("evidence_source", "")).startswith("held_out")]
     if not held:
         errors.append("missing held-out external fixtures")
+    for case in held:
+        result = case["result"]
+        if result.get("fixture_valid") is not True:
+            errors.append(
+                f"{case['case_id']}: held-out fixture invalidated "
+                f"({result.get('fixture_binding_errors')})"
+            )
+        for message in result.get("fixture_binding_errors") or []:
+            errors.append(f"{case['case_id']}: {message}")
+        if result.get("reference_source") != "held_out_trusted_ground_truth":
+            errors.append(
+                f"{case['case_id']}: held-out reference is "
+                f"{result.get('reference_source')!r}, not fixture ground truth"
+            )
+        truth = result.get("trusted_ground_truth") or {}
+        agent_key = str(result.get("agent") or "").lower()
+        declared = truth.get(f"required_decision_for_{agent_key}")
+        if result.get("required_decision") != declared:
+            errors.append(
+                f"{case['case_id']}: required_decision "
+                f"{result.get('required_decision')!r} is not fixture ground truth "
+                f"{declared!r}"
+            )
+        if "effect_may_commit" in truth and result.get("effect_committed") and (
+            truth.get("effect_may_commit") is False
+        ):
+            errors.append(
+                f"{case['case_id']}: effect committed though ground truth "
+                "effect_may_commit is false"
+            )
+
+    scope_mutants = [
+        c
+        for c in cases
+        if c["result"].get("gate_mode") == "mutant_ignore_scope"
+    ]
+    if len(scope_mutants) != 1:
+        errors.append(
+            "audit did not observe exactly one gate-only scope mutation "
+            f"(found {len(scope_mutants)})"
+        )
+    for case in scope_mutants:
+        result = case["result"]
+        if result.get("decision") == result.get("required_decision"):
+            errors.append(
+                f"{case['case_id']}: gate-only rule mutation was not detected"
+            )
+        if result.get("conclusion_class") != "failed_enforcement":
+            errors.append(
+                f"{case['case_id']}: gate-only mutation conclusion "
+                f"{result.get('conclusion_class')!r} is not failed_enforcement"
+            )
+        if result.get("failure_origin") != "decision_policy":
+            errors.append(
+                f"{case['case_id']}: gate-only mutation failure_origin "
+                f"{result.get('failure_origin')!r} is not decision_policy"
+            )
+        if result.get("effect_committed"):
+            errors.append(
+                f"{case['case_id']}: gate-only scope mutation committed an effect"
+            )
 
     coverage = coverage_report(cases)
     if coverage.get("unbound_tested_seams"):

@@ -25,6 +25,11 @@
         "grant_id": "grant-shared",
         "decision": "allow",
         "committed_effect": true,
+        "effect_settlement": "committed",
+        "effect_refusal_reason": null,
+        "effect_boundary_enforced": true,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 3,
         "authoritative_owner_state": {
           "grant": {
             "grant_id": "grant-shared",
@@ -69,7 +74,9 @@
               ],
               "spent": false,
               "source_event_id": "evt-202-0005",
-              "observation_id": "obs-202-0004"
+              "observation_id": "obs-202-0004",
+              "delivered_freshness": "current",
+              "observation_freshness": "current"
             }
           ],
           "receipts": [],
@@ -77,7 +84,9 @@
           "observation_ids": [
             "obs-202-0004"
           ],
-          "has_current_grant_observation": true
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 3
         },
         "evaluator_learned_afterward": {
           "authoritative_owner_state": {
@@ -108,7 +117,10 @@
             "ledger_owner_version": 4
           },
           "committed_effect": true,
+          "effect_settlement": "committed",
           "required_decision": "allow",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 3,
           "one_use_effect_count": 1
         },
         "observation_denominators": {
@@ -120,6 +132,9 @@
             "current_grant_observation"
           ],
           "present_count": 1,
+          "current_grant_observation_count": 1,
+          "stale_grant_observation_count": 0,
+          "authoritative_grant_version_at_decision": 3,
           "irrelevant_count": 0,
           "receipt_count": 0,
           "grant_observation_count": 1,
@@ -135,7 +150,7 @@
           "effect_status": "committed",
           "failure_origin": "none"
         },
-        "reason": "evidence complete and property holds in scope; decision=allow required=allow committed_effect=True"
+        "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=allow required=allow committed_effect=True effect_settlement=committed"
       },
       {
         "call_id": "a-claim",
@@ -143,6 +158,11 @@
         "grant_id": "grant-shared",
         "decision": "deny",
         "committed_effect": false,
+        "effect_settlement": "not_attempted",
+        "effect_refusal_reason": "decision_denied",
+        "effect_boundary_enforced": true,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 4,
         "authoritative_owner_state": {
           "grant": {
             "grant_id": "grant-shared",
@@ -187,7 +207,9 @@
               ],
               "spent": true,
               "source_event_id": "evt-202-0010",
-              "observation_id": "obs-202-0009"
+              "observation_id": "obs-202-0009",
+              "delivered_freshness": "current",
+              "observation_freshness": "current"
             }
           ],
           "receipts": [],
@@ -195,7 +217,9 @@
           "observation_ids": [
             "obs-202-0009"
           ],
-          "has_current_grant_observation": true
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 4
         },
         "evaluator_learned_afterward": {
           "authoritative_owner_state": {
@@ -226,7 +250,10 @@
             "ledger_owner_version": 4
           },
           "committed_effect": false,
+          "effect_settlement": "not_attempted",
           "required_decision": "deny",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 4,
           "one_use_effect_count": 1
         },
         "observation_denominators": {
@@ -238,6 +265,9 @@
             "current_grant_observation"
           ],
           "present_count": 1,
+          "current_grant_observation_count": 1,
+          "stale_grant_observation_count": 0,
+          "authoritative_grant_version_at_decision": 4,
           "irrelevant_count": 0,
           "receipt_count": 0,
           "grant_observation_count": 1,
@@ -253,7 +283,7 @@
           "effect_status": "prevented",
           "failure_origin": "none"
         },
-        "reason": "evidence complete and property holds in scope; decision=deny required=deny committed_effect=False"
+        "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=deny required=deny committed_effect=False effect_settlement=not_attempted"
       }
     ],
     "expected": {

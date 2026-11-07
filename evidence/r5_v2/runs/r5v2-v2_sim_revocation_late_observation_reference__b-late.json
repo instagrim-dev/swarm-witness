@@ -29,37 +29,28 @@
     "gate_mode": "reference",
     "receipt_kind": "sim",
     "presented_receipt": null,
-    "effect_committed": true,
+    "effect_committed": false,
     "evidence_status": "authentic",
     "decision_status": "incorrect",
-    "effect_status": "committed",
-    "failure_origin": "effect_boundary",
+    "effect_status": "prevented",
+    "failure_origin": "decision_policy",
     "authoritative_owner_state": {
       "grant": {
         "grant_id": "grant-shared",
         "owner": "A",
-        "state": "spent",
+        "state": "revoked",
         "epoch": "epoch-1",
-        "owner_version": 5,
+        "owner_version": 4,
         "assignees": [
           "A",
           "B",
           "C"
         ],
-        "spent": true
+        "spent": false
       },
-      "committed_effect_count": 1,
-      "committed_effects": [
-        {
-          "effect_id": "effect-b-late",
-          "grant_id": "grant-shared",
-          "agent": "B",
-          "call_id": "b-late",
-          "decision_event_id": "evt-303-0009",
-          "owner_version_at_commit": 5
-        }
-      ],
-      "ledger_owner_version": 5
+      "committed_effect_count": 0,
+      "committed_effects": [],
+      "ledger_owner_version": 4
     },
     "trusted_ground_truth": null,
     "held_out_artifact": null,
@@ -73,12 +64,18 @@
     "expected": {
       "conclusion_class": "failed_enforcement",
       "decision": "allow",
-      "effect_committed": true,
-      "failure_origin": "effect_boundary",
-      "effect_status": "committed",
-      "assessment": "enforcement_failed"
+      "effect_committed": false,
+      "effect_settlement": "refused",
+      "failure_origin": "decision_policy",
+      "evidence_status": "authentic",
+      "decision_status": "incorrect",
+      "effect_status": "prevented",
+      "assessment": "enforcement_failed",
+      "has_current_grant_observation": false,
+      "has_stale_grant_observation": true,
+      "observation_freshness": "stale"
     },
     "conclusion_match": true,
-    "reason": "evidence complete but exercised enforcement violates the property; decision=allow required=deny committed_effect=True"
+    "reason": "evidence complete but exercised enforcement violates the property; evidence_integrity=authentic; decision=allow required=deny committed_effect=False effect_settlement=refused"
   }
 }

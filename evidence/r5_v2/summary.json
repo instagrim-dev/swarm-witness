@@ -133,6 +133,26 @@
       "failure_origin": "decision_policy"
     },
     {
+      "case_id": "v2_deleg_scope_rule_correct_deny",
+      "family": "delegation_scope",
+      "mechanism_arm": "correct",
+      "evidence_source": "sequential_harness",
+      "conclusion_class": "supported",
+      "decision": "deny",
+      "effect_committed": false,
+      "failure_origin": "none"
+    },
+    {
+      "case_id": "v2_deleg_scope_mutant_ignore_scope",
+      "family": "delegation_scope",
+      "mechanism_arm": "mutant_ignore_scope",
+      "evidence_source": "sequential_harness",
+      "conclusion_class": "failed_enforcement",
+      "decision": "allow",
+      "effect_committed": false,
+      "failure_origin": "decision_policy"
+    },
+    {
       "case_id": "v2_deleg_non_assignee_deny",
       "family": "delegation_scope",
       "mechanism_arm": "correct",
@@ -313,6 +333,16 @@
       "failure_origin": "none"
     },
     {
+      "case_id": "v2_sim_mutant_forged_assignee_boundary__b-forge",
+      "family": "concurrency_interleaving",
+      "mechanism_arm": "mutant_ignore_spend",
+      "evidence_source": "multi-agent-sim-v1:mas-mutant_forged_assignee_boundary.json#b-forge",
+      "conclusion_class": "failed_enforcement",
+      "decision": "allow",
+      "effect_committed": true,
+      "failure_origin": "effect_boundary"
+    },
+    {
       "case_id": "v2_sim_mutant_ignore_spend_contention__a-claim",
       "family": "concurrency_interleaving",
       "mechanism_arm": "mutant_ignore_spend",
@@ -347,10 +377,20 @@
       "family": "concurrency_interleaving",
       "mechanism_arm": "reference",
       "evidence_source": "multi-agent-sim-v1:mas-reference_contention_one_use.json#b-claim",
-      "conclusion_class": "supported",
-      "decision": "deny",
+      "conclusion_class": "failed_enforcement",
+      "decision": "allow",
       "effect_committed": false,
-      "failure_origin": "none"
+      "failure_origin": "decision_policy"
+    },
+    {
+      "case_id": "v2_sim_reference_forged_assignee_boundary__b-forge",
+      "family": "concurrency_interleaving",
+      "mechanism_arm": "reference",
+      "evidence_source": "multi-agent-sim-v1:mas-reference_forged_assignee_boundary.json#b-forge",
+      "conclusion_class": "failed_enforcement",
+      "decision": "allow",
+      "effect_committed": false,
+      "failure_origin": "evidence"
     },
     {
       "case_id": "v2_sim_revocation_late_observation_reference__b-late",
@@ -359,8 +399,8 @@
       "evidence_source": "multi-agent-sim-v1:mas-revocation_late_observation_reference.json#b-late",
       "conclusion_class": "failed_enforcement",
       "decision": "allow",
-      "effect_committed": true,
-      "failure_origin": "effect_boundary"
+      "effect_committed": false,
+      "failure_origin": "decision_policy"
     },
     {
       "case_id": "v2_sim_revocation_late_observation_reference__c-fresh",
@@ -376,7 +416,7 @@
   "score": {
     "passed": true,
     "errors": [],
-    "case_count": 36,
+    "case_count": 40,
     "agent_count": 3,
     "agents": [
       "A",
@@ -397,7 +437,7 @@
       "receipt_provenance"
     ],
     "family_count": 6,
-    "paired_input_groups_with_correct_and_faulty": 8,
+    "paired_input_groups_with_correct_and_faulty": 10,
     "major_families_with_paired_arms": [
       "authority_observation",
       "delegation_scope",
@@ -406,14 +446,14 @@
       "concurrency_interleaving"
     ],
     "unknown_coerced_count": 0,
-    "concurrency_row_count": 10,
+    "concurrency_row_count": 12,
     "held_out_count": 3,
     "pin_digest_ok": true,
     "missing_evidence_count": 4,
-    "failed_enforcement_count": 11,
+    "failed_enforcement_count": 15,
     "supported_count": 21,
     "effect_boundary_count": 3,
-    "decision_policy_count": 5,
+    "decision_policy_count": 8,
     "all_checks_pass": true
   },
   "coverage": {
@@ -470,12 +510,14 @@
           "v2_deleg_multihop_attenuated_allow",
           "v2_deleg_scope_exceeded_deny",
           "v2_deleg_scope_exceeded_broken_allow",
+          "v2_deleg_scope_rule_correct_deny",
+          "v2_deleg_scope_mutant_ignore_scope",
           "v2_deleg_non_assignee_deny",
           "v2_deleg_revoked_after_hops_deny"
         ],
         "tested_count": 4,
         "untested_count": 4,
-        "bound_case_count": 5,
+        "bound_case_count": 7,
         "unbound_tested_seams": []
       },
       {
@@ -545,14 +587,15 @@
           "v2_auth_valid_active_allow",
           "v2_deleg_multihop_attenuated_allow",
           "v2_deleg_scope_exceeded_broken_allow",
+          "v2_deleg_scope_mutant_ignore_scope",
           "v2_rx_foreign_broken_allow",
           "v2_rx_forged_broken_allow",
-          "v2_sim_mutant_ignore_spend_contention__b-claim",
-          "v2_sim_revocation_late_observation_reference__b-late"
+          "v2_sim_mutant_forged_assignee_boundary__b-forge",
+          "v2_sim_mutant_ignore_spend_contention__b-claim"
         ],
         "tested_count": 4,
         "untested_count": 2,
-        "bound_case_count": 12,
+        "bound_case_count": 13,
         "unbound_tested_seams": []
       },
       {
@@ -609,16 +652,18 @@
           "v2_sim_interleave_a_first_reference__b-claim",
           "v2_sim_interleave_b_first_reference__b-claim",
           "v2_sim_interleave_b_first_reference__a-claim",
+          "v2_sim_mutant_forged_assignee_boundary__b-forge",
           "v2_sim_mutant_ignore_spend_contention__a-claim",
           "v2_sim_mutant_ignore_spend_contention__b-claim",
           "v2_sim_reference_contention_one_use__a-claim",
           "v2_sim_reference_contention_one_use__b-claim",
+          "v2_sim_reference_forged_assignee_boundary__b-forge",
           "v2_sim_revocation_late_observation_reference__b-late",
           "v2_sim_revocation_late_observation_reference__c-fresh"
         ],
         "tested_count": 3,
         "untested_count": 4,
-        "bound_case_count": 10,
+        "bound_case_count": 12,
         "unbound_tested_seams": []
       }
     ],
@@ -630,7 +675,7 @@
       "observation_delivery",
       "receipt_provenance"
     ],
-    "total_cases": 36,
+    "total_cases": 40,
     "seam_to_cases": {
       "a_first_vs_b_first_contention": [
         "v2_sim_interleave_a_first_reference__a-claim",
@@ -682,6 +727,7 @@
         "v2_auth_revoked_broken_allow_prevented",
         "v2_auth_stale_active_after_revoke",
         "v2_deleg_scope_exceeded_broken_allow",
+        "v2_deleg_scope_mutant_ignore_scope",
         "v2_rx_foreign_broken_allow",
         "v2_rx_forged_broken_allow"
       ],
@@ -729,7 +775,9 @@
       ],
       "scope_exceeded_deny": [
         "v2_deleg_scope_exceeded_broken_allow",
-        "v2_deleg_scope_exceeded_deny"
+        "v2_deleg_scope_exceeded_deny",
+        "v2_deleg_scope_mutant_ignore_scope",
+        "v2_deleg_scope_rule_correct_deny"
       ],
       "spent": [
         "v2_auth_spent_broken_commit",
@@ -740,8 +788,8 @@
       ],
       "unauthorized_commit_effect_boundary": [
         "v2_auth_spent_broken_commit",
-        "v2_sim_mutant_ignore_spend_contention__b-claim",
-        "v2_sim_revocation_late_observation_reference__b-late"
+        "v2_sim_mutant_forged_assignee_boundary__b-forge",
+        "v2_sim_mutant_ignore_spend_contention__b-claim"
       ],
       "valid_active": [
         "v2_auth_valid_active_allow"
@@ -774,11 +822,11 @@
     "v2_passed": true,
     "v2_counts": {
       "missing_evidence": 4,
-      "failed_enforcement": 11,
+      "failed_enforcement": 15,
       "supported": 21,
-      "case_count": 36,
+      "case_count": 40,
       "effect_boundary": 3,
-      "decision_policy": 5
+      "decision_policy": 8
     },
     "boundary_changes": {
       "new_failure_origin_effect_boundary": true,
@@ -831,6 +879,13 @@
         "required_decision": "deny"
       },
       {
+        "case_id": "v2_deleg_scope_mutant_ignore_scope",
+        "failure_origin": "decision_policy",
+        "effect_committed": false,
+        "decision": "allow",
+        "required_decision": "deny"
+      },
+      {
         "case_id": "v2_rx_foreign_broken_allow",
         "failure_origin": "decision_policy",
         "effect_committed": false,
@@ -852,6 +907,13 @@
         "required_decision": "deny"
       },
       {
+        "case_id": "v2_sim_mutant_forged_assignee_boundary__b-forge",
+        "failure_origin": "effect_boundary",
+        "effect_committed": true,
+        "decision": "allow",
+        "required_decision": "deny"
+      },
+      {
         "case_id": "v2_sim_mutant_ignore_spend_contention__b-claim",
         "failure_origin": "effect_boundary",
         "effect_committed": true,
@@ -859,9 +921,23 @@
         "required_decision": "deny"
       },
       {
+        "case_id": "v2_sim_reference_contention_one_use__b-claim",
+        "failure_origin": "decision_policy",
+        "effect_committed": false,
+        "decision": "allow",
+        "required_decision": "deny"
+      },
+      {
+        "case_id": "v2_sim_reference_forged_assignee_boundary__b-forge",
+        "failure_origin": "evidence",
+        "effect_committed": false,
+        "decision": "allow",
+        "required_decision": "deny"
+      },
+      {
         "case_id": "v2_sim_revocation_late_observation_reference__b-late",
-        "failure_origin": "effect_boundary",
-        "effect_committed": true,
+        "failure_origin": "decision_policy",
+        "effect_committed": false,
         "decision": "allow",
         "required_decision": "deny"
       }

@@ -55,7 +55,7 @@
           "grant_id": "grant-shared",
           "agent": "A",
           "call_id": "a-claim",
-          "decision_event_id": "evt-404-0006",
+          "decision_event_id": "evt-404-0008",
           "owner_version_at_commit": 4
         }
       ],
@@ -78,6 +78,6 @@
       "assessment": "permission_justified"
     },
     "conclusion_match": true,
-    "reason": "evidence complete and property holds in scope; decision=allow required=allow committed_effect=True"
+    "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=allow required=allow committed_effect=True effect_settlement=committed"
   }
 }

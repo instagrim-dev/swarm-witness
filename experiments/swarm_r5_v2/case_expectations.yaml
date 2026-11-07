@@ -117,6 +117,26 @@ cases:
     failure_origin: none
     assessment: permission_refuted
 
+  - case_id: v2_deleg_scope_rule_correct_deny
+    conclusion_class: supported
+    decision: deny
+    effect_committed: false
+    evidence_status: authentic
+    decision_status: correct
+    effect_status: not_applicable
+    failure_origin: none
+    assessment: permission_refuted
+
+  - case_id: v2_deleg_scope_mutant_ignore_scope
+    conclusion_class: failed_enforcement
+    decision: allow
+    effect_committed: false
+    evidence_status: authentic
+    decision_status: incorrect
+    effect_status: prevented
+    failure_origin: decision_policy
+    assessment: enforcement_failed
+
   - case_id: v2_deleg_scope_exceeded_broken_allow
     conclusion_class: failed_enforcement
     decision: allow
@@ -276,11 +296,18 @@ cases:
     assessment: permission_justified
 
   - case_id: v2_sim_reference_contention_one_use__b-claim
-    conclusion_class: supported
-    decision: deny
+    conclusion_class: failed_enforcement
+    decision: allow
     effect_committed: false
-    failure_origin: none
-    assessment: permission_refuted
+    effect_settlement: refused
+    failure_origin: decision_policy
+    evidence_status: authentic
+    decision_status: incorrect
+    effect_status: prevented
+    assessment: enforcement_failed
+    has_current_grant_observation: false
+    has_stale_grant_observation: true
+    observation_freshness: stale
 
   - case_id: v2_sim_mutant_ignore_spend_contention__a-claim
     conclusion_class: supported
@@ -300,8 +327,36 @@ cases:
   - case_id: v2_sim_revocation_late_observation_reference__b-late
     conclusion_class: failed_enforcement
     decision: allow
+    effect_committed: false
+    effect_settlement: refused
+    failure_origin: decision_policy
+    evidence_status: authentic
+    decision_status: incorrect
+    effect_status: prevented
+    assessment: enforcement_failed
+    has_current_grant_observation: false
+    has_stale_grant_observation: true
+    observation_freshness: stale
+
+  - case_id: v2_sim_reference_forged_assignee_boundary__b-forge
+    conclusion_class: failed_enforcement
+    decision: allow
+    effect_committed: false
+    effect_settlement: refused
+    failure_origin: evidence
+    evidence_status: misbound
+    decision_status: incorrect
+    effect_status: prevented
+    assessment: enforcement_failed
+
+  - case_id: v2_sim_mutant_forged_assignee_boundary__b-forge
+    conclusion_class: failed_enforcement
+    decision: allow
     effect_committed: true
+    effect_settlement: committed
     failure_origin: effect_boundary
+    evidence_status: misbound
+    decision_status: incorrect
     effect_status: committed
     assessment: enforcement_failed
 

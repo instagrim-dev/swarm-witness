@@ -13,7 +13,7 @@
       "C"
     ],
     "policy_id": "mutant_ignore_spend",
-    "schedule_id": "sched-mut-contend",
+    "schedule_id": "sched-toctou-contend",
     "seed": 404,
     "one_use_ok": false,
     "event_count": 11,
@@ -25,6 +25,11 @@
         "grant_id": "grant-shared",
         "decision": "allow",
         "committed_effect": true,
+        "effect_settlement": "committed",
+        "effect_refusal_reason": null,
+        "effect_boundary_enforced": false,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 3,
         "authoritative_owner_state": {
           "grant": {
             "grant_id": "grant-shared",
@@ -46,7 +51,7 @@
               "grant_id": "grant-shared",
               "agent": "A",
               "call_id": "a-claim",
-              "decision_event_id": "evt-404-0006",
+              "decision_event_id": "evt-404-0008",
               "owner_version_at_commit": 4
             }
           ],
@@ -69,7 +74,9 @@
               ],
               "spent": false,
               "source_event_id": "evt-404-0005",
-              "observation_id": "obs-404-0004"
+              "observation_id": "obs-404-0004",
+              "delivered_freshness": "current",
+              "observation_freshness": "current"
             }
           ],
           "receipts": [],
@@ -77,7 +84,9 @@
           "observation_ids": [
             "obs-404-0004"
           ],
-          "has_current_grant_observation": true
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 3
         },
         "evaluator_learned_afterward": {
           "authoritative_owner_state": {
@@ -101,14 +110,17 @@
                 "grant_id": "grant-shared",
                 "agent": "A",
                 "call_id": "a-claim",
-                "decision_event_id": "evt-404-0006",
+                "decision_event_id": "evt-404-0008",
                 "owner_version_at_commit": 4
               }
             ],
             "ledger_owner_version": 4
           },
           "committed_effect": true,
+          "effect_settlement": "committed",
           "required_decision": "allow",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 3,
           "one_use_effect_count": 1
         },
         "observation_denominators": {
@@ -120,6 +132,9 @@
             "current_grant_observation"
           ],
           "present_count": 1,
+          "current_grant_observation_count": 1,
+          "stale_grant_observation_count": 0,
+          "authoritative_grant_version_at_decision": 3,
           "irrelevant_count": 0,
           "receipt_count": 0,
           "grant_observation_count": 1,
@@ -135,7 +150,7 @@
           "effect_status": "committed",
           "failure_origin": "none"
         },
-        "reason": "evidence complete and property holds in scope; decision=allow required=allow committed_effect=True"
+        "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=allow required=allow committed_effect=True effect_settlement=committed"
       },
       {
         "call_id": "b-claim",
@@ -143,6 +158,11 @@
         "grant_id": "grant-shared",
         "decision": "allow",
         "committed_effect": true,
+        "effect_settlement": "committed",
+        "effect_refusal_reason": null,
+        "effect_boundary_enforced": false,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 4,
         "authoritative_owner_state": {
           "grant": {
             "grant_id": "grant-shared",
@@ -164,7 +184,7 @@
               "grant_id": "grant-shared",
               "agent": "A",
               "call_id": "a-claim",
-              "decision_event_id": "evt-404-0006",
+              "decision_event_id": "evt-404-0008",
               "owner_version_at_commit": 4
             },
             {
@@ -185,25 +205,29 @@
             {
               "grant_id": "grant-shared",
               "owner": "A",
-              "state": "spent",
+              "state": "active",
               "epoch": "epoch-1",
-              "owner_version": 4,
+              "owner_version": 3,
               "assignees": [
                 "A",
                 "B",
                 "C"
               ],
-              "spent": true,
-              "source_event_id": "evt-404-0010",
-              "observation_id": "obs-404-0009"
+              "spent": false,
+              "source_event_id": "evt-404-0007",
+              "observation_id": "obs-404-0006",
+              "delivered_freshness": "current",
+              "observation_freshness": "stale"
             }
           ],
           "receipts": [],
           "irrelevant_facts": [],
           "observation_ids": [
-            "obs-404-0009"
+            "obs-404-0006"
           ],
-          "has_current_grant_observation": true
+          "has_current_grant_observation": false,
+          "has_stale_grant_observation": true,
+          "authoritative_grant_version_at_decision": 4
         },
         "evaluator_learned_afterward": {
           "authoritative_owner_state": {
@@ -227,7 +251,7 @@
                 "grant_id": "grant-shared",
                 "agent": "A",
                 "call_id": "a-claim",
-                "decision_event_id": "evt-404-0006",
+                "decision_event_id": "evt-404-0008",
                 "owner_version_at_commit": 4
               },
               {
@@ -242,7 +266,10 @@
             "ledger_owner_version": 5
           },
           "committed_effect": true,
+          "effect_settlement": "committed",
           "required_decision": "deny",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 4,
           "one_use_effect_count": 2
         },
         "observation_denominators": {
@@ -251,9 +278,12 @@
           ],
           "required_count": 1,
           "present_discriminators": [
-            "current_grant_observation"
+            "stale_grant_observation"
           ],
           "present_count": 1,
+          "current_grant_observation_count": 0,
+          "stale_grant_observation_count": 1,
+          "authoritative_grant_version_at_decision": 4,
           "irrelevant_count": 0,
           "receipt_count": 0,
           "grant_observation_count": 1,
@@ -269,7 +299,7 @@
           "effect_status": "committed",
           "failure_origin": "effect_boundary"
         },
-        "reason": "evidence complete but exercised enforcement violates the property; decision=allow required=deny committed_effect=True"
+        "reason": "evidence complete but exercised enforcement violates the property; evidence_integrity=authentic; decision=allow required=deny committed_effect=True effect_settlement=committed"
       }
     ],
     "expected": {
@@ -280,6 +310,10 @@
       "committed_effects": {
         "a-claim": true,
         "b-claim": true
+      },
+      "effect_settlements": {
+        "a-claim": "committed",
+        "b-claim": "committed"
       },
       "one_use_ok": false,
       "claim_conclusions": {

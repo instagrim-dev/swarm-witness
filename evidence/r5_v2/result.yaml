@@ -3,13 +3,13 @@ label: reproduced
 authoritative: finding
 finding_path: findings/r5v2-f-swarm-audit.json
 metrics:
-  case_count: 36
+  case_count: 40
   family_count: 6
   coverage_dimension_count: 7
   missing_evidence_count: 4
-  failed_enforcement_count: 11
+  failed_enforcement_count: 15
   supported_count: 21
-  concurrency_row_count: 10
+  concurrency_row_count: 12
   held_out_count: 3
   all_checks_pass: true
 notes: R5-v2 wider coverage; v1 retained; concurrency from pinned multi-agent-sim-v1

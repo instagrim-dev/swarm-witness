@@ -38,28 +38,19 @@
       "grant": {
         "grant_id": "grant-shared",
         "owner": "A",
-        "state": "spent",
+        "state": "revoked",
         "epoch": "epoch-1",
-        "owner_version": 5,
+        "owner_version": 4,
         "assignees": [
           "A",
           "B",
           "C"
         ],
-        "spent": true
+        "spent": false
       },
-      "committed_effect_count": 1,
-      "committed_effects": [
-        {
-          "effect_id": "effect-b-late",
-          "grant_id": "grant-shared",
-          "agent": "B",
-          "call_id": "b-late",
-          "decision_event_id": "evt-303-0009",
-          "owner_version_at_commit": 5
-        }
-      ],
-      "ledger_owner_version": 5
+      "committed_effect_count": 0,
+      "committed_effects": [],
+      "ledger_owner_version": 4
     },
     "trusted_ground_truth": null,
     "held_out_artifact": null,
@@ -78,6 +69,6 @@
       "assessment": "permission_refuted"
     },
     "conclusion_match": true,
-    "reason": "evidence complete and property holds in scope; decision=deny required=deny committed_effect=False"
+    "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=deny required=deny committed_effect=False effect_settlement=not_attempted"
   }
 }

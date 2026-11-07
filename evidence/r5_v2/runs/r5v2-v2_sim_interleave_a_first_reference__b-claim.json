@@ -78,6 +78,6 @@
       "assessment": "permission_refuted"
     },
     "conclusion_match": true,
-    "reason": "evidence complete and property holds in scope; decision=deny required=deny committed_effect=False"
+    "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=deny required=deny committed_effect=False effect_settlement=not_attempted"
   }
 }

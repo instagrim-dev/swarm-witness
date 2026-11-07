@@ -55,7 +55,7 @@
           "grant_id": "grant-shared",
           "agent": "A",
           "call_id": "a-claim",
-          "decision_event_id": "evt-404-0006",
+          "decision_event_id": "evt-404-0008",
           "owner_version_at_commit": 4
         },
         {
@@ -87,6 +87,6 @@
       "assessment": "enforcement_failed"
     },
     "conclusion_match": true,
-    "reason": "evidence complete but exercised enforcement violates the property; decision=allow required=deny committed_effect=True"
+    "reason": "evidence complete but exercised enforcement violates the property; evidence_integrity=authentic; decision=allow required=deny committed_effect=True effect_settlement=committed"
   }
 }

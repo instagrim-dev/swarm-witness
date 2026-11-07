@@ -24,8 +24,9 @@
     ]
   },
   "trusted_ground_truth": {
-    "grant_state": "active_but_receipt_present_without_spend_flag",
-    "note": "Fixture seeds a foreign prior receipt without marking spent; claim uses forged receipt_kind so oracle must deny. Classifier must not treat forged binding as authorization.",
+    "grant_state": "active",
+    "spent": false,
+    "note": "Fixture seeds a foreign prior receipt without marking the grant spent. The forged receipt is what the reference denies; it is not authorization.",
     "required_decision_for_c": "deny",
     "effect_may_commit": false
   },

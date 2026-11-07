@@ -14,10 +14,12 @@ unmodified** (`experiments/swarm_r5/`, `evidence/r5/`).
   the fixtures, not by the classifier).
 - Independently declared expectations in `case_expectations.yaml`.
 - Concurrency-derived rows from **pinned** `multi-agent-sim-v1` runs in
-  `concurrency_traces/` (issue #10 / PR #15) with sha256 digests in
-  `PROVENANCE.md`. Reference vs mutant contention is scored as
-  same-seed / same-event_count (not byte-identical `schedule_id`). Sequential
-  cases are **not** relabeled as races. No live concurrent swarm claim.
+  `concurrency_traces/`, copied from simulator commit `28b3642` (PR #23).
+  sha256 digests and that source commit are in `PROVENANCE.md`. PR #15 and
+  PR #19 snapshots are superseded. Reference vs mutant contention shares
+  seed, event_count, and `schedule_id`; the run documents are not
+  byte-identical. Sequential cases are **not** relabeled as races. No live
+  concurrent swarm claim.
 
 ## One-click local entry
 
