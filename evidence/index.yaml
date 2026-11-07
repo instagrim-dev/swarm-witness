@@ -1,0 +1,7 @@
+results:
+  - claim_id: r1
+    label: reproduced
+  - claim_id: r2
+    label: reproduced
+  - claim_id: r3
+    label: assumption_dependent
