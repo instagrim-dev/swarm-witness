@@ -47,20 +47,17 @@ equivalence, live execution safety, process-restart correctness, concurrency
 behavior, or general BMO equivalence. Legacy decision-model R3 remains
 separately unresolved.
 
-**R4 three-way conclusions (`reproduced` = synthetic conformance).** Establishes
-that the audit method can classify synthetic cases into missing_evidence,
-failed_enforcement, and supported, including a misbound-observation negative
-control. Does **not** establish live BMO behavior or cryptographic receipt
-authenticity. The Finding label `reproduced` here means protocol conformance,
-not independent external replication.
+**R4 three-way projection (`reproduced` = synthetic conformance + held-out).**
+Establishes classification into missing_evidence / failed_enforcement /
+supported with separable diagnoses, including misbound evidence
+(`failure_origin=evidence`) and one held-out misleading artifact. Does **not**
+prove the taxonomy is necessary or sufficient versus other assurance models.
+`reproduced` here is protocol conformance, not external replication.
 
 **R5 multi-principal transfer (`reproduced` = synthetic conformance).**
-Establishes that the same three-way method classifies a sequential in-memory
-three-principal model covering shared-grant contention, A→B then B→C assignee
-hops, and ledger-bound receipt misuse, distinguishing wrong decisions from
-committed effects. Does **not** establish concurrent worker execution, live BMO
-mesh equivalence, cryptographic multiparty authorization, or unbounded
-population-scale swarm safety.
+Establishes taxonomy transfer on a sequential three-principal model; broken
+allows use `effect_status=prevented` and `failure_origin=decision_policy`.
+Does **not** establish concurrent worker execution or live swarm oversight.
 
 ## Finite experiments and checker scope
 

@@ -29,6 +29,11 @@
     "ground_truth_mismatch": false,
     "misbound_detected": null,
     "observation_authentic": null,
-    "failure_origin": null
+    "failure_origin": "none",
+    "evidence_status": "missing",
+    "decision_status": "unknown",
+    "effect_status": "unobserved",
+    "held_out_artifact": null,
+    "case_evaluation_method": null
   }
 }

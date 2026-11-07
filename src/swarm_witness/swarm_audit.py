@@ -19,6 +19,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
+from swarm_witness.audit_diagnosis import diagnosis
 from swarm_witness.conclusion_classes import classify_conclusion
 
 AgentId = Literal["A", "B", "C"]
@@ -160,6 +161,12 @@ def attempt_claim(
                 f"agent {agent} lacks observed grant {grant_id} "
                 "(peer activity / foreign receipt is not substitute evidence)"
             ),
+            **diagnosis(
+                evidence_status="missing",
+                decision_status="unknown",
+                effect_status="unobserved",
+                failure_origin="none",
+            ),
         }
 
     if use_foreign_receipt_from is not None and foreign_receipt is None:
@@ -187,6 +194,12 @@ def attempt_claim(
                 "foreign-receipt misuse path requested but no ledger-bound "
                 f"receipt for {use_foreign_receipt_from} on {grant_id} — "
                 "missing_evidence"
+            ),
+            **diagnosis(
+                evidence_status="missing",
+                decision_status="unknown",
+                effect_status="unobserved",
+                failure_origin="none",
             ),
         }
 
@@ -223,14 +236,39 @@ def attempt_claim(
         )
         effect_committed = True
 
-    assessment = (
-        "enforcement_failed"
-        if not holds
-        else ("permission_justified" if decision == "allow" else "permission_refuted")
-    )
+    if not holds:
+        # Wrong decision; effect deliberately prevented → decision_policy, not
+        # effect_boundary failure.
+        effect_status = "prevented" if decision == "allow" else "not_applicable"
+        diag = diagnosis(
+            evidence_status="authentic",
+            decision_status="incorrect",
+            effect_status=effect_status,  # type: ignore[arg-type]
+            failure_origin="decision_policy",
+        )
+        assessment = "enforcement_failed"
+    elif decision == "allow":
+        diag = diagnosis(
+            evidence_status="authentic",
+            decision_status="correct",
+            effect_status="committed",
+            failure_origin="none",
+        )
+        assessment = "permission_justified"
+    else:
+        diag = diagnosis(
+            evidence_status="authentic",
+            decision_status="correct",
+            effect_status="not_applicable",
+            failure_origin="none",
+        )
+        assessment = "permission_refuted"
+
     reason = classified["reason"] + (
         f"; agent={agent} decision={decision} required={required} "
-        f"effect_committed={effect_committed}"
+        f"effect_committed={effect_committed} "
+        f"failure_origin={diag['failure_origin']} "
+        f"effect_status={diag['effect_status']}"
     )
     if foreign_receipt is not None:
         reason += f"; presented_receipt={foreign_receipt['receipt_id']}"
@@ -252,6 +290,7 @@ def attempt_claim(
         "finding_label": classified["finding_label"],
         "property_holds": holds,
         "reason": reason,
+        **diag,
     }
 
 

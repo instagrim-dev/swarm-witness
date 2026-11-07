@@ -21,7 +21,7 @@
     "observed_grant": "revoked",
     "delegate_id": null,
     "principal_id": null,
-    "reason": "supplied grant observation 'revoked' misbinds ground truth 'active'; end-to-end decision 'deny' vs truth-required 'allow' \u2014 failed_enforcement with failure_origin=evidence_misbinding (not a gate-policy diagnosis)",
+    "reason": "supplied grant observation 'revoked' misbinds ground truth 'active'; end-to-end decision 'deny' vs truth-required 'allow' \u2014 high-level failed_enforcement with failure_origin=evidence (not decision_policy)",
     "expected_assessment": "enforcement_failed",
     "expected_conclusion_class": "failed_enforcement",
     "assessment_match": true,
@@ -29,6 +29,11 @@
     "ground_truth_mismatch": true,
     "misbound_detected": true,
     "observation_authentic": false,
-    "failure_origin": "evidence_misbinding"
+    "failure_origin": "evidence",
+    "evidence_status": "misbound",
+    "decision_status": "incorrect",
+    "effect_status": "unobserved",
+    "held_out_artifact": null,
+    "case_evaluation_method": null
   }
 }

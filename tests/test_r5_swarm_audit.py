@@ -36,11 +36,16 @@ def test_broken_allow_does_not_commit_effect_and_receipts_bind():
     broken = cases["swarm_contention_broken_second_allow"]["result"]
     assert broken["decision"] == "allow"
     assert broken["effect_committed"] is False
+    assert broken["effect_status"] == "prevented"
+    assert broken["failure_origin"] == "decision_policy"
+    assert broken["decision_status"] == "incorrect"
     misuse = cases["swarm_cross_agent_receipt_deny_supported"]["result"]
     assert misuse["presented_receipt"]["receipt_id"] == "receipt-a-xfer"
     broken_rx = cases["swarm_cross_agent_receipt_broken_allow"]["result"]
     assert broken_rx["presented_receipt"]["receipt_id"] == "receipt-a-prior"
     assert broken_rx["effect_committed"] is False
+    assert broken_rx["failure_origin"] == "decision_policy"
+    assert broken_rx["effect_status"] == "prevented"
 
 
 def test_independent_probe_suite_passes_and_detects_tamper():

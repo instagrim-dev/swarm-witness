@@ -30,7 +30,11 @@
       "call_id": "a-xfer"
     },
     "effect_committed": false,
-    "reason": "evidence complete and property holds in scope; agent=C decision=deny required=deny effect_committed=False; presented_receipt=receipt-a-xfer",
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "not_applicable",
+    "failure_origin": "none",
+    "reason": "evidence complete and property holds in scope; agent=C decision=deny required=deny effect_committed=False failure_origin=none effect_status=not_applicable; presented_receipt=receipt-a-xfer",
     "expected_conclusion_class": "supported",
     "expected_assessment": "permission_refuted",
     "conclusion_match": true

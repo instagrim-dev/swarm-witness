@@ -25,7 +25,11 @@
     "foreign_receipt_from": null,
     "presented_receipt": null,
     "effect_committed": true,
-    "reason": "evidence complete and property holds in scope; agent=B decision=allow required=allow effect_committed=True",
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "committed",
+    "failure_origin": "none",
+    "reason": "evidence complete and property holds in scope; agent=B decision=allow required=allow effect_committed=True failure_origin=none effect_status=committed",
     "expected_conclusion_class": "supported",
     "expected_assessment": "permission_justified",
     "conclusion_match": true

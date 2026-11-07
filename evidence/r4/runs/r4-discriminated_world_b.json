@@ -21,7 +21,7 @@
     "observed_grant": "revoked",
     "delegate_id": null,
     "principal_id": null,
-    "reason": "current grant observed revoked and authentic; correct deny \u2014 supported (enforcement held; permission claim refuted)",
+    "reason": "current grant observed revoked and authentic; correct deny \u2014 supported (decision correct; permission claim refuted)",
     "expected_assessment": "permission_refuted",
     "expected_conclusion_class": "supported",
     "assessment_match": true,
@@ -29,6 +29,11 @@
     "ground_truth_mismatch": false,
     "misbound_detected": false,
     "observation_authentic": true,
-    "failure_origin": null
+    "failure_origin": "none",
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "not_applicable",
+    "held_out_artifact": null,
+    "case_evaluation_method": null
   }
 }

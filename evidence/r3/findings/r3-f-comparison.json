@@ -25,5 +25,6 @@
     "classical-stale_grant_version.observations.decision",
     "bmo-stale_grant_version.observations.evaluator_outcome"
   ],
-  "conclusion_class": "missing_evidence"
+  "conclusion_class": "missing_evidence",
+  "evaluation_method": "matched_decision_model"
 }

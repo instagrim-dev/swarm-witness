@@ -25,7 +25,11 @@
     "foreign_receipt_from": null,
     "presented_receipt": null,
     "effect_committed": false,
-    "reason": "evidence complete but exercised enforcement violates the property; agent=B decision=allow required=deny effect_committed=False",
+    "evidence_status": "authentic",
+    "decision_status": "incorrect",
+    "effect_status": "prevented",
+    "failure_origin": "decision_policy",
+    "reason": "evidence complete but exercised enforcement violates the property; agent=B decision=allow required=deny effect_committed=False failure_origin=decision_policy effect_status=prevented",
     "expected_conclusion_class": "failed_enforcement",
     "expected_assessment": "enforcement_failed",
     "conclusion_match": true
