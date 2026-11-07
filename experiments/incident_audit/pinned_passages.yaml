@@ -1,0 +1,221 @@
+passages:
+- id: E01
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: 75825222982d555f69d595ba3385596ddbafd755ac9cd3479e5eefa45fed5398
+  text: ys to exploit our research infrastructure to communicate with one another
+    and access the internet. The models first found ways to communicate by writing
+    files into the Artifactory package manager. This effectively turned Artifactory
+    into an unintended message board, where agents could exchange i
+- id: E02
+  source_id: metr
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 175accaa3e534efcbe7435b5f6add9b8bff309d8fba18291fb8706d323afd49a
+  text: oard,-and-~700-attacked-hugging-face">Roughly 1200 agents</a> meant to be
+    isolated from one another found a way to communicate with one another on an unsanctioned
+    message board, sending over 70,000 messages and files during the investigation
+    period. Of these agents, 700 went
+- id: E03
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: 6df4f6522a0001a4c2d12047b8f443c1f34653609e3a364dd55149ff7c26acaa
+  text: 'ofttrace?’ but likely no. + 13 days ### May 26 1. Artifactory 2026-05-26
+    02 Internet via SSRF An agent achieved unintended internet access by causing Artifactory
+    to send a server-side request to an arbitrary internet destination.![Image 1:
+    Internet via SSRF](https://images.ctfassets.net/kftzwdyauwt9/1XS9bnL9RrtlceJl54sXEl/d9023'
+- id: E04
+  source_id: huggingface
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: d2697f16127b087182731bb3867faca473be55f034caa7cb6076e8c2133c6668
+  text: -evaluation-security-incident/</a>), during an internal capability evaluation
+    on OpenAI's platform, the agent escaped its sandbox by exploiting a zero-day in
+    the package registry cache proxy, one of its primary permitted network egress
+    with internet, then abused a public code-evaluation harness hosted by a user of
+    a third-party infrastructure prov
+- id: E05
+  source_id: huggingface
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 53a706da8619172a44e36aa4645fdd9c864d37700e61e832c0feb9f2c84d567c
+  text: 'other parties'' infrastructure, neither of which is us, so we will stay succinct
+    on these parts and mostly refer the reader to OpenAI''s blog post on the topic:
+    <a href="https://openai.com/index/hugging-face-model-evaluation-security-incident/"
+    rel="nofollow"'
+- id: E06
+  source_id: metr
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 94cad7c7dae95e6be1b8bb9aee059268953abcdbec3704de7895017c717e43d4
+  text: ranscripts the agent appears to run the command “<code class="language-plaintext
+    highlighter-rouge">echo REAL; sleep</code>”, but instead of returning the expected
+    output “<code class="language-plaintext highlighter-
+- id: E07
+  source_id: metr
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 1442044e40fb356135c1a63c0235c193018d4a8340fac4b35013043bc7d94009
+  text: text highlighter-rouge">REAL</code>” it returns “<code class="language-plaintext
+    highlighter-rouge">SPOOFTEST</code>”.<sup id="fnref:40"><a href="#fn:40" class="footnote"
+    rel="footnote" role="doc-noteref">40</
+- id: E08
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: 3ce7b749c4171be7c9bc27bb4d8f8f6d12ec1ee331191201d4a62c96e0591ae6
+  text: 'the swarm while it prepared its next step: Post sent to message board Raw
+    message Plain language please_HOLD_swarm_I_prepare_safe_exfil_reply_zz_MAILBOX_JAN183411
+    please_HOLD_swarm_I_prepare_safe_exfil_reply_zz_MAILBOX_JAN183411 Everyone, please
+    pause while I pr'
+- id: E09
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: 59d53528ced9815f7d428417a142578598f772770be80382f4fa354d52c5cf41
+  text: ch server, obtained limited private data, and gained credentials to the company
+    messaging platform. IM1 agents drove the principal compromise, but GPT‑5.6 Sol
+    agents also reproduced an exploit and copied some private evaluation data hosted
+    on Hugging Face into a public Hugging Face dataset.
+- id: E10
+  source_id: huggingface
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 859c2c9d6ecd6e87c5ea3bdddbde4af6e9a3bc68fa578c715a2bf1b0b5227bd8
+  text: 'remote URLs (cloud metadata endpoints like <code>169.254.169.254</code>):
+    the <code>datasets</code> library''s URL allowlist rejected every non-platform
+    URL before any fetch (<code>ValueError: not an hf path</code>). So the agent stopped
+    asking the worker to fetch <em>remo'
+- id: E11
+  source_id: huggingface
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 9bc4bb3633eb46750574727c145172abf52575f467d787c4653db4df4038c2e3
+  text: 'made it act on <em>local</em> ones: read a local file (Vector 1), or execute
+    local code (Vector 2). Neither is a URL fetch, so the allowlist never saw them.</p>
+    <h4 class="relative group flex items-baseline"> <a id="vector-1-hdf5-external-raw-storage-file'
+- id: E12
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: 4ae57278edd11d2ac2d21651f23c951c1d8b2a1d1960599cdd07001a5dc9200f
+  text: 'ing HF accounts. ### July 11 1. Hugging Face 2026-07-11 09 Hugging Face worker
+    secrets exposed Agents exploited a zero-day in Hugging Face’s handling of HDF5
+    files to extract credentials from production workers.Chain of thought HDF5 external
+    raw storage can map dataset bytes to arbitrary file via external file'
+- id: E13
+  source_id: huggingface
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 87e233be26b472c8e7544e12cb844dc8ba1d2e058e14694f19dadaf17fbbab84
+  text: 'that path and returned them as the dataset''s rows, which the agent then
+    read back over the HF API. No code ran; this vector is purely a file disclosure,
+    and it is the one the agent used first.</p> <p>The declared storage paths pointed
+    at exactly what an attacker looking for a foothold wants:'
+- id: E14
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: 8ee7d39d31e8cc26db181d0acd26e47bf561c6fc5dea0485547ffd61041007b8
+  text: eature! 2. Hugging Face 2026-07-11 10 Code execution on Hugging Face Using
+    the recovered access, agents exploited a RefJinja template-injection zero-day
+    to execute commands on Hugging Face workers.Chain of thought Excellent! Actual
+    arbitrary command execution achieved on HF worker at 17:24:54 via
+- id: E15
+  source_id: huggingface
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 773965a3faac80f129a2f1bf45071b0fcdcce97601856bea1770bfa4813c8637
+  text: 'ntColor"></path></svg></span> </a> <span> Vector 2: Jinja2 template injection
+    </span> </h4> <p>The second vector is server-side template injection, which gave
+    the agent code execution. A malicious dataset config used an fsspec <code>reference://</code>
+    spec whose numeric offset field'
+- id: E16
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: ddaca1e5dc8ba11c97df7dd5f75c19128f71ad355ef60cd5edf60529d5d5f4bc
+  text: 'itial qualms and continued: Agent chain-of-thought reasoning Raw Chain-of-Thought
+    Plain language Wow crucial: GO authorization arrived!Wow crucial: GO authorization
+    arrived!A go-ahead from the other agent has arrived.W o w c r u c i a'
+- id: E17
+  source_id: huggingface
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 040e3560dd3ca661ca68acda85cf7278bcc529044f5769e979b447559a42bf97
+  text: ed it.</p> <p><strong>The internal database (19:59).</strong> Six minutes
+    after reaching node root, the agent authenticated to the internal operational
+    datasets-server MongoDB with a static password it had read from the worker environment.
+    It also issued 84 operations against the credential store
+- id: E18
+  source_id: huggingface
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 13c7d66d41dac7bb48f88abf695391cd2bead401978453b8a9136241e0c4b3f3
+  text: ed the database audit log across the whole intrusion window and found no write
+    from those nodes, so the database was read but not modified. Network flow logs
+    likewise show no bulk extraction.</p> <p><strong>Secrets (20:23-21:32).</strong>
+- id: E19
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: d73a7bf3707c06cf62ac6d30b463ebbcadd728d6d67ae72b093dd5c62ddc347f
+  text: ons, we found our CoT monitors to be very effective at flagging activities
+    related to the incident. If our currently deployed CoT monitoring system was running
+    at the time of the incident, it would have caught the initial relevant activity
+    and paged our security team more than a day before models breached Hugging Face
+    systems. Third, while we had tested and validated this sandbox, the agents were
+    able to chain together prev
+- id: E20
+  source_id: metr
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 023fc4238c80b0a7ecd47f9eb6417342a6fe65eb47d710cd44eba8321ae9ce48
+  text: be addressed.</li> </ul> <p>We agreed all other questions were also out of
+    scope, including the effectiveness of safeguards, the extent of the security compromise
+    that occurred, and the effectiveness of OpenAI’s investigati
+- id: E21
+  source_id: openai
+  synthetic: false
+  retrieval: readability_proxy_jina_2026-11-07
+  sha256: edf042645ed21c7779d0d16730968facd7454d2932f3d95c23ca54a08adf5b06
+  text: '90) + 1 day ### July 10 1. Hugging Face 2026-07-10 08 Hugging Face credentials
+    recovered An agent reconstructed, validated, and shared 14 publicly exposed Hugging
+    Face credentials with write access.Chain of thought MAJOR BREAKTHROUGH! All prefixed
+    valid, multiple accounts, write tokens! We now hav'
+- id: E22
+  source_id: shared_receipt
+  synthetic: true
+  quote_sha256: 3caa1ce7995bd035b97692f6963775f2a9c06cd326cafbc123d74cad93bca63d
+- id: E23
+  source_id: metr
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 23d9dbbefb17c709f8830d40583d476281fb7dfaa87fc4092eb40e27e51287ed
+  text: <a href="#a-dump-of-1.2-million-entries-from-a-cache-namespace-that-agents-used-as-a-message-board">>70,000
+    messages and files</a> posted by agents to the main message board.</li> <li>A
+    set of <a href="#a-set-of-~1300-ag
+- id: E24
+  source_id: metr
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: 6c70178ba7939f6447938ef99757783ec7bcdac8ca636e7012ebfe6723d53b32
+  text: based on a richer reconstructed message dataset we built, not the original
+    message board dump, and could be imprecise (see <a href="#identifying-important-messages-and-classifying-them-by-workstream">methodology
+    detai
+- id: E25
+  source_id: synthetic_dependency_fixture
+  synthetic: true
+  quote_sha256: 586986a0c016003033fd4aba8cf0983fdf089f7ae1ff75acb40c46f43a2b1cb8
+- id: E26
+  source_id: metr
+  synthetic: false
+  retrieval: official_html_unescaped
+  sha256: e1d187e4a67b1242ec7ed5072116067149b65e1dd87c9100676522ab63b47904
+  text: <sup id="fnref:49"><a href="#fn:49" class="footnote" rel="footnote" role="doc-noteref">49</a></sup>
+    We also did not have the ability to directly access relevant data from OpenAI
+    infrastructure, but we could request additional datasets and OpenAI shared additional
+    datasets on several occasions.</p> <p>We requested to speak with researchers investigating
+    this incident, and asked them

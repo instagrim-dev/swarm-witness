@@ -1,9 +1,12 @@
 id: incident-corpus-v1
 retrieval_date: 2026-11-07
 scoring_rule: >
-  Excerpts admitted to scoring are short quotes from the four sources named in
-  issue #27. Bytes of the full pages are not redistributed. Quotes were checked
-  as contiguous substrings of the retrieval named below.
+  Excerpts admitted to scoring are short quotes from the sources named below.
+  A non-synthetic quote has to be a contiguous substring of the HTML-unescaped
+  retrieval. The METR count is stored in the HTML as &gt;70,000 and decodes to
+  the quote. Full pages are not redistributed. Passage windows are in
+  pinned_passages.yaml. verify_pins.py checks those windows and, with --fetch,
+  the stable digests below. The OpenAI readability digest is not rechecked.
 sources:
   - id: openai
     title: The Hugging Face incident and the road ahead
@@ -19,10 +22,14 @@ sources:
         challenge (HTTP 403, 10044 bytes), not the article.
     readability_retrieval:
       note: >
-        Article text was retrieved through a readability conversion on
-        2026-11-07 and is the quote source. It is not the raw HTML.
+        A readability conversion on 2026-11-07 was hashed below. Those bytes
+        are not in the repo, and a direct GET is HTTP 403, so this digest is
+        not rechecked. Scoring quotes from this blog are bound to passage
+        windows taken from a separate public readability rendering.
       sha256: db566386c305210c0dd1cb6d9e4b7cac0a97ec3a0e5ac64ab4b3237ee79cc4e6
       bytes: 40765
+      bytes_in_repo: false
+      live_recheck: false
     redaction_scope: >
       The blog is a public summary. It points to a full technical report that
       was not retrieved for this corpus. Chain-of-thought excerpts are the
@@ -67,9 +74,17 @@ sources:
     retrieval_date: 2026-11-07
     admitted_to_scoring: true
     html:
-      sha256: a5b2ebfc7a9aadfc29057b02c177a32928cb5db7dad12155aaff92b6f45d25cc
-      bytes: 734275
       http_status: 200
+      full_response_bytes: 734275
+      full_response_sha256_reproducible: false
+      full_response_note: >
+        Three GETs on 2026-11-07 were 734275 bytes and differed only in
+        window.requestId. None matched the previously recorded digest
+        a5b2ebfc7a9aadfc29057b02c177a32928cb5db7dad12155aaff92b6f45d25cc.
+        The pin replaces that assignment with a fixed token.
+      normalization: 'replace window.requestId = "..." with window.requestId = "NORMALIZED"'
+      request_id_normalized_sha256: 56e032289828592741ab7721130c6fe47d1e54f463d81917c8a1905d3b679012
+      request_id_normalized_bytes: 734245
     redaction_scope: >
       Hugging Face says live credentials, internal hostnames, and specific
       indicators were redacted or genericized. Techniques are described as
@@ -92,6 +107,13 @@ sources:
     full_report_not_retrieved:
       url: https://pys8vc40ox3z7qxp.public.blob.vercel-storage.com/files/21bc88fc285e995a--4db2-b68b-ee616882a53e-What_Happened_and_What_Breaks_Next_Haddock_Blackfish.pdf
       admitted_to_scoring: false
+    redaction_scope: >
+      Sprint-page abstract only. The full PDF URL is recorded and the PDF
+      was not retrieved. No incident log is taken from this page.
+    provenance: >
+      Secondary reconstruction. Excluded from scoring so it cannot corroborate
+      a primary report.
+    access: public sprint page; not an observation in the comparison
     note: >
       Sprint-page abstract only. Excluded from scoring so a secondary
       reconstruction cannot corroborate primary telemetry. Issue #27 says to
