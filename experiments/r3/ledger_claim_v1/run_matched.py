@@ -31,18 +31,19 @@ def _sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def validate_run_id(run_id: str, *, evidence_root: Path = EVIDENCE_ROOT) -> Path:
+def validate_run_id(run_id: str, *, evidence_root: Path | None = None) -> Path:
     """Restrict run IDs to safe filename tokens and keep paths contained.
 
     Refuses path separators, ``..``, and pre-existing run directories so evidence
-    is immutable under a given run identity.
+    is immutable under a given run identity. ``evidence_root`` defaults to the
+    module ``EVIDENCE_ROOT`` at call time (so tests can monkeypatch it).
     """
     if not isinstance(run_id, str) or not _RUN_ID_RE.fullmatch(run_id):
         raise ValueError(
             f"run_id {run_id!r} must match {_RUN_ID_RE.pattern} "
             "(no path separators or '..')"
         )
-    root = evidence_root.resolve()
+    root = (evidence_root if evidence_root is not None else EVIDENCE_ROOT).resolve()
     run_dir = (root / run_id).resolve()
     try:
         run_dir.relative_to(root)

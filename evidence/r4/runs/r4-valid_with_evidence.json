@@ -1,0 +1,23 @@
+{
+  "id": "r4-valid_with_evidence",
+  "claim_id": "r4",
+  "protocol_id": "r4-evidence-sufficiency-v1",
+  "case_id": "valid_with_evidence",
+  "source_pin": "swarm-witness-r4-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "valid_control",
+    "assessment": "permission_justified",
+    "decision": "allow",
+    "justified_permission_claim": true,
+    "ground_truth_grant": "active",
+    "include_current_grant": true,
+    "include_irrelevant": false,
+    "observed_grant": "active",
+    "reason": "current grant observed active; permission claim supported",
+    "expected_assessment": "permission_justified",
+    "assessment_match": true,
+    "ground_truth_mismatch": false,
+    "misbound_detected": null
+  }
+}

@@ -10,65 +10,59 @@ title: "Swarm Witness: What Do Agent-Safety Mechanisms Actually Establish?"
 
 ## Abstract
 
-After matching policy, observations, trust assumptions, durability, and
-enforcement coverage, which claimed benefits of agent-safety mechanisms remain?
-We test that question with Swarm Witness, an executable claim-audit kit that
-pins third-party artifacts, states precise claim cards, runs discriminating
-checks, and records fail-closed conclusion labels. Classical reductions
-(recover-before-admit; no-implicit-exclusivity; durable grant-table checks) are
-questions under test via matched baselines—not intro verdicts. On three pinned
-targets we obtain: SoundGate recovery-barrier (R1) reproduced — 153
-histories/policy, original prohibited effects 143 vs barrier 0, with 147 strict
-refusal-startup refusals; EvidenceGraph receipt stress (R2) reproduced —
-36/36 condition-by-seed checks, old-rule relay wrong attributions [1,1,1] per
-seed vs safer supported [0,0,0], and clean withheld-without-exclusivity
-[12,12,12]; BMO retained-grant vs ClassicalGate (R3 decision-model) unresolved
-— matched decision-model comparison incomplete (0/4 isomorphic BMO observations;
-selected Go package tests are metadata only); separately, derived protocol
-r3-ledger-claim-v1 reports a bounded L1 ledger-claim match
-(`classical_baseline_matches`) for six synthetic cases under native pin
-`4b717d7` (dispositions and property-relevant projections at every step; not
-full identity-hash equality or general BMO equivalence). Weekend contributions
-claimed here are (1) pinned replications for R1/R2, (2) the audit kit, and
-(3) a scoped L1 ledger-claim comparison distinct from the unresolved
-decision-model R3. Auditors should publish matched baselines and labels.
+When agent-safety controls produce apparently valid evidence, what additional
+observations, assumptions, and comparisons are required before we can justify
+claims about their behavior? We introduce Swarm Witness, an executable
+claim-audit method that makes those distinctions explicit through source-pinned
+experiments, conventional reference monitors, and fail-closed findings.
+Classical authorization is the null hypothesis—not a new primitive we invent.
+We apply the method to two prior agent-safety projects, reproducing bounded
+results on restart-safe authorization (R1: 153 histories/policy; barrier
+prohibited effects 0 vs original 143) and receipt-attribution ambiguity (R2:
+36/36 condition-by-seed checks). Separately, a new matched experiment compares
+BMO’s transactional first-edit admission with an independent SQLite gate across
+six synthetic cases; retained observations agree on the tested one-use
+properties under a fail-closed native pin (`classical_baseline_matches`), while
+the legacy decision-model R3 comparison remains unresolved. A fourth protocol
+shows that identical old receipts with unobserved current grant leave valid and
+revoked worlds indistinguishable, so permission claims stay unsupported until a
+discriminating observation is supplied (R4 reproduced). Our contribution is a
+reusable approach to distinguishing reproduced mechanisms, classical
+explanations, incomplete observations, and conclusions evidence cannot justify—
+not a swarm-authorization architecture or a proof of general BMO equivalence.
 
 # 1. Introduction
 
-**Research question.** After matching policy, observations, trust assumptions,
-durability, and enforcement coverage, which claimed benefits of agent-safety
-mechanisms remain?
+**Research question.** When agent-safety controls produce apparently valid
+evidence, what additional observations, assumptions, and comparisons are
+required before we can justify claims about their behavior?
 
 Authorization gates, receipt graphs, and retained grants are agent-facing
-controls that auditors must score carefully. When a report claims a restart-safe
-refusal, receipt-based attribution, or retained-grant relaunch control, the
-open question is whether the result is a new property, a repaired instance of a
-classical mechanism, or an incomplete comparison. Classical reductions—
-recover-before-admit for durable logs, no-implicit-exclusivity for receipt
-tokens, and durable grant-table checks before admit—are **questions we test**
-with matched baselines, not conclusions we assert in the introduction.
+controls that auditors must score carefully. A mechanism can work as
+implemented while the evidence used to justify broader claims remains
+insufficient. Swarm Witness makes that distinction testable through pinned
+reproductions, matched classical controls, and explicit observation boundaries.
+Classical authorization is the **null hypothesis**—not a new architecture we
+propose, and not a claim that BMO is equivalent to classical security.
 
 **Threat / failure modes.** (i) An admission gate forgets an acknowledged
 rejection across restart when the durable log is not recovered before admit.
 (ii) A verifier treats possession of a copied receipt token as event
 attribution without exclusivity or authenticity. (iii) Retained start/grant
-metadata is treated as standing relaunch authority without consulting a durable
-grant table.
+metadata or an old receipt is treated as standing authority without consulting
+current grant state.
 
 **Main contributions (claimed).**
 
-1. **Audit kit:** Swarm Witness pins artifacts, types Claim/Run/Finding cards,
-   states classical baselines, runs discriminating experiments, and fails closed
-   on evidence consistency (`reproduced`, `unresolved`, …).
-2. **Pinned replications:** SoundGate recovery barrier (R1) and EvidenceGraph
-   receipt stress (R2) under published harnesses, with metrics from committed
-   `evidence/*/summary.json`.
-
-A broad methodological finding that BMO’s durable-grant story reduces to
-classical controls is **not claimed**: the legacy decision-model R3 comparison
-remains incomplete (`unresolved`). Separately, derived protocol
-**r3-ledger-claim-v1** contributes a **bounded L1 ledger-claim match** under
-pin `4b717d7` (see §4.4), not a general equivalence claim.
+1. **Pinned claim auditing** of two prior projects (R1/R2) as controlled
+   exemplars under source pins—not as weekend discoveries of those mechanisms.
+2. **New classical reference-monitor comparison** against BMO’s transactional
+   first-edit owner (r3-ledger-claim-v1), with a bounded L1 match under
+   fail-closed native qualification; legacy decision-model R3 stays unresolved.
+3. **Evidence-sufficiency audit (R4)** that refuses to justify permission when
+   Worlds with identical old receipts differ only in unobserved current grant
+   state, and that upgrades only when a discriminating observation is supplied.
+4. **Not claimed:** generalization to multi-agent delegation / swarm behavior.
 
 Tracks: **3** (Strengthening Agent Infrastructure) and **4** (Multi-Agent
 Oversight and Control). Preexisting BMO code and Oct 25 scaffold are marked in
@@ -83,44 +77,44 @@ Greenblatt et al., 2024). Concrete targets:
 
 - **SoundGate / “A Restart Is Not Permission”** — durable auth decisions and
   recovery-barrier repair (pinned package `soundgate==0.1.3`, source revision
-  `6568403`).
+  `6568403`). Original authors already reported the core repair; we reproduce
+  under pin.
 - **EvidenceGraph / Junejo “Receipt Possession Is Not Event Attribution”** —
-  stress harness at git rev `a5ea5c9`; paper baseline rev `efbd419` (pre-extension
-  behavior; no runnable stress script at that rev).
+  stress harness at git rev `a5ea5c9`; paper baseline rev `efbd419`. Again a
+  bounded reproduction of a published information-quality failure.
 - **BMO ordinary-retry retained grant** — preexisting durable grant /
-  owner-witness tests under pinned `bmo_root` / `git_rev` (read-only `go test`
-  as metadata).
+  owner-witness surfaces under pinned `git_rev`; our new work is the matched
+  ClassicalLedgerGate comparison and evidence packaging, not BMO itself.
 
-In-repo baseline cards state mechanism classes without equating every proxy to
-a decision match. Swarm Witness differs from building a new gate: it asks what
-labels survive matched baselines and discriminating checks.
+In-repo baseline cards state inherited mechanism classes (recover-before-admit;
+no-implicit-exclusivity; durable grant-table checks) without equating every
+proxy to a decision match. Swarm Witness differs from building a new gate: it
+asks what labels survive matched baselines and discriminating checks.
 
 # 3. Methods
 
 **Claim cards** (`claims/*.yaml`) fix `property`, `scope`, `quantifier`,
-`success_criterion`, and `assumptions` (plus source_ref/version and original vs operational interpretation). Classical baselines live in `baselines/*.md` as authored notes, not Claim fields.
-**Pins** (`artifacts/pins.yaml`) freeze revisions and hashes. **Baselines**
-state the mechanism class without equating every proxy to a decision match.
-**Evidence** uses Finding labels; `scripts/check_evidence.py` fails closed if
-`evidence/index.yaml` disagrees with findings or supporting refs are missing.
-The checker’s metric-binding scope is limited: reported metrics must agree with
-linked Run observations when keys overlap—it does not re-execute harnesses.
+`success_criterion`, and `assumptions` (plus source_ref/version and original vs
+operational interpretation). Classical baselines live in `baselines/*.md` as
+authored notes, not Claim fields. **Pins** (`artifacts/pins.yaml`) freeze
+revisions and hashes. **Evidence** uses Finding labels; `scripts/check_evidence.py`
+fails closed if `evidence/index.yaml` disagrees with findings or supporting refs
+are missing. The checker’s metric-binding scope is limited: reported metrics
+must agree with linked Run observations when keys overlap—it does not re-execute
+harnesses.
 
 **R1 (SoundGate).** Rebuild and sweep the paper recovery-barrier harness at
 pinned source `6568403`. Compare policies `original`, `strict`, and `barrier`
 over the published histories. Success for reproduction: barrier
 `prohibited_effects == 0` with original showing the defect. Full `raw.json` is
-gitignored; committed `evidence/r1/raw.json.gz` supports local inspection
-(`gzip -dc … > raw.json`). Recorded `raw_sha256` is integrity only—hash alone
-does not replace inspecting analysis case records. Supplemental cargo
-`wal_recovery_barrier` on 0.1.4 recorded in notes.
+gitignored; committed `evidence/r1/raw.json.gz` supports local inspection.
+Recorded `raw_sha256` is integrity only.
 
 **R2 (EvidenceGraph).** The harness **runs at `a5ea5c9`**, which publishes
 `incident_stress.py`. Paper baseline `efbd419` is the pre-extension tree
 (no stress script); baseline *behavior* is represented by replaying the
-authors’ later-published stress pack at `a5ea5c9` (old-rule vs safer-default
-contrast), not by executing a missing harness at `efbd419`. Label `reproduced`
-when all contract checks pass.
+authors’ later-published stress pack at `a5ea5c9`. Label `reproduced` when all
+contract checks pass.
 
 **R3 (two distinct protocols).** Legacy **r3-matched-decision-model** uses shared
 `cases.yaml` decision-model inputs; ClassicalGate emits allow/deny per case.
@@ -128,13 +122,22 @@ BMO decisions require isomorphic observations—never package pass counts. When
 any required BMO case is unmatched, that comparison Finding is **`unresolved`**.
 Derived **r3-ledger-claim-v1** separately compares ClassicalLedgerGate (SQLite)
 to native `ClaimOrdinaryRetainedGrantFirstEditTx` under pin `4b717d7` with
-fail-closed native qualification.
+fail-closed native qualification (manifest, exit 0, adapter identity,
+git-archive pin inventory, bridge hashes, archived log).
+
+**R4 (evidence sufficiency).** Worlds A (grant active) and B (grant revoked)
+share an identical old receipt. Without observing current grant state,
+assessments must remain **unsupported** and identical. Observing current grant
+must separate allow vs deny. An irrelevant observation must not upgrade
+unsupported assessments. Misbound observations are recorded as adversarial
+controls. Protocol: `experiments/evidence_sufficiency/`.
 
 # 4. Results
 
 Labels from `evidence/index.yaml` / findings only: R1 **reproduced**, R2
 **reproduced**, R3 decision-model **unresolved**, R3 ledger-claim-v1
-**classical_baseline_matches** (bounded L1). Metrics cite `evidence/*/summary.json`.
+**classical_baseline_matches** (bounded L1), R4 **reproduced**. Metrics cite
+`evidence/*/summary.json`.
 
 ## 4.1 R1 — SoundGate recovery barrier (`reproduced`)
 
@@ -148,10 +151,10 @@ Fresh local rebuild+sweep; `all_checks_pass: true`;
 | barrier | 153 | **0** | 0 | **153** | 153 |
 
 Barrier restores acknowledge-and-restrict across restart under the published
-histories; original loses restrictions (143 prohibited effects). Cargo
-`wal_recovery_barrier` on 0.1.4: 3 passed (notes). Classical recover-before-admit
-is an authored baseline interpretation (`baselines/r1_wal_recover_before_admit.md`),
-not a separate empirical `classical_baseline_matches` Finding.
+histories; original loses restrictions (143 prohibited effects). This
+establishes reproducibility within tested conditions, not a new recovery
+principle. Classical recover-before-admit is an authored baseline interpretation
+(`baselines/r1_wal_recover_before_admit.md`).
 
 ## 4.2 R2 — Receipt ≠ attribution (`reproduced`)
 
@@ -168,8 +171,9 @@ Harness at `a5ea5c9`; `condition_by_seed_checks` **36**, passed **36**; seeds
 | false_exclusivity confident errors | 1 | 1 | 1 |
 
 Relay seed-0 outcomes: ambiguous 10, unmatched 2. Safer default withholds
-attribution without exclusivity; old rule errs once per seed on relay. Classical
-no-implicit-exclusivity is authored interpretation
+attribution without exclusivity; old rule errs once per seed on relay. Bounded
+reproduction of a published information-quality failure; classical
+no-implicit-exclusivity remains authored interpretation
 (`baselines/r2_no_implicit_exclusivity.md`).
 
 ## 4.3 R3 — Retained grant vs ClassicalGate (`unresolved`)
@@ -198,35 +202,50 @@ pin `4b717d7` recorded equal dispositions and property-relevant projections
 (grant_spent, counts, call_id sets) at every step, and both arms satisfied the
 declared one-use / reopen / rollback properties. Finding
 `r3-ledger-claim-v1-comparison` label **`classical_baseline_matches`** under
-fail-closed native qualification (manifest, exit 0, adapter identity, git-archive
-pin inventory, bridge hashes). Cross-arm equality does **not** claim native
-grant/epoch hash identity parity with synthetic classical aliases; durable
-identity rows are archived under `observed_identities` for audit. This does not
-establish event-by-event observational equivalence beyond the declared
-projection, live execution safety, process-restart correctness, concurrency, or
-general BMO equivalence.
+fail-closed native qualification. Cross-arm equality does **not** claim native
+grant/epoch hash identity parity with synthetic classical aliases. This does
+not establish general BMO equivalence, multi-agent handoff, concurrency, or
+process-restart correctness. Selected run:
+`evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/`.
+
+## 4.5 R4 — Evidence sufficiency (`reproduced`)
+
+Nine synthetic cases under `r4-evidence-sufficiency-v1`: blind Worlds A/B with
+the same old receipt remain **unsupported** and indistinguishable; an irrelevant
+fact does not upgrade them; observing current grant separates allow (A) from
+deny (B); legitimate allow proceeds when that evidence is present for A;
+misbound observations are flagged as adversarial controls. Finding
+`r4-f-evidence-sufficiency` label **`reproduced`**;
+`all_checks_pass: true`; `unsupported_blind_count: 4`. This is the
+cross-study methodological probe: the kit refuses an unsupported permission
+finding when evidence is insufficient, then revises only after a discriminating
+observation.
 
 # 5. Discussion
 
-**Implications.** For Tracks 3–4, durable identity and oversight claims should
-be scored against classical admit and evidence rules under matched
-observations. R1 and R2 show that published repairs can **reproduce** under
-pinned harnesses; that is valuable engineering and audit evidence, not proof of
-a new multi-agent primitive. Legacy R3 shows the fail-closed path: without
-isomorphic decision-model BMO observations, that comparative audit stays
-**unresolved**. The separate L1 ledger-claim protocol shows a bounded match is
-possible when both arms emit complete native observations under a pinned bridge.
+**Synthesis.** R1 is a reproduced mechanism failure under pin; R2 is a
+reproduced evidence-attribution failure; R3-L1 is an observed classical-baseline
+match on a narrow L1 surface; R4 shows the audit method can withhold a success
+label when Worlds sharing a receipt are still indistinguishable. None alone
+establishes safety across a multi-agent population. Original authors of R1/R2
+already reported the core behaviors—their role here is as controlled exemplars
+for the auditing method.
 
-**Limitations (summary).** ClassicalGate is a **decision-model** null (not
-restart durability); legacy R3 comparison is incomplete; ledger-claim equality
-is projection-scoped (not full identity-hash equality); R1 raw inspectability
-is via committed `raw.json.gz`; R2 executable binding is `a5ea5c9` with
-`efbd419` as behavioral baseline via published stress pack; evidence checker
-metric-binding is scope-limited. Full Limitations and Dual-Use appendix follows.
+**Implications.** A security mechanism can work as implemented while broader
+claims remain under-supported. Swarm Witness makes that gap testable. Classical
+reference monitors explain some agent-safety results; missing observations
+explain others; the executable audit should prevent either case from being
+overstated.
 
-**Future work.** Shared observation APIs for decision-model R3 isomorphic
-matches; optional explicit grant/epoch alias map with negative controls; expand
-pins; automate baseline-vs-claim diffs for continuous oversight.
+**Limitations (summary).** ClassicalGate is a decision-model null (not restart
+durability); legacy R3 is incomplete; ledger-claim equality is projection-scoped;
+R4 is synthetic (not live BMO or delegated agents); R1/R2 inspectability and pin
+bindings are as above; multi-agent handoff is future work. Full Limitations and
+Dual-Use appendix follows.
+
+**Future work.** Isomorphic decision-model R3 probes; explicit grant/epoch
+alias maps; delegated multi-agent handoff under the same evidence-sufficiency
+discipline; continuous baseline-vs-claim diffs.
 
 
 # Appendix A. Limitations and Dual-Use / Ethical Considerations
@@ -277,6 +296,13 @@ aliases equal native durable hashes, full event-trace observational
 equivalence, live execution safety, process-restart correctness, concurrency
 behavior, or general BMO equivalence. Legacy decision-model R3 remains
 separately unresolved.
+
+**R4 evidence sufficiency (`reproduced`).** Establishes that, under a synthetic
+two-world protocol, identical old receipts with unobserved current grant leave
+valid and revoked worlds indistinguishable (permission unsupported); observing
+current grant separates allow vs deny; an irrelevant fact does not upgrade
+unsupported assessments. Does **not** establish live BMO behavior, cryptographic
+receipt authenticity, or multi-agent delegation / swarm handoff.
 
 ## Finite experiments and checker scope
 

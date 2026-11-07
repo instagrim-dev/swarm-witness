@@ -47,6 +47,13 @@ equivalence, live execution safety, process-restart correctness, concurrency
 behavior, or general BMO equivalence. Legacy decision-model R3 remains
 separately unresolved.
 
+**R4 evidence sufficiency (`reproduced`).** Establishes that, under a synthetic
+two-world protocol, identical old receipts with unobserved current grant leave
+valid and revoked worlds indistinguishable (permission unsupported); observing
+current grant separates allow vs deny; an irrelevant fact does not upgrade
+unsupported assessments. Does **not** establish live BMO behavior, cryptographic
+receipt authenticity, or multi-agent delegation / swarm handoff.
+
 ## Finite experiments and checker scope
 
 Pinned histories, seeds `{0,1,2}`, and preferred Go tests are finite. Passing

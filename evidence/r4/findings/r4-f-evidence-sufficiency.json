@@ -1,0 +1,26 @@
+{
+  "id": "r4-f-evidence-sufficiency",
+  "claim_id": "r4",
+  "run_ids": [
+    "r4-blind_world_a",
+    "r4-blind_world_b",
+    "r4-irrelevant_blind_a",
+    "r4-irrelevant_blind_b",
+    "r4-discriminated_world_a",
+    "r4-discriminated_world_b",
+    "r4-valid_with_evidence",
+    "r4-misbound_world_a",
+    "r4-misbound_world_b",
+    "r4-method-score"
+  ],
+  "proposition": "Identical old receipts with unobserved current grant leave Worlds A (valid) and B (revoked) indistinguishable, so permission claims stay unsupported; observing current grant state distinguishes them; an irrelevant observation does not; legitimate allow proceeds when the discriminating evidence is present",
+  "scope": "Synthetic two-world grant/receipt protocol under r4-evidence-sufficiency-v1; not multi-agent delegation or live BMO",
+  "label": "reproduced",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "r4-method-score.observations.passed",
+    "r4-method-score.observations.indistinguishable_when_blind",
+    "r4-method-score.observations.discriminator_separates_worlds",
+    "r4-method-score.observations.all_checks_pass"
+  ]
+}

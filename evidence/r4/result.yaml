@@ -1,0 +1,10 @@
+claim_id: r4
+label: reproduced
+authoritative: finding
+finding_path: findings/r4-f-evidence-sufficiency.json
+metrics:
+  case_count: 9
+  unsupported_blind_count: 4
+  all_checks_pass: true
+notes: Worlds A/B indistinguishability under shared receipt; discriminator = current
+  grant state
