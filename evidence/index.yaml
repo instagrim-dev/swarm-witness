@@ -1,7 +1,10 @@
 results:
-  - claim_id: r1
-    label: reproduced
-  - claim_id: r2
-    label: reproduced
-  - claim_id: r3
-    label: assumption_dependent
+- claim_id: r1
+  label: reproduced
+  finding_id: r1-f-primary
+- claim_id: r2
+  label: reproduced
+  finding_id: r2-f-primary
+- claim_id: r3
+  label: assumption_dependent
+  finding_id: r3-f-comparison
