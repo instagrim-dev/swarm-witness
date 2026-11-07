@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from swarm_witness.schema import validate_claim, validate_finding, validate_run  # noqa: E402
 from swarm_witness.swarm_audit import (  # noqa: E402
     evaluate_swarm_method_success,
+    run_independent_probes,
     run_swarm_protocol_cases,
 )
 
@@ -40,6 +41,23 @@ def test_broken_allow_does_not_commit_effect_and_receipts_bind():
     broken_rx = cases["swarm_cross_agent_receipt_broken_allow"]["result"]
     assert broken_rx["presented_receipt"]["receipt_id"] == "receipt-a-prior"
     assert broken_rx["effect_committed"] is False
+
+
+def test_independent_probe_suite_passes_and_detects_tamper():
+    score = run_independent_probes()
+    assert score["passed"] is True, score["errors"]
+    # Tamper: flip expected class so the suite must fail (discriminating check).
+    import json
+    from pathlib import Path
+
+    probes = json.loads(
+        (ROOT / "experiments" / "swarm_r5" / "independent_probes.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    probes[0]["expected_conclusion_class"] = "supported"
+    bad = run_independent_probes(probes)
+    assert bad["passed"] is False
 
 
 def test_runner_writes_valid_evidence(tmp_path: Path):

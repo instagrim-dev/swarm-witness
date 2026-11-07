@@ -1,0 +1,69 @@
+[
+  {
+    "probe_id": "indep_missing_observation",
+    "setup": {
+      "grant_id": "g-indep-1",
+      "owner": "A",
+      "assignees_via": [["A", "B"]]
+    },
+    "claim": {
+      "agent": "B",
+      "call_id": "indep-b-blind",
+      "observe_grant": false
+    },
+    "expected_conclusion_class": "missing_evidence"
+  },
+  {
+    "probe_id": "indep_first_allow",
+    "setup": {
+      "grant_id": "g-indep-2",
+      "owner": "A",
+      "assignees_via": [["A", "B"], ["B", "C"]]
+    },
+    "claim": {
+      "agent": "A",
+      "call_id": "indep-a1",
+      "observe_grant": true
+    },
+    "expected_conclusion_class": "supported",
+    "expected_effect_committed": true
+  },
+  {
+    "probe_id": "indep_broken_allow_no_effect",
+    "setup": {
+      "grant_id": "g-indep-3",
+      "owner": "A",
+      "assignees_via": [["A", "B"]],
+      "pre_spend_agent": "A",
+      "pre_spend_call_id": "indep-a-spend"
+    },
+    "claim": {
+      "agent": "B",
+      "call_id": "indep-b-broken",
+      "observe_grant": true,
+      "gate_mode": "broken_allow"
+    },
+    "expected_conclusion_class": "failed_enforcement",
+    "expected_effect_committed": false,
+    "expected_decision": "allow"
+  },
+  {
+    "probe_id": "indep_foreign_receipt_deny",
+    "setup": {
+      "grant_id": "g-indep-4",
+      "owner": "A",
+      "assignees_via": [["A", "C"]],
+      "pre_spend_agent": "A",
+      "pre_spend_call_id": "indep-a-rx"
+    },
+    "claim": {
+      "agent": "C",
+      "call_id": "indep-c-rx",
+      "observe_grant": true,
+      "use_foreign_receipt_from": "A"
+    },
+    "expected_conclusion_class": "supported",
+    "expected_decision": "deny",
+    "expected_effect_committed": false
+  }
+]

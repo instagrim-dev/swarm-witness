@@ -21,13 +21,14 @@
     "observed_grant": "revoked",
     "delegate_id": null,
     "principal_id": null,
-    "reason": "evidence complete (grant=revoked); gate decided 'allow' but required 'deny' \u2014 failed_enforcement",
+    "reason": "authentic grant evidence (revoked); gate decided 'allow' but required 'deny' \u2014 failed_enforcement (failure_origin=gate_enforcement)",
     "expected_assessment": "enforcement_failed",
     "expected_conclusion_class": "failed_enforcement",
     "assessment_match": true,
     "conclusion_match": true,
     "ground_truth_mismatch": false,
     "misbound_detected": false,
-    "observation_authentic": true
+    "observation_authentic": true,
+    "failure_origin": "gate_enforcement"
   }
 }

@@ -21,13 +21,14 @@
     "observed_grant": "active",
     "delegate_id": null,
     "principal_id": null,
-    "reason": "supplied grant observation 'active' misbinds ground truth 'revoked'; gate decided 'allow' but truth requires 'deny' \u2014 failed_enforcement (negative control: false evidence cannot support permission)",
+    "reason": "supplied grant observation 'active' misbinds ground truth 'revoked'; end-to-end decision 'allow' vs truth-required 'deny' \u2014 failed_enforcement with failure_origin=evidence_misbinding (not a gate-policy diagnosis)",
     "expected_assessment": "enforcement_failed",
     "expected_conclusion_class": "failed_enforcement",
     "assessment_match": true,
     "conclusion_match": true,
     "ground_truth_mismatch": true,
     "misbound_detected": true,
-    "observation_authentic": false
+    "observation_authentic": false,
+    "failure_origin": "evidence_misbinding"
   }
 }

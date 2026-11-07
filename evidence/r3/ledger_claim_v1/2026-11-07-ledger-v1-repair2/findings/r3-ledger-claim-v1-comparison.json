@@ -20,9 +20,29 @@
   "scope": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
   "label": "classical_baseline_matches",
   "basis": "computed",
+  "conclusion_class": "supported",
+  "comparison_validity": true,
+  "per_arm_property_pass": {
+    "classical": {
+      "T01": true,
+      "T02": true,
+      "T03": true,
+      "T04": true,
+      "T05": true,
+      "T06": true
+    },
+    "bmo": {
+      "T01": true,
+      "T02": true,
+      "T03": true,
+      "T04": true,
+      "T05": true,
+      "T06": true
+    }
+  },
+  "cross_arm_agreement": "matched",
   "supporting_observation_refs": [
     "r3-ledger-meta.observations.agreement.result",
     "r3-ledger-meta.observations.validity.valid"
-  ],
-  "conclusion_class": "supported"
+  ]
 }
