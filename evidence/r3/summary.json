@@ -1,0 +1,61 @@
+{
+  "claim_id": "r3",
+  "bmo_go_test": {
+    "pass_count": 6,
+    "fail_count": 0,
+    "package_ok": true,
+    "passed_tests": [
+      "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
+      "TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit",
+      "TestOrdinaryRetryRetainedGrantSyntheticAppliedAfterNoEffect",
+      "TestOrdinaryRetainedGrantLegacyWriterBoundary",
+      "TestOrdinaryRetryRetainedGrantShapeControls",
+      "TestOrdinaryRetryRetainedGrantRecognizesOriginalFailedVerifierFunding"
+    ],
+    "failed_tests": [],
+    "log": "evidence/r3/bmo_go_test.log"
+  },
+  "comparison": [
+    {
+      "condition": "retained_start_claim + relaunch",
+      "classical": "deny",
+      "bmo_observed": "deny",
+      "match": true,
+      "signals_ok": true,
+      "tests_ok": true
+    },
+    {
+      "condition": "rejected + restart + execute",
+      "classical": "deny",
+      "bmo_observed": "deny",
+      "match": true,
+      "signals_ok": true,
+      "tests_ok": true
+    },
+    {
+      "condition": "active_grant + execute",
+      "classical": "allow",
+      "bmo_observed": "allow",
+      "match": true,
+      "signals_ok": true,
+      "tests_ok": true
+    },
+    {
+      "condition": "stale grant copy vs current",
+      "classical": "deny",
+      "bmo_observed": "deny",
+      "match": true,
+      "signals_ok": true,
+      "tests_ok": true
+    }
+  ],
+  "matched_rows": 4,
+  "total_rows": 4,
+  "label": "classical_baseline_matches",
+  "preferred_tests": [
+    "internal/sessioncompaction/ordinary_retry_retained_grant_owner_witness_test.go",
+    "internal/sessioncompaction/ordinary_retry_retained_grant_test.go",
+    "internal/sessioncompaction/ordinary_retry_retained_grant_race_test.go"
+  ],
+  "notes": "ClassicalGate durable-grant map decisions match BMO retained-grant owner-witness observations under matched conditions (deny retained relaunch / rejected reload / stale copy; allow only active grant)."
+}

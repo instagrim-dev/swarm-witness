@@ -1,0 +1,11 @@
+claim_id: r3
+label: classical_baseline_matches
+metrics:
+  matched_rows: 4
+  total_rows: 4
+  bmo_pass_count: 6
+  bmo_fail_count: 0
+evidence_path: evidence/r3/summary.json
+notes: ClassicalGate durable-grant map decisions match BMO retained-grant owner-witness
+  observations under matched conditions (deny retained relaunch / rejected reload
+  / stale copy; allow only active grant).
