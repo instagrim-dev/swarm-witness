@@ -26,7 +26,8 @@ chrome. Submission-ready content is in:
 - `report/ABSTRACT.md`
 - `report/body.md`
 - `report/LIMITATIONS_DUAL_USE.md`
-- `report/Swarm_Witness_Apart_Submission.pdf` (pandoc/Chrome export)
+- `report/Swarm_Witness_Final_Submission.pdf` (revised six-page research paper)
+- `report/Swarm_Witness_Final_Submission.docx` (editable submission paper)
 
 **Before final Apart form submit**, if judges require the exact official template
 chrome (Apart header, author grid, guidance-stripped Docs layout), the author
@@ -45,6 +46,9 @@ budget.
 | R3 ledger-claim-v1 | classical_baseline_matches | `evidence/r3_ledger_claim_v1/`, `evidence/r3/ledger_claim_v1/<run_id>/` |
 | R4 evidence sufficiency | reproduced | `evidence/r4/findings/r4-f-evidence-sufficiency.json`, `evidence/r4/summary.json` |
 | R5 swarm audit | reproduced | `evidence/r5/findings/r5-f-swarm-audit.json`, `evidence/r5/summary.json` |
+| Causal simulator (#10) | synthetic model conformance | `evidence/causal_swarm/`, `artifacts/causal_swarm_v1/summary.json` |
+| R5 v2 (#11) | fixed-case model conformance | `evidence/r5_v2/`, `artifacts/r5_v2/summary.json` |
+| Formal soundness (#12) | conditional proof and exhaustive bounded check | `evidence/taxonomy_theory/`, `theory/`, `artifacts/taxonomy_proof_checks.json` |
 
 Index: `evidence/index.yaml`. Pins: `artifacts/pins.yaml`. Baselines:
 `baselines/r1_wal_recover_before_admit.md`,

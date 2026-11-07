@@ -1,6 +1,6 @@
 # Swarm Witness | Research follow-ons #10-#12 and revised submission
 
-This addition extends Swarm Witness with versioned follow-on protocols. Existing R1/R2/R3/R4/R5 observations and findings are retained unchanged.
+Delivered in the main Swarm Witness repository with versioned follow-on protocols. Existing R1/R2/R3/R4/R5 observations and findings remain unchanged. The revised official-submission-named PDF and DOCX are published under `report/`.
 
 ## Delivered research
 
@@ -51,12 +51,7 @@ compatible observation semantics, not authenticity of external evidence.
 
 ## Release integration
 
-Copy the new `src/`, `experiments/`, `tests/`, `theory/`, `claims/`,
-`evidence/`, and `artifacts/` entries into the existing repository without
-removing prior R5 artifacts. Integrate the report under `report/`, regenerate
-`evidence/index.yaml` using its existing checker, and run the repository's
-complete test suite. A publishing step should verify that the merged review ZIP
-contains both prior-study evidence and these new results.
+The new `src/`, `experiments/`, `tests/`, `theory/`, `claims/`, `evidence/`, `artifacts/` and `report/` entries are committed to main. `evidence/index.yaml` includes the new distinct finding slots. The review ZIP packer includes the research modules and their retained traces, and excludes its previous ZIP from staging.
 
 **Submission gate:** Fill the real author names/affiliations and ensure Apart
 judges can access the report and evidence. The new PDF uses the official

@@ -1,76 +1,56 @@
-# Swarm Witness: What Do Agent-Safety Mechanisms Actually Establish?
+# Swarm Witness: A Testable Evidence Standard for Agent Safety Claims
 
-**Apart Research — Swarm Alignment sprint (weekend 2026-11-06 … 2026-11-08)**  
-**Tracks:** 3 (Strengthening Agent Infrastructure) and 4 (Multi-Agent Oversight and Control)
+**Apart Swarm Alignment Hackathon 2026** | Primary: Track 3, Strengthening Agent Infrastructure | Application: Track 4, multi-agent oversight.
 
-When agent-safety controls produce apparently valid evidence, what additional
-observations, assumptions, and comparisons are required before we can justify
-claims about their behavior? Swarm Witness is an executable claim-audit kit that
-pins third-party artifacts, states claim cards, runs discriminating checks
-against classical baselines (the null hypothesis), and records fail-closed
-labels. It is **not** a new authorization architecture, a proof that BMO equals
-classical security, or primarily a dual replication.
+**An executable audit that distinguishes trustworthy authority from persuasive-looking receipts.** Swarm Witness links source-pinned claims to observations, causal schedules, effect ledgers, competing classical controls, and evidence-qualified findings. It tests when an agent's apparent permission is actually warranted.
 
-Pinned results: SoundGate (R1) **reproduced**; EvidenceGraph (R2) **reproduced**;
-legacy BMO decision-model (R3) **unresolved**; native L1 ledger-claim
-(r3-ledger-claim-v1) **classical_baseline_matches** (bounded); three-way
-evidence-sufficiency (R4) **reproduced** (synthetic conformance); multi-principal
-transfer (R5) **reproduced** (sequential shared-grant model).
+## Primary results
 
-## Submission PDF
+| Study | Evidence and result | Evaluation scope |
+| --- | --- | --- |
+| R1 SoundGate | 153 histories/policy; prohibited effects original 143, recovery barrier 0 | Pinned external re-execution |
+| R2 EvidenceGraph | 36/36 stress checks; wrong relay attributions for legacy rule | Confirmation of authors' later stress harness `a5ea5c9` |
+| R3-D legacy decision comparison | `unresolved`, 0/4 matched BMO observations | Missing matched decision-model evidence |
+| R3-L1 native BMO vs SQLite | 6/6 one-use ledger cases match | Native transactional owner, bounded claim/reopen/rollback properties |
+| R4 evidence qualification | Held-out misleading observation, misleading receipt and provenance controls | Synthetic and held-out protocol conformance |
+| R5 v1 | Ten sequential A/B/C scenarios | Synthetic multi-principal method transfer |
+| #10 causal simulator | 8 schedules, 16 arms; defective policy produces six unauthorized effects, reference zero | Deterministic causal interleavings, model effect ledger |
+| #11 R5 v2 | 13 fixed scenarios, 26 arms, nine dimensions; faulty local policy nine unauthorized effects, reference zero | Fixed synthetic matrix with separately reconstructed effects |
+| #12 mathematical foundation | Five conditional theorems/countermodels; 2,646 finite checks, zero violations | Four-world possible-world model and written proofs |
 
-Apart-ready report: [`report/Swarm_Witness_Apart_Submission.pdf`](report/Swarm_Witness_Apart_Submission.pdf) (form field cheat sheet: [`report/SUBMISSION_FORM.md`](report/SUBMISSION_FORM.md)).
+The two policy arms are intentionally constructed controls. These numbers measure the tested schedules and are not estimates of incident prevalence in deployed agents.
 
-## Preexisting material
+## Submission
 
-Scaffold, monitors, and the external BMO tree predate this sprint. Full disclosure: [`PREEXISTING.md`](PREEXISTING.md).
+- [Final report, PDF](report/Swarm_Witness_Final_Submission.pdf) | [editable DOCX](report/Swarm_Witness_Final_Submission.docx) | [source Markdown](report/Swarm_Witness_Final_Submission.md)
+- [Methods and reproducibility map](docs/RESEARCH_FOLLOWONS_10_12.md) | [verification and access](evidence/ACCESS.md) | [submission checklist](CHECKLIST.md)
+- [Original prior-work and preexisting-code disclosure](PREEXISTING.md).
 
-## Schema (v2)
+## Independent research checks
 
-Typed validators in `swarm_witness.schema`: `validate_claim` → `Claim`, `validate_run` → `Run`, `validate_finding` → `Finding`. Strings are nonblank; `assumptions` / `run_ids` / `supporting_observation_refs` are non-empty `list[str]` (strings are not coerced to character lists). `Finding.label` ∈ `CONCLUSION_LABELS`; `Run.execution_status` ∈ `assigned|attempted|completed|failed|unrun|missing`; `Finding.basis` ∈ `authored|computed`.
-
-Evidence layout: `evidence/<rN>/runs/*.json`, `evidence/<rN>/findings/*.json`, convenience mirrors `summary.json` / `result.yaml`. Regenerate the index from findings:
-
-```bash
-python scripts/check_evidence.py --write-index
-python scripts/check_evidence.py
-```
-
-## Quick verification (local kit)
+Install Python 3.11+ and `pip install -e '.[dev]'`, then run:
 
 ```bash
-cd /path/to/swarm-witness
-python3 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
-pytest -v
+pytest -q
 python scripts/validate_claims.py
 python scripts/check_evidence.py
-wc -w report/ABSTRACT.md   # expect 150–250
+PYTHONPATH=src python -m pytest -q tests/test_research_followons.py
+PYTHONPATH=src python experiments/causal_swarm/run.py --output /tmp/swarm-witness-causal
+PYTHONPATH=src python experiments/r5_v2/run.py --output /tmp/swarm-witness-r5-v2
+python theory/check_taxonomy.py
 ```
 
-## Reproduction experiments
+The new tests include reversed claim order, paired worlds with identical cached evidence, fresh-view discrimination, stale revocation, receipt replay, scope mismatch, and a separately reconstructed effect history. The formal checker does not call the production conclusion classifier.
 
-| Experiment | Command | Output |
-| --- | --- | --- |
-| R1 SoundGate | `bash experiments/r1/run_r1.sh` | `evidence/r1/findings/`, `summary.json` |
-| R1 inspect raw | `gzip -dc evidence/r1/raw.json.gz > evidence/r1/raw.json` | local `raw.json` (gitignored) |
-| R2 EvidenceGraph | `bash experiments/r2/run_r2.sh` | `evidence/r2/findings/`, `summary.json` |
-| R3 matched compare | `python3 experiments/r3/compare.py` | `evidence/r3/findings/r3-f-comparison.json` |
-| R3 Go tests (metadata) | `bash experiments/r3/run_bmo_tests.sh` | `evidence/r3/bmo_go_test.log` |
-| R3 ledger-claim-v1 | `python3 experiments/r3/ledger_claim_v1/run_matched.py --run-id <id>` | `evidence/r3/ledger_claim_v1/<id>/` |
-| R4 evidence sufficiency | `python3 experiments/evidence_sufficiency/run.py` | `evidence/r4/` |
-| R5 swarm audit | `python3 experiments/swarm_r5/run.py` | `evidence/r5/` |
+## Reproduction and review artifacts
 
-Derived protocol **r3-ledger-claim-v1** lives under
-[`experiments/r3/ledger_claim_v1/`](experiments/r3/ledger_claim_v1/). Selected
-native run: `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` (mirrored
-at `evidence/r3_ledger_claim_v1/`). Legacy decision-model R3 stays `unresolved`.
+Evidence is organized as typed `claims/`, `evidence/<study>/runs/`, `findings/`, result summaries, raw traces under `artifacts/`, and pinned source identities under `artifacts/pins.yaml`. The original R1–R5 evidence remains intact; R5 v2 has a new claim and does not overwrite R5 v1.
 
-**R4** (`experiments/evidence_sufficiency/`) is the methodological probe: three-way
-conclusions (`missing_evidence` / `failed_enforcement` / `supported`) via
-`conclusion_classes.py`.
+```bash
+bash scripts/pack_review_bundle.sh
+# outputs dist/swarm-witness-review-bundle.zip and artifacts/swarm-witness-review-bundle.zip
+```
 
-Judge access / portable bundle: [`evidence/ACCESS.md`](evidence/ACCESS.md),
-`bash scripts/pack_review_bundle.sh`.
+Reviewers can inspect the retained results without obtaining the private BMO working tree; native BMO re-execution requires access to its pinned source. Model-schedule experiments are distinct from live distributed-agent measurements. The mathematical soundness proofs are conditional on authenticated, compatible observations.
 
-Pre-submit checklist: [`CHECKLIST.md`](CHECKLIST.md).
+Final form actions: supply accurate authors/affiliations, use the official Apart report template if required, and attach the review ZIP or otherwise grant reviewers access to the private repository.
