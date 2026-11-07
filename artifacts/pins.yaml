@@ -15,8 +15,17 @@ r1:
   notes: "Primary harness is recovery-barrier/ in the PDF-embedded ZIP; 0.1.4 adds tests/wal_recovery_barrier.rs."
 r2:
   title: "Receipt Possession Is Not Event Attribution"
+  apart_project: "https://apartresearch.com/sprints/projects/ryan-junejo-4omn"
   report_pdf: "https://pys8vc40ox3z7qxp.public.blob.vercel-storage.com/files/54d3ab064fa85a2f--413e-a31a-05a316b2660a-Junejo---Receipt-possession-is-not-event-attribution.pdf"
-  notes: "Locate EvidenceGraph runnable artifact from report appendix; record hash when downloaded."
+  report_pdf_sha256: "54d3ab064fa85a2f1ea566f4fa6f744571780ee21534fe6c24ac2cb455ded708"
+  git_url: "https://github.com/crashlabsai/evidencegraph"
+  baseline_rev: "efbd4192767672e2ca3634c9ebe9d9a3c98fcddd"
+  git_rev: "a5ea5c9947039009ca795275d834be7b61069080"
+  content_sha256: "00138288bcd56f101b448856ad0b39ae3d2c4b2b77b40c5530b840f944b097cd"
+  content_sha256_of: "git archive --format=tar a5ea5c9947039009ca795275d834be7b61069080"
+  source_tree_sha256: "2962568f70dd1ecd1617b3796126518ca69df9c262088c375f057426deadb78b"
+  harness: "scripts/incident_stress.py + src/evidencegraph/validate/stress.py"
+  notes: "Paper cites efbd419 as pre-extension baseline; runnable 12×3 stress pack lives on main at a5ea5c9 (PDF originally said extension was disclosure-held)."
 r3:
   bmo_root: "/Users/user1/Documents/dev/bmo"
   preferred_claim: "retained start claim is never permission to relaunch"

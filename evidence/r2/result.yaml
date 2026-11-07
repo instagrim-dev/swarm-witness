@@ -1,0 +1,26 @@
+claim_id: r2
+label: reproduced
+metrics:
+  condition_by_seed_checks: 36
+  condition_by_seed_passed: 36
+  old_rule_wrong_attributions_on_relay_per_seed:
+  - 1
+  - 1
+  - 1
+  safer_supported_on_relay_per_seed:
+  - 0
+  - 0
+  - 0
+  clean_withheld_without_exclusivity_per_seed:
+  - 12
+  - 12
+  - 12
+  false_exclusivity_confident_errors_per_seed:
+  - 1
+  - 1
+  - 1
+evidence_path: evidence/r2/summary.json
+notes: 'Fresh local incident_stress.py at a5ea5c9 (paper baseline before extension:
+  efbd419); 36/36 contract checks; old-rule relay wrong attributions=[1, 1, 1]; safer
+  relay supported=[0, 0, 0] correct=[0, 0, 0]; shared_tokens_no_attack correct=[0,
+  0, 0] (12 withheld); false_exclusivity errors=[1, 1, 1]. source_tree_sha256=2962568f70dd1ecd1617b3796126518ca69df9c262088c375f057426deadb78b.'

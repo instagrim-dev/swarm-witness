@@ -6,6 +6,11 @@ third_party/r1/soundgate/
 third_party/r1/incident-sprint-artifact/
 third_party/r1/incident-sprint-artifact.zip
 third_party/r1/report.pdf
+third_party/r2/evidencegraph/
+third_party/r2/reproduction/
+third_party/r2/report.pdf
+third_party/r2/report.txt
+third_party/r2/report_crude.txt
 evidence/r1/raw.json
 *.pdf
 !report/*.pdf
