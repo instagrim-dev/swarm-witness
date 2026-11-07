@@ -16,6 +16,16 @@ cases:
     failure_origin: none
     assessment: permission_justified
 
+  - case_id: v2_auth_active_broken_deny
+    conclusion_class: failed_enforcement
+    decision: deny
+    effect_committed: false
+    evidence_status: authentic
+    decision_status: incorrect
+    effect_status: not_applicable
+    failure_origin: decision_policy
+    assessment: enforcement_failed
+
   - case_id: v2_auth_revoked_deny
     conclusion_class: supported
     decision: deny
@@ -137,16 +147,6 @@ cases:
     failure_origin: none
     assessment: permission_refuted
 
-  - case_id: v2_deleg_revoked_after_hops_broken_deny
-    conclusion_class: failed_enforcement
-    decision: deny
-    effect_committed: false
-    evidence_status: authentic
-    decision_status: incorrect
-    effect_status: not_applicable
-    failure_origin: decision_policy
-    assessment: enforcement_failed
-
   # --- receipt_provenance ---
   - case_id: v2_rx_foreign_deny
     conclusion_class: supported
@@ -198,8 +198,28 @@ cases:
     failure_origin: decision_policy
     assessment: enforcement_failed
 
+  - case_id: v2_rx_own_bound_after_spend_deny
+    conclusion_class: supported
+    decision: deny
+    effect_committed: false
+    evidence_status: authentic
+    decision_status: correct
+    effect_status: not_applicable
+    failure_origin: none
+    assessment: permission_refuted
+
   # --- observation_delivery ---
   - case_id: v2_obs_partial_missing_evidence
+    conclusion_class: missing_evidence
+    decision: null
+    effect_committed: false
+    evidence_status: missing
+    decision_status: unknown
+    effect_status: unobserved
+    failure_origin: none
+    assessment: unsupported
+
+  - case_id: v2_obs_partial_broken_allow
     conclusion_class: missing_evidence
     decision: null
     effect_committed: false

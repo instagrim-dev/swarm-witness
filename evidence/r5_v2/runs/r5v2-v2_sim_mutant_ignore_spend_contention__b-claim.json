@@ -13,7 +13,7 @@
       "C"
     ],
     "mechanism_arm": "mutant_ignore_spend",
-    "paired_input_id": "sim:mutant_ignore_spend_contention",
+    "paired_input_id": "sim:contention_one_use_seed404",
     "evidence_source": "multi-agent-sim-v1:mas-mutant_ignore_spend_contention.json#b-claim",
     "expectation_source": "experiments/swarm_r5_v2/case_expectations.yaml",
     "assessment": "enforcement_failed",

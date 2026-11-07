@@ -605,6 +605,7 @@ def _case(
     mechanism_arm: str,
     paired_input_id: str | None = None,
     evidence_source: str = "sequential_harness",
+    seams: list[str] | None = None,
 ) -> dict[str, Any]:
     return {
         "case_id": case_id,
@@ -614,8 +615,19 @@ def _case(
         "mechanism_arm": mechanism_arm,
         "paired_input_id": paired_input_id,
         "evidence_source": evidence_source,
+        "seams": list(seams or []),
         "result": result,
     }
+
+
+# Contention pins that share seed+event_count under multi-agent-sim-v1 but use
+# distinct schedule_id strings upstream. Bound to one paired_input_id here so
+# reference vs mutant arms are scored as same-declared-input mechanism pairs.
+_SIM_CONTENTION_PAIR_ID = "sim:contention_one_use_seed404"
+_SIM_CONTENTION_CASE_IDS = {
+    "reference_contention_one_use",
+    "mutant_ignore_spend_contention",
+}
 
 
 def run_sequential_family_cases() -> list[dict[str, Any]]:
@@ -633,9 +645,29 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Authentic active grant → allow (correct)",
             mechanism_arm="correct",
             paired_input_id="auth_active_b",
+            seams=[
+                "valid_active",
+                "authorized_commit",
+                "correct_vs_broken_deny_same_inputs",
+            ],
             result=attempt_claim_v2(
                 st, agent="B", grant_id="g-auth", call_id="v2-auth-ok"
             ),
+        )
+    )
+    cases.append(
+        _case(
+            "v2_auth_active_broken_deny",
+            family="authority_observation",
+            name="Active grant + broken_deny (always-deny control on same inputs)",
+            mechanism_arm="broken_deny",
+            paired_input_id="auth_active_b",
+            seams=[
+                "broken_deny_on_active",
+                "incorrect_deny",
+                "correct_vs_broken_deny_same_inputs",
+            ],
+            result=_run_active_broken_deny(),
         )
     )
 
@@ -650,6 +682,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Revoked grant → deny (correct)",
             mechanism_arm="correct",
             paired_input_id="auth_revoked_b",
+            seams=["revoked", "correct_vs_broken_allow_same_inputs"],
             result=attempt_claim_v2(
                 st, agent="B", grant_id="g-rev", call_id="v2-rev-deny"
             ),
@@ -662,6 +695,11 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Revoked grant + broken_allow → incorrect allow, prevented",
             mechanism_arm="broken_allow",
             paired_input_id="auth_revoked_b",
+            seams=[
+                "revoked",
+                "incorrect_allow_prevented",
+                "correct_vs_broken_allow_same_inputs",
+            ],
             result=attempt_claim_v2(
                 st,
                 agent="B",
@@ -683,6 +721,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Spent grant → second claim deny (correct)",
             mechanism_arm="correct",
             paired_input_id="auth_spent_b",
+            seams=["spent", "correct_vs_broken_allow_and_commit_same_inputs"],
             result=attempt_claim_v2(
                 st, agent="B", grant_id="g-spent", call_id="v2-spent-b"
             ),
@@ -695,6 +734,11 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Spent grant + broken_allow_and_commit → unauthorized commit",
             mechanism_arm="broken_allow_and_commit",
             paired_input_id="auth_spent_b",
+            seams=[
+                "spent",
+                "unauthorized_commit_effect_boundary",
+                "correct_vs_broken_allow_and_commit_same_inputs",
+            ],
             result=_run_spent_broken_commit(),
         )
     )
@@ -709,6 +753,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Missing grant observation → missing_evidence (unknown)",
             mechanism_arm="correct",
             paired_input_id="auth_missing_b",
+            seams=["missing"],
             result=attempt_claim_v2(
                 st,
                 agent="B",
@@ -730,6 +775,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Misbound active observation of revoked grant",
             mechanism_arm="correct",
             paired_input_id="auth_misbound_b",
+            seams=["misbound", "incorrect_allow_prevented"],
             result=attempt_claim_v2(
                 st,
                 agent="B",
@@ -753,6 +799,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Stale active observation after revoke+epoch bump",
             mechanism_arm="correct",
             paired_input_id="auth_stale_b",
+            seams=["stale_epoch", "incorrect_allow_prevented"],
             result=attempt_claim_v2(
                 st,
                 agent="B",
@@ -776,6 +823,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="C claims within attenuated task-edit-doc scope",
             mechanism_arm="correct",
             paired_input_id="deleg_c_doc",
+            seams=["multi_hop_attenuated_allow", "authorized_commit"],
             result=attempt_claim_v2(
                 st,
                 agent="C",
@@ -792,6 +840,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="C denied for task outside attenuated scope",
             mechanism_arm="correct",
             paired_input_id="deleg_c_out",
+            seams=["scope_exceeded_deny", "correct_vs_broken_allow_same_inputs"],
             result=attempt_claim_v2(
                 st,
                 agent="C",
@@ -808,6 +857,11 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Out-of-scope claim + broken_allow prevented",
             mechanism_arm="broken_allow",
             paired_input_id="deleg_c_out",
+            seams=[
+                "scope_exceeded_deny",
+                "incorrect_allow_prevented",
+                "correct_vs_broken_allow_same_inputs",
+            ],
             result=attempt_claim_v2(
                 st,
                 agent="C",
@@ -829,6 +883,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="C not assignee after A→B only",
             mechanism_arm="correct",
             paired_input_id="deleg_c_non",
+            seams=["non_assignee"],
             result=attempt_claim_v2(
                 st, agent="C", grant_id="g-nohop", call_id="v2-non"
             ),
@@ -847,19 +902,10 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Revocation after multi-hop → deny",
             mechanism_arm="correct",
             paired_input_id="deleg_rev_c",
+            seams=["revoke_after_hops"],
             result=attempt_claim_v2(
                 st, agent="C", grant_id="g-revhop", call_id="v2-revhop"
             ),
-        )
-    )
-    cases.append(
-        _case(
-            "v2_deleg_revoked_after_hops_broken_deny",
-            family="delegation_scope",
-            name="Still-active grant + broken_deny (control)",
-            mechanism_arm="broken_deny",
-            paired_input_id="deleg_active_broken_deny",
-            result=_run_active_broken_deny(),
         )
     )
 
@@ -876,6 +922,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Foreign ledger receipt → deny (correct)",
             mechanism_arm="correct",
             paired_input_id="rx_foreign_c",
+            seams=["foreign_ledger_receipt", "correct_vs_broken_allow_same_inputs"],
             result=attempt_claim_v2(
                 st,
                 agent="C",
@@ -893,6 +940,11 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Foreign receipt + broken_allow prevented",
             mechanism_arm="broken_allow",
             paired_input_id="rx_foreign_c",
+            seams=[
+                "foreign_ledger_receipt",
+                "incorrect_allow_prevented",
+                "correct_vs_broken_allow_same_inputs",
+            ],
             result=attempt_claim_v2(
                 st,
                 agent="C",
@@ -919,6 +971,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Copied/replayed foreign receipt → deny",
             mechanism_arm="correct",
             paired_input_id="rx_replay_c",
+            seams=["copied_replay"],
             result=attempt_claim_v2(
                 st,
                 agent="C",
@@ -936,6 +989,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Forged unbound receipt → deny",
             mechanism_arm="correct",
             paired_input_id="rx_forged_c",
+            seams=["forged_unbound", "correct_vs_broken_allow_same_inputs"],
             result=attempt_claim_v2(
                 st,
                 agent="C",
@@ -952,6 +1006,11 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Forged receipt + broken_allow prevented",
             mechanism_arm="broken_allow",
             paired_input_id="rx_forged_c",
+            seams=[
+                "forged_unbound",
+                "incorrect_allow_prevented",
+                "correct_vs_broken_allow_same_inputs",
+            ],
             result=attempt_claim_v2(
                 st,
                 agent="C",
@@ -960,6 +1019,19 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
                 receipt_kind="forged",
                 gate_mode="broken_allow",
             ),
+        )
+    )
+
+    # Correct own-bound receipt after spend: must deny (claimed matrix seam).
+    cases.append(
+        _case(
+            "v2_rx_own_bound_after_spend_deny",
+            family="receipt_provenance",
+            name="Own ledger-bound receipt after spend → deny",
+            mechanism_arm="correct",
+            paired_input_id="rx_own_bound_b",
+            seams=["correct_bound_deny_after_spend"],
+            result=_run_own_bound_after_spend(),
         )
     )
 
@@ -974,6 +1046,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Partial observation (no state) → missing_evidence",
             mechanism_arm="correct",
             paired_input_id="obs_partial_b",
+            seams=["partial_observation"],
             result=attempt_claim_v2(
                 st,
                 agent="B",
@@ -983,6 +1056,19 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             ),
         )
     )
+    # Faulty arm on same declared inputs: broken_allow must not coerce unknown
+    # into allow — missing evidence stays decision=None.
+    cases.append(
+        _case(
+            "v2_obs_partial_broken_allow",
+            family="observation_delivery",
+            name="Partial observation + broken_allow still missing_evidence",
+            mechanism_arm="broken_allow",
+            paired_input_id="obs_partial_b",
+            seams=["partial_observation", "partial_broken_allow"],
+            result=_run_obs_partial_broken_allow(),
+        )
+    )
     cases.append(
         _case(
             "v2_obs_irrelevant_control",
@@ -990,6 +1076,7 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
             name="Irrelevant-only fact does not upgrade missing_evidence",
             mechanism_arm="correct",
             paired_input_id="obs_irrelevant_b",
+            seams=["irrelevant_information_control"],
             result=attempt_claim_v2(
                 st,
                 agent="B",
@@ -1001,8 +1088,8 @@ def run_sequential_family_cases() -> list[dict[str, Any]]:
         )
     )
 
-    # Always-deny control: broken_deny on active grant (rejects unjustified deny).
-    # Always-allow control already covered by broken_allow families above.
+    # Always-deny control is paired with auth_active_b above.
+    # Always-allow controls covered by broken_allow families.
     return cases
 
 
@@ -1021,6 +1108,7 @@ def _run_spent_broken_commit() -> dict[str, Any]:
 
 
 def _run_active_broken_deny() -> dict[str, Any]:
+    """Always-deny control on the same declared inputs as auth_active_b."""
     st = SwarmStateV2()
     st.seed_shared_grant("g-bdeny", owner="A")
     st.assign_delegate("g-bdeny", by="A", delegate="B")
@@ -1030,6 +1118,36 @@ def _run_active_broken_deny() -> dict[str, Any]:
         grant_id="g-bdeny",
         call_id="v2-broken-deny",
         gate_mode="broken_deny",
+    )
+
+
+def _run_own_bound_after_spend() -> dict[str, Any]:
+    """B presents own prior ledger receipt after the grant was spent → deny."""
+    st = SwarmStateV2()
+    st.seed_shared_grant("g-ownrx", owner="A")
+    st.assign_delegate("g-ownrx", by="A", delegate="B")
+    attempt_claim_v2(st, agent="B", grant_id="g-ownrx", call_id="v2-ownrx-first")
+    return attempt_claim_v2(
+        st,
+        agent="B",
+        grant_id="g-ownrx",
+        call_id="v2-ownrx-replay",
+        receipt_kind="own_bound",
+    )
+
+
+def _run_obs_partial_broken_allow() -> dict[str, Any]:
+    """Faulty arm on obs_partial_b inputs: unknown must not become allow."""
+    st = SwarmStateV2()
+    st.seed_shared_grant("g-part2", owner="A")
+    st.assign_delegate("g-part2", by="A", delegate="B")
+    return attempt_claim_v2(
+        st,
+        agent="B",
+        grant_id="g-part2",
+        call_id="v2-partial-broken",
+        observation_mode="partial",
+        gate_mode="broken_allow",
     )
 
 
@@ -1158,6 +1276,20 @@ def load_concurrency_trace_cases(
                 ],
             }
             case_id = f"v2_sim_{run['case_id']}__{claim['call_id']}"
+            sim_case = run["case_id"]
+            if sim_case in _SIM_CONTENTION_CASE_IDS:
+                paired = _SIM_CONTENTION_PAIR_ID
+            else:
+                paired = f"sim:{sim_case}"
+            seams: list[str] = []
+            if "interleave_a_first" in sim_case or "interleave_b_first" in sim_case:
+                seams.append("a_first_vs_b_first_contention")
+            if sim_case in _SIM_CONTENTION_CASE_IDS:
+                seams.append("reference_vs_mutant_same_seed_contention")
+            if "revocation_late" in sim_case:
+                seams.append("revocation_late_observation")
+            if result.get("failure_origin") == "effect_boundary":
+                seams.append("unauthorized_commit_effect_boundary")
             cases.append(
                 _case(
                     case_id,
@@ -1168,13 +1300,81 @@ def load_concurrency_trace_cases(
                     ),
                     result=result,
                     mechanism_arm=str(obs.get("policy_id") or "reference"),
-                    paired_input_id=f"sim:{run['case_id']}",
+                    paired_input_id=paired,
                     evidence_source=(
                         f"multi-agent-sim-v1:{path.name}#{claim['call_id']}"
                     ),
+                    seams=seams,
                 )
             )
     return cases
+
+
+def pinned_concurrency_trace_digests(
+    trace_dir: Path | None = None,
+) -> dict[str, str]:
+    """sha256 digests of pinned mas-*.json files (independence / drift check)."""
+    import hashlib
+
+    directory = trace_dir or CONCURRENCY_TRACE_DIR
+    out: dict[str, str] = {}
+    for path in sorted(directory.glob("mas-*.json")):
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        out[path.name] = digest
+    return out
+
+
+def verify_pinned_concurrency_digests(
+    expected: dict[str, str] | None = None,
+    trace_dir: Path | None = None,
+) -> list[str]:
+    """Return error strings if pin digests diverge from PROVENANCE / expected."""
+    import re
+
+    directory = trace_dir or CONCURRENCY_TRACE_DIR
+    actual = pinned_concurrency_trace_digests(directory)
+    if expected is None:
+        prov = (directory / "PROVENANCE.md").read_text(encoding="utf-8")
+        expected = {}
+        for name, digest in re.findall(
+            r"`(mas-[^`]+\.json)`\s*:\s*`([0-9a-f]{64})`", prov
+        ):
+            expected[name] = digest
+    errors: list[str] = []
+    if not expected:
+        errors.append("PROVENANCE.md missing sha256 digests for mas-*.json pins")
+        return errors
+    for name, digest in sorted(expected.items()):
+        got = actual.get(name)
+        if got is None:
+            errors.append(f"missing pinned trace {name}")
+        elif got != digest:
+            errors.append(
+                f"pin digest mismatch {name}: got {got}, expected {digest}"
+            )
+    for name in actual:
+        if name not in expected:
+            errors.append(f"unpinned extra trace {name} (add digest to PROVENANCE)")
+    # Same-seed contention pins must agree on event_count (schedule identity proxy).
+    ref = directory / "mas-reference_contention_one_use.json"
+    mut = directory / "mas-mutant_ignore_spend_contention.json"
+    if ref.is_file() and mut.is_file():
+        ref_obs = json.loads(ref.read_text(encoding="utf-8"))["observations"]
+        mut_obs = json.loads(mut.read_text(encoding="utf-8"))["observations"]
+        if ref_obs.get("seed") != mut_obs.get("seed"):
+            errors.append(
+                "reference/mutant contention pins do not share seed "
+                f"({ref_obs.get('seed')!r} vs {mut_obs.get('seed')!r})"
+            )
+        if ref_obs.get("event_count") != mut_obs.get("event_count"):
+            errors.append(
+                "reference/mutant contention pins disagree on event_count "
+                f"({ref_obs.get('event_count')!r} vs {mut_obs.get('event_count')!r})"
+            )
+        if ref_obs.get("schedule_id") == mut_obs.get("schedule_id"):
+            # Documented upstream difference; if ids ever unify, fine — no error.
+            pass
+    return errors
 
 
 def load_case_expectations(
@@ -1305,10 +1505,14 @@ def evaluate_r5_v2_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
 
     # Per-family correct + faulty arm on same paired_input_id where declared.
     by_pair: dict[str, list[dict[str, Any]]] = {}
+    by_family_pairs: dict[str, dict[str, set[str]]] = {}
     for case in cases:
         pid = case.get("paired_input_id")
         if pid:
             by_pair.setdefault(pid, []).append(case)
+            by_family_pairs.setdefault(case["family"], {}).setdefault(pid, set()).add(
+                case["mechanism_arm"]
+            )
     paired_ok = 0
     for pid, rows in by_pair.items():
         arms = {r["mechanism_arm"] for r in rows}
@@ -1316,6 +1520,35 @@ def evaluate_r5_v2_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
             "correct" in arms or "reference" in arms
         ):
             paired_ok += 1
+
+    matrix = load_coverage_matrix()
+    major_families = list(
+        matrix.get("major_families_requiring_paired_arms")
+        or [
+            "authority_observation",
+            "delegation_scope",
+            "receipt_provenance",
+            "observation_delivery",
+            "concurrency_interleaving",
+        ]
+    )
+    families_with_pair: list[str] = []
+    for fam in major_families:
+        pairs = by_family_pairs.get(fam) or {}
+        ok = False
+        for arms in pairs.values():
+            if (
+                "correct" in arms or "reference" in arms
+            ) and any(a.startswith("broken") or a.startswith("mutant") for a in arms):
+                ok = True
+                break
+        if ok:
+            families_with_pair.append(fam)
+        else:
+            errors.append(
+                f"major family {fam!r} lacks correct/reference + faulty arm "
+                "on the same paired_input_id"
+            )
 
     # Always-deny / unjustified-allow controls.
     has_broken_deny = any(
@@ -1337,22 +1570,16 @@ def evaluate_r5_v2_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
         src = c.get("evidence_source") or ""
         if "multi-agent-sim" not in src:
             errors.append(f"{c['case_id']}: concurrency row missing sim source ref")
-        if c["result"].get("sim_protocol_id") not in {
-            None,
-            "multi-agent-sim-v1",
-        }:
-            # Allow None only if pin file omitted; prefer explicit.
-            pass
+        proto = c["result"].get("sim_protocol_id")
+        if proto != "multi-agent-sim-v1":
+            errors.append(
+                f"{c['case_id']}: sim_protocol_id must be multi-agent-sim-v1, "
+                f"got {proto!r}"
+            )
         excl = c["result"].get("sim_exclusions") or []
         if "live_bmo_mesh_equivalence" not in excl:
-            # Soft: pinned runs should carry exclusions; annotate if missing.
-            c["result"]["sim_exclusions"] = list(
-                {
-                    *excl,
-                    "live_bmo_mesh_equivalence",
-                    "production_concurrency_guarantees",
-                    "unbounded_swarm_safety",
-                }
+            errors.append(
+                f"{c['case_id']}: missing live_bmo_mesh_equivalence exclusion"
             )
 
     if len(sim_cases) < 4:
@@ -1361,9 +1588,24 @@ def evaluate_r5_v2_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
             f"got {len(sim_cases)}"
         )
 
+    pin_errors = verify_pinned_concurrency_digests()
+    errors.extend(pin_errors)
+
     held = [c for c in cases if str(c.get("evidence_source", "")).startswith("held_out")]
     if not held:
         errors.append("missing held-out external fixtures")
+
+    coverage = coverage_report(cases)
+    if coverage.get("unbound_tested_seams"):
+        for dim_id, seams in coverage["unbound_tested_seams"].items():
+            errors.append(
+                f"coverage dimension {dim_id}: tested seams not bound to any case: "
+                f"{seams}"
+            )
+    if coverage["dimension_count"] < 6:
+        errors.append(
+            f"coverage matrix dimension_count {coverage['dimension_count']} < 6"
+        )
 
     return {
         "passed": not errors,
@@ -1379,9 +1621,11 @@ def evaluate_r5_v2_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
         "families": sorted(families),
         "family_count": len(families),
         "paired_input_groups_with_correct_and_faulty": paired_ok,
+        "major_families_with_paired_arms": families_with_pair,
         "unknown_coerced_count": unknown_coerced,
         "concurrency_row_count": len(sim_cases),
         "held_out_count": len(held),
+        "pin_digest_ok": not pin_errors,
         "missing_evidence_count": sum(
             1 for c in cases if c["result"]["conclusion_class"] == "missing_evidence"
         ),
@@ -1487,18 +1731,40 @@ def coverage_report(
     matrix = load_coverage_matrix()
     cases = cases if cases is not None else run_r5_v2_protocol_cases()
     by_family: dict[str, list[str]] = {}
+    seam_to_cases: dict[str, list[str]] = {}
     for case in cases:
         by_family.setdefault(case["family"], []).append(case["case_id"])
+        for seam in case.get("seams") or []:
+            seam_to_cases.setdefault(seam, []).append(case["case_id"])
     dimensions = []
+    unbound_tested: dict[str, list[str]] = {}
     for dim in matrix["dimensions"]:
+        tested = list(dim.get("tested") or [])
+        bind_by = dim.get("bind_by") or "family"
+        if bind_by == "seams":
+            case_ids = sorted(
+                {
+                    cid
+                    for seam in tested
+                    for cid in seam_to_cases.get(seam, [])
+                }
+            )
+        else:
+            family = dim.get("family") or dim["id"]
+            case_ids = list(by_family.get(family, []))
+        missing = [s for s in tested if s not in seam_to_cases]
+        if missing:
+            unbound_tested[dim["id"]] = missing
         dimensions.append(
             {
                 "id": dim["id"],
-                "tested_seams": list(dim.get("tested") or []),
+                "tested_seams": tested,
                 "untested_seams": list(dim.get("untested") or []),
-                "case_ids": by_family.get(dim.get("family") or dim["id"], []),
-                "tested_count": len(dim.get("tested") or []),
+                "case_ids": case_ids,
+                "tested_count": len(tested),
                 "untested_count": len(dim.get("untested") or []),
+                "bound_case_count": len(case_ids),
+                "unbound_tested_seams": missing,
             }
         )
     return {
@@ -1507,4 +1773,6 @@ def coverage_report(
         "dimensions": dimensions,
         "families_present": sorted(by_family),
         "total_cases": len(cases),
+        "seam_to_cases": {k: sorted(v) for k, v in sorted(seam_to_cases.items())},
+        "unbound_tested_seams": unbound_tested,
     }

@@ -6,14 +6,18 @@ unmodified** (`experiments/swarm_r5/`, `evidence/r5/`).
 ## What this is
 
 - Orthogonal coverage matrix (`coverage_matrix.yaml`) with tested **and**
-  untested seams across ≥6 dimensions.
-- Separable oracle vs gate policies; correct and faulty arms on shared inputs.
+  untested seams across ≥6 dimensions. Every tested seam is bound to ≥1 case
+  via `seams` tags (enforced by `coverage_report` / evaluator).
+- Separable oracle vs gate policies; correct and faulty arms on shared inputs
+  for each major family (including observation_delivery).
 - Held-out / adversarial fixtures under `held_out/` (expectations authored in
   the fixtures, not by the classifier).
 - Independently declared expectations in `case_expectations.yaml`.
 - Concurrency-derived rows from **pinned** `multi-agent-sim-v1` runs in
-  `concurrency_traces/` (issue #10 / PR #15). Sequential cases are **not**
-  relabeled as races. No live concurrent swarm claim.
+  `concurrency_traces/` (issue #10 / PR #15) with sha256 digests in
+  `PROVENANCE.md`. Reference vs mutant contention is scored as
+  same-seed / same-event_count (not byte-identical `schedule_id`). Sequential
+  cases are **not** relabeled as races. No live concurrent swarm claim.
 
 ## One-click local entry
 

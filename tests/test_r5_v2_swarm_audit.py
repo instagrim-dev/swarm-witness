@@ -21,8 +21,10 @@ from swarm_witness.swarm_audit_v2 import (  # noqa: E402
     load_concurrency_trace_cases,
     load_held_out_cases,
     oracle_required_decision,
+    pinned_concurrency_trace_digests,
     run_r5_v2_protocol_cases,
     run_sequential_family_cases,
+    verify_pinned_concurrency_digests,
 )
 
 
@@ -37,12 +39,23 @@ def test_r5_v2_method_success_and_coverage():
     assert score["effect_boundary_count"] >= 1
     assert score["decision_policy_count"] >= 1
     assert score["unknown_coerced_count"] == 0
+    assert score["pin_digest_ok"] is True
+    assert set(score["major_families_with_paired_arms"]) >= {
+        "authority_observation",
+        "delegation_scope",
+        "receipt_provenance",
+        "observation_delivery",
+        "concurrency_interleaving",
+    }
 
     coverage = coverage_report(cases)
     assert coverage["dimension_count"] >= 6
+    assert not coverage["unbound_tested_seams"], coverage["unbound_tested_seams"]
     for dim in coverage["dimensions"]:
         assert dim["tested_seams"], dim["id"]
         assert "untested_seams" in dim
+        assert dim["bound_case_count"] >= 1, dim["id"]
+        assert not dim["unbound_tested_seams"], dim
 
 
 def test_correct_and_faulty_arms_share_inputs():
@@ -59,11 +72,16 @@ def test_correct_and_faulty_arms_share_inputs():
         if "correct" in arms
         and any(a.startswith("broken") for a in arms)
     ]
+    assert "auth_active_b" in paired  # correct allow + broken_deny
+    assert "obs_partial_b" in paired  # correct + broken_allow on partial
     assert paired, "expected at least one correct+faulty pair on same inputs"
-    # Always-deny and unjustified-allow controls present.
     modes = {c["result"]["gate_mode"] for c in cases}
     assert "broken_deny" in modes
     assert "broken_allow" in modes
+    # Misnamed revoke-after-hops broken_deny must not exist.
+    assert not any(
+        c["case_id"] == "v2_deleg_revoked_after_hops_broken_deny" for c in cases
+    )
 
 
 def test_unknown_not_coerced_and_diagnoses_distinct():
@@ -72,6 +90,12 @@ def test_unknown_not_coerced_and_diagnoses_distinct():
     assert missing["conclusion_class"] == "missing_evidence"
     assert missing["decision"] is None
     assert missing["decision_status"] == "unknown"
+
+    # Faulty arm on partial inputs still cannot coerce unknown → allow.
+    partial_broken = cases["v2_obs_partial_broken_allow"]["result"]
+    assert partial_broken["conclusion_class"] == "missing_evidence"
+    assert partial_broken["decision"] is None
+    assert partial_broken["gate_mode"] == "broken_allow"
 
     prevented = cases["v2_auth_revoked_broken_allow_prevented"]["result"]
     assert prevented["decision"] == "allow"
@@ -90,13 +114,19 @@ def test_unknown_not_coerced_and_diagnoses_distinct():
     assert misbound["failure_origin"] == "evidence"
     assert misbound["effect_committed"] is False
 
+    own_bound = cases["v2_rx_own_bound_after_spend_deny"]["result"]
+    assert own_bound["receipt_kind"] == "own_bound"
+    assert own_bound["decision"] == "deny"
+    assert own_bound["conclusion_class"] == "supported"
+
 
 def test_expectations_are_external_not_classifier_authored():
     expectations = load_case_expectations()
     assert "v2_auth_valid_active_allow" in expectations
-    # Expectations file is separate from the classifier module.
+    assert "v2_auth_active_broken_deny" in expectations
+    assert "v2_rx_own_bound_after_spend_deny" in expectations
+    assert "v2_deleg_revoked_after_hops_broken_deny" not in expectations
     assert (ROOT / "experiments" / "swarm_r5_v2" / "case_expectations.yaml").is_file()
-    # Tamper: flip an expectation and the suite must fail.
     cases = run_r5_v2_protocol_cases()
     for case in cases:
         if case["case_id"] == "v2_auth_valid_active_allow":
@@ -120,7 +150,6 @@ def test_held_out_fixtures_bind_ground_truth():
         assert expected
         assert result["conclusion_class"] == expected["conclusion_class"]
         assert str(case["evidence_source"]).startswith("held_out:")
-    # Full protocol attaches expected from the held-out fixture.
     wired = [
         c
         for c in run_r5_v2_protocol_cases()
@@ -132,17 +161,20 @@ def test_held_out_fixtures_bind_ground_truth():
 def test_concurrency_rows_cite_simulator_not_live_swarm():
     sim_cases = load_concurrency_trace_cases()
     assert len(sim_cases) >= 4
-    protocols = {
-        c["result"].get("sim_protocol_id") or "multi-agent-sim-v1" for c in sim_cases
-    }
-    assert "multi-agent-sim-v1" in protocols or all(
-        "multi-agent-sim" in (c.get("evidence_source") or "") for c in sim_cases
-    )
     for case in sim_cases:
         assert "multi-agent-sim" in (case.get("evidence_source") or "")
+        assert case["result"].get("sim_protocol_id") == "multi-agent-sim-v1"
         excl = case["result"].get("sim_exclusions") or []
-        assert "live_bmo_mesh_equivalence" in excl or True  # filled by evaluator
-    # Mutant unauthorized commit preserved from pinned sim.
+        assert "live_bmo_mesh_equivalence" in excl
+        assert "production_concurrency_guarantees" in excl
+    # Shared paired_input_id for reference vs mutant contention (same seed).
+    contention = [
+        c
+        for c in sim_cases
+        if c.get("paired_input_id") == "sim:contention_one_use_seed404"
+    ]
+    arms = {c["mechanism_arm"] for c in contention}
+    assert "reference" in arms and any(a.startswith("mutant") for a in arms)
     mutant = next(
         c
         for c in sim_cases
@@ -151,6 +183,13 @@ def test_concurrency_rows_cite_simulator_not_live_swarm():
     assert mutant["result"]["effect_committed"] is True
     assert mutant["result"]["failure_origin"] == "effect_boundary"
     assert mutant["result"]["conclusion_class"] == "failed_enforcement"
+
+
+def test_pinned_trace_digests_match_provenance():
+    errors = verify_pinned_concurrency_digests()
+    assert not errors, errors
+    digests = pinned_concurrency_trace_digests()
+    assert len(digests) == 5
 
 
 def test_boundary_comparison_retains_v1():
@@ -163,7 +202,6 @@ def test_boundary_comparison_retains_v1():
 
 
 def test_oracle_separated_from_gate():
-    # Oracle denies non-assignees even if a gate would allow.
     required = oracle_required_decision(
         agent="C",
         authoritative_grant={
@@ -204,7 +242,6 @@ def test_runner_writes_valid_evidence(tmp_path: Path):
 
 
 def test_v1_artifacts_untouched():
-    # Guard: v1 finding still present and claim still r5.
     v1_finding = json.loads(
         (ROOT / "evidence" / "r5" / "findings" / "r5-f-swarm-audit.json").read_text(
             encoding="utf-8"
