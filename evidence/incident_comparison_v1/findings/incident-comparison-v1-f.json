@@ -1,0 +1,22 @@
+{
+  "id": "incident-comparison-v1-f",
+  "claim_id": "incident_comparison_v1",
+  "run_ids": [
+    "incident-comparison-v1-run"
+  ],
+  "proposition": "The frozen comparison completed on the public claims and the held LessWrong reproduction record. Original transcripts and Hugging Face platform logs stayed unavailable and were not gates. The original incident was not certified, and beating the naive baseline is not a superiority claim.",
+  "scope": "Twelve public claim-stage cells, four controlled claims, and the lineage qualifications. The LessWrong post and appendix are one record.",
+  "label": "reproduced",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "incident-comparison-v1-run.observations.comparison_completed",
+    "incident-comparison-v1-run.observations.superiority_claim",
+    "incident-comparison-v1-run.observations.real_world_authenticity_certified",
+    "incident-comparison-v1-run.observations.unavailable_blocks_comparison",
+    "incident-comparison-v1-run.observations.public_naive_unsupported_support",
+    "incident-comparison-v1-run.observations.public_strong_unsupported_support",
+    "incident-comparison-v1-run.observations.lineage_incident_supported"
+  ],
+  "conclusion_class": "supported",
+  "evaluation_method": "public_postmortem_qualification"
+}

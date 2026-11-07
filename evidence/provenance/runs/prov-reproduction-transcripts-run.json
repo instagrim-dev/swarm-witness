@@ -1,0 +1,199 @@
+{
+  "case_id": "prov_reproduction_transcripts",
+  "claim_id": "prov_reproduction_transcripts",
+  "execution_status": "completed",
+  "id": "prov-reproduction-transcripts-run",
+  "observations": {
+    "conclusion_class": "supported",
+    "finding_label": "reproduced",
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "independent_observation_count": 1,
+    "invalid_requirements": [],
+    "missing_requirements": [],
+    "primary_upgrade_blocker": null,
+    "qualification": {
+      "absence_of_sink_is_no_effect": false,
+      "chronology": {
+        "event_time": null,
+        "fabricated": false,
+        "observed_time": null,
+        "time_basis": "missing"
+      },
+      "cited_independence_groups": [
+        "lesswrong-reproduction-2026-09"
+      ],
+      "claim_id": "prov_reproduction_transcripts",
+      "conclusion_class": "supported",
+      "coverage": {
+        "available": 2,
+        "denominator": 4,
+        "redacted": 0,
+        "unobserved": 1,
+        "withheld": 1
+      },
+      "coverage_assumption": {
+        "completeness": "partial",
+        "declared": true,
+        "interval": {
+          "end": null,
+          "start": null
+        },
+        "operation": "reproduction-transcript-release"
+      },
+      "coverage_established": false,
+      "decision_status": "unknown",
+      "diagnosis": {
+        "decision_status": "unknown",
+        "effect_status": "unobserved",
+        "evidence_status": "authentic",
+        "failure_origin": "none"
+      },
+      "dimensions": {
+        "authenticity": "byte_identified",
+        "collection_completeness": "partial",
+        "scope_binding": "unknown",
+        "temporal_applicability": "missing"
+      },
+      "duplicated_report_ids": [
+        "ev-lw-appendix"
+      ],
+      "effect_status": "unobserved",
+      "evidence_status": "authentic",
+      "evidence_type_counts": {
+        "application_readback": 0,
+        "public_report_assertion": 2,
+        "synthetic_model_record": 0
+      },
+      "failure_origin": "none",
+      "finding_label": "reproduced",
+      "incident_detection_claimed": false,
+      "incident_prevention_claimed": false,
+      "independent_observation_count": 1,
+      "invalid_requirements": [],
+      "investigator_count": 1,
+      "investigators": [
+        "lesswrong-reproduction"
+      ],
+      "kind_rejections": [],
+      "kinds_present": [
+        "narrative_report"
+      ],
+      "lineage": [
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "human",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Pinned sentence from the public LessWrong reproduction post. The sentence says the authors release code and transcripts of their own reproduction. It is not the OpenAI transcript dump and not a Hugging Face platform log.",
+          "content_digest": "b4cb7b533f22a27b28a1b9f7312b10a27060952d1408ac888489c67ec2b5080d",
+          "corroboration_key": "digest:b4cb7b533f22a27b28a1b9f7312b10a27060952d1408ac888489c67ec2b5080d",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-lw-release",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "lesswrong-reproduction-2026-09",
+          "observation_availability": "available",
+          "observation_origin": "released_reproduction",
+          "producer": "lesswrong-reproduction",
+          "scope_binding": "unknown",
+          "source_ref": "https://www.lesswrong.com/posts/fMnC6ZD37qrnZAFYz/openai-huggingface-a-reproduction-and-lessons-for-alignment",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        },
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "human",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Second public report of the same reproduction. The appendix says the transcripts were uploaded. It is not a second independent corpus.",
+          "content_digest": "73fc3bbb210fd8295d2bf925c435637535cc69137e1881f777dbe612973dfe24",
+          "corroboration_key": "digest:b4cb7b533f22a27b28a1b9f7312b10a27060952d1408ac888489c67ec2b5080d",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-lw-appendix",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "lesswrong-reproduction-2026-09",
+          "observation_availability": "available",
+          "observation_origin": "released_reproduction",
+          "producer": "lesswrong-reproduction",
+          "scope_binding": "unknown",
+          "source_ref": "https://www.lesswrong.com/posts/mXPCpJCvFGybQ4mwc/appendix-reproduction-of-the-openai-huggingface-incident",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        }
+      ],
+      "missing_requirements": [],
+      "primary_upgrade_blocker": null,
+      "property_holds": true,
+      "proposition": "The public LessWrong reproduction post and its appendix release transcripts of that reproduction. Those transcripts are not the OpenAI transcript dump and not Hugging Face platform logs.",
+      "publication_surface_count": 2,
+      "real_world_authenticity_certified": false,
+      "reason": "fixture rule satisfied by verified admissible observations; this does not certify real-world authenticity",
+      "rejected_times": [
+        {
+          "event_id": "ev-lw-release",
+          "event_time": null,
+          "reason": "missing timestamp is not a chronology",
+          "time_basis": "missing"
+        },
+        {
+          "event_id": "ev-lw-appendix",
+          "event_time": null,
+          "reason": "missing timestamp is not a chronology",
+          "time_basis": "missing"
+        }
+      ],
+      "reported_counts": {
+        "held_by_audit": false,
+        "precision": "reported_approximate",
+        "spoofed_transcripts": 96,
+        "transcripts": 1300
+      },
+      "source_conflict": false,
+      "unavailable_sources": [
+        {
+          "access_level": "withheld",
+          "coverage_status": "withheld",
+          "independence_group": "openai-supplied-transcript-dump",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-openai-transcript-dump",
+          "source_id": "src-transcript-dump"
+        },
+        {
+          "access_level": "unobserved",
+          "coverage_status": "unobserved",
+          "independence_group": "huggingface-platform-telemetry-2026-07",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-hf-logs-unavailable",
+          "source_id": "src-hf-platform-logs"
+        }
+      ],
+      "unverified_binding": false,
+      "upgrade_blocked_by": [],
+      "verified_event_ids": [
+        "ev-lw-release",
+        "ev-lw-appendix"
+      ],
+      "verified_narrative_group_count": 1
+    },
+    "real_world_authenticity_certified": false,
+    "unavailable_sources": [
+      "src-transcript-dump",
+      "src-hf-platform-logs"
+    ],
+    "underlying_telemetry": "unavailable"
+  },
+  "protocol_id": "evidence-provenance-v1",
+  "source_pin": "evidence-provenance-v1"
+}

@@ -1,0 +1,28 @@
+id: prov_reproduction_transcripts
+source_ref: experiments/provenance/incident_lineage.yaml#prov_reproduction_transcripts
+source_version: evidence-provenance-v1
+original_proposition: >
+  The public LessWrong reproduction post and its appendix release transcripts
+  of that reproduction.
+operational_interpretation: >
+  The pinned post sentence verifies the release statement. The appendix is a
+  second report of the same release, so it does not add an independent
+  observation. The OpenAI transcript dump and the Hugging Face platform logs
+  are recorded unavailable and are not upgrade gates. This does not certify
+  the original incident.
+property: public reproduction release is distinct from withheld originals
+scope: >
+  Pinned sentences from the September 2026 LessWrong reproduction post and
+  appendix. Not the OpenAI transcript dump, not Hugging Face platform logs,
+  and not a detection or prevention claim.
+quantifier: the release statement in the fixture
+success_criterion: >
+  Qualification is supported for the release statement. Independent
+  observation count stays 1 across the two reports. Unavailable originals
+  stay listed and primary_upgrade_blocker stays empty. Real-world
+  authenticity is not certified.
+assumptions:
+  - "The pinned sentences are the public bytes held by this audit"
+  - "The appendix depends on the same reproduction record as the post"
+  - "The original OpenAI transcript dump is withheld and is not a gate"
+  - "Hugging Face platform logs are unobserved and are not a gate"

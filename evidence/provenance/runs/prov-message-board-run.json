@@ -1,0 +1,195 @@
+{
+  "case_id": "prov_message_board",
+  "claim_id": "prov_message_board",
+  "execution_status": "completed",
+  "id": "prov-message-board-run",
+  "observations": {
+    "conclusion_class": "missing_evidence",
+    "finding_label": "unresolved",
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "independent_observation_count": 0,
+    "invalid_requirements": [],
+    "missing_requirements": [],
+    "primary_upgrade_blocker": null,
+    "qualification": {
+      "absence_of_sink_is_no_effect": false,
+      "chronology": {
+        "event_time": null,
+        "fabricated": false,
+        "observed_time": null,
+        "time_basis": "missing"
+      },
+      "cited_independence_groups": [
+        "openai-artifactory-message-board-dump"
+      ],
+      "claim_id": "prov_message_board",
+      "conclusion_class": "missing_evidence",
+      "coverage": {
+        "available": 2,
+        "denominator": 5,
+        "redacted": 0,
+        "unobserved": 2,
+        "withheld": 1
+      },
+      "coverage_assumption": {
+        "completeness": "partial",
+        "declared": true,
+        "interval": {
+          "end": null,
+          "start": null
+        },
+        "operation": "public-message-board-narration"
+      },
+      "coverage_established": false,
+      "decision_status": "unknown",
+      "diagnosis": {
+        "decision_status": "unknown",
+        "effect_status": "unobserved",
+        "evidence_status": "unverified",
+        "failure_origin": "evidence"
+      },
+      "dimensions": {
+        "authenticity": "byte_identified",
+        "collection_completeness": "partial",
+        "scope_binding": "unknown",
+        "temporal_applicability": "missing"
+      },
+      "duplicated_report_ids": [
+        "ev-redwood-board"
+      ],
+      "effect_status": "unobserved",
+      "evidence_status": "unverified",
+      "evidence_type_counts": {
+        "application_readback": 0,
+        "public_report_assertion": 2,
+        "synthetic_model_record": 0
+      },
+      "failure_origin": "evidence",
+      "finding_label": "unresolved",
+      "incident_detection_claimed": false,
+      "incident_prevention_claimed": false,
+      "independent_observation_count": 0,
+      "invalid_requirements": [],
+      "investigator_count": 1,
+      "investigators": [
+        "metr-redwood-investigation"
+      ],
+      "kind_rejections": [],
+      "kinds_present": [
+        "narrative_report"
+      ],
+      "lineage": [
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "METR public sentence about the unsanctioned Artifactory message board. The sentence is held. The dump it describes is not.",
+          "content_digest": "4c0eaa6a210e20fee6ea1ad69d1d02ec0860bccf320659e9dce4db0d43d52721",
+          "corroboration_key": "group:openai-artifactory-message-board-dump",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-metr-board",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "openai-artifactory-message-board-dump",
+          "observation_availability": "available",
+          "observation_origin": "correlated_analysis_of_single_dataset",
+          "producer": "metr-redwood-investigation",
+          "scope_binding": "unknown",
+          "source_ref": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        },
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Same METR/Redwood sentence on the Redwood Research publication. A second report of the same withheld Artifactory dump, not a second dump.",
+          "content_digest": "4c0eaa6a210e20fee6ea1ad69d1d02ec0860bccf320659e9dce4db0d43d52721",
+          "corroboration_key": "group:openai-artifactory-message-board-dump",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-redwood-board",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "openai-artifactory-message-board-dump",
+          "observation_availability": "available",
+          "observation_origin": "correlated_analysis_of_single_dataset",
+          "producer": "metr-redwood-investigation",
+          "scope_binding": "unknown",
+          "source_ref": "https://www.redwoodresearch.org/research/hugging-face-incident",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        }
+      ],
+      "missing_requirements": [],
+      "primary_upgrade_blocker": null,
+      "property_holds": null,
+      "proposition": "About 1200 agents exchanged over 70,000 messages on an unsanctioned Artifactory message board, as independently observed from the board records.",
+      "publication_surface_count": 2,
+      "real_world_authenticity_certified": false,
+      "reason": "missing_evidence: no admissible verified observation",
+      "rejected_times": [],
+      "reported_counts": {
+        "agents_on_board": 1200,
+        "held_by_audit": false,
+        "messages_and_files": 70000,
+        "precision": "reported_approximate"
+      },
+      "source_conflict": false,
+      "unavailable_sources": [
+        {
+          "access_level": "withheld",
+          "coverage_status": "withheld",
+          "independence_group": "openai-artifactory-message-board-dump",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-board-dump",
+          "source_id": "src-board-dump"
+        },
+        {
+          "access_level": "unobserved",
+          "coverage_status": "unobserved",
+          "independence_group": "unobserved:artifactory-side-channels",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-other-channels",
+          "source_id": "src-other-channels"
+        },
+        {
+          "access_level": "unknown",
+          "coverage_status": "unobserved",
+          "independence_group": "unretrieved:openai-road-ahead",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-openai-blog",
+          "source_id": "src-openai-blog"
+        }
+      ],
+      "unverified_binding": false,
+      "upgrade_blocked_by": [],
+      "verified_event_ids": [
+        "ev-metr-board",
+        "ev-redwood-board"
+      ],
+      "verified_narrative_group_count": 1
+    },
+    "real_world_authenticity_certified": false,
+    "unavailable_sources": [
+      "src-board-dump",
+      "src-other-channels",
+      "src-openai-blog"
+    ],
+    "underlying_telemetry": "unavailable"
+  },
+  "protocol_id": "evidence-provenance-v1",
+  "source_pin": "evidence-provenance-v1"
+}

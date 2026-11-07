@@ -1,0 +1,22 @@
+# Applied after qualifiers return. Not an input to naive, strong, or Swarm Witness.
+claims:
+  K-release:
+    epistemic: supported
+    origin: lesswrong-reproduction-2026-09
+    proposition_holds: true
+    reason: One held public record releases the reproduction transcripts.
+  K-certify:
+    epistemic: unresolved
+    origin: undetermined
+    proposition_holds: false
+    reason: The posts do not verify the original compromise. Missing logs are not a gate.
+  K-census:
+    epistemic: supported
+    origin: undetermined
+    proposition_holds: true
+    reason: The held step-1 extract states the signature counts.
+  K-gate:
+    epistemic: unresolved
+    origin: undetermined
+    proposition_holds: false
+    reason: The held blocks_upgrade slot is not the verifying observation.

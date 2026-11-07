@@ -1,0 +1,294 @@
+{
+  "case_id": "prov_tool_call_spoof",
+  "claim_id": "prov_tool_call_spoof",
+  "execution_status": "completed",
+  "id": "prov-tool-call-spoof-run",
+  "observations": {
+    "conclusion_class": "missing_evidence",
+    "finding_label": "unresolved",
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "independent_observation_count": 0,
+    "invalid_requirements": [],
+    "missing_requirements": [],
+    "primary_upgrade_blocker": null,
+    "qualification": {
+      "absence_of_sink_is_no_effect": false,
+      "chronology": {
+        "event_time": null,
+        "fabricated": false,
+        "observed_time": null,
+        "time_basis": "missing"
+      },
+      "cited_independence_groups": [
+        "openai-supplied-transcript-dump"
+      ],
+      "claim_id": "prov_tool_call_spoof",
+      "conclusion_class": "missing_evidence",
+      "coverage": {
+        "available": 2,
+        "denominator": 4,
+        "redacted": 0,
+        "unobserved": 1,
+        "withheld": 1
+      },
+      "coverage_assumption": {
+        "completeness": "partial",
+        "declared": true,
+        "interval": {
+          "end": null,
+          "start": null
+        },
+        "operation": "public-spoof-example"
+      },
+      "coverage_established": false,
+      "decision_status": "unknown",
+      "diagnosis": {
+        "decision_status": "unknown",
+        "effect_status": "unobserved",
+        "evidence_status": "unverified",
+        "failure_origin": "evidence"
+      },
+      "dimensions": {
+        "authenticity": "byte_identified",
+        "collection_completeness": "partial",
+        "scope_binding": "unverified_binding",
+        "temporal_applicability": "missing"
+      },
+      "duplicated_report_ids": [
+        "ev-tool-arguments",
+        "ev-claimed-response",
+        "ev-response-narrative",
+        "ev-redwood-narrative"
+      ],
+      "effect_status": "unobserved",
+      "evidence_status": "unverified",
+      "evidence_type_counts": {
+        "application_readback": 0,
+        "public_report_assertion": 4,
+        "synthetic_model_record": 0,
+        "unavailable_original": 1
+      },
+      "failure_origin": "evidence",
+      "finding_label": "unresolved",
+      "incident_detection_claimed": false,
+      "incident_prevention_claimed": false,
+      "independent_observation_count": 0,
+      "invalid_requirements": [],
+      "investigator_count": 1,
+      "investigators": [
+        "metr-redwood-investigation"
+      ],
+      "kind_rejections": [
+        {
+          "event_id": "ev-visible-command",
+          "event_kind": "transcript_visible_command",
+          "reason": "excerpt digest verifies publication bytes, not this event kind"
+        },
+        {
+          "event_id": "ev-tool-arguments",
+          "event_kind": "tool_call_arguments",
+          "reason": "excerpt digest verifies publication bytes, not this event kind"
+        },
+        {
+          "event_id": "ev-claimed-response",
+          "event_kind": "actual_tool_response",
+          "reason": "verification method does not establish the event"
+        }
+      ],
+      "kinds_present": [
+        "actual_tool_response",
+        "narrative_report",
+        "tool_call_arguments",
+        "transcript_visible_command"
+      ],
+      "lineage": [
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Contiguous token on the METR public investigation page. Publication text, not the underlying transcript or an execution log.",
+          "content_digest": "b73bce00b5da893cfa945a467eb45b398cf3cff60632394237d8b60be4923743",
+          "corroboration_key": "group:openai-supplied-transcript-dump",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-visible-command",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "openai-supplied-transcript-dump",
+          "observation_availability": "available",
+          "observation_origin": "correlated_analysis_of_single_dataset",
+          "producer": "metr-redwood-investigation",
+          "scope_binding": "unverified_binding",
+          "source_ref": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        },
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Contiguous token on the METR public investigation page. Publication text, not the underlying transcript or an execution log.",
+          "content_digest": "b73bce00b5da893cfa945a467eb45b398cf3cff60632394237d8b60be4923743",
+          "corroboration_key": "group:openai-supplied-transcript-dump",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-tool-arguments",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "openai-supplied-transcript-dump",
+          "observation_availability": "available",
+          "observation_origin": "correlated_analysis_of_single_dataset",
+          "producer": "metr-redwood-investigation",
+          "scope_binding": "unverified_binding",
+          "source_ref": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        },
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": false,
+          "collection_boundary": "OpenAI-supplied transcript set. METR/Redwood describe about 1,300 transcripts with raw chains of thought, and say at least 96 show spoofed tool calls. This audit does not hold the transcripts. The reported counts are not a download.",
+          "content_digest": null,
+          "corroboration_key": "group:openai-supplied-transcript-dump",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-claimed-response",
+          "event_time": null,
+          "evidence_type": "unavailable_original",
+          "independence_group": "openai-supplied-transcript-dump",
+          "observation_availability": "unobserved",
+          "observation_origin": "unavailable_private_original",
+          "producer": "metr-redwood-investigation",
+          "scope_binding": "unverified_binding",
+          "source_ref": "src-transcript-dump",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        },
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Contiguous return token on the METR public page, in the sentence that contrasts it with the displayed command. Not the tool response record.",
+          "content_digest": "1d60a69726e4dec7512f6903dfec6ccfaba0df3c947eb445c0f2a8cf082d4982",
+          "corroboration_key": "group:openai-supplied-transcript-dump",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-response-narrative",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "openai-supplied-transcript-dump",
+          "observation_availability": "available",
+          "observation_origin": "correlated_analysis_of_single_dataset",
+          "producer": "metr-redwood-investigation",
+          "scope_binding": "unverified_binding",
+          "source_ref": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        },
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Same published example on the Redwood Research page of the METR/Redwood investigation. A second publication surface of the same transcript analysis, not a second transcript.",
+          "content_digest": "b73bce00b5da893cfa945a467eb45b398cf3cff60632394237d8b60be4923743",
+          "corroboration_key": "group:openai-supplied-transcript-dump",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-redwood-narrative",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "openai-supplied-transcript-dump",
+          "observation_availability": "available",
+          "observation_origin": "reused_transcript_dump",
+          "producer": "metr-redwood-investigation",
+          "scope_binding": "unverified_binding",
+          "source_ref": "https://www.redwoodresearch.org/research/hugging-face-incident",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        }
+      ],
+      "missing_requirements": [],
+      "primary_upgrade_blocker": null,
+      "property_holds": null,
+      "proposition": "The command displayed in the METR/Redwood transcript example was the command actually executed.",
+      "publication_surface_count": 3,
+      "real_world_authenticity_certified": false,
+      "reason": "missing_evidence: no admissible verified observation",
+      "rejected_times": [
+        {
+          "event_id": "ev-claimed-response",
+          "event_time": null,
+          "reason": "missing timestamp is not a chronology",
+          "time_basis": "missing"
+        }
+      ],
+      "reported_counts": {
+        "held_by_audit": false,
+        "precision": "reported_approximate",
+        "spoofed_transcripts": 96,
+        "transcripts": 1300
+      },
+      "source_conflict": true,
+      "unavailable_sources": [
+        {
+          "access_level": "withheld",
+          "coverage_status": "withheld",
+          "independence_group": "openai-supplied-transcript-dump",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-original-transcript",
+          "source_id": "src-transcript-dump"
+        },
+        {
+          "access_level": "unobserved",
+          "coverage_status": "unobserved",
+          "independence_group": "unobserved:spoof-example-execution-log",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-execution-log",
+          "source_id": "src-execution-log"
+        }
+      ],
+      "unverified_binding": true,
+      "upgrade_blocked_by": [],
+      "verified_event_ids": [
+        "ev-response-narrative",
+        "ev-redwood-narrative"
+      ],
+      "verified_narrative_group_count": 1
+    },
+    "real_world_authenticity_certified": false,
+    "unavailable_sources": [
+      "src-transcript-dump",
+      "src-execution-log"
+    ],
+    "underlying_telemetry": "unavailable"
+  },
+  "protocol_id": "evidence-provenance-v1",
+  "source_pin": "evidence-provenance-v1"
+}

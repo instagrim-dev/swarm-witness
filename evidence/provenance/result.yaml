@@ -1,0 +1,13 @@
+claim_id: provenance_contract_v1
+label: reproduced
+metrics:
+  incident_claims: 3
+  incident_unresolved: 3
+  real_world_authenticity_certified: false
+  incident_detection_claimed: false
+  incident_prevention_claimed: false
+notes: Fixture conformance for evidence-provenance-v1. The three world claims stay
+  unresolved because the public excerpts do not verify them. The OpenAI transcript
+  dump and Hugging Face platform logs are recorded unavailable and are not upgrade
+  gates. The LessWrong reproduction release qualifies from its public post. This is
+  not an incident detection or prevention result.

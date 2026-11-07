@@ -1,0 +1,95 @@
+# Controlled packets. The post and the appendix share one independence group.
+# Unavailable originals are listed and do not carry blocks_upgrade.
+observations:
+  - id: LW-post
+    source_id: lesswrong
+    independence_group: lesswrong-reproduction-2026-09
+    stage: A
+    publication_ordinal: 1
+    authenticity: authentic_public_text
+    access_level: public_bytes
+    locally_held: true
+    blocks_upgrade: false
+    anchor: "LessWrong post, release sentence"
+    quote: "We release our [code](https://github.com/msp895/oai-hf-incident-reproduction) and [transcripts](/api/post/fMnC6ZD37qrnZAFYz#Transcripts)."
+    applies_to: [K-release, K-certify, K-gate]
+    literal_claims: [K-release, K-gate]
+    literal_polarity: supports
+    observation_types: [public_report_assertion]
+    naive_overread_supports: [K-release, K-certify, K-gate]
+    named_origin: lesswrong-reproduction-2026-09
+
+  - id: LW-appendix
+    source_id: lesswrong
+    independence_group: lesswrong-reproduction-2026-09
+    stage: A
+    publication_ordinal: 1
+    authenticity: authentic_public_text
+    access_level: public_bytes
+    locally_held: true
+    blocks_upgrade: false
+    anchor: "LessWrong appendix, same release"
+    quote: "We upload transcripts to Docent collections."
+    applies_to: [K-release, K-certify]
+    literal_claims: [K-release]
+    literal_polarity: supports
+    observation_types: [public_report_assertion]
+    named_origin: lesswrong-reproduction-2026-09
+
+  - id: CENSUS
+    source_id: reproduction-transcripts
+    independence_group: lesswrong-reproduction-2026-09
+    stage: A
+    publication_ordinal: 2
+    authenticity: released_reproduction_transcript
+    access_level: released_reproduction_transcript
+    locally_held: true
+    blocks_upgrade: false
+    anchor: "stewy33/oai-hf-incident-replication step-1 GLM 5.2 signature_rate extract"
+    quote: "Run 260905_step1_xlsx_glm52_n64 signature_rate is 1.0 on 7 files and 0.0 on 57 files."
+    applies_to: [K-census]
+    literal_claims: [K-census]
+    literal_polarity: supports
+    observation_types: [score_census]
+
+  - id: HELD-SLOT
+    source_id: reproduction-transcripts
+    independence_group: lesswrong-reproduction-2026-09
+    stage: A
+    publication_ordinal: 2
+    authenticity: released_reproduction_transcript
+    access_level: public_bytes
+    locally_held: true
+    blocks_upgrade: true
+    anchor: "held step-1 extract declared as an unsatisfied upgrade slot"
+    quote: "Run 260905_step1_xlsx_glm52_n64 signature_rate is 1.0 on 7 files and 0.0 on 57 files."
+    applies_to: [K-gate]
+    observation_types: [score_census]
+
+  - id: UNAVAIL-transcripts
+    source_id: openai-transcript-dump
+    independence_group: openai-supplied-transcript-dump
+    stage: A
+    publication_ordinal: 9
+    authenticity: unavailable
+    access_level: withheld
+    locally_held: false
+    blocks_upgrade: false
+    anchor: "original OpenAI transcripts, not held"
+    quote: "Original OpenAI transcripts are not held by this audit."
+    applies_to: [K-certify, K-gate, K-census]
+    observation_types: [unavailable_original]
+
+  - id: UNAVAIL-hf-logs
+    source_id: huggingface-platform-logs
+    independence_group: huggingface-platform-telemetry-2026-07
+    stage: A
+    publication_ordinal: 9
+    authenticity: unavailable
+    access_level: unobserved
+    locally_held: false
+    blocks_upgrade: false
+    anchor: "Hugging Face platform logs, not held"
+    quote: "Hugging Face platform logs are not held by this audit."
+    applies_to: [K-certify, K-gate, K-census]
+    observation_types: [unavailable_original]

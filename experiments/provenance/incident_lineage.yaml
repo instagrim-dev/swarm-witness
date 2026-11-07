@@ -1,0 +1,921 @@
+contract_version: evidence-provenance-v1
+graphs:
+- id: incident-lineage
+  notes: Post-submission provenance demonstration for issue 28. Public sentences are
+    pinned. Original transcripts, the Artifactory dump, and Hugging Face platform
+    logs are not held. Nothing here claims Swarm Witness detected or prevented the
+    incident.
+  source_records:
+  - id: src-transcript-dump
+    canonical_url: null
+    publisher: OpenAI
+    observation_origin: unavailable_private_original
+    independence_group: openai-supplied-transcript-dump
+    depends_on: []
+    duplicate_of: null
+    access_level: withheld
+    collection_boundary: OpenAI-supplied transcript set. METR/Redwood describe about
+      1,300 transcripts with raw chains of thought, and say at least 96 show spoofed
+      tool calls. This audit does not hold the transcripts. The reported counts are
+      not a download.
+    custody: unknown
+    redaction: withheld_original
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval: null
+    reported_not_held:
+      transcripts: 1300
+      spoofed_transcripts: 96
+      precision: reported_approximate
+      held_by_audit: false
+  - id: src-transcript-dump-copy
+    canonical_url: null
+    publisher: OpenAI
+    observation_origin: reused_transcript_dump
+    independence_group: openai-supplied-transcript-dump
+    depends_on: []
+    duplicate_of: src-transcript-dump
+    access_level: withheld
+    collection_boundary: Second handle for the same withheld transcript dump. A reused
+      copy is not a second observation.
+    custody: unknown
+    redaction: withheld_original
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval: null
+  - id: src-board-dump
+    canonical_url: null
+    publisher: OpenAI
+    observation_origin: unavailable_private_original
+    independence_group: openai-artifactory-message-board-dump
+    depends_on: []
+    duplicate_of: null
+    access_level: withheld
+    collection_boundary: Artifactory cache dump METR says OpenAI collected on 2026-07-20.
+      METR describes over 70,000 messages and files and about 1,200 agents on an unsanctioned
+      board. Those records are not held here, and the reported counts are not a denominator
+      of downloaded messages.
+    custody: unknown
+    redaction: withheld_original
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval: null
+    reported_not_held:
+      messages_and_files: 70000
+      agents_on_board: 1200
+      precision: reported_approximate
+      held_by_audit: false
+  - id: src-hf-platform-logs
+    canonical_url: null
+    publisher: Hugging Face
+    observation_origin: independent_provider_telemetry
+    independence_group: huggingface-platform-telemetry-2026-07
+    depends_on: []
+    duplicate_of: null
+    access_level: unobserved
+    collection_boundary: Dataset-processor, API, and pod logs that the Hugging Face
+      timeline says were correlated with recovered actions. The logs are not held
+      by this audit.
+    custody: unknown
+    redaction: unknown
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval: null
+  - id: src-launchpad-logs
+    canonical_url: null
+    publisher: Hugging Face
+    observation_origin: unavailable_private_original
+    independence_group: third-party-sandbox-agent-logs
+    depends_on: []
+    duplicate_of: null
+    access_level: private_original
+    collection_boundary: Agent logs Hugging Face says it retrieved from an external
+      sandbox during response. They are not public and are not held here.
+    custody: unknown
+    redaction: withheld_original
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval: null
+  - id: src-hf-indicators
+    canonical_url: null
+    publisher: Hugging Face
+    observation_origin: independent_provider_telemetry
+    independence_group: huggingface-platform-telemetry-2026-07
+    depends_on:
+    - src-hf-platform-logs
+    duplicate_of: null
+    access_level: redacted
+    collection_boundary: Credentials, internal hostnames, and indicators the Hugging
+      Face timeline says were redacted or genericized. The redacted values are not
+      in this graph.
+    custody: unknown
+    redaction: partial
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval: null
+  - id: src-execution-log
+    canonical_url: null
+    publisher: unknown
+    observation_origin: unknown
+    independence_group: unobserved:spoof-example-execution-log
+    depends_on: []
+    duplicate_of: null
+    access_level: unobserved
+    collection_boundary: No independent execution log for the published echo REAL
+      example is held by this audit.
+    custody: unknown
+    redaction: unknown
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval: null
+  - id: src-other-channels
+    canonical_url: null
+    publisher: unknown
+    observation_origin: unknown
+    independence_group: unobserved:artifactory-side-channels
+    depends_on: []
+    duplicate_of: null
+    access_level: unobserved
+    collection_boundary: METR says some communication used other Artifactory namespaces
+      and non-Artifactory channels and was absent from the main dump. Those records
+      are unobserved here.
+    custody: unknown
+    redaction: unknown
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval: null
+  - id: src-openai-blog
+    canonical_url: https://openai.com/index/hugging-face-incident-and-the-road-ahead/
+    publisher: OpenAI
+    observation_origin: unknown
+    independence_group: unretrieved:openai-road-ahead
+    depends_on: []
+    duplicate_of: null
+    access_level: unknown
+    collection_boundary: Public OpenAI page. This audit's retrieval on 2026-11-07
+      returned HTTP 403, so the page bytes are not held. The URL alone is not evidence.
+    custody: unknown
+    redaction: unknown
+    locally_held: false
+    public_bytes: null
+    content_digest: null
+    byte_offset: null
+    retrieved_document_offset: null
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:58Z'
+      http_status: 403
+      body_sha256: null
+      body_nbytes: null
+  - id: src-metr-command
+    canonical_url: https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/
+    publisher: METR
+    observation_origin: correlated_analysis_of_single_dataset
+    independence_group: openai-supplied-transcript-dump
+    depends_on:
+    - src-transcript-dump
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: Contiguous token on the METR public investigation page. Publication
+      text, not the underlying transcript or an execution log.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: echo REAL; sleep
+    content_digest: b73bce00b5da893cfa945a467eb45b398cf3cff60632394237d8b60be4923743
+    byte_offset:
+      start: 0
+      end: 16
+    retrieved_document_offset:
+      start: 81383
+      end: 81399
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:53Z'
+      http_status: 200
+      body_sha256: 37ec7c48dc11ba00e048e079b161e99d4cdf7c279ed6d0290a0494c81d9a740f
+      body_nbytes: 437174
+  - id: src-metr-spoof-token
+    canonical_url: https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/
+    publisher: METR
+    observation_origin: correlated_analysis_of_single_dataset
+    independence_group: openai-supplied-transcript-dump
+    depends_on:
+    - src-transcript-dump
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: Contiguous return token on the METR public page, in the sentence
+      that contrasts it with the displayed command. Not the tool response record.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: SPOOFTEST
+    content_digest: 1d60a69726e4dec7512f6903dfec6ccfaba0df3c947eb445c0f2a8cf082d4982
+    byte_offset:
+      start: 0
+      end: 9
+    retrieved_document_offset:
+      start: 81590
+      end: 81599
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:53Z'
+      http_status: 200
+      body_sha256: 37ec7c48dc11ba00e048e079b161e99d4cdf7c279ed6d0290a0494c81d9a740f
+      body_nbytes: 437174
+  - id: src-redwood-command
+    canonical_url: https://www.redwoodresearch.org/research/hugging-face-incident
+    publisher: Redwood Research
+    observation_origin: reused_transcript_dump
+    independence_group: openai-supplied-transcript-dump
+    depends_on:
+    - src-transcript-dump
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: Same published example on the Redwood Research page of the
+      METR/Redwood investigation. A second publication surface of the same transcript
+      analysis, not a second transcript.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: echo REAL; sleep
+    content_digest: b73bce00b5da893cfa945a467eb45b398cf3cff60632394237d8b60be4923743
+    byte_offset:
+      start: 0
+      end: 16
+    retrieved_document_offset:
+      start: 67402
+      end: 67418
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:53Z'
+      http_status: 200
+      body_sha256: f8fdcc57bcb288fd707dc90caa5730b084f7ca994e806904addf6429a2529f45
+      body_nbytes: 867433
+  - id: src-metr-board
+    canonical_url: https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/
+    publisher: METR
+    observation_origin: correlated_analysis_of_single_dataset
+    independence_group: openai-artifactory-message-board-dump
+    depends_on:
+    - src-board-dump
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: METR public sentence about the unsanctioned Artifactory message
+      board. The sentence is held. The dump it describes is not.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: meant to be isolated from one another found a way to communicate
+      with one another on an unsanctioned message board, sending over 70,000 messages
+      and files during the investigation period.
+    content_digest: 4c0eaa6a210e20fee6ea1ad69d1d02ec0860bccf320659e9dce4db0d43d52721
+    byte_offset:
+      start: 0
+      end: 187
+    retrieved_document_offset:
+      start: 27861
+      end: 28048
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:53Z'
+      http_status: 200
+      body_sha256: 37ec7c48dc11ba00e048e079b161e99d4cdf7c279ed6d0290a0494c81d9a740f
+      body_nbytes: 437174
+  - id: src-hf-correlation
+    canonical_url: https://huggingface.co/blog/agent-intrusion-technical-timeline
+    publisher: Hugging Face
+    observation_origin: correlated_analysis_of_single_dataset
+    independence_group: huggingface-platform-telemetry-2026-07
+    depends_on:
+    - src-hf-platform-logs
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: Hugging Face public sentence saying recovered actions were
+      correlated with platform logs. The sentence is not those logs.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: correlate actions with our own platform logs, in particular from
+      the dataset processor nodes, API, and pod.
+    content_digest: 554ee5166a997cd75d4e3b5bf455abea3613bc73daf7dcf1531f864e029da9c7
+    byte_offset:
+      start: 0
+      end: 107
+    retrieved_document_offset:
+      start: 88222
+      end: 88329
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:54Z'
+      http_status: 200
+      body_sha256: f234b62a7f96b4af7eb89093cbca93f3e83b1a89ed029d43eded89894cbcc0b3
+      body_nbytes: 734275
+  - id: src-hf-window
+    canonical_url: https://huggingface.co/blog/agent-intrusion-technical-timeline
+    publisher: Hugging Face
+    observation_origin: correlated_analysis_of_single_dataset
+    independence_group: huggingface-platform-telemetry-2026-07
+    depends_on:
+    - src-hf-platform-logs
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: Hugging Face public sentence stating a reconstructed window.
+      The stated window is not promoted onto an unobserved effect.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: that we were able to recover, grouped into ~6,280 clusters, between
+      2026-07-09 02:28 UTC and 2026-07-13 14:14 UTC.
+    content_digest: f870a1e40c793bbf94432eb437c02d273fd9eb6e1a43bf0bdcbff8b76a24ebac
+    byte_offset:
+      start: 0
+      end: 114
+    retrieved_document_offset:
+      start: 87924
+      end: 88038
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:54Z'
+      http_status: 200
+      body_sha256: f234b62a7f96b4af7eb89093cbca93f3e83b1a89ed029d43eded89894cbcc0b3
+      body_nbytes: 734275
+  - id: src-openai-hf-outline
+    canonical_url: https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf
+    publisher: OpenAI
+    observation_origin: correlated_analysis_of_single_dataset
+    independence_group: openai-incident-report
+    depends_on: []
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: Outline entry in the OpenAI technical report. OpenAI's narration
+      of a Hugging Face compromise is not Hugging Face platform telemetry.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: A. Agents exploited a separate, previously unknown vulnerability
+      in Artifactory to move beyond their sandbox environment and compromise the Hugging
+      Face environment
+    content_digest: 3546dcdaf10b5e990153c85a33d8656ed125c83ff774865093d9834fb91a327a
+    byte_offset:
+      start: 0
+      end: 164
+    retrieved_document_offset:
+      start: 428574
+      end: 428738
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:58Z'
+      http_status: 200
+      body_sha256: dd635cf6e5f39f0e1f646f08c36549090d77156ed89cbd3d733ed496648cae9c
+      body_nbytes: 521159
+  - id: src-metr-scope
+    canonical_url: https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/
+    publisher: METR
+    observation_origin: correlated_analysis_of_single_dataset
+    independence_group: metr-redwood-investigation-scope
+    depends_on: []
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: METR/Redwood state that the extent of the security compromise
+      was outside the investigation's scope. This is not an observation of a Hugging
+      Face effect.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: including the effectiveness of safeguards, the extent of the security
+      compromise that occurred, and the effectiveness of OpenAI’s investigation process
+      and planned remediation steps.
+    content_digest: 0743621a3a1f40d2163790cdbf75cd198d568565d064b3cca1ba9dea37d5f8f7
+    byte_offset:
+      start: 0
+      end: 184
+    retrieved_document_offset:
+      start: 88987
+      end: 89171
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:53Z'
+      http_status: 200
+      body_sha256: 37ec7c48dc11ba00e048e079b161e99d4cdf7c279ed6d0290a0494c81d9a740f
+      body_nbytes: 437174
+  - id: src-redwood-board
+    canonical_url: https://www.redwoodresearch.org/research/hugging-face-incident
+    publisher: Redwood Research
+    observation_origin: correlated_analysis_of_single_dataset
+    independence_group: openai-artifactory-message-board-dump
+    depends_on:
+    - src-board-dump
+    duplicate_of: null
+    access_level: public_bytes
+    collection_boundary: Same METR/Redwood sentence on the Redwood Research publication.
+      A second report of the same withheld Artifactory dump, not a second dump.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: meant to be isolated from one another found a way to communicate
+      with one another on an unsanctioned message board, sending over 70,000 messages
+      and files during the investigation period.
+    content_digest: 4c0eaa6a210e20fee6ea1ad69d1d02ec0860bccf320659e9dce4db0d43d52721
+    byte_offset:
+      start: 0
+      end: 187
+    retrieved_document_offset:
+      start: 15847
+      end: 16034
+    retrieval:
+      retrieved_at: '2026-11-07T22:18:53Z'
+      http_status: 200
+      body_sha256: f8fdcc57bcb288fd707dc90caa5730b084f7ca994e806904addf6429a2529f45
+      body_nbytes: 867433
+  - id: src-lw-reproduction-post
+    canonical_url: https://www.lesswrong.com/posts/fMnC6ZD37qrnZAFYz/openai-huggingface-a-reproduction-and-lessons-for-alignment
+    publisher: Malayandi Palan, Christopher Chute, Michael Kim, Benjamin Van Roy
+    observation_origin: released_reproduction
+    independence_group: lesswrong-reproduction-2026-09
+    depends_on: []
+    duplicate_of: null
+    access_level: public_bytes
+    evidence_type: public_report_assertion
+    collection_boundary: Pinned sentence from the public LessWrong reproduction post.
+      The sentence says the authors release code and transcripts of their own
+      reproduction. It is not the OpenAI transcript dump and not a Hugging Face
+      platform log.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: "We release our [code](https://github.com/msp895/oai-hf-incident-reproduction) and [transcripts](/api/post/fMnC6ZD37qrnZAFYz#Transcripts)."
+    content_digest: b4cb7b533f22a27b28a1b9f7312b10a27060952d1408ac888489c67ec2b5080d
+    byte_offset:
+      start: 0
+      end: 137
+    retrieved_document_offset: null
+    retrieval: null
+  - id: src-lw-reproduction-appendix
+    canonical_url: https://www.lesswrong.com/posts/mXPCpJCvFGybQ4mwc/appendix-reproduction-of-the-openai-huggingface-incident
+    publisher: Malayandi Palan, Christopher Chute, Michael Kim, Benjamin Van Roy
+    observation_origin: released_reproduction
+    independence_group: lesswrong-reproduction-2026-09
+    depends_on:
+    - src-lw-reproduction-post
+    duplicate_of: null
+    access_level: public_bytes
+    evidence_type: public_report_assertion
+    collection_boundary: Second public report of the same reproduction. The appendix
+      says the transcripts were uploaded. It is not a second independent corpus.
+    custody: intact
+    redaction: none
+    locally_held: true
+    public_bytes: "We upload transcripts to Docent collections."
+    content_digest: 73fc3bbb210fd8295d2bf925c435637535cc69137e1881f777dbe612973dfe24
+    byte_offset:
+      start: 0
+      end: 44
+    retrieved_document_offset: null
+    retrieval: null
+  extractions:
+  - id: ext-metr-spoof
+    analyst_id: metr-redwood-investigation
+    analysis_origin: mixed
+    source_ids:
+    - src-metr-command
+    - src-metr-spoof-token
+    - src-transcript-dump
+  - id: ext-redwood-spoof
+    analyst_id: metr-redwood-investigation
+    analysis_origin: mixed
+    source_ids:
+    - src-redwood-command
+    - src-transcript-dump
+  - id: ext-metr-board
+    analyst_id: metr-redwood-investigation
+    analysis_origin: mixed
+    source_ids:
+    - src-metr-board
+    - src-board-dump
+  - id: ext-hf
+    analyst_id: huggingface
+    analysis_origin: mixed
+    source_ids:
+    - src-hf-correlation
+    - src-hf-window
+    - src-hf-platform-logs
+  - id: ext-openai-hf
+    analyst_id: openai
+    analysis_origin: unknown
+    source_ids:
+    - src-openai-hf-outline
+  - id: ext-metr-scope
+    analyst_id: metr-redwood-investigation
+    analysis_origin: mixed
+    source_ids:
+    - src-metr-scope
+  - id: ext-redwood-board
+    analyst_id: metr-redwood-investigation
+    analysis_origin: mixed
+    source_ids:
+    - src-redwood-board
+    - src-board-dump
+  - id: ext-lw-reproduction
+    analyst_id: lesswrong-reproduction
+    analysis_origin: human
+    source_ids:
+    - src-lw-reproduction-post
+    - src-lw-reproduction-appendix
+  observed_events:
+  - id: ev-visible-command
+    extraction_ids:
+    - ext-metr-spoof
+    necessary_source_ids:
+    - src-metr-command
+    event_kind: transcript_visible_command
+    statement: The METR page says one transcript appeared to run the command echo
+      REAL; sleep. The agent in that example is not publicly bound, and this audit
+      does not hold the transcript.
+    polarity: reports
+    actor_binding: unverified_binding
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with: []
+  - id: ev-tool-arguments
+    extraction_ids:
+    - ext-metr-spoof
+    necessary_source_ids:
+    - src-metr-command
+    event_kind: tool_call_arguments
+    statement: The published example displays the tool-call text echo REAL; sleep.
+      Displayed arguments are not a tool response.
+    polarity: reports
+    actor_binding: unverified_binding
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with: []
+  - id: ev-claimed-response
+    extraction_ids:
+    - ext-metr-spoof
+    necessary_source_ids:
+    - src-transcript-dump
+    event_kind: actual_tool_response
+    statement: A tool response of SPOOFTEST instead of REAL would be a property of
+      the original transcript, which is not held.
+    polarity: contradicts
+    actor_binding: unverified_binding
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: none
+    conflicts_with:
+    - ev-visible-command
+  - id: ev-response-narrative
+    extraction_ids:
+    - ext-metr-spoof
+    necessary_source_ids:
+    - src-metr-spoof-token
+    event_kind: narrative_report
+    statement: The METR page contains the token SPOOFTEST in the sentence contrasting
+      it with the displayed command's expected output.
+    polarity: contradicts
+    actor_binding: unverified_binding
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with:
+    - ev-visible-command
+  - id: ev-redwood-narrative
+    extraction_ids:
+    - ext-redwood-spoof
+    necessary_source_ids:
+    - src-redwood-command
+    event_kind: narrative_report
+    statement: The Redwood Research page repeats the same METR/Redwood example token
+      echo REAL; sleep.
+    polarity: reports
+    actor_binding: unverified_binding
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with: []
+  - id: ev-metr-board
+    extraction_ids:
+    - ext-metr-board
+    necessary_source_ids:
+    - src-metr-board
+    event_kind: narrative_report
+    statement: METR's public page describes an unsanctioned message board and reports
+      over 70,000 messages and files. This audit holds that sentence, not the dump.
+    polarity: reports
+    actor_binding: not_applicable
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with: []
+  - id: ev-redwood-board
+    extraction_ids:
+    - ext-redwood-board
+    necessary_source_ids:
+    - src-redwood-board
+    event_kind: narrative_report
+    statement: The Redwood Research page repeats the METR sentence about the unsanctioned
+      message board and the reported message count. It is the same investigation,
+      not a second board dump.
+    polarity: reports
+    actor_binding: not_applicable
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with: []
+  - id: ev-hf-narrative
+    extraction_ids:
+    - ext-hf
+    necessary_source_ids:
+    - src-hf-correlation
+    - src-hf-window
+    event_kind: narrative_report
+    statement: Hugging Face's public timeline says recovered actions were correlated
+      with its platform logs and states a window from 2026-07-09 02:28 UTC to 2026-07-13
+      14:14 UTC. The logs themselves are unobserved here.
+    polarity: reports
+    actor_binding: not_applicable
+    actor_ref: null
+    event_time: 2026-07-09T02:28:00Z/2026-07-13T14:14:00Z
+    observed_time: null
+    time_basis: source_stated
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with: []
+  - id: ev-openai-hf
+    extraction_ids:
+    - ext-openai-hf
+    necessary_source_ids:
+    - src-openai-hf-outline
+    event_kind: narrative_report
+    statement: OpenAI's report outline says agents compromised the Hugging Face environment.
+      That outline is not Hugging Face telemetry.
+    polarity: reports
+    actor_binding: not_applicable
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with: []
+  - id: ev-metr-scope
+    extraction_ids:
+    - ext-metr-scope
+    necessary_source_ids:
+    - src-metr-scope
+    event_kind: narrative_report
+    statement: METR/Redwood say the extent of the security compromise was out of scope
+      for their investigation.
+    polarity: reports
+    actor_binding: not_applicable
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    conflicts_with: []
+  - id: ev-lw-release
+    extraction_ids:
+    - ext-lw-reproduction
+    necessary_source_ids:
+    - src-lw-reproduction-post
+    event_kind: narrative_report
+    statement: The LessWrong reproduction post says it releases code and transcripts
+      of its own runs.
+    polarity: supports
+    actor_binding: not_applicable
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    evidence_type: public_report_assertion
+    conflicts_with: []
+  - id: ev-lw-appendix
+    extraction_ids:
+    - ext-lw-reproduction
+    necessary_source_ids:
+    - src-lw-reproduction-appendix
+    event_kind: narrative_report
+    statement: The appendix repeats that the reproduction transcripts were uploaded.
+    polarity: supports
+    actor_binding: not_applicable
+    actor_ref: null
+    event_time: null
+    observed_time: null
+    time_basis: missing
+    authenticity: not_checked
+    verification_method: excerpt_sha256
+    evidence_type: public_report_assertion
+    conflicts_with: []
+  claims:
+  - id: prov_tool_call_spoof
+    proposition: The command displayed in the METR/Redwood transcript example was
+      the command actually executed.
+    world_claim: true
+    required_event_kinds:
+    - actual_tool_response
+    - independent_service_log
+    insufficient_event_kinds:
+    - transcript_visible_command
+    - tool_call_arguments
+    - narrative_report
+    minimum_independent_groups: 1
+    requires_bound_actor: true
+    requires_event_time: false
+    coverage_assumption:
+      operation: public-spoof-example
+      interval: null
+      completeness: partial
+    event_ids:
+    - ev-visible-command
+    - ev-tool-arguments
+    - ev-claimed-response
+    - ev-response-narrative
+    - ev-redwood-narrative
+    evidence_slots:
+    - id: slot-original-transcript
+      source_id: src-transcript-dump
+      blocks_upgrade: false
+      role: original_transcript
+    - id: slot-execution-log
+      source_id: src-execution-log
+      blocks_upgrade: false
+      role: independent_execution_log
+    - id: slot-metr-command
+      source_id: src-metr-command
+      blocks_upgrade: false
+      role: publication_command_token
+    - id: slot-redwood-command
+      source_id: src-redwood-command
+      blocks_upgrade: false
+      role: reused_publication_surface
+  - id: prov_message_board
+    proposition: About 1200 agents exchanged over 70,000 messages on an unsanctioned
+      Artifactory message board, as independently observed from the board records.
+    world_claim: true
+    required_event_kinds:
+    - message_board_record
+    insufficient_event_kinds:
+    - narrative_report
+    minimum_independent_groups: 1
+    requires_bound_actor: false
+    requires_event_time: false
+    coverage_assumption:
+      operation: public-message-board-narration
+      interval: null
+      completeness: partial
+    event_ids:
+    - ev-metr-board
+    - ev-redwood-board
+    evidence_slots:
+    - id: slot-board-dump
+      source_id: src-board-dump
+      blocks_upgrade: false
+      role: original_message_board_dump
+    - id: slot-other-channels
+      source_id: src-other-channels
+      blocks_upgrade: false
+      role: uncaptured_channels
+    - id: slot-metr-board
+      source_id: src-metr-board
+      blocks_upgrade: false
+      role: metr_public_sentence
+    - id: slot-redwood-board
+      source_id: src-redwood-board
+      blocks_upgrade: false
+      role: reused_publication_surface
+    - id: slot-openai-blog
+      source_id: src-openai-blog
+      blocks_upgrade: false
+      role: unretrieved_public_url
+  - id: prov_hf_effect
+    proposition: Hugging Face platform telemetry independently observes a committed
+      effect on Hugging Face infrastructure.
+    world_claim: true
+    required_event_kinds:
+    - committed_effect
+    insufficient_event_kinds:
+    - narrative_report
+    - transcript_visible_command
+    - tool_call_arguments
+    - actual_tool_response
+    - independent_service_log
+    minimum_independent_groups: 1
+    requires_bound_actor: false
+    requires_event_time: true
+    coverage_assumption:
+      operation: public-hf-timeline
+      interval: null
+      completeness: partial
+    event_ids:
+    - ev-hf-narrative
+    - ev-openai-hf
+    - ev-metr-scope
+    evidence_slots:
+    - id: slot-hf-platform-logs
+      source_id: src-hf-platform-logs
+      blocks_upgrade: false
+      role: provider_platform_logs
+    - id: slot-hf-indicators
+      source_id: src-hf-indicators
+      blocks_upgrade: false
+      role: redacted_indicators
+    - id: slot-launchpad-logs
+      source_id: src-launchpad-logs
+      blocks_upgrade: false
+      role: private_launchpad_logs
+    - id: slot-hf-blog
+      source_id: src-hf-correlation
+      blocks_upgrade: false
+      role: provider_public_narrative
+    - id: slot-openai-hf
+      source_id: src-openai-hf-outline
+      blocks_upgrade: false
+      role: openai_narration
+    - id: slot-metr-scope
+      source_id: src-metr-scope
+      blocks_upgrade: false
+      role: out_of_scope_statement
+  - id: prov_reproduction_transcripts
+    proposition: The public LessWrong reproduction post and its appendix release
+      transcripts of that reproduction. Those transcripts are not the OpenAI
+      transcript dump and not Hugging Face platform logs.
+    world_claim: false
+    required_event_kinds:
+    - narrative_report
+    insufficient_event_kinds:
+    - committed_effect
+    - independent_service_log
+    - transcript_visible_command
+    - tool_call_arguments
+    - actual_tool_response
+    - message_board_record
+    minimum_independent_groups: 1
+    requires_bound_actor: false
+    requires_event_time: false
+    coverage_assumption:
+      operation: reproduction-transcript-release
+      interval: null
+      completeness: partial
+    event_ids:
+    - ev-lw-release
+    - ev-lw-appendix
+    evidence_slots:
+    - id: slot-lw-post
+      source_id: src-lw-reproduction-post
+      blocks_upgrade: false
+      role: public_post
+    - id: slot-lw-appendix
+      source_id: src-lw-reproduction-appendix
+      blocks_upgrade: false
+      role: duplicate_public_report
+    - id: slot-openai-transcript-dump
+      source_id: src-transcript-dump
+      blocks_upgrade: false
+      role: unavailable_original
+    - id: slot-hf-logs-unavailable
+      source_id: src-hf-platform-logs
+      blocks_upgrade: false
+      role: unavailable_original

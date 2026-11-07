@@ -1,0 +1,20 @@
+id: incident-comparison-v1
+frozen_before_scoring: true
+# The LessWrong post and its appendix are one public record. Original OpenAI
+# transcripts and Hugging Face platform logs are recorded unavailable. They
+# are not upgrade gates. A blocks_upgrade slot prevents support only when the
+# audit holds that slot and the slot does not verify the claim.
+one_public_record: lesswrong-reproduction-2026-09
+unavailable_are_upgrade_gates: false
+certifies_original_incident: false
+methods: [naive, strong_invariant, swarm_witness]
+reference_methods: [always_unresolved]
+superiority_rule: >
+  Beating the naive PASS baseline is reported and is not a superiority claim.
+  The comparison completes when every cell is scored. No method ranking is
+  required. The original incident is not certified.
+authorship:
+  curator: single repository author
+  implementer: single repository author
+  adjudicator: single repository author
+  independent_jury: false
