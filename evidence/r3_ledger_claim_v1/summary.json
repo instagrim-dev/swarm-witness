@@ -1,0 +1,1023 @@
+{
+  "protocol_id": "r3-ledger-claim-v1",
+  "claim_id": "r3_ledger_claim_v1",
+  "run_dir": "/workspace/evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1",
+  "validity": {
+    "valid": true,
+    "errors": [],
+    "pairs": [
+      {
+        "case_id": "T01",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T01",
+        "step": 2,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T01",
+        "step": 3,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T02",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T02",
+        "step": 2,
+        "op": "reopen",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T02",
+        "step": 3,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T02",
+        "step": 4,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T03",
+        "step": 1,
+        "op": "reopen",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T03",
+        "step": 2,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T03",
+        "step": 3,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T04",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T04",
+        "step": 2,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T04",
+        "step": 3,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T04",
+        "step": 4,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T05",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T05",
+        "step": 2,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T05",
+        "step": 3,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T05",
+        "step": 4,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T06",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T06",
+        "step": 2,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T06",
+        "step": 3,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T06",
+        "step": 4,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      }
+    ]
+  },
+  "properties": {
+    "classical": {
+      "T01": {
+        "case_id": "T01",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t01-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t01-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t01-a"
+          ],
+          "transfer_call_ids": [
+            "call-t01-a"
+          ]
+        }
+      },
+      "T02": {
+        "case_id": "T02",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t02-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t02-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t02-a"
+          ],
+          "transfer_call_ids": [
+            "call-t02-a"
+          ]
+        }
+      },
+      "T03": {
+        "case_id": "T03",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t03-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t03-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t03-a"
+          ],
+          "transfer_call_ids": [
+            "call-t03-a"
+          ]
+        }
+      },
+      "T04": {
+        "case_id": "T04",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t04-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t04-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t04-a"
+          ],
+          "transfer_call_ids": [
+            "call-t04-a"
+          ]
+        }
+      },
+      "T05": {
+        "case_id": "T05",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        }
+      },
+      "T06": {
+        "case_id": "T06",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t06-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t06-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t06-a"
+          ],
+          "transfer_call_ids": [
+            "call-t06-a"
+          ]
+        }
+      }
+    },
+    "bmo": {
+      "T01": {
+        "case_id": "T01",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t01-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t01-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t01-a"
+          ],
+          "transfer_call_ids": [
+            "call-t01-a"
+          ]
+        }
+      },
+      "T02": {
+        "case_id": "T02",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t02-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t02-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t02-a"
+          ],
+          "transfer_call_ids": [
+            "call-t02-a"
+          ]
+        }
+      },
+      "T03": {
+        "case_id": "T03",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t03-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t03-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t03-a"
+          ],
+          "transfer_call_ids": [
+            "call-t03-a"
+          ]
+        }
+      },
+      "T04": {
+        "case_id": "T04",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t04-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t04-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t04-a"
+          ],
+          "transfer_call_ids": [
+            "call-t04-a"
+          ]
+        }
+      },
+      "T05": {
+        "case_id": "T05",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        }
+      },
+      "T06": {
+        "case_id": "T06",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t06-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t06-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t06-a"
+          ],
+          "transfer_call_ids": [
+            "call-t06-a"
+          ]
+        }
+      }
+    }
+  },
+  "agreement": {
+    "result": "matched",
+    "reason": "equal projections",
+    "case_results": {
+      "T01": {
+        "equal": true,
+        "classical": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t01-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t01-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t01-a"
+          ],
+          "transfer_call_ids": [
+            "call-t01-a"
+          ]
+        },
+        "bmo": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t01-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t01-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t01-a"
+          ],
+          "transfer_call_ids": [
+            "call-t01-a"
+          ]
+        }
+      },
+      "T02": {
+        "equal": true,
+        "classical": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t02-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t02-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t02-a"
+          ],
+          "transfer_call_ids": [
+            "call-t02-a"
+          ]
+        },
+        "bmo": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t02-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t02-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t02-a"
+          ],
+          "transfer_call_ids": [
+            "call-t02-a"
+          ]
+        }
+      },
+      "T03": {
+        "equal": true,
+        "classical": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t03-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t03-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t03-a"
+          ],
+          "transfer_call_ids": [
+            "call-t03-a"
+          ]
+        },
+        "bmo": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t03-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t03-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t03-a"
+          ],
+          "transfer_call_ids": [
+            "call-t03-a"
+          ]
+        }
+      },
+      "T04": {
+        "equal": true,
+        "classical": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t04-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t04-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t04-a"
+          ],
+          "transfer_call_ids": [
+            "call-t04-a"
+          ]
+        },
+        "bmo": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t04-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t04-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t04-a"
+          ],
+          "transfer_call_ids": [
+            "call-t04-a"
+          ]
+        }
+      },
+      "T05": {
+        "equal": true,
+        "classical": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        },
+        "bmo": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        }
+      },
+      "T06": {
+        "equal": true,
+        "classical": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t06-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t06-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t06-a"
+          ],
+          "transfer_call_ids": [
+            "call-t06-a"
+          ]
+        },
+        "bmo": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t06-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t06-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t06-a"
+          ],
+          "transfer_call_ids": [
+            "call-t06-a"
+          ]
+        }
+      }
+    }
+  },
+  "native_bmo": false,
+  "finding": {
+    "id": "r3-ledger-claim-v1-comparison",
+    "claim_id": "r3_ledger_claim_v1",
+    "run_ids": [
+      "bmo-T01",
+      "bmo-T02",
+      "bmo-T03",
+      "bmo-T04",
+      "bmo-T05",
+      "bmo-T06",
+      "classical-T01",
+      "classical-T02",
+      "classical-T03",
+      "classical-T04",
+      "classical-T05",
+      "classical-T06",
+      "r3-ledger-meta"
+    ],
+    "proposition": "Native BMO ClaimOrdinaryRetainedGrantFirstEditTx was not measured (offline SQLite L1 stand-in or missing bridge); ledger-claim comparison remains unresolved for the BMO pin",
+    "scope": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+    "label": "unresolved",
+    "basis": "computed",
+    "supporting_observation_refs": [
+      "r3-ledger-meta.observations.agreement.result",
+      "r3-ledger-meta.observations.validity.valid"
+    ]
+  }
+}

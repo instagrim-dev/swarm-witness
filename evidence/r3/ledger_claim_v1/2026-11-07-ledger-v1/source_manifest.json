@@ -1,0 +1,25 @@
+{
+  "protocol_id": "r3-ledger-claim-v1",
+  "claim_id": "r3_ledger_claim_v1",
+  "run_id": "2026-11-07-ledger-v1",
+  "bmo_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "bmo": {
+    "adapter_id": "bmo_l1_first_edit",
+    "pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+    "bridge": {
+      "bmo_adapter_test.go": "76c903a2442cc0c09a1733bc481cffded9769b967581e9373ecf880ac9160ef9",
+      "bmo_adapter_fixture.go": "a0198517f91479c53113183391c3c851420f92a46226c395f8ac92a0c76f1ead"
+    },
+    "bmo_root": null,
+    "mode": "offline_sqlite_l1_not_native",
+    "native_bmo": false,
+    "command": null,
+    "exit_code": null,
+    "log_path": "/workspace/evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1/bmo_work/bmo_go_test.log",
+    "notes": "Offline SQLite L1 stand-in; not ClaimOrdinaryRetainedGrantFirstEditTx. Pair validity may complete for pipeline tests; do not publish as native BMO classical reduction without the tagged disposable-tree bridge."
+  },
+  "cases_path": "/workspace/experiments/r3/ledger_claim_v1/cases.yaml",
+  "cases_sha256": "bed93858012dc09a88d7c346fbec817904db85d5203e08bf1ec2642ed76f710d",
+  "created_unix": 1794069579,
+  "swarm_witness_root": "/workspace"
+}

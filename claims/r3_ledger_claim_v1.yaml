@@ -1,0 +1,31 @@
+id: r3_ledger_claim_v1
+source_ref: git://instagrim-dev/bmo/internal/sessioncompaction
+source_version: "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
+original_proposition: >
+  Within each declared synthetic task/grant/retry-epoch fixture, an eligible
+  first-edit claim can commit once with its corresponding retained-grant
+  transfer; a distinct repeat cannot create a second claim or transfer; reopen
+  preserves spent and unspent authority; rollback preserves legitimate first claim.
+operational_interpretation: >
+  Under protocol r3-ledger-claim-v1, ClassicalLedgerGate and BMO
+  ClaimOrdinaryRetainedGrantFirstEditTx are compared on shared traces T01–T06
+  (claim/reopen/inspect with explicit commit or rollback_after_native_success).
+  Property-relevant projection is identity-bound claim/transfer/spent state.
+  A committed claim is not an executed edit. Cold database reopen must not remint.
+property: one-use first-edit claim and transfer under cold DB reopen and rollback
+scope: >
+  Derived R3 experiment at BMO pin 4b717d79…; L1 transactional owner only;
+  excludes App permission/dispatch, external settle, process-kill, concurrency,
+  successor recovery, and general relaunch safety. Legacy r3 decision-model
+  protocol remains separate.
+quantifier: for each declared case T01–T06 in experiments/r3/ledger_claim_v1/cases.yaml
+success_criterion: >
+  Valid complete paired observations; both backends satisfy trace properties;
+  property-relevant projections equal (classical_baseline_matches as equality).
+  Missing core measurements yield unresolved; agreement of mutual failure is not
+  successful enforcement.
+assumptions:
+  - BMO disposable tree at artifacts/pins.yaml r3 git_rev with injected tagged bridge only
+  - Shared case aliases map to each adapter's native identities
+  - Spent status read from authoritative claim/transfer records
+  - ClassicalLedgerGate is an independent SQLite reference monitor

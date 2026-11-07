@@ -1,0 +1,171 @@
+{
+  "id": "bmo-T05",
+  "claim_id": "r3_ledger_claim_v1",
+  "protocol_id": "r3-ledger-claim-v1",
+  "case_id": "T05",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "completed",
+  "observations": {
+    "arm": "bmo",
+    "steps": [
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T05",
+        "step": 1,
+        "op": "claim_first_edit",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "refused",
+        "inputs": {
+          "call_id": "call-t05-bad",
+          "task_id": "task-foreign",
+          "grant_id": "grant-alpha",
+          "owner_revision": 1,
+          "retry_epoch": "epoch-1",
+          "transaction_completion": "commit"
+        },
+        "native_result": {
+          "disposition": "refused",
+          "reason": "wrong_task",
+          "native_ok": false,
+          "mode": "offline_sqlite_l1_not_native",
+          "native_bmo": false
+        },
+        "state": {
+          "grant_spent": false,
+          "claim_count": 0,
+          "transfer_count": 0,
+          "claims": [],
+          "transfers": [],
+          "claim_call_ids": [],
+          "transfer_call_ids": []
+        },
+        "notes": "wrong_task; mode=offline_sqlite_l1_not_native"
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T05",
+        "step": 2,
+        "op": "inspect",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "observed",
+        "inputs": {},
+        "native_result": {
+          "mode": "offline_sqlite_l1_not_native",
+          "native_bmo": false
+        },
+        "state": {
+          "grant_spent": false,
+          "claim_count": 0,
+          "transfer_count": 0,
+          "claims": [],
+          "transfers": [],
+          "claim_call_ids": [],
+          "transfer_call_ids": []
+        },
+        "notes": "; mode=offline_sqlite_l1_not_native"
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T05",
+        "step": 3,
+        "op": "claim_first_edit",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "committed",
+        "inputs": {
+          "call_id": "call-t05-a",
+          "task_id": "task-alpha",
+          "grant_id": "grant-alpha",
+          "owner_revision": 1,
+          "retry_epoch": "epoch-1",
+          "transaction_completion": "commit"
+        },
+        "native_result": {
+          "disposition": "committed",
+          "reason": "ok",
+          "native_ok": true,
+          "call_id": "call-t05-a",
+          "mode": "offline_sqlite_l1_not_native",
+          "native_bmo": false
+        },
+        "state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        },
+        "notes": "ok; mode=offline_sqlite_l1_not_native"
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T05",
+        "step": 4,
+        "op": "inspect",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "observed",
+        "inputs": {},
+        "native_result": {
+          "mode": "offline_sqlite_l1_not_native",
+          "native_bmo": false
+        },
+        "state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        },
+        "notes": "; mode=offline_sqlite_l1_not_native"
+      }
+    ],
+    "step_count": 4
+  }
+}

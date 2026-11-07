@@ -55,3 +55,13 @@ Honesty note: these BMO APIs are not isomorphic to ClassicalGate
 exists. The comparison Finding label is then `unresolved` (incomplete
 comparative audit)—not `classical_baseline_matches` or assumption-dependent
 affinity.
+
+## Derived protocol r3-ledger-claim-v1 (this delivery)
+
+Separate from the legacy decision-model protocol. Classical arm is new
+`ClassicalLedgerGate` (SQLite). BMO arm is a tagged test-only bridge stored
+under `experiments/r3/ledger_claim_v1/` and copied into a disposable pin tree;
+production BMO authorization code is not modified. L1 method under test:
+`ClaimOrdinaryRetainedGrantFirstEditTx`. Offline SQLite L1 stand-in may emit
+inspectable traces when `BMO_ROOT` is absent but cannot upgrade findings past
+`unresolved` for the native BMO pin.

@@ -62,5 +62,12 @@ Run from the repository root with dependencies installed (R1 needs `git`,
 | R2 EvidenceGraph | `bash experiments/r2/run_r2.sh` | `evidence/r2/findings/`, `summary.json` |
 | R3 matched compare | `python3 experiments/r3/compare.py` | `evidence/r3/findings/r3-f-comparison.json` |
 | R3 Go tests (metadata) | `bash experiments/r3/run_bmo_tests.sh` | `evidence/r3/bmo_go_test.log` |
+| R3 ledger-claim-v1 | `python3 experiments/r3/ledger_claim_v1/run_matched.py --run-id <id>` | `evidence/r3/ledger_claim_v1/<id>/` |
+
+Derived protocol **r3-ledger-claim-v1** (ClassicalLedgerGate vs BMO
+`ClaimOrdinaryRetainedGrantFirstEditTx`) lives under
+[`experiments/r3/ledger_claim_v1/`](experiments/r3/ledger_claim_v1/). Legacy
+decision-model R3 is unchanged. Offline L1 stand-in traces are inspectable but
+keep the ledger claim **`unresolved`** until a native pin bridge run.
 
 Pre-submit checklist for the Apart form: [`CHECKLIST.md`](CHECKLIST.md).

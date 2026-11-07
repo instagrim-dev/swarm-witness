@@ -1,0 +1,278 @@
+# Protocol r3-ledger-claim-v1 — one-use retained-grant first-edit claim.
+# Actions describe operations, never desired decisions.
+# Expected properties are evaluated by the comparator, not by adapters.
+
+protocol_id: r3-ledger-claim-v1
+claim_id: r3_ledger_claim_v1
+source_pin_key: r3.git_rev
+bmo_base_rev: "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
+
+aliases:
+  task: task-alpha
+  grant: grant-alpha
+  epoch: epoch-1
+  owner_revision: 1
+  foreign_task: task-foreign
+  stale_owner_revision: 0
+
+cases:
+  - case_id: T01
+    name: same-epoch-repeat
+    description: Valid first claim; distinct second claim in same epoch; inspect.
+    fixture:
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-t01-a
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: claim_first_edit
+        call_id: call-t01-b
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 3
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: refused
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-t01-a]
+        transfer_call_ids: [call-t01-a]
+
+  - case_id: T02
+    name: spent-after-reopen
+    description: Valid first claim; reopen; distinct second claim; inspect.
+    fixture:
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-t02-a
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: reopen
+      - step: 3
+        op: claim_first_edit
+        call_id: call-t02-b
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 3
+          disposition: refused
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-t02-a]
+        transfer_call_ids: [call-t02-a]
+
+  - case_id: T03
+    name: unspent-after-reopen
+    description: Unspent authority; reopen; first claim; inspect.
+    fixture:
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions:
+      - step: 1
+        op: reopen
+      - step: 2
+        op: claim_first_edit
+        call_id: call-t03-a
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 3
+        op: inspect
+    expected:
+      steps:
+        - step: 2
+          disposition: committed
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-t03-a]
+        transfer_call_ids: [call-t03-a]
+
+  - case_id: T04
+    name: rollback-and-progress
+    description: Claim then rollback; inspect; valid claim; inspect.
+    fixture:
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-t04-rolled
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: rollback_after_native_success
+      - step: 2
+        op: inspect
+      - step: 3
+        op: claim_first_edit
+        call_id: call-t04-a
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: rolled_back
+        - step: 2
+          state:
+            grant_spent: false
+            claim_count: 0
+            transfer_count: 0
+        - step: 3
+          disposition: committed
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-t04-a]
+        transfer_call_ids: [call-t04-a]
+
+  - case_id: T05
+    name: wrong-task
+    description: Foreign task refused without consume; valid task commits.
+    fixture:
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-t05-bad
+        task_id: task-foreign
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: claim_first_edit
+        call_id: call-t05-a
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: refused
+        - step: 2
+          state:
+            grant_spent: false
+            claim_count: 0
+            transfer_count: 0
+        - step: 3
+          disposition: committed
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-t05-a]
+        transfer_call_ids: [call-t05-a]
+
+  - case_id: T06
+    name: wrong-owner-revision
+    description: Noncurrent owner revision refused without consume; current commits.
+    fixture:
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-t06-bad
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 0
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: claim_first_edit
+        call_id: call-t06-a
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: refused
+        - step: 2
+          state:
+            grant_spent: false
+            claim_count: 0
+            transfer_count: 0
+        - step: 3
+          disposition: committed
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-t06-a]
+        transfer_call_ids: [call-t06-a]

@@ -1,0 +1,10 @@
+claim_id: r3_ledger_claim_v1
+label: unresolved
+authoritative: finding
+finding_path: findings/r3-ledger-claim-v1-comparison.json
+metrics:
+  validity: true
+  agreement: matched
+  classical_pass_count: 6
+  bmo_pass_count: 6
+notes: equal projections

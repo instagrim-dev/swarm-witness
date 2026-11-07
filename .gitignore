@@ -12,6 +12,9 @@ third_party/r2/report.pdf
 third_party/r2/report.txt
 third_party/r2/report_crude.txt
 evidence/r1/raw.json
+evidence/r3/ledger_claim_v1/**/classical_work/
+evidence/r3/ledger_claim_v1/**/bmo_work/
+*.sqlite
 *.pdf
 !report/*.pdf
 .DS_Store
