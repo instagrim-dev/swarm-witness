@@ -80,6 +80,8 @@ The combined result is a reusable **proposed evidence standard** for agent autho
 
 Evidence strengths differ by design: R1 source-pinned re-execution; R2 later-harness confirmation; R3-L1 native BMO versus a conventional gate; R4/R5 and the causal experiments as bounded authored models. The scheduler explores supplied orders, not concurrent workers; the finite checker covers its specified semantics, not arbitrary deployments. Distinct modeled effect records are ledger separation inside the model, not a physical auditor. Atomic claim/commit means schedules do not cover revocation between decision and later execution.
 
+For the 2026 OpenAI–Hugging Face agent-swarm incident, the evidence standard is the public LessWrong reproduction by Palan, Chute, Kim, and Van Roy (https://www.lesswrong.com/posts/fMnC6ZD37qrnZAFYz/openai-huggingface-a-reproduction-and-lessons-for-alignment). Original agent transcripts and platform logs are unavailable. Acceptance and qualification use that reproduction and the executable protocols in this package. No criterion requires the withheld originals.
+
 Next steps: live gateway observation, real delegated effects, independently authored corpora, and integrating the formal semantics into the audit schema.
 
 ## 6. Conclusion

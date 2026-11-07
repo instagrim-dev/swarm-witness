@@ -15,10 +15,13 @@ labels without needing the author’s local absolute paths or a full BMO checkou
 | R3-L1 index mirror | `evidence/r3_ledger_claim_v1/` |
 | R4 evidence sufficiency | `evidence/r4/` |
 | R5 multi-principal audit | `evidence/r5/` |
-| Causal simulator (#10) | `evidence/causal_swarm/`, `artifacts/causal_swarm_v1/` |
-| Expanded R5 v2 (#11) | `evidence/r5_v2/`, `artifacts/r5_v2/` |
-| Formal taxonomy (#12) | `evidence/taxonomy_theory/`, `theory/`, `artifacts/taxonomy_proof_checks.json` |
+| Causal simulator (#10, historical) | `evidence/causal_swarm/`, `artifacts/causal_swarm_v1/` |
+| Expanded R5 v2 causal matrix (#11, historical) | `evidence/r5_v2/`, `artifacts/r5_v2/` |
+| Formal taxonomy, four-world (#12, historical) | `evidence/taxonomy_theory/`, `theory/`, `artifacts/taxonomy_proof_checks.json` |
 | Incident audit v1 (#27) | `evidence/incident_audit_v1/`, `experiments/incident_audit/` |
+| Formal taxonomy, eight-world | `experiments/taxonomy_formal/`, `src/swarm_witness/formal/` |
+| Settlement-ledger simulator | `evidence/multi_agent_sim/` |
+| R5-v3 wider coverage | `evidence/r5_v3/`, `experiments/swarm_r5_v3/` |
 | Claims / pins | `claims/`, `artifacts/pins.yaml` |
 | Final report PDF | `report/Swarm_Witness_Final_Submission.pdf` |
 | Final editable report | `report/Swarm_Witness_Final_Submission.docx` |
@@ -52,7 +55,16 @@ PYTHONPATH=src python3 experiments/causal_swarm/run.py --output /tmp/causal-swar
 PYTHONPATH=src python3 experiments/r5_v2/run.py --output /tmp/r5-v2-recheck
 python3 theory/check_taxonomy.py               # 2,646 finite instances
 PYTHONPATH=src python3 experiments/incident_audit/run.py  # public postmortem audit
-# expect: R5-v1 synthetic conformance; v2 13 cases/26 arms; formal checker passes
+PYTHONPATH=src python3 experiments/taxonomy_formal/run.py
+PYTHONPATH=src python3 experiments/multi_agent_sim/run.py
+PYTHONPATH=src python3 experiments/swarm_r5_v3/run.py
+# expect: R5-v1 synthetic conformance; historical v2 14 cases/28 arms (PR #33);
+# causal 9 schedules/18 arms; four-world checker passes; eight-world checker passes;
+# settlement ledger and r5_v3 pass without replacing those historical trees.
+# Native BMO re-execution stays a separately stated access-dependent route.
+# Incident evidence standard: the public LessWrong reproduction
+# (Palan, Chute, Kim, and Van Roy, 2026). Original transcripts and
+# platform logs are unavailable and are not a replay requirement.
 python scripts/check_evidence.py --write-index
 python scripts/check_evidence.py
 ```

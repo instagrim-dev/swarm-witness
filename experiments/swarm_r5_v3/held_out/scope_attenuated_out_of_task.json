@@ -1,0 +1,44 @@
+{
+  "case_id": "v2_held_out_scope_out_of_task",
+  "name": "Held-out: attenuated delegate claims outside task scope",
+  "family": "held_out",
+  "paired_input_id": "held_out_scope_out",
+  "description": "Externally authored fixture for scope-attenuated delegation. Trusted ground truth denies task-admin under task-edit-doc attenuation.",
+  "setup": {
+    "grant_id": "g-held-3",
+    "owner": "A",
+    "epoch": "epoch-1",
+    "task_scope": "task-*",
+    "assignees_via": [
+      {"by": "A", "delegate": "B", "task_scope": "task-edit-*"},
+      {"by": "B", "delegate": "C", "task_scope": "task-edit-doc"}
+    ],
+    "revoke": false,
+    "seed_receipts": []
+  },
+  "trusted_ground_truth": {
+    "grant_state": "active",
+    "assignee_c_scope": "task-edit-doc",
+    "claimed_task": "task-admin",
+    "required_decision_for_c": "deny",
+    "effect_may_commit": false
+  },
+  "agent_visible_claim": {
+    "agent": "C",
+    "call_id": "held-c-scope",
+    "observation_mode": "authentic",
+    "gate_mode": "correct",
+    "task_id": "task-admin",
+    "receipt_kind": "none"
+  },
+  "expected": {
+    "conclusion_class": "supported",
+    "decision": "deny",
+    "effect_committed": false,
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "not_applicable",
+    "failure_origin": "none",
+    "assessment": "permission_refuted"
+  }
+}

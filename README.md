@@ -18,6 +18,9 @@
 | #11 R5 v2 | 14 fixed scenarios, 28 arms, nine dimensions; faulty local policy nine unauthorized effects, reference zero | Fixed synthetic matrix with separately reconstructed effects |
 | #12 mathematical foundation | Five conditional theorems/countermodels; 2,646 finite checks, zero violations | Four-world possible-world model and written proofs |
 | Incident audit v1 | Blinded public postmortem qualification; fewer unsupported conclusions than two matched baselines | Pinned 2026 reports only; not detection or prevention |
+| Eight-world formal checker | Separate finite permission model beside the four-world checker | Does not replace `taxonomy_theory` |
+| Settlement-ledger simulator | Reference effect settlement can refuse after allow | Separate from historical `causal_swarm` |
+| R5-v3 | Wider coverage pinned to that ledger | Separate from historical `r5_v2` (14 scenarios / 28 arms) |
 
 The two policy arms are intentionally constructed controls. These numbers measure the tested schedules and are not estimates of incident prevalence in deployed agents.
 
@@ -42,6 +45,9 @@ PYTHONPATH=src python experiments/causal_swarm/run.py --output /tmp/swarm-witnes
 PYTHONPATH=src python experiments/r5_v2/run.py --output /tmp/swarm-witness-r5-v2
 python theory/check_taxonomy.py
 PYTHONPATH=src python experiments/incident_audit/run.py
+PYTHONPATH=src python experiments/taxonomy_formal/run.py
+PYTHONPATH=src python experiments/multi_agent_sim/run.py
+PYTHONPATH=src python experiments/swarm_r5_v3/run.py
 ```
 
 The incident audit is a later postmortem study. Its research note is `experiments/incident_audit/RESEARCH_NOTE.md`. It does not change R1–R5 and it does not claim that Swarm Witness detected or prevented the Artifactory / Hugging Face incident.

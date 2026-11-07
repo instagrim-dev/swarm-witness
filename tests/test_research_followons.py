@@ -1,6 +1,7 @@
 """Independent research acceptance probes for issues 10–12."""
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from copy import deepcopy
@@ -115,6 +116,171 @@ def test_externally_fixed_r5_v2_matrix_is_varied_and_passes(tmp_path):
     assert s['arm_count']==2*len(c)
     assert any(r['observed']['unauthorized_effects']>0 for r in s['results'])
     assert any(r['observed']['valid_effects']>0 for r in s['results'])
+
+
+def _error_kinds(summary):
+    return [item.get('error') for item in summary['errors'] if isinstance(item, dict) and 'error' in item]
+
+
+def test_empty_manifest_does_not_pass(tmp_path):
+    manifest = tmp_path / 'empty.json'
+    manifest.write_text(json.dumps({'protocol': 'causal-swarm-v1', 'cases': []}))
+    summary = run_manifest(manifest, tmp_path / 'out')
+    assert summary['passed'] is False
+    assert 'empty_or_missing_cases' in _error_kinds(summary)
+    assert 'declared_scenario_ids' in _error_kinds(summary)
+    assert summary['paired_worlds_local_indistinguishable'] is False
+    assert summary['irrelevant_control_unchanged'] is False
+    assert summary['denominators']['min_causal_events'] == 0
+
+
+def test_empty_expected_dicts_do_not_pass(tmp_path):
+    case = deepcopy(cases('causal_swarm')[0])
+    case['expected'] = {'reference': {}, 'broken_local': {}}
+    manifest = tmp_path / 'vacuous.json'
+    manifest.write_text(json.dumps({'protocol': 'causal-swarm-v1', 'cases': [case]}))
+    summary = run_manifest(manifest, tmp_path / 'out')
+    assert summary['passed'] is False
+    assert 'empty_expected_arm' in _error_kinds(summary)
+    assert summary['arm_count'] == 0
+
+
+def test_missing_comparison_field_does_not_pass(tmp_path):
+    source = cases('causal_swarm')
+    edited = deepcopy(source)
+    del edited[0]['expected']['reference']['unauthorized_effects']
+    manifest = tmp_path / 'partial.json'
+    manifest.write_text(json.dumps({'protocol': 'causal-swarm-v1', 'cases': edited}))
+    summary = run_manifest(manifest, tmp_path / 'out')
+    assert summary['passed'] is False
+    assert 'missing_comparison_fields' in _error_kinds(summary)
+
+
+def test_truncated_declared_ids_and_arm_count_do_not_pass(tmp_path):
+    source = cases('causal_swarm')
+    manifest = tmp_path / 'truncated.json'
+    manifest.write_text(json.dumps({
+        'protocol': 'causal-swarm-v1',
+        'cases': source[:4],
+    }))
+    summary = run_manifest(manifest, tmp_path / 'out')
+    assert summary['passed'] is False
+    assert summary['arm_count'] != 18
+    kinds = _error_kinds(summary)
+    assert 'declared_scenario_ids' in kinds
+    assert 'arm_count' in kinds
+    missing = next(
+        item['missing'] for item in summary['errors']
+        if isinstance(item, dict) and item.get('error') == 'declared_scenario_ids'
+    )
+    assert 'foreign_receipt_absent' in missing
+    # Present cases stay in the result list; the omitted id is an error, not a skip.
+    assert any(row['case_id'] == 'contention_a_first' for row in summary['results'])
+    assert all(row['case_id'] != 'foreign_receipt_absent' for row in summary['results'])
+
+
+def test_skipped_negative_controls_do_not_pass(tmp_path):
+    """A schedule outside the historical ids still cannot skip the controls."""
+    case = deepcopy(cases('causal_swarm')[0])
+    case['id'] = 'solo_schedule'
+    manifest = tmp_path / 'no-controls.json'
+    manifest.write_text(json.dumps({
+        'protocol': 'ad-hoc-probe',
+        'declared_scenario_ids': ['solo_schedule'],
+        'expected_arm_count': 2,
+        'cases': [case],
+    }))
+    summary = run_manifest(manifest, tmp_path / 'out')
+    assert summary['passed'] is False
+    assert 'paired_worlds_missing' in _error_kinds(summary)
+    assert 'irrelevant_control_missing' in _error_kinds(summary)
+
+
+def test_zero_event_denominator_does_not_pass(tmp_path):
+    case = {
+        'id': 'empty_schedule',
+        'dimension': 'denominator',
+        'agents': ['A'],
+        'schedule': [],
+        'expected': {
+            'reference': {'valid_effects': 0, 'unauthorized_effects': 0, 'incorrect_decisions': 0},
+            'broken_local': {'valid_effects': 0, 'unauthorized_effects': 0, 'incorrect_decisions': 0},
+        },
+    }
+    manifest = tmp_path / 'zero.json'
+    manifest.write_text(json.dumps({'protocol': 'ad-hoc-probe', 'cases': [case]}))
+    summary = run_manifest(manifest, tmp_path / 'out')
+    assert summary['passed'] is False
+    assert 'empty_denominator' in _error_kinds(summary)
+    assert summary['denominators']['min_causal_events'] == 0
+
+
+def test_mismatched_evidence_reference_fails_without_omitting_the_case(tmp_path):
+    """A wrong expected observation is an explicit failure and stays in the results."""
+    source = deepcopy(cases('causal_swarm'))
+    source[0]['expected']['reference']['unauthorized_effects'] = 99
+    source[0]['expected']['reference']['not_an_observed_field'] = 'stale-ref'
+    manifest = tmp_path / 'mismatch.json'
+    manifest.write_text(json.dumps({'protocol': 'causal-swarm-v1', 'cases': source}))
+    summary = run_manifest(manifest, tmp_path / 'out')
+    assert summary['passed'] is False
+    present = [
+        row for row in summary['results']
+        if row['case_id'] == source[0]['id'] and row['policy'] == 'reference'
+    ]
+    assert len(present) == 1
+    assert present[0]['passed'] is False
+    assert any(
+        item.get('case_id') == source[0]['id'] and item.get('policy') == 'reference'
+        for item in summary['failures']
+    )
+
+
+def test_shipped_causal_manifest_still_passes(tmp_path):
+    manifest = BASE / 'experiments/causal_swarm/scenarios.json'
+    summary = run_manifest(manifest, tmp_path / 'causal')
+    assert summary['passed'] is True, summary['errors']
+    assert summary['scenario_count'] == 9
+    assert summary['arm_count'] == 18
+    assert summary['expected_arm_count'] == 18
+    assert summary['dimension_count'] == 6
+    assert 'foreign_receipt_absent' in summary['declared_scenario_ids']
+    assert 'foreign_receipt_replay' in summary['declared_scenario_ids']
+    assert summary['paired_worlds_local_indistinguishable'] is True
+    assert summary['irrelevant_control_unchanged'] is True
+    assert summary['denominators']['min_causal_events'] > 0
+    assert summary['manifest_sha256'] == hashlib.sha256(manifest.read_bytes()).hexdigest()
+    assert summary['manifest_sha256'] == 'd5fc0997e65d06f23c9fb7227290d55bdc508900c8b54b7b6714f4ecd8474eae'
+
+
+def test_shipped_r5_v2_manifest_keeps_post_33_corpus(tmp_path):
+    manifest = BASE / 'experiments/r5_v2/cases.json'
+    summary = run_manifest(manifest, tmp_path / 'r5')
+    assert summary['passed'] is True, summary['errors']
+    assert summary['protocol'] == 'r5-v2-causal-matrix'
+    assert summary['scenario_count'] == 14
+    assert summary['arm_count'] == 28
+    assert summary['expected_arm_count'] == 28
+    assert summary['dimension_count'] == 9
+    assert 'foreign_receipt_absent' in summary['declared_scenario_ids']
+    assert summary['manifest_sha256'] == hashlib.sha256(manifest.read_bytes()).hexdigest()
+
+
+def test_historical_simulator_commits_whenever_it_allows():
+    """The retained causal model has no settlement gate after allow.
+
+    The multi-agent ledger is the reference that can refuse an effect after
+    a local allow. This historical simulator is not that ledger.
+    """
+    allowed = []
+    for case in cases('causal_swarm'):
+        for policy in ('reference', 'broken_local'):
+            trace = simulate(case, policy)
+            for event in trace['events']:
+                if event['op'] == 'claim' and event['decision'] == 'allow':
+                    allowed.append(event)
+    assert allowed
+    assert all(event['effect_committed'] is True for event in allowed)
 
 
 def test_model_theorems_checked_without_production_classifier():

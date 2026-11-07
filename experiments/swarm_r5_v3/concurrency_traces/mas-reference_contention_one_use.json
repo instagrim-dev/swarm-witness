@@ -1,0 +1,318 @@
+{
+  "id": "mas-reference_contention_one_use",
+  "claim_id": "multi_agent_sim",
+  "protocol_id": "multi-agent-sim-v1",
+  "case_id": "reference_contention_one_use",
+  "source_pin": "swarm-witness-multi-agent-sim-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "reference_vs_mutant",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "policy_id": "reference",
+    "schedule_id": "sched-toctou-contend",
+    "seed": 404,
+    "one_use_ok": true,
+    "event_count": 11,
+    "claim_count": 2,
+    "claims": [
+      {
+        "call_id": "a-claim",
+        "agent": "A",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "committed_effect": true,
+        "effect_settlement": "committed",
+        "effect_refusal_reason": null,
+        "effect_boundary_enforced": true,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 3,
+        "authoritative_owner_state": {
+          "grant": {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "spent",
+            "epoch": "epoch-1",
+            "owner_version": 4,
+            "assignees": [
+              "A",
+              "B",
+              "C"
+            ],
+            "spent": true
+          },
+          "committed_effect_count": 1,
+          "committed_effects": [
+            {
+              "effect_id": "effect-a-claim",
+              "grant_id": "grant-shared",
+              "agent": "A",
+              "call_id": "a-claim",
+              "decision_event_id": "evt-404-0008",
+              "owner_version_at_commit": 4
+            }
+          ],
+          "ledger_owner_version": 4
+        },
+        "required_decision": "allow",
+        "local_knowledge_at_decision": {
+          "agent": "A",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 3,
+              "assignees": [
+                "A",
+                "B",
+                "C"
+              ],
+              "spent": false,
+              "source_event_id": "evt-404-0005",
+              "observation_id": "obs-404-0004",
+              "delivered_freshness": "current",
+              "observation_freshness": "current"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-404-0004"
+          ],
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 3
+        },
+        "evaluator_learned_afterward": {
+          "authoritative_owner_state": {
+            "grant": {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "spent",
+              "epoch": "epoch-1",
+              "owner_version": 4,
+              "assignees": [
+                "A",
+                "B",
+                "C"
+              ],
+              "spent": true
+            },
+            "committed_effect_count": 1,
+            "committed_effects": [
+              {
+                "effect_id": "effect-a-claim",
+                "grant_id": "grant-shared",
+                "agent": "A",
+                "call_id": "a-claim",
+                "decision_event_id": "evt-404-0008",
+                "owner_version_at_commit": 4
+              }
+            ],
+            "ledger_owner_version": 4
+          },
+          "committed_effect": true,
+          "effect_settlement": "committed",
+          "required_decision": "allow",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 3,
+          "one_use_effect_count": 1
+        },
+        "observation_denominators": {
+          "required_discriminators": [
+            "current_grant_observation"
+          ],
+          "required_count": 1,
+          "present_discriminators": [
+            "current_grant_observation"
+          ],
+          "present_count": 1,
+          "current_grant_observation_count": 1,
+          "stale_grant_observation_count": 0,
+          "authoritative_grant_version_at_decision": 3,
+          "irrelevant_count": 0,
+          "receipt_count": 0,
+          "grant_observation_count": 1,
+          "observation_id_count": 1
+        },
+        "assessment": "permission_justified",
+        "conclusion_class": "supported",
+        "finding_label": "reproduced",
+        "property_holds": true,
+        "diagnosis": {
+          "evidence_status": "authentic",
+          "decision_status": "correct",
+          "effect_status": "committed",
+          "failure_origin": "none"
+        },
+        "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=allow required=allow committed_effect=True effect_settlement=committed"
+      },
+      {
+        "call_id": "b-claim",
+        "agent": "B",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "committed_effect": false,
+        "effect_settlement": "refused",
+        "effect_refusal_reason": "authoritative_spent_or_revoked",
+        "effect_boundary_enforced": true,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 4,
+        "authoritative_owner_state": {
+          "grant": {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "spent",
+            "epoch": "epoch-1",
+            "owner_version": 4,
+            "assignees": [
+              "A",
+              "B",
+              "C"
+            ],
+            "spent": true
+          },
+          "committed_effect_count": 1,
+          "committed_effects": [
+            {
+              "effect_id": "effect-a-claim",
+              "grant_id": "grant-shared",
+              "agent": "A",
+              "call_id": "a-claim",
+              "decision_event_id": "evt-404-0008",
+              "owner_version_at_commit": 4
+            }
+          ],
+          "ledger_owner_version": 4
+        },
+        "required_decision": "deny",
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 3,
+              "assignees": [
+                "A",
+                "B",
+                "C"
+              ],
+              "spent": false,
+              "source_event_id": "evt-404-0007",
+              "observation_id": "obs-404-0006",
+              "delivered_freshness": "current",
+              "observation_freshness": "stale"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-404-0006"
+          ],
+          "has_current_grant_observation": false,
+          "has_stale_grant_observation": true,
+          "authoritative_grant_version_at_decision": 4
+        },
+        "evaluator_learned_afterward": {
+          "authoritative_owner_state": {
+            "grant": {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "spent",
+              "epoch": "epoch-1",
+              "owner_version": 4,
+              "assignees": [
+                "A",
+                "B",
+                "C"
+              ],
+              "spent": true
+            },
+            "committed_effect_count": 1,
+            "committed_effects": [
+              {
+                "effect_id": "effect-a-claim",
+                "grant_id": "grant-shared",
+                "agent": "A",
+                "call_id": "a-claim",
+                "decision_event_id": "evt-404-0008",
+                "owner_version_at_commit": 4
+              }
+            ],
+            "ledger_owner_version": 4
+          },
+          "committed_effect": false,
+          "effect_settlement": "refused",
+          "required_decision": "deny",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 4,
+          "one_use_effect_count": 1
+        },
+        "observation_denominators": {
+          "required_discriminators": [
+            "current_grant_observation"
+          ],
+          "required_count": 1,
+          "present_discriminators": [
+            "stale_grant_observation"
+          ],
+          "present_count": 1,
+          "current_grant_observation_count": 0,
+          "stale_grant_observation_count": 1,
+          "authoritative_grant_version_at_decision": 4,
+          "irrelevant_count": 0,
+          "receipt_count": 0,
+          "grant_observation_count": 1,
+          "observation_id_count": 1
+        },
+        "assessment": "enforcement_failed",
+        "conclusion_class": "failed_enforcement",
+        "finding_label": "contradicted_in_scope",
+        "property_holds": false,
+        "diagnosis": {
+          "evidence_status": "authentic",
+          "decision_status": "incorrect",
+          "effect_status": "prevented",
+          "failure_origin": "decision_policy"
+        },
+        "reason": "evidence complete but exercised enforcement violates the property; evidence_integrity=authentic; decision=allow required=deny committed_effect=False effect_settlement=refused"
+      }
+    ],
+    "expected": {
+      "claim_decisions": {
+        "a-claim": "allow",
+        "b-claim": "allow"
+      },
+      "committed_effects": {
+        "a-claim": true,
+        "b-claim": false
+      },
+      "effect_settlements": {
+        "a-claim": "committed",
+        "b-claim": "refused"
+      },
+      "effect_refusal_reasons": {
+        "b-claim": "authoritative_spent_or_revoked"
+      },
+      "one_use_ok": true,
+      "claim_conclusions": {
+        "a-claim": "supported",
+        "b-claim": "failed_enforcement"
+      }
+    },
+    "model": "deterministic_in_process_interleaving_simulator",
+    "exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety"
+    ]
+  }
+}

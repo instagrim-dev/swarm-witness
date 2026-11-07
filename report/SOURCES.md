@@ -45,6 +45,14 @@ Also retained:
 Optional: open the Google Docs copy URL above and paste from the templated
 markdown if judges insist on the live Docs file rather than the filled DOCX/PDF.
 
+## Incident evidence standard
+
+For the 2026 OpenAI–Hugging Face agent-swarm incident, the evidence standard is the public LessWrong reproduction:
+
+Palan, M., Chute, C., Kim, M. and Van Roy, B. (2026). *OpenAI-HuggingFace: A Reproduction & Lessons for Alignment Testing*. https://www.lesswrong.com/posts/fMnC6ZD37qrnZAFYz/openai-huggingface-a-reproduction-and-lessons-for-alignment
+
+Original agent transcripts and platform logs are unavailable. Acceptance and qualification use that reproduction and the executable protocols in this package. No criterion requires the withheld originals.
+
 ## Evidence sources (metrics only; do not invent)
 
 | Claim | Label | Primary metrics files |

@@ -1,0 +1,130 @@
+{
+  "id": "mas-paired_world_active_blind",
+  "claim_id": "multi_agent_sim",
+  "protocol_id": "multi-agent-sim-v1",
+  "case_id": "paired_world_active_blind",
+  "source_pin": "swarm-witness-multi-agent-sim-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "paired_world",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "policy_id": "reference",
+    "schedule_id": "sched-pair-active-blind",
+    "seed": 505,
+    "one_use_ok": true,
+    "event_count": 5,
+    "claim_count": 1,
+    "claims": [
+      {
+        "call_id": "b-blind",
+        "agent": "B",
+        "grant_id": "grant-shared",
+        "decision": "deny",
+        "committed_effect": false,
+        "effect_settlement": "not_attempted",
+        "effect_refusal_reason": "decision_denied",
+        "effect_boundary_enforced": true,
+        "evidence_integrity": "missing",
+        "authoritative_grant_version_at_decision": 2,
+        "authoritative_owner_state": {
+          "grant": {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "active",
+            "epoch": "epoch-1",
+            "owner_version": 2,
+            "assignees": [
+              "A",
+              "B"
+            ],
+            "spent": false
+          },
+          "committed_effect_count": 0,
+          "committed_effects": [],
+          "ledger_owner_version": 2
+        },
+        "required_decision": "allow",
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [],
+          "has_current_grant_observation": false,
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 2
+        },
+        "evaluator_learned_afterward": {
+          "authoritative_owner_state": {
+            "grant": {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 2,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": false
+            },
+            "committed_effect_count": 0,
+            "committed_effects": [],
+            "ledger_owner_version": 2
+          },
+          "committed_effect": false,
+          "effect_settlement": "not_attempted",
+          "required_decision": "allow",
+          "evidence_integrity": "missing",
+          "authoritative_grant_version_at_decision": 2,
+          "one_use_effect_count": 0
+        },
+        "observation_denominators": {
+          "required_discriminators": [
+            "current_grant_observation"
+          ],
+          "required_count": 1,
+          "present_discriminators": [],
+          "present_count": 0,
+          "current_grant_observation_count": 0,
+          "stale_grant_observation_count": 0,
+          "authoritative_grant_version_at_decision": 2,
+          "irrelevant_count": 0,
+          "receipt_count": 0,
+          "grant_observation_count": 0,
+          "observation_id_count": 0
+        },
+        "assessment": "unsupported",
+        "conclusion_class": "missing_evidence",
+        "finding_label": "unresolved",
+        "property_holds": null,
+        "diagnosis": {
+          "evidence_status": "missing",
+          "decision_status": "unknown",
+          "effect_status": "prevented",
+          "failure_origin": "evidence"
+        },
+        "reason": "agent lacked current grant observation at decision; evaluator later inspected authoritative owner state without upgrading the agent-visible missing_evidence conclusion"
+      }
+    ],
+    "expected": {
+      "claim_conclusions": {
+        "b-blind": "missing_evidence"
+      },
+      "committed_effects": {
+        "b-blind": false
+      },
+      "indistinguishable_agent_view": true
+    },
+    "model": "deterministic_in_process_interleaving_simulator",
+    "exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety"
+    ]
+  }
+}

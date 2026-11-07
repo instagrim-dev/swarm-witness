@@ -1,0 +1,153 @@
+{
+  "id": "mas-paired_world_revoked_distinguished",
+  "claim_id": "multi_agent_sim",
+  "protocol_id": "multi-agent-sim-v1",
+  "case_id": "paired_world_revoked_distinguished",
+  "source_pin": "swarm-witness-multi-agent-sim-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "paired_world",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "policy_id": "reference",
+    "schedule_id": "sched-pair-revoked-disc",
+    "seed": 507,
+    "one_use_ok": true,
+    "event_count": 7,
+    "claim_count": 1,
+    "claims": [
+      {
+        "call_id": "b-disc",
+        "agent": "B",
+        "grant_id": "grant-shared",
+        "decision": "deny",
+        "committed_effect": false,
+        "effect_settlement": "not_attempted",
+        "effect_refusal_reason": "decision_denied",
+        "effect_boundary_enforced": true,
+        "evidence_integrity": "authentic",
+        "authoritative_grant_version_at_decision": 3,
+        "authoritative_owner_state": {
+          "grant": {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "revoked",
+            "epoch": "epoch-1",
+            "owner_version": 3,
+            "assignees": [
+              "A",
+              "B"
+            ],
+            "spent": false
+          },
+          "committed_effect_count": 0,
+          "committed_effects": [],
+          "ledger_owner_version": 3
+        },
+        "required_decision": "deny",
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "revoked",
+              "epoch": "epoch-1",
+              "owner_version": 3,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": false,
+              "source_event_id": "evt-507-0005",
+              "observation_id": "obs-507-0004",
+              "delivered_freshness": "current",
+              "observation_freshness": "current"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-507-0004"
+          ],
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 3
+        },
+        "evaluator_learned_afterward": {
+          "authoritative_owner_state": {
+            "grant": {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "revoked",
+              "epoch": "epoch-1",
+              "owner_version": 3,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": false
+            },
+            "committed_effect_count": 0,
+            "committed_effects": [],
+            "ledger_owner_version": 3
+          },
+          "committed_effect": false,
+          "effect_settlement": "not_attempted",
+          "required_decision": "deny",
+          "evidence_integrity": "authentic",
+          "authoritative_grant_version_at_decision": 3,
+          "one_use_effect_count": 0
+        },
+        "observation_denominators": {
+          "required_discriminators": [
+            "current_grant_observation"
+          ],
+          "required_count": 1,
+          "present_discriminators": [
+            "current_grant_observation"
+          ],
+          "present_count": 1,
+          "current_grant_observation_count": 1,
+          "stale_grant_observation_count": 0,
+          "authoritative_grant_version_at_decision": 3,
+          "irrelevant_count": 0,
+          "receipt_count": 0,
+          "grant_observation_count": 1,
+          "observation_id_count": 1
+        },
+        "assessment": "permission_refuted",
+        "conclusion_class": "supported",
+        "finding_label": "reproduced",
+        "property_holds": true,
+        "diagnosis": {
+          "evidence_status": "authentic",
+          "decision_status": "correct",
+          "effect_status": "prevented",
+          "failure_origin": "none"
+        },
+        "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=deny required=deny committed_effect=False effect_settlement=not_attempted"
+      }
+    ],
+    "expected": {
+      "claim_decisions": {
+        "b-disc": "deny"
+      },
+      "committed_effects": {
+        "b-disc": false
+      },
+      "claim_conclusions": {
+        "b-disc": "supported"
+      }
+    },
+    "model": "deterministic_in_process_interleaving_simulator",
+    "exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety"
+    ]
+  }
+}

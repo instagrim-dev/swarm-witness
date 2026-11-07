@@ -1,0 +1,115 @@
+{
+  "case_id": "interleave_b_first_reference",
+  "name": "Shared grant contention: B-first interleaving (reference)",
+  "role": "interleaving",
+  "policy_id": "reference",
+  "schedule": {
+    "schedule_id": "sched-b-first",
+    "seed": 202,
+    "description": "B observes and claims before A; winner differs from A-first",
+    "steps": [
+      {
+        "kind": "grant_issue",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "issue shared one-use grant"
+      },
+      {
+        "kind": "delegation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "assign B"
+      },
+      {
+        "kind": "delegation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": "C",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "assign C"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "B receives current grant first"
+      },
+      {
+        "kind": "claim",
+        "actor": "B",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "b-claim",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "B claims first"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "A",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "A receives post-spend grant"
+      },
+      {
+        "kind": "claim",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "a-claim",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "A claims after B spent"
+      }
+    ]
+  },
+  "expected": {
+    "winners": [
+      "B"
+    ],
+    "claim_decisions": {
+      "b-claim": "allow",
+      "a-claim": "deny"
+    },
+    "committed_effects": {
+      "b-claim": true,
+      "a-claim": false
+    },
+    "one_use_ok": true,
+    "claim_conclusions": {
+      "b-claim": "supported",
+      "a-claim": "supported"
+    }
+  }
+}

@@ -3,10 +3,33 @@
   "scenario_count": 14,
   "arm_count": 28,
   "dimension_count": 9,
+  "expected_arm_count": 28,
+  "declared_scenario_ids": [
+    "contention_a_first",
+    "contention_b_first",
+    "revoked_stale_view",
+    "active_same_local_view",
+    "revoked_same_local_view",
+    "revoked_irrelevant_extra",
+    "delegation_a_b_c",
+    "missing_delegate_c",
+    "foreign_receipt_replay",
+    "foreign_receipt_absent",
+    "wrong_task_scope",
+    "wrong_epoch_scope",
+    "missing_local_view",
+    "delayed_stale_delivery"
+  ],
   "passed": true,
   "failures": [],
+  "errors": [],
   "paired_worlds_local_indistinguishable": true,
   "irrelevant_control_unchanged": true,
+  "denominators": {
+    "scenario_count": 14,
+    "arm_count": 28,
+    "min_causal_events": 3
+  },
   "manifest_sha256": "e236c83ae07b2414f918c8bb0f5b8ef6073aa1ad1734bd96cafccde09b6c383f",
   "results": [
     {
