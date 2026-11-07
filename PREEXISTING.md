@@ -1,6 +1,7 @@
 # Preexisting material
 
-This submission builds on material that predates the Nov 7–8 sprint scaffold.
+This submission builds on material that predates the Apart weekend sprint work
+(2026-11-06 … 2026-11-08; scaffold landed at the start of that window).
 
 ## Oct 25 repository scaffold
 

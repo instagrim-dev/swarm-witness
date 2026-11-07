@@ -1,5 +1,37 @@
-# Swarm Witness
+# Swarm Witness: What Do Agent-Safety Mechanisms Actually Establish?
 
-Apart Swarm Alignment submission — tracks 3 and 4 (claim audit and classical baselines).
+**Apart Research — Swarm Alignment sprint (weekend 2026-11-06 … 2026-11-08)**  
+**Tracks:** 3 (claim audit) and 4 (classical baselines)
 
-Weekend work starts after scaffold.
+Multi-agent safety mechanisms are often described as novel when they implement durable authorization, crash-consistent recovery, or evidence packaging. We ask: after matching policy, observations, trust assumptions, durability, and enforcement coverage, which claimed benefits remain? We contribute Swarm Witness, an executable claim-audit method that pins third-party artifacts, states precise claim cards, runs discriminating checks against classical baselines, and records fail-closed conclusion labels. On three pinned targets we obtain: SoundGate recovery-barrier (R1) reproduced; EvidenceGraph receipt stress (R2) reproduced; BMO retained-grant vs ClassicalGate (R3) assumption_dependent. Auditors should publish matched baselines and labels, not treat branding as establishment.
+
+## Submission PDF
+
+Apart-ready report: [`report/Swarm_Witness_Apart_Submission.pdf`](report/Swarm_Witness_Apart_Submission.pdf) (form field cheat sheet: [`report/SUBMISSION_FORM.md`](report/SUBMISSION_FORM.md)).
+
+## Preexisting material
+
+Scaffold, monitors, and the external BMO tree predate this sprint. Full disclosure: [`PREEXISTING.md`](PREEXISTING.md).
+
+## Quick verification (local kit)
+
+```bash
+cd /path/to/swarm-witness
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"   # or requirements as documented in pyproject
+pytest -v
+python scripts/validate_claims.py
+python scripts/check_evidence.py
+```
+
+## Reproduction experiments
+
+Run from the repository root with dependencies installed (R1 needs `git`, `curl`, `cargo`, `rustc`; R2 needs `uv`; R3 needs `go` and a checkout of BMO at `BMO_ROOT`, default `/Users/user1/Documents/dev/bmo`).
+
+| Experiment | Command | Output |
+| --- | --- | --- |
+| R1 SoundGate | `bash experiments/r1/run_r1.sh` | `evidence/r1/summary.json`, `result.yaml` |
+| R2 EvidenceGraph | `bash experiments/r2/run_r2.sh` | `evidence/r2/summary.json`, `result.yaml` |
+| R3 BMO Go tests | `bash experiments/r3/run_bmo_tests.sh` | `evidence/r3/bmo_go_test.log` |
+
+Pre-submit checklist for the Apart form: [`CHECKLIST.md`](CHECKLIST.md).
