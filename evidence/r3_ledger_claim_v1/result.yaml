@@ -1,0 +1,9 @@
+claim_id: r3_ledger_claim_v1
+label: classical_baseline_matches
+authoritative: finding
+finding_path: findings/r3-ledger-claim-v1-comparison.json
+metrics:
+  classical_pass_count: 6
+  bmo_pass_count: 6
+  native_bmo: true
+notes: equal projections

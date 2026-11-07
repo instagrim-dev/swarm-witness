@@ -1,0 +1,46 @@
+{
+  "id": "r3-ledger-meta",
+  "claim_id": "r3_ledger_claim_v1",
+  "protocol_id": "r3-ledger-claim-v1",
+  "case_id": "meta",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "completed",
+  "observations": {
+    "agreement": {
+      "result": "matched",
+      "reason": "equal projections"
+    },
+    "validity": {
+      "valid": true,
+      "errors": []
+    },
+    "bmo_manifest": {
+      "adapter_id": "bmo_l1_first_edit",
+      "pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "bridge": {
+        "bmo_adapter_test.go": "d1806f532eba26a5ba8233376efa67d922a1db121f34733a6c4a3dfcda47555e",
+        "bmo_adapter_fixture.go": "e9bebeb7fb8f331119b43352d2e448180a22bf1723d0eb1690608ce68bb3ab7e"
+      },
+      "bmo_root": "/Users/user1/Documents/dev/bmo-r3-ledger-pin",
+      "mode": "go_test_bridge_native",
+      "native_bmo": true,
+      "command": [
+        "go",
+        "test",
+        "-tags=swarm_witness_r3",
+        "./internal/sessioncompaction/",
+        "-run",
+        "^TestSwarmWitnessR3Probe$",
+        "-count=1"
+      ],
+      "exit_code": 0,
+      "log_path": "/Users/user1/Documents/dev/hackathons/2026-fall/submissions/swarm-witness/evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-native/bmo_work/bmo_go_test.log",
+      "notes": "native ClaimOrdinaryRetainedGrantFirstEditTx bridge"
+    },
+    "cases_hash": "bed93858012dc09a88d7c346fbec817904db85d5203e08bf1ec2642ed76f710d",
+    "bridge_hashes": {
+      "bmo_adapter_test.go": "d1806f532eba26a5ba8233376efa67d922a1db121f34733a6c4a3dfcda47555e",
+      "bmo_adapter_fixture.go": "e9bebeb7fb8f331119b43352d2e448180a22bf1723d0eb1690608ce68bb3ab7e"
+    }
+  }
+}

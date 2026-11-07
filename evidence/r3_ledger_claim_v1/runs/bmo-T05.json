@@ -1,0 +1,166 @@
+{
+  "id": "bmo-T05",
+  "claim_id": "r3_ledger_claim_v1",
+  "protocol_id": "r3-ledger-claim-v1",
+  "case_id": "T05",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "completed",
+  "observations": {
+    "arm": "bmo",
+    "steps": [
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T05",
+        "step": 1,
+        "op": "claim_first_edit",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "refused",
+        "inputs": {
+          "call_id": "call-t05-bad",
+          "grant_id": "grant-alpha",
+          "owner_revision": 1,
+          "retry_epoch": "epoch-1",
+          "task_id": "task-foreign",
+          "transaction_completion": "commit"
+        },
+        "native_result": {
+          "call_id": "call-t05-bad",
+          "native_bmo": true,
+          "native_ok": false,
+          "reason": "diagnostic recovery owner revision or admission digest is stale"
+        },
+        "state": {
+          "grant_spent": false,
+          "claim_count": 0,
+          "transfer_count": 0,
+          "claims": [],
+          "transfers": [],
+          "claim_call_ids": [],
+          "transfer_call_ids": []
+        },
+        "notes": "diagnostic recovery owner revision or admission digest is stale"
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T05",
+        "step": 2,
+        "op": "inspect",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "observed",
+        "inputs": {},
+        "native_result": {
+          "native_bmo": true
+        },
+        "state": {
+          "grant_spent": false,
+          "claim_count": 0,
+          "transfer_count": 0,
+          "claims": [],
+          "transfers": [],
+          "claim_call_ids": [],
+          "transfer_call_ids": []
+        },
+        "notes": ""
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T05",
+        "step": 3,
+        "op": "claim_first_edit",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "committed",
+        "inputs": {
+          "call_id": "call-t05-a",
+          "grant_id": "grant-alpha",
+          "owner_revision": 1,
+          "retry_epoch": "epoch-1",
+          "task_id": "task-alpha",
+          "transaction_completion": "commit"
+        },
+        "native_result": {
+          "call_id": "call-t05-a",
+          "native_bmo": true,
+          "native_ok": true,
+          "reason": "ok"
+        },
+        "state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        },
+        "notes": "ok"
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T05",
+        "step": 4,
+        "op": "inspect",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "observed",
+        "inputs": {},
+        "native_result": {
+          "native_bmo": true
+        },
+        "state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "transfers": [
+            {
+              "task_id": "task-alpha",
+              "grant_id": "grant-alpha",
+              "retry_epoch": "epoch-1",
+              "call_id": "call-t05-a",
+              "owner_revision": 1
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        },
+        "notes": ""
+      }
+    ],
+    "step_count": 4
+  }
+}

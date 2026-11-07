@@ -1,0 +1,27 @@
+{
+  "id": "r3-ledger-claim-v1-comparison",
+  "claim_id": "r3_ledger_claim_v1",
+  "run_ids": [
+    "bmo-T01",
+    "bmo-T02",
+    "bmo-T03",
+    "bmo-T04",
+    "bmo-T05",
+    "bmo-T06",
+    "classical-T01",
+    "classical-T02",
+    "classical-T03",
+    "classical-T04",
+    "classical-T05",
+    "classical-T06",
+    "r3-ledger-meta"
+  ],
+  "proposition": "Across declared synthetic cases, ClassicalLedgerGate and BMO L1 emitted equal property-relevant observations and both satisfied the one-use ledger-claim trace properties",
+  "scope": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+  "label": "classical_baseline_matches",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "r3-ledger-meta.observations.agreement.result",
+    "r3-ledger-meta.observations.validity.valid"
+  ]
+}
