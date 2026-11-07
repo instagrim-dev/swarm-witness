@@ -1,0 +1,31 @@
+{
+  "id": "r5-swarm_delegation_c_not_assignee_deny",
+  "claim_id": "r5",
+  "protocol_id": "r5-swarm-audit-v1",
+  "case_id": "swarm_delegation_c_not_assignee_deny",
+  "source_pin": "swarm-witness-r5-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "supported",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "assessment": "permission_refuted",
+    "conclusion_class": "supported",
+    "finding_label": "reproduced",
+    "property_holds": true,
+    "decision": "deny",
+    "required_decision": "deny",
+    "agent": "C",
+    "grant_id": "grant-chain2",
+    "observe_grant": true,
+    "gate_mode": "correct",
+    "foreign_receipt_from": null,
+    "reason": "evidence complete and property holds in scope; agent=C decision=deny required=deny",
+    "expected_conclusion_class": "supported",
+    "expected_assessment": "permission_refuted",
+    "conclusion_match": true
+  }
+}

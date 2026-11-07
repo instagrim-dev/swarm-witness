@@ -27,12 +27,13 @@ current grant state.
    first-edit owner (r3-ledger-claim-v1), with a bounded L1 match under
    fail-closed native qualification; legacy decision-model R3 stays unresolved.
 3. **Three-way conclusion method (R4)** that distinguishes missing evidence,
-   failed enforcement, and genuinely supported conclusions under matched
-   observation rules—refusing success labels when evidence is incomplete or
-   when an exercised gate violates the property.
-4. **Bounded handoff transferability (not swarm population):** R4 shows
-   principal-receipt handoff is not standing delegate permission under the same
-   three-way rules. Full multi-agent / swarm generalization is **not claimed**.
+   failed enforcement, and genuinely supported conclusions—including bounded
+   principal→delegate handoff under the same rules.
+4. **Multi-agent / swarm generalization (R5):** the same taxonomy applied to a
+   synthetic three-agent swarm (A/B/C) with shared-grant contention, delegation
+   chains, and cross-agent receipt misuse. Unbounded population-scale or live
+   BMO-mesh safety is **not** claimed; the established result is method
+   generalization under classical one-use swarm dynamics.
 
 Tracks: **3** (Strengthening Agent Infrastructure) and **4** (Multi-Agent
 Oversight and Control). Preexisting BMO code and Oct 25 scaffold are marked in
@@ -104,12 +105,18 @@ that allows under an observed revoked grant must be failed_enforcement. Correct
 allow/deny under observed grant is supported. Protocol:
 `experiments/evidence_sufficiency/`.
 
+**R5 (swarm generalization).** Protocol `r5-swarm-audit-v1` instantiates agents
+A/B/C on classical one-use shared grants (`src/swarm_witness/swarm_audit.py`).
+Cases cover missing peer observation, contended spend (correct and broken),
+delegation-chain assignee checks, and cross-agent receipt misuse. Each case is
+labeled with the same three-way classes.
+
 # 4. Results
 
 Labels from `evidence/index.yaml` / findings only: R1 **reproduced**, R2
 **reproduced**, R3 decision-model **unresolved**, R3 ledger-claim-v1
-**classical_baseline_matches** (bounded L1), R4 **reproduced**. Metrics cite
-`evidence/*/summary.json`.
+**classical_baseline_matches** (bounded L1), R4 **reproduced**, R5
+**reproduced**. Metrics cite `evidence/*/summary.json`.
 
 ## 4.1 R1 — SoundGate recovery barrier (`reproduced`)
 
@@ -189,32 +196,39 @@ the delegate grant is revoked is `failed_enforcement`; an observed active
 delegate grant with a correct gate is `supported`. Core gate cases still cover
 blind Worlds A/B, revoked-still-allows, and active-still-denies. The ledger
 comparator uses the same taxonomy via `classify_matched_comparison`. Cross-study
-map: `baselines/three_way_conclusion_map.md`. Findings across R1–R4 carry an
+map: `baselines/three_way_conclusion_map.md`. Findings across R1–R5 carry an
 explicit `conclusion_class` annotation. Finding `r4-f-evidence-sufficiency`
 label **`reproduced`**; `all_checks_pass: true`; `three_way_classes_exercised:
 true`.
 
+## 4.6 R5 — Multi-agent / swarm generalization (`reproduced`)
+
+Ten cases under `r5-swarm-audit-v1` with agents **A, B, C**: missing peer grant
+observation (2); failed enforcement on broken post-spend allow and
+foreign-receipt allow under revoke (2); supported contention, delegation-chain
+assignee checks, and cross-agent receipt deny (6). Finding `r5-f-swarm-audit`
+label **`reproduced`**; `agent_count: 3`; `three_way_classes_exercised: true`.
+This establishes **method generalization** to a synthetic swarm under classical
+one-use shared grants—not live BMO mesh equivalence or unbounded population
+safety.
+
 # 5. Discussion
 
-**Synthesis.** R1 is a reproduced mechanism failure under pin; R2 is a
-reproduced evidence-attribution failure; R3-L1 is an observed classical-baseline
-match on a narrow L1 surface; R4 demonstrates the method’s three-way
-discipline (missing evidence vs failed enforcement vs supported). None alone
-establishes safety across a multi-agent population. Original authors of R1/R2
-already reported the core behaviors—their role here is as controlled exemplars
-for the auditing method.
+**Synthesis.** R1/R2 are pinned reproductions used as exemplars; R3-L1 is a
+bounded classical match; R4 defines the three-way discipline; R5 shows that
+discipline still separates missing evidence, failed enforcement, and supported
+outcomes when three agents contend for grants, form delegation chains, and
+misuse receipts. Original authors of R1/R2 already reported those mechanisms’
+core behaviors.
 
-**Implications.** A security mechanism can work as implemented while broader
-claims remain under-supported—or can fail enforcement while still producing
-receipts. Swarm Witness makes both gaps testable and refuses to conflate them
-with supported conclusions.
+**Implications.** Multi-agent settings amplify evidence gaps and enforcement
+failures; an audit method must refuse to treat peer activity or foreign receipts
+as substitute observations. Swarm Witness makes that refusal executable.
 
-**Limitations (summary).** ClassicalGate is a decision-model null (not restart
-durability); legacy R3 is incomplete; ledger-claim equality is projection-scoped;
-R4 is synthetic (not live BMO or delegated agents); R1/R2 inspectability and pin
-bindings are as above; multi-agent handoff is future work. Full Limitations and
-Dual-Use appendix follows.
+**Limitations (summary).** ClassicalGate is a decision-model null; legacy R3 is
+incomplete; ledger-claim equality is projection-scoped; R4/R5 are synthetic
+(not live BMO mesh); R5 uses three agents and classical one-use grants—not
+cryptographic multiparty auth or unbounded scale. Full Limitations appendix follows.
 
-**Future work.** Isomorphic decision-model R3 probes; explicit grant/epoch
-alias maps; delegated multi-agent handoff under the same evidence-sufficiency
-discipline; continuous baseline-vs-claim diffs.
+**Future work.** Isomorphic decision-model R3 probes; grant/epoch alias maps;
+larger synthetic populations; continuous baseline-vs-claim diffs.

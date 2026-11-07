@@ -1,0 +1,31 @@
+{
+  "id": "r5-swarm_cross_agent_receipt_broken_allow",
+  "claim_id": "r5",
+  "protocol_id": "r5-swarm-audit-v1",
+  "case_id": "swarm_cross_agent_receipt_broken_allow",
+  "source_pin": "swarm-witness-r5-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "failed_enforcement",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "assessment": "enforcement_failed",
+    "conclusion_class": "failed_enforcement",
+    "finding_label": "contradicted_in_scope",
+    "property_holds": false,
+    "decision": "allow",
+    "required_decision": "deny",
+    "agent": "C",
+    "grant_id": "grant-misuse-broken",
+    "observe_grant": true,
+    "gate_mode": "broken_allow",
+    "foreign_receipt_from": "A",
+    "reason": "evidence complete but exercised enforcement violates the property; agent=C decision=allow required=deny",
+    "expected_conclusion_class": "failed_enforcement",
+    "expected_assessment": "enforcement_failed",
+    "conclusion_match": true
+  }
+}

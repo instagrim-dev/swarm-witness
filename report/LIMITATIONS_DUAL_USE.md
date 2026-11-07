@@ -51,8 +51,13 @@ separately unresolved.
 can classify synthetic cases into missing_evidence, failed_enforcement, and
 supported, with Finding-label mappings unresolved /
 contradicted_in_scope / reproduced respectively. Does **not** establish live
-BMO behavior, cryptographic receipt authenticity, or multi-agent delegation /
-swarm handoff.
+BMO behavior or cryptographic receipt authenticity.
+
+**R5 swarm generalization (`reproduced`).** Establishes that the same three-way
+method classifies synthetic three-agent cases covering shared-grant contention,
+delegation chains, and cross-agent receipt misuse. Does **not** establish live
+BMO mesh equivalence, cryptographic multiparty authorization, or unbounded
+population-scale swarm safety.
 
 ## Finite experiments and checker scope
 

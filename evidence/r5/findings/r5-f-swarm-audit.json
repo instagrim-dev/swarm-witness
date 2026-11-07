@@ -1,0 +1,28 @@
+{
+  "id": "r5-f-swarm-audit",
+  "claim_id": "r5",
+  "run_ids": [
+    "r5-swarm_missing_peer_observation",
+    "r5-swarm_contention_first_claim_supported",
+    "r5-swarm_contention_second_deny_supported",
+    "r5-swarm_contention_broken_second_allow",
+    "r5-swarm_delegation_b_supported",
+    "r5-swarm_delegation_c_not_assignee_deny",
+    "r5-swarm_delegation_chain_c_supported",
+    "r5-swarm_cross_agent_receipt_deny_supported",
+    "r5-swarm_cross_agent_receipt_broken_allow",
+    "r5-swarm_concurrent_missing_observation",
+    "r5-method-score"
+  ],
+  "proposition": "Under r5-swarm-audit-v1 with agents A/B/C, the three-way conclusion method generalizes to swarm settings: missing peer grant observations stay missing_evidence; broken concurrent/cross-agent allows are failed_enforcement; correct contention, delegation-chain, and cross-agent receipt denies/allows are supported",
+  "scope": "Synthetic three-agent swarm under classical one-use shared grants; not live BMO mesh, not cryptographic multi-party auth, not unbounded population scale",
+  "label": "reproduced",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "r5-method-score.observations.passed",
+    "r5-method-score.observations.three_way_classes_exercised",
+    "r5-method-score.observations.agent_count",
+    "r5-method-score.observations.all_checks_pass"
+  ],
+  "conclusion_class": "supported"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "r5-swarm_missing_peer_observation",
+  "claim_id": "r5",
+  "protocol_id": "r5-swarm-audit-v1",
+  "case_id": "swarm_missing_peer_observation",
+  "source_pin": "swarm-witness-r5-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "missing_evidence",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "assessment": "unsupported",
+    "conclusion_class": "missing_evidence",
+    "finding_label": "unresolved",
+    "property_holds": null,
+    "decision": null,
+    "required_decision": null,
+    "agent": "C",
+    "grant_id": "grant-shared",
+    "observe_grant": false,
+    "gate_mode": "correct",
+    "foreign_receipt_from": null,
+    "reason": "agent C lacks observed grant grant-shared (swarm peer activity / foreign receipt is not substitute evidence)",
+    "expected_conclusion_class": "missing_evidence",
+    "expected_assessment": "unsupported",
+    "conclusion_match": true
+  }
+}

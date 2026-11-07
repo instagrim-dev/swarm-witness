@@ -1,0 +1,12 @@
+claim_id: r5
+label: reproduced
+authoritative: finding
+finding_path: findings/r5-f-swarm-audit.json
+metrics:
+  case_count: 10
+  agent_count: 3
+  missing_evidence_count: 2
+  failed_enforcement_count: 2
+  supported_count: 6
+  all_checks_pass: true
+notes: Three-agent swarm generalization of three-way conclusions

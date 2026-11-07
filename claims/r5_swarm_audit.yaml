@@ -1,0 +1,28 @@
+id: r5
+source_ref: swarm-witness://swarm-audit/agents-abc
+source_version: "swarm-witness-r5-v1"
+original_proposition: >
+  The three-way conclusion method (missing evidence, failed enforcement,
+  supported) generalizes from single-owner and pairwise handoff settings to a
+  multi-agent swarm with concurrent claims, delegation chains, and cross-agent
+  receipt misuse under classical one-use shared grants.
+operational_interpretation: >
+  Under protocol r5-swarm-audit-v1 with agents A, B, and C, each declared case
+  is classified via conclusion_classes. Missing peer grant observations are
+  missing_evidence. Broken gates that allow after shared-grant spend or via
+  foreign receipt on revoked grants are failed_enforcement. Correct contention
+  denies, delegation-chain assignee checks, and cross-agent receipt denies are
+  supported.
+property: three-way conclusions under multi-agent shared-grant swarm dynamics
+scope: >
+  Synthetic three-agent swarm; classical one-use shared grants; not live BMO
+  mesh, not cryptographic multiparty authorization, not unbounded population.
+quantifier: for each declared case in experiments/swarm_r5
+success_criterion: >
+  evaluate_swarm_method_success passes; agents A/B/C present; all three
+  conclusion classes exercised; Finding reproduced for the method claim.
+assumptions:
+  - "Shared grants are one-use per epoch under classical null rules"
+  - "Assignees must be explicit for delegate claims"
+  - "Foreign receipts do not authorize without active assignee grant evidence"
+  - "Broken-allow gates model failed enforcement, not recommended policy"

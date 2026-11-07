@@ -42,3 +42,9 @@ r4:
   notes: >
     Synthetic Worlds A/B evidence-sufficiency protocol implemented in-repo;
     no external third-party pin. Discriminating observation = current grant state.
+r5:
+  source_pin: "swarm-witness-r5-v1"
+  protocol_id: "r5-swarm-audit-v1"
+  notes: >
+    Synthetic three-agent swarm audit (A/B/C) generalizing three-way conclusions
+    to contention, delegation chains, and cross-agent receipt misuse.

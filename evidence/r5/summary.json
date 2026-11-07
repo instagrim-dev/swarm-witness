@@ -1,0 +1,144 @@
+{
+  "protocol_id": "r5-swarm-audit-v1",
+  "claim_id": "r5",
+  "cases": [
+    {
+      "case_id": "swarm_missing_peer_observation",
+      "role": "missing_evidence",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "missing_evidence",
+      "assessment": "unsupported",
+      "decision": null
+    },
+    {
+      "case_id": "swarm_contention_first_claim_supported",
+      "role": "supported",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "supported",
+      "assessment": "permission_justified",
+      "decision": "allow"
+    },
+    {
+      "case_id": "swarm_contention_second_deny_supported",
+      "role": "supported",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "supported",
+      "assessment": "permission_refuted",
+      "decision": "deny"
+    },
+    {
+      "case_id": "swarm_contention_broken_second_allow",
+      "role": "failed_enforcement",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "failed_enforcement",
+      "assessment": "enforcement_failed",
+      "decision": "allow"
+    },
+    {
+      "case_id": "swarm_delegation_b_supported",
+      "role": "supported",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "supported",
+      "assessment": "permission_justified",
+      "decision": "allow"
+    },
+    {
+      "case_id": "swarm_delegation_c_not_assignee_deny",
+      "role": "supported",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "supported",
+      "assessment": "permission_refuted",
+      "decision": "deny"
+    },
+    {
+      "case_id": "swarm_delegation_chain_c_supported",
+      "role": "supported",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "supported",
+      "assessment": "permission_justified",
+      "decision": "allow"
+    },
+    {
+      "case_id": "swarm_cross_agent_receipt_deny_supported",
+      "role": "supported",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "supported",
+      "assessment": "permission_refuted",
+      "decision": "deny"
+    },
+    {
+      "case_id": "swarm_cross_agent_receipt_broken_allow",
+      "role": "failed_enforcement",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "failed_enforcement",
+      "assessment": "enforcement_failed",
+      "decision": "allow"
+    },
+    {
+      "case_id": "swarm_concurrent_missing_observation",
+      "role": "missing_evidence",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "conclusion_class": "missing_evidence",
+      "assessment": "unsupported",
+      "decision": null
+    }
+  ],
+  "score": {
+    "passed": true,
+    "errors": [],
+    "case_count": 10,
+    "agent_count": 3,
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "three_way_classes_exercised": true,
+    "missing_evidence_count": 2,
+    "failed_enforcement_count": 2,
+    "supported_count": 6,
+    "all_checks_pass": true
+  },
+  "finding_id": "r5-f-swarm-audit",
+  "label": "reproduced"
+}
