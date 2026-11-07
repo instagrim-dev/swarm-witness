@@ -50,6 +50,8 @@ def build_runs(cases: list[dict]) -> list[dict]:
                 "observe_grant": result["observe_grant"],
                 "gate_mode": result.get("gate_mode"),
                 "foreign_receipt_from": result.get("foreign_receipt_from"),
+                "presented_receipt": result.get("presented_receipt"),
+                "effect_committed": result.get("effect_committed"),
                 "reason": result["reason"],
                 "expected_conclusion_class": case["expected_conclusion_class"],
                 "expected_assessment": case["expected_assessment"],
@@ -78,6 +80,7 @@ def build_meta_run(score: dict) -> dict:
             "case_count": score["case_count"],
             "agent_count": score["agent_count"],
             "agents": score["agents"],
+            "model": score.get("model"),
             "missing_evidence_count": score["missing_evidence_count"],
             "failed_enforcement_count": score["failed_enforcement_count"],
             "supported_count": score["supported_count"],
@@ -95,18 +98,19 @@ def build_finding(runs: list[dict], score: dict) -> dict:
         "claim_id": CLAIM_ID,
         "run_ids": [r["id"] for r in runs],
         "proposition": (
-            "Under r5-swarm-audit-v1 with agents A/B/C, the three-way conclusion "
-            "method generalizes to swarm settings: missing peer grant observations "
-            "stay missing_evidence; broken concurrent/cross-agent allows are "
-            "failed_enforcement; correct contention, delegation-chain, and "
-            "cross-agent receipt denies/allows are supported"
+            "Under r5-swarm-audit-v1 with agents A/B/C in a sequential shared-grant "
+            "model, the three-way conclusion method classifies missing peer "
+            "observations as missing_evidence; broken allows (decision without "
+            "unauthorized effect commit) as failed_enforcement; and correct "
+            "sequential contention, A→B then B→C assignee hops, and ledger-bound "
+            "cross-agent receipt denies as supported"
             if score["passed"]
             else "Swarm audit protocol failed one or more declared checks"
         ),
         "scope": (
-            "Synthetic three-agent swarm under classical one-use shared grants; "
-            "not live BMO mesh, not cryptographic multi-party auth, not unbounded "
-            "population scale"
+            "Synthetic sequential multi-principal model (named A/B/C, in-memory "
+            "ledger); not concurrent worker execution, not live BMO mesh, not "
+            "cryptographic multi-party auth, not unbounded population scale"
         ),
         "label": label,
         "basis": "computed",

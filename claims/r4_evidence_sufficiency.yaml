@@ -12,20 +12,26 @@ operational_interpretation: >
   cases must classify as missing_evidence (Finding unresolved). A broken gate
   that allows when revoked grant is observed must classify as
   failed_enforcement (Finding contradicted_in_scope). Correct gate decisions
-  under observed grant state must classify as supported (Finding reproduced
-  for the method claim). The three classes are mutually exclusive per evaluation.
+  under authentic observed grant state must classify as supported (Finding
+  reproduced for the synthetic method-conformance claim). Known-false
+  (misbound) grant observations must not yield unqualified supported /
+  permission_justified; with ground truth available they are
+  failed_enforcement. The three classes are mutually exclusive per evaluation.
 property: three-way conclusion discipline for current-permission claims
 scope: >
   Synthetic two-world audit protocol in Swarm Witness; not live BMO, not
-  multi-agent delegation, not cryptographic receipt authenticity.
+  cryptographic receipt authenticity; handoff cases are bounded delegate
+  checks under the same taxonomy.
 quantifier: for each declared case in experiments/evidence_sufficiency
 success_criterion: >
   evaluate_method_success passes with all three conclusion classes exercised;
   blind A/B missing_evidence and indistinguishable; broken revoked-allow is
-  failed_enforcement; correct gates are supported; irrelevant control stays
+  failed_enforcement; correct authentic gates are supported; misbound
+  observations are failed_enforcement not supported; irrelevant control stays
   missing_evidence.
 assumptions:
   - "Shared old receipt is authentic but not current authority"
   - "Current grant state is the declared discriminating observation"
+  - "Observation availability is distinct from authenticity vs ground truth"
   - "Classical null maps active to allow and revoked to deny"
   - "Irrelevant print-color fact is non-discriminating by construction"

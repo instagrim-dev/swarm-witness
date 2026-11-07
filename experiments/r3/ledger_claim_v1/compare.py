@@ -76,6 +76,28 @@ def pair_validity(
     c_idx = index(classical_steps)
     b_idx = index(bmo_steps)
 
+    declared: set[tuple[str, int]] = set()
+    for case in cases:
+        for action in case.actions:
+            declared.add((case.case_id, action.step))
+
+    # Reject undeclared / unexpected steps on either arm.
+    for source, idx in (("classical", c_idx), ("bmo", b_idx)):
+        for key in idx:
+            if key not in declared:
+                errors.append(
+                    f"undeclared extra {source} observation for {key[0]} step {key[1]}"
+                )
+
+    shared_keys = (
+        "call_id",
+        "task_id",
+        "grant_id",
+        "owner_revision",
+        "retry_epoch",
+        "transaction_completion",
+    )
+
     for case in cases:
         for action in case.actions:
             key = (case.case_id, action.step)
@@ -101,18 +123,40 @@ def pair_validity(
                     errors.append(
                         f"{case.case_id} step {action.step}: incomplete execution_status"
                     )
-                # Input mismatch is not a policy disagreement.
+                if c.get("op") != action.op or b.get("op") != action.op:
+                    pair["valid"] = False
+                    pair["notes"].append("op mismatch vs case manifest")
+                    errors.append(
+                        f"{case.case_id} step {action.step}: op mismatch vs manifest"
+                    )
+                # Bind each arm to the declared action — not only cross-arm equality.
+                # Identical wrong inputs on both arms must fail validity.
                 if action.op == "claim_first_edit":
+                    expected = {
+                        "call_id": action.call_id,
+                        "task_id": action.task_id,
+                        "grant_id": action.grant_id,
+                        "owner_revision": action.owner_revision,
+                        "retry_epoch": action.retry_epoch,
+                        "transaction_completion": action.transaction_completion,
+                    }
+                    for arm_name, arm in (("classical", c), ("bmo", b)):
+                        arm_in = arm.get("inputs") or {}
+                        for sk in shared_keys:
+                            exp_v = expected.get(sk)
+                            if exp_v is None:
+                                continue
+                            if arm_in.get(sk) != exp_v:
+                                pair["valid"] = False
+                                pair["notes"].append(
+                                    f"{arm_name} input {sk} != case manifest"
+                                )
+                                errors.append(
+                                    f"{case.case_id} step {action.step}: "
+                                    f"{arm_name} input {sk} != case manifest"
+                                )
                     c_in = c.get("inputs") or {}
                     b_in = b.get("inputs") or {}
-                    shared_keys = (
-                        "call_id",
-                        "task_id",
-                        "grant_id",
-                        "owner_revision",
-                        "retry_epoch",
-                        "transaction_completion",
-                    )
                     for sk in shared_keys:
                         if c_in.get(sk) != b_in.get(sk):
                             pair["valid"] = False

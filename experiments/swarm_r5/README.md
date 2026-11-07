@@ -1,19 +1,12 @@
-# R5 — multi-agent / swarm audit generalization
+# R5 — sequential multi-principal audit (taxonomy transfer)
 
-Generalizes the three-way conclusion method to a synthetic swarm of agents
-**A, B, C** under classical one-use shared grants.
-
-| Theme | Cases |
-| --- | --- |
-| Missing peer observation | claim without observing grant |
-| Shared-grant contention | first allow / second deny; broken second allow |
-| Delegation chain | assignee required; A→B→C allow |
-| Cross-agent receipt | deny after spend; broken allow on revoke |
+In-memory sequential shared-grant model with named principals A/B/C.
+Not concurrent workers or live BMO mesh.
 
 ```bash
 python3 experiments/swarm_r5/run.py
-python3 scripts/annotate_conclusion_classes.py
 python scripts/check_evidence.py --write-index
 ```
 
-Output: `evidence/r5/`.
+Expect: `reproduced`; `model=sequential_shared_grant_multi_principal`;
+all three conclusion classes; broken allows leave `effect_committed=false`.

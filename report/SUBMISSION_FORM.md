@@ -11,16 +11,16 @@ claims about their behavior? We introduce Swarm Witness, an executable
 claim-audit method that makes those distinctions explicit through source-pinned
 experiments, conventional reference monitors, and fail-closed findings.
 Classical authorization is the null hypothesis—not a new primitive we invent.
-We reproduce bounded results on restart-safe authorization (R1) and
-receipt-attribution ambiguity (R2); report a bounded native BMO L1 ledger match
-alongside an unresolved decision-model R3; and make a three-way distinction
-executable (R4): missing evidence, failed enforcement, and supported
-conclusions. We then generalize that method to a synthetic three-agent swarm
-(R5 reproduced): concurrent shared-grant contention, delegation chains A→B→C,
-and cross-agent receipt misuse are classified under the same taxonomy. Our
-contribution is reusable audit discipline across single-owner, handoff, and
-multi-agent settings—not a new swarm authorization architecture, not a proof of
-general BMO equivalence, and not unbounded population-scale safety.
+We reproduce two established safety findings (R1 restart-safe authorization; R2
+receipt-attribution ambiguity), compare a bounded BMO ledger property against a
+classical reference monitor (R3-L1), and test a three-way evidence classification
+on synthetic authorization and multi-principal scenarios (R4/R5). R4 separates
+missing evidence, failed enforcement, and supported conclusions, including a
+negative control that known-false grant observations cannot yield unqualified
+support. R5 transfers that taxonomy to a sequential three-principal shared-grant
+model (contention, A→B then B→C assignee hops, ledger-bound receipt misuse)—not
+concurrent live swarm execution. The contribution is reusable audit discipline,
+not a swarm authorization architecture or general BMO equivalence.
 
 Authors: <!-- user-provided; leave blank — do not invent names -->
 Affiliations: <!-- user-provided; leave blank -->
@@ -38,12 +38,12 @@ Video: none unless completed
 
 | Claim | Label |
 | --- | --- |
-| R1 SoundGate recovery barrier | reproduced |
-| R2 EvidenceGraph receipt stress | reproduced |
+| R1 SoundGate recovery barrier | reproduced (pinned replication) |
+| R2 EvidenceGraph receipt stress | reproduced (pinned replication) |
 | R3 BMO vs ClassicalGate (decision-model) | unresolved |
 | R3 ledger-claim-v1 (L1) | classical_baseline_matches |
-| R4 evidence sufficiency (Worlds A/B) | reproduced |
-| R5 multi-agent / swarm audit | reproduced |
+| R4 evidence sufficiency | reproduced (synthetic conformance) |
+| R5 multi-principal sequential model | reproduced (synthetic conformance) |
 
 ## Template chrome note
 

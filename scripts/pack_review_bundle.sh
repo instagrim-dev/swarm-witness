@@ -27,8 +27,12 @@ copy_tree "${ROOT}/artifacts/" "${STAGING}/artifacts/"
 copy_tree "${ROOT}/baselines/" "${STAGING}/baselines/"
 copy_tree "${ROOT}/evidence/" "${STAGING}/evidence/"
 copy_tree "${ROOT}/src/" "${STAGING}/src/"
-# Synthetic protocols judges can re-run without third-party trees / BMO.
+copy_tree "${ROOT}/tests/" "${STAGING}/tests/"
+# Synthetic protocols + R3-L1 comparator (label verification; no BMO tree).
 mkdir -p "${STAGING}/experiments"
+copy_tree "${ROOT}/experiments/r1/" "${STAGING}/experiments/r1/"
+copy_tree "${ROOT}/experiments/r2/" "${STAGING}/experiments/r2/"
+copy_tree "${ROOT}/experiments/r3/" "${STAGING}/experiments/r3/"
 copy_tree "${ROOT}/experiments/evidence_sufficiency/" "${STAGING}/experiments/evidence_sufficiency/"
 copy_tree "${ROOT}/experiments/swarm_r5/" "${STAGING}/experiments/swarm_r5/"
 mkdir -p "${STAGING}/scripts"

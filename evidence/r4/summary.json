@@ -104,20 +104,20 @@
     {
       "case_id": "misbound_world_a",
       "role": "adversarial_misbind",
-      "assessment": "permission_refuted",
-      "conclusion_class": "supported",
+      "assessment": "enforcement_failed",
+      "conclusion_class": "failed_enforcement",
       "decision": "deny",
-      "expected_assessment": "permission_refuted",
-      "expected_conclusion_class": "supported"
+      "expected_assessment": "enforcement_failed",
+      "expected_conclusion_class": "failed_enforcement"
     },
     {
       "case_id": "misbound_world_b",
       "role": "adversarial_misbind",
-      "assessment": "permission_justified",
-      "conclusion_class": "supported",
+      "assessment": "enforcement_failed",
+      "conclusion_class": "failed_enforcement",
       "decision": "allow",
-      "expected_assessment": "permission_justified",
-      "expected_conclusion_class": "supported"
+      "expected_assessment": "enforcement_failed",
+      "expected_conclusion_class": "failed_enforcement"
     },
     {
       "case_id": "handoff_blind_delegate",
@@ -165,8 +165,8 @@
     "case_count": 17,
     "unsupported_blind_count": 4,
     "missing_evidence_count": 5,
-    "failed_enforcement_count": 3,
-    "supported_count": 9
+    "failed_enforcement_count": 5,
+    "supported_count": 7
   },
   "finding_id": "r4-f-evidence-sufficiency",
   "label": "reproduced"

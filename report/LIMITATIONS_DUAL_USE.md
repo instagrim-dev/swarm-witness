@@ -47,16 +47,19 @@ equivalence, live execution safety, process-restart correctness, concurrency
 behavior, or general BMO equivalence. Legacy decision-model R3 remains
 separately unresolved.
 
-**R4 three-way conclusions (`reproduced`).** Establishes that the audit method
-can classify synthetic cases into missing_evidence, failed_enforcement, and
-supported, with Finding-label mappings unresolved /
-contradicted_in_scope / reproduced respectively. Does **not** establish live
-BMO behavior or cryptographic receipt authenticity.
+**R4 three-way conclusions (`reproduced` = synthetic conformance).** Establishes
+that the audit method can classify synthetic cases into missing_evidence,
+failed_enforcement, and supported, including a misbound-observation negative
+control. Does **not** establish live BMO behavior or cryptographic receipt
+authenticity. The Finding label `reproduced` here means protocol conformance,
+not independent external replication.
 
-**R5 swarm generalization (`reproduced`).** Establishes that the same three-way
-method classifies synthetic three-agent cases covering shared-grant contention,
-delegation chains, and cross-agent receipt misuse. Does **not** establish live
-BMO mesh equivalence, cryptographic multiparty authorization, or unbounded
+**R5 multi-principal transfer (`reproduced` = synthetic conformance).**
+Establishes that the same three-way method classifies a sequential in-memory
+three-principal model covering shared-grant contention, A→B then B→C assignee
+hops, and ledger-bound receipt misuse, distinguishing wrong decisions from
+committed effects. Does **not** establish concurrent worker execution, live BMO
+mesh equivalence, cryptographic multiparty authorization, or unbounded
 population-scale swarm safety.
 
 ## Finite experiments and checker scope

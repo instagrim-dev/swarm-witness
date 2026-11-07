@@ -7,12 +7,12 @@
   "execution_status": "completed",
   "observations": {
     "role": "adversarial_misbind",
-    "assessment": "permission_refuted",
-    "conclusion_class": "supported",
-    "finding_label": "reproduced",
-    "property_holds": true,
+    "assessment": "enforcement_failed",
+    "conclusion_class": "failed_enforcement",
+    "finding_label": "contradicted_in_scope",
+    "property_holds": false,
     "decision": "deny",
-    "required_decision": "deny",
+    "required_decision": "allow",
     "gate_behavior": "correct",
     "justified_permission_claim": false,
     "ground_truth_grant": "active",
@@ -21,12 +21,13 @@
     "observed_grant": "revoked",
     "delegate_id": null,
     "principal_id": null,
-    "reason": "current grant observed revoked; correct deny \u2014 supported (enforcement held; permission claim refuted)",
-    "expected_assessment": "permission_refuted",
-    "expected_conclusion_class": "supported",
+    "reason": "supplied grant observation 'revoked' misbinds ground truth 'active'; gate decided 'deny' but truth requires 'allow' \u2014 failed_enforcement (negative control: false evidence cannot support permission)",
+    "expected_assessment": "enforcement_failed",
+    "expected_conclusion_class": "failed_enforcement",
     "assessment_match": true,
     "conclusion_match": true,
     "ground_truth_mismatch": true,
-    "misbound_detected": true
+    "misbound_detected": true,
+    "observation_authentic": false
   }
 }

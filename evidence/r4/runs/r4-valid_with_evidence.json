@@ -21,12 +21,13 @@
     "observed_grant": "active",
     "delegate_id": null,
     "principal_id": null,
-    "reason": "current grant observed active; correct allow \u2014 supported",
+    "reason": "current grant observed active and authentic; correct allow \u2014 supported",
     "expected_assessment": "permission_justified",
     "expected_conclusion_class": "supported",
     "assessment_match": true,
     "conclusion_match": true,
     "ground_truth_mismatch": false,
-    "misbound_detected": null
+    "misbound_detected": false,
+    "observation_authentic": true
   }
 }

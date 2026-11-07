@@ -23,10 +23,23 @@ def test_swarm_involves_three_agents_and_three_classes():
     assert score["passed"] is True, score["errors"]
     assert score["agent_count"] == 3
     assert score["agents"] == ["A", "B", "C"]
+    assert score["model"] == "sequential_shared_grant_multi_principal"
     assert score["three_way_classes_exercised"] is True
     assert score["case_count"] >= 8
     assert score["failed_enforcement_count"] >= 2
     assert score["missing_evidence_count"] >= 2
+
+
+def test_broken_allow_does_not_commit_effect_and_receipts_bind():
+    cases = {c["case_id"]: c for c in run_swarm_protocol_cases()}
+    broken = cases["swarm_contention_broken_second_allow"]["result"]
+    assert broken["decision"] == "allow"
+    assert broken["effect_committed"] is False
+    misuse = cases["swarm_cross_agent_receipt_deny_supported"]["result"]
+    assert misuse["presented_receipt"]["receipt_id"] == "receipt-a-xfer"
+    broken_rx = cases["swarm_cross_agent_receipt_broken_allow"]["result"]
+    assert broken_rx["presented_receipt"]["receipt_id"] == "receipt-a-prior"
+    assert broken_rx["effect_committed"] is False
 
 
 def test_runner_writes_valid_evidence(tmp_path: Path):

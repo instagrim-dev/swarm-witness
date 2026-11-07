@@ -13,8 +13,8 @@
     "case_count": 17,
     "unsupported_blind_count": 4,
     "missing_evidence_count": 5,
-    "failed_enforcement_count": 3,
-    "supported_count": 9,
+    "failed_enforcement_count": 5,
+    "supported_count": 7,
     "errors": [],
     "all_checks_pass": true
   }

@@ -61,6 +61,7 @@ def build_runs(cases: list[dict]) -> list[dict]:
                 ),
                 "ground_truth_mismatch": bool(case.get("ground_truth_mismatch")),
                 "misbound_detected": result.get("misbound_detected"),
+                "observation_authentic": result.get("observation_authentic"),
             },
         }
         validate_run(run)
