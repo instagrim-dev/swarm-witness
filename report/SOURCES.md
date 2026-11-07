@@ -8,12 +8,17 @@ https://docs.google.com/document/d/1_1_27EyZriMlc8n8EBE2YScaeyMjm-8xjR097nmHXAE/
 
 Document id: `1_1_27EyZriMlc8n8EBE2YScaeyMjm-8xjR097nmHXAE`
 
-Fetched for local reference via Google Docs export (same document id):
+Fetched for local reference via Google Docs export (same document id), and
+replaced with the author’s local **Copy of Apart Research hackathon submission
+template.docx** from Downloads (2026-11-07):
 
-- `report/official-template.docx` — `…/export?format=docx`
-- `report/official-template.pdf` — `…/export?format=pdf`
+- `report/official-template.docx` — authoritative fill source (Downloads copy)
+- `report/official-template-from-downloads.docx` — verbatim provenance copy
+- `report/official-template.pdf` — earlier `…/export?format=pdf` snapshot
 
-Script: `report/fetch_template.sh`
+HackTalk links (Yan/Sikora): `docs/hackathon/Getting_Started_with_Swarm_Incidents_Links.md`
+
+Script: `report/fetch_template.sh` · fill/rebuild: `bash scripts/build_submission_variants.sh`
 
 Sprint page (Guidelines / submission rules):
 https://apartresearch.com/sprints/swarm-alignment-2026
