@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Compare ClassicalGate decisions to BMO retained-grant witness observations."""
+"""Compare ClassicalGate to BMO retained-grant proxies — without circular match.
+
+ClassicalGate decisions are computed from the null model. BMO side records only
+whether related preexisting tests passed (proxy evidence). Interpretive notes
+describe mechanism-class affinity; they are never copied into an automated
+allow/deny equality that would tautologically "match" ClassicalGate.
+"""
 
 from __future__ import annotations
 
@@ -20,17 +26,24 @@ SUMMARY = EV / "summary.json"
 RESULT = EV / "result.yaml"
 BASELINE_MD = ROOT / "baselines" / "r3_durable_grant_table.md"
 
-# Conditions aligned with claims/r3_bmo.yaml and the task-5 comparison table.
-# Signals are substrings that appear in a *passing* `go test -v` log (test /
-# subtest PASS lines). Assertion message text is not emitted on success, so we
-# do not require it. BMO allow/deny is the contract those passed tests enforce.
+# Each row: ClassicalGate inputs + related BMO proxy signals.
+# relation:
+#   mechanism_class_proxy — related deny/allow-shaped tests, not isomorphic
+#   proxy_mismatch        — previously over-mapped; classical condition lacks
+#                           an isomorphic BMO observation in this suite
+# interpretive_note is human-authored disclosure only (never used as bmo_observed).
 COMPARISON_ROWS = (
     {
         "condition": "retained_start_claim + relaunch",
         "action_id": "spawn-1",
         "request": "relaunch",
         "grant_state": "retained_start_claim",
-        # Spent / prior-consumer shape refusals: retained metadata ≠ relaunch.
+        "relation": "mechanism_class_proxy",
+        "interpretive_note": (
+            "Spent / prior-consumer / missing-transfer refusals are deny-shaped "
+            "proxies for 'retained metadata ≠ relaunch authority'; not an "
+            "isomorphic retained_start_claim+relaunch API."
+        ),
         "required_pass_tests": (
             "TestOrdinaryRetryRetainedGrantShapeControls",
             "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
@@ -40,30 +53,37 @@ COMPARISON_ROWS = (
             "TestOrdinaryRetryRetainedGrantShapeControls/prior_consumer",
             "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness/missing_transfer",
         ),
-        "bmo_decision_if_pass": "deny",
     },
     {
         "condition": "rejected + restart + execute",
         "action_id": "mail-1",
         "request": "execute",
         "grant_state": "rejected",
-        # Durable transfer/legacy tombstone: competing claim after winner commits.
-        "required_pass_tests": (
-            "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
+        # LegacyWriterBoundary is a competing-writer / tombstone race, not
+        # process-restart map reload. Do not treat it as isomorphic evidence.
+        "relation": "proxy_mismatch",
+        "interpretive_note": (
+            "ClassicalGate models rejected-state surviving process restart "
+            "reload. BMO LegacyWriterBoundary / transfer races are a different "
+            "contract (writer boundary after durable transfer), so this row "
+            "is not claimed as a decision match."
+        ),
+        "required_pass_tests": (),
+        "log_substrings": (),
+        "related_but_not_isomorphic_tests": (
             "TestOrdinaryRetainedGrantLegacyWriterBoundary",
         ),
-        "log_substrings": (
-            "TestOrdinaryRetainedGrantLegacyWriterBoundary/transfer_first",
-            "TestOrdinaryRetainedGrantLegacyWriterBoundary/legacy_first",
-        ),
-        "bmo_decision_if_pass": "deny",
     },
     {
         "condition": "active_grant + execute",
         "action_id": "edit-1",
         "request": "execute",
         "grant_state": "active_grant",
-        # Valid owner-verified grant admits first-edit / post-edit path.
+        "relation": "mechanism_class_proxy",
+        "interpretive_note": (
+            "Owner-witness + post-edit PASS shows a valid grant admits work; "
+            "related allow-shaped proxy, not a shared active_grant execute API."
+        ),
         "required_pass_tests": (
             "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
             "TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit",
@@ -72,33 +92,35 @@ COMPARISON_ROWS = (
             "--- PASS: TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness ",
             "--- PASS: TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit ",
         ),
-        "bmo_decision_if_pass": "allow",
     },
     {
         "condition": "stale grant copy vs current",
         "action_id": "edit-1",
         "request": "execute",
         "grant_state": "rejected",  # classical: stale/rejected map entry → deny
+        "relation": "mechanism_class_proxy",
+        "interpretive_note": (
+            "wrong_grant / altered_transfer / tampered_transfer are deny-shaped "
+            "stale-or-foreign proxies; related to stale-copy denial, not "
+            "isomorphic ClassicalGate.load(rejected) semantics."
+        ),
         "required_pass_tests": (
             "TestOrdinaryRetryRetainedGrantShapeControls",
-            "TestOrdinaryRetainedGrantLegacyWriterBoundary",
             "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
+            "TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit",
         ),
         "log_substrings": (
             "TestOrdinaryRetryRetainedGrantShapeControls/wrong_grant",
             "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness/altered_transfer",
             "TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit/tampered_transfer",
         ),
-        "bmo_decision_if_pass": "deny",
     },
 )
 
 
 def _parse_go_test_log(text: str) -> dict:
-    # --- PASS: TestFoo (0.01s)  /  --- FAIL: TestFoo
     passed = re.findall(r"^--- PASS: (\S+)", text, re.M)
     failed = re.findall(r"^--- FAIL: (\S+)", text, re.M)
-    # Package summary: ok / FAIL
     pkg_ok = bool(re.search(r"^ok\s+\S+/sessioncompaction\b", text, re.M))
     pkg_fail = bool(re.search(r"^FAIL\s+\S+/sessioncompaction\b", text, re.M))
     return {
@@ -113,6 +135,16 @@ def _parse_go_test_log(text: str) -> dict:
 
 def _signal_present(text: str, signal: str) -> bool:
     return signal in text
+
+
+def _classical_decision(row: dict) -> str:
+    gate = ClassicalGate(grants={row["action_id"]: row["grant_state"]})
+    classical = gate.decide(row["action_id"], row["request"])
+    if row["condition"].startswith("stale"):
+        classical = ClassicalGate.load({row["action_id"]: "rejected"}).decide(
+            row["action_id"], row["request"]
+        )
+    return classical
 
 
 def main() -> int:
@@ -140,38 +172,52 @@ def main() -> int:
     passed_set = set(parsed["passed_tests"])
 
     comparison: list[dict] = []
-    mismatches = 0
+    proxy_rows_ok = 0
+    isomorphic_matches = 0
     for row in COMPARISON_ROWS:
-        gate = ClassicalGate(grants={row["action_id"]: row["grant_state"]})
-        classical = gate.decide(row["action_id"], row["request"])
-        # For stale-copy row, classical uses a reloaded rejected map (same deny).
-        if row["condition"].startswith("stale"):
-            classical = ClassicalGate.load({row["action_id"]: "rejected"}).decide(
-                row["action_id"], row["request"]
-            )
-
+        classical = _classical_decision(row)
         tests_ok = all(t in passed_set for t in row["required_pass_tests"])
         signals_ok = all(_signal_present(log_text, s) for s in row["log_substrings"])
-        observed_ok = signals_ok and tests_ok and parsed["package_ok"]
-        bmo = row["bmo_decision_if_pass"] if observed_ok else "unobserved"
-        match = observed_ok and classical == bmo
-        if not match:
-            mismatches += 1
-        comparison.append(
-            {
-                "condition": row["condition"],
-                "classical": classical,
-                "bmo_observed": bmo,
-                "match": match,
-                "signals_ok": signals_ok,
-                "tests_ok": tests_ok,
-            }
+        # Automated evidence: proxy suite observed — never invents bmo allow/deny.
+        proxy_evidence_ok = (
+            row["relation"] == "mechanism_class_proxy"
+            and signals_ok
+            and tests_ok
+            and parsed["package_ok"]
         )
+        if proxy_evidence_ok:
+            proxy_rows_ok += 1
 
-    all_match = mismatches == 0 and parsed["package_ok"]
-    label = "classical_baseline_matches" if all_match else (
-        "assumption_dependent" if parsed["package_ok"] else "unresolved"
-    )
+        # No isomorphic decision match is claimed: interpretive notes stay separate
+        # and are never copied into an automated classical == bmo equality.
+        decision_match = False
+
+        entry = {
+            "condition": row["condition"],
+            "classical": classical,
+            "bmo_observed": "not_isomorphic",
+            "relation": row["relation"],
+            "interpretive_note": row["interpretive_note"],
+            "decision_match": decision_match,
+            "proxy_evidence_ok": proxy_evidence_ok,
+            "signals_ok": signals_ok,
+            "tests_ok": tests_ok,
+        }
+        if row.get("related_but_not_isomorphic_tests"):
+            entry["related_but_not_isomorphic_tests"] = list(
+                row["related_but_not_isomorphic_tests"]
+            )
+            entry["related_tests_present"] = all(
+                t in passed_set for t in row["related_but_not_isomorphic_tests"]
+            )
+        comparison.append(entry)
+
+    # Honest overall label: proxies show mechanism-class affinity under
+    # assumptions, not isomorphic classical_baseline_matches contracts.
+    if not parsed["package_ok"]:
+        label = "unresolved"
+    else:
+        label = "assumption_dependent"
 
     summary = {
         "claim_id": "r3",
@@ -184,7 +230,11 @@ def main() -> int:
             "log": str(LOG.relative_to(ROOT)),
         },
         "comparison": comparison,
-        "matched_rows": sum(1 for c in comparison if c["match"]),
+        "proxy_rows_ok": proxy_rows_ok,
+        "proxy_rows_total": sum(
+            1 for r in COMPARISON_ROWS if r["relation"] == "mechanism_class_proxy"
+        ),
+        "isomorphic_decision_matches": isomorphic_matches,
         "total_rows": len(comparison),
         "label": label,
         "preferred_tests": [
@@ -193,11 +243,14 @@ def main() -> int:
             "internal/sessioncompaction/ordinary_retry_retained_grant_race_test.go",
         ],
         "notes": (
-            "ClassicalGate durable-grant map decisions match BMO retained-grant "
-            "owner-witness observations under matched conditions (deny retained "
-            "relaunch / rejected reload / stale copy; allow only active grant)."
-            if all_match
-            else "One or more comparison rows did not match; see comparison[]."
+            "assumption_dependent: ClassicalGate and BMO share mechanism-class "
+            "affinity via related deny/allow-shaped proxies only. No isomorphic "
+            "decision match is claimed (bmo_observed is not hardcoded from "
+            "ClassicalGate). rejected+restart maps to process-reload in the "
+            "null model; LegacyWriterBoundary is a writer-boundary race and is "
+            "recorded as proxy_mismatch, not a match."
+            if label == "assumption_dependent"
+            else "BMO package did not pass; see comparison[] / bmo_go_test."
         ),
     }
     SUMMARY.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
@@ -206,7 +259,9 @@ def main() -> int:
         "claim_id": "r3",
         "label": label,
         "metrics": {
-            "matched_rows": summary["matched_rows"],
+            "proxy_rows_ok": summary["proxy_rows_ok"],
+            "proxy_rows_total": summary["proxy_rows_total"],
+            "isomorphic_decision_matches": summary["isomorphic_decision_matches"],
             "total_rows": summary["total_rows"],
             "bmo_pass_count": parsed["pass_count"],
             "bmo_fail_count": parsed["fail_count"],
@@ -217,22 +272,20 @@ def main() -> int:
     validate_result_record(result)
     RESULT.write_text(yaml.safe_dump(result, sort_keys=False), encoding="utf-8")
 
-    # Refresh markdown table in the baseline note if present.
     if BASELINE_MD.is_file():
         table_lines = [
-            "| Condition | ClassicalGate | BMO observed | Match |",
-            "| --- | --- | --- | --- |",
+            "| Condition | ClassicalGate | BMO observed | Relation | Proxy evidence |",
+            "| --- | --- | --- | --- | --- |",
         ]
         for c in comparison:
             table_lines.append(
                 f"| {c['condition']} | {c['classical']} | {c['bmo_observed']} | "
-                f"{'yes' if c['match'] else 'no'} |"
+                f"{c['relation']} | {'yes' if c['proxy_evidence_ok'] else 'n/a' if c['relation'] == 'proxy_mismatch' else 'no'} |"
             )
         body = BASELINE_MD.read_text(encoding="utf-8")
         marker = "## Discriminating comparison (from latest run)\n"
         if marker in body:
             head, _, rest = body.partition(marker)
-            # Drop old table until next ## or EOF
             tail = ""
             if "\n## " in rest:
                 _, tail = rest.split("\n## ", 1)
@@ -242,17 +295,19 @@ def main() -> int:
                 encoding="utf-8",
             )
 
+    ok = label == "assumption_dependent" and parsed["package_ok"]
     print(
         json.dumps(
             {
                 "summary": str(SUMMARY),
                 "result": str(RESULT),
                 "label": label,
-                "matched": f"{summary['matched_rows']}/{summary['total_rows']}",
+                "proxy": f"{summary['proxy_rows_ok']}/{summary['proxy_rows_total']}",
+                "isomorphic_matches": isomorphic_matches,
             }
         )
     )
-    return 0 if all_match else 1
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

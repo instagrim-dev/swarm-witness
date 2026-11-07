@@ -7,6 +7,14 @@ before admit**. The null model is `ClassicalGate` in
 authorizes relaunch; rejection survives map reload; only `active_grant` allows
 execute; stale/unknown defaults to deny.
 
+## Honesty / label
+
+This run does **not** claim isomorphic decision equality. BMO evidence is
+recorded as related proxies (pass signals) plus interpretive notes. Overall
+label: **`assumption_dependent`** (mechanism-class affinity under assumptions).
+`rejected + restart` is explicitly `proxy_mismatch` vs LegacyWriterBoundary
+(writer race ≠ process restart reload).
+
 ## Pins
 
 See `artifacts/pins.yaml` (`r3`):
@@ -31,11 +39,12 @@ Requirements: Go toolchain able to build BMO; read-only access to the pinned
 Outputs under `evidence/r3/`:
 
 - `bmo_go_test.log` — verbatim `go test` output
-- `summary.json` — comparison rows + pass/fail counts
-- `result.yaml` — conclusion label (expected: `classical_baseline_matches`)
+- `summary.json` — comparison rows + proxy / isomorphism fields
+- `result.yaml` — conclusion label (expected: `assumption_dependent`)
 
 ## Success criterion (claim card)
 
 `relaunch_without_fresh_durable_grant == 0` when the classical admit barrier is
 enforced — i.e. retained metadata / spent / rejected / stale grant states deny,
-and only a current active durable grant allows execute.
+and only a current active durable grant allows execute. Proxy affinity does not
+by itself upgrade the label to `classical_baseline_matches`.

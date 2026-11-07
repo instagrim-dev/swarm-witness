@@ -1,11 +1,15 @@
 claim_id: r3
-label: classical_baseline_matches
+label: assumption_dependent
 metrics:
-  matched_rows: 4
+  proxy_rows_ok: 3
+  proxy_rows_total: 3
+  isomorphic_decision_matches: 0
   total_rows: 4
   bmo_pass_count: 6
   bmo_fail_count: 0
 evidence_path: evidence/r3/summary.json
-notes: ClassicalGate durable-grant map decisions match BMO retained-grant owner-witness
-  observations under matched conditions (deny retained relaunch / rejected reload
-  / stale copy; allow only active grant).
+notes: 'assumption_dependent: ClassicalGate and BMO share mechanism-class affinity
+  via related deny/allow-shaped proxies only. No isomorphic decision match is claimed
+  (bmo_observed is not hardcoded from ClassicalGate). rejected+restart maps to process-reload
+  in the null model; LegacyWriterBoundary is a writer-boundary race and is recorded
+  as proxy_mismatch, not a match.'
