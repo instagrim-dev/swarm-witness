@@ -15,6 +15,7 @@ labels without needing the author’s local absolute paths or a full BMO checkou
 | R3-L1 index mirror | `evidence/r3_ledger_claim_v1/` |
 | R4 evidence sufficiency | `evidence/r4/` |
 | R5 multi-principal audit | `evidence/r5/` |
+| R5-v2 coverage extension | `evidence/r5_v2/` |
 | Claims / pins | `claims/`, `artifacts/pins.yaml` |
 | Report PDF | `report/Swarm_Witness_Apart_Submission.pdf` |
 
@@ -41,6 +42,8 @@ python3 experiments/r3/ledger_claim_v1/compare.py \
 python3 experiments/evidence_sufficiency/run.py  # R4
 python3 experiments/swarm_r5/run.py             # R5
 # expect: reproduced; R5 model sequential_shared_grant_multi_principal
+python3 experiments/swarm_r5_v2/run.py          # R5-v2 (issue #11; v1 retained)
+# expect: reproduced; coverage dimensions ≥6; concurrency from pinned sim traces
 python scripts/check_evidence.py --write-index
 python scripts/check_evidence.py
 ```

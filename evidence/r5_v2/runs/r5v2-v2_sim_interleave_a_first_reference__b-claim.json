@@ -1,0 +1,83 @@
+{
+  "id": "r5v2-v2_sim_interleave_a_first_reference__b-claim",
+  "claim_id": "r5_v2",
+  "protocol_id": "r5-swarm-audit-v2",
+  "case_id": "v2_sim_interleave_a_first_reference__b-claim",
+  "source_pin": "swarm-witness-r5-v2",
+  "execution_status": "completed",
+  "observations": {
+    "family": "concurrency_interleaving",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "mechanism_arm": "reference",
+    "paired_input_id": "sim:interleave_a_first_reference",
+    "evidence_source": "multi-agent-sim-v1:mas-interleave_a_first_reference.json#b-claim",
+    "expectation_source": "experiments/swarm_r5_v2/case_expectations.yaml",
+    "assessment": "permission_refuted",
+    "conclusion_class": "supported",
+    "finding_label": "reproduced",
+    "property_holds": true,
+    "decision": "deny",
+    "required_decision": "deny",
+    "agent": "B",
+    "grant_id": "grant-shared",
+    "call_id": "b-claim",
+    "observation_mode": "sim_local",
+    "gate_mode": "reference",
+    "receipt_kind": "sim",
+    "presented_receipt": null,
+    "effect_committed": false,
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "prevented",
+    "failure_origin": "none",
+    "authoritative_owner_state": {
+      "grant": {
+        "grant_id": "grant-shared",
+        "owner": "A",
+        "state": "spent",
+        "epoch": "epoch-1",
+        "owner_version": 4,
+        "assignees": [
+          "A",
+          "B",
+          "C"
+        ],
+        "spent": true
+      },
+      "committed_effect_count": 1,
+      "committed_effects": [
+        {
+          "effect_id": "effect-a-claim",
+          "grant_id": "grant-shared",
+          "agent": "A",
+          "call_id": "a-claim",
+          "decision_event_id": "evt-101-0006",
+          "owner_version_at_commit": 4
+        }
+      ],
+      "ledger_owner_version": 4
+    },
+    "trusted_ground_truth": null,
+    "held_out_artifact": null,
+    "sim_source_run_id": "mas-interleave_a_first_reference",
+    "sim_protocol_id": "multi-agent-sim-v1",
+    "sim_exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety"
+    ],
+    "expected": {
+      "conclusion_class": "supported",
+      "decision": "deny",
+      "effect_committed": false,
+      "failure_origin": "none",
+      "assessment": "permission_refuted"
+    },
+    "conclusion_match": true,
+    "reason": "evidence complete and property holds in scope; decision=deny required=deny committed_effect=False"
+  }
+}

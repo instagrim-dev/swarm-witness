@@ -1,0 +1,38 @@
+id: r5_v2
+source_ref: swarm-witness://swarm-audit/r5-v2-coverage
+source_version: "swarm-witness-r5-v2"
+original_proposition: >
+  The three-way conclusion method retains its supported/missing/failed-
+  enforcement projection under a versioned wider-coverage R5 protocol that
+  independently challenges the classifier across orthogonal authorization,
+  delegation, receipt, observation-quality, decision/effect, and pinned
+  concurrency-derived scenario families — without overwriting R5 v1 evidence.
+operational_interpretation: >
+  Under protocol r5-swarm-audit-v2, declared cases use separately authored
+  expectations (case_expectations.yaml and held_out fixtures). Correct and
+  intentionally faulty mechanism arms share declared inputs. Missing evidence
+  keeps decision_status=unknown and is never coerced into deny/allow.
+  Wrong decisions with prevented effects are decision_policy failures; committed
+  unauthorized effects are effect_boundary failures. Concurrency rows consume
+  pinned multi-agent-sim-v1 traces and do not claim live concurrent swarms.
+  R5 v1 (r5-swarm-audit-v1) remains prior unmodified evidence.
+property: >
+  versioned wider-coverage three-way conclusions with separable oracle,
+  mechanism arms, and explicit decision/effect diagnoses
+scope: >
+  Synthetic sequential harness plus pinned multi-agent simulator traces;
+  classical one-use shared grants with scope attenuation; not live BMO mesh;
+  not production concurrency guarantees; not unbounded swarm safety; not a
+  new verdict taxonomy; does not overwrite R5 v1 denominators.
+quantifier: for each declared case in experiments/swarm_r5_v2
+success_criterion: >
+  evaluate_r5_v2_success passes; coverage matrix has ≥6 dimensions with tested
+  and untested seams; held-out fixtures present; concurrency rows cite
+  multi-agent-sim-v1; boundary comparison retains v1 Finding; Finding
+  reproduced for the v2 method-conformance claim.
+assumptions:
+  - "R5 v1 artifacts remain authoritative for the sequential v1 claim"
+  - "Expectations are declared outside the production classifier"
+  - "Oracle required decisions are computed separately from gate policies"
+  - "Pinned multi-agent-sim traces are the sole concurrency evidence source"
+  - "Unknown/missing evidence is never coerced into deny, allow, or enforcement failure"

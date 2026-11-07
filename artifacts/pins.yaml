@@ -48,3 +48,11 @@ r5:
   notes: >
     Synthetic three-agent swarm audit (A/B/C) generalizing three-way conclusions
     to contention, delegation chains, and cross-agent receipt misuse.
+r5_v2:
+  source_pin: "swarm-witness-r5-v2"
+  protocol_id: "r5-swarm-audit-v2"
+  notes: >
+    Versioned wider-coverage R5 extension (issue #11). Retains v1 unmodified.
+    Concurrency rows pin multi-agent-sim-v1 traces; sequential/observation rows
+    are independent. Not a live concurrent swarm claim.
+

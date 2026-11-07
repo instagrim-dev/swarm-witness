@@ -1,0 +1,70 @@
+{
+  "id": "r5v2-v2_obs_partial_missing_evidence",
+  "claim_id": "r5_v2",
+  "protocol_id": "r5-swarm-audit-v2",
+  "case_id": "v2_obs_partial_missing_evidence",
+  "source_pin": "swarm-witness-r5-v2",
+  "execution_status": "completed",
+  "observations": {
+    "family": "observation_delivery",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "mechanism_arm": "correct",
+    "paired_input_id": "obs_partial_b",
+    "evidence_source": "sequential_harness",
+    "expectation_source": "experiments/swarm_r5_v2/case_expectations.yaml",
+    "assessment": "unsupported",
+    "conclusion_class": "missing_evidence",
+    "finding_label": "unresolved",
+    "property_holds": null,
+    "decision": null,
+    "required_decision": "allow",
+    "agent": "B",
+    "grant_id": "g-part",
+    "call_id": "v2-partial",
+    "observation_mode": "partial",
+    "gate_mode": "correct",
+    "receipt_kind": "none",
+    "presented_receipt": null,
+    "effect_committed": false,
+    "evidence_status": "missing",
+    "decision_status": "unknown",
+    "effect_status": "unobserved",
+    "failure_origin": "none",
+    "authoritative_owner_state": {
+      "owner": "A",
+      "state": "active",
+      "epoch": "epoch-1",
+      "spent": false,
+      "assignees": [
+        "A",
+        "B"
+      ],
+      "task_scopes": {
+        "A": "task-*",
+        "B": "task-*"
+      },
+      "owner_version": 2
+    },
+    "trusted_ground_truth": null,
+    "held_out_artifact": null,
+    "sim_source_run_id": null,
+    "sim_protocol_id": null,
+    "sim_exclusions": null,
+    "expected": {
+      "conclusion_class": "missing_evidence",
+      "decision": null,
+      "effect_committed": false,
+      "evidence_status": "missing",
+      "decision_status": "unknown",
+      "effect_status": "unobserved",
+      "failure_origin": "none",
+      "assessment": "unsupported"
+    },
+    "conclusion_match": true,
+    "reason": "agent B lacks discriminating grant observation (mode=partial); unknown is not coerced to deny/allow"
+  }
+}

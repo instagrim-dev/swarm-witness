@@ -17,3 +17,6 @@ results:
 - claim_id: r5
   label: reproduced
   finding_id: r5-f-swarm-audit
+- claim_id: r5_v2
+  label: reproduced
+  finding_id: r5v2-f-swarm-audit

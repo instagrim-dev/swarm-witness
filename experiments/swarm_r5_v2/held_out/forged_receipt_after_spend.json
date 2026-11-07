@@ -1,0 +1,49 @@
+{
+  "case_id": "v2_held_out_forged_receipt_after_spend",
+  "name": "Held-out: forged own-looking receipt on spent grant",
+  "family": "held_out",
+  "paired_input_id": "held_out_forged_rx",
+  "description": "Externally authored adversarial input. Ground truth: grant spent by A; C presents a forged receipt. Expected deny/prevented under correct gate; broken arm separately declared in sequential suite.",
+  "setup": {
+    "grant_id": "g-held-2",
+    "owner": "A",
+    "epoch": "epoch-1",
+    "task_scope": "task-*",
+    "assignees_via": [
+      {"by": "A", "delegate": "C"}
+    ],
+    "revoke": false,
+    "seed_receipts": [
+      {
+        "receipt_id": "receipt-a-spend",
+        "agent": "A",
+        "call_id": "a-spend",
+        "authentic": true,
+        "binding": "ledger"
+      }
+    ]
+  },
+  "trusted_ground_truth": {
+    "grant_state": "active_but_receipt_present_without_spend_flag",
+    "note": "Fixture seeds a foreign prior receipt without marking spent; claim uses forged receipt_kind so oracle must deny. Classifier must not treat forged binding as authorization.",
+    "required_decision_for_c": "deny",
+    "effect_may_commit": false
+  },
+  "agent_visible_claim": {
+    "agent": "C",
+    "call_id": "held-c-forged",
+    "observation_mode": "authentic",
+    "gate_mode": "correct",
+    "receipt_kind": "forged"
+  },
+  "expected": {
+    "conclusion_class": "supported",
+    "decision": "deny",
+    "effect_committed": false,
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "not_applicable",
+    "failure_origin": "none",
+    "assessment": "permission_refuted"
+  }
+}

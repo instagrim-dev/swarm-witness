@@ -1,0 +1,342 @@
+{
+  "id": "r5v2-method-score",
+  "claim_id": "r5_v2",
+  "protocol_id": "r5-swarm-audit-v2",
+  "case_id": "method_score",
+  "source_pin": "swarm-witness-r5-v2",
+  "execution_status": "completed",
+  "observations": {
+    "passed": true,
+    "all_checks_pass": true,
+    "three_way_classes_exercised": true,
+    "case_count": 34,
+    "agent_count": 3,
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "model": "r5_v2_sequential_plus_pinned_sim_traces",
+    "families": [
+      "authority_observation",
+      "concurrency_interleaving",
+      "delegation_scope",
+      "held_out",
+      "observation_delivery",
+      "receipt_provenance"
+    ],
+    "family_count": 6,
+    "paired_input_groups_with_correct_and_faulty": 5,
+    "concurrency_row_count": 10,
+    "held_out_count": 3,
+    "missing_evidence_count": 3,
+    "failed_enforcement_count": 11,
+    "supported_count": 20,
+    "effect_boundary_count": 3,
+    "decision_policy_count": 5,
+    "unknown_coerced_count": 0,
+    "coverage_dimension_count": 7,
+    "coverage": {
+      "protocol_id": "r5-swarm-audit-v2",
+      "dimension_count": 7,
+      "dimensions": [
+        {
+          "id": "authority_observation",
+          "tested_seams": [
+            "valid_active",
+            "revoked",
+            "spent",
+            "missing",
+            "misbound",
+            "stale_epoch"
+          ],
+          "untested_seams": [
+            "cryptographic_attestation",
+            "multi_epoch_rekey",
+            "cross_domain_authority_bridge"
+          ],
+          "case_ids": [
+            "v2_auth_valid_active_allow",
+            "v2_auth_revoked_deny",
+            "v2_auth_revoked_broken_allow_prevented",
+            "v2_auth_spent_second_deny",
+            "v2_auth_spent_broken_commit",
+            "v2_auth_missing_observation",
+            "v2_auth_misbound_active_when_revoked",
+            "v2_auth_stale_active_after_revoke"
+          ],
+          "tested_count": 6,
+          "untested_count": 3
+        },
+        {
+          "id": "delegation_scope",
+          "tested_seams": [
+            "multi_hop_attenuated_allow",
+            "scope_exceeded_deny",
+            "non_assignee",
+            "revoke_after_hops",
+            "broken_deny_control"
+          ],
+          "untested_seams": [
+            "capability_token_cryptography",
+            "cross_organization_delegation",
+            "partial_revocation_of_one_assignee"
+          ],
+          "case_ids": [
+            "v2_deleg_multihop_attenuated_allow",
+            "v2_deleg_scope_exceeded_deny",
+            "v2_deleg_scope_exceeded_broken_allow",
+            "v2_deleg_non_assignee_deny",
+            "v2_deleg_revoked_after_hops_deny",
+            "v2_deleg_revoked_after_hops_broken_deny"
+          ],
+          "tested_count": 5,
+          "untested_count": 3
+        },
+        {
+          "id": "receipt_provenance",
+          "tested_seams": [
+            "foreign_ledger_receipt",
+            "copied_replay",
+            "forged_unbound",
+            "correct_bound_deny_after_spend"
+          ],
+          "untested_seams": [
+            "signature_forgery_resistance",
+            "receipt_revocation_lists"
+          ],
+          "case_ids": [
+            "v2_rx_foreign_deny",
+            "v2_rx_foreign_broken_allow",
+            "v2_rx_copied_replay_deny",
+            "v2_rx_forged_deny",
+            "v2_rx_forged_broken_allow"
+          ],
+          "tested_count": 4,
+          "untested_count": 2
+        },
+        {
+          "id": "observation_delivery",
+          "tested_seams": [
+            "partial_observation",
+            "irrelevant_information_control",
+            "missing_peer_observation"
+          ],
+          "untested_seams": [
+            "network_partition_recovery",
+            "byzantine_reordering_beyond_pinned_sim"
+          ],
+          "case_ids": [
+            "v2_obs_partial_missing_evidence",
+            "v2_obs_irrelevant_control"
+          ],
+          "tested_count": 3,
+          "untested_count": 2
+        },
+        {
+          "id": "decision_effect_separation",
+          "tested_seams": [
+            "authorized_commit",
+            "incorrect_allow_prevented",
+            "incorrect_deny",
+            "unauthorized_commit_effect_boundary"
+          ],
+          "untested_seams": [
+            "partial_commit_rollback",
+            "multi_resource_atomic_settlement"
+          ],
+          "case_ids": [
+            "v2_auth_valid_active_allow",
+            "v2_auth_revoked_deny",
+            "v2_auth_revoked_broken_allow_prevented",
+            "v2_auth_spent_second_deny",
+            "v2_auth_spent_broken_commit",
+            "v2_auth_missing_observation",
+            "v2_auth_misbound_active_when_revoked",
+            "v2_auth_stale_active_after_revoke"
+          ],
+          "tested_count": 4,
+          "untested_count": 2
+        },
+        {
+          "id": "mechanism_arms",
+          "tested_seams": [
+            "correct_vs_broken_allow_same_inputs",
+            "correct_vs_broken_deny",
+            "correct_vs_broken_allow_and_commit",
+            "reference_vs_mutant_pinned_sim"
+          ],
+          "untested_seams": [
+            "randomized_policy_search",
+            "learned_policy_regression_suite"
+          ],
+          "case_ids": [],
+          "tested_count": 4,
+          "untested_count": 2
+        },
+        {
+          "id": "concurrency_interleaving",
+          "tested_seams": [
+            "a_first_vs_b_first_contention",
+            "reference_vs_mutant_identical_schedule",
+            "revocation_late_observation"
+          ],
+          "untested_seams": [
+            "live_distributed_mesh",
+            "wall_clock_races",
+            "unbounded_swarm_populations"
+          ],
+          "case_ids": [
+            "v2_sim_interleave_a_first_reference__a-claim",
+            "v2_sim_interleave_a_first_reference__b-claim",
+            "v2_sim_interleave_b_first_reference__b-claim",
+            "v2_sim_interleave_b_first_reference__a-claim",
+            "v2_sim_mutant_ignore_spend_contention__a-claim",
+            "v2_sim_mutant_ignore_spend_contention__b-claim",
+            "v2_sim_reference_contention_one_use__a-claim",
+            "v2_sim_reference_contention_one_use__b-claim",
+            "v2_sim_revocation_late_observation_reference__b-late",
+            "v2_sim_revocation_late_observation_reference__c-fresh"
+          ],
+          "tested_count": 3,
+          "untested_count": 3
+        }
+      ],
+      "families_present": [
+        "authority_observation",
+        "concurrency_interleaving",
+        "delegation_scope",
+        "held_out",
+        "observation_delivery",
+        "receipt_provenance"
+      ],
+      "total_cases": 34
+    },
+    "boundary_comparison": {
+      "v1_retained": true,
+      "v1_protocol_id": "r5-swarm-audit-v1",
+      "v1_passed": true,
+      "v1_counts": {
+        "missing_evidence": 2,
+        "failed_enforcement": 2,
+        "supported": 6,
+        "case_count": 10
+      },
+      "v1_case_classes": {
+        "swarm_missing_peer_observation": "missing_evidence",
+        "swarm_contention_first_claim_supported": "supported",
+        "swarm_contention_second_deny_supported": "supported",
+        "swarm_contention_broken_second_allow": "failed_enforcement",
+        "swarm_delegation_b_supported": "supported",
+        "swarm_delegation_c_not_assignee_deny": "supported",
+        "swarm_delegation_chain_c_supported": "supported",
+        "swarm_cross_agent_receipt_deny_supported": "supported",
+        "swarm_cross_agent_receipt_broken_allow": "failed_enforcement",
+        "swarm_concurrent_missing_observation": "missing_evidence"
+      },
+      "v2_passed": true,
+      "v2_counts": {
+        "missing_evidence": 3,
+        "failed_enforcement": 11,
+        "supported": 20,
+        "case_count": 34,
+        "effect_boundary": 3,
+        "decision_policy": 5
+      },
+      "boundary_changes": {
+        "new_failure_origin_effect_boundary": true,
+        "new_misbound_evidence_rows": true,
+        "new_concurrency_derived_rows": true,
+        "v1_finding_unchanged": true,
+        "notes": "v2 expands tested seams (misbound, stale, attenuated scope, forged/replay receipts, effect_boundary commits, pinned sim interleavings). v1 sequential Finding and denominator are retained unmodified; ties/failures/nulls from v1 remain."
+      },
+      "falsifying_counterexamples": [
+        {
+          "case_id": "v2_auth_revoked_broken_allow_prevented",
+          "failure_origin": "decision_policy",
+          "effect_committed": false,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_auth_spent_broken_commit",
+          "failure_origin": "effect_boundary",
+          "effect_committed": true,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_auth_misbound_active_when_revoked",
+          "failure_origin": "evidence",
+          "effect_committed": false,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_auth_stale_active_after_revoke",
+          "failure_origin": "evidence",
+          "effect_committed": false,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_deleg_scope_exceeded_broken_allow",
+          "failure_origin": "decision_policy",
+          "effect_committed": false,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_deleg_revoked_after_hops_broken_deny",
+          "failure_origin": "decision_policy",
+          "effect_committed": false,
+          "decision": "deny",
+          "required_decision": "allow"
+        },
+        {
+          "case_id": "v2_rx_foreign_broken_allow",
+          "failure_origin": "decision_policy",
+          "effect_committed": false,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_rx_forged_broken_allow",
+          "failure_origin": "decision_policy",
+          "effect_committed": false,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_held_out_misleading_stale_assignee",
+          "failure_origin": "evidence",
+          "effect_committed": false,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_sim_mutant_ignore_spend_contention__b-claim",
+          "failure_origin": "effect_boundary",
+          "effect_committed": true,
+          "decision": "allow",
+          "required_decision": "deny"
+        },
+        {
+          "case_id": "v2_sim_revocation_late_observation_reference__b-late",
+          "failure_origin": "effect_boundary",
+          "effect_committed": true,
+          "decision": "allow",
+          "required_decision": "deny"
+        }
+      ]
+    },
+    "errors": [],
+    "exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety",
+      "r5_v1_overwrite",
+      "new_verdict_label_for_matrix_padding"
+    ]
+  }
+}
