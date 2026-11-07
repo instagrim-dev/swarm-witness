@@ -13,15 +13,18 @@ Apart-ready report: [`report/Swarm_Witness_Apart_Submission.pdf`](report/Swarm_W
 
 Scaffold, monitors, and the external BMO tree predate this sprint. Full disclosure: [`PREEXISTING.md`](PREEXISTING.md).
 
+## Schema (v2)
+
+Typed validators in `swarm_witness.schema`: `validate_claim` → `Claim`, `validate_run` → `Run`, `validate_finding` → `Finding`. Strings are nonblank; `assumptions` / `run_ids` / `supporting_observation_refs` are non-empty `list[str]` (strings are not coerced to character lists). `Finding.label` ∈ `CONCLUSION_LABELS`; `Run.execution_status` ∈ `assigned|attempted|completed|failed|unrun|missing`; `Finding.basis` ∈ `authored|computed`.
+
 ## Quick verification (local kit)
 
 ```bash
 cd /path/to/swarm-witness
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"   # or requirements as documented in pyproject
-pytest -v
-python scripts/validate_claims.py
-python scripts/check_evidence.py
+pytest tests/test_schema.py -v
+# Full suite / claim+evidence scripts migrate in later tasks
 ```
 
 ## Reproduction experiments
