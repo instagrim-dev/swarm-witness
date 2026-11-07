@@ -18,19 +18,17 @@
         "disposition": "committed",
         "inputs": {
           "call_id": "call-t01-a",
-          "task_id": "task-alpha",
           "grant_id": "grant-alpha",
           "owner_revision": 1,
           "retry_epoch": "epoch-1",
+          "task_id": "task-alpha",
           "transaction_completion": "commit"
         },
         "native_result": {
-          "disposition": "committed",
-          "reason": "ok",
-          "native_ok": true,
           "call_id": "call-t01-a",
-          "mode": "offline_sqlite_l1_not_native",
-          "native_bmo": false
+          "native_bmo": true,
+          "native_ok": true,
+          "reason": "ok"
         },
         "state": {
           "grant_spent": true,
@@ -61,7 +59,7 @@
             "call-t01-a"
           ]
         },
-        "notes": "ok; mode=offline_sqlite_l1_not_native"
+        "notes": "ok"
       },
       {
         "protocol_id": "r3-ledger-claim-v1",
@@ -73,18 +71,17 @@
         "disposition": "refused",
         "inputs": {
           "call_id": "call-t01-b",
-          "task_id": "task-alpha",
           "grant_id": "grant-alpha",
           "owner_revision": 1,
           "retry_epoch": "epoch-1",
+          "task_id": "task-alpha",
           "transaction_completion": "commit"
         },
         "native_result": {
-          "disposition": "refused",
-          "reason": "already_spent",
+          "call_id": "call-t01-b",
+          "native_bmo": true,
           "native_ok": false,
-          "mode": "offline_sqlite_l1_not_native",
-          "native_bmo": false
+          "reason": "diagnostic recovery owner revision or admission digest is stale"
         },
         "state": {
           "grant_spent": true,
@@ -115,7 +112,7 @@
             "call-t01-a"
           ]
         },
-        "notes": "already_spent; mode=offline_sqlite_l1_not_native"
+        "notes": "diagnostic recovery owner revision or admission digest is stale"
       },
       {
         "protocol_id": "r3-ledger-claim-v1",
@@ -127,8 +124,7 @@
         "disposition": "observed",
         "inputs": {},
         "native_result": {
-          "mode": "offline_sqlite_l1_not_native",
-          "native_bmo": false
+          "native_bmo": true
         },
         "state": {
           "grant_spent": true,
@@ -159,7 +155,7 @@
             "call-t01-a"
           ]
         },
-        "notes": "; mode=offline_sqlite_l1_not_native"
+        "notes": ""
       }
     ],
     "step_count": 3

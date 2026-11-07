@@ -28,7 +28,8 @@ copies a disposable tree and injects `bmo_adapter_test.go` +
 
 When `BMO_ROOT` is absent, an offline SQLite L1 stand-in emits inspectable
 traces (`native_bmo=false`). Findings stay **`unresolved`** until the native
-bridge measures real L1 outcomes.
+bridge measures real L1 outcomes. With a pin checkout and linked fixture hooks,
+`native_bmo=true` and a matched run can publish `classical_baseline_matches`.
 
 ## Bridge opt-in
 

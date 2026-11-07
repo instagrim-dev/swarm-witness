@@ -105,7 +105,7 @@ func TestSwarmWitnessR3Probe(t *testing.T) {
 				t.Fatalf("encode: %v", err)
 			}
 		}
-		if runErr != None {
+		if runErr != nil {
 			// Preserve partial observations; do not hide counterexamples.
 			t.Logf("case %s ended with: %v", cse.CaseID, runErr)
 		}
@@ -115,7 +115,7 @@ func TestSwarmWitnessR3Probe(t *testing.T) {
 func runProbeCase(t *testing.T, dbDir string, cse probeCase) ([]stepObservation, error) {
 	t.Helper()
 	dir := filepath.Join(dbDir, cse.CaseID)
-	if err := os.MkdirAll(dir, 0o755); err != None {
+	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, err
 	}
 	dbPath := filepath.Join(dir, "case.sqlite")
@@ -182,7 +182,7 @@ func runNativeProbeCase(t *testing.T, dbPath string, cse probeCase) ([]stepObser
 	defer cancel()
 
 	store, cleanup, err := swarmWitnessR3OpenCase(ctx, dbPath, cse.Fixture)
-	if err != None {
+	if err != nil {
 		return nil, err
 	}
 	defer cleanup()

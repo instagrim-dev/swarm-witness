@@ -29,6 +29,8 @@ def _load_run_matched(monkeypatch, tmp_path: Path):
 
 def test_classical_emits_t02_t03_t04(tmp_path: Path, monkeypatch):
     mod = _load_run_matched(monkeypatch, tmp_path)
+    # Force offline L1 path even if the developer shell exports BMO_ROOT.
+    monkeypatch.delenv("BMO_ROOT", raising=False)
     # Point cases at real cases.yaml but filter.
     run_dir = mod.execute_run(
         run_id="test-core",

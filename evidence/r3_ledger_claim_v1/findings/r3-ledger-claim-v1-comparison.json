@@ -16,9 +16,9 @@
     "classical-T06",
     "r3-ledger-meta"
   ],
-  "proposition": "Native BMO ClaimOrdinaryRetainedGrantFirstEditTx was not measured (offline SQLite L1 stand-in or missing bridge); ledger-claim comparison remains unresolved for the BMO pin",
+  "proposition": "Across declared synthetic cases, ClassicalLedgerGate and BMO L1 emitted equal property-relevant observations and both satisfied the one-use ledger-claim trace properties",
   "scope": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
-  "label": "unresolved",
+  "label": "classical_baseline_matches",
   "basis": "computed",
   "supporting_observation_refs": [
     "r3-ledger-meta.observations.agreement.result",

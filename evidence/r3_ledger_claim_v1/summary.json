@@ -1,7 +1,7 @@
 {
   "protocol_id": "r3-ledger-claim-v1",
   "claim_id": "r3_ledger_claim_v1",
-  "run_dir": "/workspace/evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1",
+  "run_dir": "/Users/user1/Documents/dev/hackathons/2026-fall/submissions/swarm-witness/evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-native",
   "validity": {
     "valid": true,
     "errors": [],
@@ -992,7 +992,7 @@
       }
     }
   },
-  "native_bmo": false,
+  "native_bmo": true,
   "finding": {
     "id": "r3-ledger-claim-v1-comparison",
     "claim_id": "r3_ledger_claim_v1",
@@ -1011,9 +1011,9 @@
       "classical-T06",
       "r3-ledger-meta"
     ],
-    "proposition": "Native BMO ClaimOrdinaryRetainedGrantFirstEditTx was not measured (offline SQLite L1 stand-in or missing bridge); ledger-claim comparison remains unresolved for the BMO pin",
+    "proposition": "Across declared synthetic cases, ClassicalLedgerGate and BMO L1 emitted equal property-relevant observations and both satisfied the one-use ledger-claim trace properties",
     "scope": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
-    "label": "unresolved",
+    "label": "classical_baseline_matches",
     "basis": "computed",
     "supporting_observation_refs": [
       "r3-ledger-meta.observations.agreement.result",

@@ -9,5 +9,5 @@ results:
   label: unresolved
   finding_id: r3-f-comparison
 - claim_id: r3_ledger_claim_v1
-  label: unresolved
+  label: classical_baseline_matches
   finding_id: r3-ledger-claim-v1-comparison

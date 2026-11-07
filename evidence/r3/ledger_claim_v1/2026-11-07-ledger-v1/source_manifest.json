@@ -1,25 +1,33 @@
 {
   "protocol_id": "r3-ledger-claim-v1",
   "claim_id": "r3_ledger_claim_v1",
-  "run_id": "2026-11-07-ledger-v1",
+  "run_id": "2026-11-07-ledger-v1-native",
   "bmo_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
   "bmo": {
     "adapter_id": "bmo_l1_first_edit",
     "pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
     "bridge": {
-      "bmo_adapter_test.go": "76c903a2442cc0c09a1733bc481cffded9769b967581e9373ecf880ac9160ef9",
-      "bmo_adapter_fixture.go": "a0198517f91479c53113183391c3c851420f92a46226c395f8ac92a0c76f1ead"
+      "bmo_adapter_test.go": "d1806f532eba26a5ba8233376efa67d922a1db121f34733a6c4a3dfcda47555e",
+      "bmo_adapter_fixture.go": "e9bebeb7fb8f331119b43352d2e448180a22bf1723d0eb1690608ce68bb3ab7e"
     },
-    "bmo_root": null,
-    "mode": "offline_sqlite_l1_not_native",
-    "native_bmo": false,
-    "command": null,
-    "exit_code": null,
-    "log_path": "/workspace/evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1/bmo_work/bmo_go_test.log",
-    "notes": "Offline SQLite L1 stand-in; not ClaimOrdinaryRetainedGrantFirstEditTx. Pair validity may complete for pipeline tests; do not publish as native BMO classical reduction without the tagged disposable-tree bridge."
+    "bmo_root": "/Users/user1/Documents/dev/bmo-r3-ledger-pin",
+    "mode": "go_test_bridge_native",
+    "native_bmo": true,
+    "command": [
+      "go",
+      "test",
+      "-tags=swarm_witness_r3",
+      "./internal/sessioncompaction/",
+      "-run",
+      "^TestSwarmWitnessR3Probe$",
+      "-count=1"
+    ],
+    "exit_code": 0,
+    "log_path": "/Users/user1/Documents/dev/hackathons/2026-fall/submissions/swarm-witness/evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-native/bmo_work/bmo_go_test.log",
+    "notes": "native ClaimOrdinaryRetainedGrantFirstEditTx bridge"
   },
-  "cases_path": "/workspace/experiments/r3/ledger_claim_v1/cases.yaml",
+  "cases_path": "/Users/user1/Documents/dev/hackathons/2026-fall/submissions/swarm-witness/experiments/r3/ledger_claim_v1/cases.yaml",
   "cases_sha256": "bed93858012dc09a88d7c346fbec817904db85d5203e08bf1ec2642ed76f710d",
-  "created_unix": 1794069579,
-  "swarm_witness_root": "/workspace"
+  "created_unix": 1794071524,
+  "swarm_witness_root": "/Users/user1/Documents/dev/hackathons/2026-fall/submissions/swarm-witness"
 }

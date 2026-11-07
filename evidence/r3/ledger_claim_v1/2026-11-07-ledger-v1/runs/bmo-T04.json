@@ -18,18 +18,17 @@
         "disposition": "rolled_back",
         "inputs": {
           "call_id": "call-t04-rolled",
-          "task_id": "task-alpha",
           "grant_id": "grant-alpha",
           "owner_revision": 1,
           "retry_epoch": "epoch-1",
+          "task_id": "task-alpha",
           "transaction_completion": "rollback_after_native_success"
         },
         "native_result": {
-          "disposition": "rolled_back",
-          "reason": "rollback_after_native_success",
+          "call_id": "call-t04-rolled",
+          "native_bmo": true,
           "native_ok": true,
-          "mode": "offline_sqlite_l1_not_native",
-          "native_bmo": false
+          "reason": "rollback_after_native_success"
         },
         "state": {
           "grant_spent": false,
@@ -40,7 +39,7 @@
           "claim_call_ids": [],
           "transfer_call_ids": []
         },
-        "notes": "rollback_after_native_success; mode=offline_sqlite_l1_not_native"
+        "notes": "rollback_after_native_success"
       },
       {
         "protocol_id": "r3-ledger-claim-v1",
@@ -52,8 +51,7 @@
         "disposition": "observed",
         "inputs": {},
         "native_result": {
-          "mode": "offline_sqlite_l1_not_native",
-          "native_bmo": false
+          "native_bmo": true
         },
         "state": {
           "grant_spent": false,
@@ -64,7 +62,7 @@
           "claim_call_ids": [],
           "transfer_call_ids": []
         },
-        "notes": "; mode=offline_sqlite_l1_not_native"
+        "notes": ""
       },
       {
         "protocol_id": "r3-ledger-claim-v1",
@@ -76,19 +74,17 @@
         "disposition": "committed",
         "inputs": {
           "call_id": "call-t04-a",
-          "task_id": "task-alpha",
           "grant_id": "grant-alpha",
           "owner_revision": 1,
           "retry_epoch": "epoch-1",
+          "task_id": "task-alpha",
           "transaction_completion": "commit"
         },
         "native_result": {
-          "disposition": "committed",
-          "reason": "ok",
-          "native_ok": true,
           "call_id": "call-t04-a",
-          "mode": "offline_sqlite_l1_not_native",
-          "native_bmo": false
+          "native_bmo": true,
+          "native_ok": true,
+          "reason": "ok"
         },
         "state": {
           "grant_spent": true,
@@ -119,7 +115,7 @@
             "call-t04-a"
           ]
         },
-        "notes": "ok; mode=offline_sqlite_l1_not_native"
+        "notes": "ok"
       },
       {
         "protocol_id": "r3-ledger-claim-v1",
@@ -131,8 +127,7 @@
         "disposition": "observed",
         "inputs": {},
         "native_result": {
-          "mode": "offline_sqlite_l1_not_native",
-          "native_bmo": false
+          "native_bmo": true
         },
         "state": {
           "grant_spent": true,
@@ -163,7 +158,7 @@
             "call-t04-a"
           ]
         },
-        "notes": "; mode=offline_sqlite_l1_not_native"
+        "notes": ""
       }
     ],
     "step_count": 4

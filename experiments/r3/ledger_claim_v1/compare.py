@@ -277,12 +277,12 @@ def classify_finding(
         "label": label,
         "basis": "computed",
         "supporting_observation_refs": [
-            "r3-ledger-claim-v1.agreement.result",
-            "r3-ledger-claim-v1.validity.valid",
+            "r3-ledger-meta.observations.agreement.result",
+            "r3-ledger-meta.observations.validity.valid",
         ],
     }
-    # Schema requires resolvable refs for non-unresolved labels — keep synthetic
-    # refs only for unresolved; for success labels the runner embeds refs into runs.
+    # Schema requires resolvable refs for non-unresolved labels. Runner may
+    # rewrite these after meta observations are finalized.
     validate_finding(finding)
     return finding
 
@@ -372,15 +372,16 @@ def write_compare_artifacts(run_dir: Path, summary: dict[str, Any]) -> None:
         "label": finding["label"],
         "authoritative": "finding",
         "finding_path": f"findings/{finding['id']}.json",
+        # Avoid metric keys that collide with r3-ledger-meta observation names
+        # (evidence_index requires exact equality when names overlap).
         "metrics": {
-            "validity": bool(summary["validity"]["valid"]),
-            "agreement": summary["agreement"]["result"],
             "classical_pass_count": sum(
                 1 for v in summary["properties"]["classical"].values() if v["passed"]
             ),
             "bmo_pass_count": sum(
                 1 for v in summary["properties"]["bmo"].values() if v["passed"]
             ),
+            "native_bmo": bool(summary.get("native_bmo")),
         },
         "notes": summary["agreement"].get("reason"),
     }
