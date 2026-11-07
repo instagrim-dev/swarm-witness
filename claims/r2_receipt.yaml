@@ -1,0 +1,13 @@
+id: r2
+property: matching or copied receipt token does not establish event attribution without exclusivity or authenticity declaration
+scope: EvidenceGraph runnable artifact from Junejo report appendix under stated copier/receiver roles
+quantifier: for each modeled evidence graph where possession alone is used as attribution witness
+success_criterion: attributed_events_without_exclusivity_or_authenticity == 0 across declared counterexamples
+assumptions:
+  - receipt tokens may be replicated or forwarded by non-originators
+  - no implicit exclusivity unless explicitly declared in evidence graph
+  - verifier only treats possession as attribution when authenticity is asserted
+baseline: event attribution requires declared exclusivity plus authenticity, not mere token equality
+discriminating_checks:
+  - copied_token_without_provenance
+  - shared_receipt_across_independent_actors

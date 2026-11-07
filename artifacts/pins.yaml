@@ -1,0 +1,17 @@
+r1:
+  title: "A Restart Is Not Permission: When an Agent Gate Forgets No"
+  apart_project: "https://apartresearch.com/sprints/projects/a-restart-is-not-permission-when-an-agent-gate-forgets-no-ga92"
+  report_pdf: "https://pys8vc40ox3z7qxp.public.blob.vercel-storage.com/files/3a2f7a366143ba50-f54638af-31fd-40ff-9022-1a3d9350b49f-incident-sprint-report.pdf"
+  package: "soundgate==0.1.3"
+  source_revision: "6568403"
+  notes: "Pin exact git URL once located from the project page / PyPI project links."
+r2:
+  title: "Receipt Possession Is Not Event Attribution"
+  report_pdf: "https://pys8vc40ox3z7qxp.public.blob.vercel-storage.com/files/54d3ab064fa85a2f--413e-a31a-05a316b2660a-Junejo---Receipt-possession-is-not-event-attribution.pdf"
+  notes: "Locate EvidenceGraph runnable artifact from report appendix; record hash when downloaded."
+r3:
+  bmo_root: "/Users/user1/Documents/dev/bmo"
+  preferred_claim: "retained start claim is never permission to relaunch"
+  preferred_tests:
+    - "internal/sessioncompaction/ordinary_retry_retained_grant_owner_witness_test.go"
+  preexisting: true
