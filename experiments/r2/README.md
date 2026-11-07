@@ -26,12 +26,16 @@ held pending disclosure; it is now on `main` and is what this harness runs.
 From the swarm-witness root:
 
 ```bash
+# Full clone/sync/stress (writes results.json, then Run + Finding)
 ./experiments/r2/run_r2.sh
-python3 experiments/r2/parse_summary.py
+
+# Or derive Run/Finding from retained results without re-stress
+./experiments/r2/run_r2.sh --derive-only
+# equivalent: SWARM_WITNESS_R2_REUSE_RESULTS=1 ./experiments/r2/run_r2.sh
 ```
 
-Requirements: Python 3.13+ via `uv`, `git`, `curl`, network for the first
-`uv sync --locked`.
+Requirements for a full run: Python 3.13+ via `uv`, `git`, `curl`, network for
+the first `uv sync --locked`.
 
 Upstream paper commands (from the pinned `evidencegraph` tree; output dir is
 arbitrary):
@@ -45,16 +49,25 @@ uv run eg verify NEW_DIRECTORY/bundles/0-full_receipt_relay --recompute
 
 `run_r2.sh` uses `third_party/r2/reproduction` (absolute path in `run.log`).
 
-Outputs land under `evidence/r2/` (`run.log`, `RESULTS.md`, `results.json`,
-`summary.json`, `result.yaml`).
+### Honesty contract
+
+- Success requires a `completed` Run whose `condition_by_seed_checks` and
+  scenario tallies are **counted from** `results.json` row records.
+- If results are missing or the runner aborts, the script writes
+  `execution_status=unrun|failed` plus Finding `label=unresolved` and exits
+  nonzero — never a successful empty no-op.
+- Authoritative label: `evidence/r2/findings/*.json`. `summary.json` /
+  `result.yaml` are convenience mirrors only.
+- `baselines/r2_*.md` is authored mechanism interpretation only — **not** an
+  empirical `classical_baseline_matches` finding.
 
 ## Success criterion (claim card)
 
 Across the published counterexamples, supported attributions that rest only on
 receipt possession (no exclusivity/authenticity declaration) stay at **0**.
-Headline paper checks this run targets:
+Headline paper checks this run targets (values counted from retained rows):
 
 - old-rule full-token relay: **1** wrong supported attribution / 12
 - safer default on relay: **0** supported
 - clean evidence with exclusivity undeclared: **12** correct attributions withheld
-- **36** / 36 condition-by-seed contract checks
+- condition-by-seed contract checks equal to the retained row count (typically 36)

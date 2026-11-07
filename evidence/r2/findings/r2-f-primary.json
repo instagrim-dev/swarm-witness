@@ -1,0 +1,17 @@
+{
+  "id": "r2-f-primary",
+  "claim_id": "r2",
+  "run_ids": [
+    "r2-run-incident-stress"
+  ],
+  "proposition": "Safer rule yields zero possession-only supported attributions on pinned EvidenceGraph incident-stress pack",
+  "scope": "EvidenceGraph runnable artifact from Junejo report pdf under stated copier/receiver roles",
+  "label": "reproduced",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "r2-run-incident-stress.observations.safer_supported_on_relay",
+    "r2-run-incident-stress.observations.condition_by_seed_checks",
+    "r2-run-incident-stress.observations.row_record_count",
+    "r2-run-incident-stress.observations.all_contract_checks_pass"
+  ]
+}

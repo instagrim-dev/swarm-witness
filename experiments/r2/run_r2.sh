@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Fetch the Junejo report PDF, pin EvidenceGraph (sprint stress pack on main),
-# and re-run the published 12×3 paired evidence conditions.
+# and re-run the published 12×3 paired evidence conditions — or derive
+# Run/Finding from retained results.json. Never exits 0 as an empty no-op success.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -16,16 +17,13 @@ EV="$ROOT/evidence/r2"
 DEST="$TP/evidencegraph"
 PDF="$TP/report.pdf"
 OUT="$TP/reproduction"
+PARSE="$ROOT/experiments/r2/parse_summary.py"
 
 export PATH="${HOME}/.local/bin:${PATH}"
 
-mkdir -p "$TP" "$EV"
+mkdir -p "$TP" "$EV" "$EV/runs" "$EV/findings"
 
 need() { command -v "$1" >/dev/null 2>&1 || { echo "missing dependency: $1" >&2; exit 1; }; }
-need git
-need curl
-need python3
-need uv
 
 sha256_file() {
   if command -v shasum >/dev/null 2>&1; then
@@ -34,6 +32,49 @@ sha256_file() {
     sha256sum "$1" | awk '{print $1}'
   fi
 }
+
+write_failed() {
+  local notes="${1:-run_r2.sh failed before completed observations}"
+  local exit_code="${2:-1}"
+  python3 "$PARSE" \
+    --status failed \
+    --notes "$notes" \
+    --command "./experiments/r2/run_r2.sh" \
+    --cwd "$ROOT" \
+    --exit-status "$exit_code" \
+    --stdout-path "evidence/r2/run.log" \
+    --stderr-path "evidence/r2/uv-sync.log" \
+    --partial-output "$notes" >/dev/null || true
+}
+
+on_err() {
+  local code=$?
+  write_failed "run_r2.sh aborted with exit $code" "$code"
+  exit "$code"
+}
+
+# Prefer reusing retained results when asked (or when --derive-only).
+if [[ "${1:-}" == "--derive-only" || "${SWARM_WITNESS_R2_REUSE_RESULTS:-}" == "1" ]]; then
+  need python3
+  echo "==> derive Run/Finding from retained results.json (no clone/stress)"
+  if [[ ! -f "$EV/results.json" ]]; then
+    python3 "$PARSE" \
+      --status unrun \
+      --notes "derive-only requested but evidence/r2/results.json missing" \
+      --command "./experiments/r2/run_r2.sh --derive-only" \
+      --cwd "$ROOT"
+    exit 1
+  fi
+  python3 "$PARSE"
+  exit $?
+fi
+
+trap on_err ERR
+
+need git
+need curl
+need python3
+need uv
 
 echo "==> fetch report PDF"
 if [[ ! -f "$PDF" ]]; then
@@ -60,7 +101,7 @@ echo "==> uv sync --locked"
   uv sync --locked | tee "$EV/uv-sync.log"
 )
 
-echo "==> run published stress pack (seeds 0 1 2 → 36 checks)"
+echo "==> run published stress pack (seeds 0 1 2; checks counted from row records)"
 rm -rf "$OUT"
 (
   cd "$DEST"
@@ -78,7 +119,8 @@ rm -rf "$OUT"
 cp -f "$OUT/RESULTS.md" "$EV/RESULTS.md"
 cp -f "$OUT/results.json" "$EV/results.json"
 
-echo "==> parse summary.json + validate result.yaml"
-python3 "$ROOT/experiments/r2/parse_summary.py"
+trap - ERR
 
-echo "R2 complete. See $EV/summary.json and $EV/result.yaml"
+echo "==> derive Run/Finding from row records + validate"
+python3 "$PARSE"
+echo "R2 complete. See $EV/runs/ and $EV/findings/ (Finding authoritative; summary.json is a mirror)."

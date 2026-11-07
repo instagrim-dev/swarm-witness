@@ -43,6 +43,8 @@
   "git_rev": "a5ea5c9947039009ca795275d834be7b61069080",
   "baseline_rev": "efbd4192767672e2ca3634c9ebe9d9a3c98fcddd",
   "source_tree_sha256": "2962568f70dd1ecd1617b3796126518ca69df9c262088c375f057426deadb78b",
+  "denominator_source": "counted_from_rows",
+  "authoritative_finding": "evidence/r2/findings/r2-f-primary.json",
   "fresh_run": {
     "passed": true,
     "failures": [],

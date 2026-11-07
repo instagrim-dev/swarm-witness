@@ -20,7 +20,10 @@ metrics:
   - 1
   - 1
 evidence_path: evidence/r2/summary.json
-notes: 'Fresh local incident_stress.py at a5ea5c9 (paper baseline before extension:
-  efbd419); 36/36 contract checks; old-rule relay wrong attributions=[1, 1, 1]; safer
-  relay supported=[0, 0, 0] correct=[0, 0, 0]; shared_tokens_no_attack correct=[0,
-  0, 0] (12 withheld); false_exclusivity errors=[1, 1, 1]. source_tree_sha256=2962568f70dd1ecd1617b3796126518ca69df9c262088c375f057426deadb78b.'
+finding_path: evidence/r2/findings/r2-f-primary.json
+notes: 'Derived from retained row records in results.json (source a5ea5c9; paper baseline
+  before extension: efbd419); counted condition_by_seed_checks=36/36 passed; old-rule
+  relay wrong attributions=[1, 1, 1]; safer relay supported=[0, 0, 0] correct=[0,
+  0, 0]; shared_tokens_no_attack correct=[0, 0, 0] (withheld=[12, 12, 12]); false_exclusivity
+  errors=[1, 1, 1]. source_tree_sha256=2962568f70dd1ecd1617b3796126518ca69df9c262088c375f057426deadb78b.'
+authoritative: finding

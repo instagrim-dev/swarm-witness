@@ -1,0 +1,97 @@
+{
+  "id": "r2-run-incident-stress",
+  "claim_id": "r2",
+  "protocol_id": "evidencegraph-incident-stress",
+  "case_id": "seeds-0-1-2-twelve-scenarios",
+  "source_pin": "a5ea5c9",
+  "execution_status": "completed",
+  "command": "uv run python scripts/incident_stress.py OUT --seeds 0 1 2; uv run eg verify OUT/bundles/0-full_receipt_relay --recompute",
+  "cwd": "third_party/r2/evidencegraph",
+  "exit_status": 0,
+  "stdout_path": "evidence/r2/run.log",
+  "stderr_path": "evidence/r2/uv-sync.log",
+  "observations": {
+    "results_path": "evidence/r2/results.json",
+    "condition_by_seed_checks": 36,
+    "condition_by_seed_passed": 36,
+    "row_record_count": 36,
+    "rows_per_scenario": {
+      "capture_window_edge": 3,
+      "clean": 3,
+      "copied_public_receipt": 3,
+      "dependent_witnesses": 3,
+      "fabricated": 3,
+      "false_exclusivity": 3,
+      "full_receipt_relay": 3,
+      "incomplete_capture": 3,
+      "missing_clock_bound": 3,
+      "missing_tokens": 3,
+      "missing_transcript": 3,
+      "shared_tokens_no_attack": 3
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "old_rule_wrong_attributions_on_relay": [
+      1,
+      1,
+      1
+    ],
+    "safer_supported_on_relay": [
+      0,
+      0,
+      0
+    ],
+    "safer_correct_on_relay": [
+      0,
+      0,
+      0
+    ],
+    "shared_tokens_correct": [
+      0,
+      0,
+      0
+    ],
+    "clean_withheld_without_exclusivity": [
+      12,
+      12,
+      12
+    ],
+    "false_exclusivity_confident_errors": [
+      1,
+      1,
+      1
+    ],
+    "relay_outcomes_by_seed": [
+      {
+        "seed": 0,
+        "outcomes": {
+          "ambiguous": 10,
+          "unmatched": 2
+        }
+      },
+      {
+        "seed": 1,
+        "outcomes": {
+          "ambiguous": 10,
+          "unmatched": 2
+        }
+      },
+      {
+        "seed": 2,
+        "outcomes": {
+          "ambiguous": 10,
+          "unmatched": 2
+        }
+      }
+    ],
+    "git_rev": "a5ea5c9947039009ca795275d834be7b61069080",
+    "baseline_rev": "efbd4192767672e2ca3634c9ebe9d9a3c98fcddd",
+    "source_tree_sha256": "2962568f70dd1ecd1617b3796126518ca69df9c262088c375f057426deadb78b",
+    "all_contract_checks_pass": true,
+    "failures": [],
+    "denominator_source": "counted_from_rows"
+  }
+}
