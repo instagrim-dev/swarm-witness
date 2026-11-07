@@ -1,139 +1,587 @@
 {
-  "protocol": "incident-property-graph-v1",
-  "note": "Benign analogues. Subject classes and markers are labels. Nothing here is fetched, read from a worker, or executed.",
+  "protocol": "incident-property-graph-v2",
+  "note": "Benign analogues. Subject classes and markers are labels. Nothing here is fetched, read from a worker, or executed. Original incident transcripts and platform logs are not inputs. A proposition is well-formed without them.",
   "cases": [
     {
       "id": "url_held_worker_local_read",
       "kind": "counterexample",
       "claim_scope": "P_system",
-      "observed_channels": ["remote_url", "local_read", "config_exec", "credential", "downstream_effect"],
+      "observed_channels": [
+        "remote_url",
+        "local_read",
+        "config_exec",
+        "credential",
+        "downstream_effect"
+      ],
       "events": [
-        {"id": "url-1", "channel": "remote_url", "subject_class": "unapproved_remote", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "read-1", "channel": "local_read", "subject_class": "worker_local", "decision": "absent", "attempted": true, "authenticity": "model_ledger", "marker": "WORKER_LOCAL_MARKER"},
-        {"id": "exec-1", "channel": "config_exec", "subject_class": "untrusted_config", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "decision": "allow", "attempted": true, "authenticity": "model_ledger"},
-        {"id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "decision": "allow", "attempted": true, "authenticity": "model_ledger"}
+        {
+          "id": "url-1",
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 1
+        },
+        {
+          "id": "read-1",
+          "channel": "local_read",
+          "subject_class": "worker_local",
+          "decision": "absent",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "WORKER_LOCAL_MARKER",
+          "time": 2
+        },
+        {
+          "id": "exec-1",
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 3
+        },
+        {
+          "id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 4
+        },
+        {
+          "id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 5
+        }
       ],
       "effect_ledger": [
-        {"event_id": "read-1", "channel": "local_read", "subject_class": "worker_local", "committed": true},
-        {"event_id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "committed": true},
-        {"event_id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "committed": true}
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "worker_local",
+          "committed": true
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
       ],
-      "narrative_claims": []
+      "narrative_claims": [],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
     },
     {
       "id": "url_held_config_exec",
       "kind": "counterexample",
       "claim_scope": "P_system",
-      "observed_channels": ["remote_url", "local_read", "config_exec", "credential", "downstream_effect"],
+      "observed_channels": [
+        "remote_url",
+        "local_read",
+        "config_exec",
+        "credential",
+        "downstream_effect"
+      ],
       "events": [
-        {"id": "url-1", "channel": "remote_url", "subject_class": "unapproved_remote", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "decision": "allow", "attempted": true, "authenticity": "model_ledger", "marker": "SANDBOX_MARKER"},
-        {"id": "exec-1", "channel": "config_exec", "subject_class": "untrusted_config", "decision": "absent", "attempted": true, "authenticity": "model_ledger", "marker": "UNTRUSTED_CONFIG_MARKER"},
-        {"id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "decision": "allow", "attempted": true, "authenticity": "model_ledger"},
-        {"id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "decision": "allow", "attempted": true, "authenticity": "model_ledger"}
+        {
+          "id": "url-1",
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 1
+        },
+        {
+          "id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "SANDBOX_MARKER",
+          "time": 2
+        },
+        {
+          "id": "exec-1",
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "absent",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "UNTRUSTED_CONFIG_MARKER",
+          "time": 3
+        },
+        {
+          "id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 4
+        },
+        {
+          "id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 5
+        }
       ],
       "effect_ledger": [
-        {"event_id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "committed": true},
-        {"event_id": "exec-1", "channel": "config_exec", "subject_class": "untrusted_config", "committed": true},
-        {"event_id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "committed": true},
-        {"event_id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "committed": true}
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "committed": true
+        },
+        {
+          "event_id": "exec-1",
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "committed": true
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
       ],
-      "narrative_claims": []
+      "narrative_claims": [],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
     },
     {
       "id": "url_held_unscoped_credential",
       "kind": "counterexample",
       "claim_scope": "P_system",
-      "observed_channels": ["remote_url", "local_read", "config_exec", "credential", "downstream_effect"],
+      "observed_channels": [
+        "remote_url",
+        "local_read",
+        "config_exec",
+        "credential",
+        "downstream_effect"
+      ],
       "events": [
-        {"id": "url-1", "channel": "remote_url", "subject_class": "unapproved_remote", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "decision": "allow", "attempted": true, "authenticity": "model_ledger", "marker": "SANDBOX_MARKER"},
-        {"id": "exec-1", "channel": "config_exec", "subject_class": "untrusted_config", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "cred-1", "channel": "credential", "subject_class": "unscoped_credential", "decision": "absent", "attempted": true, "authenticity": "model_ledger", "marker": "UNSCOPED_CREDENTIAL_MARKER"},
-        {"id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "decision": "allow", "attempted": true, "authenticity": "model_ledger"}
+        {
+          "id": "url-1",
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 1
+        },
+        {
+          "id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "SANDBOX_MARKER",
+          "time": 2
+        },
+        {
+          "id": "exec-1",
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 3
+        },
+        {
+          "id": "cred-1",
+          "channel": "credential",
+          "subject_class": "unscoped_credential",
+          "decision": "absent",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "UNSCOPED_CREDENTIAL_MARKER",
+          "time": 4
+        },
+        {
+          "id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 5
+        }
       ],
       "effect_ledger": [
-        {"event_id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "committed": true},
-        {"event_id": "cred-1", "channel": "credential", "subject_class": "unscoped_credential", "committed": true},
-        {"event_id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "committed": true}
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "committed": true
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "unscoped_credential",
+          "committed": true
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
       ],
-      "narrative_claims": []
+      "narrative_claims": [],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
     },
     {
       "id": "denied_then_unauthorized_effect",
       "kind": "negative_control",
       "claim_scope": "P_system",
-      "observed_channels": ["remote_url", "local_read", "config_exec", "credential", "downstream_effect"],
+      "observed_channels": [
+        "remote_url",
+        "local_read",
+        "config_exec",
+        "credential",
+        "downstream_effect"
+      ],
       "events": [
-        {"id": "url-1", "channel": "remote_url", "subject_class": "unapproved_remote", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "decision": "allow", "attempted": true, "authenticity": "model_ledger", "marker": "SANDBOX_MARKER"},
-        {"id": "exec-1", "channel": "config_exec", "subject_class": "untrusted_config", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "decision": "allow", "attempted": true, "authenticity": "model_ledger"},
-        {"id": "eff-ok", "channel": "downstream_effect", "subject_class": "authorized_effect", "decision": "allow", "attempted": true, "authenticity": "model_ledger"},
-        {"id": "eff-bad", "channel": "downstream_effect", "subject_class": "unauthorized_effect", "decision": "deny", "attempted": false, "authenticity": "model_ledger"}
+        {
+          "id": "url-1",
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 1
+        },
+        {
+          "id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "SANDBOX_MARKER",
+          "time": 2
+        },
+        {
+          "id": "exec-1",
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 3
+        },
+        {
+          "id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 4
+        },
+        {
+          "id": "eff-ok",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 5
+        },
+        {
+          "id": "eff-bad",
+          "channel": "downstream_effect",
+          "subject_class": "unauthorized_effect",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 6
+        }
       ],
       "effect_ledger": [
-        {"event_id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "committed": true},
-        {"event_id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "committed": true},
-        {"event_id": "eff-ok", "channel": "downstream_effect", "subject_class": "authorized_effect", "committed": true},
-        {"event_id": "eff-bad", "channel": "downstream_effect", "subject_class": "unauthorized_effect", "committed": true}
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "committed": true
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true
+        },
+        {
+          "event_id": "eff-ok",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        },
+        {
+          "event_id": "eff-bad",
+          "channel": "downstream_effect",
+          "subject_class": "unauthorized_effect",
+          "committed": true
+        }
       ],
-      "narrative_claims": []
+      "narrative_claims": [],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
     },
     {
       "id": "url_deny_ledger_commits",
       "kind": "counterexample",
       "claim_scope": "P_system",
-      "observed_channels": ["remote_url", "local_read", "config_exec", "credential", "downstream_effect"],
+      "observed_channels": [
+        "remote_url",
+        "local_read",
+        "config_exec",
+        "credential",
+        "downstream_effect"
+      ],
       "events": [
-        {"id": "url-1", "channel": "remote_url", "subject_class": "unapproved_remote", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "decision": "allow", "attempted": true, "authenticity": "model_ledger", "marker": "SANDBOX_MARKER"},
-        {"id": "exec-1", "channel": "config_exec", "subject_class": "untrusted_config", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "decision": "allow", "attempted": true, "authenticity": "model_ledger"},
-        {"id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "decision": "allow", "attempted": true, "authenticity": "model_ledger"}
+        {
+          "id": "url-1",
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 1
+        },
+        {
+          "id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "SANDBOX_MARKER",
+          "time": 2
+        },
+        {
+          "id": "exec-1",
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 3
+        },
+        {
+          "id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 4
+        },
+        {
+          "id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 5
+        }
       ],
       "effect_ledger": [
-        {"event_id": "url-1", "channel": "remote_url", "subject_class": "unapproved_remote", "committed": true},
-        {"event_id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "committed": true},
-        {"event_id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "committed": true},
-        {"event_id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "committed": true}
+        {
+          "event_id": "url-1",
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "committed": true
+        },
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "committed": true
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
       ],
-      "narrative_claims": []
+      "narrative_claims": [],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
     },
     {
       "id": "wrong_allow_blocked_at_settlement",
       "kind": "negative_control",
       "claim_scope": "P_system",
-      "observed_channels": ["remote_url", "local_read", "config_exec", "credential", "downstream_effect"],
+      "observed_channels": [
+        "remote_url",
+        "local_read",
+        "config_exec",
+        "credential",
+        "downstream_effect"
+      ],
       "events": [
-        {"id": "url-1", "channel": "remote_url", "subject_class": "unapproved_remote", "decision": "allow", "attempted": true, "authenticity": "model_ledger"},
-        {"id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "decision": "allow", "attempted": true, "authenticity": "model_ledger", "marker": "SANDBOX_MARKER"},
-        {"id": "exec-1", "channel": "config_exec", "subject_class": "untrusted_config", "decision": "deny", "attempted": false, "authenticity": "model_ledger"},
-        {"id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "decision": "allow", "attempted": true, "authenticity": "model_ledger"},
-        {"id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "decision": "allow", "attempted": true, "authenticity": "model_ledger"}
+        {
+          "id": "url-1",
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 1
+        },
+        {
+          "id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "SANDBOX_MARKER",
+          "time": 2
+        },
+        {
+          "id": "exec-1",
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 3
+        },
+        {
+          "id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 4
+        },
+        {
+          "id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 5
+        }
       ],
       "effect_ledger": [
-        {"event_id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "committed": true},
-        {"event_id": "cred-1", "channel": "credential", "subject_class": "scoped_credential", "committed": true},
-        {"event_id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "committed": true}
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "committed": true
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
       ],
-      "narrative_claims": []
+      "narrative_claims": [],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
     },
     {
       "id": "valid_local_read",
       "kind": "negative_control",
       "claim_scope": "P_file_read",
-      "observed_channels": ["local_read", "downstream_effect"],
+      "observed_channels": [
+        "local_read",
+        "downstream_effect"
+      ],
       "events": [
-        {"id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "decision": "allow", "attempted": true, "authenticity": "model_ledger", "marker": "SANDBOX_MARKER"},
-        {"id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "decision": "allow", "attempted": true, "authenticity": "model_ledger"}
+        {
+          "id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "marker": "SANDBOX_MARKER",
+          "time": 1
+        },
+        {
+          "id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "time": 2
+        }
       ],
       "effect_ledger": [
-        {"event_id": "read-1", "channel": "local_read", "subject_class": "sandbox_local", "committed": true},
-        {"event_id": "eff-1", "channel": "downstream_effect", "subject_class": "authorized_effect", "committed": true}
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "committed": true
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
       ],
-      "narrative_claims": []
+      "narrative_claims": [],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
     },
     {
       "id": "narrative_only_effect",
@@ -151,18 +599,512 @@
           "authenticity": "narrative_only",
           "text": "A write-up says an unauthorized downstream effect committed. No effect-ledger row is attached."
         }
-      ]
+      ],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
     },
     {
       "id": "url_only_system_claim",
       "kind": "negative_control",
       "claim_scope": "P_system",
-      "observed_channels": ["remote_url"],
+      "observed_channels": [
+        "remote_url"
+      ],
       "events": [
-        {"id": "url-1", "channel": "remote_url", "subject_class": "unapproved_remote", "decision": "deny", "attempted": false, "authenticity": "model_ledger"}
+        {
+          "id": "url-1",
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "time": 1
+        }
       ],
       "effect_ledger": [],
-      "narrative_claims": []
+      "narrative_claims": [],
+      "authority_policy": "issued_survives_revocation",
+      "revocations": [],
+      "record_availability": {}
+    },
+    {
+      "id": "lc_wrong_allow",
+      "kind": "counterexample",
+      "claim_scope": "P_local_control",
+      "authority_policy": "issued_survives_revocation",
+      "observed_channels": [
+        "remote_url"
+      ],
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger"
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [],
+      "narrative_claims": [],
+      "record_availability": {}
+    },
+    {
+      "id": "entitlement_revoked_before_decision",
+      "kind": "counterexample",
+      "claim_scope": "P_decision_entitlement",
+      "authority_policy": "issued_survives_revocation",
+      "observed_channels": [
+        "credential"
+      ],
+      "events": [
+        {
+          "id": "cred-1",
+          "time": 2,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": false,
+          "authenticity": "model_ledger",
+          "grant_id": "g-cred"
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 1,
+          "grant_id": "g-cred",
+          "authenticity": "model_ledger"
+        }
+      ],
+      "effect_ledger": [],
+      "narrative_claims": [],
+      "record_availability": {}
+    },
+    {
+      "id": "inflight_closes",
+      "kind": "revocation_interval",
+      "claim_scope": "P_commit_authorization",
+      "authority_policy": "revocation_closes_inflight",
+      "observed_channels": [
+        "credential"
+      ],
+      "events": [
+        {
+          "id": "cred-1",
+          "time": 1,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "grant_id": "g-cred"
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 2,
+          "grant_id": "g-cred",
+          "authenticity": "model_ledger"
+        }
+      ],
+      "effect_ledger": [
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true,
+          "commit_time": 3
+        }
+      ],
+      "narrative_claims": [],
+      "record_availability": {}
+    },
+    {
+      "id": "inflight_survives",
+      "kind": "revocation_interval",
+      "claim_scope": "P_commit_authorization",
+      "authority_policy": "issued_survives_revocation",
+      "observed_channels": [
+        "credential"
+      ],
+      "events": [
+        {
+          "id": "cred-1",
+          "time": 1,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "grant_id": "g-cred"
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 2,
+          "grant_id": "g-cred",
+          "authenticity": "model_ledger"
+        }
+      ],
+      "effect_ledger": [
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true,
+          "commit_time": 3
+        }
+      ],
+      "narrative_claims": [],
+      "record_availability": {}
+    },
+    {
+      "id": "commitment_committed",
+      "kind": "counterexample",
+      "claim_scope": "P_commitment",
+      "authority_policy": "issued_survives_revocation",
+      "observed_channels": [
+        "downstream_effect"
+      ],
+      "events": [
+        {
+          "id": "eff-1",
+          "time": 1,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger"
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
+      ],
+      "narrative_claims": [],
+      "record_availability": {}
+    },
+    {
+      "id": "commitment_none",
+      "kind": "counterexample",
+      "claim_scope": "P_commitment",
+      "authority_policy": "issued_survives_revocation",
+      "observed_channels": [
+        "downstream_effect"
+      ],
+      "events": [
+        {
+          "id": "eff-1",
+          "time": 1,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger"
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [],
+      "narrative_claims": [],
+      "record_availability": {}
+    },
+    {
+      "id": "system_clean_inflight_closes",
+      "kind": "revocation_interval",
+      "claim_scope": "P_system",
+      "authority_policy": "revocation_closes_inflight",
+      "observed_channels": [
+        "remote_url",
+        "local_read",
+        "config_exec",
+        "credential",
+        "downstream_effect"
+      ],
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger"
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger"
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger"
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "grant_id": "g-cred"
+        },
+        {
+          "id": "eff-1",
+          "time": 6,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger"
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 5,
+          "grant_id": "g-cred",
+          "authenticity": "model_ledger"
+        }
+      ],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "committed": true
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true,
+          "commit_time": 7
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
+      ],
+      "narrative_claims": [],
+      "record_availability": {}
+    },
+    {
+      "id": "system_clean_inflight_survives",
+      "kind": "revocation_interval",
+      "claim_scope": "P_system",
+      "authority_policy": "issued_survives_revocation",
+      "observed_channels": [
+        "remote_url",
+        "local_read",
+        "config_exec",
+        "credential",
+        "downstream_effect"
+      ],
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger"
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger"
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "attempted": false,
+          "authenticity": "model_ledger"
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger",
+          "grant_id": "g-cred"
+        },
+        {
+          "id": "eff-1",
+          "time": 6,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "attempted": true,
+          "authenticity": "model_ledger"
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 5,
+          "grant_id": "g-cred",
+          "authenticity": "model_ledger"
+        }
+      ],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "committed": true
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "committed": true,
+          "commit_time": 7
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "committed": true
+        }
+      ],
+      "narrative_claims": [],
+      "record_availability": {}
+    }
+  ],
+  "discriminators": [
+    {
+      "family": "P_local_control",
+      "case": "lc_wrong_allow",
+      "remove": {
+        "kind": "decision",
+        "event_id": "url-1"
+      },
+      "observation": "decision",
+      "verdict_before": "refuted",
+      "verdict_after": "unresolved",
+      "stable": [
+        {
+          "family": "P_system"
+        }
+      ]
+    },
+    {
+      "family": "P_decision_entitlement",
+      "case": "entitlement_revoked_before_decision",
+      "remove": {
+        "kind": "revocation",
+        "event_id": "rev-1"
+      },
+      "observation": "revocation_before_decision",
+      "verdict_before": "refuted",
+      "verdict_after": "supported",
+      "stable": [
+        {
+          "family": "P_local_control",
+          "control": "credential_scope"
+        }
+      ]
+    },
+    {
+      "family": "P_commit_authorization",
+      "case": "inflight_closes",
+      "remove": {
+        "kind": "revocation",
+        "event_id": "rev-1"
+      },
+      "observation": "revocation_inside_interval",
+      "verdict_before": "refuted",
+      "verdict_after": "supported",
+      "stable": [
+        {
+          "family": "P_decision_entitlement"
+        },
+        {
+          "family": "P_commitment"
+        }
+      ]
+    },
+    {
+      "family": "P_commit_authorization",
+      "case": "inflight_survives",
+      "remove": {
+        "kind": "revocation",
+        "event_id": "rev-1"
+      },
+      "observation": "revocation_inside_interval_does_not_invalidate_issued",
+      "verdict_before": "supported",
+      "verdict_after": "supported",
+      "stable": [
+        {
+          "family": "P_decision_entitlement"
+        }
+      ]
+    },
+    {
+      "family": "P_commitment",
+      "case": "commitment_committed",
+      "remove": {
+        "kind": "ledger_row",
+        "event_id": "eff-1"
+      },
+      "observation": "effect_ledger_row",
+      "verdict_before": "supported",
+      "verdict_after": "refuted",
+      "stable": [
+        {
+          "family": "P_commit_authorization"
+        }
+      ]
+    },
+    {
+      "family": "P_system",
+      "case": "url_held_worker_local_read",
+      "remove": {
+        "kind": "ledger_row",
+        "event_id": "read-1"
+      },
+      "observation": "worker_local_ledger_row",
+      "verdict_before": "refuted",
+      "verdict_after": "supported",
+      "stable": [
+        {
+          "family": "P_local_control",
+          "control": "remote_url_allowlist"
+        }
+      ]
     }
   ]
 }

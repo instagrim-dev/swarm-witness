@@ -1,0 +1,978 @@
+{
+  "schema_version": "incident_property_event_time_v1",
+  "evidence_standard": "lesswrong-oai-hf-reproduction",
+  "for_consumers": [
+    "#40 formal adapter",
+    "#41 native witness"
+  ],
+  "implemented_in_this_unit": false,
+  "not_implemented": [
+    40,
+    41,
+    42
+  ],
+  "authority_policies": [
+    "issued_survives_revocation",
+    "revocation_closes_inflight"
+  ],
+  "default_authority_policy": null,
+  "withheld_records_required": false,
+  "cases": [
+    {
+      "id": "url_held_worker_local_read",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "worker_local",
+          "decision": "absent",
+          "grant_id": null
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "eff-1",
+          "time": 5,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "worker_local"
+        },
+        {
+          "event_id": "cred-1",
+          "commit_time": null,
+          "subject_class": "scoped_credential"
+        },
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "refuted",
+        "P_commitment": "supported",
+        "P_system": "refuted"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented",
+        "read-1": "committed",
+        "exec-1": "prevented",
+        "cred-1": "committed",
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "url_held_config_exec",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "absent",
+          "grant_id": null
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "eff-1",
+          "time": 5,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "sandbox_local"
+        },
+        {
+          "event_id": "exec-1",
+          "commit_time": null,
+          "subject_class": "untrusted_config"
+        },
+        {
+          "event_id": "cred-1",
+          "commit_time": null,
+          "subject_class": "scoped_credential"
+        },
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "refuted",
+        "P_commitment": "supported",
+        "P_system": "refuted"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented",
+        "read-1": "committed",
+        "exec-1": "committed",
+        "cred-1": "committed",
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "url_held_unscoped_credential",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "unscoped_credential",
+          "decision": "absent",
+          "grant_id": null
+        },
+        {
+          "id": "eff-1",
+          "time": 5,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "sandbox_local"
+        },
+        {
+          "event_id": "cred-1",
+          "commit_time": null,
+          "subject_class": "unscoped_credential"
+        },
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "refuted",
+        "P_commitment": "supported",
+        "P_system": "refuted"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented",
+        "read-1": "committed",
+        "exec-1": "prevented",
+        "cred-1": "committed",
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "denied_then_unauthorized_effect",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "eff-ok",
+          "time": 5,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "eff-bad",
+          "time": 6,
+          "channel": "downstream_effect",
+          "subject_class": "unauthorized_effect",
+          "decision": "deny",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "sandbox_local"
+        },
+        {
+          "event_id": "cred-1",
+          "commit_time": null,
+          "subject_class": "scoped_credential"
+        },
+        {
+          "event_id": "eff-ok",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        },
+        {
+          "event_id": "eff-bad",
+          "commit_time": null,
+          "subject_class": "unauthorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "supported",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "refuted",
+        "P_commitment": "supported",
+        "P_system": "refuted"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented",
+        "read-1": "committed",
+        "exec-1": "prevented",
+        "cred-1": "committed",
+        "eff-ok": "committed",
+        "eff-bad": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "url_deny_ledger_commits",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "eff-1",
+          "time": 5,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "url-1",
+          "commit_time": null,
+          "subject_class": "unapproved_remote"
+        },
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "sandbox_local"
+        },
+        {
+          "event_id": "cred-1",
+          "commit_time": null,
+          "subject_class": "scoped_credential"
+        },
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "supported",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "refuted",
+        "P_commitment": "supported",
+        "P_system": "refuted"
+      },
+      "commitment_by_event": {
+        "url-1": "committed",
+        "read-1": "committed",
+        "exec-1": "prevented",
+        "cred-1": "committed",
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "wrong_allow_blocked_at_settlement",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "eff-1",
+          "time": 5,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "sandbox_local"
+        },
+        {
+          "event_id": "cred-1",
+          "commit_time": null,
+          "subject_class": "scoped_credential"
+        },
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "refuted",
+        "P_decision_entitlement": "refuted",
+        "P_commit_authorization": "supported",
+        "P_commitment": "supported",
+        "P_system": "supported"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented",
+        "read-1": "committed",
+        "exec-1": "prevented",
+        "cred-1": "committed",
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "valid_local_read",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "read-1",
+          "time": 1,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "eff-1",
+          "time": 2,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "sandbox_local"
+        },
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "supported",
+        "P_commitment": "supported",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {
+        "read-1": "committed",
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "narrative_only_effect",
+      "authority_policy": "issued_survives_revocation",
+      "events": [],
+      "revocations": [],
+      "effect_ledger": [],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "unresolved",
+        "P_commit_authorization": "unresolved",
+        "P_commitment": "unresolved",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {},
+      "well_formed": true
+    },
+    {
+      "id": "url_only_system_claim",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "supported",
+        "P_commitment": "refuted",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "lc_wrong_allow",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [],
+      "family_verdicts": {
+        "P_local_control": "refuted",
+        "P_decision_entitlement": "refuted",
+        "P_commit_authorization": "supported",
+        "P_commitment": "refuted",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "entitlement_revoked_before_decision",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "cred-1",
+          "time": 2,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": "g-cred"
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 1,
+          "grant_id": "g-cred"
+        }
+      ],
+      "effect_ledger": [],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "refuted",
+        "P_commit_authorization": "supported",
+        "P_commitment": "refuted",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {
+        "cred-1": "prevented"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "inflight_closes",
+      "authority_policy": "revocation_closes_inflight",
+      "events": [
+        {
+          "id": "cred-1",
+          "time": 1,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": "g-cred"
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 2,
+          "grant_id": "g-cred"
+        }
+      ],
+      "effect_ledger": [
+        {
+          "event_id": "cred-1",
+          "commit_time": 3,
+          "subject_class": "scoped_credential"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "refuted",
+        "P_commitment": "supported",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {
+        "cred-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "inflight_survives",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "cred-1",
+          "time": 1,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": "g-cred"
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 2,
+          "grant_id": "g-cred"
+        }
+      ],
+      "effect_ledger": [
+        {
+          "event_id": "cred-1",
+          "commit_time": 3,
+          "subject_class": "scoped_credential"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "supported",
+        "P_commitment": "supported",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {
+        "cred-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "commitment_committed",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "eff-1",
+          "time": 1,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "supported",
+        "P_commitment": "supported",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "commitment_none",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "eff-1",
+          "time": 1,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [],
+      "effect_ledger": [],
+      "family_verdicts": {
+        "P_local_control": "unresolved",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "supported",
+        "P_commitment": "refuted",
+        "P_system": "unresolved"
+      },
+      "commitment_by_event": {
+        "eff-1": "prevented"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "system_clean_inflight_closes",
+      "authority_policy": "revocation_closes_inflight",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": "g-cred"
+        },
+        {
+          "id": "eff-1",
+          "time": 6,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 5,
+          "grant_id": "g-cred"
+        }
+      ],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "sandbox_local"
+        },
+        {
+          "event_id": "cred-1",
+          "commit_time": 7,
+          "subject_class": "scoped_credential"
+        },
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "supported",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "refuted",
+        "P_commitment": "supported",
+        "P_system": "supported"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented",
+        "read-1": "committed",
+        "exec-1": "prevented",
+        "cred-1": "committed",
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    },
+    {
+      "id": "system_clean_inflight_survives",
+      "authority_policy": "issued_survives_revocation",
+      "events": [
+        {
+          "id": "url-1",
+          "time": 1,
+          "channel": "remote_url",
+          "subject_class": "unapproved_remote",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "read-1",
+          "time": 2,
+          "channel": "local_read",
+          "subject_class": "sandbox_local",
+          "decision": "allow",
+          "grant_id": null
+        },
+        {
+          "id": "exec-1",
+          "time": 3,
+          "channel": "config_exec",
+          "subject_class": "untrusted_config",
+          "decision": "deny",
+          "grant_id": null
+        },
+        {
+          "id": "cred-1",
+          "time": 4,
+          "channel": "credential",
+          "subject_class": "scoped_credential",
+          "decision": "allow",
+          "grant_id": "g-cred"
+        },
+        {
+          "id": "eff-1",
+          "time": 6,
+          "channel": "downstream_effect",
+          "subject_class": "authorized_effect",
+          "decision": "allow",
+          "grant_id": null
+        }
+      ],
+      "revocations": [
+        {
+          "id": "rev-1",
+          "time": 5,
+          "grant_id": "g-cred"
+        }
+      ],
+      "effect_ledger": [
+        {
+          "event_id": "read-1",
+          "commit_time": null,
+          "subject_class": "sandbox_local"
+        },
+        {
+          "event_id": "cred-1",
+          "commit_time": 7,
+          "subject_class": "scoped_credential"
+        },
+        {
+          "event_id": "eff-1",
+          "commit_time": null,
+          "subject_class": "authorized_effect"
+        }
+      ],
+      "family_verdicts": {
+        "P_local_control": "supported",
+        "P_decision_entitlement": "supported",
+        "P_commit_authorization": "supported",
+        "P_commitment": "supported",
+        "P_system": "supported"
+      },
+      "commitment_by_event": {
+        "url-1": "prevented",
+        "read-1": "committed",
+        "exec-1": "prevented",
+        "cred-1": "committed",
+        "eff-1": "committed"
+      },
+      "well_formed": true
+    }
+  ]
+}

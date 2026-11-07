@@ -1,4 +1,4 @@
-schema_version: incident_property_graph_v1
+schema_version: incident_property_graph_v2
 layers:
   - local_evidence
   - decision
@@ -100,3 +100,119 @@ rejected_implications:
   - [P_file_read, P_exec]
   - [P_exec, P_file_read]
   - [decision_deny, settlement_prevented]
+  - [P_local_control, P_file_read]
+  - [P_local_control, P_exec]
+  - [P_local_control, P_identity]
+  - [P_local_control, P_effect]
+  - [P_local_control, P_system]
+  - [P_decision_entitlement, P_commit_authorization]
+  - [P_decision_entitlement, P_system]
+  - [P_commit_authorization, P_commitment]
+  - [P_commit_authorization, P_system]
+  - [P_commitment, P_system]
+  - [P_commitment, P_effect]
+  - [P_system, P_commit_authorization]
+default_authority_policy: null
+freeze_rule: >-
+  The case names one policy from revocation_policies before any model interval
+  is scored. There is no default. A missing policy on a model interval is an
+  error. A public proposition with no model interval stays well-formed without
+  a policy. Revocation is not implicitly treated as invalidating an authorization
+  already issued.
+revocation_policies:
+  - id: issued_survives_revocation
+    invalidates_issued_authorization: false
+    rule: >-
+      An authorization issued at decision time stays valid for a later commit
+      of that same event even if a revocation is observed after issuance and
+      before commit. Revocation prevents new issuances. It does not rewrite an
+      authorization already issued.
+  - id: revocation_closes_inflight
+    invalidates_issued_authorization: true
+    rule: >-
+      A revocation after issuance and at or before commit time withdraws
+      authorization for that commit. Decision-time entitlement is unchanged.
+evidence_standard:
+  id: lesswrong-oai-hf-reproduction
+  url: https://www.lesswrong.com/posts/fMnC6ZD37qrnZAFYz/openai-huggingface-a-reproduction-and-lessons-for-alignment
+  role: evidence_standard
+  published: "2026-09-11"
+  retrieved: "2026-11-07"
+withheld_records:
+  original_agent_transcripts:
+    availability: unavailable
+    blocks_well_formed: false
+    blocks_contract: false
+  platform_logs:
+    availability: unavailable
+    blocks_well_formed: false
+    blocks_contract: false
+families:
+  P_local_control:
+    proposition: >-
+      Each named local control's decisions match that control's own subject
+      rule. A supported control does not establish any other property.
+    inputs: [decision, subject_class]
+    required_observations:
+      - the control's decision (allow or deny) on its own channel
+      - the subject class that rule is about
+    independent_falsifier: >-
+      An authentic decision on that channel that disagrees with the control's
+      subject rule. A missing decision leaves the control unresolved. The
+      effect ledger is not an input.
+    evaluated_scope: The named local control. Not commitment, not authorization, and not P_system.
+  P_decision_entitlement:
+    proposition: >-
+      At the decision instant, under the authority state at that instant, the
+      recorded decision was the entitled one.
+    inputs: [decision, subject_class, grant, revocation_time]
+    required_observations:
+      - decision time
+      - subject class and decision
+      - grant identifier when entitlement depends on a grant
+      - revocations of that grant strictly before the decision
+    independent_falsifier: >-
+      A model-ledger revocation of the event's grant at a time strictly before
+      the decision, together with an allow. A revocation after the decision
+      does not refute decision-time entitlement.
+    evaluated_scope: The decision instant only. Not commit-time authorization.
+  P_commit_authorization:
+    proposition: >-
+      Every authentic commit in the observed interval was authorized under the
+      revocation policy frozen for that interval.
+    inputs: [ledger, decision_time_entitlement, revocation_policy, commit_time]
+    required_observations:
+      - the frozen revocation policy
+      - decision time and commit time
+      - whether the decision was an entitled allow
+      - revocations strictly after the decision and at or before commit time
+    independent_falsifier: >-
+      A commit whose decision was not an entitled allow, or, under
+      revocation_closes_inflight only, a revocation inside the open-left
+      interval. Under issued_survives_revocation that same revocation does
+      not refute the commit.
+    evaluated_scope: >-
+      Authorization of commits under one frozen policy. Not the fact of
+      commitment, and not P_system.
+  P_commitment:
+    proposition: Some authentic effect in the observed interval committed.
+    inputs: [ledger, coverage]
+    required_observations:
+      - authentic coverage of the interval
+      - effect-ledger membership of those events
+    independent_falsifier: >-
+      Authentic events and an empty effect ledger. Narrative text does not
+      support or refute commitment. A commit does not by itself support P_system.
+    evaluated_scope: Whether an effect committed. Not whether it was authorized.
+  P_system:
+    proposition: All five boundary properties hold in the evaluated scope.
+    inputs: [P_url, P_file_read, P_exec, P_identity, P_effect]
+    required_observations:
+      - an explicit verdict for every boundary child
+      - no upgrade from a local control, an entitlement, a commit authorization, or a commitment
+    independent_falsifier: >-
+      Any boundary child verdict of refuted. Support of P_local_control is
+      not support of this proposition.
+    evaluated_scope: >-
+      The conjunction of the five boundary properties. Not a claim that an
+      incident was detected or prevented.

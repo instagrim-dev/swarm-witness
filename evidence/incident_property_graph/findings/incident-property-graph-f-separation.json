@@ -4,8 +4,8 @@
   "run_ids": [
     "incident-property-graph-meta"
   ],
-  "proposition": "On nine synthetic boundary fixtures, supported(P_url) does not yield supported(P_system) when another child is refuted or unresolved; the single-policy-pass baseline does so on the counted counterexamples. A deny decision is not recorded as proof the effect was prevented. The Hugging Face timeline case stays unresolved on every boundary property because only public narrative is in hand. This run does not claim the incident was detected or prevented.",
-  "scope": "incident-property-graph-v1 synthetic model ledger plus one public-narrative case pinned to the 2026-07-27 Hugging Face technical timeline. Not live workers and not raw incident telemetry.",
+  "proposition": "Local-control correctness, decision-time entitlement, commit-time authorization, actual commitment, and P_system are separate. A supported local control does not support P_system. The same revocation refutes commit authorization only under the frozen policy that says it does. Original transcripts and platform logs are unavailable; that is not a contract failure, and the LessWrong reproduction is the evidence standard. This run does not claim the incident was detected or prevented.",
+  "scope": "incident-property-graph-v2 synthetic model ledger, the 2026-07-27 Hugging Face technical timeline as narrative, and the 2026-09-11 LessWrong reproduction post as the evidence standard. Not live workers, not original transcripts, and not platform logs.",
   "label": "reproduced",
   "basis": "computed",
   "conclusion_class": "supported",

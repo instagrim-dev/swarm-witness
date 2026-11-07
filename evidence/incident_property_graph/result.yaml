@@ -4,7 +4,7 @@ authoritative: finding
 finding_path: findings/incident-property-graph-f-separation.json
 metrics:
   passed: true
-  synthetic_case_count: 9
+  synthetic_case_count: 17
   postmortem_case_count: 1
   graph_false_system_supports: 0
   baseline_false_system_supports: 6
@@ -19,8 +19,17 @@ metrics:
   postmortem_independent_supported: 0
   postmortem_independent_refuted: 0
   postmortem_unresolved_properties: 5
-  conjunction_checks: 6905
+  conjunction_checks: 6917
   conjunction_checks_passed: true
   conservative_unresolved_gap: true
+  family_split_passed: true
+  discriminator_failures: 0
+  local_control_supported_system_not: 12
+  inflight_closes_commit_authorization: refuted
+  inflight_survives_commit_authorization: supported
+  comparison_counted_as_enforcement_failure: 0
+  unavailable_records_are_contract_failure: false
+  propositions_well_formed: true
+  issues_40_42_implemented: false
   incident_detection_claimed: false
   incident_prevention_claimed: false
