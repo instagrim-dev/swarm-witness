@@ -1,0 +1,282 @@
+contract_version: coordination-attribution-v1
+provenance_contract: evidence-provenance-v1
+provenance_graph_id: incident-lineage
+notes: Coordination cases cite the evidence-provenance-v1 incident graph. They do
+  not add agent instances, message bodies, or clocks. Reported counts stay on
+  that graph's reported_not_held fields. A blocks_upgrade slot still blocks support.
+cases:
+- id: coord_board_participation
+  proposition: About 1200 agents participated in an unsanctioned Artifactory message
+    board, as observed from the board records rather than from a repeated public sentence.
+  proposition_kind: board_participation
+  provenance_claim_id: prov_message_board
+  populations:
+  - id: pop-board-agents
+    count_label: investigator_reported
+    unit: agents
+    provenance_source_id: src-board-dump
+    reported_field: agents_on_board
+  - id: pop-board-messages
+    count_label: investigator_reported
+    unit: messages_and_files
+    provenance_source_id: src-board-dump
+    reported_field: messages_and_files
+  - id: pop-board-sentences
+    count_label: directly_processed
+    unit: publication_sentences
+    record_ids:
+    - msg-metr-board
+    - msg-redwood-board
+  agent_instances: []
+  tasks: []
+  messages:
+  - id: msg-metr-board
+    artifact_ref: src-metr-board
+    speaker_agent_id: null
+    relation_to_content: investigator_aggregate
+    provenance_event_ids:
+    - ev-metr-board
+    provenance_source_ids:
+    - src-metr-board
+    - src-board-dump
+  - id: msg-redwood-board
+    artifact_ref: src-redwood-board
+    speaker_agent_id: null
+    relation_to_content: investigator_aggregate
+    provenance_event_ids:
+    - ev-redwood-board
+    provenance_source_ids:
+    - src-redwood-board
+    - src-board-dump
+  delegations: []
+  adoptions: []
+  effects: []
+  observed_times:
+  - id: ot-metr-board
+    provenance_event_id: ev-metr-board
+  - id: ot-redwood-board
+    provenance_event_id: ev-redwood-board
+  source_citations:
+  - id: cite-metr-board
+    provenance_source_id: src-metr-board
+  - id: cite-redwood-board
+    provenance_source_id: src-redwood-board
+  - id: cite-board-dump
+    provenance_source_id: src-board-dump
+  - id: cite-other-channels
+    provenance_source_id: src-other-channels
+  edges:
+  - id: edge-board-duplicate
+    kind: duplicate_report
+    from_id: msg-metr-board
+    to_id: msg-redwood-board
+    provenance_event_ids:
+    - ev-metr-board
+    - ev-redwood-board
+    provenance_source_ids:
+    - src-metr-board
+    - src-redwood-board
+    - src-board-dump
+    - src-other-channels
+    source_citation_ids:
+    - cite-metr-board
+    - cite-redwood-board
+    - cite-board-dump
+    - cite-other-channels
+- id: coord_delegated_workstream
+  proposition: Public reports establish a delegated workstream among identified agents.
+  proposition_kind: delegated_workstream
+  provenance_claim_id: null
+  populations:
+  - id: pop-outline-sentence
+    count_label: directly_processed
+    unit: publication_sentences
+    record_ids:
+    - msg-outline
+  agent_instances: []
+  tasks:
+  - id: task-unnamed
+    statement: The public outline does not name a delegated task or either party.
+    provenance_event_ids:
+    - ev-openai-hf
+    provenance_source_ids:
+    - src-openai-hf-outline
+  messages:
+  - id: msg-outline
+    artifact_ref: src-openai-hf-outline
+    speaker_agent_id: null
+    relation_to_content: investigator_aggregate
+    provenance_event_ids:
+    - ev-openai-hf
+    provenance_source_ids:
+    - src-openai-hf-outline
+    - src-transcript-dump
+  delegations: []
+  adoptions: []
+  effects: []
+  observed_times:
+  - id: ot-outline
+    provenance_event_id: ev-openai-hf
+  source_citations:
+  - id: cite-outline
+    provenance_source_id: src-openai-hf-outline
+  - id: cite-transcript
+    provenance_source_id: src-transcript-dump
+  edges:
+  - id: edge-alleged-workstream
+    kind: investigator_inference
+    from_id: msg-outline
+    to_id: task-unnamed
+    provenance_event_ids:
+    - ev-openai-hf
+    provenance_source_ids:
+    - src-openai-hf-outline
+    - src-transcript-dump
+    source_citation_ids:
+    - cite-outline
+    - cite-transcript
+- id: coord_collective_impact
+  proposition: Coordination among the reported board population caused a committed
+    effect on Hugging Face infrastructure.
+  proposition_kind: collective_causal_impact
+  provenance_claim_id: prov_hf_effect
+  populations:
+  - id: pop-reported-agents
+    count_label: investigator_reported
+    unit: agents
+    provenance_source_id: src-board-dump
+    reported_field: agents_on_board
+  - id: pop-processed-sentences
+    count_label: directly_processed
+    unit: publication_sentences
+    record_ids:
+    - msg-metr-board
+    - msg-redwood-board
+  agent_instances: []
+  tasks: []
+  messages:
+  - id: msg-metr-board
+    artifact_ref: src-metr-board
+    speaker_agent_id: null
+    relation_to_content: investigator_aggregate
+    provenance_event_ids:
+    - ev-metr-board
+    provenance_source_ids:
+    - src-metr-board
+    - src-board-dump
+  - id: msg-redwood-board
+    artifact_ref: src-redwood-board
+    speaker_agent_id: null
+    relation_to_content: investigator_aggregate
+    provenance_event_ids:
+    - ev-redwood-board
+    provenance_source_ids:
+    - src-redwood-board
+    - src-board-dump
+  delegations: []
+  adoptions: []
+  effects:
+  - id: eff-hf
+    statement: No committed effect is held. Platform logs, redacted indicators, and
+      launchpad logs stay unavailable.
+    provenance_event_ids:
+    - ev-hf-narrative
+    - ev-openai-hf
+    - ev-metr-scope
+    provenance_source_ids:
+    - src-hf-correlation
+    - src-hf-window
+    - src-hf-platform-logs
+    - src-hf-indicators
+    - src-launchpad-logs
+    - src-openai-hf-outline
+    - src-metr-scope
+  observed_times:
+  - id: ot-metr-board
+    provenance_event_id: ev-metr-board
+  - id: ot-redwood-board
+    provenance_event_id: ev-redwood-board
+  - id: ot-hf-narrative
+    provenance_event_id: ev-hf-narrative
+  - id: ot-openai-hf
+    provenance_event_id: ev-openai-hf
+  - id: ot-metr-scope
+    provenance_event_id: ev-metr-scope
+  source_citations:
+  - id: cite-metr-board
+    provenance_source_id: src-metr-board
+  - id: cite-redwood-board
+    provenance_source_id: src-redwood-board
+  - id: cite-board-dump
+    provenance_source_id: src-board-dump
+  - id: cite-hf-correlation
+    provenance_source_id: src-hf-correlation
+  - id: cite-hf-window
+    provenance_source_id: src-hf-window
+  - id: cite-hf-platform-logs
+    provenance_source_id: src-hf-platform-logs
+  - id: cite-hf-indicators
+    provenance_source_id: src-hf-indicators
+  - id: cite-launchpad-logs
+    provenance_source_id: src-launchpad-logs
+  - id: cite-openai-outline
+    provenance_source_id: src-openai-hf-outline
+  - id: cite-metr-scope
+    provenance_source_id: src-metr-scope
+  edges:
+  - id: edge-board-duplicate
+    kind: duplicate_report
+    from_id: msg-metr-board
+    to_id: msg-redwood-board
+    provenance_event_ids:
+    - ev-metr-board
+    - ev-redwood-board
+    provenance_source_ids:
+    - src-metr-board
+    - src-redwood-board
+    - src-board-dump
+    source_citation_ids:
+    - cite-metr-board
+    - cite-redwood-board
+    - cite-board-dump
+  - id: edge-time-correlation
+    kind: temporal_correlation
+    from_id: msg-metr-board
+    to_id: eff-hf
+    provenance_event_ids:
+    - ev-metr-board
+    - ev-hf-narrative
+    provenance_source_ids:
+    - src-metr-board
+    - src-hf-correlation
+    - src-hf-window
+    - src-hf-platform-logs
+    source_citation_ids:
+    - cite-metr-board
+    - cite-hf-correlation
+    - cite-hf-window
+    - cite-hf-platform-logs
+  - id: edge-alleged-contribution
+    kind: contribution
+    from_id: msg-metr-board
+    to_id: eff-hf
+    provenance_event_ids:
+    - ev-hf-narrative
+    - ev-openai-hf
+    - ev-metr-scope
+    provenance_source_ids:
+    - src-hf-correlation
+    - src-hf-window
+    - src-hf-platform-logs
+    - src-hf-indicators
+    - src-launchpad-logs
+    - src-openai-hf-outline
+    - src-metr-scope
+    source_citation_ids:
+    - cite-hf-correlation
+    - cite-hf-window
+    - cite-hf-platform-logs
+    - cite-hf-indicators
+    - cite-launchpad-logs
+    - cite-openai-outline
+    - cite-metr-scope

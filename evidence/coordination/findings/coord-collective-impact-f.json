@@ -1,0 +1,16 @@
+{
+  "basis": "computed",
+  "claim_id": "coord_collective_impact",
+  "conclusion_class": "missing_evidence",
+  "evaluation_method": "held_out_artifact_audit",
+  "id": "coord-collective-impact-f",
+  "label": "unresolved",
+  "proposition": "Coordination among the reported board population caused a committed effect on Hugging Face infrastructure.",
+  "run_ids": [
+    "coord-collective-impact-run"
+  ],
+  "scope": "Public excerpts already pinned in the evidence-provenance-v1 incident graph. Coordination does not add agent instances or telemetry.",
+  "supporting_observation_refs": [
+    "coord-collective-impact-run.observations.finding_label"
+  ]
+}

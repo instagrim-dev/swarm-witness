@@ -1,0 +1,21 @@
+claim_id: coordination_attribution_v1
+label: reproduced
+metrics:
+  incident_propositions: 3
+  incident_unresolved: 3
+  incident_added_claim_qualification_value: false
+  traced_causal_actor_count: 0
+  negative_controls: 6
+  negative_controls_passed: true
+  scale_messages: 70000
+  scale_pairs_considered: 1200
+  scale_all_pairs: 719400
+  scale_agent_pair_matrix_allocated: false
+  supported_while_blocked: false
+  real_world_authenticity_certified: false
+  incident_detection_claimed: false
+  incident_prevention_claimed: false
+notes: Fixture conformance for coordination-attribution-v1. The three public propositions
+  stay unresolved because board records, transcripts, and platform logs are not held.
+  A verified log from another source does not clear those blockers. This is not an
+  incident detection or prevention result.

@@ -1,0 +1,18 @@
+{
+  "basis": "computed",
+  "claim_id": "coordination_attribution_v1",
+  "conclusion_class": "supported",
+  "evaluation_method": "synthetic_protocol_conformance",
+  "id": "coordination-attribution-v1-f",
+  "label": "reproduced",
+  "proposition": "Replaying the coordination fixture leaves the three public-record propositions unresolved, keeps upgrade blockers in force, and certifies neither detection nor prevention.",
+  "run_ids": [
+    "coordination-attribution-v1-run"
+  ],
+  "scope": "coordination-attribution-v1 fixture conformance",
+  "supporting_observation_refs": [
+    "coordination-attribution-v1-run.observations.incident_unresolved",
+    "coordination-attribution-v1-run.observations.real_world_authenticity_certified",
+    "coordination-attribution-v1-run.observations.incident_detection_claimed"
+  ]
+}

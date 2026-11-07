@@ -17,6 +17,18 @@ results:
 - claim_id: forensic_telemetry_v1
   label: reproduced
   finding_id: forensic-telemetry-v1-f
+- claim_id: coord_board_participation
+  label: unresolved
+  finding_id: coord-board-participation-f
+- claim_id: coord_collective_impact
+  label: unresolved
+  finding_id: coord-collective-impact-f
+- claim_id: coord_delegated_workstream
+  label: unresolved
+  finding_id: coord-delegated-workstream-f
+- claim_id: coordination_attribution_v1
+  label: reproduced
+  finding_id: coordination-attribution-v1-f
 - claim_id: prov_hf_effect
   label: unresolved
   finding_id: prov-hf-effect-f
