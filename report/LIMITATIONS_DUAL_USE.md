@@ -8,31 +8,43 @@ harness (source revision `6568403`), the barrier policy yields
 143 prohibited effects, with 147 strict refusal-startup refusals under the
 strict policy. Does **not** establish that every agent admission gate is
 restart-safe, that SoundGate is free of other defect classes, or that
-recover-before-admit is a new multi-agent invention (it matches the classical
-durable-log baseline).
+recover-before-admit is a new multi-agent invention (that classical reduction
+remains an authored baseline question under test). Committed
+`evidence/r1/raw.json.gz` supports local inspection of the sweep artifact
+(`gzip -dc evidence/r1/raw.json.gz > evidence/r1/raw.json`); recorded
+`raw_sha256` is an integrity check and **does not replace** inspecting
+`raw.json` / analysis case records.
 
-**R2 (`reproduced`).** Establishes that the pinned EvidenceGraph stress pack
-(`a5ea5c9` / baseline `efbd419`) passes 36/36 condition-by-seed checks: old-rule
-relay wrong attributions are 1 per seed; safer relay supported attributions are
-0; clean runs withhold all 12 attributions without exclusivity declarations.
-Does **not** establish that all receipt or ledger systems are safe under
-relay/copy, or that exclusivity declarations themselves cannot be gamed outside
-the modeled threat surface.
+**R2 (`reproduced`).** Establishes that the stress pack executed at harness rev
+`a5ea5c9` passes 36/36 condition-by-seed checks: old-rule relay wrong
+attributions are 1 per seed; safer relay supported attributions are 0; clean
+runs withhold all 12 attributions without exclusivity declarations. Paper
+baseline `efbd419` is the pre-extension tree (no `incident_stress.py`); its
+baseline *behavior* is represented by replaying the authors’ later-published
+stress pack at `a5ea5c9`, not by running a missing harness at `efbd419`. Does
+**not** establish that all receipt or ledger systems are safe under relay/copy,
+or that exclusivity declarations themselves cannot be gamed outside the modeled
+threat surface.
 
-**R3 (`assumption_dependent`).** Establishes that preferred BMO retained-grant
-tests pass (6/6) and that ClassicalGate vs BMO comparison yields 3/3 ok proxy
-rows with **0** isomorphic decision matches across 4 rows (one
-`proxy_mismatch`). Does **not** establish that ClassicalGate and BMO share an
-API or that deny/allow-shaped proxies imply decision equivalence. Retained
-metadata ≠ relaunch authority remains a classical durable-grant-table claim,
-shown here only via mechanism-class affinity under stated assumptions.
+**R3 (`unresolved`).** Establishes that the matched ClassicalGate
+decision-model comparison against BMO is **incomplete**: 0/4 required cases
+have isomorphic BMO observations, so the comparison Finding is `unresolved`
+(comparison not performed). ClassicalGate is a **decision-model** null
+(`state`, `request`, `grant_version`)—not a restart-durability claim.
+Selected preferred Go tests on the pinned BMO revision are package metadata
+only and do not fill decisions or substitute for a matched comparative label.
+Does **not** establish ClassicalGate↔BMO API equivalence, assumption-dependent
+affinity, or a methodological reduction of BMO’s durable-grant story to
+classical controls.
 
-## Finite experiments are not general equivalence
+## Finite experiments and checker scope
 
 Pinned histories, seeds `{0,1,2}`, and preferred Go tests are finite. Passing
 them does not imply equivalence across versions, storage backends, concurrent
 writers outside the model, or production deployments. Labels apply to the
-stated scope on the claim cards only.
+stated scope on the claim cards only. `scripts/check_evidence.py` binds
+reported metrics to linked Run observations when keys overlap; it does not
+re-execute harnesses or prove metric completeness beyond that binding.
 
 ## Dual-use / adversarial use of the audit method
 
@@ -45,9 +57,9 @@ scoped to already-public or author-local preexisting trees (`PREEXISTING.md`).
 
 ## Preexisting code vs weekend analysis
 
-Oct 25 scaffold paths and the external BMO tree at pinned `bmo_root` predate
-this sprint and were not modified for R3 beyond read-only `go test`. Weekend
-work is the Swarm Witness schema, pins, claim cards, baselines, experiment
-wrappers, evidence records, index checker, and this report. Judges should
-score the audit contribution, not treat preexisting BMO surfaces as sprint
-inventions.
+Oct 25 scaffold paths and the external BMO tree at pinned `bmo_root` /
+`git_rev` predate this sprint and were not modified for R3 beyond read-only
+`go test`. Weekend work is the Swarm Witness schema, pins, claim cards,
+baselines, experiment wrappers, evidence records, index checker, and this
+report. Judges should score the audit contribution, not treat preexisting BMO
+surfaces as sprint inventions.

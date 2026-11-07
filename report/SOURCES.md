@@ -26,7 +26,7 @@ chrome. Submission-ready content is in:
 - `report/ABSTRACT.md`
 - `report/body.md`
 - `report/LIMITATIONS_DUAL_USE.md`
-- `report/Swarm_Witness_Apart_Submission.pdf` (pandoc/weasyprint export)
+- `report/Swarm_Witness_Apart_Submission.pdf` (pandoc/Chrome export)
 
 **Before final Apart form submit**, if judges require the exact official template
 chrome (Apart header, author grid, guidance-stripped Docs layout), the author
@@ -39,9 +39,9 @@ budget.
 
 | Claim | Label | Primary metrics files |
 | --- | --- | --- |
-| R1 | reproduced | `evidence/r1/summary.json`, `evidence/r1/result.yaml` |
-| R2 | reproduced | `evidence/r2/summary.json`, `evidence/r2/result.yaml` |
-| R3 | assumption_dependent | `evidence/r3/summary.json`, `evidence/r3/result.yaml` |
+| R1 | reproduced | `evidence/r1/summary.json`, `evidence/r1/result.yaml`; raw inspect via `evidence/r1/raw.json.gz` |
+| R2 | reproduced | `evidence/r2/summary.json`, `evidence/r2/result.yaml` (harness `a5ea5c9`; baseline behavior via stress pack vs `efbd419`) |
+| R3 | unresolved | `evidence/r3/findings/r3-f-comparison.json`, `evidence/r3/summary.json`, `evidence/r3/result.yaml` |
 
 Index: `evidence/index.yaml`. Pins: `artifacts/pins.yaml`. Baselines:
 `baselines/r1_wal_recover_before_admit.md`,

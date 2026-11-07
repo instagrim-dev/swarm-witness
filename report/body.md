@@ -1,15 +1,17 @@
 # 1. Introduction
 
-Agent-facing “safety” components—authorization gates, receipt graphs, retained
-grants—are frequently marketed as multi-agent innovations. Many instantiate
-older durable-log, provenance, and admit-barrier patterns. When a report claims
-a restart-safe refusal, receipt-based attribution, or retained-grant relaunch
-control, auditors need to know whether the result is a new property, a repaired
-instance of a classical mechanism, or an assumption-dependent analogy.
-
 **Research question.** After matching policy, observations, trust assumptions,
 durability, and enforcement coverage, which claimed benefits of agent-safety
 mechanisms remain?
+
+Authorization gates, receipt graphs, and retained grants are agent-facing
+controls that auditors must score carefully. When a report claims a restart-safe
+refusal, receipt-based attribution, or retained-grant relaunch control, the
+open question is whether the result is a new property, a repaired instance of a
+classical mechanism, or an incomplete comparison. Classical reductions—
+recover-before-admit for durable logs, no-implicit-exclusivity for receipt
+tokens, and durable grant-table checks before admit—are **questions we test**
+with matched baselines, not conclusions we assert in the introduction.
 
 **Threat / failure modes.** (i) An admission gate forgets an acknowledged
 rejection across restart when the durable log is not recovered before admit.
@@ -18,17 +20,18 @@ attribution without exclusivity or authenticity. (iii) Retained start/grant
 metadata is treated as standing relaunch authority without consulting a durable
 grant table.
 
-**Main contributions.**
+**Main contributions (claimed).**
 
-1. **Swarm Witness claim-audit method:** pinned artifacts, typed claim cards,
-   classical baselines, discriminating experiments, and fail-closed labels
-   (`reproduced`, `assumption_dependent`, …) with an evidence index checker.
-2. **Executable audits of three public/pinned targets** (SoundGate recovery
-   barrier; EvidenceGraph receipt stress; BMO retained-grant owner path) with
-   metrics taken only from committed `evidence/*/summary.json`.
-3. **Classical baseline cards** showing when a “novel” repair is
-   recover-before-admit or no-implicit-exclusivity reasserted, versus when
-   mechanism-class proxies do not justify isomorphic decision claims.
+1. **Audit kit:** Swarm Witness pins artifacts, types Claim/Run/Finding cards,
+   states classical baselines, runs discriminating experiments, and fails closed
+   on evidence consistency (`reproduced`, `unresolved`, …).
+2. **Pinned replications:** SoundGate recovery barrier (R1) and EvidenceGraph
+   receipt stress (R2) under published harnesses, with metrics from committed
+   `evidence/*/summary.json`.
+
+A third contribution—a **methodological finding** that a durable-grant story
+reduces to classical controls—is **not claimed** here: R3’s matched
+decision-model comparison is incomplete (`unresolved`).
 
 Tracks: **3** (Strengthening Agent Infrastructure) and **4** (Multi-Agent
 Oversight and Control). Preexisting BMO code and Oct 25 scaffold are marked in
@@ -45,16 +48,15 @@ Greenblatt et al., 2024). Concrete targets:
   recovery-barrier repair (pinned package `soundgate==0.1.3`, source revision
   `6568403`).
 - **EvidenceGraph / Junejo “Receipt Possession Is Not Event Attribution”** —
-  stress harness distinguishing possession from attribution (git rev
-  `a5ea5c9`, paper baseline `efbd419`).
+  stress harness at git rev `a5ea5c9`; paper baseline rev `efbd419` (pre-extension
+  behavior; no runnable stress script at that rev).
 - **BMO ordinary-retry retained grant** — preexisting durable grant /
-  owner-witness tests under pinned `bmo_root` (read-only `go test`).
+  owner-witness tests under pinned `bmo_root` / `git_rev` (read-only `go test`
+  as metadata).
 
-Classical nulls (baselines in-repo): durable log validate/repair/replay before
-admit; no implicit exclusivity for receipt tokens; durable grant table checked
-before admit with retained metadata never authorizing relaunch. Swarm Witness
-differs from building a new gate: it asks what labels survive matched baselines
-and discriminating checks.
+In-repo baseline cards state mechanism classes without equating every proxy to
+a decision match. Swarm Witness differs from building a new gate: it asks what
+labels survive matched baselines and discriminating checks.
 
 # 3. Methods
 
@@ -62,32 +64,38 @@ and discriminating checks.
 `success_criterion`, `assumptions`, `baseline`, and `discriminating_checks`.
 **Pins** (`artifacts/pins.yaml`) freeze revisions and hashes. **Baselines**
 state the mechanism class without equating every proxy to a decision match.
-**Evidence** uses `ResultRecord` labels; `scripts/check_evidence.py` fails closed
-if `evidence/index.yaml` disagrees with `result.yaml` or files are missing.
+**Evidence** uses Finding labels; `scripts/check_evidence.py` fails closed if
+`evidence/index.yaml` disagrees with findings or supporting refs are missing.
+The checker’s metric-binding scope is limited: reported metrics must agree with
+linked Run observations when keys overlap—it does not re-execute harnesses.
 
 **R1 (SoundGate).** Rebuild and sweep the paper recovery-barrier harness at
 pinned source `6568403`. Compare policies `original`, `strict`, and `barrier`
 over the published histories. Success for reproduction: barrier
-`prohibited_effects == 0` with original showing the defect. Supplemental cargo
+`prohibited_effects == 0` with original showing the defect. Full `raw.json` is
+gitignored; committed `evidence/r1/raw.json.gz` supports local inspection
+(`gzip -dc … > raw.json`). Recorded `raw_sha256` is integrity only—hash alone
+does not replace inspecting analysis case records. Supplemental cargo
 `wal_recovery_barrier` on 0.1.4 recorded in notes.
 
-**R2 (EvidenceGraph).** Run `incident_stress.py` at `a5ea5c9` against baseline
-`efbd419`. Contract checks over seeds `{0,1,2}`: old-rule wrong attributions on
-relay, safer supported/correct on relay, clean withheld without exclusivity,
-false-exclusivity confident errors. Label `reproduced` when all contract checks
-pass and the safer rule restores abstention under undeclared exclusivity.
+**R2 (EvidenceGraph).** The harness **runs at `a5ea5c9`**, which publishes
+`incident_stress.py`. Paper baseline `efbd419` is the pre-extension tree
+(no stress script); baseline *behavior* is represented by replaying the
+authors’ later-published stress pack at `a5ea5c9` (old-rule vs safer-default
+contrast), not by executing a missing harness at `efbd419`. Label `reproduced`
+when all contract checks pass.
 
-**R3 (BMO vs ClassicalGate).** Run preferred retained-grant Go tests
-read-only; compare four ClassicalGate conditions to BMO observations as
-`mechanism_class_proxy`, `proxy_mismatch`, or isomorphic match. Do **not**
-hardcode BMO decisions from ClassicalGate. Label `assumption_dependent` when
-affinity is proxy-only (0 isomorphic matches).
+**R3 (BMO vs ClassicalGate).** Shared `cases.yaml` decision-model inputs;
+ClassicalGate emits allow/deny per case. BMO decisions require isomorphic
+observations from matching assertions or an instrumented harness—never package
+pass counts. When any required BMO case is unmatched, the comparison Finding is
+**`unresolved`** (incomplete comparative audit). Optional preferred Go tests are
+metadata only.
 
 # 4. Results
 
-Labels from `evidence/index.yaml` / `result.yaml` only: R1 **reproduced**, R2
-**reproduced**, R3 **assumption_dependent**. Metrics below cite
-`evidence/*/summary.json`.
+Labels from `evidence/index.yaml` / findings only: R1 **reproduced**, R2
+**reproduced**, R3 **unresolved**. Metrics below cite `evidence/*/summary.json`.
 
 ## 4.1 R1 — SoundGate recovery barrier (`reproduced`)
 
@@ -102,14 +110,14 @@ Fresh local rebuild+sweep; `all_checks_pass: true`;
 
 Barrier restores acknowledge-and-restrict across restart under the published
 histories; original loses restrictions (143 prohibited effects). Cargo
-`wal_recovery_barrier` on 0.1.4: 3 passed (notes). Mechanism class remains
-classical recover-before-admit (`baselines/r1_wal_recover_before_admit.md`).
+`wal_recovery_barrier` on 0.1.4: 3 passed (notes). Classical recover-before-admit
+is an authored baseline interpretation (`baselines/r1_wal_recover_before_admit.md`),
+not a separate empirical `classical_baseline_matches` Finding.
 
 ## 4.2 R2 — Receipt ≠ attribution (`reproduced`)
 
-`condition_by_seed_checks` **36**, passed **36**; seeds 0,1,2;
-`all_contract_checks_pass: true`;
-`source_tree_sha256=2962568f…`.
+Harness at `a5ea5c9`; `condition_by_seed_checks` **36**, passed **36**; seeds
+0,1,2; `all_contract_checks_pass: true`; `source_tree_sha256=2962568f…`.
 
 | Metric (per seed) | seed 0 | seed 1 | seed 2 |
 | --- | ---: | ---: | ---: |
@@ -121,40 +129,42 @@ classical recover-before-admit (`baselines/r1_wal_recover_before_admit.md`).
 | false_exclusivity confident errors | 1 | 1 | 1 |
 
 Relay seed-0 outcomes: ambiguous 10, unmatched 2. Safer default withholds
-attribution without exclusivity; old rule errs once per seed on relay. Mechanism
-class: no implicit exclusivity (`baselines/r2_no_implicit_exclusivity.md`).
+attribution without exclusivity; old rule errs once per seed on relay. Classical
+no-implicit-exclusivity is authored interpretation
+(`baselines/r2_no_implicit_exclusivity.md`).
 
-## 4.3 R3 — Retained grant vs ClassicalGate (`assumption_dependent`)
+## 4.3 R3 — Retained grant vs ClassicalGate (`unresolved`)
 
-BMO Go tests: **pass_count 6**, **fail_count 0**, `package_ok: true`. Comparison
-rows: **proxy_rows_ok 3 / 3**, **isomorphic_decision_matches 0 / 4**.
+Matched decision-model comparison: **0/4** isomorphic BMO observations;
+`missing_bmo_cases: 4`. Comparison Finding `r3-f-comparison` label
+**`unresolved`** — comparison not performed / incomplete. ClassicalGate arm
+completed all four cases under the decision model (`state`, `request`,
+`grant_version`); BMO arm records `execution_status=missing` /
+`missing_isomorphic_observation` for each. Selected preferred Go tests on the
+pinned BMO revision remain available as package metadata and are **not** used
+as decisions or as a substitute comparative label.
 
-| Condition | ClassicalGate | BMO observed | Relation |
+| Case | ClassicalGate | BMO decision | BMO status |
 | --- | --- | --- | --- |
-| retained_start_claim + relaunch | deny | not_isomorphic | mechanism_class_proxy |
-| rejected + restart + execute | deny | not_isomorphic | proxy_mismatch |
-| active_grant + execute | allow | not_isomorphic | mechanism_class_proxy |
-| stale grant copy vs current | deny | not_isomorphic | mechanism_class_proxy |
-
-Proxy rows show deny/allow-shaped affinity (spent/prior-consumer, owner-witness
-admit, wrong/altered grant). `rejected+restart` maps to process-reload in the
-null model; BMO `LegacyWriterBoundary` is a writer-boundary race
-(`proxy_mismatch`)—not claimed as a decision match.
+| retained_start_claim_relaunch | deny | — | missing |
+| rejected_execute | deny | — | missing |
+| active_grant_execute | allow | — | missing |
+| stale_grant_version | deny | — | missing |
 
 # 5. Discussion
 
 **Implications.** For Tracks 3–4, durable identity and oversight claims should
-be scored against classical admit and evidence rules. R1 and R2 show that
-published repairs can **reproduce** restorations of those rules under pinned
-harnesses; that is valuable engineering and audit evidence, not proof of a new
-multi-agent primitive. R3 shows how easy it is to over-claim: related tests and
-proxy shapes ≠ isomorphic contracts.
+be scored against classical admit and evidence rules under matched
+observations. R1 and R2 show that published repairs can **reproduce** under
+pinned harnesses; that is valuable engineering and audit evidence, not proof of
+a new multi-agent primitive. R3 shows the fail-closed path: without isomorphic
+BMO observations, the comparative audit stays **unresolved**.
 
-**Limitations (summary).** Finite pinned sweeps ≠ general equivalence across
-deployments; R3 is explicitly assumption-dependent; preexisting BMO surfaces
-were consulted read-only. Full Limitations and Dual-Use appendix follows.
+**Limitations (summary).** ClassicalGate is a **decision-model** null (not
+restart durability); R3 comparison is incomplete; R1 raw inspectability is via
+committed `raw.json.gz`; R2 executable binding is `a5ea5c9` with `efbd419` as
+behavioral baseline via published stress pack; evidence checker metric-binding
+is scope-limited. Full Limitations and Dual-Use appendix follows.
 
-**Future work.** Expand pins to more gate implementations; strengthen R3 toward
-shared observation APIs where isomorphic matches are possible; automate
-baseline-vs-claim diff reports for continuous oversight of agent
-infrastructure.
+**Future work.** Shared observation APIs for R3 isomorphic matches; expand pins;
+automate baseline-vs-claim diffs for continuous oversight.
