@@ -1,0 +1,117 @@
+{
+  "case_id": "tel_original_logs",
+  "claim_id": "tel_original_logs",
+  "execution_status": "completed",
+  "id": "tel-original-logs-run",
+  "observations": {
+    "absence_of_sink_is_no_effect": false,
+    "conclusion_class": "missing_evidence",
+    "effect_status": "unobserved",
+    "finding_label": "unresolved",
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "independent_observation_count": 0,
+    "primary_upgrade_blocker": null,
+    "qualification": {
+      "absence_of_sink_is_no_effect": false,
+      "chronology": {
+        "event_time": null,
+        "fabricated": false,
+        "observed_time": null,
+        "time_basis": "missing"
+      },
+      "cited_independence_groups": [],
+      "claim_id": "tel_original_logs",
+      "conclusion_class": "missing_evidence",
+      "coverage": {
+        "available": 0,
+        "denominator": 2,
+        "redacted": 0,
+        "unobserved": 1,
+        "withheld": 1
+      },
+      "coverage_assumption": {
+        "completeness": "partial",
+        "declared": true,
+        "interval": {
+          "end": null,
+          "start": null
+        },
+        "operation": "original-platform-effect"
+      },
+      "coverage_established": false,
+      "decision_status": "unknown",
+      "diagnosis": {
+        "decision_status": "unknown",
+        "effect_status": "unobserved",
+        "evidence_status": "missing",
+        "failure_origin": "evidence"
+      },
+      "dimensions": {
+        "authenticity": "unknown",
+        "collection_completeness": "partial",
+        "scope_binding": "unknown",
+        "temporal_applicability": "unknown"
+      },
+      "duplicated_report_ids": [],
+      "effect_status": "unobserved",
+      "evidence_status": "missing",
+      "evidence_type_counts": {
+        "application_readback": 0,
+        "public_report_assertion": 0,
+        "synthetic_model_record": 0
+      },
+      "failure_origin": "evidence",
+      "finding_label": "unresolved",
+      "incident_detection_claimed": false,
+      "incident_prevention_claimed": false,
+      "independent_observation_count": 0,
+      "invalid_requirements": [],
+      "investigator_count": 0,
+      "investigators": [],
+      "kind_rejections": [],
+      "kinds_present": [],
+      "lineage": [],
+      "missing_requirements": [],
+      "primary_upgrade_blocker": null,
+      "property_holds": null,
+      "proposition": "Original Hugging Face platform logs show a committed effect.\n",
+      "publication_surface_count": 0,
+      "real_world_authenticity_certified": false,
+      "reason": "missing_evidence: no admissible verified observation",
+      "rejected_times": [],
+      "reported_counts": {
+        "held_by_audit": false,
+        "precision": "reported_approximate",
+        "spoofed_transcripts": 96,
+        "transcripts": 1300
+      },
+      "source_conflict": false,
+      "unavailable_sources": [
+        {
+          "access_level": "unobserved",
+          "coverage_status": "unobserved",
+          "independence_group": "huggingface-platform-telemetry-2026-07",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-original-platform-logs",
+          "source_id": "src-hf-platform-logs"
+        },
+        {
+          "access_level": "withheld",
+          "coverage_status": "withheld",
+          "independence_group": "openai-supplied-transcript-dump",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-original-transcript-dump",
+          "source_id": "src-transcript-dump"
+        }
+      ],
+      "unverified_binding": false,
+      "upgrade_blocked_by": [],
+      "verified_event_ids": [],
+      "verified_narrative_group_count": 0
+    },
+    "real_world_authenticity_certified": false
+  },
+  "protocol_id": "forensic-telemetry-v1",
+  "source_pin": "forensic-telemetry-v1"
+}

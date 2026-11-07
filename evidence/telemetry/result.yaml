@@ -1,0 +1,15 @@
+claim_id: forensic_telemetry_v1
+label: reproduced
+metrics:
+  reproduction_finding_label: reproduced
+  independent_observation_count: 1
+  original_finding_label: unresolved
+  confirmed_effect_count: 0
+  blocks_upgrade_slot_count: 0
+  unavailable_source_count: 9
+  real_world_authenticity_certified: false
+  incident_detection_claimed: false
+  incident_prevention_claimed: false
+notes: The LessWrong post and appendix qualify as one public record. The OpenAI transcript
+  dump and Hugging Face platform logs stay unavailable and are not gates. The original
+  incident is not certified.

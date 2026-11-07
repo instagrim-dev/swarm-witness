@@ -11,6 +11,9 @@ results:
 - claim_id: incident_comparison_v1
   label: reproduced
   finding_id: incident-comparison-v1-f
+- claim_id: forensic_telemetry_v1
+  label: reproduced
+  finding_id: forensic-telemetry-v1-f
 - claim_id: prov_hf_effect
   label: unresolved
   finding_id: prov-hf-effect-f
@@ -50,3 +53,9 @@ results:
 - claim_id: taxonomy_theory
   label: reproduced
   finding_id: taxonomy-theory-finite-check
+- claim_id: tel_original_logs
+  label: unresolved
+  finding_id: tel-original-logs-f
+- claim_id: tel_reproduction_record
+  label: reproduced
+  finding_id: tel-reproduction-record-f

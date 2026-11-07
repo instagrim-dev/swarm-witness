@@ -1,0 +1,19 @@
+{
+  "basis": "computed",
+  "claim_id": "tel_reproduction_record",
+  "conclusion_class": "supported",
+  "evaluation_method": "held_out_artifact_audit",
+  "id": "tel-reproduction-record-f",
+  "label": "reproduced",
+  "proposition": "The public LessWrong reproduction post and its appendix are one release. They are not the OpenAI transcript dump and not Hugging Face platform logs.\n",
+  "run_ids": [
+    "tel-reproduction-record-run"
+  ],
+  "scope": "Pinned LessWrong post and appendix in the provenance fixture. The OpenAI transcript dump and Hugging Face platform logs are recorded unavailable and are not upgrade gates.",
+  "supporting_observation_refs": [
+    "tel-reproduction-record-run.observations.finding_label",
+    "tel-reproduction-record-run.observations.independent_observation_count",
+    "tel-reproduction-record-run.observations.effect_status",
+    "tel-reproduction-record-run.observations.real_world_authenticity_certified"
+  ]
+}

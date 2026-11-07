@@ -1,0 +1,28 @@
+id: forensic_telemetry_v1
+source_ref: protocol/forensic_telemetry_v1.md
+source_version: forensic-telemetry-v1
+original_proposition: >
+  Forensic telemetry qualifies the LessWrong post and appendix as one public
+  record and leaves the original-effect claim unresolved.
+operational_interpretation: >
+  Replaying the public pins and the labeled synthetic packet yields one
+  corroboration key for the reproduction release, zero confirmed effects, and
+  an unresolved original-effect claim. The OpenAI transcript dump and the
+  Hugging Face platform logs stay unavailable and are not gates. A
+  blocks_upgrade slot on a held source still prevents supported. The result
+  does not certify the original incident.
+property: fixture-regenerable telemetry qualification
+scope: >
+  The forensic-telemetry-v1 adapters, the pinned public sentences, and the
+  synthetic readback packet. Not issue #30, #32, or #42.
+quantifier: the reproduction record and the original-effect claim
+success_criterion: >
+  The reproduction finding is reproduced with independent observation count 1.
+  The original-effect finding is unresolved. confirmed_effect_count stays 0.
+  blocks_upgrade_slot_count stays 0. Detection, prevention, and real-world
+  authenticity stay false.
+assumptions:
+  - "Verdicts use qualify_graph from evidence-provenance-v1"
+  - "The LessWrong post and appendix are one corroboration key"
+  - "Unavailable originals are recorded and are not gates"
+  - "Synthetic rows stay labeled synthetic_control"

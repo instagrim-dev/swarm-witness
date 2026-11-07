@@ -17,6 +17,15 @@ from swarm_witness.provenance import (
     qualify_graph,
     validate_graph,
 )
+from swarm_witness.telemetry import (
+    TELEMETRY_VERSION,
+    UnsupportedAttachment,
+    adapt_agent_tool_records,
+    adapt_service_effect_logs,
+    comparator_packet,
+    load_origin_packet,
+    reconcile_events,
+)
 from swarm_witness.schema import (
     Claim,
     Finding,
@@ -41,7 +50,14 @@ __all__ = [
     "finding_label_for",
     "generate_and_write_index",
     "normalize_lineage",
+    "TELEMETRY_VERSION",
+    "UnsupportedAttachment",
+    "adapt_agent_tool_records",
+    "adapt_service_effect_logs",
+    "comparator_packet",
+    "load_origin_packet",
     "qualify_graph",
+    "reconcile_events",
     "validate_claim",
     "validate_finding",
     "validate_graph",

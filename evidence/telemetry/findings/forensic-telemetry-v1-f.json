@@ -1,0 +1,22 @@
+{
+  "basis": "computed",
+  "claim_id": "forensic_telemetry_v1",
+  "conclusion_class": "supported",
+  "evaluation_method": "synthetic_protocol_conformance",
+  "id": "forensic-telemetry-v1-f",
+  "label": "reproduced",
+  "proposition": "Replaying forensic telemetry qualifies the LessWrong post and appendix as one public record, leaves the original-effect claim unresolved, and does not certify the incident.",
+  "run_ids": [
+    "forensic-telemetry-v1-run"
+  ],
+  "scope": "forensic-telemetry-v1 fixture conformance",
+  "supporting_observation_refs": [
+    "forensic-telemetry-v1-run.observations.reproduction_finding_label",
+    "forensic-telemetry-v1-run.observations.independent_observation_count",
+    "forensic-telemetry-v1-run.observations.original_finding_label",
+    "forensic-telemetry-v1-run.observations.confirmed_effect_count",
+    "forensic-telemetry-v1-run.observations.blocks_upgrade_slot_count",
+    "forensic-telemetry-v1-run.observations.real_world_authenticity_certified",
+    "forensic-telemetry-v1-run.observations.incident_detection_claimed"
+  ]
+}
