@@ -1,4 +1,8 @@
 id: r1
+source_ref: apart://a-restart-is-not-permission-when-an-agent-gate-forgets-no
+source_version: "656840348dcf9660f8db7add9f3ca9f794a55926"
+original_proposition: Acknowledged rejection of a prohibited effect should survive process restart when durable acknowledgement records and recover-before-admit ordering are intact.
+operational_interpretation: On the pinned SoundGate recovery-barrier sweep, prohibited_effects after restart must be zero for each constructed history under the stated threat model.
 property: acknowledged rejection survives restart
 scope: SoundGate 0.1.3 @ source revision 6568403 under intact acknowledged records
 quantifier: for each constructed history in the published sweep
@@ -7,7 +11,3 @@ assumptions:
   - intact acknowledged records at pinned package revision
   - stable protected log path and recover-before-admit ordering
   - no concurrent writers outside the modeled threat surface
-baseline: durable auth log with recovery barrier checked before admit
-discriminating_checks:
-  - durable_vs_ephemeral_acknowledgement_store
-  - restart_without_replay_of_prior_rejection

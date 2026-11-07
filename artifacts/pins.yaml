@@ -27,6 +27,10 @@ r2:
   harness: "scripts/incident_stress.py + src/evidencegraph/validate/stress.py"
   notes: "Paper cites efbd419 as pre-extension baseline; runnable 12×3 stress pack lives on main at a5ea5c9 (PDF originally said extension was disclosure-held)."
 r3:
+  git_url: "https://github.com/instagrim-dev/bmo"
+  git_rev: "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
+  content_sha256: "ef719af9e1eb645f87b45381f094b380b75126c707c3b8be272ff502f23e8ee0"
+  content_sha256_of: "git archive --format=tar 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
   bmo_root: "/Users/user1/Documents/dev/bmo"
   preferred_claim: "retained start claim is never permission to relaunch"
   preferred_tests:

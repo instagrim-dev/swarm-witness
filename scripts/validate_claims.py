@@ -3,13 +3,13 @@ import sys
 
 import yaml
 
-from swarm_witness.schema import validate_claim_card
+from swarm_witness.schema import validate_claim
 
 root = Path(__file__).resolve().parents[1]
 ok = True
 for path in sorted((root / "claims").glob("*.yaml")):
     try:
-        validate_claim_card(yaml.safe_load(path.read_text()))
+        validate_claim(yaml.safe_load(path.read_text()))
         print(f"OK {path.name}")
     except Exception as exc:
         ok = False

@@ -1,13 +1,13 @@
 id: r3
+source_ref: git://instagrim-dev/bmo/internal/sessioncompaction
+source_version: "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
+original_proposition: Retained start metadata or a retained grant episode is not standing permission to relaunch; a fresh durable grant admission is required before admit on retry paths.
+operational_interpretation: Under the pinned BMO owner-witness retained-grant scenarios, relaunch attempts without a fresh durable grant row must be denied when the classical admit barrier is enforced; success when relaunch_without_fresh_durable_grant == 0.
 property: retained start or retained grant is not permission to relaunch without fresh durable grant admission
-scope: BMO sessioncompaction retained-grant owner witness tests at pinned bmo_root
+scope: BMO sessioncompaction retained-grant owner witness tests at pinned git revision
 quantifier: for each ordinary-retry retained-grant scenario in preferred_tests under synthetic owner witness
 success_criterion: relaunch_without_fresh_durable_grant == 0 when classical admit barrier is enforced
 assumptions:
-  - preexisting BMO tree at artifacts/pins.yaml r3 bmo_root
+  - BMO tree at artifacts/pins.yaml r3 git_rev
   - durable grant table consulted before admit on each retry path
   - retained metadata describes prior episode, not standing launch authority
-baseline: classical durable grant table checked before admit; retained state alone never authorizes relaunch
-discriminating_checks:
-  - retained_grant_with_expired_durable_row
-  - ordinary_retry_retained_grant_owner_witness_synthetic_paths
