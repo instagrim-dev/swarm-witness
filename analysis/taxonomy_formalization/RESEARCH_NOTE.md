@@ -184,14 +184,18 @@ P_{\mathsf{eff}}\}\) confirms the implication; the forged-status regression
 **Statement.** Under \(T_0\), \(\pi(D)=\mathsf{failed\_enforcement}\) only if
 evidence is authentic and \(\mathsf{refute}(P,o)\) holds for the stated \(P\).
 Incomplete or misbound observations do **not** yield `failed_enforcement`.
-Unauthorized committed effect under a *correct* deny is
-`failure_origin=effect_boundary` (not `supported`).
+For \(P_{\mathsf{eff}}\) specifically: unauthorized committed effect under a
+*correct* deny is `failure_origin=effect_boundary` (not `supported`). The same
+observation package may still yield `supported` for \(P_{\mathsf{dec}}\)
+(decision is correct); the typed product retains `effect_status=committed`, and
+the joint mechanism property \(P_{\mathsf{dec}}\land P_{\mathsf{eff}}\) refutes
+(see C6/C7).
 
 **Proof sketch.** `failed_enforcement` is emitted only on the authentic path
 when independent status is `refute`. Origin is `effect_boundary` when an
 unauthorized effect is observed under deny-required grants, else
-`decision_policy` when the decision mismatches \(\delta^*\`. Blind/misbind
-branches return `missing_evidence`. Exhaustion + C6. ∎
+`decision_policy` when the decision mismatches \(\delta^*\). Blind/misbind
+branches return `missing_evidence`. Exhaustion + C6/C7. ∎
 
 ### T3 — Indistinguishable-world non-identifiability
 
@@ -244,10 +248,14 @@ of orthogonal diagnoses without information loss (counterexample C4).
 | **C3** | Correct-but-different implementations (arms disagree, each locally “ok”) | `comparison_divergent` / `comparison_equality` — **not** `failed_enforcement` |
 | **C4** | Orthogonal origins | Misbind vs comparison disagreement need distinct coordinates; collapsing to one three-way label loses causal information |
 | **C5** | Correct deny, no effect channel, evaluate \(P_{\mathsf{eff}}\) | `epistemic_status=unresolved`; **not** `supported` (classical agreement must not forge support) |
-| **C6** | Correct deny + committed unauthorized effect | `failed_enforcement` / `effect_boundary`; **not** `supported` |
+| **C6** | Correct deny + committed unauthorized effect, evaluate \(P_{\mathsf{eff}}\) | `failed_enforcement` / `effect_boundary`; **not** `supported` |
+| **C7** | Same package as C6, evaluate \(P_{\mathsf{dec}}\) vs \(P_{\mathsf{dec}}\land P_{\mathsf{eff}}\) | \(P_{\mathsf{dec}}\) may be `supported` (decision correct) with `effect_status=committed` and `projection_lossy`; the joint property refutes with `effect_boundary` |
 
 These are the acceptance-criterion models: none yields an unwarranted
-`supported` finding or a falsely attributed enforcement failure under \(T_0\).
+`supported` finding **for the stated property** or a falsely attributed
+enforcement failure under \(T_0\). Package-level “mechanism OK” requires the
+joint property (or an explicit multi-property audit), not \(P_{\mathsf{dec}}\)
+alone.
 
 ## 5. Relation to production classifiers
 
@@ -297,7 +305,7 @@ python experiments/taxonomy_formal/run.py --json
 pytest -q tests/test_formal_epistemics.py
 ```
 
-Expected: all theorem flags `OK`, counterexamples C1–C4 `OK`, exit code 0.
+Expected: all theorem flags `OK`, counterexamples C1–C7 `OK`, exit code 0.
 
 ## 8. Finite-model limits
 
@@ -318,8 +326,10 @@ Expected: all theorem flags `OK`, counterexamples C1–C4 `OK`, exit code 0.
    `failed_enforcement` with `failure_origin=decision_policy` without
    per-arm property failure.
 4. A known-misbound observation labeled `supported`.
-5. An authentic revoked+deny+effect=\(\top\) package labeled `supported` (or
-   anything other than `failed_enforcement` with `effect_boundary`).
+5. An authentic revoked+deny+effect=\(\top\) package labeled `supported` when
+   evaluating \(P_{\mathsf{eff}}\) (or anything other than
+   `failed_enforcement` with `effect_boundary` for that property). The same
+   package under \(P_{\mathsf{dec}}\) alone is **not** a falsifier — see C7.
 6. Any diagnosis whose `epistemic_status` field disagrees with
    \(\mathsf{support}/\mathsf{refute}/\mathsf{unresolved}\) computed from
    \(P\) and \(\Gamma(o)\) alone.

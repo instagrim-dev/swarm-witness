@@ -225,6 +225,7 @@ def test_counterexample_suite_passes():
         "C4_three_way_lossy_for_orthogonal_diagnoses",
         "C5_correct_decision_does_not_forge_P_eff_support",
         "C6_unauthorized_effect_under_correct_deny",
+        "C7_P_dec_supported_joint_refutes_unauth_effect",
     }
     failed = [c["id"] for c in cases if not c["passed"]]
     assert not failed, failed
@@ -287,6 +288,30 @@ def test_epistemic_status_never_forged_against_gamma():
             gamma = compatible_worlds(worlds, o)
             d = diagnose(worlds, o, prop)
             assert d.epistemic_status == epistemic_status(prop, gamma)
+
+
+def test_P_dec_supported_lossy_under_unauthorized_effect_joint_refutes():
+    """Regression B5: package-level effect failure needs P_eff or the joint property."""
+    from swarm_witness.formal.epistemic_model import no_unauthorized_effect_property
+
+    worlds = enumerate_permission_worlds()
+    o = Observation(
+        observed_grant="revoked",
+        authentic=True,
+        decision_observed="deny",
+        effect_observed=True,
+    )
+
+    def mechanism_ok(world):
+        return decision_correct_property(world) and no_unauthorized_effect_property(world)
+
+    d_dec = diagnose(worlds, o, decision_correct_property)
+    d_joint = diagnose(worlds, o, mechanism_ok)
+    assert d_dec.three_way == "supported"
+    assert d_dec.effect_status == "committed"
+    assert d_dec.projection_lossy is True
+    assert d_joint.three_way == "failed_enforcement"
+    assert d_joint.failure_origin == "effect_boundary"
 
 
 def test_required_decision_classical_null():

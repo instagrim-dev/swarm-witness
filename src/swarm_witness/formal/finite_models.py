@@ -538,17 +538,14 @@ def run_counterexample_suite(worlds: frozenset[World] | None = None) -> list[dic
         }
     )
 
-    # C6: unauthorized effect under correct deny is failed_enforcement.
-    d_peff_eff = diagnose(
-        worlds,
-        _obs(
-            grant="revoked",
-            authentic=True,
-            decision="deny",
-            effect=True,
-        ),
-        no_unauthorized_effect_property,
+    # C6: unauthorized effect under correct deny is failed_enforcement for P_eff.
+    o_deny_eff = _obs(
+        grant="revoked",
+        authentic=True,
+        decision="deny",
+        effect=True,
     )
+    d_peff_eff = diagnose(worlds, o_deny_eff, no_unauthorized_effect_property)
     out.append(
         {
             "id": "C6_unauthorized_effect_under_correct_deny",
@@ -565,6 +562,41 @@ def run_counterexample_suite(worlds: frozenset[World] | None = None) -> list[dic
                 and d_peff_eff.epistemic_status == "refute"
             ),
             "reason": d_peff_eff.reason,
+        }
+    )
+
+    # C7: same package under P_dec may be supported; joint P_dec∧P_eff refutes.
+    def mechanism_ok(world: World) -> bool:
+        return decision_correct_property(world) and no_unauthorized_effect_property(
+            world
+        )
+
+    d_pdec_eff = diagnose(worlds, o_deny_eff, decision_correct_property)
+    d_joint = diagnose(worlds, o_deny_eff, mechanism_ok)
+    out.append(
+        {
+            "id": "C7_P_dec_supported_joint_refutes_unauth_effect",
+            "description": (
+                "Same revoked+deny+effect package: P_dec can be supported "
+                "(lossy) while P_dec∧P_eff is failed_enforcement/effect_boundary"
+            ),
+            "p_dec_three_way": d_pdec_eff.three_way,
+            "p_dec_effect_status": d_pdec_eff.effect_status,
+            "p_dec_projection_lossy": d_pdec_eff.projection_lossy,
+            "joint_three_way": d_joint.three_way,
+            "joint_failure_origin": d_joint.failure_origin,
+            "passed": (
+                d_pdec_eff.three_way == "supported"
+                and d_pdec_eff.effect_status == "committed"
+                and d_pdec_eff.projection_lossy is True
+                and d_pdec_eff.epistemic_status
+                == epistemic_status(
+                    decision_correct_property, compatible_worlds(worlds, o_deny_eff)
+                )
+                and d_joint.three_way == "failed_enforcement"
+                and d_joint.failure_origin == "effect_boundary"
+            ),
+            "reason": d_pdec_eff.reason + " || " + d_joint.reason,
         }
     )
     return out

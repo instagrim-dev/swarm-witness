@@ -377,9 +377,18 @@ def diagnose(
     # decision_status / failure_origin without forging epistemic_status.
     if status == "support":
         three_way = "supported"
+        # Three-way is lossy when classical channels record a problem that this
+        # P does not care about (retained on decision_status / effect_status).
+        unauthorized_effect = (
+            observation.observed_grant is not None
+            and observation.effect_observed is True
+            and required_decision(observation.observed_grant) == "deny"
+        )
+        projection_lossy = dec_status == "incorrect" or unauthorized_effect
         reason = (
             "authentic evidence; Γ nonempty and unanimous for P "
-            f"(decision_status={dec_status}; effect_status={eff})"
+            f"(decision_status={dec_status}; effect_status={eff}"
+            f"{'; projection_lossy' if projection_lossy else ''})"
         )
         return FormalDiagnosis(
             epistemic_status=status,
@@ -389,7 +398,7 @@ def diagnose(
             failure_origin="none",
             gamma_size=len(gamma),
             three_way=three_way,
-            projection_lossy=False,
+            projection_lossy=projection_lossy,
             reason=reason,
         )
 
