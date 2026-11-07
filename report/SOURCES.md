@@ -18,23 +18,27 @@ Script: `report/fetch_template.sh`
 Sprint page (Guidelines / submission rules):
 https://apartresearch.com/sprints/swarm-alignment-2026
 
-## Google Docs paste note (judges / final submit)
+## Templated + slides variants (form upload)
 
-This environment cannot reliably write into the live Google Docs template
-chrome. Submission-ready content is in:
+Built locally from the official template chrome and current manuscript:
 
-- `report/ABSTRACT.md`
-- `report/body.md`
-- `report/LIMITATIONS_DUAL_USE.md`
-- `report/Swarm_Witness_Final_Submission.pdf` (revised six-page research paper)
-- `report/Swarm_Witness_Final_Submission.docx` (editable submission paper)
+| Artifact | Use |
+| --- | --- |
+| `report/Swarm_Witness_Templated_Submission.docx` | Official template DOCX filled (guidance removed; title/author/abstract/body) |
+| `report/Swarm_Witness_Templated_Submission.pdf` | PDF export of templated layout (Old Standard TT chrome) |
+| `report/Swarm_Witness_Templated_Submission.md` | Markdown mirror of templated structure |
+| `report/Swarm_Witness_Slides.pdf` | 8-slide deck for the form **Slides** field (also `report/slides/`) |
+| `report/slides/slides.html` | Slide source |
 
-**Before final Apart form submit**, if judges require the exact official template
-chrome (Apart header, author grid, guidance-stripped Docs layout), the author
-must open the copy URL above and paste the abstract, body sections, and
-Limitations / Dual-Use appendix into that Google Doc, then export PDF from Docs.
-Our PDF remains content-complete and submission-ready on structure and page
-budget.
+Rebuild: `bash scripts/build_submission_variants.sh`
+
+Also retained:
+
+- `report/ABSTRACT.md`, `report/body.md`, `report/LIMITATIONS_DUAL_USE.md`
+- `report/Swarm_Witness_Final_Submission.pdf` / `.docx` (research paper layout)
+
+Optional: open the Google Docs copy URL above and paste from the templated
+markdown if judges insist on the live Docs file rather than the filled DOCX/PDF.
 
 ## Evidence sources (metrics only; do not invent)
 

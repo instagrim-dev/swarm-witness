@@ -9,12 +9,16 @@ Agent systems generate receipts, decisions, traces and recovery records, yet a s
 Author: Jonathan Maye-Hobbs
 Affiliation: Independent
 
-PDF: report/Swarm_Witness_Final_Submission.pdf
+PDF (research layout): report/Swarm_Witness_Final_Submission.pdf
+PDF (official template chrome): report/Swarm_Witness_Templated_Submission.pdf
+DOCX (filled official template): report/Swarm_Witness_Templated_Submission.docx
+Slides: report/Swarm_Witness_Slides.pdf
 GitHub: https://github.com/instagrim-dev/swarm-witness (currently private —
 grant judge read access, publish a mirror, or attach
 `artifacts/swarm-witness-review-bundle.zip` from `bash scripts/pack_review_bundle.sh`;
 see `evidence/ACCESS.md` and `CHECKLIST.md` remaining user steps)
 Video: none unless completed
+Rebuild variants: `bash scripts/build_submission_variants.sh`
 
 ## Labels (v2; from evidence/index.yaml)
 

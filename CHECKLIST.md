@@ -5,14 +5,15 @@ Form: https://apartresearch.com/sprints/swarm-alignment-2026 (user submits; agen
 
 | Item | Status | Notes |
 | --- | --- | --- |
-| Official template PDF | Done | `report/Swarm_Witness_Apart_Submission.pdf`; Google Docs copy URL in `report/SOURCES.md` if judges require exact chrome |
-| ≤8 pages before refs/appendices | Done | PDF 6 pages incl. appendix; body through Discussion under 8 |
-| Abstract 150–250 words | Done | `report/ABSTRACT.md` — 184 words |
-| Author and affiliation | Done | Jonathan Maye-Hobbs; no institutional affiliation |
+| Official template PDF | Done | `report/Swarm_Witness_Templated_Submission.pdf` (+ filled `.docx`); research layout still at `Final_Submission.*` |
+| Slides | Done | `report/Swarm_Witness_Slides.pdf` (8 slides) for form Slides field |
+| ≤8 pages before refs/appendices | Done | Templated/research PDFs within budget; body through Discussion under 8 |
+| Abstract 150–250 words | Done | `report/ABSTRACT.md` — ~171 words |
+| Author and affiliation | Done | Jonathan Maye-Hobbs; Affiliation: Independent |
 | Judge evidence access | **User** | Repo is **private**; either grant judge read access, publish a mirror, or attach `artifacts/swarm-witness-review-bundle.zip` |
 | Limitations / Dual-Use appendix | Done | `report/LIMITATIONS_DUAL_USE.md` included in PDF |
 | Preexisting marked | Done | `PREEXISTING.md` + README pointer |
-| Evidence-backed results | Done | Original R1–R5 plus 8/16 causal-simulator, 13/26 R5-v2 and 2,646 finite-model checks; inspect retained traces |
+| Evidence-backed results | Done | Original R1–R5 plus 9/18 causal-simulator, 14/28 R5-v2 and 2,646 finite-model checks; inspect retained traces |
 | Labels honest (v2) | Done | R1 external re-execution, R2 later-harness confirmation, R3-D unresolved, R3-L1 bounded match; R4/R5 synthetic, R5-v2 independent trace check, formal results conditional |
 | R1 raw inspectability | Done | `evidence/r1/raw.json.gz` committed; `raw.json` gitignored |
 | Review ZIP self-consistent | Done | `bash scripts/pack_review_bundle.sh`; clean extract runs `pytest` + ACCESS commands |

@@ -21,6 +21,8 @@ labels without needing the author’s local absolute paths or a full BMO checkou
 | Claims / pins | `claims/`, `artifacts/pins.yaml` |
 | Final report PDF | `report/Swarm_Witness_Final_Submission.pdf` |
 | Final editable report | `report/Swarm_Witness_Final_Submission.docx` |
+| Templated official-chrome PDF/DOCX | `report/Swarm_Witness_Templated_Submission.pdf` / `.docx` |
+| Slides | `report/Swarm_Witness_Slides.pdf` |
 
 R3-L1 `source_manifest.json` uses portable locators (`bmo_go_test.log`,
 `<local-checkout>`, relative `cases_path`). Bridge log is archived at the run

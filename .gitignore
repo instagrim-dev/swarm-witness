@@ -21,6 +21,8 @@ evidence/r3/ledger_claim_v1/**/bmo_work/
 *.sqlite
 *.pdf
 !report/*.pdf
+!report/slides/*.pdf
+!report/official-template.pdf
 .DS_Store
 .env
 .env.*
@@ -28,3 +30,6 @@ evidence/r3/ledger_claim_v1/**/bmo_work/
 
 # report PDF build intermediates
 report/_build_submission*
+report/_templated_build.html
+report/slides/_slides_build.html
+
