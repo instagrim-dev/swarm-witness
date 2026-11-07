@@ -93,7 +93,7 @@ labels survive matched baselines and discriminating checks.
 # 3. Methods
 
 **Claim cards** (`claims/*.yaml`) fix `property`, `scope`, `quantifier`,
-`success_criterion`, `assumptions`, `baseline`, and `discriminating_checks`.
+`success_criterion`, and `assumptions` (plus source_ref/version and original vs operational interpretation). Classical baselines live in `baselines/*.md` as authored notes, not Claim fields.
 **Pins** (`artifacts/pins.yaml`) freeze revisions and hashes. **Baselines**
 state the mechanism class without equating every proxy to a decision match.
 **Evidence** uses Finding labels; `scripts/check_evidence.py` fails closed if
