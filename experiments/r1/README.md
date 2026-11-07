@@ -32,6 +32,24 @@ From the swarm-witness root:
 Requirements for a full run: Python 3.11+, Rust/`cargo`, network (or cached
 crates) for the first build, `curl`/`git`.
 
+### Raw artifact inspectability
+
+The full sweep artifact `evidence/r1/raw.json` is **gitignored** (large). The
+committed compressed twin is `evidence/r1/raw.json.gz` (~561K). To inspect or
+re-derive locally:
+
+```bash
+# Expand next to the committed gz (raw.json stays gitignored)
+gzip -dc evidence/r1/raw.json.gz > evidence/r1/raw.json
+
+# Derive Run/Finding from retained analysis (preferred; no rebuild)
+./experiments/r1/run_r1.sh --derive-only
+```
+
+The `raw_sha256` recorded in `evidence/r1/summary.json` is an integrity check
+only. **Hash alone does not replace inspection** of `raw.json` / analysis case
+records when auditing denominators or prohibited-effect tallies.
+
 ### Honesty contract
 
 - Success requires a `completed` Run whose `histories_per_policy` and prohibited

@@ -10,16 +10,24 @@ event attribution*, EvidenceGraph stress pack).
 See `artifacts/pins.yaml` (`r2`). Runnable sources:
 
 1. **Report PDF** — pinned blob URL (`report_pdf_sha256` in pins).
-2. **Baseline before the sprint extension** — `efbd419` on
-   `https://github.com/crashlabsai/evidencegraph` (cited in the paper; no
-   `scripts/incident_stress.py` yet).
-3. **Runnable stress pack (primary)** — same repo at
+2. **Paper baseline revision** — `efbd419` on
+   `https://github.com/crashlabsai/evidencegraph` (cited in the paper as the
+   pre-extension tree). At that revision there is **no**
+   `scripts/incident_stress.py`; it represents the authors’ documented
+   baseline *behavior* (old-rule possession-as-attribution defaults), not a
+   runnable stress harness in this repo.
+3. **Harness this audit runs** — same repo at
    `a5ea5c9947039009ca795275d834be7b61069080`, which publishes
    `scripts/incident_stress.py`, `src/evidencegraph/validate/stress.py`, and
    `docs/sprint/`.
 
-The PDF’s “Code and Data” section originally said the sprint extension was
-held pending disclosure; it is now on `main` and is what this harness runs.
+**Pin relationship.** Swarm Witness binds the executable run to **`a5ea5c9`**.
+The `efbd419` baseline is represented by replaying the authors’ later-published
+stress pack at `a5ea5c9`, which encodes old-rule vs safer-default contrast
+conditions against that baseline behavior—not by checking out `efbd419` and
+running a missing harness. The PDF’s “Code and Data” section originally said
+the sprint extension was held pending disclosure; the pack on `main` at
+`a5ea5c9` is what this harness executes.
 
 ## Run
 
