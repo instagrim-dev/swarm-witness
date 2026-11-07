@@ -50,6 +50,7 @@ python scripts/check_evidence.py
 ```bash
 bash scripts/pack_review_bundle.sh
 # writes dist/swarm-witness-review-bundle.zip
+# and artifacts/swarm-witness-review-bundle.zip (committed copy for repo readers)
 ```
 
 R1/R2 third-party trees and native BMO product checkouts are **not** bundled
@@ -59,6 +60,6 @@ R1/R2 third-party trees and native BMO product checkouts are **not** bundled
 
 If Apart judges cannot clone `instagrim-dev/swarm-witness`, the author must
 either (a) grant temporary read access, (b) publish a public mirror, or
-(c) attach `dist/swarm-witness-review-bundle.zip` to the submission. Authors and
-affiliations remain author-provided on the submission form (left blank in-repo;
-do not invent).
+(c) attach `artifacts/swarm-witness-review-bundle.zip` to the submission.
+Authors and affiliations remain author-provided on the submission form (left
+blank in-repo; do not invent).

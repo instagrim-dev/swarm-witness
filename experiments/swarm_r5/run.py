@@ -183,7 +183,10 @@ def write_evidence(ev_dir: Path, cases: list[dict], score: dict) -> dict:
             "supported_count": score["supported_count"],
             "all_checks_pass": score["passed"],
         },
-        "notes": "Three-agent swarm generalization of three-way conclusions",
+        "notes": (
+            "Sequential three-principal shared-grant taxonomy transfer "
+            "(not concurrent swarm execution)"
+        ),
     }
     (ev_dir / "result.yaml").write_text(
         yaml.safe_dump(result, sort_keys=False), encoding="utf-8"
