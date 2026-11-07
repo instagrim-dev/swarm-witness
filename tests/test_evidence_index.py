@@ -1,3 +1,7 @@
+import importlib.util
+import io
+import shutil
+from contextlib import redirect_stderr
 from pathlib import Path
 
 import yaml
@@ -5,6 +9,16 @@ import yaml
 from swarm_witness.schema import validate_result_record
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _load_check_evidence():
+    spec = importlib.util.spec_from_file_location(
+        "check_evidence", ROOT / "scripts" / "check_evidence.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(mod)
+    return mod
 
 
 def test_all_results_present_and_valid():
@@ -34,3 +48,19 @@ def test_index_labels_match_result_yaml():
             f"index fabricates label for {claim_id}: index={by_id[claim_id]!r} "
             f"result={rec.label!r}"
         )
+
+
+def test_invalid_result_does_not_crash_main(tmp_path, monkeypatch):
+    shutil.copytree(ROOT / "evidence", tmp_path / "evidence")
+    (tmp_path / "evidence" / "r1" / "result.yaml").write_text(
+        "not: valid: yaml: [[", encoding="utf-8"
+    )
+    ce = _load_check_evidence()
+    monkeypatch.setattr(ce, "ROOT", tmp_path)
+    err = io.StringIO()
+    with redirect_stderr(err):
+        code = ce.main()
+    assert code == 1
+    out = err.getvalue()
+    assert "FAIL" in out
+    assert "r1" in out and "result.yaml" in out

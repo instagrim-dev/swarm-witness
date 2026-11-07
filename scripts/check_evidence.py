@@ -11,13 +11,15 @@ ROOT = Path(__file__).resolve().parents[1]
 CLAIM_IDS = ("r1", "r2", "r3")
 
 
-def check_results(root: Path) -> list[str]:
+def check_results(root: Path) -> tuple[list[str], set[str]]:
     errors: list[str] = []
+    skip_index: set[str] = set()
     for claim_id in CLAIM_IDS:
         result_path = root / "evidence" / claim_id / "result.yaml"
         summary_path = root / "evidence" / claim_id / "summary.json"
         if not result_path.is_file():
             errors.append(f"missing {result_path}")
+            skip_index.add(claim_id)
             continue
         if not summary_path.is_file():
             errors.append(f"missing {summary_path}")
@@ -25,16 +27,17 @@ def check_results(root: Path) -> list[str]:
             rec = validate_result_record(yaml.safe_load(result_path.read_text(encoding="utf-8")))
         except Exception as exc:
             errors.append(f"invalid {result_path}: {exc}")
+            skip_index.add(claim_id)
             continue
         if rec.claim_id != claim_id:
             errors.append(f"{result_path}: claim_id {rec.claim_id!r} != {claim_id!r}")
         evidence = root / rec.evidence_path
         if not evidence.is_file():
             errors.append(f"missing evidence file {evidence} (from {result_path})")
-    return errors
+    return errors, skip_index
 
 
-def check_index_matches_results(root: Path) -> list[str]:
+def check_index_matches_results(root: Path, skip_claims: set[str] | None = None) -> list[str]:
     errors: list[str] = []
     index_path = root / "evidence" / "index.yaml"
     if not index_path.is_file():
@@ -54,11 +57,18 @@ def check_index_matches_results(root: Path) -> list[str]:
             errors.append(f"{index_path}: entry missing claim_id or label: {row!r}")
             continue
         indexed[str(claim_id)] = str(label)
+    skipped = skip_claims or set()
     for claim_id in CLAIM_IDS:
+        if claim_id in skipped:
+            continue
         result_path = root / "evidence" / claim_id / "result.yaml"
         if not result_path.is_file():
             continue
-        rec = validate_result_record(yaml.safe_load(result_path.read_text(encoding="utf-8")))
+        try:
+            rec = validate_result_record(yaml.safe_load(result_path.read_text(encoding="utf-8")))
+        except Exception as exc:
+            errors.append(f"invalid {result_path}: {exc}")
+            continue
         if claim_id not in indexed:
             errors.append(f"{index_path}: no entry for {claim_id}")
             continue
@@ -78,7 +88,8 @@ def check_index_matches_results(root: Path) -> list[str]:
 
 
 def main() -> int:
-    errors = check_results(ROOT) + check_index_matches_results(ROOT)
+    result_errors, skip_claims = check_results(ROOT)
+    errors = result_errors + check_index_matches_results(ROOT, skip_claims)
     if errors:
         for err in errors:
             print(f"FAIL {err}", file=sys.stderr)
