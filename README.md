@@ -74,3 +74,16 @@ Judge access / portable bundle: [`evidence/ACCESS.md`](evidence/ACCESS.md),
 `bash scripts/pack_review_bundle.sh`.
 
 Pre-submit checklist: [`CHECKLIST.md`](CHECKLIST.md).
+
+## Taxonomy formalization (issue #12)
+
+Independent epistemic semantics, soundness theorems, counterexamples, and
+finite-model checks live under [`src/swarm_witness/formal/`](src/swarm_witness/formal/)
+with research note
+[`analysis/taxonomy_formalization/RESEARCH_NOTE.md`](analysis/taxonomy_formalization/RESEARCH_NOTE.md).
+The formal oracle does **not** call production `conclusion_classes`.
+
+```bash
+python experiments/taxonomy_formal/run.py
+pytest -q tests/test_formal_epistemics.py
+```
