@@ -1,0 +1,30 @@
+{
+  "id": "r4-failed_enforcement_revoked_still_allows",
+  "claim_id": "r4",
+  "protocol_id": "r4-evidence-sufficiency-v1",
+  "case_id": "failed_enforcement_revoked_still_allows",
+  "source_pin": "swarm-witness-r4-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "failed_enforcement",
+    "assessment": "enforcement_failed",
+    "conclusion_class": "failed_enforcement",
+    "finding_label": "contradicted_in_scope",
+    "property_holds": false,
+    "decision": "allow",
+    "required_decision": "deny",
+    "gate_behavior": "broken_allow_when_revoked",
+    "justified_permission_claim": false,
+    "ground_truth_grant": "revoked",
+    "include_current_grant": true,
+    "include_irrelevant": false,
+    "observed_grant": "revoked",
+    "reason": "evidence complete (grant=revoked); gate decided 'allow' but required 'deny' \u2014 failed_enforcement",
+    "expected_assessment": "enforcement_failed",
+    "expected_conclusion_class": "failed_enforcement",
+    "assessment_match": true,
+    "conclusion_match": true,
+    "ground_truth_mismatch": false,
+    "misbound_detected": null
+  }
+}

@@ -1,21 +1,18 @@
-# R4 — evidence sufficiency (Worlds A/B)
+# R4 — three-way conclusions (missing / failed / supported)
 
-Executable check that Swarm Witness refuses to justify a current-permission
-claim from an old receipt when current grant state is unobserved.
+Executable check that Swarm Witness distinguishes:
 
-| World | Hidden grant | Shared visible evidence |
+| Class | Meaning | Finding label |
 | --- | --- | --- |
-| A | active | same old receipt |
-| B | revoked | same old receipt |
+| `missing_evidence` | Required discriminating observation absent | `unresolved` |
+| `failed_enforcement` | Evidence complete; mechanism violates property | `contradicted_in_scope` |
+| `supported` | Evidence complete; property holds | `reproduced` |
 
-Without the discriminating observation (`current grant state`), assessments are
-**unsupported** and identical. Supplying current grant separates allow vs deny.
-An irrelevant fact must not upgrade the conclusion. Misbound observations are
-recorded as adversarial controls.
+Worlds A (grant active) and B (grant revoked) share an identical old receipt.
 
 ```bash
 python3 experiments/evidence_sufficiency/run.py
 python scripts/check_evidence.py --write-index
 ```
 
-Output: `evidence/r4/`.
+Output: `evidence/r4/`. Taxonomy: `src/swarm_witness/conclusion_classes.py`.

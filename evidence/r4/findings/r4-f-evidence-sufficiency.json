@@ -9,16 +9,19 @@
     "r4-discriminated_world_a",
     "r4-discriminated_world_b",
     "r4-valid_with_evidence",
+    "r4-failed_enforcement_revoked_still_allows",
+    "r4-enforcement_held_revoked_deny",
     "r4-misbound_world_a",
     "r4-misbound_world_b",
     "r4-method-score"
   ],
-  "proposition": "Identical old receipts with unobserved current grant leave Worlds A (valid) and B (revoked) indistinguishable, so permission claims stay unsupported; observing current grant state distinguishes them; an irrelevant observation does not; legitimate allow proceeds when the discriminating evidence is present",
+  "proposition": "The audit method distinguishes missing_evidence (blind/irrelevant Worlds A/B stay unresolved), failed_enforcement (revoked grant observed but broken gate still allows \u2192 contradicted_in_scope), and supported conclusions (correct allow/deny when discriminating evidence is present)",
   "scope": "Synthetic two-world grant/receipt protocol under r4-evidence-sufficiency-v1; not multi-agent delegation or live BMO",
   "label": "reproduced",
   "basis": "computed",
   "supporting_observation_refs": [
     "r4-method-score.observations.passed",
+    "r4-method-score.observations.three_way_classes_exercised",
     "r4-method-score.observations.indistinguishable_when_blind",
     "r4-method-score.observations.discriminator_separates_worlds",
     "r4-method-score.observations.all_checks_pass"

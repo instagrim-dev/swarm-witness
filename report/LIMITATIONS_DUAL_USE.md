@@ -47,12 +47,12 @@ equivalence, live execution safety, process-restart correctness, concurrency
 behavior, or general BMO equivalence. Legacy decision-model R3 remains
 separately unresolved.
 
-**R4 evidence sufficiency (`reproduced`).** Establishes that, under a synthetic
-two-world protocol, identical old receipts with unobserved current grant leave
-valid and revoked worlds indistinguishable (permission unsupported); observing
-current grant separates allow vs deny; an irrelevant fact does not upgrade
-unsupported assessments. Does **not** establish live BMO behavior, cryptographic
-receipt authenticity, or multi-agent delegation / swarm handoff.
+**R4 three-way conclusions (`reproduced`).** Establishes that the audit method
+can classify synthetic cases into missing_evidence, failed_enforcement, and
+supported, with Finding-label mappings unresolved /
+contradicted_in_scope / reproduced respectively. Does **not** establish live
+BMO behavior, cryptographic receipt authenticity, or multi-agent delegation /
+swarm handoff.
 
 ## Finite experiments and checker scope
 

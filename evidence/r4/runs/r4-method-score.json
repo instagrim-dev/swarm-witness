@@ -9,8 +9,12 @@
     "passed": true,
     "indistinguishable_when_blind": true,
     "discriminator_separates_worlds": true,
-    "case_count": 9,
+    "three_way_classes_exercised": true,
+    "case_count": 11,
     "unsupported_blind_count": 4,
+    "missing_evidence_count": 4,
+    "failed_enforcement_count": 1,
+    "supported_count": 6,
     "errors": [],
     "all_checks_pass": true
   }

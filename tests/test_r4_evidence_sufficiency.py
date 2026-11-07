@@ -1,4 +1,4 @@
-"""R4 evidence-sufficiency protocol tests."""
+"""R4 evidence-sufficiency and three-way conclusion protocol tests."""
 
 from __future__ import annotations
 
@@ -21,36 +21,51 @@ from swarm_witness.evidence_sufficiency import (  # noqa: E402
 from swarm_witness.schema import validate_claim, validate_finding, validate_run  # noqa: E402
 
 
-def test_blind_worlds_indistinguishable_and_unsupported():
+def test_blind_worlds_are_missing_evidence():
     a = assess_permission(WORLDS["A"], blind_observation())
     b = assess_permission(WORLDS["B"], blind_observation())
-    assert a["assessment"] == b["assessment"] == "unsupported"
+    assert a["conclusion_class"] == b["conclusion_class"] == "missing_evidence"
+    assert a["finding_label"] == "unresolved"
     assert a["decision"] is None and b["decision"] is None
     assert a["visible_receipt"] == b["visible_receipt"]
-    assert a["justified_permission_claim"] is False
 
 
-def test_discriminator_separates_worlds():
+def test_correct_gate_is_supported():
     a = assess_permission(WORLDS["A"], true_observation(WORLDS["A"]))
     b = assess_permission(WORLDS["B"], true_observation(WORLDS["B"]))
-    assert a["assessment"] == "permission_justified"
-    assert b["assessment"] == "permission_refuted"
+    assert a["conclusion_class"] == "supported"
+    assert b["conclusion_class"] == "supported"
     assert a["decision"] == "allow"
     assert b["decision"] == "deny"
 
 
-def test_irrelevant_observation_does_not_upgrade():
+def test_broken_gate_is_failed_enforcement_not_supported():
+    b = assess_permission(
+        WORLDS["B"],
+        true_observation(WORLDS["B"]),
+        gate_behavior="broken_allow_when_revoked",
+    )
+    assert b["decision"] == "allow"
+    assert b["required_decision"] == "deny"
+    assert b["conclusion_class"] == "failed_enforcement"
+    assert b["finding_label"] == "contradicted_in_scope"
+    assert b["assessment"] == "enforcement_failed"
+
+
+def test_irrelevant_observation_stays_missing_evidence():
     a = assess_permission(WORLDS["A"], blind_observation(irrelevant=True))
-    assert a["assessment"] == "unsupported"
+    assert a["conclusion_class"] == "missing_evidence"
     assert a["justified_permission_claim"] is False
 
 
-def test_protocol_score_passes():
+def test_protocol_exercises_all_three_classes():
     cases = run_protocol_cases()
     score = evaluate_method_success(cases)
     assert score["passed"] is True
-    assert score["indistinguishable_when_blind"] is True
-    assert score["discriminator_separates_worlds"] is True
+    assert score["three_way_classes_exercised"] is True
+    assert score["failed_enforcement_count"] >= 1
+    assert score["missing_evidence_count"] >= 1
+    assert score["supported_count"] >= 1
 
 
 def test_runner_writes_valid_evidence(tmp_path: Path):
@@ -66,6 +81,8 @@ def test_runner_writes_valid_evidence(tmp_path: Path):
     score = mod.evaluate_method_success(cases)
     out = mod.write_evidence(tmp_path, cases, score)
     assert out["finding"]["label"] == "reproduced"
+    assert "missing_evidence" in out["finding"]["proposition"]
+    assert "failed_enforcement" in out["finding"]["proposition"]
     validate_finding(out["finding"])
     for path in (tmp_path / "runs").glob("*.json"):
         validate_run(json.loads(path.read_text(encoding="utf-8")))

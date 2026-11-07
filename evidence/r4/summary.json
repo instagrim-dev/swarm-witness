@@ -6,64 +6,100 @@
       "case_id": "blind_world_a",
       "role": "indistinguishability",
       "assessment": "unsupported",
+      "conclusion_class": "missing_evidence",
       "decision": null,
-      "expected_assessment": "unsupported"
+      "expected_assessment": "unsupported",
+      "expected_conclusion_class": "missing_evidence"
     },
     {
       "case_id": "blind_world_b",
       "role": "indistinguishability",
       "assessment": "unsupported",
+      "conclusion_class": "missing_evidence",
       "decision": null,
-      "expected_assessment": "unsupported"
+      "expected_assessment": "unsupported",
+      "expected_conclusion_class": "missing_evidence"
     },
     {
       "case_id": "irrelevant_blind_a",
       "role": "negative_control",
       "assessment": "unsupported",
+      "conclusion_class": "missing_evidence",
       "decision": null,
-      "expected_assessment": "unsupported"
+      "expected_assessment": "unsupported",
+      "expected_conclusion_class": "missing_evidence"
     },
     {
       "case_id": "irrelevant_blind_b",
       "role": "negative_control",
       "assessment": "unsupported",
+      "conclusion_class": "missing_evidence",
       "decision": null,
-      "expected_assessment": "unsupported"
+      "expected_assessment": "unsupported",
+      "expected_conclusion_class": "missing_evidence"
     },
     {
       "case_id": "discriminated_world_a",
       "role": "discriminator",
       "assessment": "permission_justified",
+      "conclusion_class": "supported",
       "decision": "allow",
-      "expected_assessment": "permission_justified"
+      "expected_assessment": "permission_justified",
+      "expected_conclusion_class": "supported"
     },
     {
       "case_id": "discriminated_world_b",
       "role": "discriminator",
       "assessment": "permission_refuted",
+      "conclusion_class": "supported",
       "decision": "deny",
-      "expected_assessment": "permission_refuted"
+      "expected_assessment": "permission_refuted",
+      "expected_conclusion_class": "supported"
     },
     {
       "case_id": "valid_with_evidence",
       "role": "valid_control",
       "assessment": "permission_justified",
+      "conclusion_class": "supported",
       "decision": "allow",
-      "expected_assessment": "permission_justified"
+      "expected_assessment": "permission_justified",
+      "expected_conclusion_class": "supported"
+    },
+    {
+      "case_id": "failed_enforcement_revoked_still_allows",
+      "role": "failed_enforcement",
+      "assessment": "enforcement_failed",
+      "conclusion_class": "failed_enforcement",
+      "decision": "allow",
+      "expected_assessment": "enforcement_failed",
+      "expected_conclusion_class": "failed_enforcement"
+    },
+    {
+      "case_id": "enforcement_held_revoked_deny",
+      "role": "enforcement_contrast",
+      "assessment": "permission_refuted",
+      "conclusion_class": "supported",
+      "decision": "deny",
+      "expected_assessment": "permission_refuted",
+      "expected_conclusion_class": "supported"
     },
     {
       "case_id": "misbound_world_a",
       "role": "adversarial_misbind",
       "assessment": "permission_refuted",
+      "conclusion_class": "supported",
       "decision": "deny",
-      "expected_assessment": "permission_refuted"
+      "expected_assessment": "permission_refuted",
+      "expected_conclusion_class": "supported"
     },
     {
       "case_id": "misbound_world_b",
       "role": "adversarial_misbind",
       "assessment": "permission_justified",
+      "conclusion_class": "supported",
       "decision": "allow",
-      "expected_assessment": "permission_justified"
+      "expected_assessment": "permission_justified",
+      "expected_conclusion_class": "supported"
     }
   ],
   "score": {
@@ -71,8 +107,12 @@
     "errors": [],
     "indistinguishable_when_blind": true,
     "discriminator_separates_worlds": true,
-    "case_count": 9,
-    "unsupported_blind_count": 4
+    "three_way_classes_exercised": true,
+    "case_count": 11,
+    "unsupported_blind_count": 4,
+    "missing_evidence_count": 4,
+    "failed_enforcement_count": 1,
+    "supported_count": 6
   },
   "finding_id": "r4-f-evidence-sufficiency",
   "label": "reproduced"

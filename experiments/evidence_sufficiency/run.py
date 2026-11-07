@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute R4 evidence-sufficiency protocol and write Claim/Run/Finding evidence."""
+"""Execute R4 evidence-sufficiency / three-way conclusion protocol."""
 
 from __future__ import annotations
 
@@ -39,7 +39,12 @@ def build_runs(cases: list[dict]) -> list[dict]:
             "observations": {
                 "role": case["role"],
                 "assessment": result["assessment"],
+                "conclusion_class": result["conclusion_class"],
+                "finding_label": result["finding_label"],
+                "property_holds": result["property_holds"],
                 "decision": result["decision"],
+                "required_decision": result.get("required_decision"),
+                "gate_behavior": result.get("gate_behavior"),
                 "justified_permission_claim": result["justified_permission_claim"],
                 "ground_truth_grant": result["ground_truth_grant"],
                 "include_current_grant": result["observations"]["include_current_grant"],
@@ -47,7 +52,11 @@ def build_runs(cases: list[dict]) -> list[dict]:
                 "observed_grant": result["observations"]["observed_grant"],
                 "reason": result["reason"],
                 "expected_assessment": case["expected_assessment"],
+                "expected_conclusion_class": case["expected_conclusion_class"],
                 "assessment_match": result["assessment"] == case["expected_assessment"],
+                "conclusion_match": (
+                    result["conclusion_class"] == case["expected_conclusion_class"]
+                ),
                 "ground_truth_mismatch": bool(case.get("ground_truth_mismatch")),
                 "misbound_detected": result.get("misbound_detected"),
             },
@@ -69,8 +78,12 @@ def build_meta_run(score: dict) -> dict:
             "passed": score["passed"],
             "indistinguishable_when_blind": score["indistinguishable_when_blind"],
             "discriminator_separates_worlds": score["discriminator_separates_worlds"],
+            "three_way_classes_exercised": score["three_way_classes_exercised"],
             "case_count": score["case_count"],
             "unsupported_blind_count": score["unsupported_blind_count"],
+            "missing_evidence_count": score["missing_evidence_count"],
+            "failed_enforcement_count": score["failed_enforcement_count"],
+            "supported_count": score["supported_count"],
             "errors": score["errors"],
             "all_checks_pass": score["passed"],
         },
@@ -86,13 +99,13 @@ def build_finding(runs: list[dict], score: dict) -> dict:
         "claim_id": CLAIM_ID,
         "run_ids": [r["id"] for r in runs],
         "proposition": (
-            "Identical old receipts with unobserved current grant leave Worlds A "
-            "(valid) and B (revoked) indistinguishable, so permission claims stay "
-            "unsupported; observing current grant state distinguishes them; an "
-            "irrelevant observation does not; legitimate allow proceeds when the "
-            "discriminating evidence is present"
+            "The audit method distinguishes missing_evidence (blind/irrelevant "
+            "Worlds A/B stay unresolved), failed_enforcement (revoked grant "
+            "observed but broken gate still allows → contradicted_in_scope), and "
+            "supported conclusions (correct allow/deny when discriminating "
+            "evidence is present)"
             if score["passed"]
-            else "Evidence-sufficiency protocol failed one or more declared checks"
+            else "Three-way conclusion protocol failed one or more declared checks"
         ),
         "scope": (
             "Synthetic two-world grant/receipt protocol under "
@@ -102,6 +115,7 @@ def build_finding(runs: list[dict], score: dict) -> dict:
         "basis": "computed",
         "supporting_observation_refs": [
             "r4-method-score.observations.passed",
+            "r4-method-score.observations.three_way_classes_exercised",
             "r4-method-score.observations.indistinguishable_when_blind",
             "r4-method-score.observations.discriminator_separates_worlds",
             "r4-method-score.observations.all_checks_pass",
@@ -142,8 +156,10 @@ def write_evidence(ev_dir: Path, cases: list[dict], score: dict) -> dict:
                 "case_id": c["case_id"],
                 "role": c["role"],
                 "assessment": c["result"]["assessment"],
+                "conclusion_class": c["result"]["conclusion_class"],
                 "decision": c["result"]["decision"],
                 "expected_assessment": c["expected_assessment"],
+                "expected_conclusion_class": c["expected_conclusion_class"],
             }
             for c in cases
         ],
@@ -162,11 +178,14 @@ def write_evidence(ev_dir: Path, cases: list[dict], score: dict) -> dict:
         "metrics": {
             "case_count": score["case_count"],
             "unsupported_blind_count": score["unsupported_blind_count"],
+            "missing_evidence_count": score["missing_evidence_count"],
+            "failed_enforcement_count": score["failed_enforcement_count"],
+            "supported_count": score["supported_count"],
             "all_checks_pass": score["passed"],
         },
         "notes": (
-            "Worlds A/B indistinguishability under shared receipt; "
-            "discriminator = current grant state"
+            "Three-way conclusions: missing_evidence, failed_enforcement, "
+            "supported; discriminator = current grant state"
         ),
     }
     (ev_dir / "result.yaml").write_text(
@@ -193,6 +212,12 @@ def main(argv: list[str] | None = None) -> int:
                 "label": out["finding"]["label"],
                 "passed": score["passed"],
                 "case_count": score["case_count"],
+                "three_way": score["three_way_classes_exercised"],
+                "counts": {
+                    "missing_evidence": score["missing_evidence_count"],
+                    "failed_enforcement": score["failed_enforcement_count"],
+                    "supported": score["supported_count"],
+                },
                 "errors": score["errors"],
             }
         )
