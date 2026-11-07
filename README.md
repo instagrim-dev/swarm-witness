@@ -77,11 +77,13 @@ Pre-submit checklist: [`CHECKLIST.md`](CHECKLIST.md).
 
 ## Taxonomy formalization (issue #12)
 
-Independent epistemic semantics, soundness theorems, counterexamples, and
-finite-model checks live under [`src/swarm_witness/formal/`](src/swarm_witness/formal/)
-with research note
+Independent epistemic semantics, finite-model soundness checks, counterexamples,
+and a reviewable note live under
+[`src/swarm_witness/formal/`](src/swarm_witness/formal/) and
 [`analysis/taxonomy_formalization/RESEARCH_NOTE.md`](analysis/taxonomy_formalization/RESEARCH_NOTE.md).
-The formal oracle does **not** call production `conclusion_classes`.
+The formal oracle does **not** call production `conclusion_classes`; projected
+labels follow the epistemic status of the stated property on Γ, not
+classical-null decision agreement alone.
 
 ```bash
 python experiments/taxonomy_formal/run.py

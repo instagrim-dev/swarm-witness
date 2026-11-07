@@ -113,9 +113,19 @@ Domains match `swarm_witness.audit_diagnosis` /
 
 **`failed_enforcement`** is defined only when:
 
-1. evidence is **authentic** (not missing/unverified/misbound), and
-2. verified **decision** evidence shows incorrect disposition relative to
-   \(\delta^*\), or verified **effect** evidence shows an unauthorized commit.
+1. evidence is **authentic** (not missing/unverified/misbound),
+2. verified **decision** and/or **effect** channels are present so that
+   \(\Gamma\) is discriminative for the stated property \(P\), and
+3. \(\mathsf{refute}(P,o)\) holds — i.e. \(\Gamma\neq\emptyset\) and
+   \(\forall w\in\Gamma.\,\neg P(w)\).
+
+Classical-null mismatch alone does **not** forge `supported` or
+`failed_enforcement` for an arbitrary \(P\): those labels follow the epistemic
+projection of \(P\) on \(\Gamma\). Classical mismatch is recorded on
+`decision_status` / `failure_origin` (`decision_policy` when the observed
+decision ≠ \(\delta^*\); `effect_boundary` when an unauthorized effect is
+observed under a deny-required grant — including when the decision itself was
+`deny`).
 
 Mere disagreement between two otherwise complete arms is
 \(\mathsf{failure\_origin}=\mathsf{comparison\_equality}\)
@@ -153,29 +163,35 @@ construction for comparison arms. Machine checks:
 
 ### T1 — Support soundness
 
-**Statement.** Under \(T_0\), if \(\pi(D)=\mathsf{supported}\) for
-\(P_{\mathsf{dec}}\) with verified decision evidence, then every
-\(w\in\Gamma(o)\) satisfies \(P_{\mathsf{dec}}\), and
-\(\mathsf{obs\_decision}=\delta^*(\mathsf{obs\_grant})\).
+**Statement.** Under \(T_0\), for \(P\in\{P_{\mathsf{dec}},P_{\mathsf{eff}}\}\)
+and every observation in the finite fragment: if
+\(\pi(D)=\mathsf{supported}\), then \(\Gamma(o)\neq\emptyset\),
+\(\forall w\in\Gamma(o).\,P(w)\), and
+`FormalDiagnosis.epistemic_status` equals the independently computed
+\(\mathsf{support}/\mathsf{refute}/\mathsf{unresolved}\) projection of \(P\)
+on \(\Gamma\). In particular, classical-null agreement of an observed decision
+does **not** by itself warrant `supported` for \(P_{\mathsf{eff}}\) when
+\(\Gamma\) still contains effect-committed and effect-free worlds.
 
-**Proof sketch.** `supported` is emitted only on the authentic path with
-`decision_status=correct`. Compatible worlds are filtered to
-\(\mathsf{grant}=\mathsf{obs\_grant}\) and
-\(\mathsf{decision}=\mathsf{obs\_decision}=\delta^*(\mathsf{obs\_grant})\),
-hence \(P_{\mathsf{dec}}\) holds on \(\Gamma\). ∎
+**Proof sketch.** `diagnose` sets `three_way=supported` only when the
+independent `epistemic_status(P, Γ)` is `support` under authentic evidence.
+Exhaustion over the finite observation fragment × \(\{P_{\mathsf{dec}},
+P_{\mathsf{eff}}\}\) confirms the implication; the forged-status regression
+(correct deny without effect channel) is C5. ∎
 
 ### T2 — Refutation / enforcement soundness
 
 **Statement.** Under \(T_0\), \(\pi(D)=\mathsf{failed\_enforcement}\) only if
-evidence is authentic and verified decision (or effect-boundary) evidence shows
-a violation. Incomplete or misbound observations do **not** yield
-`failed_enforcement` with `failure_origin=decision_policy`.
+evidence is authentic and \(\mathsf{refute}(P,o)\) holds for the stated \(P\).
+Incomplete or misbound observations do **not** yield `failed_enforcement`.
+Unauthorized committed effect under a *correct* deny is
+`failure_origin=effect_boundary` (not `supported`).
 
-**Proof sketch.** The diagnose procedure returns `failed_enforcement` solely on
-the authentic + incorrect-decision branch (or effect_boundary when an
-unauthorized effect is observed). Blind and misbind branches return
-`missing_evidence` with origins `none` / `evidence`. Exhaustion confirms no
-other branch emits `failed_enforcement`. ∎
+**Proof sketch.** `failed_enforcement` is emitted only on the authentic path
+when independent status is `refute`. Origin is `effect_boundary` when an
+unauthorized effect is observed under deny-required grants, else
+`decision_policy` when the decision mismatches \(\delta^*\`. Blind/misbind
+branches return `missing_evidence`. Exhaustion + C6. ∎
 
 ### T3 — Indistinguishable-world non-identifiability
 
@@ -227,6 +243,8 @@ of orthogonal diagnoses without information loss (counterexample C4).
 | **C2** | Incomplete (blind) observation | \(\Gamma\) contains active and revoked; `missing_evidence` |
 | **C3** | Correct-but-different implementations (arms disagree, each locally “ok”) | `comparison_divergent` / `comparison_equality` — **not** `failed_enforcement` |
 | **C4** | Orthogonal origins | Misbind vs comparison disagreement need distinct coordinates; collapsing to one three-way label loses causal information |
+| **C5** | Correct deny, no effect channel, evaluate \(P_{\mathsf{eff}}\) | `epistemic_status=unresolved`; **not** `supported` (classical agreement must not forge support) |
+| **C6** | Correct deny + committed unauthorized effect | `failed_enforcement` / `effect_boundary`; **not** `supported` |
 
 These are the acceptance-criterion models: none yields an unwarranted
 `supported` finding or a falsely attributed enforcement failure under \(T_0\).
@@ -291,13 +309,20 @@ Expected: all theorem flags `OK`, counterexamples C1–C4 `OK`, exit code 0.
 ## 9. Possible falsifiers
 
 1. A verified-authentic observation package under \(T_0\) for which the
-   implementation emits `supported` while some \(w\in\Gamma\) falsifies \(P\).
+   implementation emits `supported` while some \(w\in\Gamma\) falsifies \(P\)
+   (including \(P_{\mathsf{eff}}\) under a correct deny without an effect
+   observation).
 2. A blind/irrelevant observation that upgrades to `supported` /
    `failed_enforcement`.
 3. A matched pair that disagrees on disposition yet is labeled
    `failed_enforcement` with `failure_origin=decision_policy` without
    per-arm property failure.
 4. A known-misbound observation labeled `supported`.
+5. An authentic revoked+deny+effect=\(\top\) package labeled `supported` (or
+   anything other than `failed_enforcement` with `effect_boundary`).
+6. Any diagnosis whose `epistemic_status` field disagrees with
+   \(\mathsf{support}/\mathsf{refute}/\mathsf{unresolved}\) computed from
+   \(P\) and \(\Gamma(o)\) alone.
 
 ## 10. What remains
 

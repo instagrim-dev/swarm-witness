@@ -223,9 +223,70 @@ def test_counterexample_suite_passes():
         "C2_incomplete_observation",
         "C3_correct_but_different_implementations",
         "C4_three_way_lossy_for_orthogonal_diagnoses",
+        "C5_correct_decision_does_not_forge_P_eff_support",
+        "C6_unauthorized_effect_under_correct_deny",
     }
     failed = [c["id"] for c in cases if not c["passed"]]
     assert not failed, failed
+
+
+def test_correct_decision_does_not_forge_support_for_P_eff():
+    """Regression B1: classical-null agreement ≠ support for arbitrary P."""
+    from swarm_witness.formal.epistemic_model import no_unauthorized_effect_property
+
+    worlds = enumerate_permission_worlds()
+    o = Observation(
+        observed_grant="revoked",
+        authentic=True,
+        decision_observed="deny",
+    )
+    d = diagnose(worlds, o, no_unauthorized_effect_property)
+    gamma = compatible_worlds(worlds, o)
+    assert epistemic_status(no_unauthorized_effect_property, gamma) == "unresolved"
+    assert d.epistemic_status == "unresolved"
+    assert d.three_way != "supported"
+
+
+def test_unauthorized_effect_under_correct_deny_is_enforcement_failure():
+    """Regression B2: effect-boundary applies even when decision is correct."""
+    from swarm_witness.formal.epistemic_model import no_unauthorized_effect_property
+
+    worlds = enumerate_permission_worlds()
+    o = Observation(
+        observed_grant="revoked",
+        authentic=True,
+        decision_observed="deny",
+        effect_observed=True,
+    )
+    d = diagnose(worlds, o, no_unauthorized_effect_property)
+    assert d.three_way == "failed_enforcement"
+    assert d.failure_origin == "effect_boundary"
+    assert d.epistemic_status == "refute"
+    assert d.decision_status == "correct"
+
+
+def test_epistemic_status_never_forged_against_gamma():
+    """Regression B3: diagnosis.epistemic_status == epistemic_status(P, Γ)."""
+    from swarm_witness.formal.epistemic_model import no_unauthorized_effect_property
+
+    worlds = enumerate_permission_worlds()
+    props = (decision_correct_property, no_unauthorized_effect_property, lambda _w: True)
+    observations = [
+        Observation(),
+        Observation(observed_grant="revoked", authentic=True, decision_observed="allow"),
+        Observation(
+            observed_grant="revoked",
+            authentic=True,
+            decision_observed="deny",
+            effect_observed=True,
+        ),
+        Observation(observed_grant="active", authentic=True, decision_observed="allow"),
+    ]
+    for prop in props:
+        for o in observations:
+            gamma = compatible_worlds(worlds, o)
+            d = diagnose(worlds, o, prop)
+            assert d.epistemic_status == epistemic_status(prop, gamma)
 
 
 def test_required_decision_classical_null():

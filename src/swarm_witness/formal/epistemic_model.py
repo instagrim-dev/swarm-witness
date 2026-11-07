@@ -9,8 +9,10 @@ Definitions (see ``analysis/taxonomy_formalization/RESEARCH_NOTE.md``):
 * Epistemic status of proposition ``P`` given ``Γ`` is support / refute /
   unresolved (including empty ``Γ`` and conflicting worlds).
 * ``failed_enforcement`` is *not* an epistemic projection alone: it is a
-  property-/boundary-specific diagnosis that additionally requires verified
-  decision (and, when in scope, effect) evidence with authentic observations.
+  property-/boundary-specific diagnosis that additionally requires authentic
+  observations plus verified decision/effect channels that make ``Γ``
+  refute the stated property ``P``. Classical-null mismatch alone must not
+  forge ``supported`` / ``failed_enforcement`` for an arbitrary ``P``.
 * Comparison disagreement is a separate failure origin
   (``comparison_equality``); it must not be identified with enforcement failure.
 
@@ -156,7 +158,9 @@ def compatible_worlds(
     """Γ(o; W, T): worlds compatible with observation under trust assumptions."""
     t = trust or TrustAssumptions()
     if observation.observed_grant is None:
-        # Incomplete: every world remains compatible (irrelevant facts ignored).
+        # Incomplete grant channel: under T₀ a decision/effect reading is not
+        # an authenticated binding without a grant anchor, so Γ stays W
+        # (irrelevant facts ignored; decision/effect filters do not apply).
         return frozenset(worlds)
 
     if observation.authentic is False:
@@ -279,7 +283,9 @@ def diagnose(
             f"Γ size={len(gamma)}; epistemic_status={status}"
         )
         return FormalDiagnosis(
-            epistemic_status="unresolved" if status != "unresolved" else status,
+            # Keep the true epistemic projection of P on Γ; missing evidence
+            # gates the three-way label without forging epistemic_status.
+            epistemic_status=status,
             evidence_status=ev if ev != "unverified" else "unverified",
             decision_status="unknown",
             effect_status=eff,
@@ -332,20 +338,23 @@ def diagnose(
         )
 
     # Authentic evidence path.
-    if decision_obs is None:
+    if decision_obs is None and observation.effect_observed is None:
         # Authentic grant but no verified decision/effect evidence: may
-        # epistemically support/refute a *grant* proposition, but cannot
-        # diagnose failed_enforcement for a mechanism property.
+        # epistemically support/refute a proposition that is already decided
+        # by the grant channel alone, but cannot diagnose failed_enforcement.
         if status == "support":
             three_way = "supported"
-            reason = "authentic observation; Γ unanimous for P; no decision channel"
+            reason = (
+                "authentic observation; Γ unanimous for P; "
+                "no decision/effect channel"
+            )
         elif status == "refute":
             three_way = "missing_evidence"
             projection_lossy = True
             failure_origin = "undetermined"
             reason = (
-                "authentic observation refutes P on Γ, but verified decision "
-                "evidence absent — refuse failed_enforcement diagnosis"
+                "authentic observation refutes P on Γ, but verified decision/"
+                "effect evidence absent — refuse failed_enforcement diagnosis"
             )
         else:
             three_way = "missing_evidence"
@@ -362,44 +371,20 @@ def diagnose(
             reason=reason,
         )
 
-    # Authentic + verified decision evidence.
-    if dec_status == "incorrect":
-        failure_origin = "decision_policy"
-        if observation.effect_observed is True and required_decision(
-            observation.observed_grant  # type: ignore[arg-type]
-        ) == "deny":
-            failure_origin = "effect_boundary"
-        three_way = "failed_enforcement"
-        reason = (
-            "authentic evidence + verified incorrect decision "
-            f"(failure_origin={failure_origin}; effect_status={eff})"
-        )
-        return FormalDiagnosis(
-            epistemic_status="refute" if status != "support" else "refute",
-            evidence_status="authentic",
-            decision_status="incorrect",
-            effect_status=eff,
-            failure_origin=failure_origin,
-            gamma_size=len(gamma),
-            three_way=three_way,
-            projection_lossy=False,
-            reason=reason,
-        )
-
-    # Correct decision under authentic evidence.
-    if status == "support" or (
-        observation.observed_grant is not None
-        and decision_obs == required_decision(observation.observed_grant)
-    ):
+    # Authentic + verified decision and/or effect evidence.
+    # three_way follows the true epistemic projection of P on Γ — never the
+    # classical-null decision alone. Classical mismatch is recorded on
+    # decision_status / failure_origin without forging epistemic_status.
+    if status == "support":
         three_way = "supported"
         reason = (
-            "authentic evidence + correct verified decision "
-            f"(effect_status={eff})"
+            "authentic evidence; Γ nonempty and unanimous for P "
+            f"(decision_status={dec_status}; effect_status={eff})"
         )
         return FormalDiagnosis(
-            epistemic_status="support",
+            epistemic_status=status,
             evidence_status="authentic",
-            decision_status="correct",
+            decision_status=dec_status,
             effect_status=eff,
             failure_origin="none",
             gamma_size=len(gamma),
@@ -408,8 +393,40 @@ def diagnose(
             reason=reason,
         )
 
+    if status == "refute":
+        failure_origin = "undetermined"
+        if (
+            observation.observed_grant is not None
+            and observation.effect_observed is True
+            and required_decision(observation.observed_grant) == "deny"
+        ):
+            failure_origin = "effect_boundary"
+        elif dec_status == "incorrect":
+            failure_origin = "decision_policy"
+        three_way = "failed_enforcement"
+        reason = (
+            "authentic evidence; Γ nonempty and unanimously falsifies P "
+            f"(failure_origin={failure_origin}; effect_status={eff})"
+        )
+        return FormalDiagnosis(
+            epistemic_status=status,
+            evidence_status="authentic",
+            decision_status=dec_status,
+            effect_status=eff,
+            failure_origin=failure_origin,
+            gamma_size=len(gamma),
+            three_way=three_way,
+            projection_lossy=False,
+            reason=reason,
+        )
+
+    # unresolved under authentic decision/effect evidence: need more
+    # discriminating channels (e.g. effect) or P is not decided on Γ.
     three_way = "missing_evidence"
-    reason = "authentic decision path inconclusive for stated P"
+    reason = (
+        "authentic decision/effect path inconclusive for stated P "
+        f"(epistemic_status={status}; decision_status={dec_status})"
+    )
     return FormalDiagnosis(
         epistemic_status=status,
         evidence_status="authentic",

@@ -91,36 +91,89 @@ def _obs(
     )
 
 
+def _observation_space() -> list[Observation]:
+    """Finite observation fragment used for exhaustive invariant checks."""
+    obs: list[Observation] = [_obs(), _obs(irrelevant="receipt_print_color=blue")]
+    for grant in ("active", "revoked"):
+        for authentic in (True, False, None):
+            obs.append(_obs(grant=grant, authentic=authentic))
+            for decision in ("allow", "deny"):
+                obs.append(_obs(grant=grant, authentic=authentic, decision=decision))
+                for effect in (False, True):
+                    obs.append(
+                        _obs(
+                            grant=grant,
+                            authentic=authentic,
+                            decision=decision,
+                            effect=effect,
+                        )
+                    )
+            for effect in (False, True):
+                obs.append(_obs(grant=grant, authentic=authentic, effect=effect))
+    return obs
+
+
 def theorem_support_soundness(worlds: frozenset[World]) -> tuple[bool, list[str]]:
-    """T1: if diagnose yields supported for P_dec, every w∈Γ satisfies P_dec,
-    and the observed decision matches the classical null for the observed grant.
+    """T1: supported ⇒ Γ≠∅ ∧ ∀w∈Γ. P(w), and diagnosis.epistemic_status matches
+    the independent epistemic_status(P, Γ). Checked for P_dec and P_eff over the
+    finite observation fragment — not merely for classical-null agreement.
     """
     errors: list[str] = []
-    for grant in ("active", "revoked"):
-        for decision in ("allow", "deny"):
-            o = _obs(grant=grant, authentic=True, decision=decision)
-            d = diagnose(worlds, o, decision_correct_property)
+    props = (
+        ("P_dec", decision_correct_property),
+        ("P_eff", no_unauthorized_effect_property),
+    )
+    for o in _observation_space():
+        for prop_name, prop in props:
+            gamma = compatible_worlds(worlds, o)
+            independent = epistemic_status(prop, gamma)
+            d = diagnose(worlds, o, prop)
+            if d.epistemic_status != independent:
+                errors.append(
+                    f"{prop_name}: forged epistemic_status={d.epistemic_status!r} "
+                    f"≠ independent {independent!r} for {o}"
+                )
             if d.three_way != "supported":
                 continue
-            gamma = compatible_worlds(worlds, o)
             if not gamma:
-                errors.append(f"supported with empty Γ for grant={grant}")
+                errors.append(f"{prop_name}: supported with empty Γ for {o}")
                 continue
-            if not all(decision_correct_property(w) for w in gamma):
-                errors.append(f"supported but Γ contains P-violators: {grant}/{decision}")
-            if decision != required_decision(grant):  # type: ignore[arg-type]
+            if not all(prop(w) for w in gamma):
                 errors.append(
-                    f"supported despite decision {decision} ≠ required for {grant}"
+                    f"{prop_name}: supported but Γ contains P-violators for {o}"
+                )
+            if independent != "support":
+                errors.append(
+                    f"{prop_name}: supported while independent status="
+                    f"{independent!r} for {o}"
+                )
+            # For P_dec with a verified decision, classical null must agree.
+            if (
+                prop_name == "P_dec"
+                and o.authentic is True
+                and o.observed_grant is not None
+                and o.decision_observed is not None
+                and o.decision_observed
+                != required_decision(o.observed_grant)
+            ):
+                errors.append(
+                    f"P_dec supported despite decision "
+                    f"{o.decision_observed} ≠ required for {o.observed_grant}"
                 )
     return not errors, errors
 
 
 def theorem_refutation_soundness(worlds: frozenset[World]) -> tuple[bool, list[str]]:
-    """T2: failed_enforcement only when authentic evidence + incorrect decision
-    (or effect-boundary violation); never from incomplete/misbound alone under
-    default trust.
+    """T2: failed_enforcement only under authentic evidence when Γ unanimously
+    falsifies P; never from incomplete/misbound alone under default trust.
+    Unauthorized effect under a *correct* deny is effect_boundary.
     """
     errors: list[str] = []
+    props = (
+        ("P_dec", decision_correct_property),
+        ("P_eff", no_unauthorized_effect_property),
+    )
+
     # Incomplete must not yield failed_enforcement.
     d_blind = diagnose(worlds, _obs(), decision_correct_property)
     if d_blind.three_way == "failed_enforcement":
@@ -137,7 +190,7 @@ def theorem_refutation_soundness(worlds: frozenset[World]) -> tuple[bool, list[s
     if d_mis.failure_origin != "evidence":
         errors.append(f"misbound failure_origin={d_mis.failure_origin!r} want evidence")
 
-    # Authentic + wrong decision → failed_enforcement.
+    # Authentic + wrong decision → failed_enforcement for P_dec.
     d_bad = diagnose(
         worlds,
         _obs(grant="revoked", authentic=True, decision="allow"),
@@ -153,7 +206,34 @@ def theorem_refutation_soundness(worlds: frozenset[World]) -> tuple[bool, list[s
             "want decision_policy"
         )
 
-    # Authentic + wrong decision + committed effect under deny → effect_boundary.
+    # Unauthorized effect under *correct* deny → effect_boundary (not supported).
+    d_eff_deny = diagnose(
+        worlds,
+        _obs(
+            grant="revoked",
+            authentic=True,
+            decision="deny",
+            effect=True,
+        ),
+        no_unauthorized_effect_property,
+    )
+    if d_eff_deny.three_way != "failed_enforcement":
+        errors.append(
+            f"deny+committed effect → {d_eff_deny.three_way}, "
+            "want failed_enforcement"
+        )
+    if d_eff_deny.failure_origin != "effect_boundary":
+        errors.append(
+            f"deny+committed effect origin={d_eff_deny.failure_origin!r} "
+            "want effect_boundary"
+        )
+    if d_eff_deny.epistemic_status != "refute":
+        errors.append(
+            f"deny+committed effect epistemic_status="
+            f"{d_eff_deny.epistemic_status!r} want refute"
+        )
+
+    # Wrong decision + committed effect under deny → still effect_boundary.
     d_eff = diagnose(
         worlds,
         _obs(
@@ -169,6 +249,29 @@ def theorem_refutation_soundness(worlds: frozenset[World]) -> tuple[bool, list[s
             f"committed unauthorized effect origin={d_eff.failure_origin!r} "
             "want effect_boundary"
         )
+
+    # Exhaustive: failed_enforcement ⇒ authentic ∧ Γ⊭P (independent check).
+    for o in _observation_space():
+        for prop_name, prop in props:
+            d = diagnose(worlds, o, prop)
+            if d.three_way != "failed_enforcement":
+                continue
+            if d.evidence_status != "authentic":
+                errors.append(
+                    f"{prop_name}: failed_enforcement with evidence_status="
+                    f"{d.evidence_status!r} for {o}"
+                )
+            gamma = compatible_worlds(worlds, o)
+            independent = epistemic_status(prop, gamma)
+            if independent != "refute":
+                errors.append(
+                    f"{prop_name}: failed_enforcement while independent status="
+                    f"{independent!r} for {o}"
+                )
+            if d.epistemic_status != independent:
+                errors.append(
+                    f"{prop_name}: forged epistemic_status on refute path for {o}"
+                )
     return not errors, errors
 
 
@@ -254,36 +357,36 @@ def theorem_monotonic_refinement(worlds: frozenset[World]) -> tuple[bool, list[s
 
 def theorem_mutual_exclusivity_mechanism() -> tuple[bool, list[str]]:
     """T6: for a single mechanism_property evaluation, projected classes are
-    mutually exclusive; exhaustiveness holds for the four-way label set including
-    comparison_divergent only when the evaluation object is matched_equality.
+    mutually exclusive and jointly cover the finite observation fragment.
+    ``comparison_divergent`` is reserved for matched_equality objects.
     """
     errors: list[str] = []
     worlds = enumerate_permission_worlds()
-    cases = [
-        _obs(),
-        _obs(grant="active", authentic=True, decision="allow"),
-        _obs(grant="revoked", authentic=True, decision="deny"),
-        _obs(grant="revoked", authentic=True, decision="allow"),
-        _obs(grant="active", authentic=False, decision="deny"),
-        _obs(grant="active", authentic=None),
-    ]
-    seen: set[str] = set()
-    for o in cases:
-        d = diagnose(worlds, o, decision_correct_property)
-        # One label per diagnosis.
-        if d.three_way in seen and False:
-            pass
-        seen.add(d.three_way)
-        # Mechanism evaluations must not emit comparison_divergent.
-        if d.three_way == "comparison_divergent":
-            errors.append("mechanism_property emitted comparison_divergent")
     allowed = {"missing_evidence", "failed_enforcement", "supported"}
-    if not seen <= allowed:
-        errors.append(f"unexpected classes in mechanism model: {seen - allowed}")
-    if "missing_evidence" not in seen or "supported" not in seen:
-        errors.append(f"mechanism suite incomplete: {seen}")
-    if "failed_enforcement" not in seen:
-        errors.append("mechanism suite missing failed_enforcement")
+    seen: set[str] = set()
+    for o in _observation_space():
+        for prop in (decision_correct_property, no_unauthorized_effect_property):
+            d = diagnose(worlds, o, prop)
+            if d.three_way not in allowed:
+                errors.append(
+                    f"mechanism_property emitted {d.three_way!r} outside {allowed}"
+                )
+            # Exclusivity: a single diagnosis carries exactly one projected label
+            # (enforced by the type); check the label is a member of the partition.
+            labels_on_row = {
+                cls
+                for cls in allowed
+                if cls == d.three_way
+            }
+            if len(labels_on_row) != 1:
+                errors.append(
+                    f"projected label not unique for {o}: {labels_on_row}"
+                )
+            seen.add(d.three_way)
+            if d.three_way == "comparison_divergent":
+                errors.append("mechanism_property emitted comparison_divergent")
+    if not allowed <= seen:
+        errors.append(f"mechanism suite incomplete: missing {allowed - seen}")
     return not errors, errors
 
 
@@ -399,6 +502,69 @@ def run_counterexample_suite(worlds: frozenset[World] | None = None) -> list[dic
                 "orthogonal origins retained only in the typed product; "
                 "a single three-way label cannot carry both"
             ),
+        }
+    )
+
+    # C5: correct deny without effect channel must not support P_eff (Γ mixed).
+    d_peff_mixed = diagnose(
+        worlds,
+        _obs(grant="revoked", authentic=True, decision="deny"),
+        no_unauthorized_effect_property,
+    )
+    g_peff_mixed = compatible_worlds(
+        worlds, _obs(grant="revoked", authentic=True, decision="deny")
+    )
+    out.append(
+        {
+            "id": "C5_correct_decision_does_not_forge_P_eff_support",
+            "description": (
+                "Authentic revoked+deny without effect observation leaves "
+                "P_eff unresolved on Γ — must not emit supported"
+            ),
+            "three_way": d_peff_mixed.three_way,
+            "epistemic_status": d_peff_mixed.epistemic_status,
+            "gamma_P_eff": sorted(
+                {no_unauthorized_effect_property(w) for w in g_peff_mixed}
+            ),
+            "passed": (
+                d_peff_mixed.three_way != "supported"
+                and d_peff_mixed.epistemic_status == "unresolved"
+                and d_peff_mixed.epistemic_status
+                == epistemic_status(
+                    no_unauthorized_effect_property, g_peff_mixed
+                )
+            ),
+            "reason": d_peff_mixed.reason,
+        }
+    )
+
+    # C6: unauthorized effect under correct deny is failed_enforcement.
+    d_peff_eff = diagnose(
+        worlds,
+        _obs(
+            grant="revoked",
+            authentic=True,
+            decision="deny",
+            effect=True,
+        ),
+        no_unauthorized_effect_property,
+    )
+    out.append(
+        {
+            "id": "C6_unauthorized_effect_under_correct_deny",
+            "description": (
+                "Authentic revoked+deny+effect=True falsifies P_eff — "
+                "failed_enforcement with failure_origin=effect_boundary"
+            ),
+            "three_way": d_peff_eff.three_way,
+            "failure_origin": d_peff_eff.failure_origin,
+            "epistemic_status": d_peff_eff.epistemic_status,
+            "passed": (
+                d_peff_eff.three_way == "failed_enforcement"
+                and d_peff_eff.failure_origin == "effect_boundary"
+                and d_peff_eff.epistemic_status == "refute"
+            ),
+            "reason": d_peff_eff.reason,
         }
     )
     return out
