@@ -41,6 +41,24 @@ def test_paired_worlds_identical_visibility_but_different_authority():
     assert independent_oracle(revoked)['valid_effects']==0
     assert [e['decision'] for e in active['events'] if e['op']=='claim']==['allow']
     assert [e['decision'] for e in revoked['events'] if e['op']=='claim']==['deny']
+    # Intervene only on the evidence boundary: deliver the current authoritative
+    # grant snapshot *after* any revoke, immediately before the same claim.
+    # The two initially indistinguishable worlds now have discriminating views.
+    updated = []
+    for case in (cs['active_same_local_view'], cs['revoked_same_local_view']):
+        revised = deepcopy(case)
+        claim = revised['schedule'].pop()
+        prior = revised['schedule'][-1]['id']
+        revised['schedule'].append({'id':'e-fresh','op':'deliver_view',
+                                    'actor':'transport','recipient':'B',
+                                    'grant_id':'g','parents':[prior]})
+        claim['parents']=['e-fresh']
+        revised['schedule'].append(claim)
+        updated.append(simulate(revised,'broken_local'))
+    assert local_visible_claim(updated[0],'b1') != local_visible_claim(updated[1],'b1')
+    assert [e['decision'] for e in updated[0]['events'] if e['op']=='claim'] == ['allow']
+    assert [e['decision'] for e in updated[1]['events'] if e['op']=='claim'] == ['deny']
+    assert all(independent_oracle(t)['unauthorized_effects']==0 for t in updated)
 
 
 def test_bad_local_policy_produces_independent_oracle_counterexample():
