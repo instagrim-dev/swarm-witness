@@ -20,6 +20,8 @@
     "r5_v2-missing_delegate_c-broken_local",
     "r5_v2-foreign_receipt_replay-reference",
     "r5_v2-foreign_receipt_replay-broken_local",
+    "r5_v2-foreign_receipt_absent-reference",
+    "r5_v2-foreign_receipt_absent-broken_local",
     "r5_v2-wrong_task_scope-reference",
     "r5_v2-wrong_task_scope-broken_local",
     "r5_v2-wrong_epoch_scope-reference",
@@ -30,8 +32,8 @@
     "r5_v2-delayed_stale_delivery-broken_local",
     "r5_v2-meta"
   ],
-  "proposition": "For 13 fixed r5-v2-causal-matrix schedules, reference and faulty-local traces were evaluated against an independently reconstructed model effect ledger; each result matched its externally-declared expected counts",
-  "scope": "Synthetic deterministic causal interleavings; 9 enumerated dimensions, 26 policy arms; not live distributed agents",
+  "proposition": "For 14 fixed r5-v2-causal-matrix schedules, reference and faulty-local traces were evaluated against an independently reconstructed model effect ledger; each result matched its externally-declared expected counts",
+  "scope": "Synthetic deterministic causal interleavings; 9 enumerated dimensions, 28 policy arms; not live distributed agents",
   "label": "reproduced",
   "basis": "computed",
   "evaluation_method": "synthetic_model_conformance",
@@ -39,5 +41,6 @@
     "r5_v2-meta.observations.passed",
     "r5_v2-meta.observations.scenario_count",
     "r5_v2-meta.observations.arm_count"
-  ]
+  ],
+  "conclusion_class": "supported"
 }

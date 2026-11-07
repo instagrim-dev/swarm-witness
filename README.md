@@ -14,8 +14,8 @@
 | R3-L1 native BMO vs SQLite | 6/6 one-use ledger cases match | Native transactional owner, bounded claim/reopen/rollback properties |
 | R4 evidence qualification | Held-out misleading observation, misleading receipt and provenance controls | Synthetic and held-out protocol conformance |
 | R5 v1 | Ten sequential A/B/C scenarios | Synthetic multi-principal method transfer |
-| #10 causal simulator | 8 schedules, 16 arms; defective policy produces six unauthorized effects, reference zero | Deterministic causal interleavings, model effect ledger |
-| #11 R5 v2 | 13 fixed scenarios, 26 arms, nine dimensions; faulty local policy nine unauthorized effects, reference zero | Fixed synthetic matrix with separately reconstructed effects |
+| #10 causal simulator | 9 schedules, 18 arms; defective policy produces six unauthorized effects, reference zero | Deterministic causal interleavings, model effect ledger |
+| #11 R5 v2 | 14 fixed scenarios, 28 arms, nine dimensions; faulty local policy nine unauthorized effects, reference zero | Fixed synthetic matrix with separately reconstructed effects |
 | #12 mathematical foundation | Five conditional theorems/countermodels; 2,646 finite checks, zero violations | Four-world possible-world model and written proofs |
 
 The two policy arms are intentionally constructed controls. These numbers measure the tested schedules and are not estimates of incident prevalence in deployed agents.

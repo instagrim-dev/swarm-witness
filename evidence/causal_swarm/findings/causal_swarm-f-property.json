@@ -18,10 +18,12 @@
     "causal_swarm-delegation_a_b_c-broken_local",
     "causal_swarm-foreign_receipt_replay-reference",
     "causal_swarm-foreign_receipt_replay-broken_local",
+    "causal_swarm-foreign_receipt_absent-reference",
+    "causal_swarm-foreign_receipt_absent-broken_local",
     "causal_swarm-meta"
   ],
-  "proposition": "For 8 fixed causal-swarm-v1 schedules, reference and faulty-local traces were evaluated against an independently reconstructed model effect ledger; each result matched its externally-declared expected counts",
-  "scope": "Synthetic deterministic causal interleavings; 6 enumerated dimensions, 16 policy arms; not live distributed agents",
+  "proposition": "For 9 fixed causal-swarm-v1 schedules, reference and faulty-local traces were evaluated against an independently reconstructed model effect ledger; each result matched its externally-declared expected counts",
+  "scope": "Synthetic deterministic causal interleavings; 6 enumerated dimensions, 18 policy arms; not live distributed agents",
   "label": "reproduced",
   "basis": "computed",
   "evaluation_method": "synthetic_model_conformance",
@@ -29,5 +31,6 @@
     "causal_swarm-meta.observations.passed",
     "causal_swarm-meta.observations.scenario_count",
     "causal_swarm-meta.observations.arm_count"
-  ]
+  ],
+  "conclusion_class": "supported"
 }

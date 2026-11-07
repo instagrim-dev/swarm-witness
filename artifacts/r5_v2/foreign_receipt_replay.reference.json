@@ -131,60 +131,7 @@
     {
       "seq": 4,
       "event_id": "e4",
-      "parents": [
-        "e3"
-      ],
-      "op": "deliver_view",
-      "actor": "transport",
-      "grant_id": "g",
-      "task_id": null,
-      "epoch": null,
-      "call_id": null,
-      "receipt_id": null,
-      "decision": null,
-      "effect_attempted": false,
-      "effect_committed": false,
-      "policy": "reference",
-      "local_view_before": null,
-      "current_authority_visible_to_actor": false,
-      "recipient": "C",
-      "source_capture": null,
-      "delivered_view": {
-        "grant_id": "g",
-        "task_id": "compile",
-        "owner": "A",
-        "epoch": "e1",
-        "assignees": [
-          "A",
-          "C"
-        ],
-        "active": true,
-        "spent": false,
-        "revision": 2,
-        "source_event": "e4"
-      },
-      "result": "delivered",
-      "authority_after": {
-        "grant_id": "g",
-        "task_id": "compile",
-        "owner": "A",
-        "epoch": "e1",
-        "assignees": [
-          "A",
-          "C"
-        ],
-        "active": true,
-        "spent": false,
-        "revision": 2,
-        "source_event": "e4"
-      }
-    },
-    {
-      "seq": 5,
-      "event_id": "e5",
-      "parents": [
-        "e4"
-      ],
+      "parents": [],
       "op": "claim",
       "actor": "A",
       "grant_id": "g",
@@ -216,9 +163,52 @@
         "grant_id": "g",
         "call_id": "a1",
         "agent": "A",
-        "source_event": "e5"
+        "source_event": "e4"
       },
       "result": "claimed",
+      "authority_after": {
+        "grant_id": "g",
+        "task_id": "compile",
+        "owner": "A",
+        "epoch": "e1",
+        "assignees": [
+          "A",
+          "C"
+        ],
+        "active": true,
+        "spent": true,
+        "revision": 3,
+        "source_event": "e4"
+      }
+    },
+    {
+      "seq": 5,
+      "event_id": "e5",
+      "parents": [
+        "e4"
+      ],
+      "op": "deliver_receipt",
+      "actor": "transport",
+      "grant_id": "g",
+      "task_id": null,
+      "epoch": null,
+      "call_id": null,
+      "receipt_id": "receipt-a1",
+      "decision": null,
+      "effect_attempted": false,
+      "effect_committed": false,
+      "policy": "reference",
+      "local_view_before": null,
+      "current_authority_visible_to_actor": false,
+      "recipient": "C",
+      "delivered_receipt": {
+        "receipt_id": "receipt-a1",
+        "grant_id": "g",
+        "call_id": "a1",
+        "agent": "A",
+        "source_event": "e4"
+      },
+      "result": "delivered",
       "authority_after": {
         "grant_id": "g",
         "task_id": "compile",
@@ -240,49 +230,6 @@
       "parents": [
         "e5"
       ],
-      "op": "deliver_receipt",
-      "actor": "transport",
-      "grant_id": "g",
-      "task_id": null,
-      "epoch": null,
-      "call_id": null,
-      "receipt_id": "receipt-a1",
-      "decision": null,
-      "effect_attempted": false,
-      "effect_committed": false,
-      "policy": "reference",
-      "local_view_before": null,
-      "current_authority_visible_to_actor": false,
-      "recipient": "C",
-      "delivered_receipt": {
-        "receipt_id": "receipt-a1",
-        "grant_id": "g",
-        "call_id": "a1",
-        "agent": "A",
-        "source_event": "e5"
-      },
-      "result": "delivered",
-      "authority_after": {
-        "grant_id": "g",
-        "task_id": "compile",
-        "owner": "A",
-        "epoch": "e1",
-        "assignees": [
-          "A",
-          "C"
-        ],
-        "active": true,
-        "spent": true,
-        "revision": 3,
-        "source_event": "e6"
-      }
-    },
-    {
-      "seq": 7,
-      "event_id": "e7",
-      "parents": [
-        "e6"
-      ],
       "op": "claim",
       "actor": "C",
       "grant_id": "g",
@@ -294,20 +241,7 @@
       "effect_attempted": false,
       "effect_committed": false,
       "policy": "reference",
-      "local_view_before": {
-        "grant_id": "g",
-        "task_id": "compile",
-        "owner": "A",
-        "epoch": "e1",
-        "assignees": [
-          "A",
-          "C"
-        ],
-        "active": true,
-        "spent": false,
-        "revision": 2,
-        "source_event": "e4"
-      },
+      "local_view_before": null,
       "current_authority_visible_to_actor": false,
       "result": "refused",
       "authority_after": {
@@ -322,13 +256,13 @@
         "active": true,
         "spent": true,
         "revision": 3,
-        "source_event": "e7"
+        "source_event": "e6"
       }
     }
   ],
   "effect_log": [
     {
-      "source_event": "e5",
+      "source_event": "e4",
       "grant_id": "g",
       "task_id": "compile",
       "epoch": "e1",

@@ -5,12 +5,12 @@ Delivered in the main Swarm Witness repository with versioned follow-on protocol
 ## Delivered research
 
 - **#10, causal interleaving simulator:** `src/swarm_witness/causal_simulator.py`,
-  `experiments/causal_swarm/scenarios.json`, `run.py`, eight deterministic
-  schedules and sixteen policy traces. Agent-local snapshots, causal events and
+  `experiments/causal_swarm/scenarios.json`, `run.py`, nine deterministic
+  schedules and eighteen policy traces. Agent-local snapshots, causal events and
   application effects are separate modeled stores. A second algorithm audits
   the effect log and reconstructs the permission invariant from event history.
-- **#11, R5 v2 coverage:** `experiments/r5_v2/cases.json`, `run.py`, thirteen
-  fixed cases across nine declared dimensions and twenty-six policy arms, with
+- **#11, R5 v2 coverage:** `experiments/r5_v2/cases.json`, `run.py`, fourteen
+  fixed cases across nine declared dimensions and twenty-eight policy arms, with
   a separately implemented oracle. Version 2 is additive, not a reinterpretation
   of R5 v1. Baseline policy: zero unauthorized effects; deliberately faulty local
   policy: nine unauthorized effects and ten incorrect decisions.
@@ -36,7 +36,7 @@ python theory/check_taxonomy.py
 python scripts/publish_followon_evidence.py
 ```
 
-Expected: six tests passing; 8/16 and 13/26 case/arm counts; 2,646 finite checks
+Expected: seven tests passing; 9/18 and 14/28 case/arm counts; 2,646 finite checks
 with zero violations. Files in `artifacts/` are retained outputs from these
 commands; each trace contains actor observations, authority history and a
 separate model effect ledger. The `claims/` and `evidence/` trees use the
@@ -53,7 +53,7 @@ compatible observation semantics, not authenticity of external evidence.
 
 The new `src/`, `experiments/`, `tests/`, `theory/`, `claims/`, `evidence/`, `artifacts/` and `report/` entries are committed to main. `evidence/index.yaml` includes the new distinct finding slots. The review ZIP packer includes the research modules and their retained traces, and excludes its previous ZIP from staging.
 
-**Submission gate:** Author: Jonathan Maye-Hobbs; no institutional affiliation.
+**Submission gate:** Author: Jonathan Maye-Hobbs; Affiliation: Independent.
 Ensure Apart judges can access the report and evidence. The new PDF uses the official
 recommended section structure; importing it into the official Google Docs
 presentation template, if enforced, is a separate formatting step.

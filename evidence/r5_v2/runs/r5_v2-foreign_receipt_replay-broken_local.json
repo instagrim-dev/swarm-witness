@@ -19,12 +19,12 @@
       "unauthorized_effects": 1,
       "incorrect_decisions": 1,
       "violation_events": [
-        "e7: unauthorized committed effect"
+        "e6: unauthorized committed effect"
       ],
       "incorrect_decision_events": [
-        "e7"
+        "e6"
       ],
-      "causal_events": 7
+      "causal_events": 6
     },
     "case_passed": true,
     "trace_file": "artifacts/r5_v2/foreign_receipt_replay.broken_local.json"

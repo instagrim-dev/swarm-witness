@@ -1,13 +1,13 @@
 {
   "protocol": "r5-v2-causal-matrix",
-  "scenario_count": 13,
-  "arm_count": 26,
+  "scenario_count": 14,
+  "arm_count": 28,
   "dimension_count": 9,
   "passed": true,
   "failures": [],
   "paired_worlds_local_indistinguishable": true,
   "irrelevant_control_unchanged": true,
-  "manifest_sha256": "1e0cce7e0e3cff3a7e796f1b07e6ef0dd6d4f9131c9ee442bd655f42fb0ddae8",
+  "manifest_sha256": "e236c83ae07b2414f918c8bb0f5b8ef6073aa1ad1734bd96cafccde09b6c383f",
   "results": [
     {
       "case_id": "contention_a_first",
@@ -348,7 +348,7 @@
         "incorrect_decisions": 0,
         "violation_events": [],
         "incorrect_decision_events": [],
-        "causal_events": 7
+        "causal_events": 6
       },
       "passed": true
     },
@@ -366,12 +366,50 @@
         "unauthorized_effects": 1,
         "incorrect_decisions": 1,
         "violation_events": [
-          "e7: unauthorized committed effect"
+          "e6: unauthorized committed effect"
         ],
         "incorrect_decision_events": [
-          "e7"
+          "e6"
         ],
-        "causal_events": 7
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "foreign_receipt_absent",
+      "dimension": "receipt_provenance",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 5
+      },
+      "passed": true
+    },
+    {
+      "case_id": "foreign_receipt_absent",
+      "dimension": "receipt_provenance",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 5
       },
       "passed": true
     },

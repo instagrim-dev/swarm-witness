@@ -665,7 +665,7 @@
     {
       "id": "foreign_receipt_replay",
       "dimension": "receipt_provenance",
-      "description": "C presents actual A receipt after A consumes grant",
+      "description": "C has no qualifying local grant view; after A consumes the grant, C receives A's receipt and claims with that receipt alone",
       "agents": [
         "A",
         "B",
@@ -704,39 +704,27 @@
         },
         {
           "id": "e4",
-          "op": "deliver_view",
-          "actor": "transport",
-          "recipient": "C",
-          "grant_id": "g",
-          "parents": [
-            "e3"
-          ]
-        },
-        {
-          "id": "e5",
           "op": "claim",
           "actor": "A",
           "grant_id": "g",
           "task_id": "compile",
           "epoch": "e1",
           "call_id": "a1",
-          "parents": [
-            "e4"
-          ]
+          "parents": []
         },
         {
-          "id": "e6",
+          "id": "e5",
           "op": "deliver_receipt",
           "actor": "transport",
           "recipient": "C",
           "grant_id": "g",
           "receipt_id": "receipt-a1",
           "parents": [
-            "e5"
+            "e4"
           ]
         },
         {
-          "id": "e7",
+          "id": "e6",
           "op": "claim",
           "actor": "C",
           "grant_id": "g",
@@ -745,7 +733,7 @@
           "call_id": "c1",
           "receipt_id": "receipt-a1",
           "parents": [
-            "e6"
+            "e5"
           ]
         }
       ],
@@ -759,6 +747,80 @@
           "valid_effects": 1,
           "unauthorized_effects": 1,
           "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "foreign_receipt_absent",
+      "dimension": "receipt_provenance",
+      "description": "Same schedule as foreign_receipt_replay without receipt delivery; C claims with neither a qualifying local view nor a receipt",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "C",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "A",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "claim",
+          "actor": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "a1",
+          "parents": []
+        },
+        {
+          "id": "e5",
+          "op": "claim",
+          "actor": "C",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "c1",
+          "parents": []
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
         }
       }
     },

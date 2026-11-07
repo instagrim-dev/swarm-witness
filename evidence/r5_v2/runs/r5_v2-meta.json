@@ -7,11 +7,11 @@
   "execution_status": "completed",
   "observations": {
     "passed": true,
-    "scenario_count": 13,
-    "arm_count": 26,
+    "scenario_count": 14,
+    "arm_count": 28,
     "dimension_count": 9,
     "paired_worlds_local_indistinguishable": true,
     "irrelevant_control_unchanged": true,
-    "manifest_sha256": "1e0cce7e0e3cff3a7e796f1b07e6ef0dd6d4f9131c9ee442bd655f42fb0ddae8"
+    "manifest_sha256": "e236c83ae07b2414f918c8bb0f5b8ef6073aa1ad1734bd96cafccde09b6c383f"
   }
 }
