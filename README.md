@@ -1,7 +1,7 @@
 # Swarm Witness: What Do Agent-Safety Mechanisms Actually Establish?
 
 **Apart Research — Swarm Alignment sprint (weekend 2026-11-06 … 2026-11-08)**  
-**Tracks:** 3 (claim audit) and 4 (classical baselines)
+**Tracks:** 3 (Strengthening Agent Infrastructure) and 4 (Multi-Agent Oversight and Control)
 
 Multi-agent safety mechanisms are often described as novel when they implement durable authorization, crash-consistent recovery, or evidence packaging. We ask: after matching policy, observations, trust assumptions, durability, and enforcement coverage, which claimed benefits remain? We contribute Swarm Witness, an executable claim-audit method that pins third-party artifacts, states precise claim cards, runs discriminating checks against classical baselines, and records fail-closed conclusion labels. On three pinned targets we obtain: SoundGate recovery-barrier (R1) reproduced; EvidenceGraph receipt stress (R2) reproduced; BMO retained-grant vs ClassicalGate (R3) assumption_dependent. Auditors should publish matched baselines and labels, not treat branding as establishment.
 
