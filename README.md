@@ -1,4 +1,4 @@
-# Swarm Witness: A Testable Evidence Standard for Agent Safety Claims
+# Swarm Witness: An Executable Evidence Protocol for Agent Authorization Claims
 
 **Apart Swarm Alignment Hackathon 2026** | Primary: Track 3, Strengthening Agent Infrastructure | Application: Track 4, multi-agent oversight.
 
@@ -23,6 +23,8 @@ The two policy arms are intentionally constructed controls. These numbers measur
 ## Submission
 
 - [Final report, PDF](report/Swarm_Witness_Final_Submission.pdf) | [editable DOCX](report/Swarm_Witness_Final_Submission.docx) | [source Markdown](report/Swarm_Witness_Final_Submission.md)
+- [Templated official chrome, PDF](report/Swarm_Witness_Templated_Submission.pdf) | [filled DOCX](report/Swarm_Witness_Templated_Submission.docx)
+- [Slides PDF](report/Swarm_Witness_Slides.pdf) (form **Slides** field) · rebuild: `bash scripts/build_submission_variants.sh`
 - [Methods and reproducibility map](docs/RESEARCH_FOLLOWONS_10_12.md) | [verification and access](evidence/ACCESS.md) | [submission checklist](CHECKLIST.md)
 - [Original prior-work and preexisting-code disclosure](PREEXISTING.md).
 
@@ -53,4 +55,4 @@ bash scripts/pack_review_bundle.sh
 
 Reviewers can inspect the retained results without obtaining the private BMO working tree; native BMO re-execution requires access to its pinned source. Model-schedule experiments are distinct from live distributed-agent measurements. The mathematical soundness proofs are conditional on authenticated, compatible observations.
 
-Author: Jonathan Maye-Hobbs (no institutional affiliation). Final form actions: use the official Apart report template if required, and attach the review ZIP or otherwise grant reviewers access to the private repository.
+Author: Jonathan Maye-Hobbs · Affiliation: Independent. Prefer uploading `Swarm_Witness_Templated_Submission.pdf` (or the filled DOCX) plus `Swarm_Witness_Slides.pdf`; attach the review ZIP or grant reviewers access if the repository stays private.
