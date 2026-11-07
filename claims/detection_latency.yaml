@@ -1,0 +1,48 @@
+id: detection_latency
+source_ref: swarm-witness://detection-latency/replay-v1
+source_version: detection-latency-replay-v1
+original_proposition: >
+  Event time, observation availability, detector alert, responder
+  acknowledgement, enforcement, and effect commit are different times. A
+  latency is published only when both endpoints are exact, source-pinned, and
+  authored on a synthetic control. The original incident publishes a detection
+  latency only from a trustworthy event time on evidence the audit holds.
+operational_interpretation: >
+  Protocol detection-latency-replay-v1 replays three synthetic shapes
+  (incomplete unsanctioned actors, a transcript that disagrees with a later
+  effect, and a correct local decision beside an unauthorized downstream
+  effect), negative controls, a shared alert budget, and a threshold sweep.
+  Incident detection latency is read from the executed forensic telemetry
+  graph. The LessWrong post and appendix are one public record. The original
+  transcript dump, execution log, message-board dump, platform logs, redacted
+  indicators, and launchpad logs have no rows and no effect times, and they
+  are not upgrade gates. No incident detection latency is emitted.
+property: timestamp vocabulary and absent incident detection latency
+scope: >
+  Offline synthetic_control traces, historical_replay publication milestones,
+  and the forensic-telemetry-v1 qualification of the public 2026 Artifactory /
+  Hugging Face record. Not a deployment and not a certification that the
+  incident was detected or prevented.
+quantifier: >
+  Each declared stage in experiments/detection_latency/dataset.json, with one
+  shared observation set and alert budget per stage.
+success_criterion: >
+  run_replay passes after the forensic telemetry binding; detectable-stage
+  denominator, true and false alert counts, abstentions, ties, failures, and
+  threshold sensitivity are present; synthetic durations carry corpus_label
+  synthetic_control; historical latency result count is 0; incident detection
+  latency status is absent and no incident duration is emitted; the
+  reproduction record is one public record; unavailable originals contribute
+  no rows, no effect times, and no upgrade gates; a blocks_upgrade slot on
+  held evidence prevents supported; incident detection and prevention flags
+  are false.
+assumptions:
+  - "Synthetic timestamps are authored by this protocol and are not incident times"
+  - "A protocol duration requires exact authored endpoints on a synthetic_control case"
+  - "An incident latency number requires a source_stated event time on evidence this audit holds"
+  - "Publication dates and reconstructed narrative bounds are not detector or enforcement times"
+  - "Documents do not satisfy telemetry evidence requirements"
+  - "Absent timestamps stay absent"
+  - "Unavailable originals are recorded and are not upgrade gates"
+  - "A blocks_upgrade slot prevents supported only for evidence the audit holds"
+  - "The historical arm asserts no incident violation"

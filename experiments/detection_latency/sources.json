@@ -1,0 +1,146 @@
+{
+  "protocol_id": "detection-latency-replay-v1",
+  "retrieved_on": "2026-11-07",
+  "retrieved_clock_time": null,
+  "retrieved_clock_reason": "clock time of the retrieval was not retained",
+  "sources": [
+    {
+      "id": "hf-technical-timeline",
+      "url": "https://huggingface.co/blog/agent-intrusion-technical-timeline",
+      "http_status": 200,
+      "article_available": true,
+      "retrieved_on": "2026-11-07",
+      "raw_response_sha256": "6242f39818a4eb7ab77fabed39fbd8acf82fec459b684c472062c33f651d6c66",
+      "raw_response_bytes": 734275,
+      "normalized_article_sha256": null,
+      "operational_timestamps_admitted": 0,
+      "notes": "Raw response body pin. Narrative dates below are locators, not operational telemetry. Technique text was not copied."
+    },
+    {
+      "id": "metr-investigation",
+      "url": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+      "http_status": 200,
+      "article_available": true,
+      "retrieved_on": "2026-11-07",
+      "raw_response_sha256": "37ec7c48dc11ba00e048e079b161e99d4cdf7c279ed6d0290a0494c81d9a740f",
+      "raw_response_bytes": 437174,
+      "normalized_article_sha256": null,
+      "operational_timestamps_admitted": 0,
+      "notes": "Raw response body pin. The page says timestamps are reconstructed and that response and remediation were out of scope."
+    },
+    {
+      "id": "openai-index",
+      "url": "https://openai.com/index/hugging-face-incident-and-the-road-ahead/",
+      "http_status": 403,
+      "article_available": false,
+      "retrieved_on": "2026-11-07",
+      "raw_response_sha256": "8e975df75b7f8791b457124b6d0bae2ff85a6949767ed84a7ce59a36d9ac2157",
+      "raw_response_bytes": 9916,
+      "normalized_article_sha256": null,
+      "operational_timestamps_admitted": 0,
+      "notes": "Response was a challenge page, not the article."
+    },
+    {
+      "id": "openai-misalignment",
+      "url": "https://openai.com/hugging-face-incident-and-misalignment/",
+      "http_status": 403,
+      "article_available": false,
+      "retrieved_on": "2026-11-07",
+      "raw_response_sha256": "6cfbab0af32b08e532ee9901c5ecbaa8e85b53ff7d993412b38142f5f56aeaf6",
+      "raw_response_bytes": 9892,
+      "normalized_article_sha256": null,
+      "operational_timestamps_admitted": 0,
+      "notes": "Response was a challenge page, not the article."
+    }
+  ],
+  "stated_bounds": [
+    {
+      "id": "hf-publication",
+      "source_id": "hf-technical-timeline",
+      "locator": "Published July 27, 2026",
+      "stated_value": "2026-07-27",
+      "precision": "day",
+      "confidence": "publication",
+      "promoted_to_field": null,
+      "latency_eligible": false,
+      "calendar_date_from": null
+    },
+    {
+      "id": "hf-window-start",
+      "source_id": "hf-technical-timeline",
+      "locator": "forensic reconstruction window",
+      "stated_value": "2026-07-09T02:28:00Z",
+      "precision": "exact",
+      "confidence": "reconstructed",
+      "promoted_to_field": null,
+      "latency_eligible": false,
+      "calendar_date_from": null
+    },
+    {
+      "id": "hf-window-end",
+      "source_id": "hf-technical-timeline",
+      "locator": "forensic reconstruction window",
+      "stated_value": "2026-07-13T14:14:00Z",
+      "precision": "exact",
+      "confidence": "reconstructed",
+      "promoted_to_field": null,
+      "latency_eligible": false,
+      "calendar_date_from": null
+    },
+    {
+      "id": "hf-day5-last-activity",
+      "source_id": "hf-technical-timeline",
+      "locator": "Day 5 (07-13) section states 13:37 UTC",
+      "stated_value": "2026-07-13T13:37:00Z",
+      "precision": "exact",
+      "confidence": "reconstructed",
+      "promoted_to_field": null,
+      "latency_eligible": false,
+      "calendar_date_from": "section heading Day 5 (07-13); the sentence does not repeat the date"
+    },
+    {
+      "id": "hf-day5-last-logged",
+      "source_id": "hf-technical-timeline",
+      "locator": "Day 5 (07-13) section states 14:14 UTC",
+      "stated_value": "2026-07-13T14:14:00Z",
+      "precision": "exact",
+      "confidence": "reconstructed",
+      "promoted_to_field": null,
+      "latency_eligible": false,
+      "calendar_date_from": "section heading Day 5 (07-13); the sentence does not repeat the date"
+    },
+    {
+      "id": "metr-publication",
+      "source_id": "metr-investigation",
+      "locator": "August 26, 2026",
+      "stated_value": "2026-08-26",
+      "precision": "day",
+      "confidence": "publication",
+      "promoted_to_field": null,
+      "latency_eligible": false,
+      "calendar_date_from": null
+    },
+    {
+      "id": "metr-scope-start",
+      "source_id": "metr-investigation",
+      "locator": "Dates in scope",
+      "stated_value": "2026-06-26",
+      "precision": "day",
+      "confidence": "secondhand",
+      "promoted_to_field": null,
+      "latency_eligible": false,
+      "calendar_date_from": null
+    },
+    {
+      "id": "metr-scope-end",
+      "source_id": "metr-investigation",
+      "locator": "Dates in scope",
+      "stated_value": "2026-07-13",
+      "precision": "day",
+      "confidence": "secondhand",
+      "promoted_to_field": null,
+      "latency_eligible": false,
+      "calendar_date_from": null
+    }
+  ]
+}

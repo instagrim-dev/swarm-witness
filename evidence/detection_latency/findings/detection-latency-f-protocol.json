@@ -1,0 +1,30 @@
+{
+  "id": "detection-latency-f-protocol",
+  "claim_id": "detection_latency",
+  "run_ids": [
+    "detection-latency-score"
+  ],
+  "proposition": "Under detection-latency-replay-v1, forensic telemetry holds no trustworthy event time for the original incident, so no incident detection latency is emitted. Synthetic controls exercise the timestamp vocabulary, rules, shared alert budget, and source ablation.",
+  "scope": "Offline synthetic_control traces, historical_replay publication milestones, and the forensic-telemetry-v1 qualification. This finding does not certify detection or prevention of the incident.",
+  "label": "reproduced",
+  "conclusion_class": "supported",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "detection-latency-score.observations.passed",
+    "detection-latency-score.observations.historical_latency_result_count",
+    "detection-latency-score.observations.withheld_latency_claim_count",
+    "detection-latency-score.observations.incident_detection_claimed",
+    "detection-latency-score.observations.incident_prevention_claimed",
+    "detection-latency-score.observations.detectable_case_denominator",
+    "detection-latency-score.observations.incident_latency_status",
+    "detection-latency-score.observations.incident_detection_latency_emitted",
+    "detection-latency-score.observations.incident_trustworthy_event_time_count",
+    "detection-latency-score.observations.reproduction_one_public_record",
+    "detection-latency-score.observations.reproduction_independent_observation_count",
+    "detection-latency-score.observations.unavailable_row_count",
+    "detection-latency-score.observations.unavailable_effect_time_count",
+    "detection-latency-score.observations.unavailable_records_are_gates",
+    "detection-latency-score.observations.held_source_gate_prevents_supported",
+    "detection-latency-score.observations.unavailable_gate_rejected"
+  ]
+}
