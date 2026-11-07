@@ -79,11 +79,22 @@ def test_misbound_evidence_cannot_yield_supported_permission():
         assert out["conclusion_class"] != "supported"
         assert out["conclusion_class"] == "failed_enforcement"
         assert out["assessment"] == "enforcement_failed"
+        assert out["failure_origin"] == "evidence_misbinding"
         assert out["required_decision"] == (
             "allow" if world.grant_current == "active" else "deny"
         )
         # Gate trusted the false observation, so decision disagrees with truth.
         assert out["decision"] != out["required_decision"]
+
+
+def test_authentic_broken_gate_origin_is_gate_enforcement():
+    b = assess_permission(
+        WORLDS["B"],
+        true_observation(WORLDS["B"]),
+        gate_behavior="broken_allow_when_revoked",
+    )
+    assert b["failure_origin"] == "gate_enforcement"
+    assert b["observation_authentic"] is True
 
 
 def test_protocol_exercises_all_three_classes():

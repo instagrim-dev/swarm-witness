@@ -151,11 +151,15 @@ def assess_permission(
     out["misbound_detected"] = not authentic
 
     if not authentic:
-        holds = decision == required_truth
+        # Invalid evidence provenance. End-to-end permission may still be
+        # unwarranted, but do not diagnose a gate-enforcement failure: the
+        # gate may have followed the (false) supplied observation correctly.
+        out["failure_origin"] = "evidence_misbinding"
         out["justified_permission_claim"] = False
+        holds = decision == required_truth
         if holds:
             # Accidental agreement with truth under false evidence is still
-            # not warrant for support — treat as insufficient authenticity.
+            # not warrant for support — authenticity gap.
             classified = classify_conclusion(
                 evidence_complete=False, property_holds=None
             )
@@ -168,12 +172,13 @@ def assess_permission(
                     "reason": (
                         f"supplied grant observation {observed!r} misbinds "
                         f"ground truth {world.grant_current!r}; observation "
-                        "not authentic — missing_evidence (no unqualified "
-                        "supported permission)"
+                        "not authentic — missing_evidence "
+                        "(failure_origin=evidence_misbinding)"
                     ),
                 }
             )
             return out
+        # End-to-end: permission outcome wrong vs truth; origin is misbinding.
         classified = classify_conclusion(
             evidence_complete=True, property_holds=False
         )
@@ -185,10 +190,11 @@ def assess_permission(
                 "assessment": "enforcement_failed",
                 "reason": (
                     f"supplied grant observation {observed!r} misbinds "
-                    f"ground truth {world.grant_current!r}; gate decided "
-                    f"{decision!r} but truth requires {required_truth!r} — "
-                    "failed_enforcement (negative control: false evidence "
-                    "cannot support permission)"
+                    f"ground truth {world.grant_current!r}; end-to-end "
+                    f"decision {decision!r} vs truth-required "
+                    f"{required_truth!r} — failed_enforcement with "
+                    "failure_origin=evidence_misbinding (not a "
+                    "gate-policy diagnosis)"
                 ),
             }
         )
@@ -204,12 +210,14 @@ def assess_permission(
     out["finding_label"] = classified["finding_label"]
     out["property_holds"] = holds
     out["justified_permission_claim"] = decision == "allow" and holds
+    out["failure_origin"] = None if holds else "gate_enforcement"
 
     if not holds:
         out["assessment"] = "enforcement_failed"
         out["reason"] = (
-            f"evidence complete (grant={observed}); gate decided {decision!r} "
-            f"but required {required!r} — failed_enforcement"
+            f"authentic grant evidence ({observed}); gate decided {decision!r} "
+            f"but required {required!r} — failed_enforcement "
+            "(failure_origin=gate_enforcement)"
         )
         return out
 
@@ -641,7 +649,12 @@ def evaluate_method_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
             if case["result"]["conclusion_class"] != "failed_enforcement":
                 errors.append(
                     f"{case['case_id']}: misbound with known ground truth "
-                    "must be failed_enforcement"
+                    "must be failed_enforcement (end-to-end)"
+                )
+            if case["result"].get("failure_origin") != "evidence_misbinding":
+                errors.append(
+                    f"{case['case_id']}: misbound must set "
+                    "failure_origin=evidence_misbinding"
                 )
 
     classes_seen = {c["result"]["conclusion_class"] for c in cases}

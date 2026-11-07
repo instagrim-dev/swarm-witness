@@ -23,7 +23,15 @@ copy_tree() {
 }
 
 copy_tree "${ROOT}/claims/" "${STAGING}/claims/"
-copy_tree "${ROOT}/artifacts/" "${STAGING}/artifacts/"
+# Copy artifacts but never nest the previous review ZIP inside a new one.
+mkdir -p "${STAGING}/artifacts"
+if command -v rsync >/dev/null 2>&1; then
+  rsync -a --exclude 'swarm-witness-review-bundle.zip' \
+    "${ROOT}/artifacts/" "${STAGING}/artifacts/"
+else
+  cp -R "${ROOT}/artifacts/." "${STAGING}/artifacts/"
+  rm -f "${STAGING}/artifacts/swarm-witness-review-bundle.zip"
+fi
 copy_tree "${ROOT}/baselines/" "${STAGING}/baselines/"
 copy_tree "${ROOT}/evidence/" "${STAGING}/evidence/"
 copy_tree "${ROOT}/src/" "${STAGING}/src/"

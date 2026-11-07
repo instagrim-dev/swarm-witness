@@ -123,7 +123,10 @@ any required BMO case is unmatched, that comparison Finding is **`unresolved`**.
 Derived **r3-ledger-claim-v1** separately compares ClassicalLedgerGate (SQLite)
 to native `ClaimOrdinaryRetainedGrantFirstEditTx` under pin `4b717d7` with
 fail-closed native qualification (manifest, exit 0, adapter identity,
-git-archive pin inventory, bridge hashes, archived log).
+git-archive pin inventory, recomputed bridge/cases hashes when files are
+present, archived log). Cross-arm divergence refutes equality
+(`comparison_divergent`) without diagnosing `failed_enforcement` when each
+arm may still satisfy its own property.
 
 **R4 (three-way conclusions).** Worlds A (grant active) and B (grant revoked)
 share an identical old receipt. Taxonomy in
@@ -131,9 +134,10 @@ share an identical old receipt. Taxonomy in
 `unresolved`; **failed_enforcement** → `contradicted_in_scope`; **supported** →
 `reproduced`. Blind/irrelevant cases must stay missing_evidence. A broken gate
 that allows under an observed revoked grant must be failed_enforcement. Correct
-allow/deny under **authentic** observed grant is supported. Misbound
-observations (available but false vs ground truth) are scored against truth and
-cannot yield unqualified `permission_justified`. Protocol:
+allow/deny under **authentic** observed grant is supported. Misbound observations (available but false vs ground truth) yield an end-to-end
+unwarranted-permission finding with `failure_origin=evidence_misbinding`—not a
+gate-policy diagnosis. Authentic broken gates use
+`failure_origin=gate_enforcement`. Protocol:
 `experiments/evidence_sufficiency/`.
 
 **R5 (multi-principal transfer).** Protocol `r5-swarm-audit-v1` uses an
@@ -226,12 +230,13 @@ process-restart correctness. Selected run:
 
 Synthetic cases under `r4-evidence-sufficiency-v1` exercise all three classes,
 including **bounded handoff** and a **misbound negative control**: when the
-supplied grant observation disagrees with ground truth, the conclusion is
-`failed_enforcement` and `justified_permission_claim` is false (not
-`supported`). Blind Worlds A/B stay `missing_evidence`; broken
-revoked-still-allows is `failed_enforcement`; authentic correct gates are
-`supported`. Cross-study map: `baselines/three_way_conclusion_map.md`. Finding
-`r4-f-evidence-sufficiency` label **`reproduced`**; `all_checks_pass: true`.
+supplied grant observation disagrees with ground truth, the end-to-end
+conclusion is `failed_enforcement` with `failure_origin=evidence_misbinding`
+(not `supported`; not a gate-enforcement diagnosis). Blind Worlds A/B stay
+`missing_evidence`; authentic broken gates are `failed_enforcement` with
+`failure_origin=gate_enforcement`. Cross-study map:
+`baselines/three_way_conclusion_map.md`. Finding `r4-f-evidence-sufficiency`
+label **`reproduced`**; `all_checks_pass: true`.
 
 ## 4.6 R5 — Multi-principal transfer (`reproduced` = synthetic conformance)
 

@@ -28,6 +28,7 @@
     "conclusion_match": true,
     "ground_truth_mismatch": false,
     "misbound_detected": null,
-    "observation_authentic": null
+    "observation_authentic": null,
+    "failure_origin": null
   }
 }

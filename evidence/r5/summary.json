@@ -135,6 +135,7 @@
     ],
     "model": "sequential_shared_grant_multi_principal",
     "three_way_classes_exercised": true,
+    "independent_probes_passed": true,
     "missing_evidence_count": 2,
     "failed_enforcement_count": 2,
     "supported_count": 6,

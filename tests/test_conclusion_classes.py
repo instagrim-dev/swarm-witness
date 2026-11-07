@@ -36,11 +36,12 @@ def test_complete_evidence_requires_bool_property():
         classify_conclusion(evidence_complete=True, property_holds=None)
 
 
-def test_label_map_covers_three_classes():
+def test_label_map_covers_core_and_comparison_divergent():
     assert set(CONCLUSION_TO_FINDING_LABEL) == {
         "missing_evidence",
         "failed_enforcement",
         "supported",
+        "comparison_divergent",
     }
 
 
@@ -66,3 +67,13 @@ def test_matched_comparison_incomplete_is_missing_evidence():
     )
     assert out["conclusion_class"] == "missing_evidence"
     assert out["finding_label"] == "unresolved"
+
+
+def test_matched_comparison_divergence_is_not_failed_enforcement():
+    out = classify_matched_comparison(
+        evidence_complete=True, arms_agree=False, property_holds=True
+    )
+    assert out["conclusion_class"] == "comparison_divergent"
+    assert out["finding_label"] == "contradicted_in_scope"
+    assert out["property_holds"] is True
+    assert "equality" in out["reason"]

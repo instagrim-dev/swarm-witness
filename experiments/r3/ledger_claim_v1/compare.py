@@ -280,6 +280,16 @@ EXPECTED_BMO_ADAPTER_ID = "bmo_l1_first_edit"
 EXPECTED_PIN_PREFIX = "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
 
 
+def _sha256_file(path: Path) -> str:
+    import hashlib
+
+    h = hashlib.sha256()
+    with path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
 def qualify_native_bmo(
     *,
     run_dir: Path,
@@ -289,10 +299,13 @@ def qualify_native_bmo(
 
     Defaults to false. Requires a readable source_manifest.json with
     native_bmo=true, successful process exit, expected adapter identity,
-    and pinned source identity. All BMO observations must be completed
-    under the expected adapter_id.
+    and pinned source identity. When bridge source files are present next to
+    the comparator, recomputes their hashes and requires an exact match.
+    When cases.yaml is resolvable, recomputes cases_sha256. Archived bridge
+    log must exist. Does not re-run Go.
     """
-    manifest_path = Path(run_dir) / "source_manifest.json"
+    run_dir = Path(run_dir)
+    manifest_path = run_dir / "source_manifest.json"
     if not manifest_path.is_file():
         return False, "source_manifest.json missing"
     try:
@@ -331,6 +344,33 @@ def qualify_native_bmo(
         inventory["git_archive_sha256"]
     ) != 64:
         return False, "source_inventory.git_archive_sha256 missing"
+    # Recompute bridge hashes from retained comparator sources when present.
+    bridge_dir = Path(__file__).resolve().parent
+    for name in ("bmo_adapter_test.go", "bmo_adapter_fixture.go"):
+        src = bridge_dir / name
+        if not src.is_file():
+            continue
+        actual = _sha256_file(src)
+        declared = bridge.get(name)
+        if actual != declared:
+            return False, f"bridge hash mismatch for {name}: file≠manifest"
+        inj = (inventory.get("bridge_injected_sha256") or {}).get(name)
+        if isinstance(inj, str) and inj != actual:
+            return False, f"bridge hash mismatch for {name}: file≠source_inventory"
+    # Bind cases.yaml when path resolves (recheck submitted evidence, not a Go rerun).
+    cases_rel = manifest.get("cases_path")
+    cases_digest = manifest.get("cases_sha256")
+    if isinstance(cases_rel, str) and isinstance(cases_digest, str) and len(cases_digest) == 64:
+        candidates = [
+            Path.cwd() / cases_rel,
+            ROOT / cases_rel,
+            bridge_dir / "cases.yaml",
+        ]
+        cases_file = next((p for p in candidates if p.is_file()), None)
+        if cases_file is not None:
+            actual_cases = _sha256_file(cases_file)
+            if actual_cases != cases_digest:
+                return False, "cases_sha256 mismatch vs resolved cases.yaml"
     if not bmo_steps:
         return False, "no BMO observations"
     for row in bmo_steps:
@@ -340,12 +380,16 @@ def qualify_native_bmo(
             return False, f"observation execution_status={row.get('execution_status')!r}"
     # Portable log must be archived beside the selected run when present.
     log_rel = bmo.get("log_relpath") or "bmo_go_test.log"
-    log_path = Path(run_dir) / str(log_rel)
+    log_path = run_dir / str(log_rel)
     if not log_path.is_file():
-        # Accept nested work-dir log only as transitional; prefer archived root log.
-        nested = Path(run_dir) / "bmo_work" / "bmo_go_test.log"
+        nested = run_dir / "bmo_work" / "bmo_go_test.log"
         if not nested.is_file():
             return False, f"native bridge log missing ({log_rel} or bmo_work/bmo_go_test.log)"
+    # Bind log bytes to a retained digest when the manifest records one.
+    log_sha = bmo.get("log_sha256")
+    if isinstance(log_sha, str) and len(log_sha) == 64 and log_path.is_file():
+        if _sha256_file(log_path) != log_sha:
+            return False, "bmo_go_test.log sha256 mismatch vs manifest.log_sha256"
     return True, "native qualification ok"
 
 
@@ -356,7 +400,12 @@ def _ledger_conclusion(
     agree: dict[str, Any],
     native_bmo: bool,
 ) -> dict[str, Any]:
-    """Map ledger comparator stages onto the three-way conclusion taxonomy."""
+    """Map ledger comparator stages onto conclusion taxonomy.
+
+    Validity, per-arm property satisfaction, and cross-arm agreement are
+    independent. Divergence refutes equality without forcing
+    ``failed_enforcement``.
+    """
     if not native_bmo or not validity.get("valid") or agree.get("result") == "unresolved":
         return classify_matched_comparison(
             evidence_complete=False, arms_agree=None, property_holds=None
@@ -369,7 +418,7 @@ def _ledger_conclusion(
     return classify_matched_comparison(
         evidence_complete=True,
         arms_agree=arms_agree,
-        property_holds=both_pass if arms_agree else False,
+        property_holds=both_pass,
     )
 
 
@@ -381,11 +430,12 @@ def classify_finding(
     run_ids: list[str],
     native_bmo: bool = False,
 ) -> dict[str, Any]:
-    """Map comparator stages onto Finding labels via three-way conclusions.
+    """Map comparator stages onto Finding labels via conclusion taxonomy.
 
-    missing_evidence → unresolved; failed_enforcement → contradicted_in_scope;
-    supported → classical_baseline_matches. Agreement without property success
-    is failed_enforcement (not a successful comparison Finding).
+    missing_evidence → unresolved;
+    comparison_divergent → contradicted_in_scope (equality refuted);
+    failed_enforcement → contradicted_in_scope (property fail under agreement);
+    supported → classical_baseline_matches.
     """
     classified = _ledger_conclusion(
         validity=validity,
@@ -396,13 +446,22 @@ def classify_finding(
     label = classified["finding_label"]
     cls = classified["conclusion_class"]
 
+    classical_pass = {
+        cid: bool(properties.get("classical", {}).get(cid, {}).get("passed"))
+        for cid in (properties.get("classical") or {})
+    }
+    bmo_pass = {
+        cid: bool(properties.get("bmo", {}).get(cid, {}).get("passed"))
+        for cid in (properties.get("bmo") or {})
+    }
+
     if cls == "missing_evidence":
         if not native_bmo:
             proposition = (
                 "Native BMO ClaimOrdinaryRetainedGrantFirstEditTx was not measured "
                 "under fail-closed qualification (missing/invalid manifest, non-zero "
-                "exit, wrong adapter, or non-native observations); ledger-claim "
-                "comparison remains missing_evidence for the BMO pin"
+                "exit, wrong adapter, hash mismatch, or non-native observations); "
+                "ledger-claim comparison remains missing_evidence for the BMO pin"
             )
         else:
             proposition = (
@@ -410,18 +469,20 @@ def classify_finding(
                 "observations missing, corrupt, or input-mismatched "
                 "(missing_evidence)"
             )
+    elif cls == "comparison_divergent":
+        proposition = (
+            "Backends disagree on disposition or property-relevant projection "
+            "at one or more r3-ledger-claim-v1 steps — equality proposition "
+            "refuted (comparison_divergent); per-arm property outcomes are "
+            f"classical={classical_pass} bmo={bmo_pass} and are not diagnosed "
+            "as failed_enforcement solely from divergence"
+        )
     elif cls == "failed_enforcement":
-        if agree.get("result") == "divergent":
-            proposition = (
-                "Backends disagree on disposition or property-relevant projection "
-                "at one or more r3-ledger-claim-v1 steps (failed_enforcement)"
-            )
-        else:
-            proposition = (
-                "Backends agree on step-wise dispositions/projections, but one or "
-                "both arms fail the claim success criterion (failed_enforcement); "
-                "not a successful property-comparison Finding"
-            )
+        proposition = (
+            "Backends agree on step-wise dispositions/projections, but one or "
+            "both arms fail the claim success criterion (failed_enforcement); "
+            "not a successful property-comparison Finding"
+        )
     else:
         proposition = (
             "Across declared synthetic cases, ClassicalLedgerGate and native "
@@ -441,6 +502,10 @@ def classify_finding(
         ),
         "label": label,
         "basis": "computed",
+        "conclusion_class": cls,
+        "comparison_validity": bool(validity.get("valid")),
+        "per_arm_property_pass": {"classical": classical_pass, "bmo": bmo_pass},
+        "cross_arm_agreement": agree.get("result"),
         "supporting_observation_refs": [
             "r3-ledger-meta.observations.agreement.result",
             "r3-ledger-meta.observations.validity.valid",

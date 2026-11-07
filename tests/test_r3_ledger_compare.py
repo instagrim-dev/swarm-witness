@@ -236,6 +236,48 @@ def test_agreement_compares_every_step_not_only_final_state():
     assert agree["case_results"]["T03"]["equal"] is False
 
 
+def test_divergence_with_both_arms_passing_is_comparison_divergent_not_enforcement():
+    """Equality refute ≠ failed_enforcement when each arm still satisfies policy."""
+    compare = _load("ledger_compare", PKG / "compare.py")
+    proto = _load("ledger_protocol", PKG / "protocol.py")
+    t03 = next(c for c in proto.load_cases(PKG / "cases.yaml")["cases"] if c.case_id == "T03")
+    c_steps = _t03_happy("classical_ledger_gate")
+    b_steps = _t03_happy("bmo_l1_first_edit")
+    # Force a mid-step projection diverge while keeping claim/inspect properties OK.
+    empty = {
+        "grant_spent": False,
+        "claim_count": 0,
+        "transfer_count": 0,
+        "claims": [],
+        "transfers": [],
+        "claim_call_ids": [],
+        "transfer_call_ids": [],
+    }
+    mid = dict(empty)
+    mid["grant_spent"] = True
+    b_steps[0]["state"] = mid
+    validity = compare.pair_validity(cases=[t03], classical_steps=c_steps, bmo_steps=b_steps)
+    props = compare.property_outcomes([t03], classical_steps=c_steps, bmo_steps=b_steps)
+    agree = compare.agreement(
+        [t03], classical_steps=c_steps, bmo_steps=b_steps, validity=validity
+    )
+    assert agree["result"] == "divergent"
+    # Both arms still pass T03 property on their own traces.
+    assert props["classical"]["T03"]["passed"] is True
+    assert props["bmo"]["T03"]["passed"] is True
+    finding = compare.classify_finding(
+        validity=validity,
+        properties=props,
+        agree=agree,
+        run_ids=["r"],
+        native_bmo=True,
+    )
+    assert finding["conclusion_class"] == "comparison_divergent"
+    assert finding["label"] == "contradicted_in_scope"
+    assert "equality" in finding["proposition"].lower()
+    assert "failed_enforcement" not in finding["proposition"].split("—")[0]
+
+
 def test_duplicate_classical_as_bmo_without_manifest_is_unresolved(tmp_path: Path):
     compare = _load("ledger_compare", PKG / "compare.py")
     run_dir = tmp_path / "run"
@@ -251,6 +293,7 @@ def test_duplicate_classical_as_bmo_without_manifest_is_unresolved(tmp_path: Pat
 
 
 def _native_manifest(*, exit_code: int = 0) -> dict:
+    # Hashes must match retained bridge sources (qualification recomputes them).
     return {
         "bmo": {
             "native_bmo": True,
@@ -259,15 +302,31 @@ def _native_manifest(*, exit_code: int = 0) -> dict:
             "pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
             "mode": "go_test_bridge_native",
             "bridge": {
-                "bmo_adapter_test.go": "a" * 64,
-                "bmo_adapter_fixture.go": "b" * 64,
+                "bmo_adapter_test.go": (
+                    "d1806f532eba26a5ba8233376efa67d922a1db121f34733a6c4a3dfcda47555e"
+                ),
+                "bmo_adapter_fixture.go": (
+                    "58e0e00511a67d0868d3a3ff167ccef8c3323ec403220243064e80b781ddb3c1"
+                ),
             },
             "source_inventory": {
                 "materialization": "git_archive+bridge_inject",
                 "git_archive_sha256": "c" * 64,
+                "bridge_injected_sha256": {
+                    "bmo_adapter_test.go": (
+                        "d1806f532eba26a5ba8233376efa67d922a1db121f34733a6c4a3dfcda47555e"
+                    ),
+                    "bmo_adapter_fixture.go": (
+                        "58e0e00511a67d0868d3a3ff167ccef8c3323ec403220243064e80b781ddb3c1"
+                    ),
+                },
             },
             "log_relpath": "bmo_go_test.log",
-        }
+        },
+        "cases_path": "experiments/r3/ledger_claim_v1/cases.yaml",
+        "cases_sha256": (
+            "bed93858012dc09a88d7c346fbec817904db85d5203e08bf1ec2642ed76f710d"
+        ),
     }
 
 

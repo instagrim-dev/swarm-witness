@@ -1,32 +1,37 @@
-"""Three-way conclusion taxonomy for Swarm Witness audits.
+"""Conclusion taxonomy for Swarm Witness audits.
 
-A security mechanism can appear to "work" while the warranted Finding still
-depends on whether evidence is adequate and whether enforcement held:
+Core three-way classes for a single mechanism evaluation:
 
-1. ``missing_evidence`` — required discriminating observations absent or
-   incomplete; do not treat agreement-on-ignorance as support. Maps to Finding
-   label ``unresolved``.
-2. ``failed_enforcement`` — evidence sufficient to evaluate the property, and
-   the exercised mechanism violates it. Maps to ``contradicted_in_scope``.
-3. ``supported`` — evidence sufficient and the property holds under the stated
-   scope. Maps to ``reproduced`` (or ``classical_baseline_matches`` for matched
+1. ``missing_evidence`` — discriminating observations absent/incomplete.
+   Finding ``unresolved``.
+2. ``failed_enforcement`` — evidence sufficient *and authentic*, and the
+   exercised mechanism violates the property. Finding ``contradicted_in_scope``.
+3. ``supported`` — evidence sufficient/authentic and the property holds.
+   Finding ``reproduced`` (or ``classical_baseline_matches`` for matched
    baseline comparisons).
 
-These classes are mutually exclusive for a single claim evaluation. Negative
-controls must show that irrelevant facts do not upgrade ``missing_evidence``,
-and that ``failed_enforcement`` is not labeled ``supported``.
+Matched classical↔implementation comparisons additionally emit
+``comparison_divergent`` when paired observations disagree. That refutes the
+*equality* proposition without diagnosing that either gate failed enforcement.
+It still maps to Finding ``contradicted_in_scope`` (equality contradicted).
 """
 
 from __future__ import annotations
 
 from typing import Any, Literal
 
-ConclusionClass = Literal["missing_evidence", "failed_enforcement", "supported"]
+ConclusionClass = Literal[
+    "missing_evidence",
+    "failed_enforcement",
+    "supported",
+    "comparison_divergent",
+]
 
 CONCLUSION_TO_FINDING_LABEL: dict[ConclusionClass, str] = {
     "missing_evidence": "unresolved",
     "failed_enforcement": "contradicted_in_scope",
     "supported": "reproduced",
+    "comparison_divergent": "contradicted_in_scope",
 }
 
 # Matched baseline comparisons use a dedicated success label when supported.
@@ -86,25 +91,39 @@ def classify_matched_comparison(
     arms_agree: bool | None,
     property_holds: bool | None,
 ) -> dict[str, Any]:
-    """Three-way class for paired classical↔implementation comparisons.
+    """Classify paired classical↔implementation comparisons.
 
-    Incomplete pairs → missing_evidence. Complete evidence with disagreement or
-    failed properties → failed_enforcement. Agreement + property success →
-    supported (Finding ``classical_baseline_matches``).
+    Outcomes are independent:
+    - incomplete / unpaired → ``missing_evidence``
+    - arms disagree → ``comparison_divergent`` (equality refuted; *not*
+      ``failed_enforcement`` — either arm may still satisfy its own property)
+    - arms agree + property fail → ``failed_enforcement``
+    - arms agree + property success → ``supported`` / ``classical_baseline_matches``
     """
     if not evidence_complete or arms_agree is None:
         return classify_conclusion(
             evidence_complete=False, property_holds=None, comparison=True
         )
     if not arms_agree:
-        return classify_conclusion(
-            evidence_complete=True, property_holds=False, comparison=True
-        )
+        return {
+            "conclusion_class": "comparison_divergent",
+            "finding_label": finding_label_for(
+                "comparison_divergent", comparison=True
+            ),
+            "property_holds": property_holds,
+            "arms_agree": False,
+            "reason": (
+                "cross-arm equality proposition refuted; not a diagnosis that "
+                "either authorization mechanism failed enforcement"
+            ),
+        }
     if property_holds is None:
         raise ValueError("property_holds required when arms agree under complete evidence")
-    return classify_conclusion(
+    out = classify_conclusion(
         evidence_complete=True, property_holds=property_holds, comparison=True
     )
+    out["arms_agree"] = True
+    return out
 
 
 def required_permission_decision(observed_grant: str) -> str:
@@ -121,6 +140,8 @@ def conclusion_class_for_label(label: str) -> ConclusionClass | None:
     if label == "unresolved" or label == "assumption_dependent":
         return "missing_evidence"
     if label == "contradicted_in_scope":
+        # Ambiguous between failed_enforcement and comparison_divergent;
+        # callers with richer context should prefer the explicit field.
         return "failed_enforcement"
     if label in {"reproduced", "classical_baseline_matches"}:
         return "supported"
@@ -132,7 +153,6 @@ def assert_label_matches_conclusion(label: str, conclusion_class: str) -> None:
         conclusion_class,  # type: ignore[arg-type]
         comparison=(label == SUPPORTED_COMPARISON_LABEL),
     )
-    # supported may be reproduced or classical_baseline_matches
     if conclusion_class == "supported":
         if label not in {"reproduced", SUPPORTED_COMPARISON_LABEL}:
             raise ValueError(

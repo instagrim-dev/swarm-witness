@@ -494,6 +494,76 @@ def run_swarm_protocol_cases() -> list[dict[str, Any]]:
     return cases
 
 
+def run_independent_probes(
+    probes: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Score a fixed probe suite loaded separately from scenario construction.
+
+    Expectations live in ``experiments/swarm_r5/independent_probes.json`` (or
+    an injected list). This catches unexpected classification regressions
+    without relying solely on expectations embedded next to scenario builders.
+    """
+    import json
+    from pathlib import Path
+
+    if probes is None:
+        path = (
+            Path(__file__).resolve().parents[2]
+            / "experiments"
+            / "swarm_r5"
+            / "independent_probes.json"
+        )
+        probes = json.loads(path.read_text(encoding="utf-8"))
+
+    errors: list[str] = []
+    results: list[dict[str, Any]] = []
+    for probe in probes:
+        st = SwarmState()
+        setup = probe["setup"]
+        gid = setup["grant_id"]
+        st.seed_shared_grant(gid, owner=setup["owner"])
+        for by, delegate in setup.get("assignees_via") or []:
+            st.assign_delegate(gid, by=by, delegate=delegate)
+        if setup.get("pre_spend_agent"):
+            attempt_claim(
+                st,
+                agent=setup["pre_spend_agent"],
+                grant_id=gid,
+                call_id=setup["pre_spend_call_id"],
+                observe_grant=True,
+            )
+        claim = probe["claim"]
+        out = attempt_claim(
+            st,
+            agent=claim["agent"],
+            grant_id=gid,
+            call_id=claim["call_id"],
+            observe_grant=bool(claim.get("observe_grant", True)),
+            use_foreign_receipt_from=claim.get("use_foreign_receipt_from"),
+            gate_mode=claim.get("gate_mode", "correct"),
+        )
+        want = probe["expected_conclusion_class"]
+        if out["conclusion_class"] != want:
+            errors.append(
+                f"{probe['probe_id']}: class {out['conclusion_class']!r} want {want!r}"
+            )
+        if "expected_decision" in probe and out.get("decision") != probe["expected_decision"]:
+            errors.append(
+                f"{probe['probe_id']}: decision {out.get('decision')!r} "
+                f"want {probe['expected_decision']!r}"
+            )
+        if "expected_effect_committed" in probe and out.get("effect_committed") != probe[
+            "expected_effect_committed"
+        ]:
+            errors.append(
+                f"{probe['probe_id']}: effect_committed "
+                f"{out.get('effect_committed')!r} want "
+                f"{probe['expected_effect_committed']!r}"
+            )
+        results.append({"probe_id": probe["probe_id"], "result": out})
+    return {"passed": not errors, "errors": errors, "results": results}
+
+
 def evaluate_swarm_method_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
     errors: list[str] = []
     agents_seen: set[str] = set()
@@ -540,6 +610,10 @@ def evaluate_swarm_method_success(cases: list[dict[str, Any]]) -> dict[str, Any]
         if not presented or not presented.get("receipt_id"):
             errors.append(f"{cid}: missing ledger-bound presented_receipt")
 
+    indep = run_independent_probes()
+    if not indep["passed"]:
+        errors.extend(f"independent:{e}" for e in indep["errors"])
+
     return {
         "passed": not errors,
         "errors": errors,
@@ -548,6 +622,7 @@ def evaluate_swarm_method_success(cases: list[dict[str, Any]]) -> dict[str, Any]
         "agents": sorted(agents_seen),
         "model": "sequential_shared_grant_multi_principal",
         "three_way_classes_exercised": three_way,
+        "independent_probes_passed": indep["passed"],
         "missing_evidence_count": sum(
             1 for c in cases if c["result"]["conclusion_class"] == "missing_evidence"
         ),
