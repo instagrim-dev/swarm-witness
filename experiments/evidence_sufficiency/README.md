@@ -9,9 +9,12 @@ Executable check that Swarm Witness distinguishes:
 | `supported` | Evidence complete; property holds | `reproduced` |
 
 Worlds A (grant active) and B (grant revoked) share an identical old receipt.
+A bounded **handoff** slice adds principal→delegate transferability: A's receipt
+alone does not authorize B.
 
 ```bash
 python3 experiments/evidence_sufficiency/run.py
+python3 scripts/annotate_conclusion_classes.py
 python scripts/check_evidence.py --write-index
 ```
 

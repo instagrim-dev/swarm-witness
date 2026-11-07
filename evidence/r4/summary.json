@@ -118,6 +118,42 @@
       "decision": "allow",
       "expected_assessment": "permission_justified",
       "expected_conclusion_class": "supported"
+    },
+    {
+      "case_id": "handoff_blind_delegate",
+      "role": "handoff_missing",
+      "assessment": "unsupported",
+      "conclusion_class": "missing_evidence",
+      "decision": null,
+      "expected_assessment": "unsupported",
+      "expected_conclusion_class": "missing_evidence"
+    },
+    {
+      "case_id": "handoff_delegate_grant_active",
+      "role": "handoff_supported",
+      "assessment": "permission_justified",
+      "conclusion_class": "supported",
+      "decision": "allow",
+      "expected_assessment": "permission_justified",
+      "expected_conclusion_class": "supported"
+    },
+    {
+      "case_id": "handoff_failed_receipt_alone_allows",
+      "role": "handoff_failed",
+      "assessment": "enforcement_failed",
+      "conclusion_class": "failed_enforcement",
+      "decision": "allow",
+      "expected_assessment": "enforcement_failed",
+      "expected_conclusion_class": "failed_enforcement"
+    },
+    {
+      "case_id": "handoff_delegate_grant_revoked_deny",
+      "role": "handoff_supported",
+      "assessment": "permission_refuted",
+      "conclusion_class": "supported",
+      "decision": "deny",
+      "expected_assessment": "permission_refuted",
+      "expected_conclusion_class": "supported"
     }
   ],
   "score": {
@@ -126,11 +162,11 @@
     "indistinguishable_when_blind": true,
     "discriminator_separates_worlds": true,
     "three_way_classes_exercised": true,
-    "case_count": 13,
+    "case_count": 17,
     "unsupported_blind_count": 4,
-    "missing_evidence_count": 4,
-    "failed_enforcement_count": 2,
-    "supported_count": 7
+    "missing_evidence_count": 5,
+    "failed_enforcement_count": 3,
+    "supported_count": 9
   },
   "finding_id": "r4-f-evidence-sufficiency",
   "label": "reproduced"

@@ -24,5 +24,6 @@
     "bmo-active_grant_execute.observations.evaluator_outcome",
     "classical-stale_grant_version.observations.decision",
     "bmo-stale_grant_version.observations.evaluator_outcome"
-  ]
+  ],
+  "conclusion_class": "missing_evidence"
 }

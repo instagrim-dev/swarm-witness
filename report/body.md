@@ -30,7 +30,9 @@ current grant state.
    failed enforcement, and genuinely supported conclusions under matched
    observation rules—refusing success labels when evidence is incomplete or
    when an exercised gate violates the property.
-4. **Not claimed:** generalization to multi-agent delegation / swarm behavior.
+4. **Bounded handoff transferability (not swarm population):** R4 shows
+   principal-receipt handoff is not standing delegate permission under the same
+   three-way rules. Full multi-agent / swarm generalization is **not claimed**.
 
 Tracks: **3** (Strengthening Agent Infrastructure) and **4** (Multi-Agent
 Oversight and Control). Preexisting BMO code and Oct 25 scaffold are marked in
@@ -180,15 +182,17 @@ process-restart correctness. Selected run:
 
 ## 4.5 R4 — Three-way conclusions (`reproduced`)
 
-Thirteen synthetic cases under `r4-evidence-sufficiency-v1` exercise all three
-classes: **missing_evidence** (4 blind/irrelevant; Worlds A/B indistinguishable),
-**failed_enforcement** (2 cases: revoked-still-allows and active-still-denies →
-`contradicted_in_scope`), **supported** (7 cases: correct allow/deny plus
-contrasts). The ledger comparator uses the same taxonomy via
-`classify_matched_comparison` (mutual property failure → failed_enforcement, not
-a success label). Cross-study map: `baselines/three_way_conclusion_map.md`.
-Finding `r4-f-evidence-sufficiency` label **`reproduced`**;
-`all_checks_pass: true`; `three_way_classes_exercised: true`.
+Seventeen synthetic cases under `r4-evidence-sufficiency-v1` exercise all three
+classes, including a **bounded handoff** slice: a principal receipt alone does
+not authorize a delegate (`missing_evidence`); allowing via that receipt while
+the delegate grant is revoked is `failed_enforcement`; an observed active
+delegate grant with a correct gate is `supported`. Core gate cases still cover
+blind Worlds A/B, revoked-still-allows, and active-still-denies. The ledger
+comparator uses the same taxonomy via `classify_matched_comparison`. Cross-study
+map: `baselines/three_way_conclusion_map.md`. Findings across R1–R4 carry an
+explicit `conclusion_class` annotation. Finding `r4-f-evidence-sufficiency`
+label **`reproduced`**; `all_checks_pass: true`; `three_way_classes_exercised:
+true`.
 
 # 5. Discussion
 

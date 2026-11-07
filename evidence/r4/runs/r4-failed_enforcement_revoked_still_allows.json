@@ -19,6 +19,8 @@
     "include_current_grant": true,
     "include_irrelevant": false,
     "observed_grant": "revoked",
+    "delegate_id": null,
+    "principal_id": null,
     "reason": "evidence complete (grant=revoked); gate decided 'allow' but required 'deny' \u2014 failed_enforcement",
     "expected_assessment": "enforcement_failed",
     "expected_conclusion_class": "failed_enforcement",
