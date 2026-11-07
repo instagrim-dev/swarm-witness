@@ -80,12 +80,21 @@ class Observation:
 
 @dataclass(frozen=True)
 class ArmObservation:
-    """One arm of a matched classical↔implementation comparison."""
+    """One arm of a matched classical↔implementation comparison.
+
+    ``grant`` and ``effect_committed`` are optional boundary evidence.
+    A failed ``property_holds`` flag does not by itself establish
+    ``decision_status`` or ``failure_origin``; those axes are filled only
+    when this evidence determines them (a correct deny under revoked
+    authority can still commit an unauthorized effect).
+    """
 
     arm_id: str
     decision: Decision
     property_holds: bool
     evidence_complete: bool = True
+    grant: GrantState | None = None
+    effect_committed: bool | None = None
 
 
 @dataclass(frozen=True)
@@ -237,6 +246,16 @@ def diagnose(
         kind="mechanism_property",
         proposition_name="decision_correct",
     )
+    if evaluation.kind == "matched_equality":
+        # A single Observation has no paired arms. Emitting comparison_divergent
+        # here scores a definite equality finding from missing evidence
+        # (including Observation()). Callers with pairs use
+        # diagnose_matched_comparison(); incomplete pairs return missing_evidence.
+        raise ValueError(
+            "matched_equality cannot be diagnosed from one Observation; "
+            "call diagnose_matched_comparison() with the paired arm "
+            "observations, or leave those arms incomplete until the pair exists"
+        )
     gamma = compatible_worlds(worlds, observation, t)
     status = epistemic_status(prop, gamma)
     ev = _evidence_status(observation)
@@ -257,24 +276,6 @@ def diagnose(
     three_way: ThreeWayClass
     projection_lossy = False
     reason: str
-
-    if evaluation.kind == "matched_equality":
-        # Handled by diagnose_matched_comparison; this branch is defensive.
-        three_way = "comparison_divergent"
-        failure_origin = "comparison_equality"
-        projection_lossy = True
-        reason = "matched equality must use diagnose_matched_comparison"
-        return FormalDiagnosis(
-            epistemic_status=status,
-            evidence_status=ev,
-            decision_status=dec_status,
-            effect_status=eff,
-            failure_origin=failure_origin,
-            gamma_size=len(gamma),
-            three_way=three_way,
-            projection_lossy=projection_lossy,
-            reason=reason,
-        )
 
     if ev == "missing" or (t.require_verified_authenticity and ev == "unverified"):
         three_way = "missing_evidence"
@@ -449,6 +450,69 @@ def diagnose(
     )
 
 
+def _decision_status_from_arms(
+    left: ArmObservation, right: ArmObservation
+) -> DecisionStatus:
+    """Classical decision status only when arm grants establish it.
+
+    ``incorrect`` if either arm's grant shows a decision other than δ*.
+    ``correct`` only when both arms carry grants and both match δ*.
+    Otherwise ``unknown`` — agreement plus a failed property does not say
+    which decision was wrong.
+    """
+    saw_incorrect = False
+    confirmed = 0
+    for arm in (left, right):
+        if arm.grant is None:
+            continue
+        confirmed += 1
+        if arm.decision != required_decision(arm.grant):
+            saw_incorrect = True
+    if saw_incorrect:
+        return "incorrect"
+    if confirmed == 2:
+        return "correct"
+    return "unknown"
+
+
+def _effect_status_from_arms(
+    left: ArmObservation, right: ArmObservation
+) -> EffectStatus:
+    """Effect status from carried boundary evidence, never assumed absent."""
+    effects = (left.effect_committed, right.effect_committed)
+    if any(effect is True for effect in effects):
+        return "committed"
+    if all(effect is False for effect in effects):
+        return "prevented"
+    return "unobserved"
+
+
+def _unauthorized_committed_effect(arm: ArmObservation) -> bool:
+    """Deny-required grant with a committed effect on this arm."""
+    return (
+        arm.grant is not None
+        and arm.effect_committed is True
+        and required_decision(arm.grant) == "deny"
+    )
+
+
+def _origin_when_property_fails(
+    left: ArmObservation, right: ArmObservation
+) -> FailureOrigin:
+    """Attribute property failure only from grant and effect evidence.
+
+    Unauthorized commit under a deny-required grant is ``effect_boundary``
+    even when the decision itself matches δ* (two correct denies can still
+    commit). A demonstrated decision mismatch is ``decision_policy``.
+    Anything else stays ``undetermined``.
+    """
+    if _unauthorized_committed_effect(left) or _unauthorized_committed_effect(right):
+        return "effect_boundary"
+    if _decision_status_from_arms(left, right) == "incorrect":
+        return "decision_policy"
+    return "undetermined"
+
+
 def diagnose_matched_comparison(
     left: ArmObservation,
     right: ArmObservation,
@@ -456,7 +520,10 @@ def diagnose_matched_comparison(
     """Classify a matched equality evaluation object.
 
     Disagreement refutes equality without diagnosing that either arm failed
-    enforcement. Incomplete pairs are missing_evidence.
+    enforcement. Incomplete pairs are missing_evidence. When the arms agree
+    and the stated property fails, ``decision_status`` stays ``unknown`` and
+    ``failure_origin`` stays ``undetermined`` unless ``grant`` and
+    ``effect_committed`` establish them.
     """
     if not left.evidence_complete or not right.evidence_complete:
         return FormalDiagnosis(
@@ -500,19 +567,37 @@ def diagnose_matched_comparison(
             projection_lossy=False,
             reason="arms agree and both satisfy the claim success criterion",
         )
+    decision_status = _decision_status_from_arms(left, right)
+    effect_status = _effect_status_from_arms(left, right)
+    failure_origin = _origin_when_property_fails(left, right)
+    if failure_origin == "effect_boundary":
+        reason = (
+            "arms agree; boundary evidence shows an unauthorized committed "
+            "effect under deny-required authority "
+            f"(decision_status={decision_status}; effect_status={effect_status})"
+        )
+    elif failure_origin == "decision_policy":
+        reason = (
+            "arms agree; grant evidence shows a decision other than δ* "
+            f"(decision_status={decision_status}; effect_status={effect_status})"
+        )
+    else:
+        reason = (
+            "arms agree and the stated property fails on at least one arm; "
+            "grant/effect evidence does not establish decision_status or "
+            f"failure_origin (decision_status={decision_status}; "
+            f"effect_status={effect_status})"
+        )
     return FormalDiagnosis(
         epistemic_status="refute",
         evidence_status="authentic",
-        decision_status="incorrect",
-        effect_status="not_applicable",
-        failure_origin="decision_policy",
+        decision_status=decision_status,
+        effect_status=effect_status,
+        failure_origin=failure_origin,
         gamma_size=2,
         three_way="failed_enforcement",
-        projection_lossy=False,
-        reason=(
-            "arms agree on disposition but claim success criterion fails "
-            "on at least one arm — failed_enforcement"
-        ),
+        projection_lossy=failure_origin == "undetermined",
+        reason=reason,
     )
 
 

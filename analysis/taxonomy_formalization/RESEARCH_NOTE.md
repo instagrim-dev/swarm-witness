@@ -96,7 +96,17 @@ Operationally (permission fragment, \(T_0\)):
 - **Committed effect** is present when \(\mathsf{obs\_effect}(o)\) is set.
 - **Comparator agreement** for arms \(A,B\): dispositions equal under complete
   paired observations. Agreement is a proposition about *equality*, not about
-  either arm’s local enforcement.
+  either arm’s local enforcement. `diagnose` rejects evaluation kind
+  `matched_equality`: one `Observation` has no paired arms, and must not emit
+  `comparison_divergent` (including from a blind observation). Callers use
+  `diagnose_matched_comparison`. Incomplete pairs are `missing_evidence`.
+- **Property failure on agreeing arms** does not establish
+  `decision_status=incorrect` or `failure_origin=decision_policy`. Those axes
+  stay `unknown` / `undetermined`, and `effect_status` stays `unobserved`,
+  unless the arms carry grant and effect evidence. Two correct denies under
+  revoked authority can both commit an unauthorized effect; that evidence
+  attributes `effect_boundary` with `decision_status=correct` and
+  `effect_status=committed`, not `decision_policy`.
 
 ### 2.8 Typed diagnosis product
 
@@ -199,14 +209,28 @@ branches return `missing_evidence`. Exhaustion + C6/C7. ∎
 
 ### T3 — Indistinguishable-world non-identifiability
 
-**Statement.** If \(w_1,w_2\) agree on all channels read by \(o\), then
-\(w_1\in\Gamma(o)\Leftrightarrow w_2\in\Gamma(o)\). If additionally
-\(P(w_1)\neq P(w_2)\), then \(\mathsf{unresolved}(P,o)\).
+**Statement.** If \(w_1,w_2\) agree on every channel \(o\) reads, then
+\(w_1\in\Gamma(o)\Leftrightarrow w_2\in\Gamma(o)\). Distinct property values force
+unresolved only with that membership premise: if \(w_1,w_2\in\Gamma(o)\) and
+\(P(w_1)\neq P(w_2)\), then \(\mathsf{unresolved}(P,o)\). Disagreement on \(P\)
+among worlds outside \(\Gamma(o)\) does not.
+
+**Counterexample (eight-world model).** Let \(o\) observe an authentic active
+grant and no decision or effect channel. Let \(w_1,w_2\) be the two revoked
+deny worlds, one with the effect free and one with it committed. They agree
+on the grant channel and disagree on \(P_{\mathsf{eff}}\), and both lie
+outside \(\Gamma(o)\). Every compatible active world satisfies
+\(P_{\mathsf{eff}}\), so the status is \(\mathsf{support}\), not
+\(\mathsf{unresolved}\).
 
 **Proof sketch.** Compatibility filters only on observed channels; agreement on
-those channels preserves joint membership. Distinct \(P\)-values on a nonempty
-\(\Gamma\) force unresolved. Blind \(o\) keeps both active and revoked worlds,
-so \(P_{\mathsf{dec}}\) is unresolved and \(\pi=\mathsf{missing\_evidence}\). ∎
+those channels preserves joint membership. Distinct \(P\)-values force
+unresolved only when both worlds are in \(\Gamma\). The finite check exhausts
+that premise over the observation fragment and includes the authentic-active
+counterexample above. Blind \(o\) keeps both an active-correct and a
+revoked-correct world inside \(\Gamma\), and a \(P_{\mathsf{dec}}\)-disagreeing
+pair inside \(\Gamma\), so \(P_{\mathsf{dec}}\) is unresolved and
+\(\pi=\mathsf{missing\_evidence}\). ∎
 
 ### T4 — Non-upgrade under irrelevant facts
 
@@ -333,6 +357,17 @@ Expected: all theorem flags `OK`, counterexamples C1–C7 `OK`, exit code 0.
 6. Any diagnosis whose `epistemic_status` field disagrees with
    \(\mathsf{support}/\mathsf{refute}/\mathsf{unresolved}\) computed from
    \(P\) and \(\Gamma(o)\) alone.
+7. `diagnose` on kind `matched_equality` — including a blind `Observation` —
+   emitting `comparison_divergent` instead of rejecting the route.
+8. Agreeing arms whose property fails, with no grant or effect evidence,
+   scored `decision_status=incorrect`, `failure_origin=decision_policy`, or
+   `effect_status=not_applicable`. The same dispositions under revoked
+   authority with a committed effect scored as anything other than
+   `effect_boundary` / `decision_status=correct` / `effect_status=committed`.
+9. An indistinguishability claim that concludes \(\mathsf{unresolved}\) from
+   \(P(w_1)\neq P(w_2)\) when \(w_1\) or \(w_2\) is outside \(\Gamma(o)\).
+   The authentic-active / revoked \(P_{\mathsf{eff}}\) pair in T3 is
+   \(\mathsf{support}\).
 
 ## 10. What remains
 

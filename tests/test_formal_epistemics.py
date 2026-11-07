@@ -14,6 +14,7 @@ import pytest
 
 from swarm_witness.formal.epistemic_model import (
     ArmObservation,
+    EvaluationObject,
     Observation,
     TrustAssumptions,
     compatible_worlds,
@@ -21,6 +22,7 @@ from swarm_witness.formal.epistemic_model import (
     diagnose,
     diagnose_matched_comparison,
     epistemic_status,
+    no_unauthorized_effect_property,
     project_three_way,
     required_decision,
 )
@@ -182,6 +184,90 @@ def test_comparison_agree_property_fail_is_failed_enforcement():
         ArmObservation("other", "allow", False),
     )
     assert d.three_way == "failed_enforcement"
+    # Property failure alone does not establish which axis failed.
+    assert d.decision_status == "unknown"
+    assert d.failure_origin == "undetermined"
+    assert d.effect_status == "unobserved"
+
+
+def test_matched_equality_single_observation_is_rejected():
+    worlds = enumerate_permission_worlds()
+    with pytest.raises(ValueError, match="diagnose_matched_comparison"):
+        diagnose(
+            worlds,
+            Observation(),
+            decision_correct_property,
+            evaluation=EvaluationObject(
+                kind="matched_equality",
+                proposition_name="arm_equality",
+            ),
+        )
+
+
+def test_correct_deny_with_unauthorized_effect_is_not_decision_policy():
+    """Two mechanisms can deny correctly and still commit an unauthorized effect."""
+    d = diagnose_matched_comparison(
+        ArmObservation(
+            "a",
+            "deny",
+            False,
+            grant="revoked",
+            effect_committed=True,
+        ),
+        ArmObservation(
+            "b",
+            "deny",
+            False,
+            grant="revoked",
+            effect_committed=True,
+        ),
+    )
+    assert d.three_way == "failed_enforcement"
+    assert d.decision_status == "correct"
+    assert d.failure_origin == "effect_boundary"
+    assert d.effect_status == "committed"
+
+
+def test_grant_evidence_can_establish_decision_policy():
+    d = diagnose_matched_comparison(
+        ArmObservation(
+            "a",
+            "allow",
+            False,
+            grant="revoked",
+            effect_committed=False,
+        ),
+        ArmObservation(
+            "b",
+            "allow",
+            False,
+            grant="revoked",
+            effect_committed=False,
+        ),
+    )
+    assert d.decision_status == "incorrect"
+    assert d.failure_origin == "decision_policy"
+    assert d.effect_status == "prevented"
+
+
+def test_indistinguishability_requires_worlds_inside_gamma():
+    """P-disagreement outside Γ(o) does not force unresolved.
+
+    Authentic active grant: two revoked worlds agree on the grant channel
+    and disagree on P_eff, but both lie outside Γ. Every compatible active
+    world satisfies P_eff, so the status is support.
+    """
+    worlds = enumerate_permission_worlds()
+    observation = Observation(observed_grant="active", authentic=True)
+    gamma = compatible_worlds(worlds, observation)
+    revoked = [w for w in worlds if w.grant == "revoked" and w.decision == "deny"]
+    assert len(revoked) == 2
+    assert {w.grant for w in revoked} == {"revoked"}
+    assert len({no_unauthorized_effect_property(w) for w in revoked}) == 2
+    assert all(w not in gamma for w in revoked)
+    assert gamma
+    assert all(no_unauthorized_effect_property(w) for w in gamma)
+    assert epistemic_status(no_unauthorized_effect_property, gamma) == "support"
 
 
 def test_comparison_incomplete_is_missing_evidence():

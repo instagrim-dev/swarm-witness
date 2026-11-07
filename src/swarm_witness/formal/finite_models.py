@@ -19,6 +19,7 @@ from typing import Any
 
 from swarm_witness.formal.epistemic_model import (
     ArmObservation,
+    EvaluationObject,
     FormalDiagnosis,
     Observation,
     TrustAssumptions,
@@ -275,34 +276,171 @@ def theorem_refutation_soundness(worlds: frozenset[World]) -> tuple[bool, list[s
     return not errors, errors
 
 
+def _channels_read(observation: Observation) -> tuple[str, ...]:
+    """World-side channels default-trust compatibility actually filters on.
+
+    A missing grant, an unverified reading, or a known misbind does not
+    partition worlds by their own channel values (Γ is all of W, or empty).
+    An authentic grant reading filters on grant, and on decision or effect
+    only when those channels are present in ``o``.
+    """
+    if observation.observed_grant is None or observation.authentic is not True:
+        return ()
+    channels = ["grant"]
+    if observation.decision_observed is not None:
+        channels.append("decision")
+    if observation.effect_observed is not None:
+        channels.append("effect")
+    return tuple(channels)
+
+
+def _channel_value(world: World, channel: str) -> str | bool:
+    if channel == "grant":
+        return world.grant
+    if channel == "decision":
+        return world.decision
+    if channel == "effect":
+        return world.effect_committed
+    raise ValueError(f"unknown channel: {channel!r}")
+
+
+def _worlds_agree(left: World, right: World, channels: tuple[str, ...]) -> bool:
+    return all(
+        _channel_value(left, channel) == _channel_value(right, channel)
+        for channel in channels
+    )
+
+
+def _find_world(
+    worlds: frozenset[World],
+    *,
+    grant: str,
+    decision: str,
+    effect: bool,
+) -> World | None:
+    for world in worlds:
+        if (
+            world.grant == grant
+            and world.decision == decision
+            and world.effect_committed is effect
+        ):
+            return world
+    return None
+
+
 def theorem_indistinguishability(worlds: frozenset[World]) -> tuple[bool, list[str]]:
-    """T3: if two worlds agree on all observed channels, Γ cannot separate them;
-    when they disagree on P, epistemic status must be unresolved under that o.
+    """T3: channel agreement preserves joint Γ membership.
+
+    ``P(w1) ≠ P(w2)`` yields unresolved only when both worlds are in Γ(o).
+    Disagreement among worlds outside Γ does not force unresolved.
     """
     errors: list[str] = []
-    # Blind observation: active-correct and revoked-correct both compatible.
+    # Blind observation: active-correct and revoked-correct both sit in Γ,
+    # and a P_dec-disagreeing pair inside Γ forces unresolved.
     o = _obs()
     gamma = compatible_worlds(worlds, o)
-    active_ok = next(
-        w
-        for w in gamma
-        if w.grant == "active" and decision_correct_property(w) and not w.effect_committed
-    )
-    revoked_ok = next(
-        w
-        for w in gamma
-        if w.grant == "revoked" and decision_correct_property(w) and not w.effect_committed
-    )
-    if active_ok not in gamma or revoked_ok not in gamma:
+    active_ok = _find_world(worlds, grant="active", decision="allow", effect=False)
+    revoked_ok = _find_world(worlds, grant="revoked", decision="deny", effect=False)
+    if (
+        active_ok is None
+        or revoked_ok is None
+        or active_ok not in gamma
+        or revoked_ok not in gamma
+    ):
         errors.append("blind Γ missing canonical active/revoked worlds")
-    status = epistemic_status(decision_correct_property, gamma)
-    # Under blind o, Γ contains both correct and incorrect decision worlds.
-    if status != "unresolved":
-        # Actually decision_correct is True on some and False on others → unresolved.
-        errors.append(f"blind epistemic_status={status!r} want unresolved")
+    inside_true = _find_world(worlds, grant="active", decision="allow", effect=False)
+    inside_false = _find_world(worlds, grant="active", decision="deny", effect=False)
+    if (
+        inside_true is None
+        or inside_false is None
+        or inside_true not in gamma
+        or inside_false not in gamma
+    ):
+        errors.append("blind Γ missing a P_dec pair inside Γ")
+    elif decision_correct_property(inside_true) == decision_correct_property(
+        inside_false
+    ):
+        errors.append("constructed blind pair does not disagree on P_dec")
+    else:
+        status = epistemic_status(decision_correct_property, gamma)
+        if status != "unresolved":
+            errors.append(f"blind epistemic_status={status!r} want unresolved")
     d = diagnose(worlds, o, decision_correct_property)
     if d.three_way != "missing_evidence":
         errors.append(f"blind three_way={d.three_way!r} want missing_evidence")
+    if d.epistemic_status != "unresolved":
+        errors.append(
+            f"blind diagnosis epistemic_status={d.epistemic_status!r} want unresolved"
+        )
+
+    # Counterexample: authentic active grant. Two revoked worlds agree on the
+    # grant channel and disagree on P_eff, but both are outside Γ(o). Every
+    # compatible active world satisfies P_eff, so the status is support.
+    o_active = _obs(grant="active", authentic=True)
+    g_active = compatible_worlds(worlds, o_active)
+    revoked_free = _find_world(worlds, grant="revoked", decision="deny", effect=False)
+    revoked_committed = _find_world(
+        worlds, grant="revoked", decision="deny", effect=True
+    )
+    if revoked_free is None or revoked_committed is None:
+        errors.append("eight-world model missing the revoked deny pair")
+    else:
+        channels = _channels_read(o_active)
+        if not _worlds_agree(revoked_free, revoked_committed, channels):
+            errors.append(
+                "revoked pair does not agree on the grant channel read by "
+                "an authentic active observation"
+            )
+        if revoked_free in g_active or revoked_committed in g_active:
+            errors.append("revoked worlds leaked into Γ(authentic active)")
+        if no_unauthorized_effect_property(revoked_free) == no_unauthorized_effect_property(
+            revoked_committed
+        ):
+            errors.append("revoked pair does not disagree on P_eff")
+        if not g_active or not all(
+            no_unauthorized_effect_property(world) for world in g_active
+        ):
+            errors.append("Γ(authentic active) is not unanimous for P_eff")
+        active_status = epistemic_status(no_unauthorized_effect_property, g_active)
+        if active_status != "support":
+            errors.append(
+                f"authentic-active P_eff status={active_status!r} want support "
+                "(disagreement outside Γ must not force unresolved)"
+            )
+
+    # Exhaust the membership premise on the finite fragment: disagreement
+    # inside Γ ⇒ unresolved, and worlds that agree on channels read by o
+    # are co-members of Γ.
+    props = (
+        ("P_dec", decision_correct_property),
+        ("P_eff", no_unauthorized_effect_property),
+    )
+    world_list = list(worlds)
+    for obs in _observation_space():
+        g = compatible_worlds(worlds, obs)
+        channels = _channels_read(obs)
+        for i, left in enumerate(world_list):
+            for right in world_list[i + 1 :]:
+                if _worlds_agree(left, right, channels) and ((left in g) != (right in g)):
+                    errors.append(
+                        "channel agreement split Γ membership for "
+                        f"{obs}: {left.world_id} vs {right.world_id}"
+                    )
+        for prop_name, prop in props:
+            members = [world for world in world_list if world in g]
+            disagree = False
+            for i, left in enumerate(members):
+                for right in members[i + 1 :]:
+                    if bool(prop(left)) != bool(prop(right)):
+                        disagree = True
+                        break
+                if disagree:
+                    break
+            if disagree and epistemic_status(prop, g) != "unresolved":
+                errors.append(
+                    f"{prop_name}: worlds in Γ disagree on P but status="
+                    f"{epistemic_status(prop, g)!r} for {obs}"
+                )
     return not errors, errors
 
 
@@ -602,6 +740,139 @@ def run_counterexample_suite(worlds: frozenset[World] | None = None) -> list[dic
     return out
 
 
+def check_matched_equality_route_rejected(
+    worlds: frozenset[World],
+) -> tuple[bool, list[str]]:
+    """``diagnose`` must not score matched_equality from one Observation."""
+    errors: list[str] = []
+    try:
+        diagnose(
+            worlds,
+            _obs(),
+            decision_correct_property,
+            evaluation=EvaluationObject(
+                kind="matched_equality",
+                proposition_name="arm_equality",
+            ),
+        )
+    except ValueError as exc:
+        if "diagnose_matched_comparison" not in str(exc):
+            errors.append(
+                "matched_equality rejection does not direct callers to "
+                "diagnose_matched_comparison()"
+            )
+    else:
+        errors.append(
+            "matched_equality on an empty Observation returned a diagnosis"
+        )
+    return not errors, errors
+
+
+def check_comparison_attribution() -> tuple[bool, list[str]]:
+    """Property failure on agreeing arms does not invent decision_policy.
+
+    Boundary evidence can still attribute effect_boundary when both arms
+    correctly deny under revoked authority and commit an effect.
+    """
+    errors: list[str] = []
+    bare = diagnose_matched_comparison(
+        ArmObservation("a", "deny", False),
+        ArmObservation("b", "deny", False),
+    )
+    if bare.three_way != "failed_enforcement":
+        errors.append(f"bare property failure three_way={bare.three_way!r}")
+    if bare.decision_status != "unknown":
+        errors.append(
+            f"bare property failure decision_status={bare.decision_status!r} "
+            "want unknown"
+        )
+    if bare.failure_origin != "undetermined":
+        errors.append(
+            f"bare property failure origin={bare.failure_origin!r} want undetermined"
+        )
+    if bare.effect_status != "unobserved":
+        errors.append(
+            f"bare property failure effect_status={bare.effect_status!r} "
+            "want unobserved"
+        )
+    one_sided = diagnose_matched_comparison(
+        ArmObservation("a", "allow", True),
+        ArmObservation("b", "allow", False),
+    )
+    if (
+        one_sided.decision_status != "unknown"
+        or one_sided.failure_origin != "undetermined"
+        or one_sided.effect_status != "unobserved"
+    ):
+        errors.append(
+            "one-sided property failure invented "
+            f"decision_status={one_sided.decision_status!r} "
+            f"origin={one_sided.failure_origin!r} "
+            f"effect_status={one_sided.effect_status!r}"
+        )
+    attributed = diagnose_matched_comparison(
+        ArmObservation(
+            "a",
+            "deny",
+            False,
+            grant="revoked",
+            effect_committed=True,
+        ),
+        ArmObservation(
+            "b",
+            "deny",
+            False,
+            grant="revoked",
+            effect_committed=True,
+        ),
+    )
+    if attributed.decision_status != "correct":
+        errors.append(
+            "correct revoked denies scored "
+            f"decision_status={attributed.decision_status!r}"
+        )
+    if attributed.failure_origin != "effect_boundary":
+        errors.append(
+            "unauthorized commit under correct deny scored "
+            f"origin={attributed.failure_origin!r} want effect_boundary"
+        )
+    if attributed.effect_status != "committed":
+        errors.append(
+            f"committed unauthorized effect scored {attributed.effect_status!r}"
+        )
+    if attributed.three_way != "failed_enforcement":
+        errors.append(
+            f"attributed property failure three_way={attributed.three_way!r}"
+        )
+    wrong = diagnose_matched_comparison(
+        ArmObservation(
+            "a",
+            "allow",
+            False,
+            grant="revoked",
+            effect_committed=False,
+        ),
+        ArmObservation(
+            "b",
+            "allow",
+            False,
+            grant="revoked",
+            effect_committed=False,
+        ),
+    )
+    if wrong.decision_status != "incorrect" or wrong.failure_origin != "decision_policy":
+        errors.append(
+            "grant evidence of a wrong allow did not establish decision_policy "
+            f"(decision_status={wrong.decision_status!r}, "
+            f"origin={wrong.failure_origin!r})"
+        )
+    if wrong.effect_status != "prevented":
+        errors.append(
+            f"prevented effect under wrong allow scored {wrong.effect_status!r}"
+        )
+    return not errors, errors
+
+
 def check_core_invariants(
     worlds: frozenset[World] | None = None,
 ) -> FiniteModelReport:
@@ -625,6 +896,14 @@ def check_core_invariants(
     ok6, errs6 = theorem_mutual_exclusivity_mechanism()
     theorem_results["T6_mutual_exclusivity_mechanism_object"] = ok6
     errors.extend(f"T6_mutual_exclusivity_mechanism_object: {e}" for e in errs6)
+
+    ok_route, errs_route = check_matched_equality_route_rejected(worlds)
+    theorem_results["matched_equality_route_rejected"] = ok_route
+    errors.extend(f"matched_equality_route_rejected: {e}" for e in errs_route)
+
+    ok_attr, errs_attr = check_comparison_attribution()
+    theorem_results["comparison_attribution"] = ok_attr
+    errors.extend(f"comparison_attribution: {e}" for e in errs_attr)
 
     counterexamples = run_counterexample_suite(worlds)
     theorem_results["C_counterexample_suite"] = all(c["passed"] for c in counterexamples)
