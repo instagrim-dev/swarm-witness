@@ -14,5 +14,6 @@
     "r1-run-barrier-sweep.observations.case_record_count",
     "r1-run-barrier-sweep.observations.all_checks_pass"
   ],
-  "conclusion_class": "supported"
+  "conclusion_class": "supported",
+  "evaluation_method": "pinned_reexecution"
 }

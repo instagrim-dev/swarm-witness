@@ -515,6 +515,7 @@ def classify_finding(
     # rewrite these after meta observations are finalized.
     validate_finding(finding)
     finding["conclusion_class"] = cls
+    finding["evaluation_method"] = "native_matched_baseline"
     return finding
 
 

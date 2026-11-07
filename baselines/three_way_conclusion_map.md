@@ -17,8 +17,10 @@ Swarm Witness classifies each claim evaluation into exactly one of:
 | R3 decision-model | `missing_evidence` | No isomorphic BMO observations (`unresolved`) |
 | R3 ledger-claim-v1 | `supported` | Native-qualified matched L1 (`classical_baseline_matches`) |
 | R4 Worlds A/B + handoff | all three | Executable taxonomy probe, including bounded delegate handoff |
-| R4 misbound observation | failed_enforcement | Known-false grant evidence ≠ supported |
-| R5 sequential A/B/C | all three | Sequential contention, A→B→C hops, ledger-bound receipt misuse |
+| R4 misbound observation | failed_enforcement | `failure_origin=evidence` (not decision_policy) |
+| R4 held-out artifact | failed_enforcement | Externally supplied misleading observation |
+| R5 sequential A/B/C | all three | Sequential contention; broken allow → effect prevented |
+| R3-L1 arm divergence | comparison_divergent | Equality refuted ≠ failed_enforcement |
 
 **Handoff / multi-principal transferability.** A principal’s old receipt does not
 authorize a delegate or peer. Without scoped current grant evidence the class is

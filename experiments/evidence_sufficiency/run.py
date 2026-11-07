@@ -63,6 +63,11 @@ def build_runs(cases: list[dict]) -> list[dict]:
                 "misbound_detected": result.get("misbound_detected"),
                 "observation_authentic": result.get("observation_authentic"),
                 "failure_origin": result.get("failure_origin"),
+                "evidence_status": result.get("evidence_status"),
+                "decision_status": result.get("decision_status"),
+                "effect_status": result.get("effect_status"),
+                "held_out_artifact": result.get("held_out_artifact"),
+                "case_evaluation_method": case.get("evaluation_method"),
             },
         }
         validate_run(run)
@@ -127,6 +132,7 @@ def build_finding(runs: list[dict], score: dict) -> dict:
     }
     validate_finding(finding)
     finding["conclusion_class"] = "supported"
+    finding["evaluation_method"] = "synthetic_protocol_conformance"
     return finding
 
 

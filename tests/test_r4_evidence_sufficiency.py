@@ -79,7 +79,9 @@ def test_misbound_evidence_cannot_yield_supported_permission():
         assert out["conclusion_class"] != "supported"
         assert out["conclusion_class"] == "failed_enforcement"
         assert out["assessment"] == "enforcement_failed"
-        assert out["failure_origin"] == "evidence_misbinding"
+        assert out["failure_origin"] == "evidence"
+        assert out["evidence_status"] == "misbound"
+        assert out["decision_status"] == "incorrect"
         assert out["required_decision"] == (
             "allow" if world.grant_current == "active" else "deny"
         )
@@ -87,14 +89,26 @@ def test_misbound_evidence_cannot_yield_supported_permission():
         assert out["decision"] != out["required_decision"]
 
 
-def test_authentic_broken_gate_origin_is_gate_enforcement():
+def test_authentic_broken_gate_origin_is_decision_policy():
     b = assess_permission(
         WORLDS["B"],
         true_observation(WORLDS["B"]),
         gate_behavior="broken_allow_when_revoked",
     )
-    assert b["failure_origin"] == "gate_enforcement"
+    assert b["failure_origin"] == "decision_policy"
+    assert b["evidence_status"] == "authentic"
+    assert b["decision_status"] == "incorrect"
     assert b["observation_authentic"] is True
+
+
+def test_held_out_external_artifact_refuses_supported():
+    cases = {c["case_id"]: c for c in run_protocol_cases()}
+    held = cases["held_out_misleading_grant_observation"]
+    assert held["evaluation_method"] == "held_out_artifact_audit"
+    assert held["result"]["held_out_artifact"] == "misleading_grant_observation.json"
+    assert held["result"]["conclusion_class"] == "failed_enforcement"
+    assert held["result"]["failure_origin"] == "evidence"
+    assert held["result"]["justified_permission_claim"] is False
 
 
 def test_protocol_exercises_all_three_classes():

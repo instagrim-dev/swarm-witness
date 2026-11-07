@@ -13,6 +13,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Literal
 
+from swarm_witness.audit_diagnosis import diagnosis
 from swarm_witness.conclusion_classes import (
     classify_conclusion,
     required_permission_decision,
@@ -112,6 +113,12 @@ def assess_permission(
         "finding_label": "unresolved",
         "property_holds": None,
         "reason": "",
+        **diagnosis(
+            evidence_status="missing",
+            decision_status="unknown",
+            effect_status="unobserved",
+            failure_origin="none",
+        ),
     }
 
     if not observations.include_current_grant or observations.observed_grant is None:
@@ -127,6 +134,12 @@ def assess_permission(
                     "old receipt available but current grant state unobserved; "
                     "permission claim is missing_evidence (Worlds A and B "
                     "indistinguishable from this evidence)"
+                ),
+                **diagnosis(
+                    evidence_status="missing",
+                    decision_status="unknown",
+                    effect_status="unobserved",
+                    failure_origin="none",
                 ),
             }
         )
@@ -154,12 +167,9 @@ def assess_permission(
         # Invalid evidence provenance. End-to-end permission may still be
         # unwarranted, but do not diagnose a gate-enforcement failure: the
         # gate may have followed the (false) supplied observation correctly.
-        out["failure_origin"] = "evidence_misbinding"
         out["justified_permission_claim"] = False
         holds = decision == required_truth
         if holds:
-            # Accidental agreement with truth under false evidence is still
-            # not warrant for support — authenticity gap.
             classified = classify_conclusion(
                 evidence_complete=False, property_holds=None
             )
@@ -173,12 +183,18 @@ def assess_permission(
                         f"supplied grant observation {observed!r} misbinds "
                         f"ground truth {world.grant_current!r}; observation "
                         "not authentic — missing_evidence "
-                        "(failure_origin=evidence_misbinding)"
+                        "(failure_origin=evidence)"
+                    ),
+                    **diagnosis(
+                        evidence_status="misbound",
+                        decision_status="unknown",
+                        effect_status="unobserved",
+                        failure_origin="evidence",
                     ),
                 }
             )
             return out
-        # End-to-end: permission outcome wrong vs truth; origin is misbinding.
+        # End-to-end permission wrong vs truth; origin is evidence provenance.
         classified = classify_conclusion(
             evidence_complete=True, property_holds=False
         )
@@ -192,9 +208,14 @@ def assess_permission(
                     f"supplied grant observation {observed!r} misbinds "
                     f"ground truth {world.grant_current!r}; end-to-end "
                     f"decision {decision!r} vs truth-required "
-                    f"{required_truth!r} — failed_enforcement with "
-                    "failure_origin=evidence_misbinding (not a "
-                    "gate-policy diagnosis)"
+                    f"{required_truth!r} — high-level failed_enforcement with "
+                    "failure_origin=evidence (not decision_policy)"
+                ),
+                **diagnosis(
+                    evidence_status="misbound",
+                    decision_status="incorrect",
+                    effect_status="unobserved",
+                    failure_origin="evidence",
                 ),
             }
         )
@@ -210,14 +231,25 @@ def assess_permission(
     out["finding_label"] = classified["finding_label"]
     out["property_holds"] = holds
     out["justified_permission_claim"] = decision == "allow" and holds
-    out["failure_origin"] = None if holds else "gate_enforcement"
 
     if not holds:
-        out["assessment"] = "enforcement_failed"
-        out["reason"] = (
-            f"authentic grant evidence ({observed}); gate decided {decision!r} "
-            f"but required {required!r} — failed_enforcement "
-            "(failure_origin=gate_enforcement)"
+        # Authentic evidence + wrong gate decision; effect not modeled in R4.
+        out.update(
+            {
+                "assessment": "enforcement_failed",
+                "reason": (
+                    f"authentic grant evidence ({observed}); gate decided "
+                    f"{decision!r} but required {required!r} — "
+                    "failed_enforcement (failure_origin=decision_policy; "
+                    "effect_status=unobserved)"
+                ),
+                **diagnosis(
+                    evidence_status="authentic",
+                    decision_status="incorrect",
+                    effect_status="unobserved",
+                    failure_origin="decision_policy",
+                ),
+            }
         )
         return out
 
@@ -231,8 +263,16 @@ def assess_permission(
         out["assessment"] = "permission_refuted"
         out["reason"] = (
             "current grant observed revoked and authentic; correct deny — "
-            "supported (enforcement held; permission claim refuted)"
+            "supported (decision correct; permission claim refuted)"
         )
+    out.update(
+        diagnosis(
+            evidence_status="authentic",
+            decision_status="correct",
+            effect_status="not_applicable",
+            failure_origin="none",
+        )
+    )
     return out
 
 
@@ -408,7 +448,51 @@ def run_protocol_cases() -> list[dict[str, Any]]:
     # permission from A's receipt alone; B needs B-scoped current grant evidence.
     cases.extend(_handoff_cases())
 
+    # --- Held-out external artifact (not constructed by inline scenario builders) ---
+    cases.append(_held_out_external_artifact_case())
+
     return cases
+
+
+def _held_out_external_artifact_case() -> dict[str, Any]:
+    """Audit a fixture the protocol did not synthesize inline.
+
+    The JSON under ``held_out/`` is treated as an externally supplied artifact:
+    the auditor loads ground truth + supplied observation and must refuse an
+    unqualified supported permission when the artifact is misleading.
+    """
+    from pathlib import Path
+    import json
+
+    fixture_path = (
+        Path(__file__).resolve().parents[2]
+        / "experiments"
+        / "evidence_sufficiency"
+        / "held_out"
+        / "misleading_grant_observation.json"
+    )
+    artifact = json.loads(fixture_path.read_text(encoding="utf-8"))
+    world = World(
+        world_id=artifact["world_id"],  # type: ignore[arg-type]
+        grant_current=artifact["ground_truth_grant"],  # type: ignore[arg-type]
+    )
+    obs = ObservationSet(
+        include_current_grant=True,
+        observed_grant=artifact["supplied_observation"]["observed_grant"],
+        include_irrelevant=False,
+    )
+    result = assess_permission(world, obs, visible_receipt=artifact.get("visible_receipt"))
+    result["held_out_artifact"] = str(fixture_path.name)
+    return {
+        "case_id": "held_out_misleading_grant_observation",
+        "name": "Held-out external artifact: misleading grant observation",
+        "role": "held_out_external",
+        "expected_assessment": "enforcement_failed",
+        "expected_conclusion_class": "failed_enforcement",
+        "ground_truth_mismatch": True,
+        "evaluation_method": "held_out_artifact_audit",
+        "result": result,
+    }
 
 
 def assess_delegate_handoff(
@@ -452,6 +536,12 @@ def assess_delegate_handoff(
         "finding_label": "unresolved",
         "property_holds": None,
         "reason": "",
+        **diagnosis(
+            evidence_status="missing",
+            decision_status="unknown",
+            effect_status="unobserved",
+            failure_origin="none",
+        ),
     }
 
     if not observe_delegate_grant or delegate_grant is None:
@@ -466,6 +556,12 @@ def assess_delegate_handoff(
                     "delegate presents principal receipt but delegate-scoped "
                     "current grant is unobserved — missing_evidence "
                     "(receipt handoff is not standing permission)"
+                ),
+                **diagnosis(
+                    evidence_status="missing",
+                    decision_status="unknown",
+                    effect_status="unobserved",
+                    failure_origin="none",
                 ),
             }
         )
@@ -492,17 +588,42 @@ def assess_delegate_handoff(
         out["reason"] = (
             "delegate grant observed "
             f"{delegate_grant}; gate decided {decision!r} required {required!r} "
-            "— failed_enforcement (principal receipt must not authorize alone)"
+            "— failed_enforcement (failure_origin=decision_policy; "
+            "principal receipt must not authorize alone)"
+        )
+        out.update(
+            diagnosis(
+                evidence_status="authentic",
+                decision_status="incorrect",
+                effect_status="unobserved",
+                failure_origin="decision_policy",
+            )
         )
     elif decision == "allow":
         out["assessment"] = "permission_justified"
         out["reason"] = (
             "delegate-scoped grant observed active; correct allow — supported"
         )
+        out.update(
+            diagnosis(
+                evidence_status="authentic",
+                decision_status="correct",
+                effect_status="not_applicable",
+                failure_origin="none",
+            )
+        )
     else:
         out["assessment"] = "permission_refuted"
         out["reason"] = (
             "delegate-scoped grant observed revoked; correct deny — supported"
+        )
+        out.update(
+            diagnosis(
+                evidence_status="authentic",
+                decision_status="correct",
+                effect_status="not_applicable",
+                failure_origin="none",
+            )
         )
     return out
 
@@ -651,10 +772,13 @@ def evaluate_method_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
                     f"{case['case_id']}: misbound with known ground truth "
                     "must be failed_enforcement (end-to-end)"
                 )
-            if case["result"].get("failure_origin") != "evidence_misbinding":
+            if case["result"].get("failure_origin") != "evidence":
                 errors.append(
-                    f"{case['case_id']}: misbound must set "
-                    "failure_origin=evidence_misbinding"
+                    f"{case['case_id']}: misbound must set failure_origin=evidence"
+                )
+            if case["result"].get("evidence_status") != "misbound":
+                errors.append(
+                    f"{case['case_id']}: misbound must set evidence_status=misbound"
                 )
 
     classes_seen = {c["result"]["conclusion_class"] for c in cases}

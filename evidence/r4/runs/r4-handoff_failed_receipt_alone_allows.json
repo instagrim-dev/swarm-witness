@@ -21,7 +21,7 @@
     "observed_grant": "revoked",
     "delegate_id": "agent_B",
     "principal_id": "agent_A",
-    "reason": "delegate grant observed revoked; gate decided 'allow' required 'deny' \u2014 failed_enforcement (principal receipt must not authorize alone)",
+    "reason": "delegate grant observed revoked; gate decided 'allow' required 'deny' \u2014 failed_enforcement (failure_origin=decision_policy; principal receipt must not authorize alone)",
     "expected_assessment": "enforcement_failed",
     "expected_conclusion_class": "failed_enforcement",
     "assessment_match": true,
@@ -29,6 +29,11 @@
     "ground_truth_mismatch": false,
     "misbound_detected": null,
     "observation_authentic": null,
-    "failure_origin": null
+    "failure_origin": "decision_policy",
+    "evidence_status": "authentic",
+    "decision_status": "incorrect",
+    "effect_status": "unobserved",
+    "held_out_artifact": null,
+    "case_evaluation_method": null
   }
 }

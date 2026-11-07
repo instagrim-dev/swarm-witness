@@ -24,5 +24,6 @@
     "r3-ledger-meta.observations.agreement.result",
     "r3-ledger-meta.observations.validity.valid"
   ],
-  "conclusion_class": "supported"
+  "conclusion_class": "supported",
+  "evaluation_method": "native_matched_baseline"
 }

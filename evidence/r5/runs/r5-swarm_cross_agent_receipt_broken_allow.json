@@ -30,7 +30,11 @@
       "call_id": "a-prior"
     },
     "effect_committed": false,
-    "reason": "evidence complete but exercised enforcement violates the property; agent=C decision=allow required=deny effect_committed=False; presented_receipt=receipt-a-prior",
+    "evidence_status": "authentic",
+    "decision_status": "incorrect",
+    "effect_status": "prevented",
+    "failure_origin": "decision_policy",
+    "reason": "evidence complete but exercised enforcement violates the property; agent=C decision=allow required=deny effect_committed=False failure_origin=decision_policy effect_status=prevented; presented_receipt=receipt-a-prior",
     "expected_conclusion_class": "failed_enforcement",
     "expected_assessment": "enforcement_failed",
     "conclusion_match": true

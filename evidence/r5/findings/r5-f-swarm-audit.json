@@ -14,7 +14,7 @@
     "r5-swarm_concurrent_missing_observation",
     "r5-method-score"
   ],
-  "proposition": "Under r5-swarm-audit-v1 with agents A/B/C in a sequential shared-grant model, the three-way conclusion method classifies missing peer observations as missing_evidence; broken allows (decision without unauthorized effect commit) as failed_enforcement; and correct sequential contention, A\u2192B then B\u2192C assignee hops, and ledger-bound cross-agent receipt denies as supported",
+  "proposition": "Under r5-swarm-audit-v1 with agents A/B/C in a sequential shared-grant model, the three-way conclusion method classifies missing peer observations as missing_evidence; broken allows as high-level failed_enforcement with failure_origin=decision_policy and effect_status=prevented (not effect-boundary failure); and correct sequential contention, A\u2192B then B\u2192C assignee hops, and ledger-bound cross-agent receipt denies as supported",
   "scope": "Synthetic sequential multi-principal model (named A/B/C, in-memory ledger); not concurrent worker execution, not live BMO mesh, not cryptographic multi-party auth, not unbounded population scale",
   "label": "reproduced",
   "basis": "computed",
@@ -24,5 +24,6 @@
     "r5-method-score.observations.agent_count",
     "r5-method-score.observations.all_checks_pass"
   ],
-  "conclusion_class": "supported"
+  "conclusion_class": "supported",
+  "evaluation_method": "synthetic_protocol_conformance"
 }

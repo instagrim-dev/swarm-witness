@@ -52,6 +52,10 @@ def build_runs(cases: list[dict]) -> list[dict]:
                 "foreign_receipt_from": result.get("foreign_receipt_from"),
                 "presented_receipt": result.get("presented_receipt"),
                 "effect_committed": result.get("effect_committed"),
+                "evidence_status": result.get("evidence_status"),
+                "decision_status": result.get("decision_status"),
+                "effect_status": result.get("effect_status"),
+                "failure_origin": result.get("failure_origin"),
                 "reason": result["reason"],
                 "expected_conclusion_class": case["expected_conclusion_class"],
                 "expected_assessment": case["expected_assessment"],
@@ -100,8 +104,9 @@ def build_finding(runs: list[dict], score: dict) -> dict:
         "proposition": (
             "Under r5-swarm-audit-v1 with agents A/B/C in a sequential shared-grant "
             "model, the three-way conclusion method classifies missing peer "
-            "observations as missing_evidence; broken allows (decision without "
-            "unauthorized effect commit) as failed_enforcement; and correct "
+            "observations as missing_evidence; broken allows as high-level "
+            "failed_enforcement with failure_origin=decision_policy and "
+            "effect_status=prevented (not effect-boundary failure); and correct "
             "sequential contention, A→B then B→C assignee hops, and ledger-bound "
             "cross-agent receipt denies as supported"
             if score["passed"]
@@ -123,6 +128,7 @@ def build_finding(runs: list[dict], score: dict) -> dict:
     }
     validate_finding(finding)
     finding["conclusion_class"] = "supported"
+    finding["evaluation_method"] = "synthetic_protocol_conformance"
     return finding
 
 
