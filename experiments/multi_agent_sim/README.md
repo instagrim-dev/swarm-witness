@@ -22,8 +22,9 @@ Native observations on each claim distinguish **decision**, **committed
 effect**, **authoritative owner state**, and **audit conclusion**. A bad
 decision is never silently asserted to be an executed unauthorized effect:
 both fields are recorded independently (see `audit_diagnosis` axes), and the
-reference arm's ledger **refuses** spent/revoked settlement (`effect_settlement=
-refused`) even when a local policy decision was `allow`.
+reference arm's ledger **refuses** spent/revoked and non-assignee settlement
+(`effect_settlement=refused`, with an explicit `effect_refusal_reason`) even when
+a local policy decision was `allow`.
 
 Observation denominators distinguish `current_grant_observation` from
 `stale_grant_observation`; adversarial late deliveries are not labeled current.
@@ -35,6 +36,7 @@ Observation denominators distinguish `current_grant_observation` from
 | Competing interleavings | A-first vs B-first on the same shared grant |
 | Revocation / late observation | Stale active delivery after revoke (commit refused) |
 | Reference vs mutant | Identical TOCTOU schedule; reference preserves one-use; mutant double-commits |
+| Forged assignee | Identical forged-assignee schedule; reference refuses `agent_not_assignee`; mutant commits |
 | Paired worlds | Blind / irrelevant / distinguished active↔revoked |
 
 ## Exclusions (explicit)

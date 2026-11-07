@@ -285,6 +285,9 @@
         "a-claim": "committed",
         "b-claim": "refused"
       },
+      "effect_refusal_reasons": {
+        "b-claim": "authoritative_spent_or_revoked"
+      },
       "one_use_ok": true,
       "claim_conclusions": {
         "a-claim": "supported",

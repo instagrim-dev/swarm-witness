@@ -1,0 +1,78 @@
+{
+  "case_id": "reference_forged_assignee_boundary",
+  "name": "Reference: forged assignee observation \u2192 decision allow, commit refused",
+  "role": "reference_vs_mutant",
+  "policy_id": "reference",
+  "schedule": {
+    "schedule_id": "sched-forge-assignee",
+    "seed": 606,
+    "description": "B is not an authoritative assignee; forged stale obs lists B; reference allows locally but ledger refuses agent_not_assignee",
+    "steps": [
+      {
+        "kind": "grant_issue",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "issue grant owned by A; B is not an authoritative assignee"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 1,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "note": "forged stale observation claims B is an assignee"
+      },
+      {
+        "kind": "claim",
+        "actor": "B",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "b-forge",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "B claims on forged assignee observation"
+      }
+    ]
+  },
+  "expected": {
+    "claim_decisions": {
+      "b-forge": "allow"
+    },
+    "committed_effects": {
+      "b-forge": false
+    },
+    "effect_settlements": {
+      "b-forge": "refused"
+    },
+    "effect_refusal_reasons": {
+      "b-forge": "agent_not_assignee"
+    },
+    "one_use_ok": true,
+    "claim_conclusions": {
+      "b-forge": "failed_enforcement"
+    }
+  }
+}

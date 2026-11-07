@@ -1,0 +1,249 @@
+{
+  "schedule_id": "sched-forge-assignee",
+  "seed": 606,
+  "policy_id": "mutant_ignore_spend",
+  "events": [
+    {
+      "event_id": "evt-606-0001",
+      "kind": "grant_issue",
+      "actor": "ledger",
+      "causal_predecessor": null,
+      "epoch": "epoch-1",
+      "owner_version": 1,
+      "observed_source": null,
+      "payload": {
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 1,
+          "assignees": [
+            "A"
+          ],
+          "spent": false
+        },
+        "note": "issue grant owned by A; B is not an authoritative assignee"
+      }
+    },
+    {
+      "event_id": "evt-606-0003",
+      "kind": "observation_deliver",
+      "actor": "scheduler",
+      "causal_predecessor": "evt-606-0001",
+      "epoch": "epoch-1",
+      "owner_version": 1,
+      "observed_source": "stale_or_adversarial",
+      "payload": {
+        "target": "B",
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 1,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "observation_id": "obs-606-0002",
+        "stale": true,
+        "observation_freshness": "stale",
+        "note": "forged stale observation claims B is an assignee"
+      }
+    },
+    {
+      "event_id": "evt-606-0004",
+      "kind": "claim",
+      "actor": "B",
+      "causal_predecessor": "evt-606-0003",
+      "epoch": "epoch-1",
+      "owner_version": 1,
+      "observed_source": "local_mailbox",
+      "payload": {
+        "call_id": "b-forge",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "required_decision": "deny",
+        "policy_id": "mutant_ignore_spend",
+        "local_evidence_complete": true,
+        "use_foreign_receipt": false,
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 1,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": false,
+              "source_event_id": "evt-606-0003",
+              "observation_id": "obs-606-0002",
+              "observation_freshness": "stale"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-606-0002"
+          ],
+          "has_current_grant_observation": false,
+          "has_stale_grant_observation": true
+        },
+        "note": "B claims on forged assignee observation"
+      }
+    },
+    {
+      "event_id": "evt-606-0005",
+      "kind": "effect_attempt",
+      "actor": "B",
+      "causal_predecessor": "evt-606-0004",
+      "epoch": "epoch-1",
+      "owner_version": 1,
+      "observed_source": null,
+      "payload": {
+        "call_id": "b-forge",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "decision_event_id": "evt-606-0004"
+      }
+    },
+    {
+      "event_id": "evt-606-0006",
+      "kind": "effect_settle",
+      "actor": "ledger",
+      "causal_predecessor": "evt-606-0005",
+      "epoch": "epoch-1",
+      "owner_version": 2,
+      "observed_source": null,
+      "payload": {
+        "effect": {
+          "effect_id": "effect-b-forge",
+          "grant_id": "grant-shared",
+          "agent": "B",
+          "call_id": "b-forge",
+          "decision_event_id": "evt-606-0004",
+          "owner_version_at_commit": 2
+        },
+        "committed_effect": true,
+        "effect_settlement": "committed",
+        "effect_boundary_enforced": false,
+        "decision_event_id": "evt-606-0004"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "call_id": "b-forge",
+      "agent": "B",
+      "grant_id": "grant-shared",
+      "decision": "allow",
+      "required_decision": "deny",
+      "committed_effect": true,
+      "effect": {
+        "effect_id": "effect-b-forge",
+        "grant_id": "grant-shared",
+        "agent": "B",
+        "call_id": "b-forge",
+        "decision_event_id": "evt-606-0004",
+        "owner_version_at_commit": 2
+      },
+      "local_knowledge_at_decision": {
+        "agent": "B",
+        "grant_observations": [
+          {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "active",
+            "epoch": "epoch-1",
+            "owner_version": 1,
+            "assignees": [
+              "A",
+              "B"
+            ],
+            "spent": false,
+            "source_event_id": "evt-606-0003",
+            "observation_id": "obs-606-0002",
+            "observation_freshness": "stale"
+          }
+        ],
+        "receipts": [],
+        "irrelevant_facts": [],
+        "observation_ids": [
+          "obs-606-0002"
+        ],
+        "has_current_grant_observation": false,
+        "has_stale_grant_observation": true
+      },
+      "authoritative_owner_state": {
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "spent",
+          "epoch": "epoch-1",
+          "owner_version": 2,
+          "assignees": [
+            "A"
+          ],
+          "spent": true
+        },
+        "committed_effect_count": 1,
+        "committed_effects": [
+          {
+            "effect_id": "effect-b-forge",
+            "grant_id": "grant-shared",
+            "agent": "B",
+            "call_id": "b-forge",
+            "decision_event_id": "evt-606-0004",
+            "owner_version_at_commit": 2
+          }
+        ],
+        "ledger_owner_version": 2
+      },
+      "decision_event_id": "evt-606-0004",
+      "policy_id": "mutant_ignore_spend",
+      "local_evidence_complete": true,
+      "use_foreign_receipt": false,
+      "effect_settlement": "committed",
+      "effect_refusal_reason": null,
+      "effect_boundary_enforced": false
+    }
+  ],
+  "one_use_holds": {
+    "grant-shared": true
+  },
+  "final_owner_state": {
+    "grant-shared": {
+      "grant": {
+        "grant_id": "grant-shared",
+        "owner": "A",
+        "state": "spent",
+        "epoch": "epoch-1",
+        "owner_version": 2,
+        "assignees": [
+          "A"
+        ],
+        "spent": true
+      },
+      "committed_effect_count": 1,
+      "committed_effects": [
+        {
+          "effect_id": "effect-b-forge",
+          "grant_id": "grant-shared",
+          "agent": "B",
+          "call_id": "b-forge",
+          "decision_event_id": "evt-606-0004",
+          "owner_version_at_commit": 2
+        }
+      ],
+      "ledger_owner_version": 2
+    }
+  }
+}

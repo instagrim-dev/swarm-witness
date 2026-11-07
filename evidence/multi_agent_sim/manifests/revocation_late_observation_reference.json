@@ -143,6 +143,10 @@
       "b-late": "refused",
       "c-fresh": "not_attempted"
     },
+    "effect_refusal_reasons": {
+      "b-late": "authoritative_spent_or_revoked",
+      "c-fresh": "decision_denied"
+    },
     "claim_conclusions": {
       "b-late": "failed_enforcement",
       "c-fresh": "supported"

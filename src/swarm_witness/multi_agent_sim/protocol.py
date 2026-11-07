@@ -73,6 +73,15 @@ def _check_expected(case: dict[str, Any]) -> list[str]:
                     f"want {want!r}"
                 )
 
+    if "effect_refusal_reasons" in exp:
+        for call_id, want in exp["effect_refusal_reasons"].items():
+            got = claims[call_id].get("effect_refusal_reason")
+            if got != want:
+                errors.append(
+                    f"{case['case_id']}:{call_id}: effect_refusal_reason "
+                    f"{got!r} want {want!r}"
+                )
+
     if "one_use_ok" in exp and evaluation["one_use_ok"] != exp["one_use_ok"]:
         errors.append(
             f"{case['case_id']}: one_use_ok {evaluation['one_use_ok']!r} "
@@ -221,6 +230,12 @@ def evaluate_protocol_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
             errors.append(
                 "reference TOCTOU second claim must record effect_settlement=refused"
             )
+        if ref_b and ref_b.get("effect_refusal_reason") != "authoritative_spent_or_revoked":
+            errors.append(
+                "reference TOCTOU second claim must refuse as "
+                f"authoritative_spent_or_revoked "
+                f"(got {None if ref_b is None else ref_b.get('effect_refusal_reason')!r})"
+            )
         # Concrete counterexample: second committed effect under mutant.
         mut_commits = [
             c["call_id"]
@@ -231,6 +246,53 @@ def evaluate_protocol_success(cases: list[dict[str, Any]]) -> dict[str, Any]:
             errors.append(f"mutant counterexample weak: commits={mut_commits}")
     else:
         errors.append("missing reference/mutant paired arms")
+
+    # --- Forged assignee: reference refuses; mutant commits unauthorized effect ---
+    forge_ref = by_id.get("reference_forged_assignee_boundary")
+    forge_mut = by_id.get("mutant_forged_assignee_boundary")
+    if forge_ref and forge_mut:
+        if (
+            forge_ref["manifest"]["schedule"]["steps"]
+            != forge_mut["manifest"]["schedule"]["steps"]
+        ):
+            errors.append("forged-assignee reference/mutant schedules differ")
+        if (
+            forge_ref["manifest"]["schedule"]["seed"]
+            != forge_mut["manifest"]["schedule"]["seed"]
+        ):
+            errors.append("forged-assignee reference/mutant seeds differ")
+        ref_f = forge_ref["claims_by_id"].get("b-forge")
+        mut_f = forge_mut["claims_by_id"].get("b-forge")
+        if not ref_f or ref_f.get("committed_effect") is not False:
+            errors.append(
+                "reference forged-assignee arm must refuse commit "
+                f"(got {None if ref_f is None else ref_f.get('committed_effect')!r})"
+            )
+        if ref_f and ref_f.get("effect_settlement") != "refused":
+            errors.append(
+                "reference forged-assignee arm must record effect_settlement=refused"
+            )
+        if ref_f and ref_f.get("effect_refusal_reason") != "agent_not_assignee":
+            errors.append(
+                "reference forged-assignee arm must refuse as agent_not_assignee "
+                f"(got {None if ref_f is None else ref_f.get('effect_refusal_reason')!r})"
+            )
+        if not mut_f or mut_f.get("committed_effect") is not True:
+            errors.append(
+                "mutant forged-assignee arm must commit unauthorized effect "
+                f"(got {None if mut_f is None else mut_f.get('committed_effect')!r})"
+            )
+        # Authoritative grant must remain unspent under reference.
+        ref_final = forge_ref["evaluation"]["final_owner_state"]
+        for gid, state in ref_final.items():
+            if state["grant"]["state"] != "active" or state["committed_effect_count"] != 0:
+                errors.append(
+                    f"reference forged-assignee left grant {gid} in "
+                    f"{state['grant']['state']!r} with "
+                    f"{state['committed_effect_count']} effects"
+                )
+    else:
+        errors.append("missing forged-assignee reference/mutant paired arms")
 
     # --- Paired worlds: indistinguishable until distinguishing observation ---
     blind_a = by_id.get("paired_world_active_blind")

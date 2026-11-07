@@ -19,11 +19,14 @@ from swarm_witness.multi_agent_sim import (  # noqa: E402
     run_scenario,
 )
 from swarm_witness.multi_agent_sim.policy import get_policy  # noqa: E402
+from swarm_witness.multi_agent_sim.ledger import AuthoritativeLedger  # noqa: E402
 from swarm_witness.multi_agent_sim.scenarios import (  # noqa: E402
     interleaving_a_first,
     interleaving_b_first,
     mutant_contention_arm,
+    mutant_forged_assignee_arm,
     reference_contention_arm,
+    reference_forged_assignee_arm,
 )
 from swarm_witness.multi_agent_sim.scheduler import run_schedule  # noqa: E402
 from swarm_witness.schema import validate_claim, validate_finding, validate_run  # noqa: E402
@@ -160,6 +163,7 @@ def test_revocation_late_observation_case_present():
     assert b_late["decision"] == "allow"
     assert b_late["committed_effect"] is False
     assert b_late["effect_settlement"] == "refused"
+    assert b_late["effect_refusal_reason"] == "authoritative_spent_or_revoked"
     denom = b_late["observation_denominators"]
     assert "stale_grant_observation" in denom["present_discriminators"]
     assert "current_grant_observation" not in denom["present_discriminators"]
@@ -169,6 +173,66 @@ def test_revocation_late_observation_case_present():
         g["grant"]["state"] for g in late["evaluation"]["final_owner_state"].values()
     }
     assert final_states == {"revoked"}
+
+
+def test_forged_assignee_reference_refuses_mutant_commits():
+    """Effect boundary must refuse non-assignees under reference enforce=True."""
+    ref = run_scenario(reference_forged_assignee_arm())
+    mut = run_scenario(mutant_forged_assignee_arm())
+    assert ref["manifest"]["schedule"]["steps"] == mut["manifest"]["schedule"]["steps"]
+    assert ref["manifest"]["schedule"]["seed"] == mut["manifest"]["schedule"]["seed"]
+    ref_b = ref["claims_by_id"]["b-forge"]
+    mut_b = mut["claims_by_id"]["b-forge"]
+    assert ref_b["decision"] == "allow"
+    assert ref_b["required_decision"] == "deny"
+    assert ref_b["committed_effect"] is False
+    assert ref_b["effect_settlement"] == "refused"
+    assert ref_b["effect_refusal_reason"] == "agent_not_assignee"
+    assert ref_b["conclusion_class"] == "failed_enforcement"
+    assert ref_b["diagnosis"]["effect_status"] == "prevented"
+    assert "stale_grant_observation" in ref_b["observation_denominators"][
+        "present_discriminators"
+    ]
+    assert mut_b["committed_effect"] is True
+    assert mut_b["effect_settlement"] == "committed"
+    assert mut_b["conclusion_class"] == "failed_enforcement"
+    assert mut_b["diagnosis"]["effect_status"] == "committed"
+    assert mut_b["diagnosis"]["failure_origin"] == "effect_boundary"
+    finals = ref["evaluation"]["final_owner_state"]
+    assert all(s["grant"]["state"] == "active" for s in finals.values())
+    assert all(s["committed_effect_count"] == 0 for s in finals.values())
+
+
+def test_ledger_enforce_refuses_non_assignee_and_spent():
+    led = AuthoritativeLedger()
+    led.issue_grant("g", owner="A")
+    effect, reason = led.commit_effect(
+        grant_id="g",
+        agent="B",
+        call_id="forge",
+        decision_event_id="e0",
+        enforce=True,
+    )
+    assert effect is None
+    assert reason == "agent_not_assignee"
+    assert led.grants["g"]["spent"] is False
+    effect, reason = led.commit_effect(
+        grant_id="g",
+        agent="A",
+        call_id="ok",
+        decision_event_id="e1",
+        enforce=True,
+    )
+    assert effect is not None and reason is None
+    effect2, reason2 = led.commit_effect(
+        grant_id="g",
+        agent="A",
+        call_id="again",
+        decision_event_id="e2",
+        enforce=True,
+    )
+    assert effect2 is None
+    assert reason2 == "authoritative_spent_or_revoked"
 
 
 def test_runner_writes_valid_evidence(tmp_path: Path):

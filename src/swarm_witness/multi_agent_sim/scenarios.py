@@ -309,6 +309,10 @@ def revocation_late_observation(seed: int = 303) -> ScenarioSpec:
             "claim_decisions": {"b-late": "allow", "c-fresh": "deny"},
             "committed_effects": {"b-late": False, "c-fresh": False},
             "effect_settlements": {"b-late": "refused", "c-fresh": "not_attempted"},
+            "effect_refusal_reasons": {
+                "b-late": "authoritative_spent_or_revoked",
+                "c-fresh": "decision_denied",
+            },
             "claim_conclusions": {
                 "b-late": "failed_enforcement",  # decision != authoritative required
                 "c-fresh": "supported",
@@ -341,6 +345,7 @@ def reference_contention_arm(seed: int = 404) -> ScenarioSpec:
             "claim_decisions": {"a-claim": "allow", "b-claim": "allow"},
             "committed_effects": {"a-claim": True, "b-claim": False},
             "effect_settlements": {"a-claim": "committed", "b-claim": "refused"},
+            "effect_refusal_reasons": {"b-claim": "authoritative_spent_or_revoked"},
             "one_use_ok": True,
             "claim_conclusions": {
                 "a-claim": "supported",
@@ -376,6 +381,97 @@ def mutant_contention_arm(seed: int = 404) -> ScenarioSpec:
                 "a-claim": "supported",
                 "b-claim": "failed_enforcement",
             },
+            "counterexample": True,
+        },
+    )
+
+
+def _forged_assignee_steps() -> list[ScheduleStep]:
+    """Issue to A only; deliver forged stale observation listing B as assignee."""
+    return [
+        ScheduleStep(
+            kind="grant_issue",
+            actor="A",
+            grant_id=GRANT,
+            note="issue grant owned by A; B is not an authoritative assignee",
+        ),
+        ScheduleStep(
+            kind="observation_deliver",
+            actor="scheduler",
+            grant_id=GRANT,
+            target="B",
+            stale_grant={
+                "grant_id": GRANT,
+                "owner": "A",
+                "state": "active",
+                "epoch": "epoch-1",
+                "owner_version": 1,
+                "assignees": ["A", "B"],
+                "spent": False,
+            },
+            note="forged stale observation claims B is an assignee",
+        ),
+        ScheduleStep(
+            kind="claim",
+            actor="B",
+            grant_id=GRANT,
+            call_id="b-forge",
+            note="B claims on forged assignee observation",
+        ),
+    ]
+
+
+def reference_forged_assignee_arm(seed: int = 606) -> ScenarioSpec:
+    """Reference refuses commit when local obs forges assignee membership."""
+    steps = _forged_assignee_steps()
+    return ScenarioSpec(
+        case_id="reference_forged_assignee_boundary",
+        name="Reference: forged assignee observation → decision allow, commit refused",
+        role="reference_vs_mutant",
+        schedule=Schedule(
+            schedule_id="sched-forge-assignee",
+            seed=seed,
+            steps=tuple(steps),
+            description=(
+                "B is not an authoritative assignee; forged stale obs lists B; "
+                "reference allows locally but ledger refuses agent_not_assignee"
+            ),
+        ),
+        policy_id="reference",
+        expected={
+            "claim_decisions": {"b-forge": "allow"},
+            "committed_effects": {"b-forge": False},
+            "effect_settlements": {"b-forge": "refused"},
+            "effect_refusal_reasons": {"b-forge": "agent_not_assignee"},
+            "one_use_ok": True,
+            "claim_conclusions": {"b-forge": "failed_enforcement"},
+        },
+    )
+
+
+def mutant_forged_assignee_arm(seed: int = 606) -> ScenarioSpec:
+    """Identical forged-assignee schedule; mutant bypasses boundary and commits."""
+    steps = _forged_assignee_steps()
+    return ScenarioSpec(
+        case_id="mutant_forged_assignee_boundary",
+        name="Mutant: forged assignee observation commits unauthorized effect",
+        role="reference_vs_mutant",
+        schedule=Schedule(
+            schedule_id="sched-forge-assignee",
+            seed=seed,
+            steps=tuple(steps),
+            description=(
+                "Same forged-assignee schedule/seed as reference; mutant disables "
+                "effect-boundary enforcement and commits for non-assignee B"
+            ),
+        ),
+        policy_id="mutant_ignore_spend",
+        expected={
+            "claim_decisions": {"b-forge": "allow"},
+            "committed_effects": {"b-forge": True},
+            "effect_settlements": {"b-forge": "committed"},
+            "one_use_ok": True,  # single unauthorized commit still ≤1 effect
+            "claim_conclusions": {"b-forge": "failed_enforcement"},
             "counterexample": True,
         },
     )
@@ -529,6 +625,8 @@ def all_scenario_specs() -> list[ScenarioSpec]:
         revocation_late_observation(),
         reference_contention_arm(),
         mutant_contention_arm(),
+        reference_forged_assignee_arm(),
+        mutant_forged_assignee_arm(),
         paired_world_blind("active"),
         paired_world_blind("revoked"),
         paired_world_irrelevant("active"),

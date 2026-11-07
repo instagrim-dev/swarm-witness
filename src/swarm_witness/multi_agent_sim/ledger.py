@@ -71,17 +71,23 @@ class AuthoritativeLedger:
         call_id: str,
         decision_event_id: str,
         enforce: bool = True,
-    ) -> dict[str, Any] | None:
+    ) -> tuple[dict[str, Any] | None, str | None]:
         """Attempt to settle an effect.
 
-        When ``enforce`` is True (reference arm), refuse spent/revoked grants so
-        a bad *decision* is not silently turned into an unauthorized committed
-        effect. Mutant arms may pass ``enforce=False`` to produce a concrete
-        one-use counterexample at the effect boundary.
+        Returns ``(effect, None)`` on commit, or ``(None, refusal_reason)`` when
+        the authoritative boundary refuses.
+
+        When ``enforce`` is True (reference arm), refuse spent/revoked grants and
+        non-assignees so a bad *decision* is not silently turned into an
+        unauthorized committed effect. Mutant arms may pass ``enforce=False`` to
+        produce a concrete counterexample at the effect boundary.
         """
         g = self.grants[grant_id]
-        if enforce and (bool(g["spent"]) or g["state"] in {"revoked", "spent"}):
-            return None
+        if enforce:
+            if bool(g["spent"]) or g["state"] in {"revoked", "spent"}:
+                return None, "authoritative_spent_or_revoked"
+            if agent not in g["assignees"]:
+                return None, "agent_not_assignee"
         g["spent"] = True
         g["state"] = "spent"
         self.owner_version += 1
@@ -104,7 +110,7 @@ class AuthoritativeLedger:
             "owner_version_at_commit": g["owner_version"],
         }
         self.committed_effects.append(effect)
-        return effect
+        return effect, None
 
     def owner_state_projection(self, grant_id: str) -> dict[str, Any]:
         snap = self.snapshot(grant_id)

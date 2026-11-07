@@ -402,7 +402,7 @@ class Simulator:
         # Mutant arms may disable enforcement to surface concrete double-commit
         # counterexamples — still recorded as separate decision vs effect fields.
         if decision == "allow":
-            effect = self.ledger.commit_effect(
+            effect, refusal_reason = self.ledger.commit_effect(
                 grant_id=step.grant_id,
                 agent=agent,
                 call_id=step.call_id,
@@ -412,6 +412,7 @@ class Simulator:
             if effect is not None:
                 committed = True
                 settlement = "committed"
+                refusal_reason = None
                 self._record(
                     "effect_settle",
                     "ledger",
@@ -425,7 +426,6 @@ class Simulator:
                 )
             else:
                 settlement = "refused"
-                refusal_reason = "authoritative_spent_or_revoked"
                 self._record(
                     "effect_settle",
                     "ledger",

@@ -7,6 +7,8 @@
     "mas-revocation_late_observation_reference",
     "mas-reference_contention_one_use",
     "mas-mutant_ignore_spend_contention",
+    "mas-reference_forged_assignee_boundary",
+    "mas-mutant_forged_assignee_boundary",
     "mas-paired_world_active_blind",
     "mas-paired_world_revoked_blind",
     "mas-paired_world_active_irrelevant",
