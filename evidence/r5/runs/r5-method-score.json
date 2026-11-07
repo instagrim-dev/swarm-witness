@@ -1,0 +1,24 @@
+{
+  "id": "r5-method-score",
+  "claim_id": "r5",
+  "protocol_id": "r5-swarm-audit-v1",
+  "case_id": "method_score",
+  "source_pin": "swarm-witness-r5-v1",
+  "execution_status": "completed",
+  "observations": {
+    "passed": true,
+    "all_checks_pass": true,
+    "three_way_classes_exercised": true,
+    "case_count": 10,
+    "agent_count": 3,
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "missing_evidence_count": 2,
+    "failed_enforcement_count": 2,
+    "supported_count": 6,
+    "errors": []
+  }
+}

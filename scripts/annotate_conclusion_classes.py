@@ -18,6 +18,7 @@ from swarm_witness.conclusion_classes import (  # noqa: E402
 # Explicit overrides where label alone is ambiguous or method-scoped.
 OVERRIDES: dict[str, str] = {
     "r4-f-evidence-sufficiency": "supported",  # method claim reproduced
+    "r5-f-swarm-audit": "supported",  # swarm generalization method claim
 }
 
 

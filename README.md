@@ -13,8 +13,9 @@ classical security, or primarily a dual replication.
 
 Pinned results: SoundGate (R1) **reproduced**; EvidenceGraph (R2) **reproduced**;
 legacy BMO decision-model (R3) **unresolved**; native L1 ledger-claim
-(r3-ledger-claim-v1) **classical_baseline_matches** (bounded); evidence-
-sufficiency Worlds A/B (R4) **reproduced**.
+(r3-ledger-claim-v1) **classical_baseline_matches** (bounded); three-way
+evidence-sufficiency (R4) **reproduced**; multi-agent swarm generalization (R5)
+**reproduced**.
 
 ## Submission PDF
 
@@ -58,6 +59,7 @@ wc -w report/ABSTRACT.md   # expect 150–250
 | R3 Go tests (metadata) | `bash experiments/r3/run_bmo_tests.sh` | `evidence/r3/bmo_go_test.log` |
 | R3 ledger-claim-v1 | `python3 experiments/r3/ledger_claim_v1/run_matched.py --run-id <id>` | `evidence/r3/ledger_claim_v1/<id>/` |
 | R4 evidence sufficiency | `python3 experiments/evidence_sufficiency/run.py` | `evidence/r4/` |
+| R5 swarm audit | `python3 experiments/swarm_r5/run.py` | `evidence/r5/` |
 
 Derived protocol **r3-ledger-claim-v1** lives under
 [`experiments/r3/ledger_claim_v1/`](experiments/r3/ledger_claim_v1/). Selected

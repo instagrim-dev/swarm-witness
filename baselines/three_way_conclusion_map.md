@@ -17,12 +17,14 @@ Swarm Witness classifies each claim evaluation into exactly one of:
 | R3 decision-model | `missing_evidence` | No isomorphic BMO observations (`unresolved`) |
 | R3 ledger-claim-v1 | `supported` | Native-qualified matched L1 (`classical_baseline_matches`) |
 | R4 Worlds A/B + handoff | all three | Executable taxonomy probe, including bounded delegate handoff |
+| R5 swarm A/B/C | all three | Contention, delegation chains, cross-agent receipt misuse |
 
-**Handoff transferability (bounded).** A principal’s old receipt does not authorize
-a delegate. Without delegate-scoped current grant evidence the class is
-`missing_evidence`; allowing from the principal receipt alone under a revoked
-delegate grant is `failed_enforcement`; observing an active delegate grant with
-a correct gate is `supported`. This is not a multi-agent population result.
+**Handoff / swarm transferability.** A principal’s old receipt does not authorize
+a delegate or peer. Without scoped current grant evidence the class is
+`missing_evidence`; allowing from a foreign receipt or after shared-grant spend
+under a broken gate is `failed_enforcement`; correct assignee + active grant
+observation is `supported`. R5 establishes method generalization to a synthetic
+three-agent swarm—not unbounded population safety.
 
 This card is an authored interpretation of labels already produced by runners;
 it is not itself a Finding.
