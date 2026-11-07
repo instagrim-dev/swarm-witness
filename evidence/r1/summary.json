@@ -1,0 +1,45 @@
+{
+  "histories_per_policy": 153,
+  "prohibited_effects_original": 143,
+  "prohibited_effects_barrier": 0,
+  "strict_refusal_startup_refusals": 147,
+  "source_revision": "6568403",
+  "fresh_run": {
+    "all_checks_pass": true,
+    "raw_sha256": "51b4acd6539a43eda2e51a2d0b82661fc237eec8a2f353f085261bb0a36e8244",
+    "analyzer_sha256": "2526cfc9ffc253f3c816adae318c479227a069c26dde25e062447e0f7cb83a04",
+    "policies": {
+      "original": {
+        "cases": 153,
+        "supported": 6,
+        "prohibited_effect": 143,
+        "refused_before_ack": 4,
+        "refused_after_ack": 0,
+        "unresolved": 0,
+        "fresh_work": 149,
+        "prefix_controls": 149
+      },
+      "strict": {
+        "cases": 153,
+        "supported": 6,
+        "prohibited_effect": 0,
+        "refused_before_ack": 147,
+        "refused_after_ack": 0,
+        "unresolved": 0,
+        "fresh_work": 6,
+        "prefix_controls": 6
+      },
+      "barrier": {
+        "cases": 153,
+        "supported": 153,
+        "prohibited_effect": 0,
+        "refused_before_ack": 0,
+        "refused_after_ack": 0,
+        "unresolved": 0,
+        "fresh_work": 153,
+        "prefix_controls": 153
+      }
+    },
+    "cargo_wal_recovery_barrier_ok": true
+  }
+}

@@ -1,0 +1,80 @@
+ Downloading crates ...
+  Downloaded ciborium v0.2.2
+  Downloaded tinytemplate v1.2.1
+  Downloaded strsim v0.10.0
+  Downloaded is-terminal v0.4.17
+  Downloaded ciborium-io v0.2.2
+  Downloaded ciborium-ll v0.2.2
+  Downloaded anstyle-parse v0.2.7
+  Downloaded cast v0.3.0
+  Downloaded criterion-plot v0.5.0
+  Downloaded anstream v0.6.21
+  Downloaded clap_lex v0.6.0
+  Downloaded anes v0.1.6
+  Downloaded either v1.16.0
+  Downloaded oorandom v11.1.5
+  Downloaded half v2.2.1
+  Downloaded clap v4.4.18
+  Downloaded criterion v0.5.1
+  Downloaded itertools v0.10.5
+  Downloaded regex v1.12.4
+  Downloaded clap_builder v4.4.18
+  Downloaded aho-corasick v1.1.4
+  Downloaded regex-automata v0.4.14
+  Downloaded libc v0.2.186
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.46
+   Compiling unicode-ident v1.0.24
+   Compiling serde_core v1.0.228
+   Compiling serde v1.0.228
+   Compiling zmij v1.0.21
+   Compiling serde_json v1.0.150
+   Compiling memchr v2.8.2
+   Compiling itoa v1.0.18
+   Compiling utf8parse v0.2.2
+   Compiling anstyle-query v1.1.5
+   Compiling anstyle v1.0.14
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.5
+   Compiling anstyle-parse v0.2.7
+   Compiling autocfg v1.5.1
+   Compiling libc v0.2.186
+   Compiling half v2.2.1
+   Compiling ciborium-io v0.2.2
+   Compiling anstream v0.6.21
+   Compiling strsim v0.10.0
+   Compiling clap_lex v0.6.0
+   Compiling regex-syntax v0.8.11
+   Compiling either v1.16.0
+   Compiling ciborium-ll v0.2.2
+   Compiling same-file v1.0.6
+   Compiling cast v0.3.0
+   Compiling num-traits v0.2.19
+   Compiling clap_builder v4.4.18
+   Compiling walkdir v2.5.0
+   Compiling anes v0.1.6
+   Compiling itertools v0.10.5
+   Compiling oorandom v11.1.5
+   Compiling once_cell v1.21.4
+   Compiling is-terminal v0.4.17
+   Compiling syn v2.0.118
+   Compiling regex-automata v0.4.14
+   Compiling criterion-plot v0.5.0
+   Compiling clap v4.4.18
+   Compiling serde_derive v1.0.228
+   Compiling regex v1.12.4
+   Compiling tinytemplate v1.2.1
+   Compiling ciborium v0.2.2
+   Compiling soundgate v0.1.4 (/Users/user1/Documents/dev/hackathons/2026-fall/submissions/swarm-witness/third_party/r1/soundgate/soundgate)
+   Compiling criterion v0.5.1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.06s
+     Running tests/wal_recovery_barrier.rs (target/debug/deps/wal_recovery_barrier-8aaffd095889222c)
+
+running 3 tests
+test log_merged_by_0_1_3_is_refused_not_silently_dropped ... ok
+test second_gate_on_the_same_wal_is_refused ... ok
+byte-prefix sweep: 268 histories, 0 prohibited executions, 0 refused restarts, 0 malformed logs
+test byte_prefix_sweep_keeps_acknowledged_decisions_across_two_restarts ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.19s
+

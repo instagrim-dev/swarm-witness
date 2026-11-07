@@ -1,0 +1,76 @@
+{
+  "started_utc": "2026-11-07T13:17:42.390125+00:00",
+  "kind": "operator-directed local diagnostic build",
+  "source_revision": "656840348dcf9660f8db7add9f3ca9f794a55926",
+  "rustc": "rustc 1.99.0 (b940084d7 2026-09-28) (Homebrew)",
+  "inputs": {
+    "build.py": "ab141e3d4b09302565db8d3c51a5c79a7b80850a0fbea84330b3349c7a167c2c",
+    "recovery.rs": "b475ffe60cd78699ed2ac45973301d14ec5a8848377211ea9673867c91f5cf58",
+    "source-pin.json": "6f17c6b649eb4062e0da0c275fcb3235c5d102cc2788c302d91ab95da790aa4c"
+  },
+  "steps": [
+    {
+      "variant": "original",
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--bin",
+        "soundgate"
+      ],
+      "returncode": 0,
+      "log_sha256": "3a275773c742255bec620bfcbe1a25647a4aa0451142a341e747e4518e47fd01"
+    },
+    {
+      "variant": "strict",
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--bin",
+        "soundgate"
+      ],
+      "returncode": 0,
+      "log_sha256": "fa75d7864dff84034a4dd9e29ff91fef76b66f06f29822ff32e1907a114d408f"
+    },
+    {
+      "variant": "barrier",
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--bin",
+        "soundgate",
+        "--features",
+        "repair"
+      ],
+      "returncode": 0,
+      "log_sha256": "87d1e3aa2c96dc74a3fe1625675463e1afcece00a965ec0e6d41b8d3fb01667f"
+    },
+    {
+      "variant": "instrumented",
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--bin",
+        "soundgate",
+        "--features",
+        "repair,fault-injection"
+      ],
+      "returncode": 0,
+      "log_sha256": "1527b578a818dcc2073c31ac4e1e87dcc0a72c7d81a2ca3d7ec410ed7a92a1d4"
+    }
+  ],
+  "binaries": {
+    "original": "c60d80d0c1312f1d853a2fe6fd69ef97729db72c255dceec03dba9340b2afd48",
+    "strict": "af30f00b20ea4f22851c4c33b23377a7c38df06172f501860776c1fcf37e2edd",
+    "barrier": "5c18df8208950f56bf9c75137b717868625f98fef9ebbfa4ff2996c2e92eda0b",
+    "instrumented": "d0f1f2bff1542012ea01519d7419a1c7f96cb072049299b65f0ce88962508534"
+  },
+  "finished_utc": "2026-11-07T13:18:00.167548+00:00"
+}

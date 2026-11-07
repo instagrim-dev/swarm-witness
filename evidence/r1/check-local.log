@@ -1,0 +1,1 @@
+{"independent_policy_counts": {"original": {"cases": 153, "held": 6, "fresh": 149, "effect": 143, "refusal": 4}, "strict": {"cases": 153, "held": 6, "fresh": 6, "refusal": 147}, "barrier": {"cases": 153, "held": 153, "fresh": 153}}, "missing_case_rejected": true, "passed": true}

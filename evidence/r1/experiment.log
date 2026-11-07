@@ -1,0 +1,4 @@
+Completed cancellation; 117 byte-cut policy executions
+Completed durable_rejection; 282 byte-cut policy executions
+Completed release_deduplication; 459 byte-cut policy executions
+{"complete": true, "cases": 459, "crash_histories": 10, "controls": 10, "raw": "/Users/user1/Documents/dev/hackathons/2026-fall/submissions/swarm-witness/third_party/r1/incident-sprint-artifact/recovery-barrier/local-run/raw.json", "error": null}
