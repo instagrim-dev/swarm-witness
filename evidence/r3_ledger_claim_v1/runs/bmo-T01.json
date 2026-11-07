@@ -36,20 +36,12 @@
           "transfer_count": 1,
           "claims": [
             {
-              "task_id": "task-alpha",
-              "grant_id": "grant-alpha",
-              "retry_epoch": "epoch-1",
-              "call_id": "call-t01-a",
-              "owner_revision": 1
+              "call_id": "call-t01-a"
             }
           ],
           "transfers": [
             {
-              "task_id": "task-alpha",
-              "grant_id": "grant-alpha",
-              "retry_epoch": "epoch-1",
-              "call_id": "call-t01-a",
-              "owner_revision": 1
+              "call_id": "call-t01-a"
             }
           ],
           "claim_call_ids": [
@@ -89,20 +81,12 @@
           "transfer_count": 1,
           "claims": [
             {
-              "task_id": "task-alpha",
-              "grant_id": "grant-alpha",
-              "retry_epoch": "epoch-1",
-              "call_id": "call-t01-a",
-              "owner_revision": 1
+              "call_id": "call-t01-a"
             }
           ],
           "transfers": [
             {
-              "task_id": "task-alpha",
-              "grant_id": "grant-alpha",
-              "retry_epoch": "epoch-1",
-              "call_id": "call-t01-a",
-              "owner_revision": 1
+              "call_id": "call-t01-a"
             }
           ],
           "claim_call_ids": [
@@ -132,20 +116,12 @@
           "transfer_count": 1,
           "claims": [
             {
-              "task_id": "task-alpha",
-              "grant_id": "grant-alpha",
-              "retry_epoch": "epoch-1",
-              "call_id": "call-t01-a",
-              "owner_revision": 1
+              "call_id": "call-t01-a"
             }
           ],
           "transfers": [
             {
-              "task_id": "task-alpha",
-              "grant_id": "grant-alpha",
-              "retry_epoch": "epoch-1",
-              "call_id": "call-t01-a",
-              "owner_revision": 1
+              "call_id": "call-t01-a"
             }
           ],
           "claim_call_ids": [

@@ -5,31 +5,37 @@ Tracks: 3, 4
 
 Abstract:
 
-After matching policy, observations, trust assumptions, durability, and
-enforcement coverage, which claimed benefits of agent-safety mechanisms remain?
-We test that question with Swarm Witness, an executable claim-audit kit that
-pins third-party artifacts, states precise claim cards, runs discriminating
-checks, and records fail-closed conclusion labels. Classical reductions
-(recover-before-admit; no-implicit-exclusivity; durable grant-table checks) are
-questions under test via matched baselines—not intro verdicts. On three pinned
-targets we obtain: SoundGate recovery-barrier (R1) reproduced — 153
-histories/policy, original prohibited effects 143 vs barrier 0, with 147 strict
-refusal-startup refusals; EvidenceGraph receipt stress (R2) reproduced —
-36/36 condition-by-seed checks, old-rule relay wrong attributions [1,1,1] per
-seed vs safer supported [0,0,0], and clean withheld-without-exclusivity
-[12,12,12]; BMO retained-grant vs ClassicalGate (R3) unresolved — matched
-decision-model comparison incomplete (0/4 isomorphic BMO observations; selected
-Go package tests are metadata only). Weekend contributions claimed here are
-(1) pinned replications for R1/R2 and (2) the audit kit. A third,
-methodological finding that a durable-grant story reduces to classical controls
-is not claimed without a completed matched comparison. Auditors should publish
-matched baselines and labels.
+When agent-safety controls produce apparently valid evidence, what additional
+observations, assumptions, and comparisons are required before we can justify
+claims about their behavior? We introduce Swarm Witness, an executable
+claim-audit method that makes those distinctions explicit through source-pinned
+experiments, conventional reference monitors, and fail-closed findings.
+Classical authorization is the null hypothesis—not a new primitive we invent.
+We apply the method to two prior agent-safety projects, reproducing bounded
+results on restart-safe authorization (R1: 153 histories/policy; barrier
+prohibited effects 0 vs original 143) and receipt-attribution ambiguity (R2:
+36/36 condition-by-seed checks). Separately, a new matched experiment compares
+BMO’s transactional first-edit admission with an independent SQLite gate across
+six synthetic cases; retained observations agree on the tested one-use
+properties under a fail-closed native pin (`classical_baseline_matches`), while
+the legacy decision-model R3 comparison remains unresolved. A fourth protocol
+shows that identical old receipts with unobserved current grant leave valid and
+revoked worlds indistinguishable, so permission claims stay unsupported until a
+discriminating observation is supplied (R4 reproduced). Our contribution is a
+reusable approach to distinguishing reproduced mechanisms, classical
+explanations, incomplete observations, and conclusions evidence cannot justify—
+not a swarm-authorization architecture or a proof of general BMO equivalence.
 
 Authors: <!-- user-provided; leave blank — do not invent names -->
 Affiliations: <!-- user-provided; leave blank -->
+Author hint (unconfirmed): git history on this repo includes commits by
+`Jon M <…instagrim-dev@users.noreply.github.com>` — paste only after you confirm.
 
 PDF: report/Swarm_Witness_Apart_Submission.pdf
-GitHub: <!-- optional -->
+GitHub: https://github.com/instagrim-dev/swarm-witness (currently private —
+grant judge read access, publish a mirror, or attach
+`dist/swarm-witness-review-bundle.zip` from `bash scripts/pack_review_bundle.sh`;
+see `evidence/ACCESS.md`)
 Video: none unless completed
 
 ## Labels (v2; from evidence/index.yaml)
@@ -38,7 +44,9 @@ Video: none unless completed
 | --- | --- |
 | R1 SoundGate recovery barrier | reproduced |
 | R2 EvidenceGraph receipt stress | reproduced |
-| R3 BMO vs ClassicalGate comparison | unresolved |
+| R3 BMO vs ClassicalGate (decision-model) | unresolved |
+| R3 ledger-claim-v1 (L1) | classical_baseline_matches |
+| R4 evidence sufficiency (Worlds A/B) | reproduced |
 
 ## Template chrome note
 

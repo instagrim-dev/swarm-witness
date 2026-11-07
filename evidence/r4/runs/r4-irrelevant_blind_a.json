@@ -1,0 +1,23 @@
+{
+  "id": "r4-irrelevant_blind_a",
+  "claim_id": "r4",
+  "protocol_id": "r4-evidence-sufficiency-v1",
+  "case_id": "irrelevant_blind_a",
+  "source_pin": "swarm-witness-r4-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "negative_control",
+    "assessment": "unsupported",
+    "decision": null,
+    "justified_permission_claim": false,
+    "ground_truth_grant": "active",
+    "include_current_grant": false,
+    "include_irrelevant": true,
+    "observed_grant": null,
+    "reason": "old receipt available but current grant state unobserved; permission claim unsupported (Worlds A and B indistinguishable from this evidence); irrelevant fact 'receipt_print_color=blue' does not discriminate",
+    "expected_assessment": "unsupported",
+    "assessment_match": true,
+    "ground_truth_mismatch": false,
+    "misbound_detected": null
+  }
+}

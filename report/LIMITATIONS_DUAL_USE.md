@@ -26,7 +26,7 @@ stress pack at `a5ea5c9`, not by running a missing harness at `efbd419`. Does
 or that exclusivity declarations themselves cannot be gamed outside the modeled
 threat surface.
 
-**R3 (`unresolved`).** Establishes that the matched ClassicalGate
+**R3 decision-model (`unresolved`).** Establishes that the matched ClassicalGate
 decision-model comparison against BMO is **incomplete**: 0/4 required cases
 have isomorphic BMO observations, so the comparison Finding is `unresolved`
 (comparison not performed). ClassicalGate is a **decision-model** null
@@ -36,6 +36,23 @@ only and do not fill decisions or substitute for a matched comparative label.
 Does **not** establish ClassicalGate↔BMO API equivalence, assumption-dependent
 affinity, or a methodological reduction of BMO’s durable-grant story to
 classical controls.
+
+**R3 ledger-claim-v1 (`classical_baseline_matches`, bounded).** Establishes
+equal dispositions and property-relevant projections (grant_spent, counts,
+call_id sets) across T01–T06 for ClassicalLedgerGate vs native
+`ClaimOrdinaryRetainedGrantFirstEditTx` at pin `4b717d7` under fail-closed
+native qualification. Does **not** claim synthetic classical grant/epoch
+aliases equal native durable hashes, full event-trace observational
+equivalence, live execution safety, process-restart correctness, concurrency
+behavior, or general BMO equivalence. Legacy decision-model R3 remains
+separately unresolved.
+
+**R4 evidence sufficiency (`reproduced`).** Establishes that, under a synthetic
+two-world protocol, identical old receipts with unobserved current grant leave
+valid and revoked worlds indistinguishable (permission unsupported); observing
+current grant separates allow vs deny; an irrelevant fact does not upgrade
+unsupported assessments. Does **not** establish live BMO behavior, cryptographic
+receipt authenticity, or multi-agent delegation / swarm handoff.
 
 ## Finite experiments and checker scope
 

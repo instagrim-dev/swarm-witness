@@ -10,8 +10,10 @@ operational_interpretation: >
   Under protocol r3-ledger-claim-v1, ClassicalLedgerGate and BMO
   ClaimOrdinaryRetainedGrantFirstEditTx are compared on shared traces T01–T06
   (claim/reopen/inspect with explicit commit or rollback_after_native_success).
-  Property-relevant projection is identity-bound claim/transfer/spent state.
-  A committed claim is not an executed edit. Cold database reopen must not remint.
+  Property-relevant projection compares grant_spent, counts, and call_id sets
+  (not synthetic classical grant_id/retry_epoch vs native durable hashes unless
+  an explicit alias map is declared). A committed claim is not an executed edit.
+  Cold database reopen must not remint.
 property: one-use first-edit claim and transfer under cold DB reopen and rollback
 scope: >
   Derived R3 experiment at BMO pin 4b717d79…; L1 transactional owner only;

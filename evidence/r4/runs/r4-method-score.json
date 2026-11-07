@@ -1,0 +1,17 @@
+{
+  "id": "r4-method-score",
+  "claim_id": "r4",
+  "protocol_id": "r4-evidence-sufficiency-v1",
+  "case_id": "method_score",
+  "source_pin": "swarm-witness-r4-v1",
+  "execution_status": "completed",
+  "observations": {
+    "passed": true,
+    "indistinguishable_when_blind": true,
+    "discriminator_separates_worlds": true,
+    "case_count": 9,
+    "unsupported_blind_count": 4,
+    "errors": [],
+    "all_checks_pass": true
+  }
+}

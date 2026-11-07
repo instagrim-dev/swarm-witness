@@ -1,0 +1,79 @@
+{
+  "protocol_id": "r4-evidence-sufficiency-v1",
+  "claim_id": "r4",
+  "cases": [
+    {
+      "case_id": "blind_world_a",
+      "role": "indistinguishability",
+      "assessment": "unsupported",
+      "decision": null,
+      "expected_assessment": "unsupported"
+    },
+    {
+      "case_id": "blind_world_b",
+      "role": "indistinguishability",
+      "assessment": "unsupported",
+      "decision": null,
+      "expected_assessment": "unsupported"
+    },
+    {
+      "case_id": "irrelevant_blind_a",
+      "role": "negative_control",
+      "assessment": "unsupported",
+      "decision": null,
+      "expected_assessment": "unsupported"
+    },
+    {
+      "case_id": "irrelevant_blind_b",
+      "role": "negative_control",
+      "assessment": "unsupported",
+      "decision": null,
+      "expected_assessment": "unsupported"
+    },
+    {
+      "case_id": "discriminated_world_a",
+      "role": "discriminator",
+      "assessment": "permission_justified",
+      "decision": "allow",
+      "expected_assessment": "permission_justified"
+    },
+    {
+      "case_id": "discriminated_world_b",
+      "role": "discriminator",
+      "assessment": "permission_refuted",
+      "decision": "deny",
+      "expected_assessment": "permission_refuted"
+    },
+    {
+      "case_id": "valid_with_evidence",
+      "role": "valid_control",
+      "assessment": "permission_justified",
+      "decision": "allow",
+      "expected_assessment": "permission_justified"
+    },
+    {
+      "case_id": "misbound_world_a",
+      "role": "adversarial_misbind",
+      "assessment": "permission_refuted",
+      "decision": "deny",
+      "expected_assessment": "permission_refuted"
+    },
+    {
+      "case_id": "misbound_world_b",
+      "role": "adversarial_misbind",
+      "assessment": "permission_justified",
+      "decision": "allow",
+      "expected_assessment": "permission_justified"
+    }
+  ],
+  "score": {
+    "passed": true,
+    "errors": [],
+    "indistinguishable_when_blind": true,
+    "discriminator_separates_worlds": true,
+    "case_count": 9,
+    "unsupported_blind_count": 4
+  },
+  "finding_id": "r4-f-evidence-sufficiency",
+  "label": "reproduced"
+}

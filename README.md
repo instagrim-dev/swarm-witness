@@ -3,16 +3,18 @@
 **Apart Research — Swarm Alignment sprint (weekend 2026-11-06 … 2026-11-08)**  
 **Tracks:** 3 (Strengthening Agent Infrastructure) and 4 (Multi-Agent Oversight and Control)
 
-After matching policy, observations, trust assumptions, durability, and
-enforcement coverage, which claimed benefits of agent-safety mechanisms remain?
-Swarm Witness is an executable claim-audit kit that pins third-party artifacts,
-states claim cards, runs discriminating checks against classical baselines
-(treated as questions under test), and records fail-closed labels. On three
-pinned targets: SoundGate recovery-barrier (R1) **reproduced**; EvidenceGraph
-receipt stress (R2) **reproduced**; BMO retained-grant vs ClassicalGate (R3)
-**unresolved** (matched decision-model comparison incomplete). Claimed weekend
-contributions are pinned replications (R1/R2) and the audit kit; a
-methodological reduction finding is not claimed without matched comparison.
+When agent-safety controls produce apparently valid evidence, what additional
+observations, assumptions, and comparisons are required before we can justify
+claims about their behavior? Swarm Witness is an executable claim-audit kit that
+pins third-party artifacts, states claim cards, runs discriminating checks
+against classical baselines (the null hypothesis), and records fail-closed
+labels. It is **not** a new authorization architecture, a proof that BMO equals
+classical security, or primarily a dual replication.
+
+Pinned results: SoundGate (R1) **reproduced**; EvidenceGraph (R2) **reproduced**;
+legacy BMO decision-model (R3) **unresolved**; native L1 ledger-claim
+(r3-ledger-claim-v1) **classical_baseline_matches** (bounded); evidence-
+sufficiency Worlds A/B (R4) **reproduced**.
 
 ## Submission PDF
 
@@ -45,15 +47,7 @@ python scripts/check_evidence.py
 wc -w report/ABSTRACT.md   # expect 150–250
 ```
 
-Decisive acceptance probes covered by the suite include ClassicalGate
-always-deny control and evidence-consistency negatives (reproduced cannot rest
-on unresolved-only support).
-
 ## Reproduction experiments
-
-Run from the repository root with dependencies installed (R1 needs `git`,
-`curl`, `cargo`, `rustc`; R2 needs `uv`; R3 needs `go` and a checkout of BMO at
-`BMO_ROOT`, default `/Users/user1/Documents/dev/bmo`).
 
 | Experiment | Command | Output |
 | --- | --- | --- |
@@ -63,13 +57,17 @@ Run from the repository root with dependencies installed (R1 needs `git`,
 | R3 matched compare | `python3 experiments/r3/compare.py` | `evidence/r3/findings/r3-f-comparison.json` |
 | R3 Go tests (metadata) | `bash experiments/r3/run_bmo_tests.sh` | `evidence/r3/bmo_go_test.log` |
 | R3 ledger-claim-v1 | `python3 experiments/r3/ledger_claim_v1/run_matched.py --run-id <id>` | `evidence/r3/ledger_claim_v1/<id>/` |
+| R4 evidence sufficiency | `python3 experiments/evidence_sufficiency/run.py` | `evidence/r4/` |
 
-Derived protocol **r3-ledger-claim-v1** (ClassicalLedgerGate vs BMO
-`ClaimOrdinaryRetainedGrantFirstEditTx`) lives under
-[`experiments/r3/ledger_claim_v1/`](experiments/r3/ledger_claim_v1/). Native pin
-bridge evidence at `evidence/r3_ledger_claim_v1/` is labeled
-**`classical_baseline_matches`**. Legacy decision-model R3 is unchanged
-(`unresolved`). Offline L1 stand-in traces stay inspectable-only
-(`native_bmo=false`).
+Derived protocol **r3-ledger-claim-v1** lives under
+[`experiments/r3/ledger_claim_v1/`](experiments/r3/ledger_claim_v1/). Selected
+native run: `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` (mirrored
+at `evidence/r3_ledger_claim_v1/`). Legacy decision-model R3 stays `unresolved`.
 
-Pre-submit checklist for the Apart form: [`CHECKLIST.md`](CHECKLIST.md).
+**R4** (`experiments/evidence_sufficiency/`) is the methodological probe: identical
+old receipts with unobserved current grant leave Worlds A/B indistinguishable.
+
+Judge access / portable bundle: [`evidence/ACCESS.md`](evidence/ACCESS.md),
+`bash scripts/pack_review_bundle.sh`.
+
+Pre-submit checklist: [`CHECKLIST.md`](CHECKLIST.md).

@@ -1,0 +1,150 @@
+{
+  "id": "bmo-T04",
+  "claim_id": "r3_ledger_claim_v1",
+  "protocol_id": "r3-ledger-claim-v1",
+  "case_id": "T04",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "completed",
+  "observations": {
+    "arm": "bmo",
+    "steps": [
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T04",
+        "step": 1,
+        "op": "claim_first_edit",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "rolled_back",
+        "inputs": {
+          "call_id": "call-t04-rolled",
+          "grant_id": "grant-alpha",
+          "owner_revision": 1,
+          "retry_epoch": "epoch-1",
+          "task_id": "task-alpha",
+          "transaction_completion": "rollback_after_native_success"
+        },
+        "native_result": {
+          "call_id": "call-t04-rolled",
+          "native_bmo": true,
+          "native_ok": true,
+          "reason": "rollback_after_native_success"
+        },
+        "state": {
+          "grant_spent": false,
+          "claim_count": 0,
+          "transfer_count": 0,
+          "claims": [],
+          "transfers": [],
+          "claim_call_ids": [],
+          "transfer_call_ids": []
+        },
+        "notes": "rollback_after_native_success"
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T04",
+        "step": 2,
+        "op": "inspect",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "observed",
+        "inputs": {},
+        "native_result": {
+          "native_bmo": true
+        },
+        "state": {
+          "grant_spent": false,
+          "claim_count": 0,
+          "transfer_count": 0,
+          "claims": [],
+          "transfers": [],
+          "claim_call_ids": [],
+          "transfer_call_ids": []
+        },
+        "notes": ""
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T04",
+        "step": 3,
+        "op": "claim_first_edit",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "committed",
+        "inputs": {
+          "call_id": "call-t04-a",
+          "grant_id": "grant-alpha",
+          "owner_revision": 1,
+          "retry_epoch": "epoch-1",
+          "task_id": "task-alpha",
+          "transaction_completion": "commit"
+        },
+        "native_result": {
+          "call_id": "call-t04-a",
+          "native_bmo": true,
+          "native_ok": true,
+          "reason": "ok"
+        },
+        "state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t04-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t04-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t04-a"
+          ],
+          "transfer_call_ids": [
+            "call-t04-a"
+          ]
+        },
+        "notes": "ok"
+      },
+      {
+        "protocol_id": "r3-ledger-claim-v1",
+        "case_id": "T04",
+        "step": 4,
+        "op": "inspect",
+        "adapter_id": "bmo_l1_first_edit",
+        "execution_status": "completed",
+        "disposition": "observed",
+        "inputs": {},
+        "native_result": {
+          "native_bmo": true
+        },
+        "state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t04-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t04-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t04-a"
+          ],
+          "transfer_call_ids": [
+            "call-t04-a"
+          ]
+        },
+        "notes": ""
+      }
+    ],
+    "step_count": 4
+  }
+}

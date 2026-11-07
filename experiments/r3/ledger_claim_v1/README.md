@@ -22,14 +22,20 @@ python3 experiments/r3/ledger_claim_v1/compare.py \
   --run-dir "evidence/r3/ledger_claim_v1/$RUN_ID"
 ```
 
-`BMO_ROOT` must be at pin `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe`. The runner
-copies a disposable tree and injects `bmo_adapter_test.go` +
-`bmo_adapter_fixture.go` only. The working product checkout is untouched.
+`BMO_ROOT` must contain pin object `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe`.
+The runner materializes that commit via `git archive` (dirty HEAD is never
+compiled), then injects `bmo_adapter_test.go` + `bmo_adapter_fixture.go` only.
+`run_id` must be a safe filename token; existing run directories are refused
+(immutable evidence).
 
 When `BMO_ROOT` is absent, an offline SQLite L1 stand-in emits inspectable
 traces (`native_bmo=false`). Findings stay **`unresolved`** until the native
-bridge measures real L1 outcomes. With a pin checkout and linked fixture hooks,
-`native_bmo=true` and a matched run can publish `classical_baseline_matches`.
+bridge measures real L1 outcomes under fail-closed qualification (manifest,
+exit 0, adapter identity, archive inventory, bridge hashes, archived log).
+Matched runs can publish `classical_baseline_matches` on projection-scoped
+equality (grant_spent, counts, call_id)—not synthetic grant/epoch hash parity.
+
+Selected published run: `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/`.
 
 ## Bridge opt-in
 

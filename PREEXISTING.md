@@ -65,3 +65,19 @@ production BMO authorization code is not modified. L1 method under test:
 `ClaimOrdinaryRetainedGrantFirstEditTx`. Offline SQLite L1 stand-in may emit
 inspectable traces when `BMO_ROOT` is absent but cannot upgrade findings past
 `unresolved` for the native BMO pin.
+
+## What the weekend audit adds vs inherits
+
+| Inherited (not invented here) | Weekend addition |
+| --- | --- |
+| SoundGate recovery-barrier mechanism & published histories | Pinned reproduction labels + Claim/Run/Finding packaging |
+| EvidenceGraph stress pack & attribution failure mode | Pinned reproduction labels + packaging |
+| Classical recover-before-admit / no-implicit-exclusivity / grant-table ideas | Authored baseline cards as null hypotheses under test |
+| BMO `ClaimOrdinaryRetainedGrantFirstEditTx` implementation | Matched ClassicalLedgerGate experiment + fail-closed bridge |
+| Reference-monitor / evidence-sufficiency theory | Executable Worlds A/B protocol (R4) that refuses unsupported findings |
+
+## R4 evidence sufficiency (this delivery)
+
+Synthetic protocol only (`experiments/evidence_sufficiency/`). No third-party
+tree. Demonstrates the audit kit’s epistemic fail-closed behavior; does not
+modify BMO.

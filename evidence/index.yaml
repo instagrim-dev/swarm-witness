@@ -11,3 +11,6 @@ results:
 - claim_id: r3_ledger_claim_v1
   label: classical_baseline_matches
   finding_id: r3-ledger-claim-v1-comparison
+- claim_id: r4
+  label: reproduced
+  finding_id: r4-f-evidence-sufficiency

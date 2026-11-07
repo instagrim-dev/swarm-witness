@@ -36,3 +36,9 @@ r3:
   preferred_tests:
     - "internal/sessioncompaction/ordinary_retry_retained_grant_owner_witness_test.go"
   preexisting: true
+r4:
+  source_pin: "swarm-witness-r4-v1"
+  protocol_id: "r4-evidence-sufficiency-v1"
+  notes: >
+    Synthetic Worlds A/B evidence-sufficiency protocol implemented in-repo;
+    no external third-party pin. Discriminating observation = current grant state.

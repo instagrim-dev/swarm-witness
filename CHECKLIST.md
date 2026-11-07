@@ -8,11 +8,12 @@ Form: https://apartresearch.com/sprints/swarm-alignment-2026 (user submits; agen
 | Official template PDF | Done | `report/Swarm_Witness_Apart_Submission.pdf`; Google Docs copy URL in `report/SOURCES.md` if judges require exact chrome |
 | ≤8 pages before refs/appendices | Done | Task 7 export; body through Discussion within limit |
 | Abstract 150–250 words | Done | `report/ABSTRACT.md` — verify with `wc -w report/ABSTRACT.md` |
-| Authors + affiliations | **User** | Left blank in `report/SUBMISSION_FORM.md` — do not invent |
+| Authors + affiliations | **User** | Left blank in `report/SUBMISSION_FORM.md` — do not invent; confirm before submit |
+| Judge evidence access | **User** | Repo is private; use `evidence/ACCESS.md` + `bash scripts/pack_review_bundle.sh` or grant read access |
 | Limitations / Dual-Use appendix | Done | `report/LIMITATIONS_DUAL_USE.md` included in PDF |
 | Preexisting marked | Done | `PREEXISTING.md` + README pointer |
 | No fabricated numbers | Done | Metrics from `evidence/r*/`; `validate_claims.py` + `check_evidence.py` |
-| Labels honest (v2) | Done | R1/R2 `reproduced`; R3 comparison `unresolved` |
+| Labels honest (v2) | Done | R1/R2/R4 `reproduced`; R3 decision-model `unresolved`; R3-L1 `classical_baseline_matches` (bounded) |
 | R1 raw inspectability | Done | `evidence/r1/raw.json.gz` committed; `raw.json` gitignored |
 | Links work | Verify at submit | Template copy URL, pinned git remotes, local PDF path |
 

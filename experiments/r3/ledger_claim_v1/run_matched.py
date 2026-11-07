@@ -24,10 +24,37 @@ from protocol import CLAIM_ID, PROTOCOL_ID, load_cases  # noqa: E402
 from swarm_witness.schema import validate_run  # noqa: E402
 
 EVIDENCE_ROOT = ROOT / "evidence" / "r3" / "ledger_claim_v1"
+_RUN_ID_RE = __import__("re").compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 
 
 def _sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def validate_run_id(run_id: str, *, evidence_root: Path | None = None) -> Path:
+    """Restrict run IDs to safe filename tokens and keep paths contained.
+
+    Refuses path separators, ``..``, and pre-existing run directories so evidence
+    is immutable under a given run identity. ``evidence_root`` defaults to the
+    module ``EVIDENCE_ROOT`` at call time (so tests can monkeypatch it).
+    """
+    if not isinstance(run_id, str) or not _RUN_ID_RE.fullmatch(run_id):
+        raise ValueError(
+            f"run_id {run_id!r} must match {_RUN_ID_RE.pattern} "
+            "(no path separators or '..')"
+        )
+    root = (evidence_root if evidence_root is not None else EVIDENCE_ROOT).resolve()
+    run_dir = (root / run_id).resolve()
+    try:
+        run_dir.relative_to(root)
+    except ValueError as exc:
+        raise ValueError(f"run_id escapes evidence root: {run_id!r}") from exc
+    if run_dir.exists():
+        raise FileExistsError(
+            f"run_id {run_id!r} already exists at {run_dir}; "
+            "refuse overwrite (immutable evidence)"
+        )
+    return run_dir
 
 
 def write_ndjson(path: Path, rows: list[dict[str, Any]]) -> None:
@@ -194,10 +221,8 @@ def execute_run(
         if not cases:
             raise ValueError(f"no cases matched filter {sorted(case_filter)}")
 
-    run_dir = EVIDENCE_ROOT / run_id
-    if run_dir.exists():
-        shutil.rmtree(run_dir)
-    run_dir.mkdir(parents=True, exist_ok=True)
+    run_dir = validate_run_id(run_id)
+    run_dir.mkdir(parents=True, exist_ok=False)
 
     classical_work = run_dir / "classical_work"
     bmo_work = run_dir / "bmo_work"
@@ -208,6 +233,22 @@ def execute_run(
 
     write_ndjson(run_dir / "classical.ndjson", classical_rows)
     write_ndjson(run_dir / "bmo.ndjson", bmo_rows)
+
+    # Archive bridge log at the run root with a portable relative locator.
+    work_log = bmo_work / "bmo_go_test.log"
+    archived_log = run_dir / "bmo_go_test.log"
+    if work_log.is_file():
+        shutil.copy2(work_log, archived_log)
+    portable_bmo = dict(bmo_manifest)
+    portable_bmo["log_relpath"] = "bmo_go_test.log"
+    portable_bmo["log_path"] = "bmo_go_test.log"
+    if portable_bmo.get("bmo_root"):
+        portable_bmo["bmo_root"] = "<local-checkout>"
+    try:
+        cases_rel = str(cases_path.resolve().relative_to(ROOT.resolve()))
+    except ValueError:
+        cases_rel = cases_path.name
+
     (run_dir / "source_manifest.json").write_text(
         json.dumps(
             {
@@ -215,11 +256,11 @@ def execute_run(
                 "claim_id": CLAIM_ID,
                 "run_id": run_id,
                 "bmo_pin": PIN_REV,
-                "bmo": bmo_manifest,
-                "cases_path": str(cases_path),
+                "bmo": portable_bmo,
+                "cases_path": cases_rel,
                 "cases_sha256": _sha256_text(cases_path.read_text(encoding="utf-8")),
                 "created_unix": int(time.time()),
-                "swarm_witness_root": str(ROOT),
+                "swarm_witness_root": ".",
             },
             indent=2,
         )
