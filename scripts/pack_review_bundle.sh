@@ -26,8 +26,20 @@ copy_tree "${ROOT}/claims/" "${STAGING}/claims/"
 copy_tree "${ROOT}/artifacts/" "${STAGING}/artifacts/"
 copy_tree "${ROOT}/baselines/" "${STAGING}/baselines/"
 copy_tree "${ROOT}/evidence/" "${STAGING}/evidence/"
+copy_tree "${ROOT}/src/" "${STAGING}/src/"
+# Synthetic protocols judges can re-run without third-party trees / BMO.
+mkdir -p "${STAGING}/experiments"
+copy_tree "${ROOT}/experiments/evidence_sufficiency/" "${STAGING}/experiments/evidence_sufficiency/"
+copy_tree "${ROOT}/experiments/swarm_r5/" "${STAGING}/experiments/swarm_r5/"
+mkdir -p "${STAGING}/scripts"
+cp "${ROOT}/scripts/check_evidence.py" "${STAGING}/scripts/"
+cp "${ROOT}/scripts/validate_claims.py" "${STAGING}/scripts/"
+cp "${ROOT}/scripts/annotate_conclusion_classes.py" "${STAGING}/scripts/"
+cp "${ROOT}/scripts/pack_review_bundle.sh" "${STAGING}/scripts/"
+cp "${ROOT}/pyproject.toml" "${STAGING}/"
 # Drop bulky disposable trees if any slipped through.
 find "${STAGING}/evidence" -type d \( -name bmo_work -o -name classical_work -o -name tree \) -prune -exec rm -rf {} + 2>/dev/null || true
+find "${STAGING}" -type d -name '__pycache__' -prune -exec rm -rf {} + 2>/dev/null || true
 
 mkdir -p "${STAGING}/report"
 cp "${ROOT}/report/Swarm_Witness_Apart_Submission.pdf" "${STAGING}/report/"
