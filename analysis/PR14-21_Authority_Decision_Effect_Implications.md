@@ -1,6 +1,6 @@
 # Swarm Witness: adversarial implications of PRs #14–#21
 
-**Basis:** current main research submission at `d4dcc4b`; unmerged review chains: formal #14 → #17 → #20 (`79edb7c`), multi-agent simulator #15 → #18 → #19 (`c23f295`), expanded R5 #16 → #21 (`31d8862`). **These branches are research candidates, not merged main evidence.**
+**Basis:** main research submission at `08fca16`. The terminal tips are integrated beside the historical protocols, not by merging PRs #14–#21: taxonomy #22 (`fdb2386`), settlement ledger #23 (`28b3642`), and the wider R5 protocol as claim `r5_v3` rather than `r5_v2` (#24, `12d9c08`). Historical claim ids `taxonomy_theory`, `causal_swarm`, and `r5_v2` (13 scenarios / 26 arms) stay in place. The #15 / #19 / #21 concurrency snapshots are not the current pin.
 
 ## Central result worth carrying into the submission
 

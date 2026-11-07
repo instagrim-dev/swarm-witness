@@ -1,0 +1,16 @@
+claim_id: r5_v3
+label: reproduced
+authoritative: finding
+finding_path: findings/r5v3-f-swarm-audit.json
+metrics:
+  case_count: 40
+  family_count: 6
+  coverage_dimension_count: 7
+  missing_evidence_count: 4
+  failed_enforcement_count: 15
+  supported_count: 21
+  concurrency_row_count: 12
+  held_out_count: 3
+  all_checks_pass: true
+notes: R5-v3 wider coverage; R5 v1 and the historical r5_v2 causal matrix retained;
+  concurrency from the integrated multi-agent-sim-v1 ledger

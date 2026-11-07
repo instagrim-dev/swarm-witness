@@ -48,3 +48,20 @@ r5:
   notes: >
     Synthetic three-agent swarm audit (A/B/C) generalizing three-way conclusions
     to contention, delegation chains, and cross-agent receipt misuse.
+multi_agent_sim:
+  source_pin: "swarm-witness-multi-agent-sim-v1"
+  protocol_id: "multi-agent-sim-v1"
+  runner: "experiments/multi_agent_sim/run.py"
+  notes: >
+    Integrated settlement-ledger simulator. Reference commit_effect can refuse
+    after a local allow. Distinct from the historical causal-swarm-v1 model,
+    which commits whenever its policy allows. Semantics match PR #23
+    28b364251a0c4205483aad4f6d49cdedea8b5d5c. Not a live BMO mesh.
+r5_v3:
+  source_pin: "swarm-witness-r5-v3"
+  protocol_id: "r5-swarm-audit-v3"
+  runner: "experiments/swarm_r5_v3/run.py"
+  notes: >
+    Wider-coverage R5 protocol. Not the historical r5_v2 causal matrix
+    (claims/r5_v2.yaml, 13 scenarios / 26 arms). Concurrency rows are repinned
+    to the integrated multi-agent-sim-v1 ledger, not the #15/#19/#21 snapshots.

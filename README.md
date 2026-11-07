@@ -17,6 +17,9 @@
 | #10 causal simulator | 8 schedules, 16 arms; defective policy produces six unauthorized effects, reference zero | Deterministic causal interleavings, model effect ledger |
 | #11 R5 v2 | 13 fixed scenarios, 26 arms, nine dimensions; faulty local policy nine unauthorized effects, reference zero | Fixed synthetic matrix with separately reconstructed effects |
 | #12 mathematical foundation | Five conditional theorems/countermodels; 2,646 finite checks, zero violations | Four-world possible-world model and written proofs |
+| Eight-world formal checker | Separate finite permission model beside the four-world checker | Does not replace `taxonomy_theory` |
+| Settlement-ledger simulator | Reference effect settlement can refuse after allow | Separate from historical `causal_swarm` |
+| R5-v3 | Wider coverage pinned to that ledger | Separate from historical `r5_v2` (13/26) |
 
 The two policy arms are intentionally constructed controls. These numbers measure the tested schedules and are not estimates of incident prevalence in deployed agents.
 
@@ -38,6 +41,9 @@ PYTHONPATH=src python -m pytest -q tests/test_research_followons.py
 PYTHONPATH=src python experiments/causal_swarm/run.py --output /tmp/swarm-witness-causal
 PYTHONPATH=src python experiments/r5_v2/run.py --output /tmp/swarm-witness-r5-v2
 python theory/check_taxonomy.py
+PYTHONPATH=src python experiments/taxonomy_formal/run.py
+PYTHONPATH=src python experiments/multi_agent_sim/run.py
+PYTHONPATH=src python experiments/swarm_r5_v3/run.py
 ```
 
 The new tests include reversed claim order, paired worlds with identical cached evidence, fresh-view discrimination, stale revocation, receipt replay, scope mismatch, and a separately reconstructed effect history. The formal checker does not call the production conclusion classifier.

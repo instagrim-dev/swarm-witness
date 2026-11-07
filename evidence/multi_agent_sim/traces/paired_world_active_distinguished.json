@@ -1,0 +1,285 @@
+{
+  "schedule_id": "sched-pair-active-disc",
+  "seed": 507,
+  "policy_id": "reference",
+  "events": [
+    {
+      "event_id": "evt-507-0001",
+      "kind": "grant_issue",
+      "actor": "ledger",
+      "causal_predecessor": null,
+      "epoch": "epoch-1",
+      "owner_version": 1,
+      "observed_source": null,
+      "payload": {
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 1,
+          "assignees": [
+            "A"
+          ],
+          "spent": false
+        },
+        "note": ""
+      }
+    },
+    {
+      "event_id": "evt-507-0002",
+      "kind": "delegation",
+      "actor": "ledger",
+      "causal_predecessor": "evt-507-0001",
+      "epoch": "epoch-1",
+      "owner_version": 2,
+      "observed_source": null,
+      "payload": {
+        "grant_id": "grant-shared",
+        "delegate": "B",
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 2,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "note": ""
+      }
+    },
+    {
+      "event_id": "evt-507-0004",
+      "kind": "observation_deliver",
+      "actor": "scheduler",
+      "causal_predecessor": "evt-507-0002",
+      "epoch": "epoch-1",
+      "owner_version": 2,
+      "observed_source": "authoritative_ledger",
+      "payload": {
+        "target": "B",
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 2,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "observation_id": "obs-507-0003",
+        "stale": false,
+        "observation_freshness": "current",
+        "note": "discriminating current grant observation"
+      }
+    },
+    {
+      "event_id": "evt-507-0005",
+      "kind": "claim",
+      "actor": "B",
+      "causal_predecessor": "evt-507-0004",
+      "epoch": "epoch-1",
+      "owner_version": 2,
+      "observed_source": "local_mailbox",
+      "payload": {
+        "call_id": "b-disc",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "required_decision": "allow",
+        "policy_id": "reference",
+        "local_evidence_complete": true,
+        "use_foreign_receipt": false,
+        "authoritative_grant_version_at_decision": 2,
+        "evidence_integrity": "authentic",
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 2,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": false,
+              "source_event_id": "evt-507-0004",
+              "observation_id": "obs-507-0003",
+              "delivered_freshness": "current",
+              "observation_freshness": "current"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-507-0003"
+          ],
+          "has_current_grant_observation": true,
+          "has_stale_grant_observation": false,
+          "authoritative_grant_version_at_decision": 2
+        },
+        "note": "claim after discriminating observation"
+      }
+    },
+    {
+      "event_id": "evt-507-0006",
+      "kind": "effect_attempt",
+      "actor": "B",
+      "causal_predecessor": "evt-507-0005",
+      "epoch": "epoch-1",
+      "owner_version": 2,
+      "observed_source": null,
+      "payload": {
+        "call_id": "b-disc",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "decision_event_id": "evt-507-0005"
+      }
+    },
+    {
+      "event_id": "evt-507-0007",
+      "kind": "effect_settle",
+      "actor": "ledger",
+      "causal_predecessor": "evt-507-0006",
+      "epoch": "epoch-1",
+      "owner_version": 3,
+      "observed_source": null,
+      "payload": {
+        "effect": {
+          "effect_id": "effect-b-disc",
+          "grant_id": "grant-shared",
+          "agent": "B",
+          "call_id": "b-disc",
+          "decision_event_id": "evt-507-0005",
+          "owner_version_at_commit": 3
+        },
+        "committed_effect": true,
+        "effect_settlement": "committed",
+        "effect_boundary_enforced": true,
+        "decision_event_id": "evt-507-0005"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "call_id": "b-disc",
+      "agent": "B",
+      "grant_id": "grant-shared",
+      "decision": "allow",
+      "required_decision": "allow",
+      "committed_effect": true,
+      "effect": {
+        "effect_id": "effect-b-disc",
+        "grant_id": "grant-shared",
+        "agent": "B",
+        "call_id": "b-disc",
+        "decision_event_id": "evt-507-0005",
+        "owner_version_at_commit": 3
+      },
+      "local_knowledge_at_decision": {
+        "agent": "B",
+        "grant_observations": [
+          {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "active",
+            "epoch": "epoch-1",
+            "owner_version": 2,
+            "assignees": [
+              "A",
+              "B"
+            ],
+            "spent": false,
+            "source_event_id": "evt-507-0004",
+            "observation_id": "obs-507-0003",
+            "delivered_freshness": "current",
+            "observation_freshness": "current"
+          }
+        ],
+        "receipts": [],
+        "irrelevant_facts": [],
+        "observation_ids": [
+          "obs-507-0003"
+        ],
+        "has_current_grant_observation": true,
+        "has_stale_grant_observation": false,
+        "authoritative_grant_version_at_decision": 2
+      },
+      "authoritative_owner_state": {
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "spent",
+          "epoch": "epoch-1",
+          "owner_version": 3,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": true
+        },
+        "committed_effect_count": 1,
+        "committed_effects": [
+          {
+            "effect_id": "effect-b-disc",
+            "grant_id": "grant-shared",
+            "agent": "B",
+            "call_id": "b-disc",
+            "decision_event_id": "evt-507-0005",
+            "owner_version_at_commit": 3
+          }
+        ],
+        "ledger_owner_version": 3
+      },
+      "decision_event_id": "evt-507-0005",
+      "policy_id": "reference",
+      "local_evidence_complete": true,
+      "use_foreign_receipt": false,
+      "authoritative_grant_version_at_decision": 2,
+      "evidence_integrity": "authentic",
+      "effect_settlement": "committed",
+      "effect_refusal_reason": null,
+      "effect_boundary_enforced": true
+    }
+  ],
+  "one_use_holds": {
+    "grant-shared": true
+  },
+  "final_owner_state": {
+    "grant-shared": {
+      "grant": {
+        "grant_id": "grant-shared",
+        "owner": "A",
+        "state": "spent",
+        "epoch": "epoch-1",
+        "owner_version": 3,
+        "assignees": [
+          "A",
+          "B"
+        ],
+        "spent": true
+      },
+      "committed_effect_count": 1,
+      "committed_effects": [
+        {
+          "effect_id": "effect-b-disc",
+          "grant_id": "grant-shared",
+          "agent": "B",
+          "call_id": "b-disc",
+          "decision_event_id": "evt-507-0005",
+          "owner_version_at_commit": 3
+        }
+      ],
+      "ledger_owner_version": 3
+    }
+  }
+}

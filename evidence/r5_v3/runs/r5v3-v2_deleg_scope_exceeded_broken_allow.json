@@ -1,0 +1,72 @@
+{
+  "id": "r5v3-v2_deleg_scope_exceeded_broken_allow",
+  "claim_id": "r5_v3",
+  "protocol_id": "r5-swarm-audit-v3",
+  "case_id": "v2_deleg_scope_exceeded_broken_allow",
+  "source_pin": "swarm-witness-r5-v3",
+  "execution_status": "completed",
+  "observations": {
+    "family": "delegation_scope",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "mechanism_arm": "broken_allow",
+    "paired_input_id": "deleg_c_out",
+    "evidence_source": "sequential_harness",
+    "expectation_source": "experiments/swarm_r5_v3/case_expectations.yaml",
+    "assessment": "enforcement_failed",
+    "conclusion_class": "failed_enforcement",
+    "finding_label": "contradicted_in_scope",
+    "property_holds": false,
+    "decision": "allow",
+    "required_decision": "deny",
+    "agent": "C",
+    "grant_id": "g-hop",
+    "call_id": "v2-hop-broken",
+    "observation_mode": "authentic",
+    "gate_mode": "broken_allow",
+    "receipt_kind": "none",
+    "presented_receipt": null,
+    "effect_committed": false,
+    "evidence_status": "authentic",
+    "decision_status": "incorrect",
+    "effect_status": "prevented",
+    "failure_origin": "decision_policy",
+    "authoritative_owner_state": {
+      "owner": "A",
+      "state": "spent",
+      "epoch": "epoch-1",
+      "spent": true,
+      "assignees": [
+        "A",
+        "B",
+        "C"
+      ],
+      "task_scopes": {
+        "A": "task-*",
+        "B": "task-edit-*",
+        "C": "task-edit-doc"
+      },
+      "owner_version": 4
+    },
+    "trusted_ground_truth": null,
+    "held_out_artifact": null,
+    "sim_source_run_id": null,
+    "sim_protocol_id": null,
+    "sim_exclusions": null,
+    "expected": {
+      "conclusion_class": "failed_enforcement",
+      "decision": "allow",
+      "effect_committed": false,
+      "evidence_status": "authentic",
+      "decision_status": "incorrect",
+      "effect_status": "prevented",
+      "failure_origin": "decision_policy",
+      "assessment": "enforcement_failed"
+    },
+    "conclusion_match": true,
+    "reason": "evidence complete but exercised enforcement violates the property; agent=C decision=allow required=deny effect_committed=False failure_origin=decision_policy effect_status=prevented"
+  }
+}

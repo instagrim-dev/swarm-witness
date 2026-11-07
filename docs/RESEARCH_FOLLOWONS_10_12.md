@@ -21,26 +21,52 @@ Delivered in the main Swarm Witness repository with versioned follow-on protocol
 
 The final research manuscript is `report/Swarm_Witness_Final_Submission.pdf`,
 with an editable DOCX and Markdown version. The PDF has six pages total,
-including references and the mandatory limitations/dual-use appendix.
+including references and the mandatory limitations/dual-use appendix. That PDF
+is unchanged by the later protocol integration below.
+
+## Later protocols, kept separate
+
+Three later protocols sit beside the historical follow-ons. They do not reuse
+their claim ids or evidence directories.
+
+- **Eight-world formal checker** (`src/swarm_witness/formal/`,
+  `experiments/taxonomy_formal/`). The four-world checker
+  `theory/check_taxonomy.py`, claim `taxonomy_theory`, and
+  `evidence/taxonomy_theory/` stay as the historical protocol.
+- **Settlement-ledger simulator** (`src/swarm_witness/multi_agent_sim/`,
+  claim `multi_agent_sim`). A reference allow can still be refused at
+  `commit_effect`. The historical `causal_simulator.py` has no such gate: an
+  allow commits. Claim `causal_swarm` and `evidence/causal_swarm/` stay.
+- **R5-v3** (`experiments/swarm_r5_v3/`, claim `r5_v3`, `evidence/r5_v3/`).
+  This is not the historical `r5_v2` causal matrix (13 scenarios / 26 arms).
+  Concurrency rows are pinned to the integrated settlement ledger. The #15,
+  #19, and #21 snapshots are not current.
 
 ## Reproduce locally
 
-Requires Python 3.11+ and pytest; PyYAML is used only by the publication helper.
-From this delivery root:
+Requires Python 3.11+ and pytest. PyYAML is the `pyyaml` project dependency
+used by `scripts/check_evidence.py`. From this delivery root:
 
 ```bash
 PYTHONPATH=src python -m pytest -q tests/test_research_followons.py
 PYTHONPATH=src python experiments/causal_swarm/run.py --output artifacts/causal_swarm_v1
 PYTHONPATH=src python experiments/r5_v2/run.py --output artifacts/r5_v2
 python theory/check_taxonomy.py
-python scripts/publish_followon_evidence.py
+PYTHONPATH=src python experiments/taxonomy_formal/run.py
+PYTHONPATH=src python experiments/multi_agent_sim/run.py
+PYTHONPATH=src python experiments/swarm_r5_v3/run.py
+PYTHONPATH=src python scripts/check_evidence.py
 ```
 
-Expected: six tests passing; 8/16 and 13/26 case/arm counts; 2,646 finite checks
-with zero violations. Files in `artifacts/` are retained outputs from these
-commands; each trace contains actor observations, authority history and a
-separate model effect ledger. The `claims/` and `evidence/` trees use the
-Swarm Witness Claim/Run/Finding field contract for integration.
+Expected: the historical follow-on tests passing; 8/16 and 13/26 case/arm
+counts; 2,646 four-world checks with zero violations; the eight-world checker
+passing; the settlement-ledger protocol passing; the r5_v3 protocol passing;
+evidence consistency OK. `scripts/publish_followon_evidence.py` is not part of
+this tree. The historical `claims/` and `evidence/` records are the published
+follow-on results; `scripts/check_evidence.py` is the command that checks them.
+Files in `artifacts/causal_swarm_v1/` and `artifacts/r5_v2/` are retained
+outputs of the historical protocols. The `claims/` and `evidence/` trees use
+the Swarm Witness Claim/Run/Finding field contract.
 
 ## Evaluation boundary
 

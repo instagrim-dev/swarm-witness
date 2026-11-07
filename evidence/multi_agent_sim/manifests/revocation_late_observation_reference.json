@@ -1,0 +1,156 @@
+{
+  "case_id": "revocation_late_observation_reference",
+  "name": "Revocation with late/stale observation (reference)",
+  "role": "revocation_late_observation",
+  "policy_id": "reference",
+  "schedule": {
+    "schedule_id": "sched-revoke-late",
+    "seed": 303,
+    "description": "After revoke, B acts on stale active observation (local allow vs authoritative deny); C acts on fresh revoked observation",
+    "steps": [
+      {
+        "kind": "grant_issue",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "issue shared one-use grant"
+      },
+      {
+        "kind": "delegation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "assign B"
+      },
+      {
+        "kind": "delegation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": "C",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "assign C"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "C",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "C observes active grant before revoke"
+      },
+      {
+        "kind": "revocation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "owner revokes grant"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 1,
+          "assignees": [
+            "A",
+            "B",
+            "C"
+          ],
+          "spent": false
+        },
+        "note": "late stale active observation delivered to B"
+      },
+      {
+        "kind": "claim",
+        "actor": "B",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "b-late",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "B claims on stale active observation after revoke"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "C",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "C receives post-revoke observation"
+      },
+      {
+        "kind": "claim",
+        "actor": "C",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "c-fresh",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "C claims with fresh revoked observation"
+      }
+    ]
+  },
+  "expected": {
+    "claim_decisions": {
+      "b-late": "allow",
+      "c-fresh": "deny"
+    },
+    "committed_effects": {
+      "b-late": false,
+      "c-fresh": false
+    },
+    "effect_settlements": {
+      "b-late": "refused",
+      "c-fresh": "not_attempted"
+    },
+    "effect_refusal_reasons": {
+      "b-late": "authoritative_spent_or_revoked",
+      "c-fresh": "decision_denied"
+    },
+    "claim_conclusions": {
+      "b-late": "failed_enforcement",
+      "c-fresh": "supported"
+    },
+    "authoritative_final_state": "revoked"
+  }
+}

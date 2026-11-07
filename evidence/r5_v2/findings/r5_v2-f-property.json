@@ -39,5 +39,6 @@
     "r5_v2-meta.observations.passed",
     "r5_v2-meta.observations.scenario_count",
     "r5_v2-meta.observations.arm_count"
-  ]
+  ],
+  "conclusion_class": "supported"
 }

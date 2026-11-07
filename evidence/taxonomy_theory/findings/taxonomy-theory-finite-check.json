@@ -13,5 +13,6 @@
     "taxonomy-theory-meta.observations.passed",
     "taxonomy-theory-meta.observations.worlds",
     "taxonomy-theory-meta.observations.checks"
-  ]
+  ],
+  "conclusion_class": "supported"
 }

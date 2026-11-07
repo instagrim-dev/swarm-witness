@@ -29,5 +29,6 @@
     "causal_swarm-meta.observations.passed",
     "causal_swarm-meta.observations.scenario_count",
     "causal_swarm-meta.observations.arm_count"
-  ]
+  ],
+  "conclusion_class": "supported"
 }

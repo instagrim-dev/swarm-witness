@@ -1,0 +1,58 @@
+{
+  "case_id": "paired_world_active_blind",
+  "name": "Paired world (active) blind claim \u2014 missing_evidence",
+  "role": "paired_world",
+  "policy_id": "reference",
+  "schedule": {
+    "schedule_id": "sched-pair-active-blind",
+    "seed": 505,
+    "description": "No current grant observation delivered before claim",
+    "steps": [
+      {
+        "kind": "grant_issue",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "issue grant"
+      },
+      {
+        "kind": "delegation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": ""
+      },
+      {
+        "kind": "claim",
+        "actor": "B",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "b-blind",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "blind claim; worlds share empty local evidence"
+      }
+    ]
+  },
+  "expected": {
+    "claim_conclusions": {
+      "b-blind": "missing_evidence"
+    },
+    "committed_effects": {
+      "b-blind": false
+    },
+    "indistinguishable_agent_view": true
+  }
+}

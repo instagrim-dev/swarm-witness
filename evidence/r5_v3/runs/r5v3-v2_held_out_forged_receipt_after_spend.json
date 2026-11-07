@@ -1,0 +1,83 @@
+{
+  "id": "r5v3-v2_held_out_forged_receipt_after_spend",
+  "claim_id": "r5_v3",
+  "protocol_id": "r5-swarm-audit-v3",
+  "case_id": "v2_held_out_forged_receipt_after_spend",
+  "source_pin": "swarm-witness-r5-v3",
+  "execution_status": "completed",
+  "observations": {
+    "family": "held_out",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "mechanism_arm": "correct",
+    "paired_input_id": "held_out_forged_rx",
+    "evidence_source": "held_out:forged_receipt_after_spend.json",
+    "expectation_source": "held_out:forged_receipt_after_spend.json",
+    "assessment": "permission_refuted",
+    "conclusion_class": "supported",
+    "finding_label": "reproduced",
+    "property_holds": true,
+    "decision": "deny",
+    "required_decision": "deny",
+    "agent": "C",
+    "grant_id": "g-held-2",
+    "call_id": "held-c-forged",
+    "observation_mode": "authentic",
+    "gate_mode": "correct",
+    "receipt_kind": "forged",
+    "presented_receipt": {
+      "receipt_id": "forged-held-c-forged",
+      "agent": "C",
+      "grant_id": "g-held-2",
+      "call_id": "held-c-forged",
+      "authentic": false,
+      "binding": "forged"
+    },
+    "effect_committed": false,
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "not_applicable",
+    "failure_origin": "none",
+    "authoritative_owner_state": {
+      "owner": "A",
+      "state": "active",
+      "epoch": "epoch-1",
+      "spent": false,
+      "assignees": [
+        "A",
+        "C"
+      ],
+      "task_scopes": {
+        "A": "task-*",
+        "C": "task-*"
+      },
+      "owner_version": 2
+    },
+    "trusted_ground_truth": {
+      "grant_state": "active",
+      "spent": false,
+      "note": "Fixture seeds a foreign prior receipt without marking the grant spent. The forged receipt is what the reference denies; it is not authorization.",
+      "required_decision_for_c": "deny",
+      "effect_may_commit": false
+    },
+    "held_out_artifact": "forged_receipt_after_spend.json",
+    "sim_source_run_id": null,
+    "sim_protocol_id": null,
+    "sim_exclusions": null,
+    "expected": {
+      "conclusion_class": "supported",
+      "decision": "deny",
+      "effect_committed": false,
+      "evidence_status": "authentic",
+      "decision_status": "correct",
+      "effect_status": "not_applicable",
+      "failure_origin": "none",
+      "assessment": "permission_refuted"
+    },
+    "conclusion_match": true,
+    "reason": "evidence complete and property holds in scope; agent=C decision=deny required=deny effect_committed=False failure_origin=none effect_status=not_applicable"
+  }
+}

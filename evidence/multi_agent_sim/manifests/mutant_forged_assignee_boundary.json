@@ -1,0 +1,76 @@
+{
+  "case_id": "mutant_forged_assignee_boundary",
+  "name": "Mutant: forged assignee observation commits unauthorized effect",
+  "role": "reference_vs_mutant",
+  "policy_id": "mutant_ignore_spend",
+  "schedule": {
+    "schedule_id": "sched-forge-assignee",
+    "seed": 606,
+    "description": "Same forged-assignee schedule/seed as reference; mutant disables effect-boundary enforcement and commits for non-assignee B",
+    "steps": [
+      {
+        "kind": "grant_issue",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "issue grant owned by A; B is not an authoritative assignee"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 1,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "note": "forged stale observation claims B is an assignee"
+      },
+      {
+        "kind": "claim",
+        "actor": "B",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "b-forge",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "B claims on forged assignee observation"
+      }
+    ]
+  },
+  "expected": {
+    "claim_decisions": {
+      "b-forge": "allow"
+    },
+    "committed_effects": {
+      "b-forge": true
+    },
+    "effect_settlements": {
+      "b-forge": "committed"
+    },
+    "one_use_ok": true,
+    "claim_conclusions": {
+      "b-forge": "failed_enforcement"
+    },
+    "counterexample": true
+  }
+}

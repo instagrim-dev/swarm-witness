@@ -1,0 +1,43 @@
+{
+  "case_id": "v2_held_out_misleading_stale_assignee",
+  "name": "Held-out: agent-visible active assignee after authoritative revoke",
+  "family": "held_out",
+  "paired_input_id": "held_out_stale_assignee",
+  "description": "Externally authored fixture. Trusted ground truth is revoked; agent-visible evidence reports active. Expected verdicts authored here, not by the production classifier.",
+  "setup": {
+    "grant_id": "g-held-1",
+    "owner": "A",
+    "epoch": "epoch-1",
+    "task_scope": "task-*",
+    "assignees_via": [
+      {"by": "A", "delegate": "B"},
+      {"by": "B", "delegate": "C"}
+    ],
+    "revoke": true,
+    "seed_receipts": []
+  },
+  "trusted_ground_truth": {
+    "grant_state": "revoked",
+    "assignees": ["A", "B", "C"],
+    "required_decision_for_c": "deny",
+    "effect_may_commit": false
+  },
+  "agent_visible_claim": {
+    "agent": "C",
+    "call_id": "held-c-1",
+    "observation_mode": "misbound",
+    "misbound_state": "active",
+    "gate_mode": "correct",
+    "receipt_kind": "none"
+  },
+  "expected": {
+    "conclusion_class": "failed_enforcement",
+    "decision": "allow",
+    "effect_committed": false,
+    "evidence_status": "misbound",
+    "decision_status": "incorrect",
+    "effect_status": "prevented",
+    "failure_origin": "evidence",
+    "assessment": "enforcement_failed"
+  }
+}

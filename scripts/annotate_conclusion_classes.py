@@ -19,6 +19,8 @@ from swarm_witness.conclusion_classes import (  # noqa: E402
 OVERRIDES: dict[str, str] = {
     "r4-f-evidence-sufficiency": "supported",
     "r5-f-swarm-audit": "supported",
+    "mas-f-multi-agent-sim": "supported",
+    "r5v3-f-swarm-audit": "supported",
 }
 
 # Conclusion says what was established; evaluation_method says how.
@@ -29,6 +31,8 @@ EVALUATION_METHODS: dict[str, str] = {
     "r3-ledger-claim-v1-comparison": "native_matched_baseline",
     "r4-f-evidence-sufficiency": "synthetic_protocol_conformance",
     "r5-f-swarm-audit": "synthetic_protocol_conformance",
+    "mas-f-multi-agent-sim": "synthetic_protocol_conformance",
+    "r5v3-f-swarm-audit": "synthetic_protocol_conformance",
 }
 
 

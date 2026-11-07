@@ -1,0 +1,158 @@
+{
+  "id": "mas-reference_forged_assignee_boundary",
+  "claim_id": "multi_agent_sim",
+  "protocol_id": "multi-agent-sim-v1",
+  "case_id": "reference_forged_assignee_boundary",
+  "source_pin": "swarm-witness-multi-agent-sim-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "reference_vs_mutant",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "policy_id": "reference",
+    "schedule_id": "sched-forge-assignee",
+    "seed": 606,
+    "one_use_ok": true,
+    "event_count": 5,
+    "claim_count": 1,
+    "claims": [
+      {
+        "call_id": "b-forge",
+        "agent": "B",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "committed_effect": false,
+        "effect_settlement": "refused",
+        "effect_refusal_reason": "agent_not_assignee",
+        "effect_boundary_enforced": true,
+        "evidence_integrity": "misbound",
+        "authoritative_grant_version_at_decision": 1,
+        "authoritative_owner_state": {
+          "grant": {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "active",
+            "epoch": "epoch-1",
+            "owner_version": 1,
+            "assignees": [
+              "A"
+            ],
+            "spent": false
+          },
+          "committed_effect_count": 0,
+          "committed_effects": [],
+          "ledger_owner_version": 1
+        },
+        "required_decision": "deny",
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 1,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": false,
+              "source_event_id": "evt-606-0003",
+              "observation_id": "obs-606-0002",
+              "delivered_freshness": "stale",
+              "observation_freshness": "stale"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-606-0002"
+          ],
+          "has_current_grant_observation": false,
+          "has_stale_grant_observation": true,
+          "authoritative_grant_version_at_decision": 1
+        },
+        "evaluator_learned_afterward": {
+          "authoritative_owner_state": {
+            "grant": {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 1,
+              "assignees": [
+                "A"
+              ],
+              "spent": false
+            },
+            "committed_effect_count": 0,
+            "committed_effects": [],
+            "ledger_owner_version": 1
+          },
+          "committed_effect": false,
+          "effect_settlement": "refused",
+          "required_decision": "deny",
+          "evidence_integrity": "misbound",
+          "authoritative_grant_version_at_decision": 1,
+          "one_use_effect_count": 0
+        },
+        "observation_denominators": {
+          "required_discriminators": [
+            "current_grant_observation"
+          ],
+          "required_count": 1,
+          "present_discriminators": [
+            "stale_grant_observation"
+          ],
+          "present_count": 1,
+          "current_grant_observation_count": 0,
+          "stale_grant_observation_count": 1,
+          "authoritative_grant_version_at_decision": 1,
+          "irrelevant_count": 0,
+          "receipt_count": 0,
+          "grant_observation_count": 1,
+          "observation_id_count": 1
+        },
+        "assessment": "enforcement_failed",
+        "conclusion_class": "failed_enforcement",
+        "finding_label": "contradicted_in_scope",
+        "property_holds": false,
+        "diagnosis": {
+          "evidence_status": "misbound",
+          "decision_status": "incorrect",
+          "effect_status": "prevented",
+          "failure_origin": "evidence"
+        },
+        "reason": "grant observation is misbound; evidence integrity is separate from freshness and completeness; evidence_integrity=misbound; decision=allow required=deny committed_effect=False effect_settlement=refused effect_refusal_reason=agent_not_assignee"
+      }
+    ],
+    "expected": {
+      "claim_decisions": {
+        "b-forge": "allow"
+      },
+      "committed_effects": {
+        "b-forge": false
+      },
+      "effect_settlements": {
+        "b-forge": "refused"
+      },
+      "effect_refusal_reasons": {
+        "b-forge": "agent_not_assignee"
+      },
+      "one_use_ok": true,
+      "claim_conclusions": {
+        "b-forge": "failed_enforcement"
+      }
+    },
+    "model": "deterministic_in_process_interleaving_simulator",
+    "exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety"
+    ]
+  }
+}

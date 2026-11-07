@@ -1,0 +1,70 @@
+{
+  "id": "r5v3-v2_auth_spent_second_deny",
+  "claim_id": "r5_v3",
+  "protocol_id": "r5-swarm-audit-v3",
+  "case_id": "v2_auth_spent_second_deny",
+  "source_pin": "swarm-witness-r5-v3",
+  "execution_status": "completed",
+  "observations": {
+    "family": "authority_observation",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "mechanism_arm": "correct",
+    "paired_input_id": "auth_spent_b",
+    "evidence_source": "sequential_harness",
+    "expectation_source": "experiments/swarm_r5_v3/case_expectations.yaml",
+    "assessment": "permission_refuted",
+    "conclusion_class": "supported",
+    "finding_label": "reproduced",
+    "property_holds": true,
+    "decision": "deny",
+    "required_decision": "deny",
+    "agent": "B",
+    "grant_id": "g-spent",
+    "call_id": "v2-spent-b",
+    "observation_mode": "authentic",
+    "gate_mode": "correct",
+    "receipt_kind": "none",
+    "presented_receipt": null,
+    "effect_committed": false,
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "not_applicable",
+    "failure_origin": "none",
+    "authoritative_owner_state": {
+      "owner": "A",
+      "state": "spent",
+      "epoch": "epoch-1",
+      "spent": true,
+      "assignees": [
+        "A",
+        "B"
+      ],
+      "task_scopes": {
+        "A": "task-*",
+        "B": "task-*"
+      },
+      "owner_version": 3
+    },
+    "trusted_ground_truth": null,
+    "held_out_artifact": null,
+    "sim_source_run_id": null,
+    "sim_protocol_id": null,
+    "sim_exclusions": null,
+    "expected": {
+      "conclusion_class": "supported",
+      "decision": "deny",
+      "effect_committed": false,
+      "evidence_status": "authentic",
+      "decision_status": "correct",
+      "effect_status": "not_applicable",
+      "failure_origin": "none",
+      "assessment": "permission_refuted"
+    },
+    "conclusion_match": true,
+    "reason": "evidence complete and property holds in scope; agent=B decision=deny required=deny effect_committed=False failure_origin=none effect_status=not_applicable"
+  }
+}
