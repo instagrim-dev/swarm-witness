@@ -13,7 +13,6 @@ import json
 import os
 import shutil
 import subprocess
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -48,15 +47,21 @@ def resolve_bmo_root(explicit: Path | None = None) -> Path | None:
 
 
 def verify_pin(bmo_root: Path, expected: str = PIN_REV) -> str | None:
+    """Confirm the named pin is an ancestor object in the repo (not merely HEAD).
+
+    Disposable trees are materialized from ``git archive`` of ``expected``, so
+    an arbitrary dirty HEAD is never treated as sufficient source qualification.
+    """
     try:
         got = subprocess.check_output(
-            ["git", "-C", str(bmo_root), "rev-parse", "HEAD"],
+            ["git", "-C", str(bmo_root), "rev-parse", f"{expected}^{{commit}}"],
             text=True,
+            stderr=subprocess.DEVNULL,
         ).strip()
     except (OSError, subprocess.CalledProcessError) as exc:
-        return f"git rev-parse failed: {exc}"
+        return f"git rev-parse {expected} failed: {exc}"
     if got != expected and not got.startswith(expected[:12]):
-        return f"BMO HEAD {got} != pin {expected}"
+        return f"resolved pin {got} != expected {expected}"
     return None
 
 
@@ -91,23 +96,51 @@ def _missing_rows(case: CaseSpec, note: str) -> list[dict[str, Any]]:
     return rows
 
 
-def prepare_disposable_tree(bmo_root: Path, work_root: Path) -> Path:
-    """Copy BMO tree and inject bridge files only into sessioncompaction."""
+def prepare_disposable_tree(
+    bmo_root: Path,
+    work_root: Path,
+    *,
+    pin: str = PIN_REV,
+) -> tuple[Path, dict[str, Any]]:
+    """Materialize the exact pinned Git tree, then inject bridge files.
+
+    Returns ``(tree_path, inventory)`` where inventory records archive and
+    bridge hashes. Uncommitted working-tree edits never enter the compile.
+    """
     dest = work_root / "bmo"
     if dest.exists():
         shutil.rmtree(dest)
-    shutil.copytree(
-        bmo_root,
-        dest,
-        ignore=shutil.ignore_patterns(".git", "bin", "dist", "node_modules"),
-        symlinks=True,
+    dest.mkdir(parents=True, exist_ok=True)
+    archive = work_root / "bmo-pin.tar"
+    try:
+        subprocess.check_call(
+            ["git", "-C", str(bmo_root), "archive", "--format=tar", "-o", str(archive), pin],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise FileNotFoundError(f"git archive {pin} failed: {exc}") from exc
+    archive_sha = file_sha256(archive)
+    subprocess.check_call(
+        ["tar", "-xf", str(archive), "-C", str(dest)],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
     )
     target = dest / "internal" / "sessioncompaction"
     if not target.is_dir():
         raise FileNotFoundError(f"missing {target}")
+    bridge_hashes: dict[str, str] = {}
     for name in BRIDGE_FILES:
-        shutil.copy2(bridge_dir() / name, target / name)
-    return dest
+        src = bridge_dir() / name
+        shutil.copy2(src, target / name)
+        bridge_hashes[name] = file_sha256(src)
+    inventory = {
+        "pin": pin,
+        "git_archive_sha256": archive_sha,
+        "bridge_injected_sha256": bridge_hashes,
+        "materialization": "git_archive+bridge_inject",
+    }
+    return dest, inventory
 
 
 def cases_to_probe_input(cases: list[CaseSpec], db_dir: Path) -> dict[str, Any]:
@@ -201,8 +234,9 @@ def run_bmo_probe(
 
     manifest["bmo_root"] = str(root)
     try:
-        tree = prepare_disposable_tree(root, work_dir / "tree")
-    except OSError as exc:
+        tree, inventory = prepare_disposable_tree(root, work_dir / "tree", pin=PIN_REV)
+        manifest["source_inventory"] = inventory
+    except (OSError, FileNotFoundError) as exc:
         if allow_offline_l1:
             from local_l1_adapter import run_offline_l1
 
@@ -306,13 +340,40 @@ def run_bmo_probe(
         manifest["notes"] = "bridge produced no NDJSON; package log is metadata only"
         return rows, manifest
 
-    # Native only if every observation completed (fixture hooks linked).
+    # Native only if Go exited 0 and every observation completed under the bridge.
     completed = all(r.get("execution_status") == "completed" for r in rows)
     missing_any = any(r.get("execution_status") == "missing" for r in rows)
-    if completed and not missing_any:
+    adapter_ok = all(r.get("adapter_id") == ADAPTER_ID for r in rows)
+    if proc.returncode == 0 and completed and not missing_any and adapter_ok:
         manifest["native_bmo"] = True
         manifest["mode"] = "go_test_bridge_native"
-        manifest["notes"] = "native ClaimOrdinaryRetainedGrantFirstEditTx bridge"
+        manifest["adapter_id"] = ADAPTER_ID
+        manifest["notes"] = (
+            "native ClaimOrdinaryRetainedGrantFirstEditTx bridge; "
+            "source from git archive of pin + injected bridge hashes"
+        )
+        return rows, manifest
+    if proc.returncode != 0:
+        manifest["native_bmo"] = False
+        manifest["mode"] = "go_test_bridge_nonzero_exit"
+        manifest["notes"] = (
+            f"go test exit={proc.returncode}; refusing native_bmo qualification"
+        )
+        if allow_offline_l1:
+            from local_l1_adapter import run_offline_l1
+
+            rows, offline_manifest = run_offline_l1(cases, work_dir / "offline_l1")
+            manifest.update(offline_manifest)
+            manifest["bridge"] = bridge_manifest()
+            manifest["pin"] = PIN_REV
+            manifest["bmo_root"] = str(root)
+            manifest["command"] = cmd
+            manifest["exit_code"] = proc.returncode
+            manifest["notes"] = (
+                f"go test exit={proc.returncode}; offline L1 fallback "
+                "(native qualification refused)"
+            )
+            return rows, manifest
         return rows, manifest
 
     if allow_offline_l1:

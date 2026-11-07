@@ -169,35 +169,139 @@ def agreement(
             "case_results": {},
         }
 
-    def last_state(rows: list[dict[str, Any]], case_id: str) -> dict[str, Any] | None:
-        case_rows = [r for r in rows if r.get("case_id") == case_id]
-        inspects = [r for r in case_rows if r.get("op") == "inspect"]
-        target = inspects[-1] if inspects else (case_rows[-1] if case_rows else None)
-        if target is None:
-            return None
-        return project_state(target.get("state"))
+    def index(rows: list[dict[str, Any]]) -> dict[tuple[str, int], dict[str, Any]]:
+        out: dict[tuple[str, int], dict[str, Any]] = {}
+        for row in rows:
+            key = (str(row.get("case_id")), int(row.get("step") or 0))
+            out[key] = row
+        return out
+
+    c_idx = index(classical_steps)
+    b_idx = index(bmo_steps)
 
     case_results: dict[str, Any] = {}
     equal_all = True
     for case in cases:
-        c_state = last_state(classical_steps, case.case_id)
-        b_state = last_state(bmo_steps, case.case_id)
-        equal = c_state is not None and c_state == b_state
-        if not equal:
-            equal_all = False
+        step_results: list[dict[str, Any]] = []
+        case_equal = True
+        for action in case.actions:
+            key = (case.case_id, action.step)
+            c = c_idx.get(key)
+            b = b_idx.get(key)
+            c_disp = None if c is None else c.get("disposition")
+            b_disp = None if b is None else b.get("disposition")
+            c_state = None if c is None else project_state(c.get("state"))
+            b_state = None if b is None else project_state(b.get("state"))
+            equal = (
+                c is not None
+                and b is not None
+                and c_disp == b_disp
+                and c_state is not None
+                and c_state == b_state
+            )
+            if not equal:
+                case_equal = False
+                equal_all = False
+            step_results.append(
+                {
+                    "step": action.step,
+                    "op": action.op,
+                    "equal": equal,
+                    "classical_disposition": c_disp,
+                    "bmo_disposition": b_disp,
+                    "classical": c_state,
+                    "bmo": b_state,
+                }
+            )
         case_results[case.case_id] = {
-            "equal": equal,
-            "classical": c_state,
-            "bmo": b_state,
+            "equal": case_equal,
+            "steps": step_results,
         }
 
     if equal_all:
-        return {"result": "matched", "reason": "equal projections", "case_results": case_results}
+        return {
+            "result": "matched",
+            "reason": "equal dispositions and projections at every step",
+            "case_results": case_results,
+        }
     return {
         "result": "divergent",
-        "reason": "property-relevant projections differ",
+        "reason": "disposition or property-relevant projection differs at a step",
         "case_results": case_results,
     }
+
+
+EXPECTED_BMO_ADAPTER_ID = "bmo_l1_first_edit"
+EXPECTED_PIN_PREFIX = "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
+
+
+def qualify_native_bmo(
+    *,
+    run_dir: Path,
+    bmo_steps: list[dict[str, Any]],
+) -> tuple[bool, str]:
+    """Fail-closed native qualification.
+
+    Defaults to false. Requires a readable source_manifest.json with
+    native_bmo=true, successful process exit, expected adapter identity,
+    and pinned source identity. All BMO observations must be completed
+    under the expected adapter_id.
+    """
+    manifest_path = Path(run_dir) / "source_manifest.json"
+    if not manifest_path.is_file():
+        return False, "source_manifest.json missing"
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return False, f"source_manifest unreadable: {exc}"
+    bmo = manifest.get("bmo") if isinstance(manifest, dict) else None
+    if not isinstance(bmo, dict):
+        return False, "manifest.bmo missing"
+    if not bmo.get("native_bmo"):
+        return False, "manifest.bmo.native_bmo is not true"
+    if bmo.get("exit_code") != 0:
+        return False, f"manifest.bmo.exit_code={bmo.get('exit_code')!r} (require 0)"
+    adapter_id = bmo.get("adapter_id")
+    if adapter_id != EXPECTED_BMO_ADAPTER_ID:
+        return False, f"manifest adapter_id={adapter_id!r}"
+    pin = str(bmo.get("pin") or manifest.get("bmo_pin") or "")
+    if not pin.startswith(EXPECTED_PIN_PREFIX[:12]):
+        return False, f"manifest pin {pin!r} does not match {EXPECTED_PIN_PREFIX}"
+    bridge = bmo.get("bridge")
+    if not isinstance(bridge, dict) or not bridge:
+        return False, "manifest.bmo.bridge hashes missing"
+    for name in ("bmo_adapter_test.go", "bmo_adapter_fixture.go"):
+        digest = bridge.get(name)
+        if not isinstance(digest, str) or len(digest) != 64:
+            return False, f"manifest.bmo.bridge[{name!r}] missing or not sha256"
+    inventory = bmo.get("source_inventory")
+    if not isinstance(inventory, dict):
+        return False, "manifest.bmo.source_inventory missing"
+    if inventory.get("materialization") != "git_archive+bridge_inject":
+        return False, (
+            f"source_inventory.materialization={inventory.get('materialization')!r} "
+            "(require git_archive+bridge_inject)"
+        )
+    if not isinstance(inventory.get("git_archive_sha256"), str) or len(
+        inventory["git_archive_sha256"]
+    ) != 64:
+        return False, "source_inventory.git_archive_sha256 missing"
+    if not bmo_steps:
+        return False, "no BMO observations"
+    for row in bmo_steps:
+        if row.get("adapter_id") != EXPECTED_BMO_ADAPTER_ID:
+            return False, f"observation adapter_id={row.get('adapter_id')!r}"
+        if row.get("execution_status") != "completed":
+            return False, f"observation execution_status={row.get('execution_status')!r}"
+    # Portable log must be archived beside the selected run when present.
+    log_rel = bmo.get("log_relpath") or "bmo_go_test.log"
+    log_path = Path(run_dir) / str(log_rel)
+    if not log_path.is_file():
+        # Accept nested work-dir log only as transitional; prefer archived root log.
+        nested = Path(run_dir) / "bmo_work" / "bmo_go_test.log"
+        if not nested.is_file():
+            return False, f"native bridge log missing ({log_rel} or bmo_work/bmo_go_test.log)"
+    return True, "native qualification ok"
 
 
 def classify_finding(
@@ -206,21 +310,22 @@ def classify_finding(
     properties: dict[str, Any],
     agree: dict[str, Any],
     run_ids: list[str],
-    native_bmo: bool = True,
+    native_bmo: bool = False,
 ) -> dict[str, Any]:
     """Map comparator stages onto Finding labels.
 
-    matched → classical_baseline_matches only as equality statement.
-    divergent → contradicted_in_scope only for the agreement proposition.
-    missing/corrupt → unresolved.
-    Offline (non-native) BMO stand-in cannot upgrade beyond unresolved.
+    classical_baseline_matches only when native, pairs valid, step-wise
+    agreement matched, AND both arms satisfy every case property.
+    Observed agreement without property success stays unresolved.
+    Offline / unqualified BMO cannot upgrade beyond unresolved.
     """
     if not native_bmo:
         label = "unresolved"
         proposition = (
             "Native BMO ClaimOrdinaryRetainedGrantFirstEditTx was not measured "
-            "(offline SQLite L1 stand-in or missing bridge); ledger-claim comparison "
-            "remains unresolved for the BMO pin"
+            "under fail-closed qualification (missing/invalid manifest, non-zero "
+            "exit, wrong adapter, or non-native observations); ledger-claim "
+            "comparison remains unresolved for the BMO pin"
         )
     elif not validity.get("valid") or agree.get("result") == "unresolved":
         label = "unresolved"
@@ -231,38 +336,29 @@ def classify_finding(
     elif agree.get("result") == "divergent":
         label = "contradicted_in_scope"
         proposition = (
-            "Backends disagree on the property-relevant projection for one or "
-            "more r3-ledger-claim-v1 cases"
+            "Backends disagree on disposition or property-relevant projection "
+            "at one or more r3-ledger-claim-v1 steps"
         )
     else:
-        # matched projections
-        both_pass = all(
+        both_pass = bool(properties.get("classical")) and all(
             properties["classical"][cid]["passed"] and properties["bmo"][cid]["passed"]
             for cid in properties["classical"]
         )
-        both_fail = all(
-            (not properties["classical"][cid]["passed"])
-            and (not properties["bmo"][cid]["passed"])
-            for cid in properties["classical"]
-        )
-        label = "classical_baseline_matches"
         if both_pass:
+            label = "classical_baseline_matches"
             proposition = (
-                "Across declared synthetic cases, ClassicalLedgerGate and BMO L1 "
-                "emitted equal property-relevant observations and both satisfied "
-                "the one-use ledger-claim trace properties"
-            )
-        elif both_fail:
-            proposition = (
-                "Backends agree on property-relevant projections but both fail "
-                "trace properties (agreement is not successful enforcement)"
+                "Across declared synthetic cases, ClassicalLedgerGate and native "
+                "BMO L1 emitted equal dispositions and property-relevant "
+                "projections at every step and both satisfied the one-use "
+                "ledger-claim trace properties"
             )
         else:
-            # Equal projections but mixed property outcomes should be rare;
-            # treat as equality-only match with note.
+            label = "unresolved"
             proposition = (
-                "Backends agree on property-relevant projections; per-backend "
-                "property outcomes differ or are mixed"
+                "Backends agree on step-wise dispositions/projections, but one or "
+                "both arms fail the claim success criterion; agreement is "
+                "preserved in comparator observations without issuing a "
+                "successful property-comparison Finding"
             )
 
     finding = {
@@ -325,14 +421,7 @@ def compare_run(run_dir: Path, cases_path: Path | None = None) -> dict[str, Any]
     if runs_dir.is_dir():
         run_ids = sorted(p.stem for p in runs_dir.glob("*.json"))
 
-    manifest_path = run_dir / "source_manifest.json"
-    native_bmo = True
-    if manifest_path.is_file():
-        try:
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-            native_bmo = bool((manifest.get("bmo") or {}).get("native_bmo"))
-        except (OSError, json.JSONDecodeError, TypeError):
-            native_bmo = False
+    native_bmo, native_note = qualify_native_bmo(run_dir=run_dir, bmo_steps=bmo_steps)
 
     finding = classify_finding(
         validity=validity,
@@ -350,6 +439,7 @@ def compare_run(run_dir: Path, cases_path: Path | None = None) -> dict[str, Any]
         "properties": properties,
         "agreement": agree,
         "native_bmo": native_bmo,
+        "native_qualification": native_note,
         "finding": finding,
     }
     return summary

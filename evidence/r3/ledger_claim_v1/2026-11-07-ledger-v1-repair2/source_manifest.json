@@ -1,0 +1,43 @@
+{
+  "protocol_id": "r3-ledger-claim-v1",
+  "claim_id": "r3_ledger_claim_v1",
+  "run_id": "2026-11-07-ledger-v1-repair2",
+  "bmo_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "bmo": {
+    "adapter_id": "bmo_l1_first_edit",
+    "pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+    "bridge": {
+      "bmo_adapter_test.go": "d1806f532eba26a5ba8233376efa67d922a1db121f34733a6c4a3dfcda47555e",
+      "bmo_adapter_fixture.go": "58e0e00511a67d0868d3a3ff167ccef8c3323ec403220243064e80b781ddb3c1"
+    },
+    "bmo_root": "<local-checkout>",
+    "mode": "go_test_bridge_native",
+    "native_bmo": true,
+    "command": [
+      "go",
+      "test",
+      "-tags=swarm_witness_r3",
+      "./internal/sessioncompaction/",
+      "-run",
+      "^TestSwarmWitnessR3Probe$",
+      "-count=1"
+    ],
+    "exit_code": 0,
+    "log_path": "bmo_go_test.log",
+    "source_inventory": {
+      "pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "git_archive_sha256": "ef719af9e1eb645f87b45381f094b380b75126c707c3b8be272ff502f23e8ee0",
+      "bridge_injected_sha256": {
+        "bmo_adapter_test.go": "d1806f532eba26a5ba8233376efa67d922a1db121f34733a6c4a3dfcda47555e",
+        "bmo_adapter_fixture.go": "58e0e00511a67d0868d3a3ff167ccef8c3323ec403220243064e80b781ddb3c1"
+      },
+      "materialization": "git_archive+bridge_inject"
+    },
+    "notes": "native ClaimOrdinaryRetainedGrantFirstEditTx bridge; source from git archive of pin + injected bridge hashes",
+    "log_relpath": "bmo_go_test.log"
+  },
+  "cases_path": "experiments/r3/ledger_claim_v1/cases.yaml",
+  "cases_sha256": "bed93858012dc09a88d7c346fbec817904db85d5203e08bf1ec2642ed76f710d",
+  "created_unix": 1794072914,
+  "swarm_witness_root": "."
+}

@@ -12,7 +12,7 @@ Form: https://apartresearch.com/sprints/swarm-alignment-2026 (user submits; agen
 | Limitations / Dual-Use appendix | Done | `report/LIMITATIONS_DUAL_USE.md` included in PDF |
 | Preexisting marked | Done | `PREEXISTING.md` + README pointer |
 | No fabricated numbers | Done | Metrics from `evidence/r*/`; `validate_claims.py` + `check_evidence.py` |
-| Labels honest (v2) | Done | R1/R2 `reproduced`; R3 comparison `unresolved` |
+| Labels honest (v2) | Done | R1/R2 `reproduced`; R3 decision-model `unresolved`; R3 ledger-claim-v1 `classical_baseline_matches` (bounded) |
 | R1 raw inspectability | Done | `evidence/r1/raw.json.gz` committed; `raw.json` gitignored |
 | Links work | Verify at submit | Template copy URL, pinned git remotes, local PDF path |
 

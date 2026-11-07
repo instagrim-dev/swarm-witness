@@ -112,44 +112,38 @@ class StateObservation:
 
 
 def project_state(state: dict[str, Any] | StateObservation | None) -> dict[str, Any] | None:
-    """Normalize a state payload to the shared property-relevant projection."""
+    """Normalize a state payload to the shared property-relevant projection.
+
+    Cross-arm equality is limited to one-use behavior actually observed on both
+    backends: grant_spent, counts, and call_id sets. Synthetic classical
+    grant_id / retry_epoch aliases are not compared to native BMO hashes until
+    an explicit alias map is declared and negative-controlled. Raw native
+    identity rows may still appear under ``observed_identities`` for audit.
+    """
     if state is None:
         return None
     if isinstance(state, StateObservation):
-        return state.to_dict()
-    if not isinstance(state, dict):
+        data = state.to_dict()
+    elif isinstance(state, dict):
+        data = state
+    else:
         raise TypeError("state must be a dict or StateObservation")
-    claims = [dict(c) for c in (state.get("claims") or [])]
-    transfers = [dict(t) for t in (state.get("transfers") or [])]
-    # Sort for stable cross-backend comparison of identity-bound rows.
-    claims.sort(key=lambda c: (c.get("call_id") or "", c.get("task_id") or ""))
-    transfers.sort(key=lambda t: (t.get("call_id") or "", t.get("task_id") or ""))
+    claims = [dict(c) for c in (data.get("claims") or [])]
+    transfers = [dict(t) for t in (data.get("transfers") or [])]
+    claims.sort(key=lambda c: (c.get("call_id") or ""))
+    transfers.sort(key=lambda t: (t.get("call_id") or ""))
+    claim_ids = [c.get("call_id") for c in claims]
+    transfer_ids = [t.get("call_id") for t in transfers]
     return {
-        "grant_spent": bool(state.get("grant_spent")),
-        "claim_count": int(state.get("claim_count", len(claims))),
-        "transfer_count": int(state.get("transfer_count", len(transfers))),
-        "claims": [
-            {
-                "task_id": c.get("task_id"),
-                "grant_id": c.get("grant_id"),
-                "retry_epoch": c.get("retry_epoch"),
-                "call_id": c.get("call_id"),
-                "owner_revision": c.get("owner_revision"),
-            }
-            for c in claims
-        ],
-        "transfers": [
-            {
-                "task_id": t.get("task_id"),
-                "grant_id": t.get("grant_id"),
-                "retry_epoch": t.get("retry_epoch"),
-                "call_id": t.get("call_id"),
-                "owner_revision": t.get("owner_revision"),
-            }
-            for t in transfers
-        ],
-        "claim_call_ids": [c.get("call_id") for c in claims],
-        "transfer_call_ids": [t.get("call_id") for t in transfers],
+        "grant_spent": bool(data.get("grant_spent")),
+        "claim_count": int(data.get("claim_count", len(claims))),
+        "transfer_count": int(data.get("transfer_count", len(transfers))),
+        # call_id-only rows: identity dimensions beyond call_id are not part of
+        # the L1 equality claim without an alias map + negative control.
+        "claims": [{"call_id": cid} for cid in claim_ids],
+        "transfers": [{"call_id": tid} for tid in transfer_ids],
+        "claim_call_ids": claim_ids,
+        "transfer_call_ids": transfer_ids,
     }
 
 

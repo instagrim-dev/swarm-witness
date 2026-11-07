@@ -22,13 +22,16 @@ histories/policy, original prohibited effects 143 vs barrier 0, with 147 strict
 refusal-startup refusals; EvidenceGraph receipt stress (R2) reproduced —
 36/36 condition-by-seed checks, old-rule relay wrong attributions [1,1,1] per
 seed vs safer supported [0,0,0], and clean withheld-without-exclusivity
-[12,12,12]; BMO retained-grant vs ClassicalGate (R3) unresolved — matched
-decision-model comparison incomplete (0/4 isomorphic BMO observations; selected
-Go package tests are metadata only). Weekend contributions claimed here are
-(1) pinned replications for R1/R2 and (2) the audit kit. A third,
-methodological finding that a durable-grant story reduces to classical controls
-is not claimed without a completed matched comparison. Auditors should publish
-matched baselines and labels.
+[12,12,12]; BMO retained-grant vs ClassicalGate (R3 decision-model) unresolved
+— matched decision-model comparison incomplete (0/4 isomorphic BMO observations;
+selected Go package tests are metadata only); separately, derived protocol
+r3-ledger-claim-v1 reports a bounded L1 ledger-claim match
+(`classical_baseline_matches`) for six synthetic cases under native pin
+`4b717d7` (dispositions and property-relevant projections at every step; not
+full identity-hash equality or general BMO equivalence). Weekend contributions
+claimed here are (1) pinned replications for R1/R2, (2) the audit kit, and
+(3) a scoped L1 ledger-claim comparison distinct from the unresolved
+decision-model R3. Auditors should publish matched baselines and labels.
 
 # 1. Introduction
 
@@ -61,9 +64,11 @@ grant table.
    receipt stress (R2) under published harnesses, with metrics from committed
    `evidence/*/summary.json`.
 
-A third contribution—a **methodological finding** that a durable-grant story
-reduces to classical controls—is **not claimed** here: R3’s matched
-decision-model comparison is incomplete (`unresolved`).
+A broad methodological finding that BMO’s durable-grant story reduces to
+classical controls is **not claimed**: the legacy decision-model R3 comparison
+remains incomplete (`unresolved`). Separately, derived protocol
+**r3-ledger-claim-v1** contributes a **bounded L1 ledger-claim match** under
+pin `4b717d7` (see §4.4), not a general equivalence claim.
 
 Tracks: **3** (Strengthening Agent Infrastructure) and **4** (Multi-Agent
 Oversight and Control). Preexisting BMO code and Oct 25 scaffold are marked in
@@ -117,17 +122,19 @@ authors’ later-published stress pack at `a5ea5c9` (old-rule vs safer-default
 contrast), not by executing a missing harness at `efbd419`. Label `reproduced`
 when all contract checks pass.
 
-**R3 (BMO vs ClassicalGate).** Shared `cases.yaml` decision-model inputs;
-ClassicalGate emits allow/deny per case. BMO decisions require isomorphic
-observations from matching assertions or an instrumented harness—never package
-pass counts. When any required BMO case is unmatched, the comparison Finding is
-**`unresolved`** (incomplete comparative audit). Optional preferred Go tests are
-metadata only.
+**R3 (two distinct protocols).** Legacy **r3-matched-decision-model** uses shared
+`cases.yaml` decision-model inputs; ClassicalGate emits allow/deny per case.
+BMO decisions require isomorphic observations—never package pass counts. When
+any required BMO case is unmatched, that comparison Finding is **`unresolved`**.
+Derived **r3-ledger-claim-v1** separately compares ClassicalLedgerGate (SQLite)
+to native `ClaimOrdinaryRetainedGrantFirstEditTx` under pin `4b717d7` with
+fail-closed native qualification.
 
 # 4. Results
 
 Labels from `evidence/index.yaml` / findings only: R1 **reproduced**, R2
-**reproduced**, R3 **unresolved**. Metrics below cite `evidence/*/summary.json`.
+**reproduced**, R3 decision-model **unresolved**, R3 ledger-claim-v1
+**classical_baseline_matches** (bounded L1). Metrics cite `evidence/*/summary.json`.
 
 ## 4.1 R1 — SoundGate recovery barrier (`reproduced`)
 
@@ -167,7 +174,7 @@ no-implicit-exclusivity is authored interpretation
 
 ## 4.3 R3 — Retained grant vs ClassicalGate (`unresolved`)
 
-Matched decision-model comparison: **0/4** isomorphic BMO observations;
+Matched **decision-model** comparison: **0/4** isomorphic BMO observations;
 `missing_bmo_cases: 4`. Comparison Finding `r3-f-comparison` label
 **`unresolved`** — comparison not performed / incomplete. ClassicalGate arm
 completed all four cases under the decision model (`state`, `request`,
@@ -183,23 +190,43 @@ as decisions or as a substitute comparative label.
 | active_grant_execute | allow | — | missing |
 | stale_grant_version | deny | — | missing |
 
+## 4.4 R3 — Ledger claim L1 (`classical_baseline_matches`)
+
+Derived protocol **r3-ledger-claim-v1** is distinct from §4.3. Across six
+synthetic cases (T01–T06), ClassicalLedgerGate and the native BMO L1 bridge at
+pin `4b717d7` recorded equal dispositions and property-relevant projections
+(grant_spent, counts, call_id sets) at every step, and both arms satisfied the
+declared one-use / reopen / rollback properties. Finding
+`r3-ledger-claim-v1-comparison` label **`classical_baseline_matches`** under
+fail-closed native qualification (manifest, exit 0, adapter identity, git-archive
+pin inventory, bridge hashes). Cross-arm equality does **not** claim native
+grant/epoch hash identity parity with synthetic classical aliases; durable
+identity rows are archived under `observed_identities` for audit. This does not
+establish event-by-event observational equivalence beyond the declared
+projection, live execution safety, process-restart correctness, concurrency, or
+general BMO equivalence.
+
 # 5. Discussion
 
 **Implications.** For Tracks 3–4, durable identity and oversight claims should
 be scored against classical admit and evidence rules under matched
 observations. R1 and R2 show that published repairs can **reproduce** under
 pinned harnesses; that is valuable engineering and audit evidence, not proof of
-a new multi-agent primitive. R3 shows the fail-closed path: without isomorphic
-BMO observations, the comparative audit stays **unresolved**.
+a new multi-agent primitive. Legacy R3 shows the fail-closed path: without
+isomorphic decision-model BMO observations, that comparative audit stays
+**unresolved**. The separate L1 ledger-claim protocol shows a bounded match is
+possible when both arms emit complete native observations under a pinned bridge.
 
 **Limitations (summary).** ClassicalGate is a **decision-model** null (not
-restart durability); R3 comparison is incomplete; R1 raw inspectability is via
-committed `raw.json.gz`; R2 executable binding is `a5ea5c9` with `efbd419` as
-behavioral baseline via published stress pack; evidence checker metric-binding
-is scope-limited. Full Limitations and Dual-Use appendix follows.
+restart durability); legacy R3 comparison is incomplete; ledger-claim equality
+is projection-scoped (not full identity-hash equality); R1 raw inspectability
+is via committed `raw.json.gz`; R2 executable binding is `a5ea5c9` with
+`efbd419` as behavioral baseline via published stress pack; evidence checker
+metric-binding is scope-limited. Full Limitations and Dual-Use appendix follows.
 
-**Future work.** Shared observation APIs for R3 isomorphic matches; expand pins;
-automate baseline-vs-claim diffs for continuous oversight.
+**Future work.** Shared observation APIs for decision-model R3 isomorphic
+matches; optional explicit grant/epoch alias map with negative controls; expand
+pins; automate baseline-vs-claim diffs for continuous oversight.
 
 
 # Appendix A. Limitations and Dual-Use / Ethical Considerations
@@ -230,7 +257,7 @@ stress pack at `a5ea5c9`, not by running a missing harness at `efbd419`. Does
 or that exclusivity declarations themselves cannot be gamed outside the modeled
 threat surface.
 
-**R3 (`unresolved`).** Establishes that the matched ClassicalGate
+**R3 decision-model (`unresolved`).** Establishes that the matched ClassicalGate
 decision-model comparison against BMO is **incomplete**: 0/4 required cases
 have isomorphic BMO observations, so the comparison Finding is `unresolved`
 (comparison not performed). ClassicalGate is a **decision-model** null
@@ -240,6 +267,16 @@ only and do not fill decisions or substitute for a matched comparative label.
 Does **not** establish ClassicalGate↔BMO API equivalence, assumption-dependent
 affinity, or a methodological reduction of BMO’s durable-grant story to
 classical controls.
+
+**R3 ledger-claim-v1 (`classical_baseline_matches`, bounded).** Establishes
+equal dispositions and property-relevant projections (grant_spent, counts,
+call_id sets) across T01–T06 for ClassicalLedgerGate vs native
+`ClaimOrdinaryRetainedGrantFirstEditTx` at pin `4b717d7` under fail-closed
+native qualification. Does **not** claim synthetic classical grant/epoch
+aliases equal native durable hashes, full event-trace observational
+equivalence, live execution safety, process-restart correctness, concurrency
+behavior, or general BMO equivalence. Legacy decision-model R3 remains
+separately unresolved.
 
 ## Finite experiments and checker scope
 
@@ -267,4 +304,3 @@ Oct 25 scaffold paths and the external BMO tree at pinned `bmo_root` /
 baselines, experiment wrappers, evidence records, index checker, and this
 report. Judges should score the audit contribution, not treat preexisting BMO
 surfaces as sprint inventions.
-

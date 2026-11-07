@@ -66,10 +66,12 @@ Run from the repository root with dependencies installed (R1 needs `git`,
 
 Derived protocol **r3-ledger-claim-v1** (ClassicalLedgerGate vs BMO
 `ClaimOrdinaryRetainedGrantFirstEditTx`) lives under
-[`experiments/r3/ledger_claim_v1/`](experiments/r3/ledger_claim_v1/). Native pin
-bridge evidence at `evidence/r3_ledger_claim_v1/` is labeled
-**`classical_baseline_matches`**. Legacy decision-model R3 is unchanged
+[`experiments/r3/ledger_claim_v1/`](experiments/r3/ledger_claim_v1/). Native pin bridge evidence (selected run
+`evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/`, mirrored at
+`evidence/r3_ledger_claim_v1/`) is labeled **`classical_baseline_matches`**
+under fail-closed native qualification. Legacy decision-model R3 is unchanged
 (`unresolved`). Offline L1 stand-in traces stay inspectable-only
-(`native_bmo=false`).
+(`native_bmo=false`). Equality is projection-scoped (grant_spent, counts,
+call_id sets)—not synthetic classical grant/epoch vs native durable hashes.
 
 Pre-submit checklist for the Apart form: [`CHECKLIST.md`](CHECKLIST.md).

@@ -1,0 +1,1502 @@
+{
+  "protocol_id": "r3-ledger-claim-v1",
+  "claim_id": "r3_ledger_claim_v1",
+  "run_dir": "evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2",
+  "validity": {
+    "valid": true,
+    "errors": [],
+    "pairs": [
+      {
+        "case_id": "T01",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T01",
+        "step": 2,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T01",
+        "step": 3,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T02",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T02",
+        "step": 2,
+        "op": "reopen",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T02",
+        "step": 3,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T02",
+        "step": 4,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T03",
+        "step": 1,
+        "op": "reopen",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T03",
+        "step": 2,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T03",
+        "step": 3,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T04",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T04",
+        "step": 2,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T04",
+        "step": 3,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T04",
+        "step": 4,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T05",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T05",
+        "step": 2,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T05",
+        "step": 3,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T05",
+        "step": 4,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T06",
+        "step": 1,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T06",
+        "step": 2,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T06",
+        "step": 3,
+        "op": "claim_first_edit",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      },
+      {
+        "case_id": "T06",
+        "step": 4,
+        "op": "inspect",
+        "classical_present": true,
+        "bmo_present": true,
+        "valid": true,
+        "notes": []
+      }
+    ]
+  },
+  "properties": {
+    "classical": {
+      "T01": {
+        "case_id": "T01",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t01-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t01-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t01-a"
+          ],
+          "transfer_call_ids": [
+            "call-t01-a"
+          ]
+        }
+      },
+      "T02": {
+        "case_id": "T02",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t02-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t02-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t02-a"
+          ],
+          "transfer_call_ids": [
+            "call-t02-a"
+          ]
+        }
+      },
+      "T03": {
+        "case_id": "T03",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t03-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t03-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t03-a"
+          ],
+          "transfer_call_ids": [
+            "call-t03-a"
+          ]
+        }
+      },
+      "T04": {
+        "case_id": "T04",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t04-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t04-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t04-a"
+          ],
+          "transfer_call_ids": [
+            "call-t04-a"
+          ]
+        }
+      },
+      "T05": {
+        "case_id": "T05",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t05-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t05-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        }
+      },
+      "T06": {
+        "case_id": "T06",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t06-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t06-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t06-a"
+          ],
+          "transfer_call_ids": [
+            "call-t06-a"
+          ]
+        }
+      }
+    },
+    "bmo": {
+      "T01": {
+        "case_id": "T01",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t01-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t01-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t01-a"
+          ],
+          "transfer_call_ids": [
+            "call-t01-a"
+          ]
+        }
+      },
+      "T02": {
+        "case_id": "T02",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t02-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t02-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t02-a"
+          ],
+          "transfer_call_ids": [
+            "call-t02-a"
+          ]
+        }
+      },
+      "T03": {
+        "case_id": "T03",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t03-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t03-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t03-a"
+          ],
+          "transfer_call_ids": [
+            "call-t03-a"
+          ]
+        }
+      },
+      "T04": {
+        "case_id": "T04",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t04-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t04-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t04-a"
+          ],
+          "transfer_call_ids": [
+            "call-t04-a"
+          ]
+        }
+      },
+      "T05": {
+        "case_id": "T05",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t05-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t05-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t05-a"
+          ],
+          "transfer_call_ids": [
+            "call-t05-a"
+          ]
+        }
+      },
+      "T06": {
+        "case_id": "T06",
+        "passed": true,
+        "errors": [],
+        "final_state": {
+          "grant_spent": true,
+          "claim_count": 1,
+          "transfer_count": 1,
+          "claims": [
+            {
+              "call_id": "call-t06-a"
+            }
+          ],
+          "transfers": [
+            {
+              "call_id": "call-t06-a"
+            }
+          ],
+          "claim_call_ids": [
+            "call-t06-a"
+          ],
+          "transfer_call_ids": [
+            "call-t06-a"
+          ]
+        }
+      }
+    }
+  },
+  "agreement": {
+    "result": "matched",
+    "reason": "equal dispositions and projections at every step",
+    "case_results": {
+      "T01": {
+        "equal": true,
+        "steps": [
+          {
+            "step": 1,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "committed",
+            "bmo_disposition": "committed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t01-a"
+              ],
+              "transfer_call_ids": [
+                "call-t01-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t01-a"
+              ],
+              "transfer_call_ids": [
+                "call-t01-a"
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "refused",
+            "bmo_disposition": "refused",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t01-a"
+              ],
+              "transfer_call_ids": [
+                "call-t01-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t01-a"
+              ],
+              "transfer_call_ids": [
+                "call-t01-a"
+              ]
+            }
+          },
+          {
+            "step": 3,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t01-a"
+              ],
+              "transfer_call_ids": [
+                "call-t01-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t01-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t01-a"
+              ],
+              "transfer_call_ids": [
+                "call-t01-a"
+              ]
+            }
+          }
+        ]
+      },
+      "T02": {
+        "equal": true,
+        "steps": [
+          {
+            "step": 1,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "committed",
+            "bmo_disposition": "committed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t02-a"
+              ],
+              "transfer_call_ids": [
+                "call-t02-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t02-a"
+              ],
+              "transfer_call_ids": [
+                "call-t02-a"
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "op": "reopen",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t02-a"
+              ],
+              "transfer_call_ids": [
+                "call-t02-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t02-a"
+              ],
+              "transfer_call_ids": [
+                "call-t02-a"
+              ]
+            }
+          },
+          {
+            "step": 3,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "refused",
+            "bmo_disposition": "refused",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t02-a"
+              ],
+              "transfer_call_ids": [
+                "call-t02-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t02-a"
+              ],
+              "transfer_call_ids": [
+                "call-t02-a"
+              ]
+            }
+          },
+          {
+            "step": 4,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t02-a"
+              ],
+              "transfer_call_ids": [
+                "call-t02-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t02-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t02-a"
+              ],
+              "transfer_call_ids": [
+                "call-t02-a"
+              ]
+            }
+          }
+        ]
+      },
+      "T03": {
+        "equal": true,
+        "steps": [
+          {
+            "step": 1,
+            "op": "reopen",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            },
+            "bmo": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            }
+          },
+          {
+            "step": 2,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "committed",
+            "bmo_disposition": "committed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t03-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t03-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t03-a"
+              ],
+              "transfer_call_ids": [
+                "call-t03-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t03-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t03-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t03-a"
+              ],
+              "transfer_call_ids": [
+                "call-t03-a"
+              ]
+            }
+          },
+          {
+            "step": 3,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t03-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t03-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t03-a"
+              ],
+              "transfer_call_ids": [
+                "call-t03-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t03-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t03-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t03-a"
+              ],
+              "transfer_call_ids": [
+                "call-t03-a"
+              ]
+            }
+          }
+        ]
+      },
+      "T04": {
+        "equal": true,
+        "steps": [
+          {
+            "step": 1,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "rolled_back",
+            "bmo_disposition": "rolled_back",
+            "classical": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            },
+            "bmo": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            }
+          },
+          {
+            "step": 2,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            },
+            "bmo": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            }
+          },
+          {
+            "step": 3,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "committed",
+            "bmo_disposition": "committed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t04-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t04-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t04-a"
+              ],
+              "transfer_call_ids": [
+                "call-t04-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t04-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t04-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t04-a"
+              ],
+              "transfer_call_ids": [
+                "call-t04-a"
+              ]
+            }
+          },
+          {
+            "step": 4,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t04-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t04-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t04-a"
+              ],
+              "transfer_call_ids": [
+                "call-t04-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t04-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t04-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t04-a"
+              ],
+              "transfer_call_ids": [
+                "call-t04-a"
+              ]
+            }
+          }
+        ]
+      },
+      "T05": {
+        "equal": true,
+        "steps": [
+          {
+            "step": 1,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "refused",
+            "bmo_disposition": "refused",
+            "classical": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            },
+            "bmo": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            }
+          },
+          {
+            "step": 2,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            },
+            "bmo": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            }
+          },
+          {
+            "step": 3,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "committed",
+            "bmo_disposition": "committed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t05-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t05-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t05-a"
+              ],
+              "transfer_call_ids": [
+                "call-t05-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t05-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t05-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t05-a"
+              ],
+              "transfer_call_ids": [
+                "call-t05-a"
+              ]
+            }
+          },
+          {
+            "step": 4,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t05-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t05-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t05-a"
+              ],
+              "transfer_call_ids": [
+                "call-t05-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t05-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t05-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t05-a"
+              ],
+              "transfer_call_ids": [
+                "call-t05-a"
+              ]
+            }
+          }
+        ]
+      },
+      "T06": {
+        "equal": true,
+        "steps": [
+          {
+            "step": 1,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "refused",
+            "bmo_disposition": "refused",
+            "classical": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            },
+            "bmo": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            }
+          },
+          {
+            "step": 2,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            },
+            "bmo": {
+              "grant_spent": false,
+              "claim_count": 0,
+              "transfer_count": 0,
+              "claims": [],
+              "transfers": [],
+              "claim_call_ids": [],
+              "transfer_call_ids": []
+            }
+          },
+          {
+            "step": 3,
+            "op": "claim_first_edit",
+            "equal": true,
+            "classical_disposition": "committed",
+            "bmo_disposition": "committed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t06-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t06-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t06-a"
+              ],
+              "transfer_call_ids": [
+                "call-t06-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t06-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t06-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t06-a"
+              ],
+              "transfer_call_ids": [
+                "call-t06-a"
+              ]
+            }
+          },
+          {
+            "step": 4,
+            "op": "inspect",
+            "equal": true,
+            "classical_disposition": "observed",
+            "bmo_disposition": "observed",
+            "classical": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t06-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t06-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t06-a"
+              ],
+              "transfer_call_ids": [
+                "call-t06-a"
+              ]
+            },
+            "bmo": {
+              "grant_spent": true,
+              "claim_count": 1,
+              "transfer_count": 1,
+              "claims": [
+                {
+                  "call_id": "call-t06-a"
+                }
+              ],
+              "transfers": [
+                {
+                  "call_id": "call-t06-a"
+                }
+              ],
+              "claim_call_ids": [
+                "call-t06-a"
+              ],
+              "transfer_call_ids": [
+                "call-t06-a"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "native_bmo": true,
+  "native_qualification": "native qualification ok",
+  "finding": {
+    "id": "r3-ledger-claim-v1-comparison",
+    "claim_id": "r3_ledger_claim_v1",
+    "run_ids": [
+      "bmo-T01",
+      "bmo-T02",
+      "bmo-T03",
+      "bmo-T04",
+      "bmo-T05",
+      "bmo-T06",
+      "classical-T01",
+      "classical-T02",
+      "classical-T03",
+      "classical-T04",
+      "classical-T05",
+      "classical-T06",
+      "r3-ledger-meta"
+    ],
+    "proposition": "Across declared synthetic cases, ClassicalLedgerGate and native BMO L1 emitted equal dispositions and property-relevant projections at every step and both satisfied the one-use ledger-claim trace properties",
+    "scope": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+    "label": "classical_baseline_matches",
+    "basis": "computed",
+    "supporting_observation_refs": [
+      "r3-ledger-meta.observations.agreement.result",
+      "r3-ledger-meta.observations.validity.valid"
+    ]
+  }
+}

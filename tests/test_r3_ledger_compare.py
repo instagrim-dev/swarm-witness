@@ -140,7 +140,7 @@ def test_equal_and_correct_is_matched(tmp_path: Path):
     assert agree["result"] == "matched"
 
 
-def test_equal_but_wrong_is_matched_not_enforcement():
+def test_equal_but_wrong_preserves_agreement_without_success_finding():
     compare = _load("ledger_compare", PKG / "compare.py")
     proto = _load("ledger_protocol", PKG / "protocol.py")
     t03 = next(c for c in proto.load_cases(PKG / "cases.yaml")["cases"] if c.case_id == "T03")
@@ -196,12 +196,199 @@ def test_equal_but_wrong_is_matched_not_enforcement():
     assert agree["result"] == "matched"
     assert props["classical"]["T03"]["passed"] is False
     finding = compare.classify_finding(
-        validity=validity, properties=props, agree=agree, run_ids=["r1"]
+        validity=validity,
+        properties=props,
+        agree=agree,
+        run_ids=["r1"],
+        native_bmo=True,
     )
-    assert finding["label"] == "classical_baseline_matches"
-    assert "not successful enforcement" in finding["proposition"].lower() or (
-        "both fail" in finding["proposition"].lower()
+    # Agreement is preserved in the comparator, but a successful property-
+    # comparison Finding is not issued when either arm fails the claim.
+    assert finding["label"] == "unresolved"
+    assert "fail" in finding["proposition"].lower() or "not" in finding["proposition"].lower()
+
+
+def test_agreement_compares_every_step_not_only_final_state():
+    compare = _load("ledger_compare", PKG / "compare.py")
+    proto = _load("ledger_protocol", PKG / "protocol.py")
+    t03 = next(c for c in proto.load_cases(PKG / "cases.yaml")["cases"] if c.case_id == "T03")
+    c_steps = _t03_happy("classical_ledger_gate")
+    b_steps = _t03_happy("bmo_l1_first_edit")
+    # Intermediate reopen states diverge; finals still match.
+    empty = {
+        "grant_spent": False,
+        "claim_count": 0,
+        "transfer_count": 0,
+        "claims": [],
+        "transfers": [],
+        "claim_call_ids": [],
+        "transfer_call_ids": [],
+    }
+    mid = dict(empty)
+    mid["grant_spent"] = True
+    b_steps[0]["state"] = mid
+    validity = compare.pair_validity(cases=[t03], classical_steps=c_steps, bmo_steps=b_steps)
+    agree = compare.agreement(
+        [t03], classical_steps=c_steps, bmo_steps=b_steps, validity=validity
     )
+    assert agree["result"] == "divergent"
+    assert agree["case_results"]["T03"]["equal"] is False
+
+
+def test_duplicate_classical_as_bmo_without_manifest_is_unresolved(tmp_path: Path):
+    compare = _load("ledger_compare", PKG / "compare.py")
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    c_steps = _t03_happy("classical_ledger_gate")
+    # Adversarial: copy classical rows into bmo.ndjson; omit source_manifest.
+    payload = "\n".join(json.dumps(s) for s in c_steps) + "\n"
+    (run_dir / "classical.ndjson").write_text(payload, encoding="utf-8")
+    (run_dir / "bmo.ndjson").write_text(payload, encoding="utf-8")
+    summary = compare.compare_run(run_dir, cases_path=PKG / "cases.yaml")
+    assert summary["native_bmo"] is False
+    assert summary["finding"]["label"] == "unresolved"
+
+
+def _native_manifest(*, exit_code: int = 0) -> dict:
+    return {
+        "bmo": {
+            "native_bmo": True,
+            "exit_code": exit_code,
+            "adapter_id": "bmo_l1_first_edit",
+            "pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+            "mode": "go_test_bridge_native",
+            "bridge": {
+                "bmo_adapter_test.go": "a" * 64,
+                "bmo_adapter_fixture.go": "b" * 64,
+            },
+            "source_inventory": {
+                "materialization": "git_archive+bridge_inject",
+                "git_archive_sha256": "c" * 64,
+            },
+            "log_relpath": "bmo_go_test.log",
+        }
+    }
+
+
+def test_manifest_native_requires_exit_zero_and_adapter_identity(tmp_path: Path):
+    compare = _load("ledger_compare", PKG / "compare.py")
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    c_steps = _t03_happy("classical_ledger_gate")
+    b_steps = _t03_happy("bmo_l1_first_edit")
+    (run_dir / "classical.ndjson").write_text(
+        "\n".join(json.dumps(s) for s in c_steps) + "\n", encoding="utf-8"
+    )
+    (run_dir / "bmo.ndjson").write_text(
+        "\n".join(json.dumps(s) for s in b_steps) + "\n", encoding="utf-8"
+    )
+    (run_dir / "bmo_go_test.log").write_text("ok\n", encoding="utf-8")
+    (run_dir / "source_manifest.json").write_text(
+        json.dumps(_native_manifest(exit_code=1)) + "\n",
+        encoding="utf-8",
+    )
+    summary = compare.compare_run(run_dir, cases_path=PKG / "cases.yaml")
+    assert summary["native_bmo"] is False
+    assert summary["finding"]["label"] == "unresolved"
+
+
+def test_manifest_without_source_inventory_is_unresolved(tmp_path: Path):
+    compare = _load("ledger_compare", PKG / "compare.py")
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    c_steps = _t03_happy("classical_ledger_gate")
+    b_steps = _t03_happy("bmo_l1_first_edit")
+    (run_dir / "classical.ndjson").write_text(
+        "\n".join(json.dumps(s) for s in c_steps) + "\n", encoding="utf-8"
+    )
+    (run_dir / "bmo.ndjson").write_text(
+        "\n".join(json.dumps(s) for s in b_steps) + "\n", encoding="utf-8"
+    )
+    (run_dir / "bmo_go_test.log").write_text("ok\n", encoding="utf-8")
+    bad = _native_manifest()
+    del bad["bmo"]["source_inventory"]
+    (run_dir / "source_manifest.json").write_text(json.dumps(bad) + "\n", encoding="utf-8")
+    summary = compare.compare_run(run_dir, cases_path=PKG / "cases.yaml")
+    assert summary["native_bmo"] is False
+    assert "source_inventory" in summary["native_qualification"]
+
+
+def test_project_state_ignores_grant_epoch_identity_mismatch():
+    """Negative control: grant/epoch are not part of L1 equality without alias map."""
+    proto = _load("ledger_protocol", PKG / "protocol.py")
+    classical = {
+        "grant_spent": True,
+        "claim_count": 1,
+        "transfer_count": 1,
+        "claims": [
+            {
+                "call_id": "call-a",
+                "task_id": "task-alpha",
+                "grant_id": "grant-alpha",
+                "retry_epoch": "epoch-1",
+                "owner_revision": 1,
+            }
+        ],
+        "transfers": [
+            {
+                "call_id": "call-a",
+                "task_id": "task-alpha",
+                "grant_id": "grant-alpha",
+                "retry_epoch": "epoch-1",
+                "owner_revision": 1,
+            }
+        ],
+    }
+    # Native arm uses hashed durable identities — must not break call_id equality.
+    native = {
+        "grant_spent": True,
+        "claim_count": 1,
+        "transfer_count": 1,
+        "claims": [
+            {
+                "call_id": "call-a",
+                "task_id": "deadbeef",
+                "grant_id": "cafebabe" * 4,
+                "retry_epoch": "episode-hash",
+                "owner_revision": 99,
+            }
+        ],
+        "transfers": [
+            {
+                "call_id": "call-a",
+                "task_id": "deadbeef",
+                "grant_id": "cafebabe" * 4,
+                "retry_epoch": "episode-hash",
+                "owner_revision": 99,
+            }
+        ],
+    }
+    assert proto.project_state(classical) == proto.project_state(native)
+    # If grant_id were compared, these would diverge — document that we do not.
+    assert classical["claims"][0]["grant_id"] != native["claims"][0]["grant_id"]
+
+
+def test_mismatched_call_id_still_diverges():
+    proto = _load("ledger_protocol", PKG / "protocol.py")
+    a = proto.project_state(
+        {
+            "grant_spent": True,
+            "claim_count": 1,
+            "transfer_count": 0,
+            "claims": [{"call_id": "a"}],
+            "transfers": [],
+        }
+    )
+    b = proto.project_state(
+        {
+            "grant_spent": True,
+            "claim_count": 1,
+            "transfer_count": 0,
+            "claims": [{"call_id": "b"}],
+            "transfers": [],
+        }
+    )
+    assert a != b
 
 
 def test_valid_divergence():

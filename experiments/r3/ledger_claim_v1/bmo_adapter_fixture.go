@@ -231,6 +231,9 @@ func (h *swarmWitnessR3Handle) buildReceipt(act probeCaseAction) (OrdinaryRetryF
 		ViewHint:           h.hint,
 	}
 	// Drive native refusal paths from protocol action identity mismatches.
+	// Keep receipt TaskID / OwnerRevision on the durable epoch+snapshot
+	// identities (h.epoch.TaskID, h.snapshot.*). Synthetic classical aliases
+	// such as "task-alpha" must not overwrite native admission digests.
 	if act.TaskID != "" && act.TaskID != h.fixture.TaskID {
 		r.TaskID = "foreign"
 	}
@@ -242,6 +245,9 @@ func (h *swarmWitnessR3Handle) buildReceipt(act probeCaseAction) (OrdinaryRetryF
 		r.OwnerRevision = 0
 		r.OwnerDigest = ""
 	}
+	// Grant / epoch mismatches are observed via durable transfer rows in
+	// projectState and by protocol input pairing — not by inventing receipt
+	// fields BMO omits. Cross-arm equality uses call_id/spent/counts only.
 	d, err := OrdinaryRetryFirstEditDigest(r)
 	if err != nil {
 		return OrdinaryRetryFirstEditReceipt{}, err
@@ -255,56 +261,108 @@ func (h *swarmWitnessR3Handle) projectState() (map[string]any, error) {
 	if err := h.conn.QueryRowContext(h.carried, `SELECT COUNT(*) FROM ordinary_retry_retained_grant_transfers WHERE session_id=?`, h.epoch.SessionID).Scan(&transferCount); err != nil {
 		return nil, err
 	}
-	rows, err := h.conn.QueryContext(h.carried, `SELECT call_id FROM ordinary_retry_first_edits WHERE session_id=? AND generation=? ORDER BY call_id`, h.epoch.SessionID, h.epoch.Generation)
+	// Read durable first-edit receipts; identity fields come from receipt JSON
+	// (observed), with explicit alias notes when a field is absent from SQLite.
+	rows, err := h.conn.QueryContext(h.carried, `SELECT call_id, receipt_json FROM ordinary_retry_first_edits WHERE session_id=? AND generation=? ORDER BY call_id`, h.epoch.SessionID, h.epoch.Generation)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var callIDs []string
+	claims := make([]map[string]any, 0)
+	callIDs := make([]string, 0)
 	for rows.Next() {
-		var id string
-		if err := rows.Scan(&id); err != nil {
+		var id, receiptRaw string
+		if err := rows.Scan(&id, &receiptRaw); err != nil {
 			return nil, err
 		}
 		callIDs = append(callIDs, id)
+		taskID := ""
+		var ownerRev any = nil
+		var parsed map[string]any
+		if json.Unmarshal([]byte(receiptRaw), &parsed) == nil {
+			if v, ok := parsed["task_id"].(string); ok {
+				taskID = v
+			}
+			if v, ok := parsed["owner_revision"].(float64); ok {
+				ownerRev = int64(v)
+			}
+		}
+		// grant_id / retry_epoch are not columns on ordinary_retry_first_edits;
+		// alias from the live epoch/admission only when the durable transfer row
+		// has not yet been written, and mark the alias explicitly.
+		rec := map[string]any{
+			"call_id":                id,
+			"task_id":                taskID,
+			"owner_revision":         ownerRev,
+			"grant_id":               nil,
+			"retry_epoch":            nil,
+			"identity_source":        "receipt_json",
+			"grant_epoch_alias":      "unobserved_on_first_edit_row",
+		}
+		claims = append(claims, rec)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err
 	}
-	claims := make([]map[string]any, 0, len(callIDs))
 	transfers := make([]map[string]any, 0, transferCount)
-	for _, id := range callIDs {
-		rec := map[string]any{
-			"call_id":         id,
-			"grant_id":        h.fixture.GrantID,
-			"task_id":         h.fixture.TaskID,
-			"owner_revision":  h.fixture.OwnerRevision,
-			"retry_epoch":     h.fixture.RetryEpoch,
-		}
-		claims = append(claims, rec)
-	}
-	// Transfers share call_ids with committed first-edit claims for this protocol.
 	if transferCount > 0 {
-		trows, err := h.conn.QueryContext(h.carried, `SELECT call_id FROM ordinary_retry_retained_grant_transfers WHERE session_id=? ORDER BY call_id`, h.epoch.SessionID)
+		trows, err := h.conn.QueryContext(h.carried, `SELECT call_id, grant_id, task_id, transfer_json FROM ordinary_retry_retained_grant_transfers WHERE session_id=? ORDER BY call_id`, h.epoch.SessionID)
 		if err != nil {
 			return nil, err
 		}
 		defer trows.Close()
 		for trows.Next() {
-			var id string
-			if err := trows.Scan(&id); err != nil {
+			var id, grantID, taskID, transferRaw string
+			if err := trows.Scan(&id, &grantID, &taskID, &transferRaw); err != nil {
 				return nil, err
+			}
+			var ownerRev any = nil
+			var retryEpoch any = nil
+			var parsed map[string]any
+			if json.Unmarshal([]byte(transferRaw), &parsed) == nil {
+				if v, ok := parsed["owner_revision"].(float64); ok {
+					ownerRev = int64(v)
+				}
+				if v, ok := parsed["retry_epoch"].(string); ok {
+					retryEpoch = v
+				} else if v, ok := parsed["episode_id"].(string); ok {
+					// Observed alias: transfer JSON stores episode_id for epoch scope.
+					retryEpoch = v
+				}
 			}
 			transfers = append(transfers, map[string]any{
 				"call_id":         id,
-				"grant_id":        h.fixture.GrantID,
-				"task_id":         h.fixture.TaskID,
-				"owner_revision":  h.fixture.OwnerRevision,
-				"retry_epoch":     h.fixture.RetryEpoch,
+				"grant_id":        grantID,
+				"task_id":         taskID,
+				"owner_revision":  ownerRev,
+				"retry_epoch":     retryEpoch,
+				"identity_source": "transfer_row+json",
 			})
 		}
 		if err := trows.Err(); err != nil {
 			return nil, err
+		}
+	}
+	// After transfers exist, bind claim grant/epoch from matching transfer rows
+	// (observed), not from the fixture template.
+	byCall := map[string]map[string]any{}
+	for _, t := range transfers {
+		if id, ok := t["call_id"].(string); ok {
+			byCall[id] = t
+		}
+	}
+	for i := range claims {
+		id, _ := claims[i]["call_id"].(string)
+		if t, ok := byCall[id]; ok {
+			claims[i]["grant_id"] = t["grant_id"]
+			claims[i]["retry_epoch"] = t["retry_epoch"]
+			if claims[i]["task_id"] == "" || claims[i]["task_id"] == nil {
+				claims[i]["task_id"] = t["task_id"]
+			}
+			if claims[i]["owner_revision"] == nil {
+				claims[i]["owner_revision"] = t["owner_revision"]
+			}
+			claims[i]["grant_epoch_alias"] = "from_matching_transfer_row"
 		}
 	}
 	spent := transferCount > 0
@@ -319,6 +377,12 @@ func (h *swarmWitnessR3Handle) projectState() (map[string]any, error) {
 		"transfers":         transfers,
 		"claim_call_ids":    callIDs,
 		"transfer_call_ids": transferCallIDs(transfers),
+		// Side-channel for auditors; comparator project_state ignores this key.
+		"observed_identities": map[string]any{
+			"claims":    claims,
+			"transfers": transfers,
+			"note":      "grant_id/task_id/owner_revision/retry_epoch read from durable rows/JSON; not fixture-filled",
+		},
 	}, nil
 }
 
