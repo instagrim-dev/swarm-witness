@@ -1,3 +1,9 @@
+.venv/
+*.egg-info/
+__pycache__/
+third_party/*/target/
+*.pdf
+!report/*.pdf
 .DS_Store
 .env
 .env.*
