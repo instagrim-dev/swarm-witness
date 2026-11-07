@@ -1,0 +1,14 @@
+id: incident_property_graph
+source_ref: swarm-witness://incident-property-graph-v1
+source_version: incident-property-graph-v1
+original_proposition: Support for a local URL-blocking control does not support the conjunction of file-read, execution, credential, and downstream-effect properties, and a correct decision is not a settlement observation.
+operational_interpretation: Evaluate the versioned incident_property_graph on fixed synthetic boundary fixtures against a single-policy-pass baseline, and score the pinned Hugging Face timeline case as unresolved wherever only public narrative is available.
+property: Separation of P_url, P_file_read, P_exec, P_identity, P_effect, and their conjunction P_system.
+scope: Synthetic model-ledger fixtures plus one public-narrative case pinned to the 2026-07-27 Hugging Face technical timeline. Not a detection or prevention claim about that incident, and not raw telemetry.
+quantifier: Each fixture in experiments/incident_properties/fixtures.json and the single postmortem case in experiments/incident_properties/postmortem.yaml.
+success_criterion: Graph false system-supports are 0; baseline false system-supports are at least 1; the URL-pass plus worker-local-read fixture refutes P_system; narrative-only effects stay unresolved; a deny is not counted as proof that an effect was prevented.
+assumptions:
+  - Synthetic settlements come from an in-model effect ledger, not from a live worker.
+  - Public blog text is one narrative provenance class and does not authenticate effects.
+  - Child verdicts use the evidence-set partition from the property-centric formal model.
+  - No exploit payload is executed or stored as a fixture.

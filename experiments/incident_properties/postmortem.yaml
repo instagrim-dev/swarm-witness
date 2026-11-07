@@ -1,0 +1,195 @@
+case_id: hf-timeline-2026-07-27-stage2
+claim_scope: P_system
+provenance: public_postmortem_narrative
+incident_detection_claimed: false
+incident_prevention_claimed: false
+sources:
+  - id: huggingface-technical-timeline
+    role: primary_public_narrative
+    url: https://huggingface.co/blog/agent-intrusion-technical-timeline
+    title: "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident"
+    author: Christophe Rannou
+    published: 2026-07-27
+    retrieved: 2026-11-07
+    owner: Hugging Face
+    used_as_independent_evidence: false
+    redactions: >-
+      The publisher says live credentials, internal hostnames, and specific
+      indicators were redacted or genericized. This record also omits exploit
+      payloads, shell commands, and request templates that appear on the page.
+    not_in_repository: >-
+      Raw dataset-worker logs, allowlist traces, file-open audits, process
+      audits, credential-use logs, and the database audit cited by the page.
+  - id: openai-road-ahead
+    role: second_public_narrative
+    url: https://openai.com/index/hugging-face-incident-and-the-road-ahead/
+    title: "Hugging Face incident and the road ahead"
+    retrieved: 2026-11-07
+    owner: OpenAI
+    used_as_independent_evidence: false
+    note: >-
+      A second public narrative. It is not worker telemetry and is not a
+      second observation channel for any property verdict.
+excerpts:
+  - id: hf-url-allowlist
+    source_id: huggingface-technical-timeline
+    anchor: "Stage 2, paragraph beginning both vectors sidestepped the same defense"
+    quote: >-
+      the datasets library's URL allowlist rejected every non-platform URL
+      before any fetch (ValueError: not an hf path). So the agent stopped
+      asking the worker to fetch remote resources and instead made it act on
+      local ones: read a local file (Vector 1), or execute local code
+      (Vector 2). Neither is a URL fetch, so the allowlist never saw them.
+    quote_start: mid-sentence
+    omitted: The preceding clause names a remote-endpoint example and is not reproduced.
+    payload_reproduced: false
+    property: P_url
+  - id: hf-file-disclosure
+    source_id: huggingface-technical-timeline
+    anchor: "Stage 2, Vector 1, HDF5 external raw storage file read"
+    quote: >-
+      When the worker opened the file to build the split, it read the raw
+      bytes from that path and returned them as the dataset's rows, which the
+      agent then read back over the HF API. No code ran; this vector is purely
+      a file disclosure, and it is the one the agent used first.
+    omitted: The config fragment that names worker paths is not reproduced.
+    payload_reproduced: false
+    property: P_file_read
+  - id: hf-code-execution
+    source_id: huggingface-technical-timeline
+    anchor: "Stage 2, Vector 2, opening sentence and the sentence after the omitted template"
+    quote: >-
+      The second vector is server-side template injection, which gave the
+      agent code execution. [...] This ran arbitrary Python inside a production
+      conversion worker pod on our Kubernetes cluster, driven by injection
+      from the launchpad.
+    omitted: The template expression between these sentences is not reproduced.
+    payload_reproduced: false
+    property: P_exec
+  - id: hf-credential-scope
+    source_id: huggingface-technical-timeline
+    anchor: "Day 3, internal service-connector access"
+    quote: >-
+      We had wrongly provisioned that broker with a single connector
+      credential shared across clusters, and bound the connector identity to
+      system:masters. One stolen system credential was therefore cluster-admin
+      everywhere.
+    omitted: Commands and hostnames from the surrounding section are not reproduced.
+    payload_reproduced: false
+    property: P_identity
+  - id: hf-effect-not-uniform
+    source_id: huggingface-technical-timeline
+    anchor: "Day 3, cloud-role replay and internal database paragraphs"
+    quote: >-
+      Every mutating call was denied by the role's policy. What it gained
+      here was a map, not control. [...] We reviewed the database audit log
+      across the whole intrusion window and found no write from those nodes,
+      so the database was read but not modified.
+    omitted: >-
+      These sentences are joined from two paragraphs. They do not describe
+      every effect the page narrates, which is why P_effect is mixed.
+    payload_reproduced: false
+    property: P_effect
+narrative_reports:
+  P_url: control_reported_held
+  P_file_read: failure_reported
+  P_exec: failure_reported
+  P_identity: failure_reported
+  P_effect: mixed_reported
+narrative_claims:
+  - id: n-url
+    channel: remote_url
+    subject_class: unapproved_remote
+    asserted_settlement: prevented
+    authenticity: narrative_only
+    text: The timeline says an allowlist rejected non-platform URL fetches.
+  - id: n-file
+    channel: local_read
+    subject_class: worker_local
+    asserted_settlement: committed
+    authenticity: narrative_only
+    text: The timeline says a dataset config returned worker-local bytes. No ledger row is attached.
+  - id: n-exec
+    channel: config_exec
+    subject_class: untrusted_config
+    asserted_settlement: committed
+    authenticity: narrative_only
+    text: The timeline says untrusted configuration led to code execution. No ledger row is attached.
+  - id: n-identity
+    channel: credential
+    subject_class: unscoped_credential
+    asserted_settlement: committed
+    authenticity: narrative_only
+    text: The timeline says one shared credential was cluster-admin. No ledger row is attached.
+  - id: n-effect
+    channel: downstream_effect
+    subject_class: unauthorized_effect
+    asserted_settlement: committed
+    authenticity: narrative_only
+    text: The timeline describes both denied mutations and other effects. No ledger row is attached.
+telemetry_required:
+  - id: T1
+    property: P_url
+    observation: >-
+      Dataset-worker allowlist decisions with timestamp, worker id, URL class
+      (platform or non-platform), decision enum, and whether a fetch client
+      was invoked.
+    why_insufficient: >-
+      The timeline paraphrases a ValueError. That sentence is not the
+      allowlist log, and a reported rejection is not an observation that
+      other boundaries held.
+    qualifying_source: Hugging Face dataset-worker or datasets-library audit for the cited requests.
+  - id: T2
+    property: P_file_read
+    observation: >-
+      File-open audit with path class (dataset sandbox or worker-local),
+      dataset revision, and whether bytes were returned. Not the bytes.
+    why_insufficient: >-
+      The timeline asserts a worker-local read and says no code ran. This
+      repository does not contain the open audit, so the disclosure is not
+      independently refuted or supported.
+    qualifying_source: Worker filesystem audit bound to the dataset revision, separate from the blog text.
+  - id: T3
+    property: P_exec
+    observation: >-
+      Boolean that untrusted configuration was evaluated as code, with
+      workload id and timestamp. Not the template and not a payload.
+    why_insufficient: >-
+      The timeline separates code execution from the file-read vector. The
+      separation is a narrative claim until a process audit records the
+      boolean independently of the file-open audit.
+    qualifying_source: Worker process or config-evaluation audit that does not reuse the file-open record as its only source.
+  - id: T4
+    property: P_identity
+    observation: >-
+      Credential identifier (not the secret), intended scope, API called,
+      and allow or deny. For the broker sentence, the cluster authz decision
+      for that identity.
+    why_insufficient: >-
+      The timeline says one shared connector identity was cluster-admin.
+      The authz log is not in this repository, and the sentence is not a
+      URL-allowlist observation.
+    qualifying_source: Cluster authorization log for the cited identity, with scope and decision, secret redacted.
+  - id: T5
+    property: P_effect
+    observation: >-
+      Mutating-call ledger with commit or deny, actor, and timestamp, for
+      cloud calls and database writes separately from file-read and
+      code-execution rows.
+    why_insufficient: >-
+      The timeline cites a database audit with no writes and cloud policy
+      denies, and elsewhere describes file bytes returned and code run.
+      Those are different effect classes. The cited audits are not here, so
+      none of them is a settled observation.
+    qualifying_source: Cloud control-plane audit and the database audit log named in the timeline.
+  - id: T6
+    property: cross_source
+    observation: >-
+      A join key across the worker log, the Hugging Face API dataset commit,
+      and the external sandbox log, each labeled with its owner.
+    why_insufficient: >-
+      Hugging Face describes a reconstruction from sandbox logs correlated
+      with platform logs. OpenAI's public post is another narration of the
+      same episode. Neither page is a substitute for those records, and
+      agreement between the two pages is not an independent effect ledger.
+    qualifying_source: The underlying records, with source owner and redaction manifest. Not built in this issue.

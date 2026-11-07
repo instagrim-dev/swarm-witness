@@ -2,6 +2,9 @@ results:
 - claim_id: causal_swarm
   label: reproduced
   finding_id: causal_swarm-f-property
+- claim_id: incident_property_graph
+  label: reproduced
+  finding_id: incident-property-graph-f-separation
 - claim_id: r1
   label: reproduced
   finding_id: r1-f-primary
