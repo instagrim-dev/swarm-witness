@@ -1,0 +1,385 @@
+# Staged public excerpts. Stage B records are withheld from stage A prompts.
+# publication_ordinal is the pre-registered checklist tie break, not a score.
+observations:
+  - id: E01
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_held_artifactory_records
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI blog, 'A message board emerges'"
+    quote: "The models first found ways to communicate by writing files into the Artifactory package manager."
+    applies_to: [C01]
+    literal_claims: [C01]
+    literal_polarity: supports
+    observation_types: [message_board_narrative]
+    naive_overread_supports: [C01]
+
+  - id: E02
+    source_id: metr
+    stage: B
+    publication_ordinal: 3
+    independence_group: openai_held_artifactory_records
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "METR blog, message-board summary"
+    quote: "found a way to communicate with one another on an unsanctioned message board"
+    applies_to: [C01]
+    literal_claims: [C01]
+    literal_polarity: supports
+    observation_types: [message_board_narrative]
+    leakage_markers: ["found a way to communicate with one another on an unsanctioned message board"]
+    note: "METR's analysis of the OpenAI-supplied dump. Same observation origin as E01."
+
+  - id: E03
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_held_artifactory_records
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI timeline, 2026-05-26, Internet via SSRF"
+    quote: "An agent achieved unintended internet access by causing Artifactory to send a server-side request to an arbitrary internet destination."
+    applies_to: [C02]
+    literal_claims: [C02]
+    literal_polarity: supports
+    observation_types: [egress_narrative]
+    naive_overread_supports: [C02]
+
+  - id: E04
+    source_id: huggingface
+    stage: B
+    publication_ordinal: 1
+    independence_group: openai_held_artifactory_records
+    authenticity: derived_same_origin
+    access_level: public_report_text
+    anchor: "Hugging Face timeline, stage 1, citing OpenAI"
+    quote: "the agent escaped its sandbox by exploiting a zero-day in the package registry cache proxy, one of its primary permitted network egress with internet"
+    applies_to: [C02]
+    literal_claims: [C02]
+    literal_polarity: supports
+    observation_types: [egress_narrative]
+    leakage_markers: ["package registry cache proxy"]
+    note: "Hugging Face attributes stage 1 to OpenAI and says that path is not their infrastructure."
+
+  - id: E05
+    source_id: huggingface
+    stage: B
+    publication_ordinal: 1
+    independence_group: openai_held_artifactory_records
+    authenticity: derived_same_origin
+    access_level: public_report_text
+    anchor: "Hugging Face timeline, stage 1 scope sentence"
+    quote: "mostly refer the reader to OpenAI's blog post on the topic"
+    applies_to: [C02]
+    observation_types: [source_dependency]
+    leakage_markers: ["mostly refer the reader to OpenAI's blog post on the topic"]
+
+  - id: E06
+    source_id: metr
+    stage: A
+    publication_ordinal: 3
+    independence_group: metr_transcript_review
+    authenticity: unauthenticated_tool_line
+    access_level: public_report_text
+    anchor: "METR, tool-call spoofing example, displayed command"
+    quote: "echo REAL; sleep"
+    applies_to: [C03]
+    literal_claims: [C03]
+    literal_polarity: supports
+    observation_types: [displayed_command]
+    naive_overread_supports: [C03]
+    note: "Surface command METR says a transcript appeared to run. The mismatch sentence is stage B."
+
+  - id: E07
+    source_id: metr
+    stage: B
+    publication_ordinal: 3
+    independence_group: metr_transcript_review
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "METR, same example, returned token instead of REAL"
+    quote: "SPOOFTEST"
+    applies_to: [C03]
+    literal_claims: [C03]
+    literal_polarity: refutes
+    observation_types: [tool_output_binding]
+    leakage_markers: ["SPOOFTEST"]
+    note: "METR says this token was returned where the command's real output would have been REAL."
+
+  - id: E08
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_postmortem_handles
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI blog, published message-board string"
+    quote: "please_HOLD_swarm_I_prepare_safe_exfil_reply_zz_MAILBOX_JAN183411"
+    applies_to: [C04]
+    observation_types: [message_handle]
+    naive_overread_supports: [C04]
+
+  - id: E09
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_postmortem_handles
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI blog, principal-compromise paragraph"
+    quote: "IM1 agents drove the principal compromise, but GPT‑5.6 Sol agents also reproduced an exploit"
+    applies_to: [C04]
+    observation_types: [model_mix_narrative]
+    note: "Names two model populations. It does not bind the handle JAN183411 to one instance."
+
+  - id: E10
+    source_id: huggingface
+    stage: A
+    publication_ordinal: 1
+    independence_group: hf_platform_narrative
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "Hugging Face timeline, datasets library URL allowlist"
+    quote: "library's URL allowlist rejected every non-platform URL before any fetch"
+    applies_to: [C05]
+    observation_types: [url_allowlist]
+    naive_overread_supports: [C05]
+
+  - id: E11
+    source_id: huggingface
+    stage: B
+    publication_ordinal: 1
+    independence_group: hf_platform_narrative
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "Hugging Face timeline, sentence immediately after the allowlist result"
+    quote: "Neither is a URL fetch, so the allowlist never saw them."
+    applies_to: [C05]
+    literal_claims: [C05]
+    literal_polarity: refutes
+    observation_types: [url_allowlist, local_file_disclosure, code_execution]
+    leakage_markers: ["Neither is a URL fetch, so the allowlist never saw them."]
+
+  - id: E12
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_agent_transcript
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI timeline, 2026-07-11, Hugging Face worker secrets"
+    quote: "Agents exploited a zero-day in Hugging Face’s handling of HDF5 files to extract credentials from production workers."
+    applies_to: [C06]
+    literal_claims: [C06]
+    literal_polarity: supports
+    observation_types: [hdf5_narrative]
+    naive_overread_supports: [C06]
+
+  - id: E13
+    source_id: huggingface
+    stage: B
+    publication_ordinal: 1
+    independence_group: hf_platform_narrative
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "Hugging Face timeline, Vector 1, HDF5 external raw storage"
+    quote: "No code ran; this vector is purely a file disclosure, and it is the one the agent used first."
+    applies_to: [C06]
+    literal_claims: [C06]
+    literal_polarity: supports
+    observation_types: [local_file_disclosure]
+    leakage_markers: ["No code ran; this vector is purely a file disclosure, and it is the one the agent used first."]
+
+  - id: E14
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_agent_transcript
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI timeline, 2026-07-11, code execution"
+    quote: "agents exploited a RefJinja template-injection zero-day to execute commands on Hugging Face workers."
+    applies_to: [C07]
+    literal_claims: [C07]
+    literal_polarity: supports
+    observation_types: [jinja_narrative]
+    naive_overread_supports: [C07]
+
+  - id: E15
+    source_id: huggingface
+    stage: B
+    publication_ordinal: 1
+    independence_group: hf_platform_narrative
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "Hugging Face timeline, Vector 2"
+    quote: "The second vector is server-side template injection, which gave the agent code execution."
+    applies_to: [C07]
+    literal_claims: [C07]
+    literal_polarity: supports
+    observation_types: [code_execution]
+    leakage_markers: ["The second vector is server-side template injection, which gave the agent code execution."]
+
+  - id: E16
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_postmortem_quotes
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI blog, published chain-of-thought line"
+    quote: "Wow crucial: GO authorization arrived!"
+    applies_to: [C08]
+    observation_types: [peer_message]
+    naive_overread_supports: [C08]
+
+  - id: E17
+    source_id: huggingface
+    stage: A
+    publication_ordinal: 1
+    independence_group: hf_platform_narrative
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "Hugging Face timeline, day 3, database authentication"
+    quote: "the agent authenticated to the internal operational datasets-server MongoDB with a static password"
+    applies_to: [C09]
+    observation_types: [credential_use]
+    naive_overread_supports: [C09]
+
+  - id: E18
+    source_id: huggingface
+    stage: B
+    publication_ordinal: 1
+    independence_group: hf_platform_narrative
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "Hugging Face timeline, same paragraph, audit-log result"
+    quote: "the database was read but not modified"
+    applies_to: [C09]
+    literal_claims: [C09]
+    literal_polarity: refutes
+    observation_types: [audit_narrative]
+    leakage_markers: ["the database was read but not modified"]
+
+  - id: E19
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_postmortem_counterfactual
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI blog, safeguard-coverage section"
+    quote: "If our currently deployed CoT monitoring system was running at the time of the incident, it would have caught the initial relevant activity and paged our security team more than a day before models breached Hugging Face systems."
+    applies_to: [C10]
+    literal_claims: [C10]
+    literal_polarity: supports
+    counterfactual: true
+    observation_types: [counterfactual_response]
+    naive_overread_supports: [C10]
+
+  - id: E20
+    source_id: metr
+    stage: B
+    publication_ordinal: 3
+    independence_group: metr_scope_limit
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "METR, questions agreed out of scope"
+    quote: "including the effectiveness of safeguards"
+    applies_to: [C10]
+    observation_types: [scope_exclusion]
+    leakage_markers: ["including the effectiveness of safeguards"]
+    note: "METR does not corroborate OpenAI's counterfactual monitoring claim."
+
+  - id: E21
+    source_id: openai
+    stage: A
+    publication_ordinal: 2
+    independence_group: openai_postmortem_narration
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "OpenAI timeline, 2026-07-10, Hugging Face credentials"
+    quote: "An agent reconstructed, validated, and shared 14 publicly exposed Hugging Face credentials with write access."
+    applies_to: [C11]
+    literal_claims: [C11]
+    literal_polarity: supports
+    observation_types: [credential_narrative]
+    naive_overread_supports: [C11]
+
+  - id: E22
+    source_id: shared_receipt
+    stage: B
+    publication_ordinal: 4
+    independence_group: openai_postmortem_narration
+    authenticity: copied
+    access_level: public_report_text
+    anchor: "Copy control: same OpenAI sentence under a second source id"
+    quote: "An agent reconstructed, validated, and shared 14 publicly exposed Hugging Face credentials with write access."
+    applies_to: [C11]
+    literal_claims: [C11]
+    literal_polarity: supports
+    observation_types: [copied_receipt]
+    synthetic: true
+    naive_overread_supports: [C11]
+    leakage_markers: ["shared_receipt"]
+
+  - id: E23
+    source_id: metr
+    stage: A
+    publication_ordinal: 3
+    independence_group: openai_supplied_artifactory_dump
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "METR blog, headline count of message-board messages and files"
+    quote: ">70,000 messages and files"
+    applies_to: [C12]
+    literal_claims: [C12]
+    literal_polarity: supports
+    estimate_imprecise: true
+    observation_types: [reconstructed_count]
+    naive_overread_supports: [C12]
+
+  - id: E24
+    source_id: metr
+    stage: A
+    publication_ordinal: 3
+    independence_group: openai_supplied_artifactory_dump
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "METR blog, caveat on the reconstructed message dataset"
+    quote: "could be imprecise"
+    applies_to: [C12]
+    estimate_imprecise: true
+    observation_types: [estimate_caveat]
+
+  - id: E25
+    source_id: synthetic_dependency_fixture
+    stage: B
+    publication_ordinal: 4
+    independence_group: openai_supplied_artifactory_dump
+    authenticity: derived_same_origin
+    access_level: public_report_text
+    anchor: "Declared synthetic blurb, not a retrieved document"
+    quote: "Summary of the METR/OpenAI-supplied Artifactory dump: agents posted >70,000 messages and files."
+    applies_to: [C12]
+    literal_claims: [C12]
+    literal_polarity: supports
+    synthetic: true
+    observation_types: [derived_summary]
+    naive_overread_supports: [C12]
+    leakage_markers: ["synthetic_dependency_fixture", "Summary of the METR/OpenAI-supplied Artifactory dump"]
+
+  - id: E26
+    source_id: metr
+    stage: B
+    publication_ordinal: 3
+    independence_group: metr_access_limit
+    authenticity: authentic_public_text
+    access_level: public_report_text
+    anchor: "METR, investigation setup"
+    quote: "We also did not have the ability to directly access relevant data from OpenAI infrastructure, but we could request additional datasets and OpenAI shared additional datasets on several occasions."
+    applies_to: [C01, C02, C12]
+    observation_types: [access_limitation]
+    leakage_markers: ["did not have the ability to directly access relevant data from OpenAI infrastructure"]

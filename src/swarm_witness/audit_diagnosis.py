@@ -29,6 +29,7 @@ EVALUATION_METHODS = frozenset(
         "native_matched_baseline",
         "synthetic_protocol_conformance",
         "held_out_artifact_audit",
+        "public_postmortem_qualification",
     }
 )
 

@@ -18,6 +18,7 @@ labels without needing the author’s local absolute paths or a full BMO checkou
 | Causal simulator (#10) | `evidence/causal_swarm/`, `artifacts/causal_swarm_v1/` |
 | Expanded R5 v2 (#11) | `evidence/r5_v2/`, `artifacts/r5_v2/` |
 | Formal taxonomy (#12) | `evidence/taxonomy_theory/`, `theory/`, `artifacts/taxonomy_proof_checks.json` |
+| Incident audit v1 (#27) | `evidence/incident_audit_v1/`, `experiments/incident_audit/` |
 | Claims / pins | `claims/`, `artifacts/pins.yaml` |
 | Final report PDF | `report/Swarm_Witness_Final_Submission.pdf` |
 | Final editable report | `report/Swarm_Witness_Final_Submission.docx` |
@@ -50,6 +51,7 @@ python3 experiments/swarm_r5/run.py             # R5 v1
 PYTHONPATH=src python3 experiments/causal_swarm/run.py --output /tmp/causal-swarm-recheck
 PYTHONPATH=src python3 experiments/r5_v2/run.py --output /tmp/r5-v2-recheck
 python3 theory/check_taxonomy.py               # 2,646 finite instances
+PYTHONPATH=src python3 experiments/incident_audit/run.py  # public postmortem audit
 # expect: R5-v1 synthetic conformance; v2 13 cases/26 arms; formal checker passes
 python scripts/check_evidence.py --write-index
 python scripts/check_evidence.py

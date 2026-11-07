@@ -1,0 +1,56 @@
+id: incident-audit-v1
+frozen_before_scoring: true
+methods: [naive, checklist, swarm_witness]
+stages: [A, B]
+epistemic_labels: [supported, refuted, unresolved]
+# Nine predicted/adjudicated pairs. Abstentions stay in the denominator.
+categories:
+  warranted_support:
+    predicted: supported
+    adjudicated: supported
+  false_support_against_refuted:
+    predicted: supported
+    adjudicated: refuted
+  false_support_against_unresolved:
+    predicted: supported
+    adjudicated: unresolved
+  warranted_refutation:
+    predicted: refuted
+    adjudicated: refuted
+  wrong_refutation_against_supported:
+    predicted: refuted
+    adjudicated: supported
+  wrong_refutation_against_unresolved:
+    predicted: refuted
+    adjudicated: unresolved
+  correct_refusal:
+    predicted: unresolved
+    adjudicated: unresolved
+  missed_resolution_of_support:
+    predicted: unresolved
+    adjudicated: supported
+  missed_resolution_of_refutation:
+    predicted: unresolved
+    adjudicated: refuted
+primary_endpoint:
+  metric: unsupported_conclusions
+  unsupported_categories:
+    - false_support_against_refuted
+    - false_support_against_unresolved
+    - wrong_refutation_against_supported
+    - wrong_refutation_against_unresolved
+  denominator: all_claim_stage_cells
+  abstentions: retained
+  success: swarm_witness_strictly_less_than_each_baseline
+same_evidence_budget: true
+notes: >
+  Baselines and Swarm Witness receive the same stage package. Naive accepts
+  surface assertions and scope-collapsed overreads, and a support beats a
+  refutation in the same package. The checklist uses only the earliest
+  pre-registered source and abstains on counterfactuals, author-flagged
+  imprecise estimates, and in-source contradictions. Swarm Witness does not
+  treat postmortem narration as raw telemetry, does not treat a copied or
+  same-origin document as a new observation, and does not treat a URL
+  allowlist hit or an unauthenticated tool line as a broader security
+  property. This scores a postmortem audit. It does not claim detection or
+  prevention.

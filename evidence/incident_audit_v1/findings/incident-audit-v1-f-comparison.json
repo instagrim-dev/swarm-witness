@@ -1,0 +1,21 @@
+{
+  "id": "incident-audit-v1-f-comparison",
+  "claim_id": "incident_claims_v1",
+  "run_ids": [
+    "incident-audit-v1-comparison"
+  ],
+  "proposition": "On the frozen public postmortem corpus, Swarm Witness records strictly fewer unsupported security conclusions than both matched baselines. This is a postmortem qualification, not incident detection or prevention.",
+  "scope": "Twelve public incident propositions at two evidence stages under incident-audit-v1. Raw telemetry listed as unavailable in the corpus manifest is not treated as verified.",
+  "label": "reproduced",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "incident-audit-v1-comparison.observations.primary_endpoint_passed",
+    "incident-audit-v1-comparison.observations.swarm_witness_unsupported",
+    "incident-audit-v1-comparison.observations.naive_unsupported",
+    "incident-audit-v1-comparison.observations.checklist_unsupported",
+    "incident-audit-v1-comparison.observations.cell_count_per_method",
+    "incident-audit-v1-comparison.observations.detection_or_prevention_claimed"
+  ],
+  "conclusion_class": "supported",
+  "evaluation_method": "public_postmortem_qualification"
+}
