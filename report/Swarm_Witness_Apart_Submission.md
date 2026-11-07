@@ -24,12 +24,12 @@ BMO’s transactional first-edit admission with an independent SQLite gate acros
 six synthetic cases; retained observations agree on the tested one-use
 properties under a fail-closed native pin (`classical_baseline_matches`), while
 the legacy decision-model R3 comparison remains unresolved. A fourth protocol
-shows that identical old receipts with unobserved current grant leave valid and
-revoked worlds indistinguishable, so permission claims stay unsupported until a
-discriminating observation is supplied (R4 reproduced). Our contribution is a
-reusable approach to distinguishing reproduced mechanisms, classical
-explanations, incomplete observations, and conclusions evidence cannot justify—
-not a swarm-authorization architecture or a proof of general BMO equivalence.
+makes the audit method’s three-way distinction executable: missing evidence
+(identical old receipts leave valid vs revoked worlds indistinguishable),
+failed enforcement (revoked grant observed but a broken gate still allows),
+and supported conclusions (correct allow/deny once discriminating evidence is
+present) (R4 reproduced). Our contribution is that reusable distinction—not a
+swarm-authorization architecture or a proof of general BMO equivalence.
 
 # 1. Introduction
 
@@ -59,9 +59,10 @@ current grant state.
 2. **New classical reference-monitor comparison** against BMO’s transactional
    first-edit owner (r3-ledger-claim-v1), with a bounded L1 match under
    fail-closed native qualification; legacy decision-model R3 stays unresolved.
-3. **Evidence-sufficiency audit (R4)** that refuses to justify permission when
-   Worlds with identical old receipts differ only in unobserved current grant
-   state, and that upgrades only when a discriminating observation is supplied.
+3. **Three-way conclusion method (R4)** that distinguishes missing evidence,
+   failed enforcement, and genuinely supported conclusions under matched
+   observation rules—refusing success labels when evidence is incomplete or
+   when an exercised gate violates the property.
 4. **Not claimed:** generalization to multi-agent delegation / swarm behavior.
 
 Tracks: **3** (Strengthening Agent Infrastructure) and **4** (Multi-Agent
@@ -125,12 +126,14 @@ to native `ClaimOrdinaryRetainedGrantFirstEditTx` under pin `4b717d7` with
 fail-closed native qualification (manifest, exit 0, adapter identity,
 git-archive pin inventory, bridge hashes, archived log).
 
-**R4 (evidence sufficiency).** Worlds A (grant active) and B (grant revoked)
-share an identical old receipt. Without observing current grant state,
-assessments must remain **unsupported** and identical. Observing current grant
-must separate allow vs deny. An irrelevant observation must not upgrade
-unsupported assessments. Misbound observations are recorded as adversarial
-controls. Protocol: `experiments/evidence_sufficiency/`.
+**R4 (three-way conclusions).** Worlds A (grant active) and B (grant revoked)
+share an identical old receipt. Taxonomy in
+`src/swarm_witness/conclusion_classes.py`: **missing_evidence** → Finding
+`unresolved`; **failed_enforcement** → `contradicted_in_scope`; **supported** →
+`reproduced`. Blind/irrelevant cases must stay missing_evidence. A broken gate
+that allows under an observed revoked grant must be failed_enforcement. Correct
+allow/deny under observed grant is supported. Protocol:
+`experiments/evidence_sufficiency/`.
 
 # 4. Results
 
@@ -208,34 +211,32 @@ not establish general BMO equivalence, multi-agent handoff, concurrency, or
 process-restart correctness. Selected run:
 `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/`.
 
-## 4.5 R4 — Evidence sufficiency (`reproduced`)
+## 4.5 R4 — Three-way conclusions (`reproduced`)
 
-Nine synthetic cases under `r4-evidence-sufficiency-v1`: blind Worlds A/B with
-the same old receipt remain **unsupported** and indistinguishable; an irrelevant
-fact does not upgrade them; observing current grant separates allow (A) from
-deny (B); legitimate allow proceeds when that evidence is present for A;
-misbound observations are flagged as adversarial controls. Finding
-`r4-f-evidence-sufficiency` label **`reproduced`**;
-`all_checks_pass: true`; `unsupported_blind_count: 4`. This is the
-cross-study methodological probe: the kit refuses an unsupported permission
-finding when evidence is insufficient, then revises only after a discriminating
-observation.
+Thirteen synthetic cases under `r4-evidence-sufficiency-v1` exercise all three
+classes: **missing_evidence** (4 blind/irrelevant; Worlds A/B indistinguishable),
+**failed_enforcement** (2 cases: revoked-still-allows and active-still-denies →
+`contradicted_in_scope`), **supported** (7 cases: correct allow/deny plus
+contrasts). The ledger comparator uses the same taxonomy via
+`classify_matched_comparison` (mutual property failure → failed_enforcement, not
+a success label). Cross-study map: `baselines/three_way_conclusion_map.md`.
+Finding `r4-f-evidence-sufficiency` label **`reproduced`**;
+`all_checks_pass: true`; `three_way_classes_exercised: true`.
 
 # 5. Discussion
 
 **Synthesis.** R1 is a reproduced mechanism failure under pin; R2 is a
 reproduced evidence-attribution failure; R3-L1 is an observed classical-baseline
-match on a narrow L1 surface; R4 shows the audit method can withhold a success
-label when Worlds sharing a receipt are still indistinguishable. None alone
+match on a narrow L1 surface; R4 demonstrates the method’s three-way
+discipline (missing evidence vs failed enforcement vs supported). None alone
 establishes safety across a multi-agent population. Original authors of R1/R2
 already reported the core behaviors—their role here is as controlled exemplars
 for the auditing method.
 
 **Implications.** A security mechanism can work as implemented while broader
-claims remain under-supported. Swarm Witness makes that gap testable. Classical
-reference monitors explain some agent-safety results; missing observations
-explain others; the executable audit should prevent either case from being
-overstated.
+claims remain under-supported—or can fail enforcement while still producing
+receipts. Swarm Witness makes both gaps testable and refuses to conflate them
+with supported conclusions.
 
 **Limitations (summary).** ClassicalGate is a decision-model null (not restart
 durability); legacy R3 is incomplete; ledger-claim equality is projection-scoped;
@@ -297,12 +298,12 @@ equivalence, live execution safety, process-restart correctness, concurrency
 behavior, or general BMO equivalence. Legacy decision-model R3 remains
 separately unresolved.
 
-**R4 evidence sufficiency (`reproduced`).** Establishes that, under a synthetic
-two-world protocol, identical old receipts with unobserved current grant leave
-valid and revoked worlds indistinguishable (permission unsupported); observing
-current grant separates allow vs deny; an irrelevant fact does not upgrade
-unsupported assessments. Does **not** establish live BMO behavior, cryptographic
-receipt authenticity, or multi-agent delegation / swarm handoff.
+**R4 three-way conclusions (`reproduced`).** Establishes that the audit method
+can classify synthetic cases into missing_evidence, failed_enforcement, and
+supported, with Finding-label mappings unresolved /
+contradicted_in_scope / reproduced respectively. Does **not** establish live
+BMO behavior, cryptographic receipt authenticity, or multi-agent delegation /
+swarm handoff.
 
 ## Finite experiments and checker scope
 

@@ -8,15 +8,22 @@
   "observations": {
     "role": "negative_control",
     "assessment": "unsupported",
+    "conclusion_class": "missing_evidence",
+    "finding_label": "unresolved",
+    "property_holds": null,
     "decision": null,
+    "required_decision": null,
+    "gate_behavior": "correct",
     "justified_permission_claim": false,
     "ground_truth_grant": "revoked",
     "include_current_grant": false,
     "include_irrelevant": true,
     "observed_grant": null,
-    "reason": "old receipt available but current grant state unobserved; permission claim unsupported (Worlds A and B indistinguishable from this evidence); irrelevant fact 'receipt_print_color=blue' does not discriminate",
+    "reason": "old receipt available but current grant state unobserved; permission claim is missing_evidence (Worlds A and B indistinguishable from this evidence); irrelevant fact 'receipt_print_color=blue' does not discriminate",
     "expected_assessment": "unsupported",
+    "expected_conclusion_class": "missing_evidence",
     "assessment_match": true,
+    "conclusion_match": true,
     "ground_truth_mismatch": false,
     "misbound_detected": null
   }

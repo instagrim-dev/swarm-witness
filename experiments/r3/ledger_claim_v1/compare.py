@@ -28,6 +28,7 @@ from protocol import (  # noqa: E402
     project_state,
     validate_step_observation,
 )
+from swarm_witness.conclusion_classes import classify_matched_comparison  # noqa: E402
 from swarm_witness.schema import validate_finding  # noqa: E402
 
 
@@ -304,6 +305,30 @@ def qualify_native_bmo(
     return True, "native qualification ok"
 
 
+def _ledger_conclusion(
+    *,
+    validity: dict[str, Any],
+    properties: dict[str, Any],
+    agree: dict[str, Any],
+    native_bmo: bool,
+) -> dict[str, Any]:
+    """Map ledger comparator stages onto the three-way conclusion taxonomy."""
+    if not native_bmo or not validity.get("valid") or agree.get("result") == "unresolved":
+        return classify_matched_comparison(
+            evidence_complete=False, arms_agree=None, property_holds=None
+        )
+    arms_agree = agree.get("result") == "matched"
+    both_pass = bool(properties.get("classical")) and all(
+        properties["classical"][cid]["passed"] and properties["bmo"][cid]["passed"]
+        for cid in properties["classical"]
+    )
+    return classify_matched_comparison(
+        evidence_complete=True,
+        arms_agree=arms_agree,
+        property_holds=both_pass if arms_agree else False,
+    )
+
+
 def classify_finding(
     *,
     validity: dict[str, Any],
@@ -312,54 +337,54 @@ def classify_finding(
     run_ids: list[str],
     native_bmo: bool = False,
 ) -> dict[str, Any]:
-    """Map comparator stages onto Finding labels.
+    """Map comparator stages onto Finding labels via three-way conclusions.
 
-    classical_baseline_matches only when native, pairs valid, step-wise
-    agreement matched, AND both arms satisfy every case property.
-    Observed agreement without property success stays unresolved.
-    Offline / unqualified BMO cannot upgrade beyond unresolved.
+    missing_evidence → unresolved; failed_enforcement → contradicted_in_scope;
+    supported → classical_baseline_matches. Agreement without property success
+    is failed_enforcement (not a successful comparison Finding).
     """
-    if not native_bmo:
-        label = "unresolved"
-        proposition = (
-            "Native BMO ClaimOrdinaryRetainedGrantFirstEditTx was not measured "
-            "under fail-closed qualification (missing/invalid manifest, non-zero "
-            "exit, wrong adapter, or non-native observations); ledger-claim "
-            "comparison remains unresolved for the BMO pin"
-        )
-    elif not validity.get("valid") or agree.get("result") == "unresolved":
-        label = "unresolved"
-        proposition = (
-            "Matched ledger-claim comparison incomplete: required paired "
-            "observations missing, corrupt, or input-mismatched"
-        )
-    elif agree.get("result") == "divergent":
-        label = "contradicted_in_scope"
-        proposition = (
-            "Backends disagree on disposition or property-relevant projection "
-            "at one or more r3-ledger-claim-v1 steps"
-        )
-    else:
-        both_pass = bool(properties.get("classical")) and all(
-            properties["classical"][cid]["passed"] and properties["bmo"][cid]["passed"]
-            for cid in properties["classical"]
-        )
-        if both_pass:
-            label = "classical_baseline_matches"
+    classified = _ledger_conclusion(
+        validity=validity,
+        properties=properties,
+        agree=agree,
+        native_bmo=native_bmo,
+    )
+    label = classified["finding_label"]
+    cls = classified["conclusion_class"]
+
+    if cls == "missing_evidence":
+        if not native_bmo:
             proposition = (
-                "Across declared synthetic cases, ClassicalLedgerGate and native "
-                "BMO L1 emitted equal dispositions and property-relevant "
-                "projections at every step and both satisfied the one-use "
-                "ledger-claim trace properties"
+                "Native BMO ClaimOrdinaryRetainedGrantFirstEditTx was not measured "
+                "under fail-closed qualification (missing/invalid manifest, non-zero "
+                "exit, wrong adapter, or non-native observations); ledger-claim "
+                "comparison remains missing_evidence for the BMO pin"
             )
         else:
-            label = "unresolved"
+            proposition = (
+                "Matched ledger-claim comparison incomplete: required paired "
+                "observations missing, corrupt, or input-mismatched "
+                "(missing_evidence)"
+            )
+    elif cls == "failed_enforcement":
+        if agree.get("result") == "divergent":
+            proposition = (
+                "Backends disagree on disposition or property-relevant projection "
+                "at one or more r3-ledger-claim-v1 steps (failed_enforcement)"
+            )
+        else:
             proposition = (
                 "Backends agree on step-wise dispositions/projections, but one or "
-                "both arms fail the claim success criterion; agreement is "
-                "preserved in comparator observations without issuing a "
-                "successful property-comparison Finding"
+                "both arms fail the claim success criterion (failed_enforcement); "
+                "not a successful property-comparison Finding"
             )
+    else:
+        proposition = (
+            "Across declared synthetic cases, ClassicalLedgerGate and native "
+            "BMO L1 emitted equal dispositions and property-relevant "
+            "projections at every step and both satisfied the one-use "
+            "ledger-claim trace properties (supported)"
+        )
 
     finding = {
         "id": "r3-ledger-claim-v1-comparison",
@@ -380,6 +405,7 @@ def classify_finding(
     # Schema requires resolvable refs for non-unresolved labels. Runner may
     # rewrite these after meta observations are finalized.
     validate_finding(finding)
+    finding["conclusion_class"] = cls
     return finding
 
 
@@ -440,6 +466,7 @@ def compare_run(run_dir: Path, cases_path: Path | None = None) -> dict[str, Any]
         "agreement": agree,
         "native_bmo": native_bmo,
         "native_qualification": native_note,
+        "conclusion_class": finding.get("conclusion_class"),
         "finding": finding,
     }
     return summary

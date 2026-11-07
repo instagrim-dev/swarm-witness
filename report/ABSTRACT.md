@@ -12,9 +12,9 @@ BMO’s transactional first-edit admission with an independent SQLite gate acros
 six synthetic cases; retained observations agree on the tested one-use
 properties under a fail-closed native pin (`classical_baseline_matches`), while
 the legacy decision-model R3 comparison remains unresolved. A fourth protocol
-shows that identical old receipts with unobserved current grant leave valid and
-revoked worlds indistinguishable, so permission claims stay unsupported until a
-discriminating observation is supplied (R4 reproduced). Our contribution is a
-reusable approach to distinguishing reproduced mechanisms, classical
-explanations, incomplete observations, and conclusions evidence cannot justify—
-not a swarm-authorization architecture or a proof of general BMO equivalence.
+makes the audit method’s three-way distinction executable: missing evidence
+(identical old receipts leave valid vs revoked worlds indistinguishable),
+failed enforcement (revoked grant observed but a broken gate still allows),
+and supported conclusions (correct allow/deny once discriminating evidence is
+present) (R4 reproduced). Our contribution is that reusable distinction—not a
+swarm-authorization architecture or a proof of general BMO equivalence.

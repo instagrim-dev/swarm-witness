@@ -64,8 +64,9 @@ Derived protocol **r3-ledger-claim-v1** lives under
 native run: `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` (mirrored
 at `evidence/r3_ledger_claim_v1/`). Legacy decision-model R3 stays `unresolved`.
 
-**R4** (`experiments/evidence_sufficiency/`) is the methodological probe: identical
-old receipts with unobserved current grant leave Worlds A/B indistinguishable.
+**R4** (`experiments/evidence_sufficiency/`) is the methodological probe: three-way
+conclusions (`missing_evidence` / `failed_enforcement` / `supported`) via
+`conclusion_classes.py`.
 
 Judge access / portable bundle: [`evidence/ACCESS.md`](evidence/ACCESS.md),
 `bash scripts/pack_review_bundle.sh`.

@@ -202,10 +202,11 @@ def test_equal_but_wrong_preserves_agreement_without_success_finding():
         run_ids=["r1"],
         native_bmo=True,
     )
-    # Agreement is preserved in the comparator, but a successful property-
-    # comparison Finding is not issued when either arm fails the claim.
-    assert finding["label"] == "unresolved"
-    assert "fail" in finding["proposition"].lower() or "not" in finding["proposition"].lower()
+    # Agreement is preserved in comparator observations, but complete evidence
+    # with failed properties is failed_enforcement — not a success Finding.
+    assert finding["label"] == "contradicted_in_scope"
+    assert finding.get("conclusion_class") == "failed_enforcement"
+    assert "fail" in finding["proposition"].lower()
 
 
 def test_agreement_compares_every_step_not_only_final_state():

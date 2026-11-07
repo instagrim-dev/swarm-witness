@@ -8,15 +8,22 @@
   "observations": {
     "role": "adversarial_misbind",
     "assessment": "permission_refuted",
+    "conclusion_class": "supported",
+    "finding_label": "reproduced",
+    "property_holds": true,
     "decision": "deny",
+    "required_decision": "deny",
+    "gate_behavior": "correct",
     "justified_permission_claim": false,
     "ground_truth_grant": "active",
     "include_current_grant": true,
     "include_irrelevant": false,
     "observed_grant": "revoked",
-    "reason": "current grant observed revoked; permission claim refuted",
+    "reason": "current grant observed revoked; correct deny \u2014 supported (enforcement held; permission claim refuted)",
     "expected_assessment": "permission_refuted",
+    "expected_conclusion_class": "supported",
     "assessment_match": true,
+    "conclusion_match": true,
     "ground_truth_mismatch": true,
     "misbound_detected": true
   }

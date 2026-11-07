@@ -2,26 +2,30 @@ id: r4
 source_ref: swarm-witness://evidence-sufficiency/worlds-ab
 source_version: "swarm-witness-r4-v1"
 original_proposition: >
-  An old receipt alone does not justify current permission when current grant
-  state is unobserved; Worlds that differ only in hidden grant validity are
-  indistinguishable from that evidence.
+  An audit method must distinguish missing evidence, failed enforcement, and
+  genuinely supported conclusions: an old receipt alone does not justify
+  current permission; a broken gate that allows under a revoked grant is
+  failed enforcement; correct allow/deny under complete evidence is supported.
 operational_interpretation: >
   Under protocol r4-evidence-sufficiency-v1, Worlds A (grant active) and B
-  (grant revoked) share an identical old receipt. Without observing current
-  grant state, assessments must remain unsupported and identical. Observing
-  current grant must separate allow vs deny. An irrelevant observation must
-  not upgrade unsupported assessments. Legitimate allow proceeds when the
-  discriminating evidence is present for World A.
-property: evidence sufficiency for current-permission claims under shared receipts
+  (grant revoked) share an identical old receipt. Blind and irrelevant-control
+  cases must classify as missing_evidence (Finding unresolved). A broken gate
+  that allows when revoked grant is observed must classify as
+  failed_enforcement (Finding contradicted_in_scope). Correct gate decisions
+  under observed grant state must classify as supported (Finding reproduced
+  for the method claim). The three classes are mutually exclusive per evaluation.
+property: three-way conclusion discipline for current-permission claims
 scope: >
   Synthetic two-world audit protocol in Swarm Witness; not live BMO, not
   multi-agent delegation, not cryptographic receipt authenticity.
 quantifier: for each declared case in experiments/evidence_sufficiency
 success_criterion: >
-  evaluate_method_success passes: blind A/B unsupported and indistinguishable;
-  discriminator separates worlds; irrelevant control stays unsupported; valid
-  control allows under observed active grant.
+  evaluate_method_success passes with all three conclusion classes exercised;
+  blind A/B missing_evidence and indistinguishable; broken revoked-allow is
+  failed_enforcement; correct gates are supported; irrelevant control stays
+  missing_evidence.
 assumptions:
-  - Shared old receipt is authentic but not current authority
-  - Current grant state is the declared discriminating observation
-  - Irrelevant print-color fact is non-discriminating by construction
+  - "Shared old receipt is authentic but not current authority"
+  - "Current grant state is the declared discriminating observation"
+  - "Classical null maps active to allow and revoked to deny"
+  - "Irrelevant print-color fact is non-discriminating by construction"
