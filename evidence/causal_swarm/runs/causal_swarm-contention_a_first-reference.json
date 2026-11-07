@@ -1,0 +1,28 @@
+{
+  "id": "causal_swarm-contention_a_first-reference",
+  "claim_id": "causal_swarm",
+  "protocol_id": "causal-swarm-v1",
+  "case_id": "contention_a_first",
+  "source_pin": "causal-swarm-v1",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "contention_a_first",
+    "dimension": "contention",
+    "policy": "reference",
+    "expected": {
+      "valid_effects": 1,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0
+    },
+    "observed": {
+      "valid_effects": 1,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0,
+      "violation_events": [],
+      "incorrect_decision_events": [],
+      "causal_events": 6
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/causal_swarm_v1/contention_a_first.reference.json"
+  }
+}

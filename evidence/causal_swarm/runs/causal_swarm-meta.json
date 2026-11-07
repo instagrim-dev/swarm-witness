@@ -1,0 +1,17 @@
+{
+  "id": "causal_swarm-meta",
+  "claim_id": "causal_swarm",
+  "protocol_id": "causal-swarm-v1",
+  "case_id": "method_score",
+  "source_pin": "causal-swarm-v1",
+  "execution_status": "completed",
+  "observations": {
+    "passed": true,
+    "scenario_count": 8,
+    "arm_count": 16,
+    "dimension_count": 6,
+    "paired_worlds_local_indistinguishable": true,
+    "irrelevant_control_unchanged": true,
+    "manifest_sha256": "085cbd980fbcc4eee82e96320d2b7ad6c6f82170ae5e28dd307efe5ff5c05126"
+  }
+}

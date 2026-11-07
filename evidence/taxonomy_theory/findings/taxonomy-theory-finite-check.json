@@ -1,0 +1,17 @@
+{
+  "id": "taxonomy-theory-finite-check",
+  "claim_id": "taxonomy_theory",
+  "run_ids": [
+    "taxonomy-theory-meta"
+  ],
+  "label": "reproduced",
+  "basis": "computed",
+  "evaluation_method": "independent_finite_model_check",
+  "proposition": "The independent four-world finite checker found no violations of the T1\u2013T5 conditional evidence soundness laws; general proofs use explicit verified-observation premises",
+  "scope": "4-world finite model with general mathematical proofs conditional on authenticated observation semantics; not a proof of deployed agent policy or evidence authenticity",
+  "supporting_observation_refs": [
+    "taxonomy-theory-meta.observations.passed",
+    "taxonomy-theory-meta.observations.worlds",
+    "taxonomy-theory-meta.observations.checks"
+  ]
+}

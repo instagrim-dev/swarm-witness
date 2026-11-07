@@ -1,4 +1,7 @@
 results:
+- claim_id: causal_swarm
+  label: reproduced
+  finding_id: causal_swarm-f-property
 - claim_id: r1
   label: reproduced
   finding_id: r1-f-primary
@@ -17,3 +20,9 @@ results:
 - claim_id: r5
   label: reproduced
   finding_id: r5-f-swarm-audit
+- claim_id: r5_v2
+  label: reproduced
+  finding_id: r5_v2-f-property
+- claim_id: taxonomy_theory
+  label: reproduced
+  finding_id: taxonomy-theory-finite-check

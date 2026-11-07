@@ -1,0 +1,13 @@
+id: r5_v2
+source_ref: swarm-witness://r5-v2-causal-matrix
+source_version: r5-v2-causal-matrix
+original_proposition: A versioned fixed-corpus extension of R5 can distinguish observable authorization errors across a broader set of scope, delegation, receipt, revocation and delivery conditions.
+operational_interpretation: Execute both policy arms on thirteen fixed independently stored scenario manifests and evaluate resulting event/effect traces with the separate oracle.
+property: Cross-case discrimination of current permission, incorrect decisions and committed effects.
+scope: Thirteen deterministic synthetic causal interleaving schedules across nine orthogonal tags, not concurrent network workers.
+quantifier: Every declared scenario and both policy arms in experiments/r5_v2/cases.json.
+success_criterion: All arm outcomes match manifest-declared expected counts; reference arm has no unauthorized effects; mutant arm exhibits detected violations; retain old R5 v1 unchanged.
+assumptions:
+  - Fixed scenario manifest is inspected separately from the policy implementation.
+  - Simulated authoritative ledger implements declared one-use semantics.
+  - Expected counts are controls rather than frequency estimates.

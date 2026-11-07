@@ -1,0 +1,32 @@
+{
+  "id": "causal_swarm-revoked_irrelevant_extra-broken_local",
+  "claim_id": "causal_swarm",
+  "protocol_id": "causal-swarm-v1",
+  "case_id": "revoked_irrelevant_extra",
+  "source_pin": "causal-swarm-v1",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "revoked_irrelevant_extra",
+    "dimension": "negative_control",
+    "policy": "broken_local",
+    "expected": {
+      "valid_effects": 0,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1
+    },
+    "observed": {
+      "valid_effects": 0,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1,
+      "violation_events": [
+        "e7: unauthorized committed effect"
+      ],
+      "incorrect_decision_events": [
+        "e7"
+      ],
+      "causal_events": 7
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/causal_swarm_v1/revoked_irrelevant_extra.broken_local.json"
+  }
+}

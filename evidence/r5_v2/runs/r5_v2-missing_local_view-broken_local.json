@@ -1,0 +1,30 @@
+{
+  "id": "r5_v2-missing_local_view-broken_local",
+  "claim_id": "r5_v2",
+  "protocol_id": "r5-v2-causal-matrix",
+  "case_id": "missing_local_view",
+  "source_pin": "r5-v2-causal-matrix",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "missing_local_view",
+    "dimension": "observation_coverage",
+    "policy": "broken_local",
+    "expected": {
+      "valid_effects": 0,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 1
+    },
+    "observed": {
+      "valid_effects": 0,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 1,
+      "violation_events": [],
+      "incorrect_decision_events": [
+        "e3"
+      ],
+      "causal_events": 3
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/r5_v2/missing_local_view.broken_local.json"
+  }
+}

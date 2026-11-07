@@ -1,0 +1,341 @@
+{
+  "protocol": "causal-swarm-v1",
+  "scenario_count": 8,
+  "arm_count": 16,
+  "dimension_count": 6,
+  "passed": true,
+  "failures": [],
+  "paired_worlds_local_indistinguishable": true,
+  "irrelevant_control_unchanged": true,
+  "manifest_sha256": "085cbd980fbcc4eee82e96320d2b7ad6c6f82170ae5e28dd307efe5ff5c05126",
+  "results": [
+    {
+      "case_id": "contention_a_first",
+      "dimension": "contention",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contention_a_first",
+      "dimension": "contention",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1,
+        "violation_events": [
+          "e6: unauthorized committed effect"
+        ],
+        "incorrect_decision_events": [
+          "e6"
+        ],
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contention_b_first",
+      "dimension": "contention",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contention_b_first",
+      "dimension": "contention",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1,
+        "violation_events": [
+          "e6: unauthorized committed effect"
+        ],
+        "incorrect_decision_events": [
+          "e6"
+        ],
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "revoked_stale_view",
+      "dimension": "revocation_freshness",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 0,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 0,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "revoked_stale_view",
+      "dimension": "revocation_freshness",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 0,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1
+      },
+      "observed": {
+        "valid_effects": 0,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1,
+        "violation_events": [
+          "e6: unauthorized committed effect"
+        ],
+        "incorrect_decision_events": [
+          "e6"
+        ],
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "active_same_local_view",
+      "dimension": "indistinguishable_worlds",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 5
+      },
+      "passed": true
+    },
+    {
+      "case_id": "active_same_local_view",
+      "dimension": "indistinguishable_worlds",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 5
+      },
+      "passed": true
+    },
+    {
+      "case_id": "revoked_same_local_view",
+      "dimension": "indistinguishable_worlds",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 0,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 0,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "revoked_same_local_view",
+      "dimension": "indistinguishable_worlds",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 0,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1
+      },
+      "observed": {
+        "valid_effects": 0,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1,
+        "violation_events": [
+          "e6: unauthorized committed effect"
+        ],
+        "incorrect_decision_events": [
+          "e6"
+        ],
+        "causal_events": 6
+      },
+      "passed": true
+    },
+    {
+      "case_id": "revoked_irrelevant_extra",
+      "dimension": "negative_control",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 0,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 0,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 7
+      },
+      "passed": true
+    },
+    {
+      "case_id": "revoked_irrelevant_extra",
+      "dimension": "negative_control",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 0,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1
+      },
+      "observed": {
+        "valid_effects": 0,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1,
+        "violation_events": [
+          "e7: unauthorized committed effect"
+        ],
+        "incorrect_decision_events": [
+          "e7"
+        ],
+        "causal_events": 7
+      },
+      "passed": true
+    },
+    {
+      "case_id": "delegation_a_b_c",
+      "dimension": "delegation",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 5
+      },
+      "passed": true
+    },
+    {
+      "case_id": "delegation_a_b_c",
+      "dimension": "delegation",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 5
+      },
+      "passed": true
+    },
+    {
+      "case_id": "foreign_receipt_replay",
+      "dimension": "receipt_provenance",
+      "policy": "reference",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 0,
+        "incorrect_decisions": 0,
+        "violation_events": [],
+        "incorrect_decision_events": [],
+        "causal_events": 7
+      },
+      "passed": true
+    },
+    {
+      "case_id": "foreign_receipt_replay",
+      "dimension": "receipt_provenance",
+      "policy": "broken_local",
+      "expected": {
+        "valid_effects": 1,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1
+      },
+      "observed": {
+        "valid_effects": 1,
+        "unauthorized_effects": 1,
+        "incorrect_decisions": 1,
+        "violation_events": [
+          "e7: unauthorized committed effect"
+        ],
+        "incorrect_decision_events": [
+          "e7"
+        ],
+        "causal_events": 7
+      },
+      "passed": true
+    }
+  ]
+}

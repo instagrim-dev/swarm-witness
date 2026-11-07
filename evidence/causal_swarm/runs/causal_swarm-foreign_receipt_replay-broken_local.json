@@ -1,0 +1,32 @@
+{
+  "id": "causal_swarm-foreign_receipt_replay-broken_local",
+  "claim_id": "causal_swarm",
+  "protocol_id": "causal-swarm-v1",
+  "case_id": "foreign_receipt_replay",
+  "source_pin": "causal-swarm-v1",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "foreign_receipt_replay",
+    "dimension": "receipt_provenance",
+    "policy": "broken_local",
+    "expected": {
+      "valid_effects": 1,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1
+    },
+    "observed": {
+      "valid_effects": 1,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1,
+      "violation_events": [
+        "e7: unauthorized committed effect"
+      ],
+      "incorrect_decision_events": [
+        "e7"
+      ],
+      "causal_events": 7
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/causal_swarm_v1/foreign_receipt_replay.broken_local.json"
+  }
+}

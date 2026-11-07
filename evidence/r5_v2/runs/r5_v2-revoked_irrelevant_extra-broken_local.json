@@ -1,0 +1,32 @@
+{
+  "id": "r5_v2-revoked_irrelevant_extra-broken_local",
+  "claim_id": "r5_v2",
+  "protocol_id": "r5-v2-causal-matrix",
+  "case_id": "revoked_irrelevant_extra",
+  "source_pin": "r5-v2-causal-matrix",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "revoked_irrelevant_extra",
+    "dimension": "negative_control",
+    "policy": "broken_local",
+    "expected": {
+      "valid_effects": 0,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1
+    },
+    "observed": {
+      "valid_effects": 0,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1,
+      "violation_events": [
+        "e7: unauthorized committed effect"
+      ],
+      "incorrect_decision_events": [
+        "e7"
+      ],
+      "causal_events": 7
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/r5_v2/revoked_irrelevant_extra.broken_local.json"
+  }
+}

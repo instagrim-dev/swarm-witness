@@ -1,0 +1,28 @@
+{
+  "id": "causal_swarm-active_same_local_view-reference",
+  "claim_id": "causal_swarm",
+  "protocol_id": "causal-swarm-v1",
+  "case_id": "active_same_local_view",
+  "source_pin": "causal-swarm-v1",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "active_same_local_view",
+    "dimension": "indistinguishable_worlds",
+    "policy": "reference",
+    "expected": {
+      "valid_effects": 1,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0
+    },
+    "observed": {
+      "valid_effects": 1,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0,
+      "violation_events": [],
+      "incorrect_decision_events": [],
+      "causal_events": 5
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/causal_swarm_v1/active_same_local_view.reference.json"
+  }
+}

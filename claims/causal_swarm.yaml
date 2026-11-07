@@ -1,0 +1,13 @@
+id: causal_swarm
+source_ref: swarm-witness://causal-swarm-v1
+source_version: causal-swarm-v1
+original_proposition: A bounded event interleaving simulator with separate local views and an authoritative effect ledger can distinguish stale-authorization violations from correct one-use grants.
+operational_interpretation: For eight declared synthetic schedules, evaluate both authoritative reference and deliberately faulty local-evidence policies with an independent trace oracle.
+property: Current scoped grant authority at the effect boundary.
+scope: Deterministic synthetic event schedules with principals A/B/C; no live agents or concurrency runtime.
+quantifier: Each declared scenario and both policy arms in experiments/causal_swarm/scenarios.json.
+success_criterion: Every retained per-case observation matches fixed expected counts; paired local views are indistinguishable and irrelevant facts do not upgrade conclusions.
+assumptions:
+  - Authority and effects are recorded in a separate modeled ledger.
+  - Policy arms receive the same event schedule.
+  - The independent oracle reconstructs effects from the modeled ledger.

@@ -1,0 +1,32 @@
+{
+  "id": "causal_swarm-contention_a_first-broken_local",
+  "claim_id": "causal_swarm",
+  "protocol_id": "causal-swarm-v1",
+  "case_id": "contention_a_first",
+  "source_pin": "causal-swarm-v1",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "contention_a_first",
+    "dimension": "contention",
+    "policy": "broken_local",
+    "expected": {
+      "valid_effects": 1,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1
+    },
+    "observed": {
+      "valid_effects": 1,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1,
+      "violation_events": [
+        "e6: unauthorized committed effect"
+      ],
+      "incorrect_decision_events": [
+        "e6"
+      ],
+      "causal_events": 6
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/causal_swarm_v1/contention_a_first.broken_local.json"
+  }
+}

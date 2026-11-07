@@ -1,0 +1,32 @@
+{
+  "id": "r5_v2-delayed_stale_delivery-broken_local",
+  "claim_id": "r5_v2",
+  "protocol_id": "r5-v2-causal-matrix",
+  "case_id": "delayed_stale_delivery",
+  "source_pin": "r5-v2-causal-matrix",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "delayed_stale_delivery",
+    "dimension": "transport_order",
+    "policy": "broken_local",
+    "expected": {
+      "valid_effects": 0,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1
+    },
+    "observed": {
+      "valid_effects": 0,
+      "unauthorized_effects": 1,
+      "incorrect_decisions": 1,
+      "violation_events": [
+        "e6: unauthorized committed effect"
+      ],
+      "incorrect_decision_events": [
+        "e6"
+      ],
+      "causal_events": 6
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/r5_v2/delayed_stale_delivery.broken_local.json"
+  }
+}

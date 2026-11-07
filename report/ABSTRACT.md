@@ -1,16 +1,1 @@
-When agent-safety controls produce apparently valid evidence, what additional
-observations, assumptions, and comparisons are required before we can justify
-claims about their behavior? We introduce Swarm Witness—an executable
-evidence-auditing method for agent authorization claims—built around
-source-pinned experiments, conventional reference monitors, and fail-closed
-findings. Classical authorization is the null hypothesis. We confirm two prior
-safety findings (R1 pinned SoundGate re-execution; R2 published-harness
-confirmation at a later stress revision), report a bounded native BMO ledger
-match (R3-L1) beside an incomplete decision-model comparison (R3-D unresolved),
-and exercise a three-way evidence classifier on synthetic and held-out artifacts
-(R4/R5). Findings separate conclusion from evaluation method. The method also
-separates comparison divergence from enforcement failure, and records evidence /
-decision / effect diagnoses so misbound observations and wrong decisions
-prevented at the effect boundary are not conflated. Primary track: strengthening agent infrastructure (Track 3); synthetic
-multi-principal cases illustrate a Track 4 application surface, not live swarm
-oversight or unbounded population safety.
+Agent-safety systems generate receipts, decisions, traces and recovery records, yet a successful test does not automatically justify the security claim made about it. We introduce **Swarm Witness**, an executable method for qualifying authorization and evidence claims against pinned artifacts, conventional controls and explicitly verified observations. The method combines two independent reproductions or confirmations of prior studies, a native BMO versus SQLite reference-monitor comparison, a three-way evidence-conclusion evaluator, and an independently checked finite-world semantics. We extend the evaluation to deterministic multi-principal interleavings with separately reconstructed effect observations. Across six native BMO ledger cases, both arms satisfy the declared one-use properties. In 13 fixed multi-principal scenarios (26 policy runs), the independent trace oracle detects **nine unauthorized effects** under a deliberately faulty local-evidence policy and **zero** under the authoritative reference monitor. Paired worlds show why identical cached receipts cannot establish current permission; independently delivered authority changes the warranted decision. The result is a practical, reproducible distinction between **missing evidence, incorrect decisions, committed effects and supported findings**, rather than another agent permission mechanism. The package provides executable counterexamples, provenance-bound findings and a foundation for rigorous agent delegation audits.

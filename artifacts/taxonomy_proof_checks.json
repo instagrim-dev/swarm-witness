@@ -1,0 +1,25 @@
+{
+  "theory": "bounded-epistemic-evidence-sets-v1",
+  "worlds": 4,
+  "predicate_assignments": 16,
+  "nonempty_evidence_sets": 15,
+  "checks": {
+    "nonvacuity": 256,
+    "support_soundness": 108,
+    "refutation_soundness": 108,
+    "indistinguishability": 110,
+    "irrelevance": 768,
+    "verified_refinement_persistence": 1040,
+    "unverified_observation_cannot_support": 256
+  },
+  "violations": [],
+  "passed": true,
+  "countermodel": {
+    "description": "An equality comparison can be refuted while two implementations separately satisfy their security properties; disagreement is not enforcement failure.",
+    "property_kind": "comparison_equality",
+    "comparison_equal": false,
+    "left_security_property_holds": true,
+    "right_security_property_holds": true,
+    "valid_enforcement_failure_attribution": false
+  }
+}

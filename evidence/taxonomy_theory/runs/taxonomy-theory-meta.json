@@ -1,0 +1,23 @@
+{
+  "id": "taxonomy-theory-meta",
+  "claim_id": "taxonomy_theory",
+  "protocol_id": "bounded-epistemic-evidence-sets-v1",
+  "case_id": "finite_exhaustion",
+  "source_pin": "formal-evidence-v1",
+  "execution_status": "completed",
+  "observations": {
+    "worlds": 4,
+    "predicate_assignments": 16,
+    "nonempty_evidence_sets": 15,
+    "checks": {
+      "nonvacuity": 256,
+      "support_soundness": 108,
+      "refutation_soundness": 108,
+      "indistinguishability": 110,
+      "irrelevance": 768,
+      "verified_refinement_persistence": 1040,
+      "unverified_observation_cannot_support": 256
+    },
+    "passed": true
+  }
+}

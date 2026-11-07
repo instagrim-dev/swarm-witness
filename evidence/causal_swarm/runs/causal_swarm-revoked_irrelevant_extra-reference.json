@@ -1,0 +1,28 @@
+{
+  "id": "causal_swarm-revoked_irrelevant_extra-reference",
+  "claim_id": "causal_swarm",
+  "protocol_id": "causal-swarm-v1",
+  "case_id": "revoked_irrelevant_extra",
+  "source_pin": "causal-swarm-v1",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "revoked_irrelevant_extra",
+    "dimension": "negative_control",
+    "policy": "reference",
+    "expected": {
+      "valid_effects": 0,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0
+    },
+    "observed": {
+      "valid_effects": 0,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0,
+      "violation_events": [],
+      "incorrect_decision_events": [],
+      "causal_events": 7
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/causal_swarm_v1/revoked_irrelevant_extra.reference.json"
+  }
+}

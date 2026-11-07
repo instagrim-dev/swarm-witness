@@ -1,0 +1,28 @@
+{
+  "id": "r5_v2-contention_b_first-reference",
+  "claim_id": "r5_v2",
+  "protocol_id": "r5-v2-causal-matrix",
+  "case_id": "contention_b_first",
+  "source_pin": "r5-v2-causal-matrix",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "contention_b_first",
+    "dimension": "contention",
+    "policy": "reference",
+    "expected": {
+      "valid_effects": 1,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0
+    },
+    "observed": {
+      "valid_effects": 1,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0,
+      "violation_events": [],
+      "incorrect_decision_events": [],
+      "causal_events": 6
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/r5_v2/contention_b_first.reference.json"
+  }
+}

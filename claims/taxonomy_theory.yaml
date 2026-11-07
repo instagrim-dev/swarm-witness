@@ -1,0 +1,13 @@
+id: taxonomy_theory
+source_ref: swarm-witness://theory/evidence-sets-v1
+source_version: formal-evidence-v1
+original_proposition: Under verified observation compatibility, nonempty possible-world sets license sound support and refutation while preserving indistinguishability and valid refinement laws.
+operational_interpretation: Prove T1–T5 set-theoretically and exhaustively check four-world Boolean-property and evidence-set instances without calling the production classifier.
+property: Conditional soundness of evidence-qualified proposition judgment.
+scope: Abstract possible-world semantics plus exhaustive finite checks over four worlds; not a proof that real-world observations are authentic.
+quantifier: All Boolean property masks, compatible-world masks, actual compatible worlds and valid subset refinements in the 4-world model.
+success_criterion: All finite checks pass; proofs and countermodels show comparison disagreement is not necessarily enforcement failure.
+assumptions:
+  - Verified observations have a compatible-world set containing the actual world.
+  - Compatible-world set must be nonempty to support or refute.
+  - Refinements are verified and do not exclude the actual world.

@@ -1,0 +1,7 @@
+claim_id: taxonomy_theory
+label: reproduced
+authoritative: finding
+finding_path: findings/taxonomy-theory-finite-check.json
+metrics:
+  worlds: 4
+  passed: true

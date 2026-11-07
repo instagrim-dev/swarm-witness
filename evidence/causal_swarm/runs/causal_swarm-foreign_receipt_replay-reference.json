@@ -1,0 +1,28 @@
+{
+  "id": "causal_swarm-foreign_receipt_replay-reference",
+  "claim_id": "causal_swarm",
+  "protocol_id": "causal-swarm-v1",
+  "case_id": "foreign_receipt_replay",
+  "source_pin": "causal-swarm-v1",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "foreign_receipt_replay",
+    "dimension": "receipt_provenance",
+    "policy": "reference",
+    "expected": {
+      "valid_effects": 1,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0
+    },
+    "observed": {
+      "valid_effects": 1,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0,
+      "violation_events": [],
+      "incorrect_decision_events": [],
+      "causal_events": 7
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/causal_swarm_v1/foreign_receipt_replay.reference.json"
+  }
+}

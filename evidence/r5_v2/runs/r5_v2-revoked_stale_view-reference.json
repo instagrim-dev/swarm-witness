@@ -1,0 +1,28 @@
+{
+  "id": "r5_v2-revoked_stale_view-reference",
+  "claim_id": "r5_v2",
+  "protocol_id": "r5-v2-causal-matrix",
+  "case_id": "revoked_stale_view",
+  "source_pin": "r5-v2-causal-matrix",
+  "execution_status": "completed",
+  "observations": {
+    "scenario_id": "revoked_stale_view",
+    "dimension": "revocation_freshness",
+    "policy": "reference",
+    "expected": {
+      "valid_effects": 0,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0
+    },
+    "observed": {
+      "valid_effects": 0,
+      "unauthorized_effects": 0,
+      "incorrect_decisions": 0,
+      "violation_events": [],
+      "incorrect_decision_events": [],
+      "causal_events": 6
+    },
+    "case_passed": true,
+    "trace_file": "artifacts/r5_v2/revoked_stale_view.reference.json"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "r5_v2-f-property",
+  "claim_id": "r5_v2",
+  "run_ids": [
+    "r5_v2-contention_a_first-reference",
+    "r5_v2-contention_a_first-broken_local",
+    "r5_v2-contention_b_first-reference",
+    "r5_v2-contention_b_first-broken_local",
+    "r5_v2-revoked_stale_view-reference",
+    "r5_v2-revoked_stale_view-broken_local",
+    "r5_v2-active_same_local_view-reference",
+    "r5_v2-active_same_local_view-broken_local",
+    "r5_v2-revoked_same_local_view-reference",
+    "r5_v2-revoked_same_local_view-broken_local",
+    "r5_v2-revoked_irrelevant_extra-reference",
+    "r5_v2-revoked_irrelevant_extra-broken_local",
+    "r5_v2-delegation_a_b_c-reference",
+    "r5_v2-delegation_a_b_c-broken_local",
+    "r5_v2-missing_delegate_c-reference",
+    "r5_v2-missing_delegate_c-broken_local",
+    "r5_v2-foreign_receipt_replay-reference",
+    "r5_v2-foreign_receipt_replay-broken_local",
+    "r5_v2-wrong_task_scope-reference",
+    "r5_v2-wrong_task_scope-broken_local",
+    "r5_v2-wrong_epoch_scope-reference",
+    "r5_v2-wrong_epoch_scope-broken_local",
+    "r5_v2-missing_local_view-reference",
+    "r5_v2-missing_local_view-broken_local",
+    "r5_v2-delayed_stale_delivery-reference",
+    "r5_v2-delayed_stale_delivery-broken_local",
+    "r5_v2-meta"
+  ],
+  "proposition": "For 13 fixed r5-v2-causal-matrix schedules, reference and faulty-local traces were evaluated against an independently reconstructed model effect ledger; each result matched its externally-declared expected counts",
+  "scope": "Synthetic deterministic causal interleavings; 9 enumerated dimensions, 26 policy arms; not live distributed agents",
+  "label": "reproduced",
+  "basis": "computed",
+  "evaluation_method": "synthetic_model_conformance",
+  "supporting_observation_refs": [
+    "r5_v2-meta.observations.passed",
+    "r5_v2-meta.observations.scenario_count",
+    "r5_v2-meta.observations.arm_count"
+  ]
+}

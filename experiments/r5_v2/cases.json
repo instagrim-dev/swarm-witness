@@ -1,0 +1,1039 @@
+{
+  "protocol": "r5-v2-causal-matrix",
+  "evidence_method": "externally_specified_scenario_manifest",
+  "cases": [
+    {
+      "id": "contention_a_first",
+      "dimension": "contention",
+      "description": "Sequential interleaving A then B on one-use grant",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "A",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "claim",
+          "actor": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "a1",
+          "parents": [
+            "e4"
+          ]
+        },
+        {
+          "id": "e6",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e5"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 1,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "contention_b_first",
+      "dimension": "contention",
+      "description": "Same claim set, B then A",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "A",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e4"
+          ]
+        },
+        {
+          "id": "e6",
+          "op": "claim",
+          "actor": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "a1",
+          "parents": [
+            "e5"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 1,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "revoked_stale_view",
+      "dimension": "revocation_freshness",
+      "description": "B holds pre-revocation view while authority revokes",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "capture",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "capture_id": "e3",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "revoke",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e4"
+          ]
+        },
+        {
+          "id": "e6",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e5"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 0,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "active_same_local_view",
+      "dimension": "indistinguishable_worlds",
+      "description": "B has active view and authority remains active",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "capture",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "capture_id": "e3",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e4"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        }
+      }
+    },
+    {
+      "id": "revoked_same_local_view",
+      "dimension": "indistinguishable_worlds",
+      "description": "B has identical prior view, authority revoked after delivery",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "capture",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "capture_id": "e3",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "revoke",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e4"
+          ]
+        },
+        {
+          "id": "e6",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e5"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 0,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "revoked_irrelevant_extra",
+      "dimension": "negative_control",
+      "description": "Irrelevant observation does not update grant status",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "capture",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "capture_id": "e3",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "revoke",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e4"
+          ]
+        },
+        {
+          "id": "e6",
+          "op": "deliver_irrelevant",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "value": "receipt_color_blue",
+          "parents": [
+            "e5"
+          ]
+        },
+        {
+          "id": "e7",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e6"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 0,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "delegation_a_b_c",
+      "dimension": "delegation",
+      "description": "Authorized sequential A->B->C assignment hops",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "delegate",
+          "actor": "B",
+          "delegate": "C",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "C",
+          "grant_id": "g",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "claim",
+          "actor": "C",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "c1",
+          "parents": [
+            "e4"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        }
+      }
+    },
+    {
+      "id": "missing_delegate_c",
+      "dimension": "delegation",
+      "description": "C tries without delegated authorization",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "C",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "claim",
+          "actor": "C",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "c1",
+          "parents": [
+            "e3"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        }
+      }
+    },
+    {
+      "id": "foreign_receipt_replay",
+      "dimension": "receipt_provenance",
+      "description": "C presents actual A receipt after A consumes grant",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "C",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "A",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "C",
+          "grant_id": "g",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "claim",
+          "actor": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "a1",
+          "parents": [
+            "e4"
+          ]
+        },
+        {
+          "id": "e6",
+          "op": "deliver_receipt",
+          "actor": "transport",
+          "recipient": "C",
+          "grant_id": "g",
+          "receipt_id": "receipt-a1",
+          "parents": [
+            "e5"
+          ]
+        },
+        {
+          "id": "e7",
+          "op": "claim",
+          "actor": "C",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "c1",
+          "receipt_id": "receipt-a1",
+          "parents": [
+            "e6"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 1,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "wrong_task_scope",
+      "dimension": "scope",
+      "description": "B uses active grant for unrelated task",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "foreign",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e3"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 0,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "wrong_epoch_scope",
+      "dimension": "scope",
+      "description": "B uses active grant under wrong epoch",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e2",
+          "call_id": "b1",
+          "parents": [
+            "e3"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 0,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "missing_local_view",
+      "dimension": "observation_coverage",
+      "description": "Reference monitor has current authority despite B local view missing",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e2"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 1,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 1
+        }
+      }
+    },
+    {
+      "id": "delayed_stale_delivery",
+      "dimension": "transport_order",
+      "description": "Capture active, revoke, then deliver stale snapshot to B",
+      "agents": [
+        "A",
+        "B",
+        "C"
+      ],
+      "schedule": [
+        {
+          "id": "e1",
+          "op": "issue",
+          "actor": "system",
+          "owner": "A",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "parents": []
+        },
+        {
+          "id": "e2",
+          "op": "delegate",
+          "actor": "A",
+          "delegate": "B",
+          "grant_id": "g",
+          "parents": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "op": "capture",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "op": "revoke",
+          "actor": "authority",
+          "grant_id": "g",
+          "parents": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "op": "deliver_view",
+          "actor": "transport",
+          "recipient": "B",
+          "grant_id": "g",
+          "capture_id": "e3",
+          "parents": [
+            "e4"
+          ]
+        },
+        {
+          "id": "e6",
+          "op": "claim",
+          "actor": "B",
+          "grant_id": "g",
+          "task_id": "compile",
+          "epoch": "e1",
+          "call_id": "b1",
+          "parents": [
+            "e5"
+          ]
+        }
+      ],
+      "expected": {
+        "reference": {
+          "valid_effects": 0,
+          "unauthorized_effects": 0,
+          "incorrect_decisions": 0
+        },
+        "broken_local": {
+          "valid_effects": 0,
+          "unauthorized_effects": 1,
+          "incorrect_decisions": 1
+        }
+      }
+    }
+  ]
+}
