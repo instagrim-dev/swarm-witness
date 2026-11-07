@@ -1,4 +1,5 @@
 .venv/
+.cursor/
 dist/
 *.egg-info/
 __pycache__/

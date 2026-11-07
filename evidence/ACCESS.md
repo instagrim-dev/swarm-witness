@@ -14,6 +14,7 @@ labels without needing the author’s local absolute paths or a full BMO checkou
 | R3-L1 selected run | `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` |
 | R3-L1 index mirror | `evidence/r3_ledger_claim_v1/` |
 | R4 evidence sufficiency | `evidence/r4/` |
+| R5 multi-agent / swarm audit | `evidence/r5/` |
 | Claims / pins | `claims/`, `artifacts/pins.yaml` |
 | Report PDF | `report/Swarm_Witness_Apart_Submission.pdf` |
 
@@ -33,7 +34,16 @@ python scripts/check_evidence.py
 python3 experiments/r3/ledger_claim_v1/compare.py \
   --run-dir evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2
 # expect: classical_baseline_matches, native qualification ok
-python3 experiments/evidence_sufficiency/run.py  # idempotent rewrite of evidence/r4
+```
+
+## Re-run synthetic protocols (idempotent)
+
+```bash
+python3 experiments/evidence_sufficiency/run.py  # R4 → evidence/r4
+python3 experiments/swarm_r5/run.py             # R5 → evidence/r5
+# expect: reproduced; three_way true; R5 agents ["A","B","C"]
+python scripts/check_evidence.py --write-index
+python scripts/check_evidence.py
 ```
 
 ## Pack a portable review bundle
@@ -42,6 +52,11 @@ python3 experiments/evidence_sufficiency/run.py  # idempotent rewrite of evidenc
 bash scripts/pack_review_bundle.sh
 # writes dist/swarm-witness-review-bundle.zip
 ```
+
+The zip includes claims, evidence, report, `src/`, synthetic experiment runners
+(R4/R5), `scripts/`, and `pyproject.toml` so judges can install and re-run R4/R5
+without a BMO checkout. R1/R2 third-party trees and native BMO are **not**
+bundled (see `PREEXISTING.md`).
 
 ## Private-repo access
 
