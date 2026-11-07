@@ -48,3 +48,14 @@ r5:
   notes: >
     Synthetic three-agent swarm audit (A/B/C) generalizing three-way conclusions
     to contention, delegation chains, and cross-agent receipt misuse.
+    Sequential in-memory model; not concurrent agent execution.
+multi_agent_sim:
+  source_pin: "swarm-witness-multi-agent-sim-v1"
+  protocol_id: "multi-agent-sim-v1"
+  runner: "experiments/multi_agent_sim/run.py"
+  notes: >
+    Post-submission research simulator with deterministic causal interleavings,
+    per-agent local observations, authoritative ledger, separable oracle/evaluator,
+    and reference vs mutant monitors. Explicitly excludes live BMO mesh
+    equivalence, production concurrency guarantees, and unbounded swarm safety.
+    Does not relabel or upgrade R5 v1.

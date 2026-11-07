@@ -1,0 +1,282 @@
+{
+  "id": "mas-revocation_late_observation_reference",
+  "claim_id": "multi_agent_sim",
+  "protocol_id": "multi-agent-sim-v1",
+  "case_id": "revocation_late_observation_reference",
+  "source_pin": "swarm-witness-multi-agent-sim-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "revocation_late_observation",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "policy_id": "reference",
+    "schedule_id": "sched-revoke-late",
+    "seed": 303,
+    "one_use_ok": true,
+    "event_count": 13,
+    "claim_count": 2,
+    "claims": [
+      {
+        "call_id": "b-late",
+        "agent": "B",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "committed_effect": true,
+        "authoritative_owner_state": {
+          "grant": {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "spent",
+            "epoch": "epoch-1",
+            "owner_version": 5,
+            "assignees": [
+              "A",
+              "B",
+              "C"
+            ],
+            "spent": true
+          },
+          "committed_effect_count": 1,
+          "committed_effects": [
+            {
+              "effect_id": "effect-b-late",
+              "grant_id": "grant-shared",
+              "agent": "B",
+              "call_id": "b-late",
+              "decision_event_id": "evt-303-0009",
+              "owner_version_at_commit": 5
+            }
+          ],
+          "ledger_owner_version": 5
+        },
+        "required_decision": "deny",
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 1,
+              "assignees": [
+                "A",
+                "B",
+                "C"
+              ],
+              "spent": false,
+              "source_event_id": "evt-303-0008",
+              "observation_id": "obs-303-0007"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-303-0007"
+          ],
+          "has_current_grant_observation": true
+        },
+        "evaluator_learned_afterward": {
+          "authoritative_owner_state": {
+            "grant": {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "spent",
+              "epoch": "epoch-1",
+              "owner_version": 5,
+              "assignees": [
+                "A",
+                "B",
+                "C"
+              ],
+              "spent": true
+            },
+            "committed_effect_count": 1,
+            "committed_effects": [
+              {
+                "effect_id": "effect-b-late",
+                "grant_id": "grant-shared",
+                "agent": "B",
+                "call_id": "b-late",
+                "decision_event_id": "evt-303-0009",
+                "owner_version_at_commit": 5
+              }
+            ],
+            "ledger_owner_version": 5
+          },
+          "committed_effect": true,
+          "required_decision": "deny",
+          "one_use_effect_count": 1
+        },
+        "observation_denominators": {
+          "required_discriminators": [
+            "current_grant_observation"
+          ],
+          "required_count": 1,
+          "present_discriminators": [
+            "current_grant_observation"
+          ],
+          "present_count": 1,
+          "irrelevant_count": 0,
+          "receipt_count": 0,
+          "grant_observation_count": 1,
+          "observation_id_count": 1
+        },
+        "assessment": "enforcement_failed",
+        "conclusion_class": "failed_enforcement",
+        "finding_label": "contradicted_in_scope",
+        "property_holds": false,
+        "diagnosis": {
+          "evidence_status": "authentic",
+          "decision_status": "incorrect",
+          "effect_status": "committed",
+          "failure_origin": "effect_boundary"
+        },
+        "reason": "evidence complete but exercised enforcement violates the property; decision=allow required=deny committed_effect=True"
+      },
+      {
+        "call_id": "c-fresh",
+        "agent": "C",
+        "grant_id": "grant-shared",
+        "decision": "deny",
+        "committed_effect": false,
+        "authoritative_owner_state": {
+          "grant": {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "spent",
+            "epoch": "epoch-1",
+            "owner_version": 5,
+            "assignees": [
+              "A",
+              "B",
+              "C"
+            ],
+            "spent": true
+          },
+          "committed_effect_count": 1,
+          "committed_effects": [
+            {
+              "effect_id": "effect-b-late",
+              "grant_id": "grant-shared",
+              "agent": "B",
+              "call_id": "b-late",
+              "decision_event_id": "evt-303-0009",
+              "owner_version_at_commit": 5
+            }
+          ],
+          "ledger_owner_version": 5
+        },
+        "required_decision": "deny",
+        "local_knowledge_at_decision": {
+          "agent": "C",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "spent",
+              "epoch": "epoch-1",
+              "owner_version": 5,
+              "assignees": [
+                "A",
+                "B",
+                "C"
+              ],
+              "spent": true,
+              "source_event_id": "evt-303-0013",
+              "observation_id": "obs-303-0012"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-303-0004",
+            "obs-303-0012"
+          ],
+          "has_current_grant_observation": true
+        },
+        "evaluator_learned_afterward": {
+          "authoritative_owner_state": {
+            "grant": {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "spent",
+              "epoch": "epoch-1",
+              "owner_version": 5,
+              "assignees": [
+                "A",
+                "B",
+                "C"
+              ],
+              "spent": true
+            },
+            "committed_effect_count": 1,
+            "committed_effects": [
+              {
+                "effect_id": "effect-b-late",
+                "grant_id": "grant-shared",
+                "agent": "B",
+                "call_id": "b-late",
+                "decision_event_id": "evt-303-0009",
+                "owner_version_at_commit": 5
+              }
+            ],
+            "ledger_owner_version": 5
+          },
+          "committed_effect": false,
+          "required_decision": "deny",
+          "one_use_effect_count": 1
+        },
+        "observation_denominators": {
+          "required_discriminators": [
+            "current_grant_observation"
+          ],
+          "required_count": 1,
+          "present_discriminators": [
+            "current_grant_observation"
+          ],
+          "present_count": 1,
+          "irrelevant_count": 0,
+          "receipt_count": 0,
+          "grant_observation_count": 1,
+          "observation_id_count": 2
+        },
+        "assessment": "permission_refuted",
+        "conclusion_class": "supported",
+        "finding_label": "reproduced",
+        "property_holds": true,
+        "diagnosis": {
+          "evidence_status": "authentic",
+          "decision_status": "correct",
+          "effect_status": "prevented",
+          "failure_origin": "none"
+        },
+        "reason": "evidence complete and property holds in scope; decision=deny required=deny committed_effect=False"
+      }
+    ],
+    "expected": {
+      "claim_decisions": {
+        "b-late": "allow",
+        "c-fresh": "deny"
+      },
+      "committed_effects": {
+        "b-late": true,
+        "c-fresh": false
+      },
+      "claim_conclusions": {
+        "b-late": "failed_enforcement",
+        "c-fresh": "supported"
+      },
+      "authoritative_final_state": "revoked_or_spent"
+    },
+    "model": "deterministic_in_process_interleaving_simulator",
+    "exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety"
+    ]
+  }
+}

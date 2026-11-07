@@ -1,0 +1,261 @@
+{
+  "schedule_id": "sched-pair-revoked-disc",
+  "seed": 507,
+  "policy_id": "reference",
+  "events": [
+    {
+      "event_id": "evt-507-0001",
+      "kind": "grant_issue",
+      "actor": "ledger",
+      "causal_predecessor": null,
+      "epoch": "epoch-1",
+      "owner_version": 1,
+      "observed_source": null,
+      "payload": {
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 1,
+          "assignees": [
+            "A"
+          ],
+          "spent": false
+        },
+        "note": ""
+      }
+    },
+    {
+      "event_id": "evt-507-0002",
+      "kind": "delegation",
+      "actor": "ledger",
+      "causal_predecessor": "evt-507-0001",
+      "epoch": "epoch-1",
+      "owner_version": 2,
+      "observed_source": null,
+      "payload": {
+        "grant_id": "grant-shared",
+        "delegate": "B",
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "active",
+          "epoch": "epoch-1",
+          "owner_version": 2,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "note": ""
+      }
+    },
+    {
+      "event_id": "evt-507-0003",
+      "kind": "revocation",
+      "actor": "ledger",
+      "causal_predecessor": "evt-507-0002",
+      "epoch": "epoch-1",
+      "owner_version": 3,
+      "observed_source": null,
+      "payload": {
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "revoked",
+          "epoch": "epoch-1",
+          "owner_version": 3,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "note": ""
+      }
+    },
+    {
+      "event_id": "evt-507-0005",
+      "kind": "observation_deliver",
+      "actor": "scheduler",
+      "causal_predecessor": "evt-507-0003",
+      "epoch": "epoch-1",
+      "owner_version": 3,
+      "observed_source": "authoritative_ledger",
+      "payload": {
+        "target": "B",
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "revoked",
+          "epoch": "epoch-1",
+          "owner_version": 3,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "observation_id": "obs-507-0004",
+        "stale": false,
+        "note": "discriminating current grant observation"
+      }
+    },
+    {
+      "event_id": "evt-507-0006",
+      "kind": "claim",
+      "actor": "B",
+      "causal_predecessor": "evt-507-0005",
+      "epoch": "epoch-1",
+      "owner_version": 3,
+      "observed_source": "local_mailbox",
+      "payload": {
+        "call_id": "b-disc",
+        "grant_id": "grant-shared",
+        "decision": "deny",
+        "required_decision": "deny",
+        "policy_id": "reference",
+        "local_evidence_complete": true,
+        "use_foreign_receipt": false,
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "revoked",
+              "epoch": "epoch-1",
+              "owner_version": 3,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": false,
+              "source_event_id": "evt-507-0005",
+              "observation_id": "obs-507-0004"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-507-0004"
+          ],
+          "has_current_grant_observation": true
+        },
+        "note": "claim after discriminating observation"
+      }
+    },
+    {
+      "event_id": "evt-507-0007",
+      "kind": "effect_attempt",
+      "actor": "B",
+      "causal_predecessor": "evt-507-0006",
+      "epoch": "epoch-1",
+      "owner_version": 3,
+      "observed_source": null,
+      "payload": {
+        "call_id": "b-disc",
+        "grant_id": "grant-shared",
+        "decision": "deny",
+        "decision_event_id": "evt-507-0006"
+      }
+    },
+    {
+      "event_id": "evt-507-0008",
+      "kind": "effect_settle",
+      "actor": "ledger",
+      "causal_predecessor": "evt-507-0007",
+      "epoch": "epoch-1",
+      "owner_version": 3,
+      "observed_source": null,
+      "payload": {
+        "call_id": "b-disc",
+        "grant_id": "grant-shared",
+        "committed_effect": false,
+        "decision_event_id": "evt-507-0006",
+        "reason": "decision_denied"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "call_id": "b-disc",
+      "agent": "B",
+      "grant_id": "grant-shared",
+      "decision": "deny",
+      "required_decision": "deny",
+      "committed_effect": false,
+      "effect": null,
+      "local_knowledge_at_decision": {
+        "agent": "B",
+        "grant_observations": [
+          {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "revoked",
+            "epoch": "epoch-1",
+            "owner_version": 3,
+            "assignees": [
+              "A",
+              "B"
+            ],
+            "spent": false,
+            "source_event_id": "evt-507-0005",
+            "observation_id": "obs-507-0004"
+          }
+        ],
+        "receipts": [],
+        "irrelevant_facts": [],
+        "observation_ids": [
+          "obs-507-0004"
+        ],
+        "has_current_grant_observation": true
+      },
+      "authoritative_owner_state": {
+        "grant": {
+          "grant_id": "grant-shared",
+          "owner": "A",
+          "state": "revoked",
+          "epoch": "epoch-1",
+          "owner_version": 3,
+          "assignees": [
+            "A",
+            "B"
+          ],
+          "spent": false
+        },
+        "committed_effect_count": 0,
+        "committed_effects": [],
+        "ledger_owner_version": 3
+      },
+      "decision_event_id": "evt-507-0006",
+      "policy_id": "reference",
+      "local_evidence_complete": true,
+      "use_foreign_receipt": false
+    }
+  ],
+  "one_use_holds": {
+    "grant-shared": true
+  },
+  "final_owner_state": {
+    "grant-shared": {
+      "grant": {
+        "grant_id": "grant-shared",
+        "owner": "A",
+        "state": "revoked",
+        "epoch": "epoch-1",
+        "owner_version": 3,
+        "assignees": [
+          "A",
+          "B"
+        ],
+        "spent": false
+      },
+      "committed_effect_count": 0,
+      "committed_effects": [],
+      "ledger_owner_version": 3
+    }
+  }
+}

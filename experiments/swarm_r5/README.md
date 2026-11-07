@@ -10,3 +10,7 @@ python scripts/check_evidence.py --write-index
 
 Expect: `reproduced`; `model=sequential_shared_grant_multi_principal`;
 all three conclusion classes; broken allows leave `effect_committed=false`.
+
+Causal interleavings / independently scheduled principals (issue #10) live in
+[`experiments/multi_agent_sim/`](../multi_agent_sim/) and do not relabel this
+R5 v1 Finding.

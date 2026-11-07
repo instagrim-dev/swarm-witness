@@ -1,0 +1,35 @@
+id: multi_agent_sim
+source_ref: swarm-witness://multi-agent-sim/interleavings
+source_version: "swarm-witness-multi-agent-sim-v1"
+original_proposition: >
+  An independent multi-agent simulator with per-agent local observations and a
+  separate authoritative ledger can exercise genuine causal interleavings of
+  shared one-use grants, distinguishing decision, committed effect, owner state,
+  and audit conclusion under reproducible schedules.
+operational_interpretation: >
+  Under protocol multi-agent-sim-v1 with agents A, B, and C, declared schedules
+  produce machine-readable manifests and event traces. At least two materially
+  different contention interleavings and one revocation/late-observation case
+  are required. Reference and mutant policies share identical schedules; the
+  mutant yields a concrete one-use counterexample. Paired worlds remain
+  missing_evidence until an independently delivered discriminating observation;
+  irrelevant observations do not upgrade conclusions. Same seed/schedule yields
+  the same relevant trace on fresh runs.
+property: >
+  reproducible interleaved multi-agent audit traces with separable oracle and
+  evaluator under classical one-use shared grants
+scope: >
+  Deterministic in-process interleaving simulator; classical one-use shared
+  grants; not live BMO mesh, not production concurrency guarantees, not
+  unbounded swarm safety; does not relabel R5 sequential v1 as concurrent.
+quantifier: for each declared case in experiments/multi_agent_sim
+success_criterion: >
+  evaluate_protocol_success passes; replay_traces_match; reference preserves
+  one-use while mutant is caught; paired-world and interleaving acceptance
+  checks hold; Finding reproduced for the simulator method claim.
+assumptions:
+  - "Schedules are deterministic ordered step lists keyed by seed"
+  - "Policies decide only from locally delivered observations"
+  - "Oracle required decisions are computed from the authoritative ledger only"
+  - "Effect settlement is recorded separately from the policy decision field"
+  - "Simulation validity claims remain separate from multihost execution"

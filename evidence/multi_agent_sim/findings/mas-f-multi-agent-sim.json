@@ -1,0 +1,30 @@
+{
+  "id": "mas-f-multi-agent-sim",
+  "claim_id": "multi_agent_sim",
+  "run_ids": [
+    "mas-interleave_a_first_reference",
+    "mas-interleave_b_first_reference",
+    "mas-revocation_late_observation_reference",
+    "mas-reference_contention_one_use",
+    "mas-mutant_ignore_spend_contention",
+    "mas-paired_world_active_blind",
+    "mas-paired_world_revoked_blind",
+    "mas-paired_world_active_irrelevant",
+    "mas-paired_world_revoked_irrelevant",
+    "mas-paired_world_active_distinguished",
+    "mas-paired_world_revoked_distinguished",
+    "mas-method-score"
+  ],
+  "proposition": "Under multi-agent-sim-v1, independently scheduled principals A/B/C with per-agent local observations and an authoritative ledger yield reproducible interleaving traces that distinguish decision, committed effect, authoritative owner state, and audit conclusion; reference vs mutant arms share schedules; paired worlds stay missing_evidence until a discriminating observation",
+  "scope": "Deterministic in-process multi-agent interleaving simulator; classical one-use shared grants; not live BMO mesh, not production concurrency guarantees, not unbounded swarm safety; separate from R5 sequential v1",
+  "label": "reproduced",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "mas-method-score.observations.passed",
+    "mas-method-score.observations.replay_stable",
+    "mas-method-score.observations.three_way_classes_exercised",
+    "mas-method-score.observations.all_checks_pass"
+  ],
+  "conclusion_class": "supported",
+  "evaluation_method": "synthetic_protocol_conformance"
+}

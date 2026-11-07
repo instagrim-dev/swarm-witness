@@ -60,6 +60,7 @@ wc -w report/ABSTRACT.md   # expect 150–250
 | R3 ledger-claim-v1 | `python3 experiments/r3/ledger_claim_v1/run_matched.py --run-id <id>` | `evidence/r3/ledger_claim_v1/<id>/` |
 | R4 evidence sufficiency | `python3 experiments/evidence_sufficiency/run.py` | `evidence/r4/` |
 | R5 swarm audit | `python3 experiments/swarm_r5/run.py` | `evidence/r5/` |
+| Multi-agent simulator (post-submission) | `python3 experiments/multi_agent_sim/run.py` | `evidence/multi_agent_sim/` |
 
 Derived protocol **r3-ledger-claim-v1** lives under
 [`experiments/r3/ledger_claim_v1/`](experiments/r3/ledger_claim_v1/). Selected

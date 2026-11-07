@@ -1,0 +1,20 @@
+{
+  "id": "mas-method-score",
+  "claim_id": "multi_agent_sim",
+  "protocol_id": "multi-agent-sim-v1",
+  "case_id": "method_score",
+  "source_pin": "swarm-witness-multi-agent-sim-v1",
+  "execution_status": "completed",
+  "observations": {
+    "passed": true,
+    "all_checks_pass": true,
+    "three_way_classes_exercised": true,
+    "case_count": 11,
+    "missing_evidence_count": 4,
+    "failed_enforcement_count": 2,
+    "supported_count": 10,
+    "replay_stable": true,
+    "errors": [],
+    "observation_denominator_note": "Each claim evaluation records required_count/present_count for current_grant_observation plus irrelevant_count and receipt_count"
+  }
+}

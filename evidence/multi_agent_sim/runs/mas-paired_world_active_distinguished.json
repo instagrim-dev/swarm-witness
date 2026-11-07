@@ -1,0 +1,156 @@
+{
+  "id": "mas-paired_world_active_distinguished",
+  "claim_id": "multi_agent_sim",
+  "protocol_id": "multi-agent-sim-v1",
+  "case_id": "paired_world_active_distinguished",
+  "source_pin": "swarm-witness-multi-agent-sim-v1",
+  "execution_status": "completed",
+  "observations": {
+    "role": "paired_world",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "policy_id": "reference",
+    "schedule_id": "sched-pair-active-disc",
+    "seed": 507,
+    "one_use_ok": true,
+    "event_count": 6,
+    "claim_count": 1,
+    "claims": [
+      {
+        "call_id": "b-disc",
+        "agent": "B",
+        "grant_id": "grant-shared",
+        "decision": "allow",
+        "committed_effect": true,
+        "authoritative_owner_state": {
+          "grant": {
+            "grant_id": "grant-shared",
+            "owner": "A",
+            "state": "spent",
+            "epoch": "epoch-1",
+            "owner_version": 3,
+            "assignees": [
+              "A",
+              "B"
+            ],
+            "spent": true
+          },
+          "committed_effect_count": 1,
+          "committed_effects": [
+            {
+              "effect_id": "effect-b-disc",
+              "grant_id": "grant-shared",
+              "agent": "B",
+              "call_id": "b-disc",
+              "decision_event_id": "evt-507-0005",
+              "owner_version_at_commit": 3
+            }
+          ],
+          "ledger_owner_version": 3
+        },
+        "required_decision": "allow",
+        "local_knowledge_at_decision": {
+          "agent": "B",
+          "grant_observations": [
+            {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "active",
+              "epoch": "epoch-1",
+              "owner_version": 2,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": false,
+              "source_event_id": "evt-507-0004",
+              "observation_id": "obs-507-0003"
+            }
+          ],
+          "receipts": [],
+          "irrelevant_facts": [],
+          "observation_ids": [
+            "obs-507-0003"
+          ],
+          "has_current_grant_observation": true
+        },
+        "evaluator_learned_afterward": {
+          "authoritative_owner_state": {
+            "grant": {
+              "grant_id": "grant-shared",
+              "owner": "A",
+              "state": "spent",
+              "epoch": "epoch-1",
+              "owner_version": 3,
+              "assignees": [
+                "A",
+                "B"
+              ],
+              "spent": true
+            },
+            "committed_effect_count": 1,
+            "committed_effects": [
+              {
+                "effect_id": "effect-b-disc",
+                "grant_id": "grant-shared",
+                "agent": "B",
+                "call_id": "b-disc",
+                "decision_event_id": "evt-507-0005",
+                "owner_version_at_commit": 3
+              }
+            ],
+            "ledger_owner_version": 3
+          },
+          "committed_effect": true,
+          "required_decision": "allow",
+          "one_use_effect_count": 1
+        },
+        "observation_denominators": {
+          "required_discriminators": [
+            "current_grant_observation"
+          ],
+          "required_count": 1,
+          "present_discriminators": [
+            "current_grant_observation"
+          ],
+          "present_count": 1,
+          "irrelevant_count": 0,
+          "receipt_count": 0,
+          "grant_observation_count": 1,
+          "observation_id_count": 1
+        },
+        "assessment": "permission_justified",
+        "conclusion_class": "supported",
+        "finding_label": "reproduced",
+        "property_holds": true,
+        "diagnosis": {
+          "evidence_status": "authentic",
+          "decision_status": "correct",
+          "effect_status": "committed",
+          "failure_origin": "none"
+        },
+        "reason": "evidence complete and property holds in scope; decision=allow required=allow committed_effect=True"
+      }
+    ],
+    "expected": {
+      "claim_decisions": {
+        "b-disc": "allow"
+      },
+      "committed_effects": {
+        "b-disc": true
+      },
+      "claim_conclusions": {
+        "b-disc": "supported"
+      }
+    },
+    "model": "deterministic_in_process_interleaving_simulator",
+    "exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety"
+    ]
+  }
+}

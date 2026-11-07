@@ -1,4 +1,7 @@
 results:
+- claim_id: multi_agent_sim
+  label: reproduced
+  finding_id: mas-f-multi-agent-sim
 - claim_id: r1
   label: reproduced
   finding_id: r1-f-primary

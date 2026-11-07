@@ -1,0 +1,69 @@
+{
+  "case_id": "paired_world_active_irrelevant",
+  "name": "Paired world (active) + irrelevant observation stays missing_evidence",
+  "role": "negative_control",
+  "policy_id": "reference",
+  "schedule": {
+    "schedule_id": "sched-pair-active-irr",
+    "seed": 506,
+    "description": "Irrelevant fact must not upgrade conclusion",
+    "steps": [
+      {
+        "kind": "grant_issue",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": ""
+      },
+      {
+        "kind": "delegation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": ""
+      },
+      {
+        "kind": "irrelevant_deliver",
+        "actor": "scheduler",
+        "grant_id": null,
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": "receipt_print_color=blue",
+        "stale_grant": null,
+        "note": "irrelevant fact only"
+      },
+      {
+        "kind": "claim",
+        "actor": "B",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "b-irr",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "irrelevant observation does not discriminate"
+      }
+    ]
+  },
+  "expected": {
+    "claim_conclusions": {
+      "b-irr": "missing_evidence"
+    },
+    "committed_effects": {
+      "b-irr": false
+    }
+  }
+}
