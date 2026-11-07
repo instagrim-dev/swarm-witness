@@ -1,313 +1,495 @@
 #!/usr/bin/env python3
-"""Compare ClassicalGate to BMO retained-grant proxies — without circular match.
+"""R3 matched decision-model comparison from shared cases.yaml.
 
-ClassicalGate decisions are computed from the null model. BMO side records only
-whether related preexisting tests passed (proxy evidence). Interpretive notes
-describe mechanism-class affinity; they are never copied into an automated
-allow/deny equality that would tautologically "match" ClassicalGate.
+ClassicalGate decisions are computed per case. BMO decisions come only from
+matching test assertions or the instrumented harness — never from package
+pass/fail counts. Missing BMO cases block ``classical_baseline_matches``.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
-import re
 import sys
 from pathlib import Path
+from typing import Any
 
 import yaml
 
 from swarm_witness.classical_gate import ClassicalGate
-from swarm_witness.schema import validate_result_record
+from swarm_witness.schema import validate_finding, validate_run
 
 ROOT = Path(__file__).resolve().parents[2]
+CASES_PATH = Path(__file__).resolve().parent / "cases.yaml"
+PINS_PATH = ROOT / "artifacts" / "pins.yaml"
 EV = ROOT / "evidence" / "r3"
-LOG = EV / "bmo_go_test.log"
+RUNS_DIR = EV / "runs"
+FINDINGS_DIR = EV / "findings"
 SUMMARY = EV / "summary.json"
 RESULT = EV / "result.yaml"
+BMO_LOG = EV / "bmo_go_test.log"
 BASELINE_MD = ROOT / "baselines" / "r3_durable_grant_table.md"
 
-# Each row: ClassicalGate inputs + related BMO proxy signals.
-# relation:
-#   mechanism_class_proxy — related deny/allow-shaped tests, not isomorphic
-#   proxy_mismatch        — previously over-mapped; classical condition lacks
-#                           an isomorphic BMO observation in this suite
-# interpretive_note is human-authored disclosure only (never used as bmo_observed).
-COMPARISON_ROWS = (
-    {
-        "condition": "retained_start_claim + relaunch",
-        "action_id": "spawn-1",
-        "request": "relaunch",
-        "grant_state": "retained_start_claim",
-        "relation": "mechanism_class_proxy",
-        "interpretive_note": (
-            "Spent / prior-consumer / missing-transfer refusals are deny-shaped "
-            "proxies for 'retained metadata ≠ relaunch authority'; not an "
-            "isomorphic retained_start_claim+relaunch API."
-        ),
-        "required_pass_tests": (
-            "TestOrdinaryRetryRetainedGrantShapeControls",
-            "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
-        ),
-        "log_substrings": (
-            "TestOrdinaryRetryRetainedGrantShapeControls/spent",
-            "TestOrdinaryRetryRetainedGrantShapeControls/prior_consumer",
-            "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness/missing_transfer",
-        ),
-    },
-    {
-        "condition": "rejected + restart + execute",
-        "action_id": "mail-1",
-        "request": "execute",
-        "grant_state": "rejected",
-        # LegacyWriterBoundary is a competing-writer / tombstone race, not
-        # process-restart map reload. Do not treat it as isomorphic evidence.
-        "relation": "proxy_mismatch",
-        "interpretive_note": (
-            "ClassicalGate models rejected-state surviving process restart "
-            "reload. BMO LegacyWriterBoundary / transfer races are a different "
-            "contract (writer boundary after durable transfer), so this row "
-            "is not claimed as a decision match."
-        ),
-        "required_pass_tests": (),
-        "log_substrings": (),
-        "related_but_not_isomorphic_tests": (
-            "TestOrdinaryRetainedGrantLegacyWriterBoundary",
-        ),
-    },
-    {
-        "condition": "active_grant + execute",
-        "action_id": "edit-1",
-        "request": "execute",
-        "grant_state": "active_grant",
-        "relation": "mechanism_class_proxy",
-        "interpretive_note": (
-            "Owner-witness + post-edit PASS shows a valid grant admits work; "
-            "related allow-shaped proxy, not a shared active_grant execute API."
-        ),
-        "required_pass_tests": (
-            "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
-            "TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit",
-        ),
-        "log_substrings": (
-            "--- PASS: TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness ",
-            "--- PASS: TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit ",
-        ),
-    },
-    {
-        "condition": "stale grant copy vs current",
-        "action_id": "edit-1",
-        "request": "execute",
-        "grant_state": "rejected",  # classical: stale/rejected map entry → deny
-        "relation": "mechanism_class_proxy",
-        "interpretive_note": (
-            "wrong_grant / altered_transfer / tampered_transfer are deny-shaped "
-            "stale-or-foreign proxies; related to stale-copy denial, not "
-            "isomorphic ClassicalGate.load(rejected) semantics."
-        ),
-        "required_pass_tests": (
-            "TestOrdinaryRetryRetainedGrantShapeControls",
-            "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
-            "TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit",
-        ),
-        "log_substrings": (
-            "TestOrdinaryRetryRetainedGrantShapeControls/wrong_grant",
-            "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness/altered_transfer",
-            "TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit/tampered_transfer",
-        ),
-    },
-)
+CLAIM_ID = "r3"
+PROTOCOL_ID = "r3-matched-decision-model"
+FINDING_ID = "r3-f-comparison"
 
 
-def _parse_go_test_log(text: str) -> dict:
-    passed = re.findall(r"^--- PASS: (\S+)", text, re.M)
-    failed = re.findall(r"^--- FAIL: (\S+)", text, re.M)
-    pkg_ok = bool(re.search(r"^ok\s+\S+/sessioncompaction\b", text, re.M))
-    pkg_fail = bool(re.search(r"^FAIL\s+\S+/sessioncompaction\b", text, re.M))
+def load_cases(path: Path = CASES_PATH) -> dict[str, Any]:
+    data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or not data.get("cases"):
+        raise ValueError("cases.yaml must contain a non-empty cases list")
+    return data
+
+
+def load_bmo_git_rev(pins_path: Path = PINS_PATH) -> str:
+    pins = yaml.safe_load(pins_path.read_text(encoding="utf-8"))
+    rev = pins.get("r3", {}).get("git_rev")
+    if not isinstance(rev, str) or not rev.strip():
+        raise ValueError("artifacts/pins.yaml r3.git_rev is required")
+    return rev.strip()
+
+
+def _case_record(
+    *,
+    case_id: str,
+    arm: str,
+    source_pin: str,
+    execution_status: str,
+    inputs: dict[str, Any],
+    action: str,
+    decision: str | None,
+    evaluator_outcome: str,
+    observation_refs: list[str],
+    extra_observations: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    run_id = f"{arm}-{case_id}"
+    observations: dict[str, Any] = {
+        "case_id": case_id,
+        "inputs": dict(inputs),
+        "action": action,
+        "decision": decision,
+        "effect": None,
+        "evaluator_outcome": evaluator_outcome,
+        "arm": arm,
+        "observation_refs": list(observation_refs),
+        "bmo_git_rev": source_pin if arm == "bmo" else None,
+    }
+    if extra_observations:
+        observations.update(extra_observations)
     return {
-        "passed_tests": passed,
-        "failed_tests": failed,
-        "pass_count": len(passed),
-        "fail_count": len(failed),
-        "package_ok": pkg_ok and not pkg_fail and len(failed) == 0,
-        "log_bytes": len(text.encode("utf-8")),
+        "id": run_id,
+        "claim_id": CLAIM_ID,
+        "protocol_id": PROTOCOL_ID,
+        "case_id": case_id,
+        "source_pin": source_pin,
+        "execution_status": execution_status,
+        "observations": observations,
     }
 
 
-def _signal_present(text: str, signal: str) -> bool:
-    return signal in text
-
-
-def _classical_decision(row: dict) -> str:
-    gate = ClassicalGate(grants={row["action_id"]: row["grant_state"]})
-    classical = gate.decide(row["action_id"], row["request"])
-    if row["condition"].startswith("stale"):
-        classical = ClassicalGate.load({row["action_id"]: "rejected"}).decide(
-            row["action_id"], row["request"]
+def emit_classical_runs(
+    cases_data: dict[str, Any] | None = None,
+    *,
+    source_pin: str | None = None,
+) -> list[dict[str, Any]]:
+    """Call ClassicalGate for each shared case; return validated Run dicts."""
+    data = cases_data or load_cases()
+    pin = source_pin or load_bmo_git_rev()
+    runs: list[dict[str, Any]] = []
+    for case in data["cases"]:
+        case_id = case["case_id"]
+        inputs = dict(case["inputs"])
+        grant_row = case["classical"]["grant_row"]
+        action_id = inputs["action_id"]
+        request = inputs["request"]
+        grant_version = int(inputs["grant_version"])
+        gate = ClassicalGate.from_grants({action_id: grant_row})
+        decision = gate.decide(
+            action_id=action_id, request=request, grant_version=grant_version
         )
-    return classical
-
-
-def main() -> int:
-    EV.mkdir(parents=True, exist_ok=True)
-    if not LOG.is_file():
-        summary = {
-            "unresolved": True,
-            "notes": f"missing BMO log: {LOG.relative_to(ROOT)}",
-            "comparison": [],
-        }
-        SUMMARY.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
-        result = {
-            "claim_id": "r3",
-            "label": "unresolved",
-            "metrics": {},
-            "evidence_path": "evidence/r3/summary.json",
-            "notes": summary["notes"],
-        }
-        RESULT.write_text(yaml.safe_dump(result, sort_keys=False), encoding="utf-8")
-        print(json.dumps({"summary": str(SUMMARY), "result": str(RESULT), "label": "unresolved"}))
-        return 1
-
-    log_text = LOG.read_text(encoding="utf-8", errors="replace")
-    parsed = _parse_go_test_log(log_text)
-    passed_set = set(parsed["passed_tests"])
-
-    comparison: list[dict] = []
-    proxy_rows_ok = 0
-    isomorphic_matches = 0
-    for row in COMPARISON_ROWS:
-        classical = _classical_decision(row)
-        tests_ok = all(t in passed_set for t in row["required_pass_tests"])
-        signals_ok = all(_signal_present(log_text, s) for s in row["log_substrings"])
-        # Automated evidence: proxy suite observed — never invents bmo allow/deny.
-        proxy_evidence_ok = (
-            row["relation"] == "mechanism_class_proxy"
-            and signals_ok
-            and tests_ok
-            and parsed["package_ok"]
+        expected = case["expected_decision"]
+        evaluator_outcome = "ok" if decision == expected else "decision_mismatch"
+        run = _case_record(
+            case_id=case_id,
+            arm="classical",
+            source_pin=pin,
+            execution_status="completed",
+            inputs=inputs,
+            action=request,
+            decision=decision,
+            evaluator_outcome=evaluator_outcome,
+            observation_refs=[
+                f"classical-{case_id}.observations.decision",
+                f"classical-{case_id}.observations.inputs.grant_version",
+            ],
+            extra_observations={
+                "grant_row": dict(grant_row),
+                "expected_decision": expected,
+                "claim_level": "decision_model",
+                "epistemic_extension": case.get("epistemic_extension"),
+            },
         )
-        if proxy_evidence_ok:
-            proxy_rows_ok += 1
+        validate_run(run)
+        runs.append(run)
+    return runs
 
-        # No isomorphic decision match is claimed: interpretive notes stay separate
-        # and are never copied into an automated classical == bmo equality.
-        decision_match = False
 
-        entry = {
-            "condition": row["condition"],
-            "classical": classical,
-            "bmo_observed": "not_isomorphic",
-            "relation": row["relation"],
-            "interpretive_note": row["interpretive_note"],
+def probe_bmo_case(case: dict[str, Any]) -> dict[str, Any]:
+    """Narrow instrumented harness probe for one BMO case.
+
+    Returns decision only when an isomorphic observation is available.
+    Declared ``isomorphism: none`` → missing (scientific honesty).
+    Never invents allow/deny from package pass counts.
+    """
+    bmo = case.get("bmo") or {}
+    source = bmo.get("observation_source")
+    isomorphism = bmo.get("isomorphism")
+    if source not in {"matching_test_assertion", "instrumented_harness"}:
+        return {
+            "execution_status": "failed",
+            "decision": None,
+            "evaluator_outcome": "invalid_observation_source",
+            "note": f"unsupported observation_source: {source!r}",
+        }
+    if isomorphism != "isomorphic":
+        return {
+            "execution_status": "missing",
+            "decision": None,
+            "evaluator_outcome": "missing_isomorphic_observation",
+            "note": (bmo.get("note") or "").strip()
+            or "No isomorphic BMO observation for this case input shape.",
+            "observation_source": source,
+            "probe_id": bmo.get("probe_id"),
+            "isomorphism": isomorphism,
+        }
+    # Future: matching assertion / harness that yields a real decision.
+    return {
+        "execution_status": "missing",
+        "decision": None,
+        "evaluator_outcome": "missing_isomorphic_observation",
+        "note": "isomorphic probe not implemented for this case",
+        "observation_source": source,
+        "probe_id": bmo.get("probe_id"),
+    }
+
+
+def emit_bmo_runs(
+    cases_data: dict[str, Any] | None = None,
+    *,
+    bmo_git_rev: str | None = None,
+    package_pass_count: int | None = None,
+) -> list[dict[str, Any]]:
+    """Emit per-case BMO Run records via instrumented harness probes.
+
+    ``package_pass_count`` is recorded as metadata only and must never become
+    a decision source.
+    """
+    data = cases_data or load_cases()
+    pin = bmo_git_rev or load_bmo_git_rev()
+    runs: list[dict[str, Any]] = []
+    for case in data["cases"]:
+        case_id = case["case_id"]
+        inputs = dict(case["inputs"])
+        probe = probe_bmo_case(case)
+        decision = probe.get("decision")
+        status = probe["execution_status"]
+        refs = [f"bmo-{case_id}.observations.evaluator_outcome"]
+        if decision is not None:
+            refs.insert(0, f"bmo-{case_id}.observations.decision")
+        run = _case_record(
+            case_id=case_id,
+            arm="bmo",
+            source_pin=pin,
+            execution_status=status,
+            inputs=inputs,
+            action=inputs["request"],
+            decision=decision,
+            evaluator_outcome=probe["evaluator_outcome"],
+            observation_refs=refs,
+            extra_observations={
+                "probe": {
+                    k: v
+                    for k, v in probe.items()
+                    if k not in {"execution_status", "decision", "evaluator_outcome"}
+                },
+                "package_pass_count_metadata_only": package_pass_count,
+                "decision_source": "instrumented_harness_probe",
+                "epistemic_extension": case.get("epistemic_extension"),
+                "expected_decision": case.get("expected_decision"),
+            },
+        )
+        # Hard guard: pass counts must not fill decisions.
+        if package_pass_count is not None and decision is not None:
+            if probe.get("isomorphism") != "isomorphic":
+                raise RuntimeError(
+                    "refusing to emit BMO decision without isomorphic observation"
+                )
+        validate_run(run)
+        runs.append(run)
+    return runs
+
+
+def _index_runs(runs: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    return {r["case_id"]: r for r in runs}
+
+
+def build_comparison_finding(
+    *,
+    cases: list[dict[str, Any]],
+    classical_runs: list[dict[str, Any]],
+    bmo_runs: list[dict[str, Any]],
+    bmo_git_rev: str,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Pair classical/BMO case records; label from pairs only.
+
+    Any missing/failed/unrun BMO case blocks ``classical_baseline_matches``.
+    """
+    classical_by = _index_runs(classical_runs)
+    bmo_by = _index_runs(bmo_runs)
+    pairs: list[dict[str, Any]] = []
+    run_ids: list[str] = []
+    supporting: list[str] = []
+    missing_bmo = 0
+    matched = 0
+    completed_pairs = 0
+
+    for case in cases:
+        case_id = case["case_id"]
+        c_run = classical_by.get(case_id)
+        b_run = bmo_by.get(case_id)
+        if c_run is None or b_run is None:
+            pairs.append(
+                {
+                    "case_id": case_id,
+                    "classical_status": None if c_run is None else c_run["execution_status"],
+                    "bmo_status": "missing" if b_run is None else b_run["execution_status"],
+                    "decision_match": False,
+                    "note": "missing arm run record",
+                }
+            )
+            missing_bmo += 1 if b_run is None else 0
+            continue
+
+        run_ids.extend([c_run["id"], b_run["id"]])
+        c_obs = c_run["observations"]
+        b_obs = b_run["observations"]
+        c_status = c_run["execution_status"]
+        b_status = b_run["execution_status"]
+        c_decision = c_obs.get("decision")
+        b_decision = b_obs.get("decision")
+
+        inputs_match = c_obs.get("inputs") == b_obs.get("inputs")
+        both_completed = c_status == "completed" and b_status == "completed"
+        decision_match = (
+            both_completed
+            and inputs_match
+            and c_decision is not None
+            and c_decision == b_decision
+        )
+        if b_status in {"missing", "failed", "unrun"} or b_decision is None:
+            missing_bmo += 1
+        if both_completed:
+            completed_pairs += 1
+        if decision_match:
+            matched += 1
+
+        pair = {
+            "case_id": case_id,
+            "classical_status": c_status,
+            "bmo_status": b_status,
+            "classical_decision": c_decision,
+            "bmo_decision": b_decision,
+            "inputs_match": inputs_match,
             "decision_match": decision_match,
-            "proxy_evidence_ok": proxy_evidence_ok,
-            "signals_ok": signals_ok,
-            "tests_ok": tests_ok,
+            "epistemic_extension": case.get("epistemic_extension"),
+            "bmo_evaluator_outcome": b_obs.get("evaluator_outcome"),
         }
-        if row.get("related_but_not_isomorphic_tests"):
-            entry["related_but_not_isomorphic_tests"] = list(
-                row["related_but_not_isomorphic_tests"]
-            )
-            entry["related_tests_present"] = all(
-                t in passed_set for t in row["related_but_not_isomorphic_tests"]
-            )
-        comparison.append(entry)
+        pairs.append(pair)
+        supporting.extend(
+            [
+                f"{c_run['id']}.observations.decision",
+                f"{b_run['id']}.observations.evaluator_outcome",
+            ]
+        )
 
-    # Honest overall label: proxies show mechanism-class affinity under
-    # assumptions, not isomorphic classical_baseline_matches contracts.
-    if not parsed["package_ok"]:
-        label = "unresolved"
-    else:
+    if missing_bmo > 0:
+        # Scientific honesty: incomplete isomorphic BMO coverage.
         label = "assumption_dependent"
+        proposition = (
+            "Matched ClassicalGate decision-model cases lack isomorphic BMO "
+            "observations for one or more shared cases; classical_baseline_matches "
+            "is not warranted"
+        )
+    elif completed_pairs == len(cases) and matched == len(cases):
+        label = "classical_baseline_matches"
+        proposition = (
+            "All shared R3 cases completed on both arms with matching inputs "
+            "and matching allow/deny decisions"
+        )
+    elif completed_pairs == len(cases) and matched < len(cases):
+        label = "contradicted_in_scope"
+        proposition = (
+            "Shared R3 cases completed on both arms but decisions disagree "
+            "on one or more cases"
+        )
+    else:
+        label = "unresolved"
+        proposition = "R3 matched comparison incomplete"
 
-    summary = {
-        "claim_id": "r3",
-        "bmo_go_test": {
-            "pass_count": parsed["pass_count"],
-            "fail_count": parsed["fail_count"],
-            "package_ok": parsed["package_ok"],
-            "passed_tests": parsed["passed_tests"],
-            "failed_tests": parsed["failed_tests"],
-            "log": str(LOG.relative_to(ROOT)),
-        },
-        "comparison": comparison,
-        "proxy_rows_ok": proxy_rows_ok,
-        "proxy_rows_total": sum(
-            1 for r in COMPARISON_ROWS if r["relation"] == "mechanism_class_proxy"
+    finding = {
+        "id": FINDING_ID,
+        "claim_id": CLAIM_ID,
+        "run_ids": run_ids or ["r3-no-runs"],
+        "proposition": proposition,
+        "scope": (
+            f"R3 shared cases.yaml decision-model comparison at BMO "
+            f"git_rev {bmo_git_rev}"
         ),
-        "isomorphic_decision_matches": isomorphic_matches,
-        "total_rows": len(comparison),
         "label": label,
-        "preferred_tests": [
-            "internal/sessioncompaction/ordinary_retry_retained_grant_owner_witness_test.go",
-            "internal/sessioncompaction/ordinary_retry_retained_grant_test.go",
-            "internal/sessioncompaction/ordinary_retry_retained_grant_race_test.go",
-        ],
+        "basis": "computed",
+        "supporting_observation_refs": supporting
+        or ["r3-comparison.pairs"],
+    }
+    # Schema requires non-empty run_ids / supporting refs — keep placeholders honest.
+    if finding["run_ids"] == ["r3-no-runs"]:
+        finding["supporting_observation_refs"] = ["r3-comparison.no_pairs"]
+    validate_finding(finding)
+    return finding, pairs
+
+
+def write_json(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def write_runs(runs: list[dict[str, Any]], runs_dir: Path = RUNS_DIR) -> None:
+    runs_dir.mkdir(parents=True, exist_ok=True)
+    for run in runs:
+        write_json(runs_dir / f"{run['id']}.json", run)
+
+
+def update_baseline_table(pairs: list[dict[str, Any]], label: str) -> None:
+    if not BASELINE_MD.is_file():
+        return
+    table_lines = [
+        "| Case | Classical | BMO | Match | BMO status |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for p in pairs:
+        table_lines.append(
+            f"| {p['case_id']} | {p.get('classical_decision')} | "
+            f"{p.get('bmo_decision')} | {p.get('decision_match')} | "
+            f"{p.get('bmo_status')} |"
+        )
+    table_lines.append("")
+    table_lines.append(f"Overall finding label: `{label}`.")
+    body = BASELINE_MD.read_text(encoding="utf-8")
+    marker = "## Discriminating comparison (from latest run)\n"
+    if marker not in body:
+        return
+    head, _, rest = body.partition(marker)
+    tail = ""
+    if "\n## " in rest:
+        _, tail = rest.split("\n## ", 1)
+        tail = "\n## " + tail
+    BASELINE_MD.write_text(
+        head + marker + "\n" + "\n".join(table_lines) + "\n" + tail,
+        encoding="utf-8",
+    )
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--package-pass-count",
+        type=int,
+        default=None,
+        help="Optional BMO package pass count metadata (never used as decisions)",
+    )
+    args = parser.parse_args(argv)
+
+    EV.mkdir(parents=True, exist_ok=True)
+    RUNS_DIR.mkdir(parents=True, exist_ok=True)
+    FINDINGS_DIR.mkdir(parents=True, exist_ok=True)
+
+    cases_data = load_cases()
+    bmo_git_rev = load_bmo_git_rev()
+    classical_runs = emit_classical_runs(cases_data, source_pin=bmo_git_rev)
+    bmo_runs = emit_bmo_runs(
+        cases_data,
+        bmo_git_rev=bmo_git_rev,
+        package_pass_count=args.package_pass_count,
+    )
+    write_runs(classical_runs)
+    write_runs(bmo_runs)
+
+    finding, pairs = build_comparison_finding(
+        cases=cases_data["cases"],
+        classical_runs=classical_runs,
+        bmo_runs=bmo_runs,
+        bmo_git_rev=bmo_git_rev,
+    )
+    write_json(FINDINGS_DIR / f"{FINDING_ID}.json", finding)
+
+    matched = sum(1 for p in pairs if p.get("decision_match"))
+    missing_bmo = sum(
+        1 for p in pairs if p.get("bmo_status") in {"missing", "failed", "unrun", None}
+    )
+    summary = {
+        "claim_id": CLAIM_ID,
+        "protocol_id": PROTOCOL_ID,
+        "bmo_git_rev": bmo_git_rev,
+        "cases_path": str(CASES_PATH.relative_to(ROOT)),
+        "case_count": len(cases_data["cases"]),
+        "matched_decisions": matched,
+        "missing_bmo_cases": missing_bmo,
+        "pairs": pairs,
+        "finding_id": FINDING_ID,
+        "label": finding["label"],
         "notes": (
-            "assumption_dependent: ClassicalGate and BMO share mechanism-class "
-            "affinity via related deny/allow-shaped proxies only. No isomorphic "
-            "decision match is claimed (bmo_observed is not hardcoded from "
-            "ClassicalGate). rejected+restart maps to process-reload in the "
-            "null model; LegacyWriterBoundary is a writer-boundary race and is "
-            "recorded as proxy_mismatch, not a match."
-            if label == "assumption_dependent"
-            else "BMO package did not pass; see comparison[] / bmo_go_test."
+            "Decision-model comparison only. BMO decisions require isomorphic "
+            "observations; missing probes yield assumption_dependent, never "
+            "classical_baseline_matches. Package pass counts are not decisions."
         ),
     }
-    SUMMARY.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    write_json(SUMMARY, summary)
 
+    # Non-authoritative mirror for older tooling.
     result = {
-        "claim_id": "r3",
-        "label": label,
+        "claim_id": CLAIM_ID,
+        "label": finding["label"],
+        "authoritative": "finding",
+        "finding_path": f"evidence/r3/findings/{FINDING_ID}.json",
         "metrics": {
-            "proxy_rows_ok": summary["proxy_rows_ok"],
-            "proxy_rows_total": summary["proxy_rows_total"],
-            "isomorphic_decision_matches": summary["isomorphic_decision_matches"],
-            "total_rows": summary["total_rows"],
-            "bmo_pass_count": parsed["pass_count"],
-            "bmo_fail_count": parsed["fail_count"],
+            "case_count": summary["case_count"],
+            "matched_decisions": matched,
+            "missing_bmo_cases": missing_bmo,
         },
         "evidence_path": "evidence/r3/summary.json",
+        "bmo_git_rev": bmo_git_rev,
         "notes": summary["notes"],
     }
-    validate_result_record(result)
     RESULT.write_text(yaml.safe_dump(result, sort_keys=False), encoding="utf-8")
+    update_baseline_table(pairs, finding["label"])
 
-    if BASELINE_MD.is_file():
-        table_lines = [
-            "| Condition | ClassicalGate | BMO observed | Relation | Proxy evidence |",
-            "| --- | --- | --- | --- | --- |",
-        ]
-        for c in comparison:
-            table_lines.append(
-                f"| {c['condition']} | {c['classical']} | {c['bmo_observed']} | "
-                f"{c['relation']} | {'yes' if c['proxy_evidence_ok'] else 'n/a' if c['relation'] == 'proxy_mismatch' else 'no'} |"
-            )
-        body = BASELINE_MD.read_text(encoding="utf-8")
-        marker = "## Discriminating comparison (from latest run)\n"
-        if marker in body:
-            head, _, rest = body.partition(marker)
-            tail = ""
-            if "\n## " in rest:
-                _, tail = rest.split("\n## ", 1)
-                tail = "\n## " + tail
-            BASELINE_MD.write_text(
-                head + marker + "\n" + "\n".join(table_lines) + "\n" + tail,
-                encoding="utf-8",
-            )
-
-    ok = label == "assumption_dependent" and parsed["package_ok"]
     print(
         json.dumps(
             {
-                "summary": str(SUMMARY),
-                "result": str(RESULT),
-                "label": label,
-                "proxy": f"{summary['proxy_rows_ok']}/{summary['proxy_rows_total']}",
-                "isomorphic_matches": isomorphic_matches,
+                "label": finding["label"],
+                "matched": f"{matched}/{len(pairs)}",
+                "missing_bmo": missing_bmo,
+                "bmo_git_rev": bmo_git_rev,
+                "finding": str(FINDINGS_DIR / f"{FINDING_ID}.json"),
             }
         )
     )
-    return 0 if ok else 1
+    # Exit 0 when comparison ran honestly (including assumption_dependent).
+    return 0 if finding["label"] in {
+        "classical_baseline_matches",
+        "assumption_dependent",
+        "contradicted_in_scope",
+    } else 1
 
 
 if __name__ == "__main__":

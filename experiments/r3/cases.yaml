@@ -1,0 +1,98 @@
+# Shared R3 case manifest — both classical and BMO arms consume these inputs.
+# ClassicalGate is a decision-model only (no durability / restart claims).
+# BMO observation_source must be matching_test_assertion or instrumented_harness.
+# Do not invent BMO decisions from package pass/fail counts.
+
+protocol_id: r3-matched-decision-model
+claim_id: r3
+source_pin_key: r3.git_rev
+
+cases:
+  - case_id: retained_start_claim_relaunch
+    description: retained_start_claim + relaunch → expect deny
+    inputs:
+      action_id: spawn-1
+      state: retained_start_claim
+      grant_version: 1
+      request: relaunch
+    expected_decision: deny
+    classical:
+      grant_row:
+        state: retained_start_claim
+        version: 1
+    bmo:
+      observation_source: instrumented_harness
+      probe_id: retained_start_claim_relaunch
+      # BMO has spent/prior-consumer shape refusals, not an isomorphic
+      # (retained_start_claim, relaunch, grant_version) decision API.
+      isomorphism: none
+      note: >
+        No BMO API accepts ClassicalGate inputs (state, request, grant_version).
+        Proxy tests exist but are not matching assertions for this case.
+
+  - case_id: rejected_execute
+    description: rejected + execute (decision-model; not process restart) → expect deny
+    inputs:
+      action_id: mail-1
+      state: rejected
+      grant_version: 1
+      request: execute
+    expected_decision: deny
+    classical:
+      grant_row:
+        state: rejected
+        version: 1
+    bmo:
+      observation_source: instrumented_harness
+      probe_id: rejected_execute
+      isomorphism: none
+      note: >
+        Decision-model rejected-state deny. LegacyWriterBoundary is a writer /
+        tombstone race, not isomorphic to this input shape.
+
+  - case_id: active_grant_execute
+    description: active_grant + matching grant_version + execute → expect allow
+    inputs:
+      action_id: edit-1
+      state: active_grant
+      grant_version: 2
+      request: execute
+    expected_decision: allow
+    classical:
+      grant_row:
+        state: active_grant
+        version: 2
+    bmo:
+      observation_source: instrumented_harness
+      probe_id: active_grant_execute
+      isomorphism: none
+      note: >
+        Owner-witness admit is allow-shaped but not an isomorphic
+        active_grant+execute+grant_version decision observation.
+
+  - case_id: stale_grant_version
+    description: stale grant_version vs current active_grant → expect deny
+    # Epistemic extension home: same input shape as active_grant_execute;
+    # distinguishing observation = grant_version.
+    inputs:
+      action_id: edit-1
+      state: active_grant
+      grant_version: 1
+      request: execute
+      current_version: 2
+    expected_decision: deny
+    epistemic_extension:
+      distinguishing_observation: grant_version
+      irrelevant_observation_control: request
+      same_shape_as: active_grant_execute
+    classical:
+      grant_row:
+        state: active_grant
+        version: 2
+    bmo:
+      observation_source: instrumented_harness
+      probe_id: stale_grant_version
+      isomorphism: none
+      note: >
+        BMO wrong_grant / altered_transfer are deny-shaped proxies, not an
+        isomorphic grant_version stale-vs-current observation.

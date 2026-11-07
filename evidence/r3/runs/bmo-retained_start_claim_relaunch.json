@@ -1,0 +1,36 @@
+{
+  "id": "bmo-retained_start_claim_relaunch",
+  "claim_id": "r3",
+  "protocol_id": "r3-matched-decision-model",
+  "case_id": "retained_start_claim_relaunch",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "missing",
+  "observations": {
+    "case_id": "retained_start_claim_relaunch",
+    "inputs": {
+      "action_id": "spawn-1",
+      "state": "retained_start_claim",
+      "grant_version": 1,
+      "request": "relaunch"
+    },
+    "action": "relaunch",
+    "decision": null,
+    "effect": null,
+    "evaluator_outcome": "missing_isomorphic_observation",
+    "arm": "bmo",
+    "observation_refs": [
+      "bmo-retained_start_claim_relaunch.observations.evaluator_outcome"
+    ],
+    "bmo_git_rev": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+    "probe": {
+      "note": "No BMO API accepts ClassicalGate inputs (state, request, grant_version). Proxy tests exist but are not matching assertions for this case.",
+      "observation_source": "instrumented_harness",
+      "probe_id": "retained_start_claim_relaunch",
+      "isomorphism": "none"
+    },
+    "package_pass_count_metadata_only": null,
+    "decision_source": "instrumented_harness_probe",
+    "epistemic_extension": null,
+    "expected_decision": "deny"
+  }
+}

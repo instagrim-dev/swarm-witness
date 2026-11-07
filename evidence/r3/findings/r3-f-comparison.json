@@ -1,0 +1,28 @@
+{
+  "id": "r3-f-comparison",
+  "claim_id": "r3",
+  "run_ids": [
+    "classical-retained_start_claim_relaunch",
+    "bmo-retained_start_claim_relaunch",
+    "classical-rejected_execute",
+    "bmo-rejected_execute",
+    "classical-active_grant_execute",
+    "bmo-active_grant_execute",
+    "classical-stale_grant_version",
+    "bmo-stale_grant_version"
+  ],
+  "proposition": "Matched ClassicalGate decision-model cases lack isomorphic BMO observations for one or more shared cases; classical_baseline_matches is not warranted",
+  "scope": "R3 shared cases.yaml decision-model comparison at BMO git_rev 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "label": "assumption_dependent",
+  "basis": "computed",
+  "supporting_observation_refs": [
+    "classical-retained_start_claim_relaunch.observations.decision",
+    "bmo-retained_start_claim_relaunch.observations.evaluator_outcome",
+    "classical-rejected_execute.observations.decision",
+    "bmo-rejected_execute.observations.evaluator_outcome",
+    "classical-active_grant_execute.observations.decision",
+    "bmo-active_grant_execute.observations.evaluator_outcome",
+    "classical-stale_grant_version.observations.decision",
+    "bmo-stale_grant_version.observations.evaluator_outcome"
+  ]
+}

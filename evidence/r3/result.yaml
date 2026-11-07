@@ -1,15 +1,13 @@
 claim_id: r3
 label: assumption_dependent
+authoritative: finding
+finding_path: evidence/r3/findings/r3-f-comparison.json
 metrics:
-  proxy_rows_ok: 3
-  proxy_rows_total: 3
-  isomorphic_decision_matches: 0
-  total_rows: 4
-  bmo_pass_count: 6
-  bmo_fail_count: 0
+  case_count: 4
+  matched_decisions: 0
+  missing_bmo_cases: 4
 evidence_path: evidence/r3/summary.json
-notes: 'assumption_dependent: ClassicalGate and BMO share mechanism-class affinity
-  via related deny/allow-shaped proxies only. No isomorphic decision match is claimed
-  (bmo_observed is not hardcoded from ClassicalGate). rejected+restart maps to process-reload
-  in the null model; LegacyWriterBoundary is a writer-boundary race and is recorded
-  as proxy_mismatch, not a match.'
+bmo_git_rev: 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe
+notes: Decision-model comparison only. BMO decisions require isomorphic observations;
+  missing probes yield assumption_dependent, never classical_baseline_matches. Package
+  pass counts are not decisions.

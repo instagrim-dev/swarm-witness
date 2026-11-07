@@ -1,0 +1,39 @@
+{
+  "id": "classical-stale_grant_version",
+  "claim_id": "r3",
+  "protocol_id": "r3-matched-decision-model",
+  "case_id": "stale_grant_version",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "completed",
+  "observations": {
+    "case_id": "stale_grant_version",
+    "inputs": {
+      "action_id": "edit-1",
+      "state": "active_grant",
+      "grant_version": 1,
+      "request": "execute",
+      "current_version": 2
+    },
+    "action": "execute",
+    "decision": "deny",
+    "effect": null,
+    "evaluator_outcome": "ok",
+    "arm": "classical",
+    "observation_refs": [
+      "classical-stale_grant_version.observations.decision",
+      "classical-stale_grant_version.observations.inputs.grant_version"
+    ],
+    "bmo_git_rev": null,
+    "grant_row": {
+      "state": "active_grant",
+      "version": 2
+    },
+    "expected_decision": "deny",
+    "claim_level": "decision_model",
+    "epistemic_extension": {
+      "distinguishing_observation": "grant_version",
+      "irrelevant_observation_control": "request",
+      "same_shape_as": "active_grant_execute"
+    }
+  }
+}

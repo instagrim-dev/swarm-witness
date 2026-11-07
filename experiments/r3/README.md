@@ -1,50 +1,59 @@
-# R3 — BMO retained-grant vs classical admit check
+# R3 — matched decision-model comparison
 
-Compares BMO’s preexisting ordinary-retry retained-grant owner witness (and
-related sessioncompaction tests) to a classical **durable grant table checked
-before admit**. The null model is `ClassicalGate` in
-`src/swarm_witness/classical_gate.py`: retained start claim alone never
-authorizes relaunch; rejection survives map reload; only `active_grant` allows
-execute; stale/unknown defaults to deny.
+Shared case manifest: `cases.yaml`. Both arms consume the same inputs.
 
-## Honesty / label
+## Classical arm (decision-model)
 
-This run does **not** claim isomorphic decision equality. BMO evidence is
-recorded as related proxies (pass signals) plus interpretive notes. Overall
-label: **`assumption_dependent`** (mechanism-class affinity under assumptions).
-`rejected + restart` is explicitly `proxy_mismatch` vs LegacyWriterBoundary
-(writer race ≠ process restart reload).
+`ClassicalGate` in `src/swarm_witness/classical_gate.py`:
 
-## Pins
+- Inputs: `(state, request, grant_version)`
+- `active_grant` + matching version + `execute` → allow
+- `retained_start_claim` + `relaunch` → deny
+- stale `grant_version` → deny
+- `rejected` + `execute` → deny
 
-See `artifacts/pins.yaml` (`r3`):
+**Not** a durability / fresh-process restart claim. `dump`/`load` are
+in-process fixture copies only.
 
-- `bmo_root`: `/Users/user1/Documents/dev/bmo` (preexisting; not modified)
-- Preferred tests:
-  `internal/sessioncompaction/ordinary_retry_retained_grant_owner_witness_test.go`
+## BMO arm
+
+`run_bmo_cases.py` uses a narrow instrumented harness. Decisions are emitted
+only from matching test assertions or isomorphic harness probes. Package
+pass/fail counts are metadata only and **never** fill decisions. Missing
+isomorphic observations → `execution_status=missing`.
+
+Pinned revision: `artifacts/pins.yaml` → `r3.git_rev`
+(`4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe`). Recorded on every BMO run.
+
+## Epistemic extension
+
+Case `stale_grant_version` is the home for the extension: same input shape as
+`active_grant_execute`; distinguishing observation = `grant_version`.
 
 ## Run
 
-From the swarm-witness root:
+```bash
+python3 experiments/r3/run_classical_cases.py
+python3 experiments/r3/run_bmo_cases.py
+python3 experiments/r3/compare.py
+pytest tests/test_classical_gate.py tests/test_r3_compare.py -v
+```
+
+Optional (metadata only; does not supply isomorphic decisions):
 
 ```bash
 ./experiments/r3/run_bmo_tests.sh
-python3 experiments/r3/compare.py
-pytest tests/test_classical_gate.py -v
 ```
 
-Requirements: Go toolchain able to build BMO; read-only access to the pinned
-`bmo_root`. Weekend code lives only under this `swarm-witness/` tree.
+## Outputs
 
-Outputs under `evidence/r3/`:
+- `evidence/r3/runs/classical-<case_id>.json`
+- `evidence/r3/runs/bmo-<case_id>.json`
+- `evidence/r3/findings/r3-f-comparison.json` (authoritative label)
+- `evidence/r3/summary.json` / `result.yaml` (mirrors)
 
-- `bmo_go_test.log` — verbatim `go test` output
-- `summary.json` — comparison rows + proxy / isomorphism fields
-- `result.yaml` — conclusion label (expected: `assumption_dependent`)
+## Success / honesty
 
-## Success criterion (claim card)
-
-`relaunch_without_fresh_durable_grant == 0` when the classical admit barrier is
-enforced — i.e. retained metadata / spent / rejected / stale grant states deny,
-and only a current active durable grant allows execute. Proxy affinity does not
-by itself upgrade the label to `classical_baseline_matches`.
+Unmatched or missing BMO cases **cannot** yield Finding
+`classical_baseline_matches`. Emitting `assumption_dependent` / `missing` when
+BMO lacks isomorphic observations is scientific success for this task.

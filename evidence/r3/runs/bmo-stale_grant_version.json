@@ -1,0 +1,41 @@
+{
+  "id": "bmo-stale_grant_version",
+  "claim_id": "r3",
+  "protocol_id": "r3-matched-decision-model",
+  "case_id": "stale_grant_version",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "missing",
+  "observations": {
+    "case_id": "stale_grant_version",
+    "inputs": {
+      "action_id": "edit-1",
+      "state": "active_grant",
+      "grant_version": 1,
+      "request": "execute",
+      "current_version": 2
+    },
+    "action": "execute",
+    "decision": null,
+    "effect": null,
+    "evaluator_outcome": "missing_isomorphic_observation",
+    "arm": "bmo",
+    "observation_refs": [
+      "bmo-stale_grant_version.observations.evaluator_outcome"
+    ],
+    "bmo_git_rev": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+    "probe": {
+      "note": "BMO wrong_grant / altered_transfer are deny-shaped proxies, not an isomorphic grant_version stale-vs-current observation.",
+      "observation_source": "instrumented_harness",
+      "probe_id": "stale_grant_version",
+      "isomorphism": "none"
+    },
+    "package_pass_count_metadata_only": null,
+    "decision_source": "instrumented_harness_probe",
+    "epistemic_extension": {
+      "distinguishing_observation": "grant_version",
+      "irrelevant_observation_control": "request",
+      "same_shape_as": "active_grant_execute"
+    },
+    "expected_decision": "deny"
+  }
+}

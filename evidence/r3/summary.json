@@ -1,79 +1,62 @@
 {
   "claim_id": "r3",
-  "bmo_go_test": {
-    "pass_count": 6,
-    "fail_count": 0,
-    "package_ok": true,
-    "passed_tests": [
-      "TestOrdinaryRetryRetainedGrantSyntheticOwnerWitness",
-      "TestOrdinaryRetryRetainedGrantSyntheticAppliedPostEdit",
-      "TestOrdinaryRetryRetainedGrantSyntheticAppliedAfterNoEffect",
-      "TestOrdinaryRetainedGrantLegacyWriterBoundary",
-      "TestOrdinaryRetryRetainedGrantShapeControls",
-      "TestOrdinaryRetryRetainedGrantRecognizesOriginalFailedVerifierFunding"
-    ],
-    "failed_tests": [],
-    "log": "evidence/r3/bmo_go_test.log"
-  },
-  "comparison": [
+  "protocol_id": "r3-matched-decision-model",
+  "bmo_git_rev": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "cases_path": "experiments/r3/cases.yaml",
+  "case_count": 4,
+  "matched_decisions": 0,
+  "missing_bmo_cases": 4,
+  "pairs": [
     {
-      "condition": "retained_start_claim + relaunch",
-      "classical": "deny",
-      "bmo_observed": "not_isomorphic",
-      "relation": "mechanism_class_proxy",
-      "interpretive_note": "Spent / prior-consumer / missing-transfer refusals are deny-shaped proxies for 'retained metadata \u2260 relaunch authority'; not an isomorphic retained_start_claim+relaunch API.",
+      "case_id": "retained_start_claim_relaunch",
+      "classical_status": "completed",
+      "bmo_status": "missing",
+      "classical_decision": "deny",
+      "bmo_decision": null,
+      "inputs_match": true,
       "decision_match": false,
-      "proxy_evidence_ok": true,
-      "signals_ok": true,
-      "tests_ok": true
+      "epistemic_extension": null,
+      "bmo_evaluator_outcome": "missing_isomorphic_observation"
     },
     {
-      "condition": "rejected + restart + execute",
-      "classical": "deny",
-      "bmo_observed": "not_isomorphic",
-      "relation": "proxy_mismatch",
-      "interpretive_note": "ClassicalGate models rejected-state surviving process restart reload. BMO LegacyWriterBoundary / transfer races are a different contract (writer boundary after durable transfer), so this row is not claimed as a decision match.",
+      "case_id": "rejected_execute",
+      "classical_status": "completed",
+      "bmo_status": "missing",
+      "classical_decision": "deny",
+      "bmo_decision": null,
+      "inputs_match": true,
       "decision_match": false,
-      "proxy_evidence_ok": false,
-      "signals_ok": true,
-      "tests_ok": true,
-      "related_but_not_isomorphic_tests": [
-        "TestOrdinaryRetainedGrantLegacyWriterBoundary"
-      ],
-      "related_tests_present": true
+      "epistemic_extension": null,
+      "bmo_evaluator_outcome": "missing_isomorphic_observation"
     },
     {
-      "condition": "active_grant + execute",
-      "classical": "allow",
-      "bmo_observed": "not_isomorphic",
-      "relation": "mechanism_class_proxy",
-      "interpretive_note": "Owner-witness + post-edit PASS shows a valid grant admits work; related allow-shaped proxy, not a shared active_grant execute API.",
+      "case_id": "active_grant_execute",
+      "classical_status": "completed",
+      "bmo_status": "missing",
+      "classical_decision": "allow",
+      "bmo_decision": null,
+      "inputs_match": true,
       "decision_match": false,
-      "proxy_evidence_ok": true,
-      "signals_ok": true,
-      "tests_ok": true
+      "epistemic_extension": null,
+      "bmo_evaluator_outcome": "missing_isomorphic_observation"
     },
     {
-      "condition": "stale grant copy vs current",
-      "classical": "deny",
-      "bmo_observed": "not_isomorphic",
-      "relation": "mechanism_class_proxy",
-      "interpretive_note": "wrong_grant / altered_transfer / tampered_transfer are deny-shaped stale-or-foreign proxies; related to stale-copy denial, not isomorphic ClassicalGate.load(rejected) semantics.",
+      "case_id": "stale_grant_version",
+      "classical_status": "completed",
+      "bmo_status": "missing",
+      "classical_decision": "deny",
+      "bmo_decision": null,
+      "inputs_match": true,
       "decision_match": false,
-      "proxy_evidence_ok": true,
-      "signals_ok": true,
-      "tests_ok": true
+      "epistemic_extension": {
+        "distinguishing_observation": "grant_version",
+        "irrelevant_observation_control": "request",
+        "same_shape_as": "active_grant_execute"
+      },
+      "bmo_evaluator_outcome": "missing_isomorphic_observation"
     }
   ],
-  "proxy_rows_ok": 3,
-  "proxy_rows_total": 3,
-  "isomorphic_decision_matches": 0,
-  "total_rows": 4,
+  "finding_id": "r3-f-comparison",
   "label": "assumption_dependent",
-  "preferred_tests": [
-    "internal/sessioncompaction/ordinary_retry_retained_grant_owner_witness_test.go",
-    "internal/sessioncompaction/ordinary_retry_retained_grant_test.go",
-    "internal/sessioncompaction/ordinary_retry_retained_grant_race_test.go"
-  ],
-  "notes": "assumption_dependent: ClassicalGate and BMO share mechanism-class affinity via related deny/allow-shaped proxies only. No isomorphic decision match is claimed (bmo_observed is not hardcoded from ClassicalGate). rejected+restart maps to process-reload in the null model; LegacyWriterBoundary is a writer-boundary race and is recorded as proxy_mismatch, not a match."
+  "notes": "Decision-model comparison only. BMO decisions require isomorphic observations; missing probes yield assumption_dependent, never classical_baseline_matches. Package pass counts are not decisions."
 }

@@ -1,0 +1,36 @@
+{
+  "id": "bmo-active_grant_execute",
+  "claim_id": "r3",
+  "protocol_id": "r3-matched-decision-model",
+  "case_id": "active_grant_execute",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "missing",
+  "observations": {
+    "case_id": "active_grant_execute",
+    "inputs": {
+      "action_id": "edit-1",
+      "state": "active_grant",
+      "grant_version": 2,
+      "request": "execute"
+    },
+    "action": "execute",
+    "decision": null,
+    "effect": null,
+    "evaluator_outcome": "missing_isomorphic_observation",
+    "arm": "bmo",
+    "observation_refs": [
+      "bmo-active_grant_execute.observations.evaluator_outcome"
+    ],
+    "bmo_git_rev": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+    "probe": {
+      "note": "Owner-witness admit is allow-shaped but not an isomorphic active_grant+execute+grant_version decision observation.",
+      "observation_source": "instrumented_harness",
+      "probe_id": "active_grant_execute",
+      "isomorphism": "none"
+    },
+    "package_pass_count_metadata_only": null,
+    "decision_source": "instrumented_harness_probe",
+    "epistemic_extension": null,
+    "expected_decision": "allow"
+  }
+}

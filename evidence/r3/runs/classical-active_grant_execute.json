@@ -1,0 +1,34 @@
+{
+  "id": "classical-active_grant_execute",
+  "claim_id": "r3",
+  "protocol_id": "r3-matched-decision-model",
+  "case_id": "active_grant_execute",
+  "source_pin": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+  "execution_status": "completed",
+  "observations": {
+    "case_id": "active_grant_execute",
+    "inputs": {
+      "action_id": "edit-1",
+      "state": "active_grant",
+      "grant_version": 2,
+      "request": "execute"
+    },
+    "action": "execute",
+    "decision": "allow",
+    "effect": null,
+    "evaluator_outcome": "ok",
+    "arm": "classical",
+    "observation_refs": [
+      "classical-active_grant_execute.observations.decision",
+      "classical-active_grant_execute.observations.inputs.grant_version"
+    ],
+    "bmo_git_rev": null,
+    "grant_row": {
+      "state": "active_grant",
+      "version": 2
+    },
+    "expected_decision": "allow",
+    "claim_level": "decision_model",
+    "epistemic_extension": null
+  }
+}
