@@ -8,7 +8,7 @@ Form: https://apartresearch.com/sprints/swarm-alignment-2026 (user submits; agen
 | Official template PDF | Done | `report/Swarm_Witness_Apart_Submission.pdf`; Google Docs copy URL in `report/SOURCES.md` if judges require exact chrome |
 | ≤8 pages before refs/appendices | Done | PDF 6 pages incl. appendix; body through Discussion under 8 |
 | Abstract 150–250 words | Done | `report/ABSTRACT.md` — 184 words |
-| Authors + affiliations | **User** | Left blank — do not invent; paste into form + report header before submit |
+| Author and affiliation | Done | Jonathan Maye-Hobbs; no institutional affiliation |
 | Judge evidence access | **User** | Repo is **private**; either grant judge read access, publish a mirror, or attach `artifacts/swarm-witness-review-bundle.zip` |
 | Limitations / Dual-Use appendix | Done | `report/LIMITATIONS_DUAL_USE.md` included in PDF |
 | Preexisting marked | Done | `PREEXISTING.md` + README pointer |
@@ -20,9 +20,8 @@ Form: https://apartresearch.com/sprints/swarm-alignment-2026 (user submits; agen
 
 ## Remaining author-controlled steps
 
-1. **Authors + affiliations** — confirm names; fill submission form and report header (`*[to be provided]*`).
-2. **Judge access** — attach `artifacts/swarm-witness-review-bundle.zip` on the form, **or** grant temporary read on `instagrim-dev/swarm-witness`, **or** publish a public mirror.
-3. **Submit** — upload PDF via Apart form before AoE deadline; optional 3–5 min video.
+1. **Judge access** — attach `artifacts/swarm-witness-review-bundle.zip` on the form, **or** grant temporary read on `instagrim-dev/swarm-witness`, **or** publish a public mirror.
+2. **Submit** — upload PDF via Apart form before AoE deadline; optional 3–5 min video.
 
 ## Verification commands (run before submit)
 

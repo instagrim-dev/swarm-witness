@@ -53,4 +53,4 @@ bash scripts/pack_review_bundle.sh
 
 Reviewers can inspect the retained results without obtaining the private BMO working tree; native BMO re-execution requires access to its pinned source. Model-schedule experiments are distinct from live distributed-agent measurements. The mathematical soundness proofs are conditional on authenticated, compatible observations.
 
-Final form actions: supply accurate authors/affiliations, use the official Apart report template if required, and attach the review ZIP or otherwise grant reviewers access to the private repository.
+Author: Jonathan Maye-Hobbs (no institutional affiliation). Final form actions: use the official Apart report template if required, and attach the review ZIP or otherwise grant reviewers access to the private repository.

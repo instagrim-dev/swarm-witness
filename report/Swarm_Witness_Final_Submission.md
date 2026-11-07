@@ -2,7 +2,7 @@
 
 **Research track:** 3, Strengthening Agent Infrastructure. **Application:** multi-agent oversight and forensic evidence evaluation (Track 4).
 
-**Authors / affiliations:** [To be supplied by submitting author]
+**Author:** Jonathan Maye-Hobbs
 
 ## Abstract
 

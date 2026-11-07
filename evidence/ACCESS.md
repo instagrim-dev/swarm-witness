@@ -69,5 +69,4 @@ R1/R2 third-party trees and native BMO product checkouts are **not** bundled
 If Apart judges cannot clone `instagrim-dev/swarm-witness`, the author must
 either (a) grant temporary read access, (b) publish a public mirror, or
 (c) attach `artifacts/swarm-witness-review-bundle.zip` to the submission.
-Authors and affiliations remain author-provided on the submission form (left
-blank in-repo; do not invent).
+Author: Jonathan Maye-Hobbs. No institutional affiliation.

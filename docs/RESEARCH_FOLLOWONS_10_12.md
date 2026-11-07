@@ -53,7 +53,7 @@ compatible observation semantics, not authenticity of external evidence.
 
 The new `src/`, `experiments/`, `tests/`, `theory/`, `claims/`, `evidence/`, `artifacts/` and `report/` entries are committed to main. `evidence/index.yaml` includes the new distinct finding slots. The review ZIP packer includes the research modules and their retained traces, and excludes its previous ZIP from staging.
 
-**Submission gate:** Fill the real author names/affiliations and ensure Apart
-judges can access the report and evidence. The new PDF uses the official
+**Submission gate:** Author: Jonathan Maye-Hobbs; no institutional affiliation.
+Ensure Apart judges can access the report and evidence. The new PDF uses the official
 recommended section structure; importing it into the official Google Docs
 presentation template, if enforced, is a separate formatting step.
