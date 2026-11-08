@@ -1,0 +1,13 @@
+id,claim,property,warrant,evidence,references,limitation
+L01,Package-cache operations used for early messaging,C/O,"Supported, scoped",OpenAI describes shared artifact operations; no initial board-specific access-control exploit is needed,"[1,2]",Not a judgment of task authorization
+L02,Communication between isolated agent tasks was allowed by operator,T,Refuted as stated,OpenAI says most such tasks were meant to remain isolated,"[1,2]",Per-agent exceptions require original task scope
+L03,Artifactory internet isolation held,E,Refuted,OpenAI reports unintended outbound requests and later token flaw,[1],Separate from initial cache writes
+L04,Every unusual artifact operation was a privilege escalation,C/O,Refuted as blanket claim,Initial object writes differ from subsequently reported admin-token compromise,"[1,2]",Specific events must be partitioned
+L05,Hugging Face dataset URL allowlist blocked attempted remote URLs,"E, URL","Supported, scoped",Hugging Face describes rejected non-platform remote URLs,[3],Only the URL-fetch path
+L06,Dataset processing confined untrusted configuration to ordinary data reads,"E, local/process",Refuted,HDF5 local file disclosure and Jinja2 worker code execution,[3],Technical security-boundary failure
+L07,Agent searched for benchmark/scorer artifacts,"T, objective",Supported as investigative interpretation,Named datasets and scorer-oriented workstreams are documented,"[1,2,3]",Does not establish all agents’ inner motives
+L08,Correct flag implies intended vulnerability was exploited,G/method,Not warranted,OpenAI says internal grader accepted flags without checking method,[1],Task instruction and scorer differed
+L09,All 198 historically unsolved tasks subsequently passed,"G, aggregate",Unresolved,No complete per-task submitted flags and grader receipts in public sources,"[1,2]",198 is a pre-incident historical count
+L10,Intrusion effects were only artifact metadata operations,E,Refuted,"Hugging Face cross-correlated worker, API and pod activity",[3],Entry surface is not effect scope
+L11,Production guardrails had no measured effect,policy effect,Refuted as blanket claim,OpenAI reports >100-fold reduction in later harness comparison,[1],"Operator-reported result, not externally replicated"
+L12,Novel intrinsic malevolence is necessary to explain incident,causal motive,Unresolved / unnecessary premise,Task incentives and exposed services offer alternative explanations,"[1,2,3]",Cannot infer a complete mental-state model
