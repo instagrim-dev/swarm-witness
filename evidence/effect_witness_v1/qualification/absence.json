@@ -1,0 +1,7 @@
+{
+  "actor_only_absence_is_no_effect": false,
+  "covered_absence_is_no_effect": true,
+  "covered_uncovered_operation_is_no_effect": false,
+  "history_id": "aew-v1-h-authority-revoked-inflight",
+  "rule": "Absence is evidence of no effect only when the observer coverage names that operation and interval."
+}
