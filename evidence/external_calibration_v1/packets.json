@@ -9294,7 +9294,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "absence_under_complete_covering_capture",
         "verdict": "refuted"
@@ -9334,7 +9337,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "absence_under_complete_covering_capture",
         "verdict": "refuted"
@@ -9833,7 +9839,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "absence_under_complete_covering_capture",
         "verdict": "refuted"
@@ -9873,7 +9882,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "absence_under_complete_covering_capture",
         "verdict": "refuted"
@@ -14433,7 +14445,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "claimed_event_id_present_in_registry",
         "verdict": "unresolved"
@@ -14471,7 +14486,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "claimed_event_id_present_in_registry",
         "verdict": "unresolved"
@@ -19085,7 +19103,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "claimed_event_id_present_in_registry",
         "verdict": "unresolved"
@@ -19123,7 +19144,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "claimed_event_id_present_in_registry",
         "verdict": "unresolved"
@@ -36332,7 +36356,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": false
+          "independence_status": false,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "dependent_witnesses_block_absence_contradiction",
         "verdict": "unresolved"
@@ -36370,7 +36397,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": false
+          "independence_status": false,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "dependent_witnesses_block_absence_contradiction",
         "verdict": "unresolved"
@@ -36869,7 +36899,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": false
+          "independence_status": false,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "dependent_witnesses_block_absence_contradiction",
         "verdict": "unresolved"
@@ -36907,7 +36940,10 @@
           "clock_bound_present": true,
           "coverage_detail": "complete_capture_covers_widened_window",
           "independence_declared": true,
-          "independence_status": false
+          "independence_status": false,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "dependent_witnesses_block_absence_contradiction",
         "verdict": "unresolved"
@@ -41667,7 +41703,10 @@
           "clock_bound_present": true,
           "coverage_detail": "capture_does_not_cover_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "capture_does_not_cover_widened_window",
         "verdict": "unresolved"
@@ -41705,7 +41744,10 @@
           "clock_bound_present": true,
           "coverage_detail": "capture_does_not_cover_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "capture_does_not_cover_widened_window",
         "verdict": "unresolved"
@@ -42204,7 +42246,10 @@
           "clock_bound_present": true,
           "coverage_detail": "capture_does_not_cover_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "capture_does_not_cover_widened_window",
         "verdict": "unresolved"
@@ -42242,7 +42287,10 @@
           "clock_bound_present": true,
           "coverage_detail": "capture_does_not_cover_widened_window",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": true,
+          "population_detail_reason": "population_detail_complete",
+          "population_missing_event_ids": []
         },
         "reason": "capture_does_not_cover_widened_window",
         "verdict": "unresolved"
@@ -46991,18 +47039,21 @@
     },
     "composed_on_adapter": {
       "assessment": {
-        "absence_detail": "claimed_mutation_absent_from_registry",
+        "absence_detail": "population_incomplete",
         "capability": "capture_coverage",
         "coverage_detail": "population_incomplete",
         "family": "fabricated_execution",
         "predicates": {
-          "absence_detail": "claimed_mutation_absent_from_registry",
+          "absence_detail": "population_incomplete",
           "capture_covers_execution": false,
-          "claimed_mutation_absent": true,
+          "claimed_mutation_absent": false,
           "clock_bound_present": true,
           "coverage_detail": "population_incomplete",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": false,
+          "population_detail_reason": "population_incomplete",
+          "population_missing_event_ids": []
         },
         "reason": "population_incomplete",
         "verdict": "unresolved"
@@ -47030,17 +47081,20 @@
     },
     "native_arms": {
       "eg_evidence_derived_adapter": {
-        "absence_detail": "claimed_mutation_absent_from_registry",
+        "absence_detail": "population_incomplete",
         "capability": "capture_coverage",
         "coverage_detail": "population_incomplete",
         "predicates": {
-          "absence_detail": "claimed_mutation_absent_from_registry",
+          "absence_detail": "population_incomplete",
           "capture_covers_execution": false,
-          "claimed_mutation_absent": true,
+          "claimed_mutation_absent": false,
           "clock_bound_present": true,
           "coverage_detail": "population_incomplete",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": false,
+          "population_detail_reason": "population_incomplete",
+          "population_missing_event_ids": []
         },
         "reason": "population_incomplete",
         "verdict": "unresolved"
@@ -47528,18 +47582,21 @@
     },
     "composed_on_adapter": {
       "assessment": {
-        "absence_detail": "claimed_mutation_absent_from_registry",
+        "absence_detail": "population_incomplete",
         "capability": "capture_coverage",
         "coverage_detail": "population_incomplete",
         "family": "fabricated_execution",
         "predicates": {
-          "absence_detail": "claimed_mutation_absent_from_registry",
+          "absence_detail": "population_incomplete",
           "capture_covers_execution": false,
-          "claimed_mutation_absent": true,
+          "claimed_mutation_absent": false,
           "clock_bound_present": true,
           "coverage_detail": "population_incomplete",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": false,
+          "population_detail_reason": "population_incomplete",
+          "population_missing_event_ids": []
         },
         "reason": "population_incomplete",
         "verdict": "unresolved"
@@ -47567,17 +47624,20 @@
     },
     "native_arms": {
       "eg_evidence_derived_adapter": {
-        "absence_detail": "claimed_mutation_absent_from_registry",
+        "absence_detail": "population_incomplete",
         "capability": "capture_coverage",
         "coverage_detail": "population_incomplete",
         "predicates": {
-          "absence_detail": "claimed_mutation_absent_from_registry",
+          "absence_detail": "population_incomplete",
           "capture_covers_execution": false,
-          "claimed_mutation_absent": true,
+          "claimed_mutation_absent": false,
           "clock_bound_present": true,
           "coverage_detail": "population_incomplete",
           "independence_declared": true,
-          "independence_status": true
+          "independence_status": true,
+          "population_detail_complete": false,
+          "population_detail_reason": "population_incomplete",
+          "population_missing_event_ids": []
         },
         "reason": "population_incomplete",
         "verdict": "unresolved"

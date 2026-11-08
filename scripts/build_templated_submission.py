@@ -254,10 +254,16 @@ def fill_template() -> Path:
         "aew-v1-local-control-pass-broader-effect progresses actor-only unresolved "
         "to application-readback refuted. Native matched-method layer: 144 rows "
         "(ledger 352); Swarm Witness 11 unsupported supports and correct decisive "
-        "24/24; strong invariant on the same records 0 and 24/24. An evidence-free "
+        "24/24; strong invariant on the same records 0 and 24/24; "
+        "always-unresolved 0 unsupported supports and correct decisive 0/24. "
+        "An evidence-free "
         "actor-only upgrade is unsupported support. superiority_claim false. "
-        "transfer_claim false. Earlier staged comparison remains author-curated. R1–R5 and the "
-        "causal/formal checks stay in the retained evidence pack."
+        "transfer_claim false. Classifier–adapter agreement on retained "
+        "EvidenceGraph packets remains 130/130. Attribution warrant agreement is "
+        "3/4 and native-safer agreement is 4/4. A missing population-detail row "
+        "is incomplete evidence, not absence. Earlier staged comparison remains "
+        "author-curated. R1–R5 and the causal/formal checks stay in the retained "
+        "evidence pack."
     )
 
     add_heading("5. Discussion and Limitations", 2)
