@@ -192,10 +192,7 @@ def run() -> dict[str, Any]:
         packet for packet in eligible if packet["claim"]["family"] == "fabricated_execution"
     ]
     successful = clean[0]
-    refutation_packet = next(
-        (packet for packet in fabricated if _label(packet)["status"] == "refuted"),
-        fabricated[0],
-    )
+    refutation_packet = fabricated[0]
     removed = _without_type(successful["observations"], "registry_mutation_record")
     return {
         "protocol_id": protocol["id"],

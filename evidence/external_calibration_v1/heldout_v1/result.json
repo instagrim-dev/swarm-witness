@@ -39,8 +39,8 @@
     "additional_source_requests": 0
   },
   "processing_seconds": {
-    "strong_invariant": 0.0006754999049007893,
-    "swarm_witness": 0.0005592162488028407
+    "strong_invariant": 0.0004747910425066948,
+    "swarm_witness": 0.00046917289728298783
   },
   "disagreements": [],
   "controls": {
@@ -55,8 +55,8 @@
       "visible_evidence_label": "unresolved"
     },
     "refutation": {
-      "claim_id": "EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6",
-      "visible_evidence_label": "refuted",
+      "claim_id": "EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1",
+      "visible_evidence_label": "unresolved",
       "controlled_truth": false
     }
   },
