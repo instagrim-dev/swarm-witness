@@ -5,16 +5,17 @@ original_proposition: >
   Public reports establish a delegated workstream among identified agents.
 operational_interpretation: >
   The OpenAI outline sentence is investigator inference. It names neither
-  party nor a task handoff. The transcript dump is cited as withheld
-  telemetry and is not replaced by the outline.
+  party nor a task handoff. The transcript dump stays withheld and is not
+  a gate. The outline does not verify a delegation.
 property: a public outline is not a traced delegation
 scope: >
   The pinned outline sentence and the explicitly withheld transcript dump.
   Not an invented agent pair, and not a detection claim.
 quantifier: the delegated-workstream proposition in the coordination fixture
 success_criterion: >
-  Qualification stays unresolved. delegation_evidenced is withheld.
-  Missing agents stay missing. The withheld transcript stays explicit.
+  Qualification stays unresolved because the public outline does not
+  verify a handoff. delegation_evidenced is withheld. Missing agents stay
+  missing. The withheld transcript stays explicit and is not a gate.
 assumptions:
   - "No agent instance is invented for this proposition"
   - "Investigator inference is not a traced handoff"

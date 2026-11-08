@@ -7,21 +7,24 @@ original_proposition: >
   upgrades.
 operational_interpretation: >
   Replaying experiments/coordination/incident_cases.yaml yields three
-  unresolved propositions. Upgrade blockers remain. Synthetic controls and
-  the scale stream are labeled synthetic. The result does not certify
-  real-world authenticity and does not claim that Swarm Witness detected
-  or prevented the incident.
+  unresolved propositions because the cited excerpts do not verify them.
+  Unavailable originals are not gates. A blocks_upgrade slot on held
+  evidence still prevents support. Synthetic controls and the scale stream
+  are labeled synthetic. The result does not certify real-world authenticity
+  and does not claim that Swarm Witness detected or prevented the incident.
 property: fixture-regenerable coordination qualification
 scope: >
   The versioned contract, the incident fixture, and the synthetic controls.
   Not forensic telemetry adapters and not a response-latency replay.
 quantifier: the three incident propositions in the fixture
 success_criterion: >
-  All three incident finding labels are unresolved, detection and prevention
-  flags stay false, supported_while_blocked stays false, and a foreign log
-  does not clear a remaining blocks_upgrade slot.
+  All three incident finding labels are unresolved because the cited excerpts
+  do not verify them. Detection and prevention flags stay false.
+  supported_while_blocked stays false. A held blocks_upgrade slot still
+  prevents support. Unavailable originals are not gates.
 assumptions:
   - "Verdicts use qualify_claim and the existing conclusion classes"
-  - "A remaining blocks_upgrade slot prevents an upgrade to supported"
-  - "Unknown and withheld sources remain explicit"
+  - "A blocks_upgrade slot prevents an upgrade to supported only for evidence this audit holds"
+  - "The LessWrong reproduction post and its appendix are one public record"
+  - "The OpenAI transcript dump and Hugging Face platform logs stay unavailable and are not gates"
   - "Synthetic scale records are not incident records"

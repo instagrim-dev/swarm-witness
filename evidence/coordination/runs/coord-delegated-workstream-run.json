@@ -54,7 +54,7 @@
         "Possession or repetition of board content is not authorship and is not causal contribution.",
         "A copied or forged actor identifier is not a bound participant.",
         "A verified narrative_report verifies publication bytes only.",
-        "A blocks_upgrade slot that no verified supporting event uses prevents an upgrade to supported. A log from a different source does not clear it."
+        "A blocks_upgrade slot on evidence this audit holds prevents an upgrade to supported until a verified supporting event uses that source. An unavailable original is not a gate, and a log from another source does not clear a held gate."
       ],
       "finding_label": "unresolved",
       "goal_contagion_claimed": false,
@@ -107,17 +107,38 @@
         "upgrade_blocked_by": []
       },
       "real_world_authenticity_certified": false,
-      "reason": "required discriminating evidence missing or incomplete",
+      "reason": "cited excerpts do not verify the proposition; unavailable originals are recorded and are not gates",
       "refused_blocked_support": false,
+      "reproduction_public_record": {
+        "corroboration_keys": [
+          "digest:b4cb7b533f22a27b28a1b9f7312b10a27060952d1408ac888489c67ec2b5080d"
+        ],
+        "distinct_from": [
+          "src-transcript-dump",
+          "src-hf-platform-logs"
+        ],
+        "event_ids": [
+          "ev-lw-release",
+          "ev-lw-appendix"
+        ],
+        "one_public_record": true,
+        "source_ids": [
+          "src-lw-reproduction-post",
+          "src-lw-reproduction-appendix"
+        ]
+      },
       "supported_while_blocked": false,
       "traced_causal_actor_count": 0,
       "traced_causal_actor_ids": [],
+      "unavailable_originals_are_gates": false,
       "unavailable_telemetry": [
         {
           "access_level": "withheld",
           "coverage_status": "withheld",
           "observation_origin": "unavailable_private_original",
-          "source_id": "src-transcript-dump"
+          "reason": "recorded unavailable; not an upgrade gate",
+          "source_id": "src-transcript-dump",
+          "upgrade_gate": false
         }
       ],
       "unsupported_seams": [
@@ -127,7 +148,7 @@
         "missing_delegation_records",
         "narrative_is_not_communication",
         "no_added_qualification_value",
-        "withheld_source"
+        "public_excerpt_does_not_verify"
       ],
       "upgrade_blocked_by": [],
       "withheld_labels": [

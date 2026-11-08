@@ -8,7 +8,7 @@
 
 #31 and #32 are not implemented here. #10–#12 findings are unchanged.
 
-Verdicts call `qualify_claim` and `classify_conclusion`. There is no second confidence score. A remaining `blocks_upgrade` slot prevents an upgrade to `supported`. A verified log from a different source does not clear a withheld transcript, an unobserved platform log, or any other blocking slot. `supported_while_blocked` stays false.
+Verdicts call `qualify_claim` and `classify_conclusion`. There is no second confidence score. A `blocks_upgrade` slot prevents an upgrade to `supported` only for evidence this audit holds. The original OpenAI transcript dump and the Hugging Face platform logs stay unavailable and are not gates. A verified log from another held source does not clear a held gate. The LessWrong reproduction post and its appendix are one public record. `supported_while_blocked` stays false.
 
 ## Records
 
@@ -35,7 +35,7 @@ An edge may cite a withheld, redacted, or unobserved source so that unavailable 
 | `communication_observed` | The edge is `communication`, the message is `original`, and a verified `independent_service_log` binds the speaker. A `narrative_report` does not qualify. |
 | `delegation_evidenced` | Both agents are lineage-bound by verified service logs, the message is original, the task is present, and every support log has `time_basis: source_stated`. |
 | `goal_adoption_inferred` | The edge is `adoption` or `shared_vocabulary` and a verified narrative is the basis. This is not intent, goal contagion, or causal contribution. |
-| `causal_contribution_unresolved` | A contribution is alleged and there is no `delegation_evidenced` path to a verified `committed_effect` that uses every `blocks_upgrade` source on the cited provenance claim. |
+| `causal_contribution_unresolved` | A contribution is alleged and there is no `delegation_evidenced` path to a verified `committed_effect` that uses every held `blocks_upgrade` source on the cited provenance claim. |
 
 Other relations stay non-causal: `temporal_correlation`, `shared_vocabulary`, `reused_file`, `relay`, `duplicate_report`, `possession`, and `investigator_inference`. Possession or repetition of board content is not authorship and is not causal contribution. A second publication in the same independence group is one observation.
 
@@ -45,15 +45,15 @@ Other relations stay non-causal: `temporal_correlation`, `shared_vocabulary`, `r
 
 Replaying the fixture leaves three world propositions unresolved:
 
-| Case | What stays missing | Primary blocker |
+| Case | Why the public excerpts do not verify it | Unavailable original, not a gate |
 | --- | --- | --- |
-| `coord_board_participation` | The METR and Redwood sentences are one group. No agent instance is held. | `src-board-dump` |
-| `coord_delegated_workstream` | The OpenAI outline is investigator inference. The transcript dump is withheld. | none on a provenance claim; `src-transcript-dump` is explicit unavailable telemetry |
+| `coord_board_participation` | The METR and Redwood sentences are one group. The LessWrong post and its appendix are a second, single public record. No agent instance is held. | `src-board-dump` |
+| `coord_delegated_workstream` | The OpenAI outline is investigator inference. No delegation is evidenced. | `src-transcript-dump` |
 | `coord_collective_impact` | Narratives and a reported population do not reach a committed effect. The narrative window is not promoted. | `src-hf-platform-logs` |
 
-Coordination does not change those provenance verdicts. `added_claim_qualification_value` is false on each incident case.
+None of the three has a primary upgrade blocker. Coordination does not change those provenance verdicts. `added_claim_qualification_value` is false on each incident case.
 
-Synthetic controls in `experiments/coordination/controls.py` are labeled synthetic. They are not incident records. A fixture whose own log is the blocking source can satisfy the internal rule and still does not certify a real-world event. A log from a different source does not.
+Synthetic controls in `experiments/coordination/controls.py` are labeled synthetic. They are not incident records. A fixture whose own held log is the blocking source can satisfy the internal rule once that source is used, and still does not certify a real-world event. A log from a different held source does not clear that gate. An unavailable original cannot be marked `blocks_upgrade`.
 
 The scale stream uses 1,200 synthetic agents and 70,000 synthetic messages, attributes only explicit handoffs, and does not allocate an agent-pair matrix.
 

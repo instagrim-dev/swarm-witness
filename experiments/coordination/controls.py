@@ -719,8 +719,25 @@ def _append_log(graph: dict, sid: str, kind: str, statement: str) -> str:
     return f"ev-{sid}"
 
 
-def foreign_log_does_not_upgrade(incident: dict) -> dict[str, Any]:
-    """A verified log from another source must not support a blocked incident claim."""
+def _held_gate(graph: dict, claim_id: str, sid: str) -> None:
+    """A blocks_upgrade slot on bytes this audit holds."""
+    graph["source_records"].append(_pinned(sid, f"held-gate:{sid}", group=f"group:{sid}"))
+    for claim in graph["claims"]:
+        if claim["id"] == claim_id:
+            claim["evidence_slots"].append(
+                {
+                    "id": f"slot-{sid}",
+                    "source_id": sid,
+                    "blocks_upgrade": True,
+                    "role": "held evidence gate",
+                }
+            )
+
+
+def held_gate_and_unavailable_originals(incident: dict) -> dict[str, Any]:
+    """Unavailable originals are not gates. A held blocks_upgrade slot still is."""
+    from swarm_witness.provenance import qualify_claim
+
     effect = copy.deepcopy(incident)
     effect_event = _append_log(
         effect,
@@ -728,7 +745,11 @@ def foreign_log_does_not_upgrade(incident: dict) -> dict[str, Any]:
         "committed_effect",
         "Bytes from a log that is not the Hugging Face platform log.",
     )
-    effect_value = coordination_added_value(effect, "prov_hf_effect", [effect_event])
+    open_effect = coordination_added_value(effect, "prov_hf_effect", [effect_event])
+
+    gated_effect = copy.deepcopy(effect)
+    _held_gate(gated_effect, "prov_hf_effect", "src-held-effect")
+    held_effect = coordination_added_value(gated_effect, "prov_hf_effect", [effect_event])
 
     spoof = copy.deepcopy(incident)
     for event in spoof["observed_events"]:
@@ -741,8 +762,30 @@ def foreign_log_does_not_upgrade(incident: dict) -> dict[str, Any]:
         "independent_service_log",
         "An execution log that is not the withheld transcript.",
     )
-    spoof_value = coordination_added_value(spoof, "prov_tool_call_spoof", [spoof_event])
-    return {"effect": effect_value, "spoof": spoof_value}
+    open_spoof = coordination_added_value(spoof, "prov_tool_call_spoof", [spoof_event])
+    gated_spoof = copy.deepcopy(spoof)
+    _held_gate(gated_spoof, "prov_tool_call_spoof", "src-held-exec")
+    held_spoof = coordination_added_value(gated_spoof, "prov_tool_call_spoof", [spoof_event])
+
+    illegal = copy.deepcopy(incident)
+    for claim in illegal["claims"]:
+        if claim["id"] != "prov_hf_effect":
+            continue
+        for slot in claim["evidence_slots"]:
+            if slot["source_id"] == "src-hf-platform-logs":
+                slot["blocks_upgrade"] = True
+    unavailable_gate_rejected = False
+    try:
+        qualify_claim(illegal, "prov_hf_effect")
+    except ValueError as exc:
+        unavailable_gate_rejected = "cannot be an upgrade gate" in str(exc)
+    return {
+        "open_effect": open_effect,
+        "held_effect": held_effect,
+        "open_spoof": open_spoof,
+        "held_spoof": held_spoof,
+        "unavailable_gate_rejected": unavailable_gate_rejected,
+    }
 
 
 def _qualify(builder: Any) -> dict:
@@ -895,20 +938,21 @@ def check_controls() -> dict[str, Any]:
 
 
 def check_incident_blockers(incident: dict, qualified: dict[str, dict]) -> None:
-    foreign = foreign_log_does_not_upgrade(incident)
-    for name, expected in (
-        ("effect", "src-hf-platform-logs"),
-        ("spoof", "src-transcript-dump"),
+    gates = held_gate_and_unavailable_originals(incident)
+    if not gates["unavailable_gate_rejected"]:
+        raise RuntimeError("unavailable platform logs were accepted as a gate")
+    for name, open_value, held_value, held_source in (
+        ("effect", gates["open_effect"], gates["held_effect"], "src-held-effect"),
+        ("spoof", gates["open_spoof"], gates["held_spoof"], "src-held-exec"),
     ):
-        value = foreign[name]
-        if value["added"] or value["augmented_finding_label"] != "unresolved":
-            raise RuntimeError(f"{name} upgraded past its blocker")
-        if value["primary_upgrade_blocker"] != expected:
-            raise RuntimeError(f"{name} blocker changed to {value['primary_upgrade_blocker']}")
-        if value["refused_blocked_support"]:
-            raise RuntimeError(f"{name} provenance returned supported while blocked")
-        if any(row["source_id"] == expected for row in value["upgrade_blocked_by"]) is False:
-            raise RuntimeError(f"{name} lost {expected}")
+        if not open_value["added"] or open_value["augmented_finding_label"] != "reproduced":
+            raise RuntimeError(f"{name} stayed blocked by an unavailable original")
+        if open_value["primary_upgrade_blocker"] is not None or open_value["upgrade_blocked_by"]:
+            raise RuntimeError(f"{name} treated an unavailable original as a gate")
+        if held_value["added"] or held_value["augmented_finding_label"] != "unresolved":
+            raise RuntimeError(f"{name} upgraded past a held gate")
+        if held_value["primary_upgrade_blocker"] != held_source:
+            raise RuntimeError(f"{name} held gate moved to {held_value['primary_upgrade_blocker']}")
 
     board = qualified["coord_board_participation"]
     work = qualified["coord_delegated_workstream"]
@@ -923,20 +967,37 @@ def check_incident_blockers(incident: dict, qualified: dict[str, dict]) -> None:
             raise RuntimeError("reported population was traced")
         if result["investigator_reported_agents_are_traced_actors"]:
             raise RuntimeError("reported agents were marked traced")
-    if board["primary_upgrade_blocker"] != "src-board-dump":
-        raise RuntimeError("board blocker moved")
-    if board["independent_observation_count"] != 1:
-        raise RuntimeError("board publications counted as independent")
+        if result["primary_upgrade_blocker"] is not None or result["upgrade_blocked_by"]:
+            raise RuntimeError(f"{result['case_id']} was blocked by an unavailable original")
+        if result["unavailable_originals_are_gates"] is not False:
+            raise RuntimeError("unavailable originals were gates")
+        if "public_excerpt_does_not_verify" not in result["unsupported_seams"]:
+            raise RuntimeError(f"{result['case_id']} was not unresolved by the public excerpts")
+        if "upgrade_blocker_remains" in result["unsupported_seams"]:
+            raise RuntimeError(f"{result['case_id']} still treats a missing original as a gate")
+        record = result["reproduction_public_record"]
+        if not record or not record["one_public_record"] or len(record["corroboration_keys"]) != 1:
+            raise RuntimeError("LessWrong post and appendix were not one public record")
     if "communication_observed" in board["labels"]:
         raise RuntimeError("board narrative became communication_observed")
-    if impact["primary_upgrade_blocker"] != "src-hf-platform-logs":
-        raise RuntimeError("effect blocker moved")
+    board_groups = set(board["independence_groups"])
+    if "openai-artifactory-message-board-dump" not in board_groups:
+        raise RuntimeError("board publications left their group")
+    if "lesswrong-reproduction-2026-09" not in board_groups:
+        raise RuntimeError("reproduction post was not cited")
     if "causal_contribution_unresolved" not in impact["labels"]:
         raise RuntimeError("collective impact resolved contribution")
     if any(edge["event_time"] for edge in impact["edges"]):
         raise RuntimeError("narrative window was promoted onto coordination time")
     if "delegation_evidenced" in work["labels"]:
         raise RuntimeError("outline became a handoff")
-    unavailable = {row["source_id"] for row in work["unavailable_telemetry"]}
+    unavailable = {row["source_id"]: row for row in work["unavailable_telemetry"]}
     if "src-transcript-dump" not in unavailable:
         raise RuntimeError("withheld transcript was not explicit")
+    if unavailable["src-transcript-dump"]["upgrade_gate"] is not False:
+        raise RuntimeError("withheld transcript was a gate")
+    impact_unavailable = {row["source_id"]: row for row in impact["unavailable_telemetry"]}
+    if "src-hf-platform-logs" not in impact_unavailable:
+        raise RuntimeError("platform logs were dropped")
+    if impact_unavailable["src-hf-platform-logs"]["upgrade_gate"] is not False:
+        raise RuntimeError("platform logs were a gate")

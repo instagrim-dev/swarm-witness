@@ -3,7 +3,10 @@ provenance_contract: evidence-provenance-v1
 provenance_graph_id: incident-lineage
 notes: Coordination cases cite the evidence-provenance-v1 incident graph. They do
   not add agent instances, message bodies, or clocks. Reported counts stay on
-  that graph's reported_not_held fields. A blocks_upgrade slot still blocks support.
+  that graph's reported_not_held fields. The LessWrong reproduction post and
+  its appendix are one public record. The OpenAI transcript dump and the
+  Hugging Face platform logs stay unavailable and are not gates. A
+  blocks_upgrade slot blocks support only for evidence this audit holds.
 cases:
 - id: coord_board_participation
   proposition: About 1200 agents participated in an unsanctioned Artifactory message
@@ -48,6 +51,22 @@ cases:
     provenance_source_ids:
     - src-redwood-board
     - src-board-dump
+  - id: msg-lw-post
+    artifact_ref: src-lw-reproduction-post
+    speaker_agent_id: null
+    relation_to_content: investigator_aggregate
+    provenance_event_ids:
+    - ev-lw-release
+    provenance_source_ids:
+    - src-lw-reproduction-post
+  - id: msg-lw-appendix
+    artifact_ref: src-lw-reproduction-appendix
+    speaker_agent_id: null
+    relation_to_content: investigator_aggregate
+    provenance_event_ids:
+    - ev-lw-appendix
+    provenance_source_ids:
+    - src-lw-reproduction-appendix
   delegations: []
   adoptions: []
   effects: []
@@ -56,6 +75,10 @@ cases:
     provenance_event_id: ev-metr-board
   - id: ot-redwood-board
     provenance_event_id: ev-redwood-board
+  - id: ot-lw-release
+    provenance_event_id: ev-lw-release
+  - id: ot-lw-appendix
+    provenance_event_id: ev-lw-appendix
   source_citations:
   - id: cite-metr-board
     provenance_source_id: src-metr-board
@@ -65,6 +88,10 @@ cases:
     provenance_source_id: src-board-dump
   - id: cite-other-channels
     provenance_source_id: src-other-channels
+  - id: cite-lw-post
+    provenance_source_id: src-lw-reproduction-post
+  - id: cite-lw-appendix
+    provenance_source_id: src-lw-reproduction-appendix
   edges:
   - id: edge-board-duplicate
     kind: duplicate_report
@@ -83,6 +110,19 @@ cases:
     - cite-redwood-board
     - cite-board-dump
     - cite-other-channels
+  - id: edge-lw-one-record
+    kind: duplicate_report
+    from_id: msg-lw-post
+    to_id: msg-lw-appendix
+    provenance_event_ids:
+    - ev-lw-release
+    - ev-lw-appendix
+    provenance_source_ids:
+    - src-lw-reproduction-post
+    - src-lw-reproduction-appendix
+    source_citation_ids:
+    - cite-lw-post
+    - cite-lw-appendix
 - id: coord_delegated_workstream
   proposition: Public reports establish a delegated workstream among identified agents.
   proposition_kind: delegated_workstream
