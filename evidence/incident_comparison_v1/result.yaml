@@ -1,0 +1,33 @@
+claim_id: incident_comparison_v1
+label: reproduced
+authoritative: finding
+finding_path: findings/incident-comparison-v1-f.json
+metrics:
+  comparison_completed: true
+  superiority_claim: false
+  real_world_authenticity_certified: false
+  unavailable_blocks_comparison: false
+  unavailable_are_upgrade_gates: false
+  detection_or_prevention_claimed: false
+  public_claim_count: 12
+  public_cell_count: 24
+  public_naive_unsupported_support: 24
+  public_strong_unsupported_support: 0
+  public_swarm_unsupported_support: 0
+  public_naive_correct_decisive: 0
+  public_strong_correct_decisive: 2
+  public_strong_decisive_opportunities: 2
+  public_always_unresolved_correct_decisive: 0
+  controlled_claim_count: 4
+  controlled_history_count: 3
+  controlled_cell_count: 4
+  controlled_naive_unsupported_support: 2
+  controlled_strong_unsupported_support: 0
+  controlled_naive_false_proposition_support: 2
+  controlled_strong_false_proposition_support: 0
+  lineage_claim_count: 4
+  lineage_incident_supported: 0
+  lineage_reproduction_independent_observations: 1
+  one_public_record: true
+notes: Post and appendix are one record. Unavailable originals are not gates. The
+  original incident is not certified.

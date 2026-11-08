@@ -1,0 +1,29 @@
+id: prov_tool_call_spoof
+source_ref: experiments/provenance/incident_lineage.yaml#prov_tool_call_spoof
+source_version: evidence-provenance-v1
+original_proposition: >
+  The command displayed in the METR/Redwood transcript example was the
+  command actually executed.
+operational_interpretation: >
+  Under evidence-provenance-v1, a transcript-visible command and a repeated
+  public narration of that command do not establish an executed command.
+  The original transcript and an independent execution log are withheld or
+  unobserved. The displayed command and the reported return token conflict.
+  Actor binding for the unnamed transcript remains unverified.
+property: executed command is not established by a spoofed or narrated tool call
+scope: >
+  Public METR and Redwood excerpts retrieved 2026-11-07, plus explicitly
+  absent original transcripts. Not a claim that Swarm Witness observed the
+  incident, and not a reconstruction of an exploit.
+quantifier: the single published echo REAL / SPOOFTEST example in the fixture
+success_criterion: >
+  Qualification stays missing_evidence / unresolved because the public example
+  conflicts and does not verify an executed command. The withheld transcript
+  dump is recorded unavailable and is not an upgrade gate. source_conflict
+  and unverified_binding stay reportable. Real-world authenticity is not
+  certified.
+assumptions:
+  - "The pinned excerpts are the public bytes held by this audit"
+  - "The original transcript dump is withheld and is not downloaded here"
+  - "METR and Redwood pages are two surfaces of one investigation"
+  - "A missing per-action timestamp is not filled in"

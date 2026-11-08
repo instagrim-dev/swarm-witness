@@ -56,6 +56,14 @@ incident_property_graph:
     commit-time authorization, commitment, and P_system. The LessWrong
     reproduction post is the incident evidence standard. Original transcripts
     and platform logs are unavailable and are not a contract gate.
+incident_comparison_v1:
+  source_pin: incident-comparison-v1
+  source_revision: incident-comparison-v1
+  protocol_id: incident-comparison-v1
+  notes: >
+    Frozen public-claim comparison plus the held LessWrong reproduction
+    record. The post and appendix are one record. Unavailable originals are
+    not gates. The original incident is not certified.
 incident_claims_v1:
   source_pin: "incident-audit-v1"
   source_revision: "incident-audit-v1"
@@ -65,3 +73,33 @@ incident_claims_v1:
     Public postmortem qualification of the 2026 Artifactory / Hugging Face
     reports. Not a detection or prevention result. Raw telemetry listed in
     the manifest is unavailable.
+prov_tool_call_spoof:
+  source_pin: evidence-provenance-v1
+  source_revision: evidence-provenance-v1
+  notes: >
+    Issue 28 provenance fixture. Public METR/Redwood excerpts only.
+    The original transcript is withheld. Not an incident-detection result.
+prov_message_board:
+  source_pin: evidence-provenance-v1
+  source_revision: evidence-provenance-v1
+  notes: >
+    Issue 28 provenance fixture. The Artifactory dump is withheld.
+    Reported message counts are not downloaded records.
+prov_hf_effect:
+  source_pin: evidence-provenance-v1
+  source_revision: evidence-provenance-v1
+  notes: >
+    Issue 28 provenance fixture. Hugging Face platform logs are unobserved.
+    The public timeline does not establish a committed effect.
+prov_reproduction_transcripts:
+  source_pin: evidence-provenance-v1
+  source_revision: evidence-provenance-v1
+  notes: >
+    Issue 28 provenance fixture. The public LessWrong post and appendix are
+    the held reproduction record. The OpenAI transcript dump and Hugging Face
+    platform logs are unavailable and are not upgrade gates.
+provenance_contract_v1:
+  source_pin: evidence-provenance-v1
+  source_revision: evidence-provenance-v1
+  notes: >
+    Executable evidence-provenance-v1 contract. Fixture conformance only.

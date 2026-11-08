@@ -1,0 +1,16 @@
+{
+  "basis": "computed",
+  "claim_id": "prov_reproduction_transcripts",
+  "conclusion_class": "supported",
+  "evaluation_method": "held_out_artifact_audit",
+  "id": "prov-reproduction-transcripts-f",
+  "label": "reproduced",
+  "proposition": "The public LessWrong reproduction post and its appendix release transcripts of that reproduction. Those transcripts are not the OpenAI transcript dump and not Hugging Face platform logs.",
+  "run_ids": [
+    "prov-reproduction-transcripts-run"
+  ],
+  "scope": "Public LessWrong reproduction post and appendix. The OpenAI transcript dump and Hugging Face platform logs are recorded unavailable and do not block this qualification.",
+  "supporting_observation_refs": [
+    "prov-reproduction-transcripts-run.observations.finding_label"
+  ]
+}

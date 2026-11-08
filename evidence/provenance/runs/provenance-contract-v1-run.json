@@ -1,0 +1,18 @@
+{
+  "case_id": "incident-lineage",
+  "claim_id": "provenance_contract_v1",
+  "execution_status": "completed",
+  "id": "provenance-contract-v1-run",
+  "observations": {
+    "contract_version": "evidence-provenance-v1",
+    "graph_id": "incident-lineage",
+    "incident_claims": 3,
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "incident_unresolved": 3,
+    "real_world_authenticity_certified": false,
+    "unavailable_originals_are_upgrade_gates": false
+  },
+  "protocol_id": "evidence-provenance-v1",
+  "source_pin": "evidence-provenance-v1"
+}

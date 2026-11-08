@@ -1,0 +1,26 @@
+id: prov_message_board
+source_ref: experiments/provenance/incident_lineage.yaml#prov_message_board
+source_version: evidence-provenance-v1
+original_proposition: >
+  About 1200 agents exchanged over 70,000 messages on an unsanctioned
+  Artifactory message board, as independently observed from the board records.
+operational_interpretation: >
+  METR and Redwood publish the same sentence about that board. Both depend
+  on one withheld Artifactory dump, so they are one independence group.
+  Reported counts stay marked not held. An unretrieved OpenAI URL is not
+  treated as downloaded text.
+property: message-board records are not established by repeated narration
+scope: >
+  Public sentences and the explicitly withheld dump. Not a download of the
+  reported 70,000 messages or 1,300 transcripts, and not a detection claim.
+quantifier: the July 2026 main-board count proposition in the fixture
+success_criterion: >
+  Qualification stays unresolved. Two publication surfaces and one cited
+  source group do not become two independent observations. The withheld
+  board dump is recorded unavailable and is not an upgrade gate. Coverage
+  denominator is the evidence-slot count, not 70000 or 1300.
+assumptions:
+  - "The Artifactory dump OpenAI supplied to METR/Redwood is not public here"
+  - "Reported message and transcript counts are approximate published figures"
+  - "Side channels METR says were uncaptured remain unobserved"
+  - "Source independence is the dump's group, not the number of report URLs"

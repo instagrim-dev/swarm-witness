@@ -1,0 +1,226 @@
+{
+  "case_id": "prov_hf_effect",
+  "claim_id": "prov_hf_effect",
+  "execution_status": "completed",
+  "id": "prov-hf-effect-run",
+  "observations": {
+    "conclusion_class": "missing_evidence",
+    "finding_label": "unresolved",
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "independent_observation_count": 0,
+    "invalid_requirements": [],
+    "missing_requirements": [],
+    "primary_upgrade_blocker": null,
+    "qualification": {
+      "absence_of_sink_is_no_effect": false,
+      "chronology": {
+        "event_time": null,
+        "fabricated": false,
+        "observed_time": null,
+        "time_basis": "missing"
+      },
+      "cited_independence_groups": [
+        "huggingface-platform-telemetry-2026-07",
+        "metr-redwood-investigation-scope",
+        "openai-incident-report"
+      ],
+      "claim_id": "prov_hf_effect",
+      "conclusion_class": "missing_evidence",
+      "coverage": {
+        "available": 3,
+        "denominator": 6,
+        "redacted": 1,
+        "unobserved": 1,
+        "withheld": 1
+      },
+      "coverage_assumption": {
+        "completeness": "partial",
+        "declared": true,
+        "interval": {
+          "end": null,
+          "start": null
+        },
+        "operation": "public-hf-timeline"
+      },
+      "coverage_established": false,
+      "decision_status": "unknown",
+      "diagnosis": {
+        "decision_status": "unknown",
+        "effect_status": "unobserved",
+        "evidence_status": "unverified",
+        "failure_origin": "evidence"
+      },
+      "dimensions": {
+        "authenticity": "byte_identified",
+        "collection_completeness": "partial",
+        "scope_binding": "unknown",
+        "temporal_applicability": "applies"
+      },
+      "duplicated_report_ids": [],
+      "effect_status": "unobserved",
+      "evidence_status": "unverified",
+      "evidence_type_counts": {
+        "application_readback": 0,
+        "public_report_assertion": 3,
+        "synthetic_model_record": 0
+      },
+      "failure_origin": "evidence",
+      "finding_label": "unresolved",
+      "incident_detection_claimed": false,
+      "incident_prevention_claimed": false,
+      "independent_observation_count": 0,
+      "invalid_requirements": [],
+      "investigator_count": 3,
+      "investigators": [
+        "huggingface",
+        "metr-redwood-investigation",
+        "openai"
+      ],
+      "kind_rejections": [],
+      "kinds_present": [
+        "narrative_report"
+      ],
+      "lineage": [
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Hugging Face public sentence saying recovered actions were correlated with platform logs. The sentence is not those logs.",
+          "content_digest": "554ee5166a997cd75d4e3b5bf455abea3613bc73daf7dcf1531f864e029da9c7",
+          "corroboration_key": "group:huggingface-platform-telemetry-2026-07",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-hf-narrative",
+          "event_time": "2026-07-09T02:28:00Z/2026-07-13T14:14:00Z",
+          "evidence_type": "public_report_assertion",
+          "independence_group": "huggingface-platform-telemetry-2026-07",
+          "observation_availability": "available",
+          "observation_origin": "correlated_analysis_of_single_dataset",
+          "producer": "huggingface",
+          "scope_binding": "unknown",
+          "source_ref": "https://huggingface.co/blog/agent-intrusion-technical-timeline",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "applies"
+        },
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "unknown",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "Outline entry in the OpenAI technical report. OpenAI's narration of a Hugging Face compromise is not Hugging Face platform telemetry.",
+          "content_digest": "3546dcdaf10b5e990153c85a33d8656ed125c83ff774865093d9834fb91a327a",
+          "corroboration_key": "digest:3546dcdaf10b5e990153c85a33d8656ed125c83ff774865093d9834fb91a327a",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-openai-hf",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "openai-incident-report",
+          "observation_availability": "available",
+          "observation_origin": "correlated_analysis_of_single_dataset",
+          "producer": "openai",
+          "scope_binding": "unknown",
+          "source_ref": "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        },
+        {
+          "actor_scope": "unknown",
+          "analyst_origin": "mixed",
+          "authenticity": "not_checked",
+          "byte_identity": true,
+          "collection_boundary": "METR/Redwood state that the extent of the security compromise was outside the investigation's scope. This is not an observation of a Hugging Face effect.",
+          "content_digest": "0743621a3a1f40d2163790cdbf75cd198d568565d064b3cca1ba9dea37d5f8f7",
+          "corroboration_key": "digest:0743621a3a1f40d2163790cdbf75cd198d568565d064b3cca1ba9dea37d5f8f7",
+          "coverage_interval": {
+            "end": null,
+            "start": null
+          },
+          "digest_certifies_assertion": false,
+          "event_id": "ev-metr-scope",
+          "event_time": null,
+          "evidence_type": "public_report_assertion",
+          "independence_group": "metr-redwood-investigation-scope",
+          "observation_availability": "available",
+          "observation_origin": "correlated_analysis_of_single_dataset",
+          "producer": "metr-redwood-investigation",
+          "scope_binding": "unknown",
+          "source_ref": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+          "subject": "unknown",
+          "task_scope": "unknown",
+          "temporal_applicability": "missing"
+        }
+      ],
+      "missing_requirements": [],
+      "primary_upgrade_blocker": null,
+      "property_holds": null,
+      "proposition": "Hugging Face platform telemetry independently observes a committed effect on Hugging Face infrastructure.",
+      "publication_surface_count": 4,
+      "real_world_authenticity_certified": false,
+      "reason": "missing_evidence: no admissible verified observation",
+      "rejected_times": [
+        {
+          "event_id": "ev-hf-narrative",
+          "event_time": "2026-07-09T02:28:00Z/2026-07-13T14:14:00Z",
+          "reason": "narrative or insufficient-kind time is not the claim chronology",
+          "time_basis": "source_stated"
+        }
+      ],
+      "reported_counts": null,
+      "source_conflict": false,
+      "unavailable_sources": [
+        {
+          "access_level": "unobserved",
+          "coverage_status": "unobserved",
+          "independence_group": "huggingface-platform-telemetry-2026-07",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-hf-platform-logs",
+          "source_id": "src-hf-platform-logs"
+        },
+        {
+          "access_level": "redacted",
+          "coverage_status": "redacted",
+          "independence_group": "huggingface-platform-telemetry-2026-07",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-hf-indicators",
+          "source_id": "src-hf-indicators"
+        },
+        {
+          "access_level": "private_original",
+          "coverage_status": "withheld",
+          "independence_group": "third-party-sandbox-agent-logs",
+          "reason": "recorded unavailable; not an upgrade gate",
+          "slot_id": "slot-launchpad-logs",
+          "source_id": "src-launchpad-logs"
+        }
+      ],
+      "unverified_binding": false,
+      "upgrade_blocked_by": [],
+      "verified_event_ids": [
+        "ev-hf-narrative",
+        "ev-openai-hf",
+        "ev-metr-scope"
+      ],
+      "verified_narrative_group_count": 3
+    },
+    "real_world_authenticity_certified": false,
+    "unavailable_sources": [
+      "src-hf-platform-logs",
+      "src-hf-indicators",
+      "src-launchpad-logs"
+    ],
+    "underlying_telemetry": "unavailable"
+  },
+  "protocol_id": "evidence-provenance-v1",
+  "source_pin": "evidence-provenance-v1"
+}

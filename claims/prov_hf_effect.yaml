@@ -1,0 +1,27 @@
+id: prov_hf_effect
+source_ref: experiments/provenance/incident_lineage.yaml#prov_hf_effect
+source_version: evidence-provenance-v1
+original_proposition: >
+  Hugging Face platform telemetry independently observes a committed effect
+  on Hugging Face infrastructure.
+operational_interpretation: >
+  The Hugging Face timeline is a public narrative that says actions were
+  correlated with dataset-processor, API, and pod logs. Those logs are
+  unobserved here. OpenAI's outline and METR's out-of-scope statement are
+  different groups and are not that telemetry. The timeline's stated window
+  is not copied onto a committed effect. Redacted indicators stay redacted.
+property: committed effect requires provider telemetry this audit does not hold
+scope: >
+  Public Hugging Face, OpenAI, and METR sentences retrieved 2026-11-07.
+  Platform logs, private launchpad logs, and redacted indicator values are
+  absent. Not a claim that any effect was committed or prevented.
+quantifier: the committed-effect proposition in the fixture
+success_criterion: >
+  Qualification stays unresolved with effect_status unobserved. The platform
+  logs are recorded unavailable and are not an upgrade gate. Narrative time
+  is not promoted. Real-world authenticity is not certified.
+assumptions:
+  - "A public timeline is not the platform log it describes"
+  - "Hugging Face's log group is distinct from the OpenAI transcript dump"
+  - "METR/Redwood put the extent of the compromise out of scope"
+  - "Redacted credentials and hostnames are not reconstructed"

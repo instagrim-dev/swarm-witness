@@ -1,0 +1,44 @@
+claims:
+  - id: K-release
+    history: H-release
+    family: reproduction_release
+    kind: world_effect
+    verifying_access_levels: [public_bytes]
+    required_observation_types: [public_report_assertion]
+    certifies_original_incident: false
+    proposition: >
+      The public LessWrong reproduction post and its appendix are one record
+      that releases transcripts of that reproduction.
+
+  - id: K-certify
+    history: H-release
+    family: incident_certification
+    kind: world_effect
+    verifying_access_levels: [raw_telemetry_public]
+    required_observation_types: [committed_effect]
+    certifies_original_incident: true
+    proposition: >
+      The LessWrong post and appendix certify the original Hugging Face
+      compromise as an independently verified effect.
+
+  - id: K-census
+    history: H-census
+    family: reproduction_census
+    kind: world_effect
+    verifying_access_levels: [released_reproduction_transcript]
+    required_observation_types: [score_census]
+    certifies_original_incident: false
+    proposition: >
+      The released GLM 5.2 step-1 Docker run records signature_rate 1.0 on 7
+      files and 0.0 on 57. This is a reproduction count, not the original incident.
+
+  - id: K-gate
+    history: H-gate
+    family: held_upgrade_slot
+    kind: world_effect
+    verifying_access_levels: [public_bytes]
+    required_observation_types: [public_report_assertion]
+    certifies_original_incident: false
+    proposition: >
+      The release sentence supports this claim while the held step-1 extract
+      remains an unsatisfied blocks_upgrade slot.

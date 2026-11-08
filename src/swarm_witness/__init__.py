@@ -11,6 +11,12 @@ from swarm_witness.evidence_index import (
     generate_and_write_index,
 )
 from swarm_witness.labels import CONCLUSION_LABELS
+from swarm_witness.provenance import (
+    CONTRACT_VERSION,
+    normalize_lineage,
+    qualify_graph,
+    validate_graph,
+)
 from swarm_witness.schema import (
     Claim,
     Finding,
@@ -21,6 +27,7 @@ from swarm_witness.schema import (
 )
 
 __all__ = [
+    "CONTRACT_VERSION",
     "CONCLUSION_LABELS",
     "CONCLUSION_TO_FINDING_LABEL",
     "SUPPORTED_COMPARISON_LABEL",
@@ -33,7 +40,10 @@ __all__ = [
     "expected_index_from_findings",
     "finding_label_for",
     "generate_and_write_index",
+    "normalize_lineage",
+    "qualify_graph",
     "validate_claim",
     "validate_finding",
+    "validate_graph",
     "validate_run",
 ]

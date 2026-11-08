@@ -1,0 +1,2172 @@
+{
+  "public": [
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "report_named_actor",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "A",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01",
+        "E02",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01",
+        "E02",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01",
+        "E02",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "refuted",
+      "category": "false_support_against_refuted",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06",
+        "E07"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "refuted",
+      "category": "missed_resolution_of_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06",
+        "E07"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06",
+        "E07"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "report_named_actor",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "refuted",
+      "category": "false_support_against_refuted",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10",
+        "E11"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10",
+        "E11"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10",
+        "E11"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12",
+        "E13"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12",
+        "E13"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12",
+        "E13"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14",
+        "E15"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14",
+        "E15"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14",
+        "E15"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17",
+        "E18"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "refuted",
+      "adjudicated": "unresolved",
+      "category": "wrong_refutation_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17",
+        "E18"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17",
+        "E18"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19",
+        "E20"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19",
+        "E20"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19",
+        "E20"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21",
+        "E22"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21",
+        "E22"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21",
+        "E22"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24",
+        "E25",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "B",
+      "method": "weak_checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24",
+        "E25",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24",
+        "E25",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01",
+        "E02",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C01",
+      "history": "C01",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E01",
+        "E02",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C02",
+      "history": "C02",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06",
+        "E07"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C03",
+      "history": "C03",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "refuted",
+      "category": "missed_resolution_of_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E06",
+        "E07"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C04",
+      "history": "C04",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10",
+        "E11"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C05",
+      "history": "C05",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "refuted",
+      "category": "missed_resolution_of_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E10",
+        "E11"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12",
+        "E13"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C06",
+      "history": "C06",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E12",
+        "E13"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14",
+        "E15"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C07",
+      "history": "C07",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E14",
+        "E15"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C08",
+      "history": "C08",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E16"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17",
+        "E18"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C09",
+      "history": "C09",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E17",
+        "E18"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19",
+        "E20"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C10",
+      "history": "C10",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E19",
+        "E20"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21",
+        "E22"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C11",
+      "history": "C11",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E21",
+        "E22"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "B",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24",
+        "E25",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "C12",
+      "history": "C12",
+      "stage": "B",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "E23",
+        "E24",
+        "E25",
+        "E26"
+      ],
+      "certifies_original_incident": false
+    }
+  ],
+  "controlled": [
+    {
+      "claim_id": "K-release",
+      "history": "H-release",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "lesswrong-reproduction-2026-09",
+      "warranted_origin": "lesswrong-reproduction-2026-09",
+      "observation_ids": [
+        "LW-post",
+        "LW-appendix"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-certify",
+      "history": "H-release",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "lesswrong-reproduction-2026-09",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "LW-post",
+        "LW-appendix",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": true
+    },
+    {
+      "claim_id": "K-census",
+      "history": "H-census",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "CENSUS",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-gate",
+      "history": "H-gate",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "attributed_origin": "lesswrong-reproduction-2026-09",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "LW-post",
+        "HELD-SLOT",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-release",
+      "history": "H-release",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "lesswrong-reproduction-2026-09",
+      "warranted_origin": "lesswrong-reproduction-2026-09",
+      "observation_ids": [
+        "LW-post",
+        "LW-appendix"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-certify",
+      "history": "H-release",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "LW-post",
+        "LW-appendix",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": true
+    },
+    {
+      "claim_id": "K-census",
+      "history": "H-census",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "CENSUS",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-gate",
+      "history": "H-gate",
+      "stage": "A",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "LW-post",
+        "HELD-SLOT",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-release",
+      "history": "H-release",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "lesswrong-reproduction-2026-09",
+      "warranted_origin": "lesswrong-reproduction-2026-09",
+      "observation_ids": [
+        "LW-post",
+        "LW-appendix"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-certify",
+      "history": "H-release",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "LW-post",
+        "LW-appendix",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": true
+    },
+    {
+      "claim_id": "K-census",
+      "history": "H-census",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "CENSUS",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-gate",
+      "history": "H-gate",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "LW-post",
+        "HELD-SLOT",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-release",
+      "history": "H-release",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "lesswrong-reproduction-2026-09",
+      "observation_ids": [
+        "LW-post",
+        "LW-appendix"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-certify",
+      "history": "H-release",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "LW-post",
+        "LW-appendix",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": true
+    },
+    {
+      "claim_id": "K-census",
+      "history": "H-census",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "CENSUS",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": false
+    },
+    {
+      "claim_id": "K-gate",
+      "history": "H-gate",
+      "stage": "A",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "observation_ids": [
+        "LW-post",
+        "HELD-SLOT",
+        "UNAVAIL-transcripts",
+        "UNAVAIL-hf-logs"
+      ],
+      "certifies_original_incident": false
+    }
+  ]
+}
