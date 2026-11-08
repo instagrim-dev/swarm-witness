@@ -8,7 +8,7 @@ Form: https://apartresearch.com/sprints/swarm-alignment-2026 (user submits; agen
 | Official template PDF | Done | `report/Swarm_Witness_Templated_Submission.pdf` (+ filled `.docx`); research layout still at `Final_Submission.*` |
 | Slides | Done | `report/Swarm_Witness_Slides.pdf` (8 slides) for form Slides field |
 | ≤8 pages before refs/appendices | Done | Templated/research PDFs within budget; body through Discussion under 8 |
-| Abstract 150–250 words | Done | `report/ABSTRACT.md` — 213 words |
+| Abstract 150–250 words | Done | `report/ABSTRACT.md` — 224 words |
 | Author and affiliation | Done | Jonathan Maye-Hobbs; Affiliation: Independent |
 | Judge evidence access | **User** | Repo is **private**; either grant judge read access, publish a mirror, or attach `artifacts/swarm-witness-review-bundle.zip` |
 | Limitations / Dual-Use appendix | Done | `report/LIMITATIONS_DUAL_USE.md` included in PDF |

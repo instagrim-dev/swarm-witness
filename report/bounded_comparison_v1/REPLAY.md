@@ -39,3 +39,15 @@ python scripts/check_evidence.py
 The templated PDF built here is 8 pages, with References on page 7 and one Appendix A on page 8. The research PDF regenerated from `report/Swarm_Witness_Final_Submission.md` is 7 pages, with References on page 6 and one Appendix A on page 7. The templated DOCX and the templated Markdown each have one Appendix A heading and the same LessWrong reference.
 
 A later pack of the review bundle includes this note. The commands above were not rerun after that pack. This note was not an input to them.
+
+A later reconciliation, still on 2026-11-08, regenerated the bounded-comparison tables and the external-calibration reports from the current evaluators, shortened the abstract to 224 words, and rebuilt the research and templated DOCX and PDF. Nothing was filed or uploaded to Apart. Public unsupported supports stayed naive PASS 24, strong checker 0, and Swarm Witness 0. Native Table N stayed Swarm Witness 11 unsupported supports and correct decisive 24/24, strong invariant 0 and 24/24, and always-unresolved 0 and 0/24. Composed classifier–adapter agreement stayed 130/130. Incomplete population-detail rows are recorded as incomplete evidence, not as absence. The research PDF is 7 pages, with References and the Appendix A heading on page 6. The templated PDF is 9 pages, with References on page 7 and Appendix A starting on page 8.
+
+```bash
+python3 scripts/render_bounded_comparison.py
+PYTHONPATH=src python3 experiments/external_calibration/run.py
+python3 scripts/build_templated_submission.py
+pandoc report/Swarm_Witness_Final_Submission.md -o report/Swarm_Witness_Final_Submission.docx
+python3 -m pytest -q tests/test_bounded_comparison_publication.py tests/test_external_calibration_r2.py tests/test_comparison_freeze.py tests/test_incident_audit.py tests/test_evidence_binding.py tests/test_adapter_admission_uncertainty.py tests/test_provenance_contract.py tests/test_forensic_telemetry.py tests/test_latency_evidence.py tests/test_coordination_attribution.py tests/test_effect_witness.py tests/test_formal_epistemics.py
+```
+
+Those commands exited 0. The publication file reported its cases inside the 153 passed. The research and templated PDFs were printed from the regenerated HTML with headless Chrome.
