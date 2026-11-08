@@ -2,21 +2,6 @@ results:
 - claim_id: causal_swarm
   label: reproduced
   finding_id: causal_swarm-f-property
-- claim_id: incident_property_graph
-  label: reproduced
-  finding_id: incident-property-graph-f-separation
-- claim_id: incident_claims_v1
-  label: reproduced
-  finding_id: incident-audit-v1-f-comparison
-- claim_id: incident_comparison_v1
-  label: reproduced
-  finding_id: incident-comparison-v1-f
-- claim_id: detection_latency
-  label: reproduced
-  finding_id: detection-latency-f-protocol
-- claim_id: forensic_telemetry_v1
-  label: reproduced
-  finding_id: forensic-telemetry-v1-f
 - claim_id: coord_board_participation
   label: unresolved
   finding_id: coord-board-participation-f
@@ -29,6 +14,27 @@ results:
 - claim_id: coordination_attribution_v1
   label: reproduced
   finding_id: coordination-attribution-v1-f
+- claim_id: detection_latency
+  label: reproduced
+  finding_id: detection-latency-f-protocol
+- claim_id: evidence_binding_v1
+  label: reproduced
+  finding_id: evidence-binding-v1-f
+- claim_id: forensic_telemetry_v1
+  label: reproduced
+  finding_id: forensic-telemetry-v1-f
+- claim_id: incident_claims_v1
+  label: reproduced
+  finding_id: incident-audit-v1-f-comparison
+- claim_id: incident_comparison_v1
+  label: reproduced
+  finding_id: incident-comparison-v1-f
+- claim_id: incident_property_graph
+  label: reproduced
+  finding_id: incident-property-graph-f-separation
+- claim_id: multi_agent_sim
+  label: reproduced
+  finding_id: mas-f-multi-agent-sim
 - claim_id: prov_hf_effect
   label: unresolved
   finding_id: prov-hf-effect-f
@@ -44,9 +50,6 @@ results:
 - claim_id: provenance_contract_v1
   label: reproduced
   finding_id: provenance-contract-v1-f
-- claim_id: multi_agent_sim
-  label: reproduced
-  finding_id: mas-f-multi-agent-sim
 - claim_id: r1
   label: reproduced
   finding_id: r1-f-primary

@@ -163,6 +163,14 @@ multi_agent_sim:
     after a local allow. Distinct from the historical causal-swarm-v1 model,
     which commits whenever its policy allows. Semantics match PR #23
     28b364251a0c4205483aad4f6d49cdedea8b5d5c. Not a live BMO mesh.
+evidence_binding_v1:
+  source_pin: evidence-binding-v1
+  source_revision: evidence-binding-v1
+  protocol_id: evidence-binding-v1
+  notes: >
+    Binds retained observations to the compatible-world rule. The retained
+    property-graph workflow and the native-witness packet are the inputs.
+    Not a real-world certificate and not the SQLite application witness.
 r5_v3:
   source_pin: "swarm-witness-r5-v3"
   protocol_id: "r5-swarm-audit-v3"
