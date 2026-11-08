@@ -1,0 +1,13 @@
+{
+  "adjudication": "missing_timing_or_scoring_exposure",
+  "author_exclusion_tag": null,
+  "evaluation_contaminated": null,
+  "expected_epistemic": "unresolved",
+  "falsifier": null,
+  "model": "GLM-5.3",
+  "notes": "API contact alone is not verified scoring-source exposure. Missing timing \u2192 unresolved.",
+  "proposition_holds": null,
+  "run_id": "glm53__shard1::step2reachout-react-baseline-fair-protein_bank::3",
+  "synthetic": false,
+  "witness": null
+}

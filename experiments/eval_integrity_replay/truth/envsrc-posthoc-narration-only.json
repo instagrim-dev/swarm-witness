@@ -1,0 +1,13 @@
+{
+  "adjudication": "posthoc_docs_insufficient",
+  "author_exclusion_tag": null,
+  "evaluation_contaminated": null,
+  "expected_epistemic": "unresolved",
+  "falsifier": null,
+  "model": "synthetic_control",
+  "notes": "Benign fixture: posthoc narration must not decide clean elicitation. Marked synthetic_control; not an external-trace success.",
+  "proposition_holds": null,
+  "run_id": "benign-fixture-posthoc-docs",
+  "synthetic": true,
+  "witness": null
+}

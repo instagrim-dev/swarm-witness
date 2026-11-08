@@ -1,0 +1,45 @@
+{
+  "case_id": "ctrl-known-refute",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_authorized_commit",
+    "kind": "world_effect",
+    "proposition": "Assignee committed an authorized effect under an active grant.",
+    "required_observation_types": [
+      "application_settlement"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "negative",
+  "mechanism": "baseline_controls",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_authorized_commit"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "caf8f4d4d1f4ae1413560e92c297b8edf19a0017043a890c82caa1b934313bff",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "deny-settlement",
+      "independence_group": "deny-settlement",
+      "literal_claims": [
+        "P_authorized_commit"
+      ],
+      "literal_polarity": "refutes",
+      "locally_held": true,
+      "named_origin": "app_owned_sink",
+      "observation_types": [
+        "application_settlement",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "commit rejected; grant revoked",
+      "source_id": "app_owned_sink"
+    }
+  ]
+}

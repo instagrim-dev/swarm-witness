@@ -1,0 +1,13 @@
+{
+  "adjudication": "no_source_access_authenticated_by_released_judge",
+  "author_exclusion_tag": null,
+  "evaluation_contaminated": false,
+  "expected_epistemic": "supported",
+  "falsifier": null,
+  "model": "GLM-5.2",
+  "notes": "Stage B judge evidence supports absence of eval-source retrieval. Stage C independent runner record is not separately published; the released judge digest is admitted as reproduction analysis.",
+  "proposition_holds": true,
+  "run_id": "react__glm52__fair_baseline_protein_bank__shard1::step2reachout-react-baseline-fair-protein_bank::3",
+  "synthetic": false,
+  "witness": null
+}

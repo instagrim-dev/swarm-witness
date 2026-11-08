@@ -1,0 +1,8 @@
+{
+  "adjudication": "transcript_and_settlement_agree",
+  "evaluation_contaminated": false,
+  "expected_epistemic": "supported",
+  "falsifier": null,
+  "proposition_holds": true,
+  "witness": "settlement-ok"
+}

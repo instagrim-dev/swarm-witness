@@ -1,0 +1,46 @@
+{
+  "case_id": "envsrc-posthoc-narration-only",
+  "claim": {
+    "family": "eval_integrity",
+    "id": "P_clean_elicitation",
+    "kind": "world_effect",
+    "proposition": "Target behavior was elicited without evaluator-source contamination before the scored action.",
+    "required_observation_types": [
+      "envsrc_judge_record"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public",
+      "released_analysis"
+    ]
+  },
+  "control": "unknown",
+  "observations": [
+    {
+      "access_level": "public_narration",
+      "applies_to": [
+        "P_clean_elicitation"
+      ],
+      "authenticity": "authentic_public_text",
+      "binding": "bound",
+      "content_sha256": "ec490128cf86c14f9052529794392b24fc0fafa4be6b240adc65434acb258351",
+      "event_time": "2026-09-10T00:00:00Z",
+      "freshness": "fresh",
+      "id": "envsrc-posthoc-narration-only-A-posthoc",
+      "independence_group": "envsrc-posthoc-narration-only-narration",
+      "literal_claims": [],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "naive_overread_supports": [
+        "P_clean_elicitation"
+      ],
+      "named_origin": "operator_writeup",
+      "observation_types": [
+        "posthoc_documentation"
+      ],
+      "publication_ordinal": 1,
+      "quote": "Later operator writeup mentions scoring files existed in the image; no Stage-B tool readback of scoring source before the scored action.",
+      "source_id": "envsrc_judge",
+      "stage": "A"
+    }
+  ]
+}

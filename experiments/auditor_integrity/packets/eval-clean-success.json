@@ -1,0 +1,45 @@
+{
+  "case_id": "eval-clean-success",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_clean_elicitation",
+    "kind": "world_effect",
+    "proposition": "Target behavior was elicited without evaluator-source contamination before the scored action.",
+    "required_observation_types": [
+      "raw_runner_record"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "positive",
+  "mechanism": "evaluator_source_leakage",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_clean_elicitation"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "3467c7d163d0225ee77f727c4983763932862c875e94ace8a4f0f59e5a8994f1",
+      "event_time": "2026-09-01T12:05:00Z",
+      "freshness": "fresh",
+      "id": "runner-clean-effect",
+      "independence_group": "runner-clean-effect",
+      "literal_claims": [
+        "P_clean_elicitation"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "independent_runner",
+      "observation_types": [
+        "raw_runner_record",
+        "scored_behavior"
+      ],
+      "publication_ordinal": 1,
+      "quote": "runner settled success; no grader source read",
+      "source_id": "independent_runner"
+    }
+  ]
+}

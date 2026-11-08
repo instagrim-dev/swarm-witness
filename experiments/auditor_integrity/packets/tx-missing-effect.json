@@ -1,0 +1,44 @@
+{
+  "case_id": "tx-missing-effect",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_effect_committed",
+    "kind": "world_effect",
+    "proposition": "The authorized effect was committed in the application sink.",
+    "required_observation_types": [
+      "application_settlement"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "unknown",
+  "mechanism": "transcript_effect_divergence",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_effect_committed"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "1881cae1d4a1645d7bf2a7ae975db68b859cc3fb94f98131cf4033620b3bdd02",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "tx-only",
+      "independence_group": "tx-only",
+      "literal_claims": [
+        "P_effect_committed"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "actor_transcript",
+      "observation_types": [
+        "displayed_command"
+      ],
+      "publication_ordinal": 1,
+      "quote": "tool call claimed commit",
+      "source_id": "actor_transcript"
+    }
+  ]
+}

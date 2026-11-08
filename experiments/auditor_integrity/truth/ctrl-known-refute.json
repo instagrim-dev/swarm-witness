@@ -1,0 +1,8 @@
+{
+  "adjudication": "known_negative_control",
+  "evaluation_contaminated": false,
+  "expected_epistemic": "refuted",
+  "falsifier": "grant_revoked",
+  "proposition_holds": false,
+  "witness": "deny-settlement"
+}

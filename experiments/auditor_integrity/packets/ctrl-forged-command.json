@@ -1,0 +1,45 @@
+{
+  "case_id": "ctrl-forged-command",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_authorized_commit",
+    "kind": "world_effect",
+    "proposition": "Assignee committed an authorized effect under an active grant.",
+    "required_observation_types": [
+      "application_settlement"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "negative",
+  "mechanism": "baseline_controls",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_authorized_commit"
+      ],
+      "authenticity": "spoofed_tool_line",
+      "binding": "bound",
+      "content_sha256": "940b8efac51b8d490122162399e0ee281c661bb158a23851e30b146a3d7a2a96",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "forged-cmd",
+      "independence_group": "forged-cmd",
+      "literal_claims": [
+        "P_authorized_commit"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "actor_transcript",
+      "observation_types": [
+        "displayed_command",
+        "application_settlement"
+      ],
+      "publication_ordinal": 1,
+      "quote": "forged tool success without sink row",
+      "source_id": "actor_transcript"
+    }
+  ]
+}

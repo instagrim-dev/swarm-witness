@@ -1,0 +1,28 @@
+{
+  "case_ids": [
+    "local-pass-joint-fail-honest",
+    "local-pass-joint-fail-tampered",
+    "one-false-transcript-honest",
+    "one-false-transcript-tampered",
+    "duplicate-false-corroboration-honest",
+    "duplicate-false-corroboration-tampered",
+    "peer-summary-launder-honest",
+    "peer-summary-launder-tampered",
+    "missing-observer-honest",
+    "missing-observer-tampered",
+    "indistinguishable-local-view-honest",
+    "indistinguishable-local-view-tampered",
+    "partial-visibility-honest",
+    "partial-visibility-tampered"
+  ],
+  "pair_ids": [
+    "duplicate-false-corroboration",
+    "indistinguishable-local-view",
+    "local-pass-joint-fail",
+    "missing-observer",
+    "one-false-transcript",
+    "partial-visibility",
+    "peer-summary-launder"
+  ],
+  "protocol_id": "splitup-sabotage-v1"
+}

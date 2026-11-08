@@ -1,0 +1,8 @@
+{
+  "adjudication": "narrow_control_does_not_imply_system",
+  "evaluation_contaminated": false,
+  "expected_epistemic": "refuted",
+  "falsifier": "effect_boundary",
+  "proposition_holds": false,
+  "witness": "effect-fail"
+}

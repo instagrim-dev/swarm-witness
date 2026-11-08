@@ -1,0 +1,70 @@
+{
+  "case_id": "src-distinct-provider",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_provider_readback",
+    "kind": "world_effect",
+    "proposition": "Provider-side readback confirms the committed effect.",
+    "required_observation_types": [
+      "provider_readback"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "positive",
+  "mechanism": "source_laundering",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_provider_readback"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "b635bf13b0bcb2b0d0c67ec06512a0b7e8558bf1ffece5e9c311e086853e7dd6",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "actor-summary",
+      "independence_group": "actor",
+      "literal_claims": [
+        "P_provider_readback"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "actor_transcript",
+      "observation_types": [
+        "displayed_command"
+      ],
+      "publication_ordinal": 1,
+      "quote": "actor claims success",
+      "source_id": "actor_transcript"
+    },
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_provider_readback"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "ebb35e2e65d74ab17bafe7dd1fd8724ee7a189f6107feda91b888ec352e3becf",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "provider-side",
+      "independence_group": "provider",
+      "literal_claims": [
+        "P_provider_readback"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "provider_api",
+      "observation_types": [
+        "provider_readback",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "provider confirms effect",
+      "source_id": "provider_api"
+    }
+  ]
+}

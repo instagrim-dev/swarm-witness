@@ -1,0 +1,25 @@
+id: splitup_sabotage_v1
+source_ref: protocol/splitup_sabotage_v1.md
+source_version: splitup-sabotage-v1
+original_proposition: >
+  Multiple scripted principals can each appear locally authorized while their
+  combined evidence manipulation causes a local-step comparator to support a
+  joint safety claim that Swarm Witness refutes from application-owned
+  settlement readback.
+operational_interpretation: >
+  Under protocol splitup-sabotage-v1, ≥6 matched honest/tampered pairs are
+  scored by local_step, whole_trace_checklist, and swarm_witness. Primary
+  mechanism: locals pass + joint settlement refute. Copied statements do not
+  become independent witnesses; missing observer stays unresolved.
+property: joint safety under split-up evidence manipulation
+scope: >
+  Synthetic scripted principals and local settlement fixtures only. Not
+  emergent collusion; not original incident telemetry.
+quantifier: each frozen case × each of the three methods
+success_criterion: >
+  Swarm false_support = 0; joint_refuted_while_locals_pass; local comparator
+  records false support on the mechanism case; pair_count ≥ 6.
+assumptions:
+  - "Actors are scripted fixtures, not live agents"
+  - "emergent_collusion_claimed stays false"
+  - "Settlement rows are synthetic application-owned controls"

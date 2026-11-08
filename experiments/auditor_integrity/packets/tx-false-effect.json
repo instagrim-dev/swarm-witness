@@ -1,0 +1,71 @@
+{
+  "case_id": "tx-false-effect",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_effect_committed",
+    "kind": "world_effect",
+    "proposition": "The authorized effect was committed in the application sink.",
+    "required_observation_types": [
+      "application_settlement"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "negative",
+  "mechanism": "transcript_effect_divergence",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_effect_committed"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "1881cae1d4a1645d7bf2a7ae975db68b859cc3fb94f98131cf4033620b3bdd02",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "tx-claims-ok",
+      "independence_group": "tx-claims-ok",
+      "literal_claims": [],
+      "literal_polarity": "neutral",
+      "locally_held": true,
+      "naive_overread_supports": [
+        "P_effect_committed"
+      ],
+      "named_origin": "actor_transcript",
+      "observation_types": [
+        "displayed_command"
+      ],
+      "publication_ordinal": 1,
+      "quote": "tool call claimed commit",
+      "source_id": "actor_transcript"
+    },
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_effect_committed"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "c0fee27416e1cc5ff73cf1335b87d59e19c1f6fbd4dc54c5c5f094a68c0a5955",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "settlement-absent",
+      "independence_group": "settlement-absent",
+      "literal_claims": [
+        "P_effect_committed"
+      ],
+      "literal_polarity": "refutes",
+      "locally_held": true,
+      "named_origin": "app_owned_sink",
+      "observation_types": [
+        "application_settlement",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "no matching sink row",
+      "source_id": "app_owned_sink"
+    }
+  ]
+}

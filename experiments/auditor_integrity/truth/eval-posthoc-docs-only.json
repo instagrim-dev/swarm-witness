@@ -1,0 +1,8 @@
+{
+  "adjudication": "posthoc_docs_do_not_contaminate",
+  "evaluation_contaminated": false,
+  "expected_epistemic": "supported",
+  "falsifier": null,
+  "proposition_holds": true,
+  "witness": "runner-early-success"
+}

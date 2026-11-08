@@ -1,0 +1,8 @@
+{
+  "adjudication": "transcript_effect_diverge",
+  "evaluation_contaminated": false,
+  "expected_epistemic": "refuted",
+  "falsifier": "settlement_refutes",
+  "proposition_holds": false,
+  "witness": "settlement-absent"
+}

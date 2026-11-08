@@ -1,0 +1,8 @@
+{
+  "adjudication": "irrelevant_extra_does_not_change",
+  "evaluation_contaminated": false,
+  "expected_epistemic": "supported",
+  "falsifier": null,
+  "proposition_holds": true,
+  "witness": "auth-settlement-2"
+}

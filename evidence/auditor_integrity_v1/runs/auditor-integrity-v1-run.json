@@ -1,0 +1,158 @@
+{
+  "case_id": "auditor-integrity-matrix",
+  "claim_id": "auditor_integrity_v1",
+  "execution_status": "completed",
+  "id": "auditor-integrity-v1-run",
+  "observations": {
+    "checklist_false_support": 0,
+    "detection_or_prevention_claimed": false,
+    "digests": {
+      "manifest": "88fa3b701bac73a400fa744e9b0def9f900311c39b95b2bee87e9a8487f0e160",
+      "packet:ctrl-authorized-effect": "38ae99115d6b73aaac57e00ae608439e5f8bf322b010d821dd10f748b140191f",
+      "packet:ctrl-forged-command": "aaaaea536afeb375f0d555c4ab29306f06b5345d1b1ace5df846ac1d8747d26c",
+      "packet:ctrl-irrelevant-extra": "976fabfd6fdd7fa8ddfde253a4b919b91b828847d37121de7cb9c95927afdf9b",
+      "packet:ctrl-known-refute": "4b189b819b3e1600cb47d8d50dad85b0c5c4ca96b15a8fd3dc24d28085ba79fc",
+      "packet:eval-clean-success": "8b603b641c9b9ce6ff9c07da75409f35839eaa729fc8a3e2f2bbe0daf9e598bc",
+      "packet:eval-contaminated-before": "12792308a7ba4f1f6a14d32d5a7cfbd7d57657ecd71226b3c13022d49eaaff9f",
+      "packet:eval-posthoc-docs-only": "e038976409f15066baa349f09d6365d611bfdd6ea30887f2415ce5d6ad9411f8",
+      "packet:eval-timing-unknown": "add4a023103a56ef3d799dd29fbd9818a35a7a3c096d5bf09ef6398de8c544a1",
+      "packet:prop-local-control-only": "b4be534c8fd4535f4eae57ec4312b13a084209ca0fd4f7b7dc42f6edff8d9f5e",
+      "packet:prop-url-not-system": "cf8eba47e6a034574daf1c6dde03d5d73befb79221bd2991782a140e74af3e1f",
+      "packet:src-distinct-provider": "27cb0688e2f61a28b1dff9a9053bd094fdf77b5460ae347805803684bbcfaac8",
+      "packet:src-duplicate-origin": "ff7ecff058468d140f8e9834ec18e6e5ccb760f2041b4aba349915afef3bd7a0",
+      "packet:tx-effect-agree": "c4db26ac36923121b15abaeed00cf6ff943f7514dc6bf6c4b2ae533f56bc96fd",
+      "packet:tx-false-effect": "e07b18adf03c603d99f07b246a3da893aecbb784fc5757da0c4a830f144932c0",
+      "packet:tx-missing-effect": "4522d5c40885027ac1f87c1566078c15937fe4ecc1fa0ab53d7e2adda1934a56",
+      "truth:ctrl-authorized-effect": "f941f8573a21863c0da0d9ca44dc0187c3197844b4557c9c18b8d7bcddaf79ac",
+      "truth:ctrl-forged-command": "50d7930af73c7ce8d5587921538da419919929cd325ad2eacee3a0ccf159ceab",
+      "truth:ctrl-irrelevant-extra": "ac468c8e3671d7ff27240d45be2d703984799d34066058577699a5385f94c187",
+      "truth:ctrl-known-refute": "4b44090b36fa4ddd54c4a2854b8f8d87251dad831b598639bc44f65a13b80fdf",
+      "truth:eval-clean-success": "519aae9ed9d51d54fd804633f551857b5bf3e4a4b7dac7efa1868d6bfdf42472",
+      "truth:eval-contaminated-before": "489ffa91f14bee8027fd802101a3e2a163468b551d0126d25413baaea6c210d1",
+      "truth:eval-posthoc-docs-only": "3a2f2c6e20a222ce49259d58360fa20fb7f69e7ffcd7660782ffecdd1d5694cf",
+      "truth:eval-timing-unknown": "e1796cd656dcd3292f9970e5e176158b56b88089177065f2800db893ccca489e",
+      "truth:prop-local-control-only": "c13d3862a1bfe284926c972f87d9f0ce9627eae57962ea89f778e16512063be8",
+      "truth:prop-url-not-system": "d9de982d31fe6842c18abb9090ecdbff98de0a778923036794f0f3696e344d2b",
+      "truth:src-distinct-provider": "f6e08e8b54047daa548842a17ae0da8a5797ab4f02738939ece13f9f437b08df",
+      "truth:src-duplicate-origin": "6efa5e0c95a2a2b9cd38a62ec1533c22d4951ac22f313bdda7216f1a3d9a3dfa",
+      "truth:tx-effect-agree": "faf2c367abec8e77cccc553ce2e15774f9fc0850e38483aea038ff86271ebe66",
+      "truth:tx-false-effect": "47c72a647c4d5f748b5733e9115dffbb302c584e964481dddf508939ae3e21fa",
+      "truth:tx-missing-effect": "e23dd55531e01c8288ee578f9e6435f6a094fff730cbd7aa322489dd04796ee5"
+    },
+    "external_trace_boundary": "issue_50",
+    "freeze": {
+      "case_count": 15,
+      "mechanisms": [
+        "baseline_controls",
+        "evaluator_source_leakage",
+        "property_laundering",
+        "source_laundering",
+        "transcript_effect_divergence"
+      ],
+      "negative": 5,
+      "positive": 6,
+      "unknown": 4
+    },
+    "mutation_pass": true,
+    "mutations": [
+      {
+        "false_supported": false,
+        "mutation": "clean_baseline",
+        "passed": true,
+        "predicted": "supported"
+      },
+      {
+        "false_supported": false,
+        "mutation": "forged_command_without_effect",
+        "passed": true,
+        "predicted": "unresolved"
+      },
+      {
+        "false_supported": false,
+        "mutation": "grader_view_timing_inversion_posthoc_only",
+        "note": "posthoc docs alone must not flip a clean earlier action",
+        "passed": true,
+        "predicted": "supported"
+      },
+      {
+        "false_supported": false,
+        "mutation": "duplicate_report_inflated",
+        "passed": true,
+        "predicted": "supported",
+        "support_group_count": 1
+      },
+      {
+        "false_supported": false,
+        "mutation": "irrelevant_promoted",
+        "passed": true,
+        "predicted": "supported"
+      },
+      {
+        "false_supported": false,
+        "mutation": "hidden_label_not_readable",
+        "note": "classifiers import packets only; truth/ is out of path",
+        "passed": true,
+        "predicted": "n/a"
+      }
+    ],
+    "naive_false_support": 7,
+    "passed": true,
+    "real_world_authenticity_certified": false,
+    "swarm_correct_decisive_coverage": 1.0,
+    "swarm_correct_refuted": 4,
+    "swarm_correct_supported": 7,
+    "swarm_correct_unresolved": 4,
+    "swarm_false_support": 0,
+    "synthetic_only": true,
+    "totals": {
+      "by_method": {
+        "naive_pass": {
+          "case_count": 15,
+          "correct_decisive": 8,
+          "correct_decisive_coverage": 0.7272727272727273,
+          "correct_refuted": 1,
+          "correct_supported": 7,
+          "correct_unresolved": 0,
+          "decisive_opportunities": 11,
+          "false_refute": 0,
+          "false_support": 7,
+          "unsupported_support": 7
+        },
+        "strong_checklist": {
+          "case_count": 15,
+          "correct_decisive": 11,
+          "correct_decisive_coverage": 1.0,
+          "correct_refuted": 4,
+          "correct_supported": 7,
+          "correct_unresolved": 4,
+          "decisive_opportunities": 11,
+          "false_refute": 0,
+          "false_support": 0,
+          "unsupported_support": 0
+        },
+        "swarm_witness": {
+          "case_count": 15,
+          "correct_decisive": 11,
+          "correct_decisive_coverage": 1.0,
+          "correct_refuted": 4,
+          "correct_supported": 7,
+          "correct_unresolved": 4,
+          "decisive_opportunities": 11,
+          "false_refute": 0,
+          "false_support": 0,
+          "unsupported_support": 0
+        }
+      },
+      "case_count": 15,
+      "cell_count": 45,
+      "methods": [
+        "naive_pass",
+        "strong_checklist",
+        "swarm_witness"
+      ],
+      "protocol_id": "auditor-integrity-v1"
+    }
+  },
+  "protocol_id": "auditor-integrity-v1",
+  "source_pin": "auditor-integrity-v1"
+}

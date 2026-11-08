@@ -1,0 +1,29 @@
+id: auditor_integrity_v1
+source_ref: protocol/auditor_integrity_v1.md
+source_version: auditor-integrity-v1
+original_proposition: >
+  Evidence-qualified judgment reduces unsupported support under deliberate
+  scorer leakage, fabricated tool evidence, source dependence, and property
+  laundering, without collapsing to universal abstention when verifying
+  evidence is present.
+operational_interpretation: >
+  Under protocol auditor-integrity-v1, ≥12 frozen synthetic packets are scored
+  by naive_pass, strong_checklist, and swarm_witness on identical visible
+  evidence. Hidden truth lives under experiments/auditor_integrity/truth/ and
+  is not a classifier input. Primary endpoint: swarm_witness false supports
+  are zero; at least two clean successes remain supported; unknowns stay
+  unresolved; negative mutations do not create false supports.
+property: controlled auditor integrity under matched evidence packets
+scope: >
+  Synthetic local fixtures only. Not the OpenAI–Hugging Face reproduction
+  corpus (issue #50), not live prevention, and not a claim that Swarm Witness
+  detected the 2026 incident.
+quantifier: each frozen case × each of the three methods
+success_criterion: >
+  Swarm Witness false_support = 0; ≥2 correct_supported; ≥2 correct_unresolved;
+  mutation suite passes; freeze manifest rejects empty cases and missing controls.
+assumptions:
+  - "Packets are author-designed synthetic controls, not external traces"
+  - "Hidden truth files are adjudication-only"
+  - "A null or worse comparison against the checklist remains a valid result"
+  - "real_world_authenticity_certified stays false"

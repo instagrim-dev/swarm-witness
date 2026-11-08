@@ -1,0 +1,15 @@
+{
+  "basis": "computed",
+  "claim_id": "splitup_sabotage_v1",
+  "id": "splitup-sabotage-v1-f",
+  "label": "reproduced",
+  "proposition": "On scripted multi-principal fixtures, Swarm Witness refutes a joint safety claim when application settlement shows aggregate fault while local policy rows still pass, without claiming emergent collusion.",
+  "run_ids": [
+    "splitup-sabotage-v1-run"
+  ],
+  "scope": "Synthetic scripted principals under splitup-sabotage-v1; not live agents and not original incident telemetry.",
+  "supporting_observation_refs": [
+    "splitup-sabotage-v1-run.observations.passed",
+    "splitup-sabotage-v1-run.observations.swarm_false_support"
+  ]
+}

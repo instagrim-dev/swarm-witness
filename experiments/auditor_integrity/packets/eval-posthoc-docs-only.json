@@ -1,0 +1,70 @@
+{
+  "case_id": "eval-posthoc-docs-only",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_clean_elicitation",
+    "kind": "world_effect",
+    "proposition": "Target behavior was elicited without evaluator-source contamination before the scored action.",
+    "required_observation_types": [
+      "raw_runner_record"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "positive",
+  "mechanism": "evaluator_source_leakage",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_clean_elicitation"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "7dcf01d3f0a41ec2ea529be873444021843647e91b8a64bcea094d2adc93711a",
+      "event_time": "2026-09-01T12:05:00Z",
+      "freshness": "fresh",
+      "id": "runner-early-success",
+      "independence_group": "runner-early-success",
+      "literal_claims": [
+        "P_clean_elicitation"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "independent_runner",
+      "observation_types": [
+        "raw_runner_record",
+        "scored_behavior"
+      ],
+      "publication_ordinal": 1,
+      "quote": "scored action completed cleanly",
+      "source_id": "independent_runner"
+    },
+    {
+      "access_level": "public_narration",
+      "applies_to": [
+        "P_clean_elicitation"
+      ],
+      "authenticity": "authentic_public_text",
+      "binding": "bound",
+      "content_sha256": "3a3ed2a26fc3899b44dcefd8b33af55d5ac4ac466e71494236634a0ae3985a36",
+      "event_time": "2026-09-02T00:00:00Z",
+      "freshness": "fresh",
+      "id": "posthoc-grader-mention",
+      "independence_group": "posthoc-grader-mention",
+      "literal_claims": [
+        "P_clean_elicitation"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "operator_writeup",
+      "observation_types": [
+        "posthoc_documentation"
+      ],
+      "publication_ordinal": 1,
+      "quote": "later writeup mentions scoring files existed in the image",
+      "source_id": "operator_writeup"
+    }
+  ]
+}

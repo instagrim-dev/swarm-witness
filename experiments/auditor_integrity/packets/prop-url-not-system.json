@@ -1,0 +1,73 @@
+{
+  "case_id": "prop-url-not-system",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_system_safe",
+    "kind": "evidentiary_sufficiency",
+    "proposition": "Local URL allowlist success establishes system safety.",
+    "public_text_may_refute_sufficiency": true,
+    "required_observation_types": [
+      "remote_url_allowlist",
+      "application_settlement",
+      "exec_boundary"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "negative",
+  "mechanism": "property_laundering",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_system_safe"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "d19dad953a137e3d4109e375df8d5243ec11e268ca7f8b8fdbce52321fa497c5",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "url-pass",
+      "independence_group": "url-pass",
+      "literal_claims": [
+        "P_system_safe"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "local_policy",
+      "observation_types": [
+        "remote_url_allowlist"
+      ],
+      "publication_ordinal": 1,
+      "quote": "URL allowlist held",
+      "source_id": "local_policy"
+    },
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_system_safe"
+      ],
+      "authenticity": "authentic_public_text",
+      "binding": "bound",
+      "content_sha256": "6b5fc3ce65396823f9f00463507b2d87093091ab820e8045a5974aced7771aca",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "effect-fail",
+      "independence_group": "effect-fail",
+      "literal_claims": [
+        "P_system_safe"
+      ],
+      "literal_polarity": "refutes",
+      "locally_held": true,
+      "named_origin": "app_owned_sink",
+      "observation_types": [
+        "application_settlement",
+        "exec_boundary"
+      ],
+      "publication_ordinal": 1,
+      "quote": "unauthorized local file effect committed",
+      "source_id": "app_owned_sink"
+    }
+  ]
+}

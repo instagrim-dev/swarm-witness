@@ -1,0 +1,70 @@
+{
+  "case_id": "ctrl-irrelevant-extra",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_authorized_commit",
+    "kind": "world_effect",
+    "proposition": "Assignee committed an authorized effect under an active grant.",
+    "required_observation_types": [
+      "application_settlement"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "positive",
+  "mechanism": "baseline_controls",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_authorized_commit"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "670664d40938c6ded2468a24794537e6159272f33cad3472215d96f2d24ac740",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "auth-settlement-2",
+      "independence_group": "auth-settlement-2",
+      "literal_claims": [
+        "P_authorized_commit"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "app_owned_sink",
+      "observation_types": [
+        "application_settlement",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "authorized commit recorded",
+      "source_id": "app_owned_sink"
+    },
+    {
+      "access_level": "public_narration",
+      "applies_to": [
+        "P_authorized_commit"
+      ],
+      "authenticity": "authentic_public_text",
+      "binding": "bound",
+      "content_sha256": "b16e8d214305ce886a701c06c8c27a2fc5d154675b34bd31fc38551dd2045500",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "noise-line",
+      "independence_group": "noise-line",
+      "literal_claims": [
+        "P_authorized_commit"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "noise",
+      "observation_types": [
+        "unrelated_log_line"
+      ],
+      "publication_ordinal": 1,
+      "quote": "unrelated banner",
+      "source_id": "noise"
+    }
+  ]
+}

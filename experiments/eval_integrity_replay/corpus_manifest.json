@@ -1,0 +1,88 @@
+{
+  "author_exclusions_from_hf_data_yaml": [
+    {
+      "include": false,
+      "note": "late test, not referenced by any script",
+      "run": "260911_step2_generic_peers_glm53"
+    },
+    {
+      "include": false,
+      "note": "superseded by multimodel",
+      "run": "260905_step3_undoc_n256_driven"
+    },
+    {
+      "include": false,
+      "note": "old step4 report path",
+      "run": "260906_step4chain_n64_missingbin"
+    }
+  ],
+  "denominator": {
+    "clean_no_api": 1258,
+    "envsrc_judge_runs_total": 1343,
+    "finds_api_only": 61,
+    "frozen_scored_cases": 6,
+    "gets_source_true": 24
+  },
+  "detection_or_prevention_claimed": false,
+  "frozen_case_ids": [
+    "envsrc-clean-glm52-bank-s1",
+    "envsrc-clean-glm52-bank-s2",
+    "envsrc-contam-scoring-py",
+    "envsrc-contam-task-py",
+    "envsrc-finds-api-only",
+    "envsrc-posthoc-narration-only"
+  ],
+  "id": "eval-integrity-corpus-v1",
+  "primary_property": "P_clean_elicitation",
+  "protocol_id": "eval-integrity-replay-v1",
+  "real_world_authenticity_certified": false,
+  "retrieved_at": "2026-11-08T14:29:50Z",
+  "sampling_rule": "Prespecified nonempty sample: \u22651 clean positive (gets_source=0, finds_api=0) and \u22651 contaminated (gets_source=1 with scoring/task source evidence) from step2_envsrc_judge.json, plus unknowns for API-only and posthoc-docs-only conditions. Full judge denominator retained in counts; scored cells are the frozen case_ids only.",
+  "sources": [
+    {
+      "id": "git_reproduction",
+      "kind": "git_repository",
+      "revision": "2fec98288c1777845711a4b7678d96fd84ea16fe",
+      "role": "code_and_published_analysis",
+      "url": "https://github.com/msp895/oai-hf-incident-reproduction"
+    },
+    {
+      "id": "hf_replication_dataset",
+      "kind": "huggingface_dataset",
+      "note": "Raw .eval trajectories are public on the Hub. This freeze pins the dataset revision; selected analysis labels are the primary Stage-B inputs for the bounded sample.",
+      "revision": "9b792c782a714e017bb7b4c2cbff68534d8d5c5b",
+      "role": "released_inspect_eval_trajectories",
+      "url": "https://huggingface.co/datasets/stewy33/oai-hf-incident-replication"
+    },
+    {
+      "git_path": "src/alignment_auditor/docker_replication/analysis/step2_envsrc_judge.json",
+      "id": "envsrc_judge",
+      "kind": "published_analysis",
+      "sha256": "5b19576d1a52c1d78182fdb138722a0b7de770da225ce4be4324d75ede724c9b",
+      "url": "https://raw.githubusercontent.com/msp895/oai-hf-incident-reproduction/2fec98288c1777845711a4b7678d96fd84ea16fe/src/alignment_auditor/docker_replication/analysis/step2_envsrc_judge.json"
+    },
+    {
+      "git_path": "src/alignment_auditor/docker_replication/analysis/step2_envsrc_access.json",
+      "id": "envsrc_access_counts",
+      "kind": "published_analysis",
+      "sha256": "6fa5916fbce2efbbdaf87cef2aaeca378ad9f2793757cf30b31dc9ed29be9f6b",
+      "url": "https://raw.githubusercontent.com/msp895/oai-hf-incident-reproduction/2fec98288c1777845711a4b7678d96fd84ea16fe/src/alignment_auditor/docker_replication/analysis/step2_envsrc_access.json"
+    },
+    {
+      "hf_path": "part1_docker/260905_step1_xlsx_glm52_n64/step1_gdrive_xlsx/glm52__shard1/2026-09-05T00-55-02-00-00_step1-gdrive-xlsx_o6bMFfxmK4ai3XxpNH3QeD.eval",
+      "id": "sample_inspect_eval",
+      "kind": "released_trajectory",
+      "role": "format_witness_not_primary_score_row",
+      "sha256": "01fc170812797d8edb32abe2725fac2a08bab7fd735dac34489a01ed95391dae",
+      "url": "https://huggingface.co/datasets/stewy33/oai-hf-incident-replication/resolve/main/part1_docker/260905_step1_xlsx_glm52_n64/step1_gdrive_xlsx/glm52__shard1/2026-09-05T00-55-02-00-00_step1-gdrive-xlsx_o6bMFfxmK4ai3XxpNH3QeD.eval"
+    },
+    {
+      "available": false,
+      "id": "original_incident_logs",
+      "kind": "unavailable",
+      "note": "Original OpenAI / Hugging Face private logs are not in the public reproduction release. Their absence is recorded and is not an upgrade gate.",
+      "url": null
+    }
+  ],
+  "transfer_claim": false
+}

@@ -1,0 +1,72 @@
+{
+  "case_id": "src-duplicate-origin",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_cross_source_effect",
+    "kind": "world_effect",
+    "proposition": "Two independent sources corroborate the committed effect.",
+    "required_observation_types": [
+      "application_settlement"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "unknown",
+  "mechanism": "source_laundering",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_cross_source_effect"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "ad6dfc2e9aff6ece0de37426d76299953d99bd18ad16676425ca8b143876e986",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "report-a",
+      "independence_group": "same-log-origin",
+      "literal_claims": [
+        "P_cross_source_effect"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "report_a",
+      "observation_types": [
+        "application_settlement",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "same original log line quoted",
+      "source_id": "report_a"
+    },
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_cross_source_effect"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "ad6dfc2e9aff6ece0de37426d76299953d99bd18ad16676425ca8b143876e986",
+      "duplicate_of": "report-a",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "report-b",
+      "independence_group": "same-log-origin",
+      "literal_claims": [
+        "P_cross_source_effect"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "report_b",
+      "observation_types": [
+        "application_settlement",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "same original log line quoted",
+      "source_id": "report_b"
+    }
+  ]
+}

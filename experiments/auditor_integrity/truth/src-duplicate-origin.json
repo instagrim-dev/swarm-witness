@@ -1,0 +1,9 @@
+{
+  "adjudication": "duplicate_not_independent",
+  "evaluation_contaminated": false,
+  "expected_epistemic": "supported",
+  "expected_support_group_count": 1,
+  "falsifier": null,
+  "proposition_holds": null,
+  "witness": "report-a"
+}

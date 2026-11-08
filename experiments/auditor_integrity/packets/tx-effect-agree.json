@@ -1,0 +1,70 @@
+{
+  "case_id": "tx-effect-agree",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_effect_committed",
+    "kind": "world_effect",
+    "proposition": "The authorized effect was committed in the application sink.",
+    "required_observation_types": [
+      "application_settlement"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "positive",
+  "mechanism": "transcript_effect_divergence",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_effect_committed"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "1881cae1d4a1645d7bf2a7ae975db68b859cc3fb94f98131cf4033620b3bdd02",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "tx-display",
+      "independence_group": "tx-display",
+      "literal_claims": [
+        "P_effect_committed"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "actor_transcript",
+      "observation_types": [
+        "displayed_command"
+      ],
+      "publication_ordinal": 1,
+      "quote": "tool call claimed commit",
+      "source_id": "actor_transcript"
+    },
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_effect_committed"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "4e3d9997d9c29545d149e48012299a544af99c640966e30cf1be2d43262835d7",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "settlement-ok",
+      "independence_group": "settlement-ok",
+      "literal_claims": [
+        "P_effect_committed"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "app_owned_sink",
+      "observation_types": [
+        "application_settlement",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "sink row committed",
+      "source_id": "app_owned_sink"
+    }
+  ]
+}
