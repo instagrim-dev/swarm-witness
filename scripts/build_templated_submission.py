@@ -1,379 +1,279 @@
 #!/usr/bin/env python3
-"""Fill the official Apart DOCX template with Swarm Witness content (guidance removed)."""
+"""Build both paper layouts and Markdown extracts from the canonical manuscript.
+
+Requires Pandoc and python-docx. The committed Apart template supplies page
+geometry, embedded fonts, and branding; its legacy styles and prose are omitted.
+"""
 from __future__ import annotations
 
+import os
 import re
-import shutil
+import subprocess
 from copy import deepcopy
 from pathlib import Path
+from tempfile import TemporaryDirectory
+from zipfile import ZIP_DEFLATED, ZipFile
 
 from docx import Document
+from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT, WD_TABLE_ALIGNMENT
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.text.paragraph import Paragraph
+from docx.shared import Pt, RGBColor
+from lxml import etree
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "report"
+SOURCE = REPORT / "Swarm_Witness_Final_Submission.md"
 TEMPLATE = REPORT / "official-template.docx"
-# Prefer a freshly copied Apart template when present (Downloads drop).
-DOWNLOADS_TEMPLATE = Path.home() / "Downloads" / "Copy of Apart Research hackathon submission template.docx"
-OUT_DOCX = REPORT / "Swarm_Witness_Templated_Submission.docx"
-OUT_MD = REPORT / "Swarm_Witness_Templated_Submission.md"
-
-TITLE = "Swarm Witness: An Executable Evidence Protocol for Agent Authorization Claims"
-AUTHOR = "Jonathan Maye-Hobbs"
-AFFILIATION = "Independent"
 
 
-def _set_run_text(run, text: str) -> None:
-    run.text = text
-
-
-def _replace_first_text(element, old: str, new: str) -> bool:
-    for node in element.iter(qn("w:t")):
-        if node.text and old in node.text:
-            node.text = node.text.replace(old, new, 1)
-            return True
-    return False
-
-
-def _clear_paragraph(paragraph: Paragraph) -> None:
-    p = paragraph._p
-    for child in list(p):
-        if child.tag.endswith("}r") or child.tag.endswith("}hyperlink"):
-            p.remove(child)
-
-
-def _set_paragraph_text(paragraph: Paragraph, text: str) -> None:
-    _clear_paragraph(paragraph)
-    run = paragraph.add_run(text)
-
-
-def _delete_paragraph(paragraph: Paragraph) -> None:
-    p = paragraph._p
-    parent = p.getparent()
-    if parent is not None:
-        parent.remove(p)
-
-
-def _delete_table(table) -> None:
-    tbl = table._tbl
-    parent = tbl.getparent()
-    if parent is not None:
-        parent.remove(tbl)
-
-
-def _load_parts() -> dict[str, str]:
-    abstract = (REPORT / "ABSTRACT.md").read_text().strip()
-    # strip markdown bold for DOCX plain runs
-    abstract = re.sub(r"\*\*([^*]+)\*\*", r"\1", abstract)
-    body = (REPORT / "body.md").read_text()
-    lim = (REPORT / "LIMITATIONS_DUAL_USE.md").read_text()
-    # Split on the raw Markdown marker before stripping bold, otherwise the
-    # Discussion "Limitations" subsection would dump the whole appendix block.
-    lim_brief_raw = re.split(
-        r"\*\*Possible adversarial|\nPossible adversarial", lim, maxsplit=1
-    )[0]
-    # Keep LLM usage in its own template section; strip it from Appendix A.
-    lim_parts = re.split(
-        r"\*\*LLM usage statement\.\*\*|\nLLM usage statement\.",
-        lim,
-        maxsplit=1,
-    )
-    lim_appendix_raw = lim_parts[0]
-    llm_from_lim = lim_parts[1] if len(lim_parts) > 1 else ""
-    final = (REPORT / "Swarm_Witness_Final_Submission.md").read_text()
-    # Heading depth is not part of the boundary: the manuscript uses
-    # "# Appendix A", and a literal "## Appendix" split would keep that
-    # section inside References and then append a second appendix below.
-    refs = _between_headings(final, "References", "Appendix")
-    refs = re.sub(r"^\d+\.\s+", "", refs, flags=re.M)
-    llm = (
-        "AI assistants contributed to research brainstorming, implementation, "
-        "validation scripts and draft writing. Reported experimental counts are "
-        "taken from retained program outputs and tests; the author remains "
-        "responsible for verifying released artifacts and the manuscript."
-    )
-    if llm_from_lim.strip():
-        llm = _strip_md(llm_from_lim).strip()
-    return {
-        "abstract": abstract,
-        "intro": _section_after(body, "# 1. Introduction", "## 2."),
-        "related": _section_after(body, "## 2. Background and related work", "## 3."),
-        "methods": _section_after(body, "## 3. Methodology", "## 4."),
-        "results": _section_after(body, "## 4. Results", "## 5."),
-        "discussion": _section_after(body, "## 5. Discussion and limitations", "## 6."),
-        "conclusion": _section_after(body, "## 6. Conclusion", "## Code"),
-        "code": _section_after(body, "## Code, data and reproducibility", None),
-        "limitations_brief": _strip_md_heading(lim_brief_raw),
-        "limitations": _strip_md_heading(lim_appendix_raw),
-        "refs": refs,
-        "llm": llm,
+def read_manuscript() -> tuple[str, dict[str, str], dict[str, re.Match[str]]]:
+    text = SOURCE.read_text(encoding="utf-8").strip() + "\n"
+    title = re.search(r"^# ([^\n]+)$", text, re.M)
+    if title is None:
+        raise ValueError("The manuscript needs a level-one title.")
+    metadata = {"title": title.group(1)}
+    for name in ("Author", "Affiliation"):
+        match = re.search(rf"^\*\*{name}:\*\*\s+([^\n]+)$", text, re.M)
+        if match is None:
+            raise ValueError(f"The manuscript needs **{name}:** metadata.")
+        metadata[name.lower()] = match.group(1).strip()
+    headings = {
+        match.group(1): match
+        for match in re.finditer(r"^## ([^\n]+)$", text, re.M)
     }
+    for name in ("Abstract", "References", "Appendix A Limitations and dual use", "LLM Usage Statement"):
+        if name not in headings:
+            raise ValueError(f"The manuscript needs a '{name}' section.")
+    return text, metadata, headings
 
 
-def _heading_label(raw: str) -> str:
-    """Drop ATX marks so a boundary matches at any heading depth."""
-    return re.sub(r"^#+\s*", "", raw.strip())
+def write_extracts(text: str, headings: dict[str, re.Match[str]], branding: str) -> None:
+    abstract = headings["Abstract"]
+    body_start = next(match.start() for match in headings.values() if match.start() > abstract.start())
+    appendix = headings["Appendix A Limitations and dual use"]
+    extracts = {
+        "ABSTRACT.md": text[abstract.end():body_start].strip(),
+        "body.md": text[body_start:headings["References"].start()].strip(),
+        "LIMITATIONS_DUAL_USE.md": text[appendix.start():].strip(),
+        "Swarm_Witness_Templated_Submission.md": (
+            text[:abstract.start()].rstrip() + "\n\n" + branding + "\n\n" + text[abstract.start():].strip()
+        ),
+    }
+    for filename, content in extracts.items():
+        (REPORT / filename).write_text(content + "\n", encoding="utf-8")
 
 
-def _find_heading(text: str, label: str) -> re.Match[str] | None:
-    """First ATX heading of any depth whose title starts with label."""
-    label = _heading_label(label)
-    if not label:
-        raise ValueError("empty heading label")
-    return re.search(rf"^#{{1,6}}[ \t]+{re.escape(label)}.*$", text, re.M)
+def template_branding(template) -> tuple[object, str]:
+    for element in template.element.body.iter(qn("w:p")):
+        words = [node.text for node in element.iter(qn("w:t")) if node.text]
+        if "Apart Research" in words and "With" in words:
+            return deepcopy(element), " ".join(words)
+    raise ValueError("The committed template has no Apart Research branding paragraph.")
 
 
-def _between_headings(text: str, start: str, end: str | None) -> str:
-    start_match = _find_heading(text, start)
-    if start_match is None:
-        raise ValueError(f"missing {start}")
-    rest = text[start_match.end() :]
-    if end:
-        end_match = _find_heading(rest, end)
-        if end_match is None:
-            raise ValueError(f"missing end {end}")
-        rest = rest[: end_match.start()]
-    return rest.strip()
+def retain_template_fonts(converted: Path) -> None:
+    """Keep template fonts as complete parts without importing legacy styles."""
+    repaired = converted.with_suffix(".fonts.docx")
+    with ZipFile(converted) as source, ZipFile(TEMPLATE) as reference:
+        font_parts = [name for name in reference.namelist() if name.startswith("word/fonts/")]
+        replacements = ["word/fontTable.xml", "word/_rels/fontTable.xml.rels", *font_parts]
+        content_types = etree.fromstring(source.read("[Content_Types].xml"))
+        extensions = {Path(name).suffix.lstrip(".") for name in font_parts}
+        existing = {element.get("Extension") for element in content_types}
+        for element in etree.fromstring(reference.read("[Content_Types].xml")):
+            if element.get("Extension") in extensions - existing:
+                content_types.append(deepcopy(element))
+        with ZipFile(repaired, "w", compression=ZIP_DEFLATED) as output:
+            for item in source.infolist():
+                if item.filename in replacements:
+                    continue
+                content = (
+                    etree.tostring(content_types, xml_declaration=True, encoding="UTF-8")
+                    if item.filename == "[Content_Types].xml" else source.read(item.filename)
+                )
+                output.writestr(item, content)
+            for name in replacements:
+                output.writestr(name, reference.read(name))
+    repaired.replace(converted)
 
 
-def _section_after(text: str, start: str, end: str | None) -> str:
-    return _strip_md(_between_headings(text, start, end))
+def style_document(doc, metadata: dict[str, str], template, *, templated: bool) -> None:
+    # Pandoc and Word use different capitalization for some built-in style
+    # names. Stable OOXML IDs avoid python-docx's localized name aliases.
+    styles = {style.style_id: style for style in doc.styles}
+    geometry = template.sections[0]
+    for section in doc.sections:
+        for name in ("page_width", "page_height", "orientation", "top_margin", "bottom_margin", "left_margin", "right_margin", "header_distance", "footer_distance"):
+            setattr(section, name, getattr(geometry, name))
+    font_name = "Old Standard TT" if templated else "Times New Roman"
+    for name in ("Normal", "BodyText", "FirstParagraph", "Compact"):
+        if name not in styles:
+            continue
+        style = styles[name]
+        style.font.name = font_name
+        style.font.size = Pt(11)
+        style.font.color.rgb = RGBColor(0, 0, 0)
+        style.paragraph_format.line_spacing = 1.1
+        style.paragraph_format.space_before = Pt(0)
+        style.paragraph_format.space_after = Pt(5)
+        style.paragraph_format.widow_control = True
+    for name, size in (("Title", 18), ("Heading1", 13), ("Heading2", 11.5), ("Heading3", 11)):
+        style = styles[name]
+        style.font.name = font_name
+        style.font.size = Pt(size)
+        style.font.bold = True
+        style.font.color.rgb = RGBColor(0, 0, 0)
+        style.paragraph_format.space_before = Pt(12 if name != "Title" else 0)
+        style.paragraph_format.space_after = Pt(5)
+        style.paragraph_format.keep_with_next = True
+        borders = style.element.find("w:pPr/w:pBdr", style.element.nsmap)
+        if borders is not None:
+            borders.getparent().remove(borders)
+    for name in ("VerbatimChar", "SourceCode"):
+        if name in styles:
+            styles[name].font.name = "DejaVu Sans Mono"
+            styles[name].font.size = Pt(9)
+    for style in styles.values():
+        fonts = style.element.find("w:rPr/w:rFonts", style.element.nsmap)
+        if fonts is not None and style.font.name:
+            for attribute in ("asciiTheme", "hAnsiTheme", "eastAsiaTheme", "cstheme"):
+                fonts.attrib.pop(qn(f"w:{attribute}"), None)
+    in_references = False
+    for index, paragraph in enumerate(doc.paragraphs):
+        if index == 0:
+            paragraph.style = styles["Title"]
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        elif re.fullmatch(r"Heading\d", paragraph.style.style_id):
+            level = int(paragraph.style.style_id[-1])
+            paragraph.style = styles[f"Heading{max(1, level - 1)}"]
+        elif "Author:" in paragraph.text and metadata["author"] in paragraph.text:
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            paragraph.paragraph_format.keep_with_next = True
+        elif "Affiliation:" in paragraph.text and metadata["affiliation"] in paragraph.text:
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            paragraph.paragraph_format.keep_with_next = True
+        if paragraph.text == "References":
+            in_references = True
+            paragraph.paragraph_format.page_break_before = True
+        elif paragraph.style.style_id.startswith("Heading") and in_references:
+            in_references = False
+        elif in_references:
+            paragraph.paragraph_format.space_after = Pt(4)
+            for run in paragraph.runs:
+                run.font.size = Pt(9.5)
+        if paragraph.style.style_id.startswith("Heading") or paragraph.style.style_id == "Title":
+            for run in paragraph.runs:
+                run.font.color.rgb = RGBColor(0, 0, 0)
+        if paragraph.text.startswith("Appendix A"):
+            paragraph.paragraph_format.page_break_before = True
+        if paragraph.text.startswith("Table "):
+            paragraph.paragraph_format.keep_with_next = True
+    for table in doc.tables:
+        format_table(table, doc.sections[0])
+    for section in doc.sections:
+        footer = section.footer.paragraphs[0]
+        footer.clear()
+        footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run = footer.add_run()
+        run.font.name = font_name
+        run.font.size = Pt(9)
+        field = OxmlElement("w:fldSimple")
+        field.set(qn("w:instr"), "PAGE")
+        run._r.addnext(field)
+    doc.core_properties.title = metadata["title"]
+    doc.core_properties.author = metadata["author"]
+    doc.core_properties.last_modified_by = metadata["author"]
+    doc.core_properties.subject = ""
+    doc.core_properties.comments = ""
+    doc.core_properties.keywords = ""
 
 
-def _strip_md_heading(text: str) -> str:
-    lines = text.splitlines()
-    if lines and lines[0].startswith("#"):
-        lines = lines[1:]
-    return _strip_md("\n".join(lines).strip())
+def format_table(table, section) -> None:
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table.autofit = False
+    available = section.page_width - section.left_margin - section.right_margin
+    weights = [
+        max(12, min(60, max(len(row.cells[index].text) for row in table.rows))) ** 0.5
+        for index in range(len(table.columns))
+    ]
+    for index, weight in enumerate(weights):
+        width = int(available * weight / sum(weights))
+        table.columns[index].width = width
+        for row in table.rows:
+            row.cells[index].width = width
+    properties = table._tbl.tblPr
+    for old in properties.findall(qn("w:tblBorders")):
+        properties.remove(old)
+    borders = OxmlElement("w:tblBorders")
+    for side in ("top", "left", "bottom", "right", "insideH", "insideV"):
+        edge = OxmlElement(f"w:{side}")
+        for key, value in (("val", "single"), ("sz", "4"), ("color", "D9D9D9")):
+            edge.set(qn(f"w:{key}"), value)
+        borders.append(edge)
+    properties.append(borders)
+    for row_index, row in enumerate(table.rows):
+        row_properties = row._tr.get_or_add_trPr()
+        if row_properties.find(qn("w:cantSplit")) is None:
+            row_properties.append(OxmlElement("w:cantSplit"))
+        if row_index == 0 and row_properties.find(qn("w:tblHeader")) is None:
+            row_properties.append(OxmlElement("w:tblHeader"))
+        for cell in row.cells:
+            cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+            cell_borders = deepcopy(borders)
+            cell_borders.tag = qn("w:tcBorders")
+            cell._tc.get_or_add_tcPr().append(cell_borders)
+            margins = OxmlElement("w:tcMar")
+            for side, width in (("top", "60"), ("bottom", "60"), ("left", "100"), ("right", "100")):
+                margin = OxmlElement(f"w:{side}")
+                margin.set(qn("w:w"), width)
+                margin.set(qn("w:type"), "dxa")
+                margins.append(margin)
+            cell._tc.get_or_add_tcPr().append(margins)
+            if row_index == 0:
+                shading = OxmlElement("w:shd")
+                shading.set(qn("w:fill"), "EEEEEE")
+                cell._tc.get_or_add_tcPr().append(shading)
+            for paragraph in cell.paragraphs:
+                paragraph.paragraph_format.space_before = Pt(3)
+                paragraph.paragraph_format.space_after = Pt(3)
+                paragraph.paragraph_format.line_spacing = 1.0
+                paragraph.paragraph_format.keep_with_next = row_index < len(table.rows) - 1
+                for run in paragraph.runs:
+                    run.font.size = Pt(9.5)
+                    run.font.color.rgb = RGBColor(0, 0, 0)
+                    if row_index == 0:
+                        run.font.bold = True
 
 
-def _strip_md(text: str) -> str:
-    text = re.sub(r"\*\*([^*]+)\*\*", r"\1", text)
-    text = re.sub(r"`([^`]+)`", r"\1", text)
-    text = re.sub(r"^#+\s*", "", text, flags=re.M)
-    text = re.sub(r"^\|.*\|$", "", text, flags=re.M)  # drop markdown tables for DOCX body
-    text = re.sub(r"^-{3,}$", "", text, flags=re.M)
-    text = re.sub(r"\n{3,}", "\n\n", text)
-    return text.strip()
-
-
-def _paragraphs_to_blocks(text: str) -> list[str]:
-    blocks = [b.strip() for b in re.split(r"\n\s*\n", text) if b.strip()]
-    return blocks
-
-
-def fill_template() -> Path:
-    template = TEMPLATE
-    if DOWNLOADS_TEMPLATE.exists():
-        shutil.copy2(DOWNLOADS_TEMPLATE, TEMPLATE)
-        template = TEMPLATE
-    if not template.exists():
-        raise SystemExit(f"missing template: {template}")
-    parts = _load_parts()
-    doc = Document(str(template))
-
-    # Title
-    title_cell = doc.tables[0].rows[0].cells[0]
-    _replace_first_text(title_cell._tc, "PROJECT TITLE", TITLE)
-
-    # Authors + abstract live in second row
-    abs_cell = doc.tables[0].rows[1].cells[0]
-    _replace_first_text(abs_cell._tc, "Author name 1", AUTHOR)
-    # first Affiliation after author 1
-    replaced_aff = False
-    for node in abs_cell._tc.iter(qn("w:t")):
-        if node.text and node.text.strip() == "Affiliation" and not replaced_aff:
-            node.text = AFFILIATION
-            replaced_aff = True
-    for n in range(2, 7):
-        _replace_first_text(abs_cell._tc, f"Author name {n}", "")
-    # remaining Affiliation placeholders
-    for node in abs_cell._tc.iter(qn("w:t")):
-        if node.text and node.text.strip() == "Affiliation":
-            node.text = ""
-
-    # Replace abstract guidance runs with real abstract (collapse into first long run)
-    guidance_bits = []
-    for node in abs_cell._tc.iter(qn("w:t")):
-        if node.text and (
-            "Summarize your project" in node.text
-            or "Make sure to cover" in node.text
-            or "Polish it last" in node.text
-        ):
-            guidance_bits.append(node)
-    if guidance_bits:
-        guidance_bits[0].text = parts["abstract"]
-        for node in guidance_bits[1:]:
-            node.text = ""
-
-    # Delete the "How to use this template" info box (second top-level table)
-    if len(doc.tables) > 1:
-        _delete_table(doc.tables[1])
-
-    # Replace body guidance by rebuilding from section headings onward.
-    # Strategy: clear all body paragraphs after the front-matter tables, then append content.
-    body_start = None
-    for i, p in enumerate(doc.paragraphs):
-        if p.text.strip().startswith("1. Introduction"):
-            body_start = i
-            break
-    if body_start is None:
-        raise SystemExit("could not find Introduction heading")
-
-    # Remove everything from Introduction to end
-    for p in list(doc.paragraphs[body_start:]):
-        _delete_paragraph(p)
-
-    def add_heading(text: str, level: int = 2) -> None:
-        doc.add_heading(text, level=level)
-
-    def add_blocks(text: str) -> None:
-        for block in _paragraphs_to_blocks(text):
-            # preserve simple numbered/bulleted lines as separate paragraphs
-            for line in block.splitlines():
-                line = line.strip()
-                if line:
-                    doc.add_paragraph(line)
-
-    add_heading("1. Introduction", 2)
-    add_blocks(parts["intro"])
-    add_heading("2. Related Work", 2)
-    add_blocks(parts["related"])
-    add_heading("3. Methods", 2)
-    add_blocks(parts["methods"])
-    add_heading("4. Results", 2)
-    add_blocks(parts["results"])
-    # Compact comparative summary (markdown tables are stripped from body sections).
-    add_blocks(
-        "Comparative summary. Public layer (24 cells): naive PASS 24 unsupported "
-        "supports; strong checker and Swarm Witness 0 each, with 22 correct "
-        "abstentions and decisive coverage 2/2 (tie; superiority_claim false). "
-        "Controlled layer (4 cells): both competent methods 0 unsupported supports. "
-        "Application witness: twelve histories; named run "
-        "aew-v1-local-control-pass-broader-effect progresses actor-only unresolved "
-        "to application-readback refuted. Native matched-method layer: 144 rows "
-        "(ledger 352); Swarm Witness 11 unsupported supports and correct decisive "
-        "24/24; strong invariant on the same records 0 and 24/24; "
-        "always-unresolved 0 unsupported supports and correct decisive 0/24. "
-        "An evidence-free "
-        "actor-only upgrade is unsupported support. superiority_claim false. "
-        "transfer_claim false. Classifier–adapter agreement on retained "
-        "EvidenceGraph packets remains 130/130. Attribution warrant agreement is "
-        "3/4 and native-safer agreement is 4/4. A missing population-detail row "
-        "is incomplete evidence, not absence. Earlier staged comparison remains "
-        "author-curated. R1–R5 and the causal/formal checks stay in the retained "
-        "evidence pack."
-    )
-
-    add_heading("5. Discussion and Limitations", 2)
-    add_blocks(parts["discussion"])
-    add_heading("Limitations", 3)
-    add_blocks(parts["limitations_brief"])
-    add_heading("Future Work", 3)
-    add_blocks(
-        "Live gateway-side observation, real delegated effects, independently authored "
-        "case corpora, and integration of the formal evidence semantics into the audit schema."
-    )
-    add_heading("6. Conclusion", 2)
-    add_blocks(parts["conclusion"])
-    add_heading("Code and Data", 2)
-    add_blocks(parts["code"])
-    doc.add_paragraph("Code repository: https://github.com/instagrim-dev/swarm-witness")
-    doc.add_paragraph(
-        "Other artifacts: dist/swarm-witness-review-bundle.zip (portable evidence pack)"
-    )
-    add_heading("Author Contributions (optional)", 2)
-    doc.add_paragraph(
-        "J. Maye-Hobbs designed the audit protocol, implemented the experiments, "
-        "and wrote the manuscript."
-    )
-    add_heading("References", 2)
-    for line in parts["refs"].splitlines():
-        line = line.strip()
-        if line:
-            doc.add_paragraph(line)
-    add_heading("Appendix A. Limitations and Dual-Use / Ethical Considerations", 2)
-    add_blocks(parts["limitations"])
-    add_heading("LLM Usage Statement", 2)
-    add_blocks(parts["llm"])
-
-    OUT_DOCX.parent.mkdir(parents=True, exist_ok=True)
-    doc.save(str(OUT_DOCX))
-
-    # Companion markdown for review (templated structure, no guidance)
-    md = f"""# {TITLE}
-
-**Author:** {AUTHOR}  
-**Affiliation:** {AFFILIATION}  
-**With** Apart Research
-
-**Research track:** 3, Strengthening Agent Infrastructure. **Application:** Track 4.
-
-## Abstract
-
-{parts['abstract']}
-
-## 1. Introduction
-
-{parts['intro']}
-
-## 2. Related Work
-
-{parts['related']}
-
-## 3. Methods
-
-{parts['methods']}
-
-## 4. Results
-
-{parts['results']}
-
-## 5. Discussion and Limitations
-
-{parts['discussion']}
-
-### Limitations
-
-{parts['limitations_brief']}
-
-### Future Work
-
-Live gateway-side observation, real delegated effects, independently authored case corpora, and integration of the formal evidence semantics into the audit schema.
-
-## 6. Conclusion
-
-{parts['conclusion']}
-
-## Code and Data
-
-{parts['code']}
-
-- Code repository: https://github.com/instagrim-dev/swarm-witness
-- Other artifacts: `dist/swarm-witness-review-bundle.zip`
-
-## Author Contributions
-
-J. Maye-Hobbs designed the audit protocol, implemented the experiments, and wrote the manuscript.
-
-## References
-
-{parts['refs']}
-
-## Appendix A. Limitations and Dual-Use / Ethical Considerations
-
-{parts['limitations']}
-
-## LLM Usage Statement
-
-{parts['llm']}
-"""
-    OUT_MD.write_text(md)
-    return OUT_DOCX
+def main() -> None:
+    text, metadata, headings = read_manuscript()
+    template = Document(TEMPLATE)
+    brand_element, brand_text = template_branding(template)
+    with TemporaryDirectory(prefix="swarm-witness-paper-") as directory:
+        converted = Path(directory) / "manuscript.docx"
+        subprocess.run(
+            [
+                os.environ.get("PANDOC", "pandoc"), str(SOURCE),
+                "--from=gfm", "--to=docx", "--standalone",
+                f"--resource-path={REPORT}",
+                "--output", str(converted),
+            ],
+            check=True,
+        )
+        for variant, templated in (("Final", False), ("Templated", True)):
+            doc = Document(converted)
+            style_document(doc, metadata, template, templated=templated)
+            if templated:
+                abstract = next(p for p in doc.paragraphs if p.text == "Abstract")
+                abstract._p.addprevious(deepcopy(brand_element))
+            destination = REPORT / f"Swarm_Witness_{variant}_Submission.docx"
+            doc.save(destination)
+            retain_template_fonts(destination)
+            print(destination.relative_to(ROOT))
+    write_extracts(text, headings, brand_text)
 
 
 if __name__ == "__main__":
-    path = fill_template()
-    print(f"Wrote {path}")
-    print(f"Wrote {OUT_MD}")
+    main()

@@ -1,73 +1,32 @@
-# Sources and template provenance
+# Sources and research artifacts
 
-## Official Apart report template (Guidelines tab)
+## Research references
 
-**Exact copy URL (required):**
+The [canonical manuscript](Swarm_Witness_Final_Submission.md) contains the paper's bibliography. The following source records connect those references to the retained experiments.
 
-https://docs.google.com/document/d/1_1_27EyZriMlc8n8EBE2YScaeyMjm-8xjR097nmHXAE/copy?usp=sharing
-
-Document id: `1_1_27EyZriMlc8n8EBE2YScaeyMjm-8xjR097nmHXAE`
-
-Fetched for local reference via Google Docs export (same document id), and
-replaced with the author’s local **Copy of Apart Research hackathon submission
-template.docx** from Downloads (2026-11-07):
-
-- `report/official-template.docx` — authoritative fill source (Downloads copy)
-- `report/official-template-from-downloads.docx` — verbatim provenance copy
-- `report/official-template.pdf` — earlier `…/export?format=pdf` snapshot
-
-HackTalk links (Yan/Sikora): `docs/hackathon/Getting_Started_with_Swarm_Incidents_Links.md`
-
-Script: `report/fetch_template.sh` · fill/rebuild: `bash scripts/build_submission_variants.sh`
-
-Sprint page (Guidelines / submission rules):
-https://apartresearch.com/sprints/swarm-alignment-2026
-
-## Templated + slides variants (form upload)
-
-Built locally from the official template chrome and current manuscript:
-
-| Artifact | Use |
-| --- | --- |
-| `report/Swarm_Witness_Templated_Submission.docx` | Official template DOCX filled (guidance removed; title/author/abstract/body) |
-| `report/Swarm_Witness_Templated_Submission.pdf` | PDF export of templated layout (Old Standard TT chrome) |
-| `report/Swarm_Witness_Templated_Submission.md` | Markdown mirror of templated structure |
-| `report/Swarm_Witness_Slides.pdf` | 8-slide deck for the form **Slides** field (also `report/slides/`) |
-| `report/slides/slides.html` | Slide source |
-
-Rebuild: `bash scripts/build_submission_variants.sh`
-
-Also retained:
-
-- `report/ABSTRACT.md`, `report/body.md`, `report/LIMITATIONS_DUAL_USE.md`
-- `report/Swarm_Witness_Final_Submission.pdf` / `.docx` (research paper layout)
-
-Optional: open the Google Docs copy URL above and paste from the templated
-markdown if judges insist on the live Docs file rather than the filled DOCX/PDF.
-
-## Incident evidence standard
-
-For the 2026 OpenAI–Hugging Face agent-swarm incident, the evidence standard is the public LessWrong reproduction:
-
-Palan, M., Chute, C., Kim, M. and Van Roy, B. (2026). *OpenAI-HuggingFace: A Reproduction & Lessons for Alignment Testing*. https://www.lesswrong.com/posts/fMnC6ZD37qrnZAFYz/openai-huggingface-a-reproduction-and-lessons-for-alignment
-
-Original agent transcripts and platform logs are unavailable. Acceptance and qualification use that reproduction and the executable protocols in this package. No criterion requires the withheld originals.
-
-## Evidence sources (metrics only; do not invent)
-
-| Claim | Label | Primary metrics files |
+| Source | Retained use | Repository record |
 | --- | --- | --- |
-| R1 | reproduced | `evidence/r1/summary.json`, `evidence/r1/result.yaml`; raw inspect via `evidence/r1/raw.json.gz` |
-| R2 | reproduced | `evidence/r2/summary.json`, `evidence/r2/result.yaml` (harness `a5ea5c9`; baseline behavior via stress pack vs `efbd419`) |
-| R3 decision-model | unresolved | `evidence/r3/findings/r3-f-comparison.json`, `evidence/r3/summary.json`, `evidence/r3/result.yaml` |
-| R3 ledger-claim-v1 | classical_baseline_matches | `evidence/r3_ledger_claim_v1/`, `evidence/r3/ledger_claim_v1/<run_id>/` |
-| R4 evidence sufficiency | reproduced | `evidence/r4/findings/r4-f-evidence-sufficiency.json`, `evidence/r4/summary.json` |
-| R5 swarm audit | reproduced | `evidence/r5/findings/r5-f-swarm-audit.json`, `evidence/r5/summary.json` |
-| Causal simulator (#10) | synthetic model conformance | `evidence/causal_swarm/`, `artifacts/causal_swarm_v1/summary.json` |
-| R5 v2 (#11) | fixed-case model conformance | `evidence/r5_v2/`, `artifacts/r5_v2/summary.json` |
-| Formal soundness (#12) | conditional proof and exhaustive bounded check | `evidence/taxonomy_theory/`, `theory/`, `artifacts/taxonomy_proof_checks.json` |
+| SoundGate, *A Restart Is Not Permission* | Recovery-barrier re-execution | [Source pins](../artifacts/pins.yaml), [R1 evidence](../evidence/r1/) |
+| EvidenceGraph, *Receipt Possession Is Not Event Attribution* | Stress-harness confirmation and adapter conformance | [Source pins](../artifacts/pins.yaml), [R2 evidence](../evidence/r2/), [event-level results](external_calibration_v1/EVENT_CAPABILITY.md) |
+| BMO retained-grant implementation | Selected decision-model and first-edit ledger comparisons | [Preexisting material](../PREEXISTING.md), [R3 evidence](../evidence/r3/) |
+| Palan, Chute, Kim and Van Roy, *OpenAI-HuggingFace A Reproduction and Lessons for Alignment Testing* | Public reproduction evidence and claim qualification | [Public source](https://www.lesswrong.com/posts/fMnC6ZD37qrnZAFYz/openai-huggingface-a-reproduction-and-lessons-for-alignment), [comparison tables](bounded_comparison_v1/TABLES.md) |
 
-Index: `evidence/index.yaml`. Pins: `artifacts/pins.yaml`. Baselines:
-`baselines/r1_wal_recover_before_admit.md`,
-`baselines/r2_no_implicit_exclusivity.md`,
-`baselines/r3_durable_grant_table.md`. Preexisting: `PREEXISTING.md`.
+The LessWrong reproduction post and its appendix belong to one public source record. The released reproduction provides evidence about its own setup and observations. Original incident transcripts and platform logs are not present in this repository.
+
+## Current experiment records
+
+| Study | Protocol or inputs | Results |
+| --- | --- | --- |
+| Application effect witness | [Experiment](../experiments/effect_witness/), [evidence-stage warrants](../experiments/effect_witness/native_warrants_v1.yaml) | [Retained evidence](../evidence/effect_witness_v1/), [comparative tables](bounded_comparison_v1/TABLES.md) |
+| Public claim comparison | [Incident audit](../experiments/incident_audit/), [claim definitions](../claims/incident_claims_v1.yaml) | [Retained comparison](../evidence/incident_comparison_v1/), [per-case ledger](bounded_comparison_v1/ledger.csv) |
+| EvidenceGraph adapter conformance | [Calibration implementation](../experiments/external_calibration/) | [Event-level results](external_calibration_v1/EVENT_CAPABILITY.md), [retained outputs](../evidence/external_calibration_v1/) |
+| Finite evidence semantics | [Four-world checker](../theory/), [eight-world checker](../experiments/taxonomy_formal/) | [Four-world evidence](../evidence/taxonomy_theory/), [formal implementation](../src/swarm_witness/formal/) |
+| Earlier controlled studies | [Experiments](../experiments/) | [Evidence index](../evidence/index.yaml) |
+
+The comparison reports preserve each study's denominator. Source hashes and revisions are retained in [the artifact pins](../artifacts/pins.yaml) and the study-specific manifests.
+
+## Report template
+
+The official Apart Research template is available from its [Google Docs copy link](https://docs.google.com/document/d/1_1_27EyZriMlc8n8EBE2YScaeyMjm-8xjR097nmHXAE/copy?usp=sharing). The committed [DOCX template](official-template.docx) is the input to the official-template export.
+
+The [Swarm Alignment 2026 page](https://apartresearch.com/sprints/swarm-alignment-2026) provides the venue instructions. [Report contents](README.md) identifies the manuscript, generated layouts and build command.
