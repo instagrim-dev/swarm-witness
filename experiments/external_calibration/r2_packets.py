@@ -31,6 +31,10 @@ def _row(results: dict[str, Any], scenario: str, seed: int = SEED) -> dict[str, 
     raise KeyError(f"missing row scenario={scenario!r} seed={seed}")
 
 
+def _claim_id(base: str, seed: int) -> str:
+    return base if seed == SEED else f"{base}-s{seed}"
+
+
 def _obs(
     *,
     obs_id: str,
@@ -132,13 +136,13 @@ def _native_arms(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
+def build_packets(results_path: Path = RESULTS, seed: int = SEED) -> list[dict[str, Any]]:
     results = json.loads(results_path.read_text(encoding="utf-8"))
     packets: list[dict[str, Any]] = []
 
     # --- clean: attribution under isolation ---
-    clean = _row(results, "clean")
-    cid = "EG-R2-ATTR-clean-isolated"
+    clean = _row(results, "clean", seed=seed)
+    cid = _claim_id("EG-R2-ATTR-clean-isolated", seed)
     packets.append(
         {
             "claim": {
@@ -154,7 +158,7 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                 "verifying_access_levels": ["raw_telemetry_public", "application_owned"],
                 "source_revision": SOURCE_REV,
                 "scenario": "clean",
-                "seed": SEED,
+                "seed": seed,
             },
             "assumptions": [
                 "Tokens are isolated by construction (retained scenario description).",
@@ -197,8 +201,8 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
     )
 
     # --- relay: possession ≠ attribution ---
-    relay = _row(results, "full_receipt_relay")
-    cid = "EG-R2-ATTR-relay-possession"
+    relay = _row(results, "full_receipt_relay", seed=seed)
+    cid = _claim_id("EG-R2-ATTR-relay-possession", seed)
     packets.append(
         {
             "claim": {
@@ -213,7 +217,7 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                 "verifying_access_levels": ["raw_telemetry_public"],
                 "source_revision": SOURCE_REV,
                 "scenario": "full_receipt_relay",
-                "seed": SEED,
+                "seed": seed,
             },
             "assumptions": [
                 "A's full receipt is copied into B; A is withheld (retained description).",
@@ -264,7 +268,7 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
     )
 
     # mutation/receipt acceptance on same relay bytes (distinct claim)
-    cid = "EG-R2-MUTATION-relay-receipt-present"
+    cid = _claim_id("EG-R2-MUTATION-relay-receipt-present", seed)
     packets.append(
         {
             "claim": {
@@ -279,7 +283,7 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                 "verifying_access_levels": ["raw_telemetry_public"],
                 "source_revision": SOURCE_REV,
                 "scenario": "full_receipt_relay",
-                "seed": SEED,
+                "seed": seed,
             },
             "assumptions": [
                 "This claim is occurrence of receipt artifacts, not event attribution.",
@@ -340,8 +344,8 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
     )
 
     # --- shared tokens, exclusivity undeclared ---
-    shared = _row(results, "shared_tokens_no_attack")
-    cid = "EG-R2-ATTR-shared-tokens-no-exclusivity"
+    shared = _row(results, "shared_tokens_no_attack", seed=seed)
+    cid = _claim_id("EG-R2-ATTR-shared-tokens-no-exclusivity", seed)
     packets.append(
         {
             "claim": {
@@ -352,37 +356,49 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                     "exclusivity is not established."
                 ),
                 "quantifier": "shared_tokens_no_attack retained view",
-                "required_observation_types": ["receipt_binding", "event_attribution"],
+                "required_observation_types": [
+                    "receipt_binding",
+                    "event_attribution",
+                    "token_exclusivity",
+                ],
                 "verifying_access_levels": ["raw_telemetry_public"],
                 "source_revision": SOURCE_REV,
                 "scenario": "shared_tokens_no_attack",
-                "seed": SEED,
+                "seed": seed,
             },
             "assumptions": [
-                "Clean bytes; token exclusivity not established (retained description).",
-                "Withholding correct attributions when isolation is unknown is an "
-                "intended cost of the safer discipline.",
+                "Clean authentic retained bytes; token exclusivity is not established.",
+                "Missing required token_exclusivity mirrors safer withholding — "
+                "not an authenticity downgrade of the retained row.",
             ],
             "observations": [
                 _obs(
                     obs_id=f"{cid}-tokens",
                     claim_id=cid,
-                    authenticity="unauthenticated_tool_line",
+                    authenticity="authentic_public_text",
                     access_level="raw_telemetry_public",
                     polarity="supports",
-                    observation_types=["receipt_possession", "event_attribution"],
+                    observation_types=["receipt_binding", "event_attribution"],
                     quote=(
                         f"{shared['description']}; methods={shared['methods']}; "
                         f"safer supported="
                         f"{shared['score']['produced']['supported']}/"
                         f"{shared['score']['produced']['population']}; "
                         f"old-rule supported="
-                        f"{shared['controls']['implicit_token_exclusivity']['supported']}"
+                        f"{shared['controls']['implicit_token_exclusivity']['supported']}; "
+                        "token_exclusivity not established"
                     ),
                     independence_group="eg-r2-shared-tokens",
                     naive_overread_supports=[cid],
                 ),
             ],
+            "evidence_translation": {
+                "matched_to_native": (
+                    "Abstention requires missing token_exclusivity among required "
+                    "types, matching safer's withheld attributions under undeclared "
+                    "exclusivity. Authenticity stays authentic_public_text."
+                ),
+            },
             "native_arms": _native_arms(shared),
             "warranted_conclusion": {
                 "status": "unresolved",
@@ -404,8 +420,8 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
     )
 
     # --- false exclusivity (premise failure) ---
-    false_ex = _row(results, "false_exclusivity")
-    cid = "EG-R2-ATTR-false-exclusivity"
+    false_ex = _row(results, "false_exclusivity", seed=seed)
+    cid = _claim_id("EG-R2-ATTR-false-exclusivity", seed)
     packets.append(
         {
             "claim": {
@@ -416,15 +432,21 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                     "bytes, event attributions are warranted."
                 ),
                 "quantifier": "false_exclusivity retained view",
-                "required_observation_types": ["receipt_binding", "event_attribution"],
+                "required_observation_types": [
+                    "receipt_binding",
+                    "event_attribution",
+                    "token_exclusivity",
+                ],
                 "verifying_access_levels": ["raw_telemetry_public"],
                 "source_revision": SOURCE_REV,
                 "scenario": "false_exclusivity",
-                "seed": SEED,
+                "seed": seed,
             },
             "assumptions": [
                 "Exclusivity declaration is intentionally false (invalid_assumption_control).",
-                "This case measures premise failure, not safe behavior under true exclusivity.",
+                "Matched observation access includes the exclusivity declaration "
+                "the native safer analyzer consumed; premise falsity is not encoded "
+                "by omitting required types.",
             ],
             "observations": [
                 _obs(
@@ -433,7 +455,12 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                     authenticity="authentic_public_text",
                     access_level="raw_telemetry_public",
                     polarity="supports",
-                    observation_types=["receipt_binding", "exclusivity_declaration"],
+                    observation_types=[
+                        "receipt_binding",
+                        "event_attribution",
+                        "token_exclusivity",
+                        "exclusivity_declaration",
+                    ],
                     quote=(
                         f"{false_ex['description']}; invalid_assumption_control="
                         f"{false_ex['invalid_assumption_control']}; "
@@ -443,8 +470,17 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                     ),
                     independence_group="eg-r2-false-exclusivity",
                     naive_overread_supports=[cid],
+                    premise_status="false",
                 ),
             ],
+            "evidence_translation": {
+                "matched_to_native": (
+                    "Required types include token_exclusivity as present in the "
+                    "retained declaration the safer analyzer saw. Local methods "
+                    "that support here match native safer's support under a false "
+                    "premise; they do not independently detect premise failure."
+                ),
+            },
             "native_arms": _native_arms(false_ex),
             "warranted_conclusion": {
                 "status": "unresolved",
@@ -453,7 +489,9 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                     "Retained pack marks this an intentionally false declaration. "
                     "Native safer still emits supports with confident_errors=1; "
                     "warranted reading is that the premise fails — not that "
-                    "attribution is established."
+                    "attribution is established. Local classifier support under "
+                    "matched access is agreement with native safer, not with the "
+                    "warrant."
                 ),
                 "premise_status": "false",
             },
@@ -468,8 +506,8 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
     )
 
     # --- incomplete capture: cannot treat missing as absence ---
-    incomplete = _row(results, "incomplete_capture")
-    cid = "EG-R2-ABSENCE-incomplete-capture"
+    incomplete = _row(results, "incomplete_capture", seed=seed)
+    cid = _claim_id("EG-R2-ABSENCE-incomplete-capture", seed)
     spoofed = incomplete["score"]["spoofed"]
     packets.append(
         {
@@ -485,7 +523,7 @@ def build_packets(results_path: Path = RESULTS) -> list[dict[str, Any]]:
                 "verifying_access_levels": ["raw_telemetry_public"],
                 "source_revision": SOURCE_REV,
                 "scenario": "incomplete_capture",
-                "seed": SEED,
+                "seed": seed,
                 "public_text_may_refute_sufficiency": True,
             },
             "assumptions": [

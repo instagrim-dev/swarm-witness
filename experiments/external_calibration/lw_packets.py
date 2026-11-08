@@ -1,9 +1,8 @@
 """Translate retained LessWrong controlled-comparison claims into packets.
 
-Preserves the public-record scope discipline: a reproduction result, its
-scoring procedure, and a claim about the original incident are distinct.
-Warranted conclusions come from warrants_v1.yaml (native assessment of the
-held record), not from newly authored local warrants.
+Scoring warrants come from warrants_v1.yaml (author adjudication key).
+There is no independently specified LessWrong executable method in-repo; do
+not present a copied warrant as a native external comparator.
 """
 
 from __future__ import annotations
@@ -130,9 +129,8 @@ def build_packets(
         ]
         warranted = str(warrant["epistemic"])
         proposition_holds = warrant.get("proposition_holds")
-        native_note = warrant.get("reason")
-        # Narrative overread: treat publicity as decisive even for certification
-        # and unsatisfied upgrade slots. Marked reconstruction, not native LW.
+        warrant_note = warrant.get("reason")
+        # Ablation only: narrative overread. Not an external LessWrong method.
         overread_verdict = (
             "supported"
             if native_id in {"K-release", "K-certify", "K-census", "K-gate"}
@@ -163,29 +161,39 @@ def build_packets(
                     f"protocol.certifies_original_incident="
                     f"{protocol.get('certifies_original_incident')}",
                     f"protocol.one_public_record={protocol.get('one_public_record')}",
+                    "No independently specified LessWrong executable method is "
+                    "retained in-repo; warrants_v1 is the scoring key only.",
                 ],
                 "observations": claim_obs,
                 "native_arms": {
-                    "lesswrong_scope_discipline": {
-                        "verdict": warranted,
-                        "note": native_note,
-                        "origin": warrant.get("origin"),
-                        "reconstruction": False,
-                    },
                     "reconstructed_narrative_overread": {
                         "verdict": overread_verdict,
                         "note": (
-                            "Reconstruction: accepts public narrative as decisive "
-                            "for release, certification, census, and upgrade-slot "
-                            "claims; not a native LessWrong method."
+                            "Author reconstruction / ablation: treats public "
+                            "narrative as decisive for release, certification, "
+                            "census, and upgrade-slot claims. Not a native "
+                            "LessWrong method."
                         ),
                         "reconstruction": True,
                     },
                 },
+                # Documentation only — not scored as a method arm.
+                "author_scope_reading": {
+                    "status": warranted,
+                    "source": "warrants_v1.yaml",
+                    "reconstruction": True,
+                    "note": (
+                        "Author adjudication of the held record's scope. Same "
+                        "artifact as warranted_conclusion; not an external "
+                        "comparator."
+                    ),
+                    "reason": warrant_note,
+                    "origin": warrant.get("origin"),
+                },
                 "warranted_conclusion": {
                     "status": warranted,
-                    "basis": "lesswrong_warrants_v1_native_scope",
-                    "note": native_note,
+                    "basis": "author_warrants_v1_scoring_key",
+                    "note": warrant_note,
                 },
                 "factual_outcome": {
                     "proposition_holds": proposition_holds,
@@ -200,7 +208,7 @@ def build_packets(
             }
         )
 
-    # Explicit environment-scope claim: released reproduction ≠ original env.
+    # Object-level identity claim: disclosed differences refute identity.
     env_cid = "LW-K-env-scope"
     out.append(
         {
@@ -213,8 +221,8 @@ def build_packets(
                     "including peer composition."
                 ),
                 "quantifier": "the reproduction vs original environments",
-                "required_observation_types": ["environment_identity"],
-                "verifying_access_levels": ["raw_telemetry_public"],
+                "required_observation_types": ["environment_difference"],
+                "verifying_access_levels": ["public_bytes"],
                 "source_revision": SOURCE_REV,
                 "scenario": "environment_difference",
                 "family": "reproduction_scope",
@@ -222,68 +230,70 @@ def build_packets(
             },
             "assumptions": [
                 "Released transcripts and scores are from the reproduction setup.",
-                "Post discloses differences from the original environment "
-                "(including simulated peers).",
-                "Identity of environments is not established by publicity alone.",
+                "The public post discloses a simpler environment and simulated peers.",
+                "Under those disclosed differences, environment identity is false.",
             ],
             "observations": [
                 {
-                    "id": "LW-env-scope-boundary",
+                    "id": "LW-env-disclosed-difference",
                     "source_id": "lesswrong",
                     "stage": "A",
                     "publication_ordinal": 1,
                     "independence_group": "lesswrong-reproduction-2026-09",
                     "authenticity": "authentic_public_text",
                     "access_level": "public_bytes",
-                    "anchor": "LessWrong reproduction scope / environment differences",
+                    "anchor": "LessWrong reproduction: disclosed environment differences",
                     "quote": (
-                        "Released evidence is a reproduction under disclosed "
-                        "conditions (including simulated peers); it is not an "
-                        "identity claim about the original incident environment."
+                        "The reproduction uses a simpler environment than the "
+                        "original incident, including simulated peers."
                     ),
                     "applies_to": [env_cid],
-                    "observation_types": ["scope_boundary", "public_report_assertion"],
+                    "literal_claims": [env_cid],
+                    "literal_polarity": "refutes",
+                    "observation_types": [
+                        "environment_difference",
+                        "public_report_assertion",
+                    ],
                     "time_basis": "source_stated",
                     "event_time": "lesswrong-reproduction-2026-09",
-                    "naive_overread_supports": [env_cid],
                 },
                 {
-                    "id": "UNAVAIL-original-env",
-                    "source_id": "openai-transcript-dump",
+                    "id": "LW-env-naive-overread",
+                    "source_id": "lesswrong",
                     "stage": "A",
-                    "publication_ordinal": 9,
-                    "independence_group": "openai-supplied-transcript-dump",
-                    "authenticity": "unavailable",
-                    "access_level": "withheld",
-                    "locally_held": False,
-                    "blocks_upgrade": False,
-                    "anchor": "original environment telemetry, not held",
-                    "quote": "Original environment telemetry is not held by this audit.",
+                    "publication_ordinal": 1,
+                    "independence_group": "lesswrong-reproduction-2026-09",
+                    "authenticity": "authentic_public_text",
+                    "access_level": "public_bytes",
+                    "anchor": "LessWrong reproduction publicity",
+                    "quote": "A public reproduction record was released.",
                     "applies_to": [env_cid],
-                    "observation_types": ["unavailable_original", "environment_identity"],
+                    "observation_types": ["public_report_assertion"],
+                    "naive_overread_supports": [env_cid],
                 },
             ],
             "native_arms": {
-                "lesswrong_scope_discipline": {
-                    "verdict": "unresolved",
-                    "note": (
-                        "Scope discipline: evaluate reproduction evidence at its "
-                        "stated scope; do not equate environments."
-                    ),
-                    "reconstruction": False,
-                },
                 "reconstructed_narrative_overread": {
                     "verdict": "supported",
                     "note": "Reconstruction: publicity overread as environment identity.",
                     "reconstruction": True,
                 },
             },
-            "warranted_conclusion": {
-                "status": "unresolved",
-                "basis": "reproduction_scope_excludes_environment_identity",
+            "author_scope_reading": {
+                "status": "refuted",
+                "source": "disclosed_environment_differences",
+                "reconstruction": True,
                 "note": (
-                    "Released reproduction evidence does not establish identity "
-                    "with the original incident environment."
+                    "Author reading of the public post's disclosed differences; "
+                    "not an external LessWrong method."
+                ),
+            },
+            "warranted_conclusion": {
+                "status": "refuted",
+                "basis": "disclosed_environment_differences_refute_identity",
+                "note": (
+                    "Object-level identity is false given disclosed simpler "
+                    "environment and simulated peers."
                 ),
             },
             "factual_outcome": {
@@ -311,6 +321,9 @@ if __name__ == "__main__":
                 "ids": [p["claim"]["id"] for p in packets],
                 "warranted": {
                     p["claim"]["id"]: p["warranted_conclusion"]["status"] for p in packets
+                },
+                "scored_arms": {
+                    p["claim"]["id"]: list(p["native_arms"]) for p in packets
                 },
             },
             indent=2,

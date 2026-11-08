@@ -145,13 +145,14 @@ def build_packets(
             }
         )
 
-    # Explicit non-settlement claim: matched L1 does not establish execution settlement.
+    # Evidentiary-sufficiency claim: do matched L1 traces establish settlement?
+    # Object-level "did settlement occur?" is a different proposition and stays out of scope.
     cid = "BMO-L1-NOT-EXECUTION-SETTLEMENT"
     packets.append(
         {
             "claim": {
                 "id": cid,
-                "kind": "world_effect",
+                "kind": "evidentiary_sufficiency",
                 "proposition": (
                     "Matched Classical/BMO L1 first-edit ledger traces establish "
                     "external execution settlement of delegated effects."
@@ -162,43 +163,54 @@ def build_packets(
                 "source_revision": SOURCE_REV,
                 "scenario": "scope",
                 "family": "transaction_ledger",
+                "public_text_may_refute_sufficiency": True,
             },
             "assumptions": [
                 "Finding scope explicitly excludes external execute/settle.",
-                "Absence of settlement observations leaves the claim unresolved.",
+                "This is a claim about evidence sufficiency, not whether settlement "
+                "occurred in the world.",
             ],
             "observations": [
                 _obs(
                     obs_id=f"{cid}-scope",
                     claim_id=cid,
-                    polarity=None,
-                    observation_types=["scope_boundary", "ledger_disposition"],
+                    polarity="refutes",
+                    observation_types=[
+                        "scope_boundary",
+                        "ledger_disposition",
+                        "execution_settlement",
+                    ],
                     quote=(
                         f"finding.scope={finding['scope']}; "
-                        "no execution_settlement observation retained"
+                        "declared scope excludes external execute/settle; "
+                        "ledger traces do not establish execution settlement"
                     ),
                 )
             ],
             "native_arms": {
                 "bmo_l1_native": {
-                    "verdict": "unresolved",
-                    "note": "L1 adapter does not claim execution settlement.",
+                    "verdict": "refuted",
+                    "note": "L1 adapter scope excludes execution settlement.",
                 },
                 "classical_ledger_gate": {
-                    "verdict": "unresolved",
+                    "verdict": "refuted",
                     "note": "Classical ledger gate is not an execution settler here.",
                 },
                 "r3_agreement": {
-                    "verdict": "unresolved",
-                    "note": "Matched ledger traces ≠ settlement certification.",
+                    "verdict": "refuted",
+                    "note": "Matched ledger traces do not establish settlement.",
                 },
             },
             "warranted_conclusion": {
-                "status": "unresolved",
-                "basis": "declared_scope_excludes_settlement",
+                "status": "refuted",
+                "basis": "declared_scope_excludes_settlement_sufficiency",
                 "note": finding["scope"],
             },
-            "factual_outcome": {"execution_settlement_observed": False, "known": True},
+            "factual_outcome": {
+                "execution_settlement_observed": False,
+                "traces_establish_settlement": False,
+                "known": True,
+            },
             "row_refs": {
                 "finding": "evidence/r3_ledger_claim_v1/findings/r3-ledger-claim-v1-comparison.json"
             },

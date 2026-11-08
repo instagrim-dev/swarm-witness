@@ -1,4 +1,4 @@
-"""External calibration: EvidenceGraph R2 + SoundGate R1 packets and matrix."""
+"""External calibration: EvidenceGraph, SoundGate, BMO, LessWrong adapters."""
 
 from __future__ import annotations
 
@@ -28,6 +28,18 @@ def test_r2_packets_preserve_native_scenarios():
         relay["native_arms"]["evidencegraph_old_implicit_token_exclusivity"]["verdict"]
         == "supported"
     )
+    shared = next(
+        p for p in packets if p["claim"]["id"] == "EG-R2-ATTR-shared-tokens-no-exclusivity"
+    )
+    assert shared["observations"][0]["authenticity"] == "authentic_public_text"
+    assert "token_exclusivity" in shared["claim"]["required_observation_types"]
+    assert "token_exclusivity" not in shared["observations"][0]["observation_types"]
+    false_ex = next(
+        p for p in packets if p["claim"]["id"] == "EG-R2-ATTR-false-exclusivity"
+    )
+    assert set(false_ex["claim"]["required_observation_types"]).issubset(
+        set(false_ex["observations"][0]["observation_types"])
+    )
 
 
 def test_r1_packets_separate_restriction_and_availability():
@@ -40,7 +52,8 @@ def test_r1_packets_separate_restriction_and_availability():
     assert by_id["SG-R1-AVAIL-strict"]["warranted_conclusion"]["status"] == "refuted"
     assert by_id["SG-R1-RESTRICT-barrier"]["warranted_conclusion"]["status"] == "supported"
     assert by_id["SG-R1-AVAIL-barrier"]["warranted_conclusion"]["status"] == "supported"
-    # Native barrier policy matches both profiles; strict does not.
+    # Only the named policy is scored as a native arm for each claim.
+    assert set(by_id["SG-R1-AVAIL-strict"]["native_arms"]) == {"soundgate_policy_strict"}
     assert (
         by_id["SG-R1-AVAIL-strict"]["native_arms"]["soundgate_policy_strict"]["verdict"]
         == "refuted"
@@ -48,6 +61,28 @@ def test_r1_packets_separate_restriction_and_availability():
     assert (
         by_id["SG-R1-AVAIL-barrier"]["native_arms"]["soundgate_policy_barrier"]["verdict"]
         == "supported"
+    )
+    assert "soundgate_policy_barrier" in by_id["SG-R1-AVAIL-strict"]["cross_policy_reference"]
+
+
+def test_lw_packets_do_not_score_copied_warrants_as_native():
+    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
+    from lw_packets import build_packets
+
+    packets = build_packets()
+    by_id = {p["claim"]["id"]: p for p in packets}
+    assert by_id["LW-K-release"]["warranted_conclusion"]["status"] == "supported"
+    assert by_id["LW-K-certify"]["warranted_conclusion"]["status"] == "unresolved"
+    assert by_id["LW-K-census"]["warranted_conclusion"]["status"] == "supported"
+    assert by_id["LW-K-gate"]["warranted_conclusion"]["status"] == "unresolved"
+    assert by_id["LW-K-env-scope"]["warranted_conclusion"]["status"] == "refuted"
+    assert "lesswrong_scope_discipline" not in by_id["LW-K-certify"]["native_arms"]
+    assert by_id["LW-K-certify"]["author_scope_reading"]["reconstruction"] is True
+    assert (
+        by_id["LW-K-certify"]["native_arms"]["reconstructed_narrative_overread"][
+            "reconstruction"
+        ]
+        is True
     )
 
 
@@ -63,20 +98,22 @@ def test_external_calibration_runner_matrix():
     )
     summary = json.loads((out / "summary.json").read_text(encoding="utf-8"))
     assert summary["retrospective_calibration"] is True
-    assert summary["transfer_claim"] is False
     eg = summary["profiles"]["evidencegraph_attribution"]
     assert eg["attr_claim_count"] == 4
-    assert eg["strong_matches_warranted"] == eg["attr_claim_count"]
-    assert eg["swarm_matches_warranted"] == eg["attr_claim_count"]
-    assert summary["methods"]["strong_invariant"]["unsupported_support"] == 0
-    assert summary["methods"]["naive"]["unsupported_support"] >= 1
-    assert "soundgate_r1" in summary["corpora"]
-    assert summary["corpora"]["soundgate_r1"]["claims"] == 5
+    # Warrant agreement and native-safer agreement stay separate.
+    assert eg["safer_native_matches_warranted"] == 3
+    assert eg["strong_matches_native_safer"] == eg["attr_claim_count"]
+    assert eg["swarm_matches_native_safer"] == eg["attr_claim_count"]
+    assert eg["strong_matches_warranted"] == 3
+    assert eg["swarm_matches_warranted"] == 3
+    assert summary["methods"]["soundgate_policy_barrier"]["unsupported_support"] == 0
+    barrier = summary["profiles"]["soundgate_barrier_joint"]
+    assert barrier["claim_count"] == 2
+    assert barrier["barrier_native_matches_warranted"] == 2
     assert "bmo_l1" in summary["corpora"]
     assert summary["corpora"]["bmo_l1"]["claims"] == 7
-    assert "lesswrong_reproduction" in summary["corpora"]
-    assert summary["corpora"]["lesswrong_reproduction"]["claims"] == 5
     lw = summary["profiles"]["lesswrong_reproduction_scope"]
+    assert lw["external_native_method_scored"] is False
     assert lw["strong_matches_warranted"] == lw["claim_count"]
     assert lw["swarm_matches_warranted"] == lw["claim_count"]
     settle = [
@@ -85,31 +122,23 @@ def test_external_calibration_runner_matrix():
         if row["claim_id"] == "BMO-L1-NOT-EXECUTION-SETTLEMENT"
         and row["method"] == "strong_invariant"
     ]
-    assert settle and settle[0]["warranted"] == "unresolved"
-    assert settle[0]["predicted"] == "unresolved"
-    certify = [
+    assert settle and settle[0]["warranted"] == "refuted"
+    assert settle[0]["predicted"] == "refuted"
+    env_row = [
         row
         for row in json.loads((out / "matrix.json").read_text())["rows"]
-        if row["claim_id"] == "LW-K-certify" and row["method"] == "strong_invariant"
+        if row["claim_id"] == "LW-K-env-scope" and row["method"] == "strong_invariant"
     ]
-    assert certify and certify[0]["warranted"] == "unresolved"
-    assert certify[0]["predicted"] == "unresolved"
-
-
-def test_lw_packets_preserve_scope_discipline():
-    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
-    from lw_packets import build_packets
-
-    packets = build_packets()
-    by_id = {p["claim"]["id"]: p for p in packets}
-    assert by_id["LW-K-release"]["warranted_conclusion"]["status"] == "supported"
-    assert by_id["LW-K-certify"]["warranted_conclusion"]["status"] == "unresolved"
-    assert by_id["LW-K-census"]["warranted_conclusion"]["status"] == "supported"
-    assert by_id["LW-K-gate"]["warranted_conclusion"]["status"] == "unresolved"
-    assert by_id["LW-K-env-scope"]["warranted_conclusion"]["status"] == "unresolved"
-    assert (
-        by_id["LW-K-certify"]["native_arms"]["reconstructed_narrative_overread"][
-            "reconstruction"
-        ]
-        is True
-    )
+    assert env_row and env_row[0]["warranted"] == "refuted"
+    assert env_row[0]["predicted"] == "refuted"
+    transfer = summary["transfer"]
+    assert transfer["held_out_seeds"] == [1, 2]
+    assert transfer["attr_claim_count"] == 8
+    assert transfer["strong_matches_native_safer"] == transfer["attr_claim_count"]
+    # Full warrant transfer is not earned while false_exclusivity premise divergence remains.
+    assert summary["transfer_claim"] is False
+    assert (out / "PROFILE_LABELS.md").exists()
+    assert (ROOT / "report" / "external_calibration_v1" / "PROFILE_LABELS.md").exists()
+    labels = (out / "PROFILE_LABELS.md").read_text(encoding="utf-8")
+    assert "no external LW native method scored" in labels
+    assert "matches_evidencegraph_safer_native_verdicts_on_r2_seed0" in labels

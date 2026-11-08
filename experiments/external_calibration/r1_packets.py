@@ -86,31 +86,42 @@ def build_packets(analysis_path: Path = ANALYSIS) -> list[dict[str, Any]]:
             quote=quote,
             **extra,
         )
-        # Native arms: each SoundGate policy as a gate profile on this claim family.
-        native = {}
-        for name, tallies_n in policies.items():
+        def _policy_verdict(name: str, tallies_n: dict[str, Any]) -> str:
             if kind_label == "restriction":
-                # Restriction holds iff no prohibited effects in retained tallies.
                 if tallies_n["prohibited_effect"] == 0 and tallies_n["cases"] > 0:
-                    verdict = "supported"
-                elif tallies_n["prohibited_effect"] > 0:
-                    verdict = "refuted"
-                else:
-                    verdict = "unresolved"
-            else:
-                # Availability: fresh_work on all (or nearly all) histories.
-                if tallies_n["fresh_work"] == tallies_n["cases"]:
-                    verdict = "supported"
-                elif tallies_n["fresh_work"] == 0:
-                    verdict = "refuted"
-                elif tallies_n["fresh_work"] < tallies_n["cases"] / 2:
-                    verdict = "refuted"
-                else:
-                    verdict = "unresolved"
-            native[f"soundgate_policy_{name}"] = {
-                "verdict": verdict,
-                "tallies": tallies_n,
+                    return "supported"
+                if tallies_n["prohibited_effect"] > 0:
+                    return "refuted"
+                return "unresolved"
+            if tallies_n["fresh_work"] == tallies_n["cases"]:
+                return "supported"
+            if tallies_n["fresh_work"] == 0:
+                return "refuted"
+            if tallies_n["fresh_work"] < tallies_n["cases"] / 2:
+                return "refuted"
+            return "unresolved"
+
+        # Score only the policy named by the claim. Other policies are reference
+        # contrasts, not answers to this proposition (avoids false unsupported_support).
+        native = {
+            f"soundgate_policy_{policy}": {
+                "verdict": _policy_verdict(policy, tallies),
+                "tallies": tallies,
             }
+        }
+        cross_policy = {
+            f"soundgate_policy_{name}": {
+                "verdict": _policy_verdict(name, tallies_n),
+                "tallies": tallies_n,
+                "role": "cross_policy_reference",
+                "note": (
+                    f"Reference tallies for policy={name}; not a verdict on "
+                    f"the {policy} claim."
+                ),
+            }
+            for name, tallies_n in policies.items()
+            if name != policy
+        }
         return {
             "claim": {
                 "id": claim_id,
@@ -128,10 +139,11 @@ def build_packets(analysis_path: Path = ANALYSIS) -> list[dict[str, Any]]:
                 "Tallies counted from evidence/r1/local-run-analysis.json.",
                 "Restriction survival and useful fresh work are distinct claims.",
                 "Not a claim about the Artifactory / Hugging Face incident.",
+                "Only the named policy is a native scored arm for this claim.",
             ],
             "observations": [obs],
             "native_arms": native,
-            # Align primary native scoring key used by the runner.
+            "cross_policy_reference": cross_policy,
             "native_primary": f"soundgate_policy_{policy}",
             "warranted_conclusion": {
                 "status": warranted,
