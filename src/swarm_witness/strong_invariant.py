@@ -26,11 +26,14 @@ _WITHHELD_AUTHENTICITY = frozenset(
         "unauthenticated_tool_line",
     }
 )
-# Same admissible set as Swarm Witness. Support and refutation both require it.
+# Public text uses the same admissible set as Swarm Witness. The application
+# sink label admits a locally held effect readback. It does not certify a
+# real-world incident. Support and refutation both require this set.
 _ADMISSIBLE_AUTHENTICITY = frozenset(
     {
         "authentic_public_text",
         "released_reproduction_transcript",
+        "application_owned_readback",
     }
 )
 

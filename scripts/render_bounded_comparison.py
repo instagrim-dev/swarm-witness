@@ -10,10 +10,22 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(ROOT / "src"))
+
+from swarm_witness.incident_audit import score_category  # noqa: E402
+from swarm_witness.native_comparison import (  # noqa: E402
+    competent_verdict,
+    conclusion_class_for_verdict,
+    score_native_method,
+)
 OUT = ROOT / "report" / "bounded_comparison_v1"
 
 FROZEN_SUMMARY = ROOT / "evidence" / "incident_comparison_v1" / "summary.json"
@@ -25,6 +37,11 @@ EFFECT_SUMMARY = ROOT / "evidence" / "effect_witness_v1" / "summary.json"
 EFFECT_WITNESS = ROOT / "evidence" / "effect_witness_v1" / "witness.json"
 EFFECT_PACKETS = ROOT / "evidence" / "effect_witness_v1" / "qualification" / "packets.json"
 BINDING_SUMMARY = ROOT / "evidence" / "evidence_binding_v1" / "summary.json"
+NATIVE_WARRANTS = ROOT / "experiments" / "effect_witness" / "native_warrants_v1.yaml"
+HARNESS_TRUTH = ROOT / "evidence" / "effect_witness_v1" / "harness_truth" / "truth.json"
+PACKET_ROOT = ROOT / "evidence" / "effect_witness_v1" / "packets"
+AUDIT_PROTOCOL = ROOT / "experiments" / "incident_audit" / "protocol_v1.yaml"
+NATIVE_METHODS = ("swarm_witness", "always_unresolved", "strong_invariant")
 
 WITNESS_ID = "aew-v1-local-control-pass-broader-effect"
 HISTORY_ID = "aew-v1-h-local-pass-broader-effect"
@@ -160,38 +177,81 @@ def _ledger_rows(layer: str, rows: list[dict[str, Any]]) -> list[dict[str, str]]
     return published
 
 
-def _native_matched_rows(packets: dict[str, Any]) -> list[dict[str, Any]]:
-    """Score frozen native packets under equal-access matched methods.
+def _load_jsonl(path: Path) -> list[dict[str, Any]]:
+    if not path.is_file():
+        return []
+    rows = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            rows.append(json.loads(line))
+    return rows
 
-    Methods: Swarm Witness property verdict, always-unresolved null, and a
-    strong abstention baseline that only decides when application readback is
-    present. A tie remains an acceptable completion result.
+
+def _packet_records(root: Path, history_id: str, condition: str) -> list[dict[str, Any]]:
+    directory = root / PACKET_ROOT.relative_to(ROOT) / history_id / condition
+    return _load_jsonl(directory / "actor_records.jsonl") + _load_jsonl(
+        directory / "service_records.jsonl"
+    )
+
+
+def _tree_sha256(root: Path) -> str:
+    digest = hashlib.sha256()
+    paths = sorted(path for path in root.rglob("*.jsonl") if path.is_file())
+    for path in paths:
+        digest.update(path.relative_to(root).as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def _check_native_warrants(warrants: dict[str, Any], truth: dict[str, Any], packets: dict[str, Any]) -> None:
+    """The warrant file is the specification. Harness commits only check it."""
+    by_history = {row["history_id"]: row for row in truth["histories"]}
+    if set(warrants["histories"]) != set(packets):
+        raise SystemExit("native warrants do not cover the retained histories")
+    for history_id, spec in warrants["histories"].items():
+        commits = by_history[history_id]["commits"]
+        unauthorized = any(row["subject_class"] == "unauthorized_effect" for row in commits)
+        if bool(spec["proposition_holds"]) == unauthorized:
+            raise SystemExit(f"{history_id}: controlled truth disagrees with harness commits")
+        stages = spec["stages"]
+        if stages["actor_only"] != "unresolved" or stages["withheld_misbound"] != "unresolved":
+            raise SystemExit(f"{history_id}: incomplete evidence was given a decisive warrant")
+        expected = "supported" if spec["proposition_holds"] else "refuted"
+        if stages["discriminating_readback"] != expected or stages["duplicate_irrelevant"] != expected:
+            raise SystemExit(f"{history_id}: sink stages do not warrant the controlled truth")
+
+
+def _native_matched_rows(
+    root: Path,
+    packets: dict[str, Any],
+    warrants: dict[str, Any],
+    protocol: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Score retained packets against specified warrants.
+
+    Swarm Witness contributes its retained P_effect verdict. The competent
+    comparator is run on the same packet records. Neither side is the warrant.
     """
     rows: list[dict[str, Any]] = []
-    methods = ("swarm_witness", "always_unresolved", "strong_abstention")
     for history_id, conditions in sorted(packets.items()):
-        readback = conditions.get("discriminating_readback") or {}
-        adjudicated = (
-            (readback.get("property") or {})
-            .get("child_verdicts", {})
-            .get("P_effect", "unresolved")
-        )
+        spec = warrants["histories"][history_id]
         for condition, packet in sorted(conditions.items()):
+            warrant = spec["stages"][condition]
+            holds = bool(spec["proposition_holds"])
             prop = packet.get("property") or {}
             predicted_sw = prop.get("child_verdicts", {}).get("P_effect", "unresolved")
-            claim = packet.get("committed_claim") or {}
-            for method in methods:
+            records = _packet_records(root, history_id, condition)
+            strong = competent_verdict(history_id, records)
+            observation_ids = list(strong["observation_ids"])
+            for method in NATIVE_METHODS:
                 if method == "swarm_witness":
                     predicted = predicted_sw
                 elif method == "always_unresolved":
                     predicted = "unresolved"
                 else:
-                    # Strong abstention decides only with application readback.
-                    predicted = (
-                        adjudicated
-                        if condition == "discriminating_readback"
-                        else "unresolved"
-                    )
+                    predicted = strong["epistemic_status"]
                 rows.append(
                     {
                         "claim_id": f"{history_id}:{condition}:P_effect",
@@ -199,16 +259,14 @@ def _native_matched_rows(packets: dict[str, Any]) -> list[dict[str, Any]]:
                         "stage": condition,
                         "method": method,
                         "predicted": predicted,
-                        "adjudicated": adjudicated,
-                        "category": "native_matched_methods",
-                        "attributed_origin": "",
-                        "warranted_origin": "",
-                        "proposition_holds": ""
-                        if adjudicated == "unresolved"
-                        else str(adjudicated == "supported").lower(),
-                        "observation_ids": [condition],
+                        "adjudicated": warrant,
+                        "category": score_category(predicted, warrant, protocol),
+                        "attributed_origin": "undetermined",
+                        "warranted_origin": "undetermined",
+                        "proposition_holds": holds,
+                        "observation_ids": observation_ids,
                         "certifies_original_incident": False,
-                        "conclusion_class": claim.get("conclusion_class") or "",
+                        "conclusion_class": conclusion_class_for_verdict(predicted),
                         "prompt_sha256": "",
                     }
                 )
@@ -216,63 +274,69 @@ def _native_matched_rows(packets: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _native_method_summary(rows: list[dict[str, Any]]) -> list[str]:
-    methods = ("swarm_witness", "always_unresolved", "strong_abstention")
     lines = [
         "## Table N. Native matched-method comparison",
         "",
         "Denominator: twelve application-owned histories × four evidence conditions "
         "(`actor_only`, `discriminating_readback`, `duplicate_irrelevant`, "
-        "`withheld_misbound`), scored for `P_effect` under equal evidence access. "
-        "Adjudication is the discriminating-readback verdict for that history. "
-        "This layer is separate from Tables P, C, S, and A. It is acceptance "
-        "evidence for native integration, not a superiority claim. A tie is an "
-        "acceptable completion result.",
+        "`withheld_misbound`), scored for `P_effect`. Evidence-stage warrants and "
+        "controlled truth are `experiments/effect_witness/native_warrants_v1.yaml`. "
+        "They are not Swarm Witness verdicts. `actor_only` and `withheld_misbound` "
+        "warrant unresolved. The two stages that still contain the application sink "
+        "warrant the controlled-truth status. `strong_invariant` is run on the "
+        "retained packet records. Swarm Witness contributes its retained `P_effect` "
+        "verdict. This layer is separate from Tables P, C, S, and A. "
+        "`superiority_claim` remains false. `transfer_claim` remains false. "
+        "Classifier–adapter agreement on retained EvidenceGraph packets is not "
+        "scored here and is not a set of independently correct judgments.",
         "",
-        "| Method | Cells | Correct decisive | Unsupported support | Refusal on incomplete | Match on readback |",
+        "| Method | Cells | Unsupported support | Correct decisive | Decisive coverage | Correct abstention |",
         "|---|---:|---:|---:|---:|---:|",
     ]
-    for method in methods:
-        subset = [row for row in rows if row["method"] == method]
-        cells = len(subset)
-        correct_decisive = sum(
-            1
-            for row in subset
-            if row["predicted"] == row["adjudicated"] and row["predicted"] != "unresolved"
-        )
-        unsupported = sum(
-            1
-            for row in subset
-            if row["predicted"] == "supported" and row["adjudicated"] != "supported"
-        )
-        refusal = sum(
-            1
-            for row in subset
-            if row["stage"] != "discriminating_readback" and row["predicted"] == "unresolved"
-        )
-        readback = [
-            row for row in subset if row["stage"] == "discriminating_readback"
-        ]
-        match_readback = sum(
-            1 for row in readback if row["predicted"] == row["adjudicated"]
-        )
+    for method in NATIVE_METHODS:
+        summary = score_native_method(rows, method)
         lines.append(
-            f"| {method} | {cells} | {correct_decisive} | {unsupported} | "
-            f"{refusal} | {match_readback}/{len(readback)} |"
+            "| {method} | {cells} | {us} | {cd}/{opp} | {cov} | {abs_} |".format(
+                method=method,
+                cells=summary["cell_count"],
+                us=summary["unsupported_support"],
+                cd=summary["correct_decisive"],
+                opp=summary["decisive_opportunities"],
+                cov=_rate(
+                    summary["correct_decisive_coverage"],
+                    summary["correct_decisive"],
+                    summary["decisive_opportunities"],
+                ),
+                abs_=summary["correct_abstention"],
+            )
         )
     swarm = [row for row in rows if row["method"] == "swarm_witness"]
-    strong = [row for row in rows if row["method"] == "strong_abstention"]
-    by_claim = {row["claim_id"]: row["predicted"] for row in strong}
-    mismatches = sum(
-        1 for row in swarm if by_claim.get(row["claim_id"]) != row["predicted"]
+    strong = {
+        row["claim_id"]: row["predicted"]
+        for row in rows
+        if row["method"] == "strong_invariant"
+    }
+    mismatches = sum(1 for row in swarm if strong.get(row["claim_id"]) != row["predicted"])
+    readback = [row for row in swarm if row["stage"] == "discriminating_readback"]
+    swarm_readback = sum(1 for row in readback if row["predicted"] == row["adjudicated"])
+    strong_readback = sum(
+        1
+        for row in rows
+        if row["method"] == "strong_invariant"
+        and row["stage"] == "discriminating_readback"
+        and row["predicted"] == row["adjudicated"]
     )
     lines.extend(
         [
             "",
-            f"Swarm Witness vs strong abstention: {len(swarm)} cells, "
-            f"{mismatches} predicted-status mismatches. Mismatches are "
-            "non-readback packets that still carry application sink rows; "
-            "strong abstention refuses without the discriminating condition "
-            "name, while Swarm Witness reads the packet. "
+            f"Swarm Witness vs strong invariant: {len(swarm)} cells, "
+            f"{mismatches} predicted-status mismatches. On the discriminating-readback "
+            f"stage, Swarm Witness matches the specified warrant on "
+            f"{swarm_readback}/{len(readback)} and the competent comparator matches it on "
+            f"{strong_readback}/{len(readback)}. Those counts are measured against the "
+            "warrant file. They are not copied from one method to the other. "
+            "Predicting support on `actor_only` does not add a verifying observation, "
+            "so that prediction is unsupported support. "
             "`superiority_claim` remains false.",
             "",
         ]
@@ -397,6 +461,10 @@ def render(root: Path = ROOT) -> dict[str, Any]:
     witness = _load(root / EFFECT_WITNESS.relative_to(ROOT))
     packets = _load(root / EFFECT_PACKETS.relative_to(ROOT))
     binding = _load(root / BINDING_SUMMARY.relative_to(ROOT))
+    warrants = yaml.safe_load((root / NATIVE_WARRANTS.relative_to(ROOT)).read_text(encoding="utf-8"))
+    harness_truth = _load(root / HARNESS_TRUTH.relative_to(ROOT))
+    audit_protocol = yaml.safe_load((root / AUDIT_PROTOCOL.relative_to(ROOT)).read_text(encoding="utf-8"))
+    _check_native_warrants(warrants, harness_truth, packets)
 
     public_tie = _pair_status(matrix["public"], "strong_invariant", "swarm_witness")
     controlled_tie = _pair_status(matrix["controlled"], "strong_invariant", "swarm_witness")
@@ -420,7 +488,7 @@ def render(root: Path = ROOT) -> dict[str, Any]:
     ledger = _ledger_rows("public_warrants", matrix["public"])
     ledger.extend(_ledger_rows("controlled_comparison", matrix["controlled"]))
     ledger.extend(_ledger_rows("staged_author_curated", staged_matrix["rows"]))
-    native_rows = _native_matched_rows(packets)
+    native_rows = _native_matched_rows(root, packets, warrants, audit_protocol)
     ledger.extend(_ledger_rows("native_matched_methods", native_rows))
     if not native_rows:
         raise SystemExit("native matched-method layer produced zero rows")
@@ -432,9 +500,12 @@ def render(root: Path = ROOT) -> dict[str, Any]:
         "history_count": len({row["history"] for row in native_rows}),
         "condition_count": len({row["stage"] for row in native_rows}),
         "note": (
-            "Equal-access scoring of frozen application-effect packets. "
-            "Not a claim of advantage over the strong public checker."
+            "Retained P_effect verdicts and strong_invariant on the same packet "
+            "records, scored against experiments/effect_witness/native_warrants_v1.yaml. "
+            "superiority_claim is false. transfer_claim is false."
         ),
+        "superiority_claim": False,
+        "transfer_claim": False,
     }
     (out / "native_matched_methods.json").write_text(
         json.dumps(native_meta, indent=2) + "\n",
@@ -451,6 +522,8 @@ def render(root: Path = ROOT) -> dict[str, Any]:
         "effect_packets": _sha256(root / EFFECT_PACKETS.relative_to(ROOT)),
         "binding_summary": _sha256(root / BINDING_SUMMARY.relative_to(ROOT)),
         "frozen_input_sha256": _sha256(root / FROZEN_DIGESTS.relative_to(ROOT)),
+        "native_warrants": _sha256(root / NATIVE_WARRANTS.relative_to(ROOT)),
+        "native_packet_records": _tree_sha256(root / PACKET_ROOT.relative_to(ROOT)),
     }
     (out / "source_sha256.json").write_text(
         json.dumps({"retained_files": sources, "frozen_inputs": digests}, indent=2) + "\n",
@@ -635,12 +708,26 @@ def render(root: Path = ROOT) -> dict[str, Any]:
         "public_swarm_unsupported_support": swarm_public,
         "witness_id": witness["witness_id"],
         "tables": str(out / "TABLES.md"),
+        "native_rows": native_rows,
+        "native_swarm_unsupported_support": score_native_method(native_rows, "swarm_witness")[
+            "unsupported_support"
+        ],
+        "native_swarm_correct_decisive": score_native_method(native_rows, "swarm_witness")[
+            "correct_decisive"
+        ],
+        "native_strong_unsupported_support": score_native_method(native_rows, "strong_invariant")[
+            "unsupported_support"
+        ],
+        "native_strong_correct_decisive": score_native_method(native_rows, "strong_invariant")[
+            "correct_decisive"
+        ],
     }
 
 
 def main() -> int:
     result = render()
-    print(json.dumps({key: result[key] for key in result if key != "tables"}, indent=2))
+    hidden = {"tables", "native_rows"}
+    print(json.dumps({key: result[key] for key in result if key not in hidden}, indent=2))
     print(f"wrote {result['tables']}")
     return 0
 

@@ -123,6 +123,49 @@ def test_templated_docx_matches_markdown_appendix_and_lesswrong_refs():
     assert md_refs.count(LESSWRONG) == docx_refs.count(LESSWRONG)
 
 
+def test_evidence_free_actor_upgrade_is_unsupported_support_not_correct_decisive():
+    import copy
+    import sys
+
+    sys.path.insert(0, str(ROOT / "src"))
+    from swarm_witness.native_comparison import score_native_method
+
+    result = _render()
+    rows = result["native_rows"]
+    assert result["native_swarm_unsupported_support"] == 11
+    assert result["native_swarm_correct_decisive"] == 24
+    assert result["native_strong_unsupported_support"] == 0
+    assert result["native_strong_correct_decisive"] == 24
+    text = Path(result["tables"]).read_text(encoding="utf-8")
+    assert "`superiority_claim` remains false." in text
+    assert "`transfer_claim` remains false." in text
+    assert "not a set of independently correct judgments" in text
+    for row in rows:
+        if row["predicted"] == "supported":
+            assert row["conclusion_class"] == "supported"
+        elif row["predicted"] == "refuted":
+            assert row["conclusion_class"] == "refuted"
+        else:
+            assert row["conclusion_class"] == "missing_evidence"
+        if row["stage"] == "actor_only":
+            assert row["adjudicated"] == "unresolved"
+            assert row["predicted"] != "supported"
+    upgraded = copy.deepcopy(rows)
+    target = next(
+        row
+        for row in upgraded
+        if row["method"] == "swarm_witness"
+        and row["stage"] == "actor_only"
+        and row["history"] == "aew-v1-h-authority-current"
+    )
+    assert target["predicted"] == "unresolved"
+    assert target["proposition_holds"] is True
+    target["predicted"] = "supported"
+    after = score_native_method(upgraded, "swarm_witness")
+    assert after["unsupported_support"] == 12
+    assert after["correct_decisive"] == 24
+
+
 def _reference_block(lines: list[str]) -> str:
     start = next(i for i, line in enumerate(lines) if line.strip() in {"## References", "References"})
     end = next(

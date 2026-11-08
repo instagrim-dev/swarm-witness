@@ -253,8 +253,10 @@ def fill_template() -> Path:
         "Application witness: twelve histories; named run "
         "aew-v1-local-control-pass-broader-effect progresses actor-only unresolved "
         "to application-readback refuted. Native matched-method layer: 144 rows "
-        "(ledger 352); 0 unsupported supports for Swarm Witness; readback match "
-        "12/12. Earlier staged comparison remains author-curated. R1–R5 and the "
+        "(ledger 352); Swarm Witness 11 unsupported supports and correct decisive "
+        "24/24; strong invariant on the same records 0 and 24/24. An evidence-free "
+        "actor-only upgrade is unsupported support. superiority_claim false. "
+        "transfer_claim false. Earlier staged comparison remains author-curated. R1–R5 and the "
         "causal/formal checks stay in the retained evidence pack."
     )
 
