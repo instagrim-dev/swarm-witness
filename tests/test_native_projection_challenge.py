@@ -154,9 +154,16 @@ def test_projection_challenge_uses_its_own_warrants():
 
 
 def test_retained_challenge_ledger_scores_both_methods(tmp_path: Path):
-    retained = json.loads(LEDGER.read_text(encoding="utf-8"))
+    before = LEDGER.read_bytes()
+    retained = json.loads(before)
     fresh = paired_ledger(tmp_path)
-    assert fresh["agreement_is_not_the_label"] is True
+    assert LEDGER.read_bytes() == before
+    assert retained["agreement_is_not_the_label"] is True
+    assert retained["case_count"] == 16
+    historical = {row["case_id"]: row for row in retained["rows"]}
+    assert historical["sink-spoofed"]["swarm_witness"] == "supported"
+    assert historical["sink-spoofed"]["swarm_witness_matches_warrant"] is False
+    assert historical["clean-positive"]["swarm_witness"] == "supported"
+    assert all(row["competent_matches_warrant"] for row in retained["rows"])
     assert fresh["case_count"] == 16
-    assert fresh == retained
     assert all(row["competent_matches_warrant"] for row in fresh["rows"])

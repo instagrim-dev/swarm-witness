@@ -171,7 +171,7 @@ def _optional(value: str | None) -> str | None:
 
 def _views_from_events(events: list[dict[str, Any]], history_id: str) -> dict[str, Any]:
     decisions = []
-    commits = []
+    pending_sinks: list[tuple[dict[str, Any], dict[str, str]]] = []
     revocations = []
     coverage = None
     for event in events:
@@ -199,6 +199,7 @@ def _views_from_events(events: list[dict[str, Any]], history_id: str) -> dict[st
                     "decision": fields["decision"],
                     "logical_time": int(fields["logical_time"]),
                     "attempted": fields["attempted"] == "true",
+                    "run_id": fields.get("run_id"),
                 }
             )
         elif header == "aew-v1 sink commit":
@@ -207,22 +208,7 @@ def _views_from_events(events: list[dict[str, Any]], history_id: str) -> dict[st
                 continue
             if "decision" in fields or fields.get("readback") != "commit_row":
                 raise ValueError("sink readback is not a commit row")
-            commits.append(
-                {
-                    "event_id": fields["event_id"],
-                    "operation_id": fields["operation_id"],
-                    "call_id": fields["call_id"],
-                    "actor_id": fields["actor_id"],
-                    "task_id": fields["task_id"],
-                    "epoch_id": fields["epoch_id"],
-                    "grant_id": _optional(fields.get("grant_id")),
-                    "channel": fields["channel"],
-                    "subject_class": fields["subject_class"],
-                    "operation": fields["operation"],
-                    "object_scope": fields["object_scope"],
-                    "logical_time": int(fields["logical_time"]),
-                }
-            )
+            pending_sinks.append((event, fields))
         elif header == "aew-v1 grant revocation":
             revocations.append(
                 {
@@ -241,11 +227,37 @@ def _views_from_events(events: list[dict[str, Any]], history_id: str) -> dict[st
             continue
         seen_ids.add(decision["event_id"])
         deduped.append(decision)
+    commits = []
+    sink_rejections = []
+    for event, fields in pending_sinks:
+        reason = _sink_premise_rejected(event, fields, deduped)
+        if reason is not None:
+            sink_rejections.append(
+                {"record_id": str(event.get("id") or ""), "reason": reason}
+            )
+            continue
+        commits.append(
+            {
+                "event_id": fields["event_id"],
+                "operation_id": fields["operation_id"],
+                "call_id": fields["call_id"],
+                "actor_id": fields["actor_id"],
+                "task_id": fields["task_id"],
+                "epoch_id": fields["epoch_id"],
+                "grant_id": _optional(fields.get("grant_id")),
+                "channel": fields["channel"],
+                "subject_class": fields["subject_class"],
+                "operation": fields["operation"],
+                "object_scope": fields["object_scope"],
+                "logical_time": int(fields["logical_time"]),
+            }
+        )
     return {
         "decisions": deduped,
         "commits": commits,
         "revocations": revocations,
         "coverage": coverage,
+        "sink_rejections": sink_rejections,
     }
 
 
@@ -402,6 +414,40 @@ _REJECTED_COVERAGE_AUTHENTICITY = frozenset(
     }
 )
 _WITHHELD_ACCESS = frozenset({"withheld", "unobserved", "unavailable", "private_original"})
+
+
+def _sink_premise_rejected(
+    event: dict[str, Any],
+    fields: dict[str, str],
+    decisions: list[dict[str, Any]],
+) -> str | None:
+    """Reason a sink is not an admitted premise, or None when it is admitted.
+
+    Shared call identity is not enough. Actor, object, and event either all
+    agree with the actor record or all differ. A one-field rewrite, a foreign
+    run, a spoofed record, or a misbound id is not admitted. A sink with no
+    same-call actor record stays admissible on its own authenticity.
+    """
+    history_id = str(fields.get("history_id") or "")
+    record_id = str(event.get("id") or event.get("record_id") or "")
+    if _added_misbound_suffix(record_id, history_id) or _added_misbound_suffix(
+        str(fields.get("event_id") or ""), history_id
+    ):
+        return "misbound_id"
+    authenticity = event.get("authenticity")
+    if authenticity in _REJECTED_COVERAGE_AUTHENTICITY:
+        return "rejected_authenticity"
+    same_call = [row for row in decisions if row.get("call_id") == fields.get("call_id")]
+    if not same_call:
+        return None
+    decision = same_call[0]
+    if fields.get("run_id") != decision.get("run_id"):
+        return "run_mismatch"
+    compared = ("actor_id", "object_scope", "event_id")
+    differs = [fields.get(key) != decision.get(key) for key in compared]
+    if any(differs) and not all(differs):
+        return "partial_identity"
+    return None
 
 
 def _added_misbound_suffix(value: str, history_id: str) -> bool:
@@ -874,6 +920,7 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
         "event_count": len(conflicted),
         "missing_origins": loaded["missing_origins"],
         "coverage_requirement": coverage_requirement,
+        "sink_rejections": views.get("sink_rejections") or [],
         "truth_files_read": loaded["truth_files_read"],
         "links": links,
         "confirmed_effect_count": sum(1 for link in links if link["confirmed_effect"]),

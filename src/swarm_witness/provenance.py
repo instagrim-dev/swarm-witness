@@ -445,7 +445,11 @@ def validate_graph(graph: dict[str, Any]) -> None:
             source["content_digest"],
         )
         if source["content_digest"] is not None and identity in content_keys:
-            raise ValueError(f"duplicate content identity: {sid}")
+            if duplicate_of is None:
+                raise ValueError(f"duplicate content identity: {sid}")
+            source["depends_on"] = depends
+            source["duplicate_of"] = duplicate_of
+            continue
         if source["content_digest"] is not None:
             content_keys.add(identity)
         source["depends_on"] = depends
