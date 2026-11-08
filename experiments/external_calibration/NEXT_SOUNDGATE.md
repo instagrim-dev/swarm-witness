@@ -1,7 +1,8 @@
-# Status — SoundGate and later corpora
+# Status — completed corpora and remaining transfer bar
 
-SoundGate R1, BMO L1, and LessWrong reproduction-scope packets are now part of
-the combined matrix. See `README.md` and `report/external_calibration_v1/MATRIX.md`.
+SoundGate R1, BMO L1, LessWrong scope (author warrants), and EvidenceGraph
+seed-repeatability are in the combined matrix. See `README.md` and
+`report/external_calibration_v1/MATRIX.md`.
 
 Regenerate:
 
@@ -9,4 +10,6 @@ Regenerate:
 PYTHONPATH=src python experiments/external_calibration/run.py
 ```
 
-Held-out / fresh families are required before any `transfer_claim`.
+`transfer_claim` stays false until fresh or genuinely held-out claim families
+are scored. Seed 1–2 ATTR packets only check repeatability of identical
+encoded classifier inputs.

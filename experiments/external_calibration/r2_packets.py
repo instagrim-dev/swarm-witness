@@ -234,11 +234,7 @@ def build_packets(results_path: Path = RESULTS, seed: int = SEED) -> list[dict[s
                     observation_types=["receipt_possession", "event_attribution"],
                     quote=(
                         f"{relay['description']}; methods={relay['methods']}; "
-                        f"safer produced.supported="
-                        f"{relay['score']['produced']['supported']}/"
-                        f"{relay['score']['produced']['population']}; "
-                        f"old-rule confident_errors="
-                        f"{relay['controls']['implicit_token_exclusivity']['confident_errors']}"
+                        "A's full receipt is copied into B; A withheld"
                     ),
                     independence_group="eg-r2-relay-possession",
                     naive_overread_supports=[cid],
@@ -381,12 +377,7 @@ def build_packets(results_path: Path = RESULTS, seed: int = SEED) -> list[dict[s
                     observation_types=["receipt_binding", "event_attribution"],
                     quote=(
                         f"{shared['description']}; methods={shared['methods']}; "
-                        f"safer supported="
-                        f"{shared['score']['produced']['supported']}/"
-                        f"{shared['score']['produced']['population']}; "
-                        f"old-rule supported="
-                        f"{shared['controls']['implicit_token_exclusivity']['supported']}; "
-                        "token_exclusivity not established"
+                        "matching tokens present; token_exclusivity not established"
                     ),
                     independence_group="eg-r2-shared-tokens",
                     naive_overread_supports=[cid],
@@ -443,7 +434,6 @@ def build_packets(results_path: Path = RESULTS, seed: int = SEED) -> list[dict[s
                 "seed": seed,
             },
             "assumptions": [
-                "Exclusivity declaration is intentionally false (invalid_assumption_control).",
                 "Matched observation access includes the exclusivity declaration "
                 "the native safer analyzer consumed; premise falsity is not encoded "
                 "by omitting required types.",
@@ -462,23 +452,19 @@ def build_packets(results_path: Path = RESULTS, seed: int = SEED) -> list[dict[s
                         "exclusivity_declaration",
                     ],
                     quote=(
-                        f"{false_ex['description']}; invalid_assumption_control="
-                        f"{false_ex['invalid_assumption_control']}; "
-                        f"safer supported={false_ex['score']['produced']['supported']} "
-                        f"correct={false_ex['score']['produced']['correct']} "
-                        f"confident_errors={false_ex['score']['produced']['confident_errors']}"
+                        f"{false_ex['description']}; exclusive-token declaration "
+                        "present on the retained relay bytes"
                     ),
                     independence_group="eg-r2-false-exclusivity",
                     naive_overread_supports=[cid],
-                    premise_status="false",
                 ),
             ],
             "evidence_translation": {
                 "matched_to_native": (
-                    "Required types include token_exclusivity as present in the "
-                    "retained declaration the safer analyzer saw. Local methods "
-                    "that support here match native safer's support under a false "
-                    "premise; they do not independently detect premise failure."
+                    "Author-translated representation of retained prior evidence: "
+                    "required types include the exclusivity declaration the safer "
+                    "analyzer saw. Local methods that support here match native "
+                    "safer's support; they do not independently detect premise failure."
                 ),
             },
             "native_arms": _native_arms(false_ex),
@@ -486,20 +472,27 @@ def build_packets(results_path: Path = RESULTS, seed: int = SEED) -> list[dict[s
                 "status": "unresolved",
                 "basis": "invalid_assumption_control",
                 "note": (
-                    "Retained pack marks this an intentionally false declaration. "
-                    "Native safer still emits supports with confident_errors=1; "
-                    "warranted reading is that the premise fails — not that "
-                    "attribution is established. Local classifier support under "
-                    "matched access is agreement with native safer, not with the "
-                    "warrant."
+                    "Scorer reading: retained pack marks this an intentionally "
+                    "false declaration. Native safer still emits supports with "
+                    "confident_errors=1; warranted reading is that the premise "
+                    "fails — not that attribution is established. Local classifier "
+                    "support under matched access is agreement with native safer, "
+                    "not with the warrant."
                 ),
                 "premise_status": "false",
             },
             "factual_outcome": {
                 "correct": false_ex["score"]["produced"]["correct"],
                 "confident_errors": false_ex["score"]["produced"]["confident_errors"],
+                "supported": false_ex["score"]["produced"]["supported"],
                 "population": false_ex["score"]["produced"]["population"],
+                "invalid_assumption_control": false_ex.get("invalid_assumption_control"),
+                "premise_status": "false",
                 "known": True,
+                "note": (
+                    "Scorer-only diagnostics: premise falsity and native "
+                    "correctness/error counts are not method observation inputs."
+                ),
             },
             "row_refs": _row_refs(false_ex),
         }

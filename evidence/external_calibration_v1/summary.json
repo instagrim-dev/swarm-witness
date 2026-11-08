@@ -1,13 +1,14 @@
 {
   "calibration_statements": [
-    "EvidenceGraph attribution (seed 0): report warrant agreement and native-safer agreement separately \u2014 strong vs warrant 3/4; strong vs safer native 4/4; safer vs warrant 3/4. false_exclusivity is the premise-failure divergence under matched observation access.",
+    "EvidenceGraph attribution (seed 0): on author-translated retained packets, report warrant agreement and native-safer agreement separately \u2014 strong vs warrant 3/4; strong vs safer native 4/4; safer vs warrant 3/4. false_exclusivity is the shared premise-failure under matched observation access.",
     "SoundGate: only the matching-policy native arm is scored against each claim. Cross-policy tallies are reference-only. Barrier matches restriction and availability on its own claims; strict matches restriction but fails availability.",
     "BMO L1: ledger first-edit properties can be supported while the evidentiary claim that those traces establish execution settlement is refuted under declared scope.",
     "LessWrong: classifiers are scored against author warrants_v1. No independently specified LessWrong executable method is scored. Environment identity is refuted given disclosed differences; certification and upgrade-slot claims stay unresolved.",
-    "Transfer probe (EG ATTR seeds 1\u20132): not earned on full warrant agreement (6/8); native-safer agreement 8/8.",
-    "Unqualified global 'strong' remains undefined; use earned profile labels in PROFILE_LABELS.md."
+    "Seed repeatability (EG ATTR seeds 1\u20132): warrant 6/8 repeats seed-0 3/4; native-safer 8/8 repeats 4/4. transfer_claim stays false.",
+    "Unqualified global 'strong' remains undefined; use earned profile labels in PROFILE_LABELS.md.",
+    "EvidenceGraph expanded native conformance: event-level produced/executed relations vs safer/legacy native arms and the evidence-derived adapter; see EVENT_CAPABILITY.md. transfer_claim stays false."
   ],
-  "claim_count": 31,
+  "claim_count": 159,
   "corpora": {
     "bmo_l1": {
       "claims": 7,
@@ -21,10 +22,20 @@
       "seed": 0,
       "source_revision": "a5ea5c9947039009ca795275d834be7b61069080"
     },
-    "evidencegraph_r2_transfer_seeds": {
+    "evidencegraph_r2_event": {
+      "claims": 128,
+      "note": "Event-by-event produced/executed comparison against native attribution and capture rules; adapter scored with classifiers.",
+      "role": "expanded_native_conformance",
+      "rows": 888,
+      "seed": 0,
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "transfer_claim": false
+    },
+    "evidencegraph_r2_seed_repeatability": {
       "claims": 8,
       "family": "EG-R2-ATTR",
-      "role": "held_out_transfer_probe",
+      "note": "Author-translated packets match seed-0 classifier inputs after normalizing seed fields; not a held-out transfer probe.",
+      "role": "seed_repeatability",
       "rows": 56,
       "seeds": [
         1,
@@ -43,7 +54,111 @@
       "source_revision": "656840348dcf9660f8db7add9f3ca9f794a55926"
     }
   },
-  "matrix_rows": 197,
+  "evidencegraph_event_conformance": {
+    "attr_claim_count": 120,
+    "boundaries_adapter_vs_safer": {
+      "capture_window_edge": {
+        "adapter_matches_safer": 12,
+        "claims": 12
+      },
+      "clean": {
+        "adapter_matches_safer": 12,
+        "claims": 12
+      },
+      "dependent_witnesses": {
+        "adapter_matches_safer": 12,
+        "claims": 12
+      },
+      "false_exclusivity": {
+        "adapter_matches_safer": 12,
+        "claims": 12
+      },
+      "full_receipt_relay": {
+        "adapter_matches_safer": 12,
+        "claims": 12
+      },
+      "missing_clock_bound": {
+        "adapter_matches_safer": 12,
+        "claims": 12
+      },
+      "missing_tokens": {
+        "adapter_matches_safer": 12,
+        "claims": 12
+      }
+    },
+    "fabricated_execution": {
+      "adapter_cells": 8,
+      "adapter_matches_native_executed": 8,
+      "adapter_refutations": 2,
+      "native_refutations": 2
+    },
+    "methods": {
+      "eg_evidence_derived_adapter": {
+        "cells": 120,
+        "correct_decisive": 57,
+        "justified_abstention": 62,
+        "missed_decisive": 0,
+        "native_or_warrant_agreement": 119,
+        "unsupported_refutation": 0,
+        "unsupported_support": 1
+      },
+      "evidencegraph_legacy_produced": {
+        "cells": 120,
+        "correct_decisive": 57,
+        "justified_abstention": 40,
+        "missed_decisive": 0,
+        "native_or_warrant_agreement": 97,
+        "unsupported_refutation": 0,
+        "unsupported_support": 23
+      },
+      "evidencegraph_safer_produced": {
+        "cells": 120,
+        "correct_decisive": 57,
+        "justified_abstention": 62,
+        "missed_decisive": 0,
+        "native_or_warrant_agreement": 119,
+        "unsupported_refutation": 0,
+        "unsupported_support": 1
+      },
+      "naive": {
+        "cells": 120,
+        "correct_decisive": 0,
+        "justified_abstention": 63,
+        "missed_decisive": 57,
+        "native_or_warrant_agreement": 63,
+        "unsupported_refutation": 0,
+        "unsupported_support": 0
+      },
+      "strong_invariant": {
+        "cells": 120,
+        "correct_decisive": 0,
+        "justified_abstention": 63,
+        "missed_decisive": 57,
+        "native_or_warrant_agreement": 63,
+        "unsupported_refutation": 0,
+        "unsupported_support": 0
+      },
+      "swarm_witness": {
+        "cells": 120,
+        "correct_decisive": 0,
+        "justified_abstention": 63,
+        "missed_decisive": 57,
+        "native_or_warrant_agreement": 63,
+        "unsupported_refutation": 0,
+        "unsupported_support": 0
+      },
+      "weak_checklist": {
+        "cells": 120,
+        "correct_decisive": 0,
+        "justified_abstention": 63,
+        "missed_decisive": 57,
+        "native_or_warrant_agreement": 63,
+        "unsupported_refutation": 0,
+        "unsupported_support": 0
+      }
+    }
+  },
+  "matrix_rows": 1085,
   "methods": {
     "bmo_l1_native": {
       "cells": 7,
@@ -63,6 +178,15 @@
       "unsupported_refutation": 0,
       "unsupported_support": 0
     },
+    "eg_evidence_derived_adapter": {
+      "cells": 128,
+      "correct_decisive": 59,
+      "justified_abstention": 68,
+      "mismatch": 0,
+      "missed_decisive": 0,
+      "unsupported_refutation": 0,
+      "unsupported_support": 1
+    },
     "evidencegraph_accept_success_claims": {
       "cells": 14,
       "correct_decisive": 4,
@@ -71,6 +195,15 @@
       "missed_decisive": 0,
       "unsupported_refutation": 0,
       "unsupported_support": 10
+    },
+    "evidencegraph_legacy_produced": {
+      "cells": 120,
+      "correct_decisive": 57,
+      "justified_abstention": 40,
+      "mismatch": 0,
+      "missed_decisive": 0,
+      "unsupported_refutation": 0,
+      "unsupported_support": 23
     },
     "evidencegraph_old_implicit_token_exclusivity": {
       "cells": 14,
@@ -81,6 +214,15 @@
       "unsupported_refutation": 0,
       "unsupported_support": 9
     },
+    "evidencegraph_safer_executed": {
+      "cells": 8,
+      "correct_decisive": 2,
+      "justified_abstention": 6,
+      "mismatch": 0,
+      "missed_decisive": 0,
+      "unsupported_refutation": 0,
+      "unsupported_support": 0
+    },
     "evidencegraph_safer_independent_binding": {
       "cells": 14,
       "correct_decisive": 4,
@@ -90,12 +232,21 @@
       "unsupported_refutation": 0,
       "unsupported_support": 3
     },
-    "naive": {
-      "cells": 31,
-      "correct_decisive": 18,
-      "justified_abstention": 1,
+    "evidencegraph_safer_produced": {
+      "cells": 120,
+      "correct_decisive": 57,
+      "justified_abstention": 62,
       "mismatch": 0,
       "missed_decisive": 0,
+      "unsupported_refutation": 0,
+      "unsupported_support": 1
+    },
+    "naive": {
+      "cells": 159,
+      "correct_decisive": 18,
+      "justified_abstention": 70,
+      "mismatch": 0,
+      "missed_decisive": 59,
       "unsupported_refutation": 0,
       "unsupported_support": 12
     },
@@ -145,29 +296,29 @@
       "unsupported_support": 0
     },
     "strong_invariant": {
-      "cells": 31,
+      "cells": 159,
       "correct_decisive": 19,
-      "justified_abstention": 9,
+      "justified_abstention": 78,
       "mismatch": 0,
-      "missed_decisive": 0,
+      "missed_decisive": 59,
       "unsupported_refutation": 0,
       "unsupported_support": 3
     },
     "swarm_witness": {
-      "cells": 31,
+      "cells": 159,
       "correct_decisive": 19,
-      "justified_abstention": 9,
+      "justified_abstention": 78,
       "mismatch": 0,
-      "missed_decisive": 0,
+      "missed_decisive": 59,
       "unsupported_refutation": 0,
       "unsupported_support": 3
     },
     "weak_checklist": {
-      "cells": 31,
+      "cells": 159,
       "correct_decisive": 19,
-      "justified_abstention": 2,
+      "justified_abstention": 71,
       "mismatch": 0,
-      "missed_decisive": 0,
+      "missed_decisive": 59,
       "unsupported_refutation": 0,
       "unsupported_support": 10
     }
@@ -214,19 +365,22 @@
     }
   },
   "retrospective_calibration": true,
-  "transfer": {
+  "seed_repeatability": {
     "attr_claim_count": 8,
-    "earned": false,
     "family": "EG-R2-ATTR",
-    "held_out_seeds": [
+    "note": "Repeatability across retained seeds. After normalizing seed fields, classifier inputs match seed 0; this cannot establish held-out transfer.",
+    "repeats_seed0": true,
+    "seed0_native_rate": "4/4",
+    "seed0_warrant_rate": "3/4",
+    "seeds": [
       1,
       2
     ],
-    "note": "Frozen classifiers on EvidenceGraph ATTR packets from seeds 1\u20132. Warrant agreement is separate from native-safer agreement. Not a new held-out project family.",
     "strong_matches_native_safer": 8,
     "strong_matches_warranted": 6,
     "swarm_matches_native_safer": 8,
-    "swarm_matches_warranted": 6
+    "swarm_matches_warranted": 6,
+    "transfer_claim": false
   },
   "transfer_claim": false
 }

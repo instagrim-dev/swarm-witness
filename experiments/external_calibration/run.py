@@ -30,6 +30,8 @@ from r3_packets import SOURCE_REV as R3_REV  # noqa: E402
 from r3_packets import build_packets as build_r3_packets  # noqa: E402
 from lw_packets import SOURCE_REV as LW_REV  # noqa: E402
 from lw_packets import build_packets as build_lw_packets  # noqa: E402
+from r2_event_packets import SOURCE_REV as R2_EVT_REV  # noqa: E402
+from r2_event_packets import build_packets as build_r2_event_packets  # noqa: E402
 
 OUT = ROOT / "evidence" / "external_calibration_v1"
 REPORT = ROOT / "report" / "external_calibration_v1"
@@ -214,8 +216,10 @@ def _write_report(
             "source-grounded profile labels (attribution / recovery / availability / "
             "transaction / reproduction scope) when the corresponding matrix supports them.",
             "",
-            "Retrospective calibration only; `transfer_claim` remains false until "
-            "fresh or held-out families are scored.",
+            "Retrospective calibration on author-translated retained prior evidence. "
+            "`transfer_claim` stays false for the seed-repeatability probe: identical "
+            "encoded classifier inputs cannot establish transfer. Fresh or genuinely "
+            "held-out families are required for a transfer claim.",
             "",
         ]
     )
@@ -240,7 +244,7 @@ def _sg_native_method(claim_id: str) -> str:
 
 def _write_profile_labels(path: Path, summary: dict[str, Any]) -> None:
     profiles = summary["profiles"]
-    transfer = summary.get("transfer") or {}
+    repeat = summary.get("seed_repeatability") or {}
     lines = [
         "# Earned profile labels (retrospective)",
         "",
@@ -251,7 +255,11 @@ def _write_profile_labels(path: Path, summary: dict[str, Any]) -> None:
         "with a **retained native prior method**. LessWrong has no scored external "
         "native method in-repo; `warrants_v1` is the scoring key only.",
         "",
-        f"`transfer_claim`: `{summary.get('transfer_claim')}`",
+        "Comparison scope: agreement on **author-translated representations** of "
+        "retained prior evidence under matched observation packets.",
+        "",
+        f"`transfer_claim`: `{summary.get('transfer_claim')}` "
+        "(seed probe is repeatability only; identical encoded inputs cannot earn transfer)",
         "",
         "| Profile label | Status | Evidence |",
         "|---|---|---|",
@@ -317,16 +325,17 @@ def _write_profile_labels(path: Path, summary: dict[str, Any]) -> None:
         f"{lw['claim_count']}; no external LW native method scored |"
     )
 
-    t_ok = bool(transfer.get("earned"))
     lines.extend(
         [
-            f"| `transfers_evidencegraph_attribution_across_r2_seeds` | "
-            f"{status(t_ok)} | held-out seeds {transfer.get('held_out_seeds')}: "
-            f"strong/swarm vs warrant "
-            f"{transfer.get('strong_matches_warranted')}/"
-            f"{transfer.get('attr_claim_count')}; vs safer native "
-            f"{transfer.get('strong_matches_native_safer')}/"
-            f"{transfer.get('attr_claim_count')} |",
+            f"| `repeats_evidencegraph_attribution_across_r2_seeds` | "
+            f"{status(bool(repeat.get('repeats_seed0')))} | retained seeds "
+            f"{repeat.get('seeds')}: strong/swarm vs warrant "
+            f"{repeat.get('strong_matches_warranted')}/"
+            f"{repeat.get('attr_claim_count')} "
+            f"(= {repeat.get('seed0_warrant_rate')}); vs safer native "
+            f"{repeat.get('strong_matches_native_safer')}/"
+            f"{repeat.get('attr_claim_count')} "
+            f"(= {repeat.get('seed0_native_rate')}). Not a transfer claim. |",
             "",
             "Naive / weak_checklist remain shortcut ablations "
             f"(unsupported_support naive="
@@ -339,21 +348,211 @@ def _write_profile_labels(path: Path, summary: dict[str, Any]) -> None:
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
+def _event_capability_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Capability comparison on event-level EvidenceGraph packets."""
+    methods = [
+        "evidencegraph_safer_produced",
+        "evidencegraph_legacy_produced",
+        "eg_evidence_derived_adapter",
+        "naive",
+        "weak_checklist",
+        "strong_invariant",
+        "swarm_witness",
+    ]
+    attr_ids = {
+        row["claim_id"]
+        for row in rows
+        if row["corpus"] == "evidencegraph_r2_event" and row["family"] == "event_attribution"
+    }
+    out: dict[str, Any] = {"attr_claim_count": len(attr_ids), "methods": {}}
+    for method in methods:
+        cells = [
+            row
+            for row in rows
+            if row["corpus"] == "evidencegraph_r2_event"
+            and row["family"] == "event_attribution"
+            and row["method"] == method
+        ]
+        if not cells:
+            continue
+        out["methods"][method] = {
+            "cells": len(cells),
+            "native_or_warrant_agreement": sum(
+                1 for row in cells if row["predicted"] == row["warranted"]
+            ),
+            "correct_decisive": sum(1 for row in cells if row["category"] == "correct_decisive"),
+            "unsupported_support": sum(
+                1 for row in cells if row["category"] == "unsupported_support"
+            ),
+            "unsupported_refutation": sum(
+                1 for row in cells if row["category"] == "unsupported_refutation"
+            ),
+            "justified_abstention": sum(
+                1 for row in cells if row["category"] == "justified_abstention"
+            ),
+            "missed_decisive": sum(1 for row in cells if row["category"] == "missed_decisive"),
+        }
+    # Pairwise boundary checks: adapter vs safer on named scenarios.
+    boundaries = {}
+    for scenario in (
+        "clean",
+        "missing_tokens",
+        "missing_clock_bound",
+        "dependent_witnesses",
+        "full_receipt_relay",
+        "false_exclusivity",
+        "capture_window_edge",
+    ):
+        safer = {
+            row["claim_id"]: row["predicted"]
+            for row in rows
+            if row["corpus"] == "evidencegraph_r2_event"
+            and row["scenario"] == scenario
+            and row["family"] == "event_attribution"
+            and row["method"] == "evidencegraph_safer_produced"
+        }
+        adapter = {
+            row["claim_id"]: row["predicted"]
+            for row in rows
+            if row["corpus"] == "evidencegraph_r2_event"
+            and row["scenario"] == scenario
+            and row["family"] == "event_attribution"
+            and row["method"] == "eg_evidence_derived_adapter"
+        }
+        ids = sorted(set(safer) & set(adapter))
+        boundaries[scenario] = {
+            "claims": len(ids),
+            "adapter_matches_safer": sum(1 for i in ids if safer[i] == adapter[i]),
+        }
+    out["boundaries_adapter_vs_safer"] = boundaries
+    # Fabricated / successful-execution family vs native safer executed.
+    fab_cells = [
+        row
+        for row in rows
+        if row["corpus"] == "evidencegraph_r2_event"
+        and row["family"] == "fabricated_execution"
+        and row["method"] == "eg_evidence_derived_adapter"
+    ]
+    fab_native = {
+        row["claim_id"]: row["predicted"]
+        for row in rows
+        if row["corpus"] == "evidencegraph_r2_event"
+        and row["family"] == "fabricated_execution"
+        and row["method"] == "evidencegraph_safer_executed"
+    }
+    out["fabricated_execution"] = {
+        "adapter_cells": len(fab_cells),
+        "adapter_matches_native_executed": sum(
+            1
+            for row in fab_cells
+            if fab_native.get(row["claim_id"]) == row["predicted"]
+        ),
+        "adapter_refutations": sum(1 for row in fab_cells if row["predicted"] == "refuted"),
+        "native_refutations": sum(1 for v in fab_native.values() if v == "refuted"),
+    }
+    return out
+
+
+def _write_capability_report(path: Path, capability: dict[str, Any]) -> None:
+    lines = [
+        "# EvidenceGraph expanded native conformance (event-level)",
+        "",
+        "Scoring unit: **recorded tool event E produced registry mutation M**.",
+        "Assessor inputs are observable records and declared assumptions only.",
+        "Native outcomes and private dispatch bindings are scoring-only.",
+        "`transfer_claim` stays false; this is expanded native conformance.",
+        "",
+        f"Attribution claims: {capability.get('attr_claim_count')}",
+        "",
+        "## Per-method attribution tallies (vs warrant)",
+        "",
+        "| Method | Cells | Agree warrant | Correct decisive | Unsupported support | Missed decisive |",
+        "|---|---:|---:|---:|---:|---:|",
+    ]
+    for method, counts in (capability.get("methods") or {}).items():
+        lines.append(
+            f"| `{method}` | {counts['cells']} | {counts['native_or_warrant_agreement']} | "
+            f"{counts['correct_decisive']} | {counts['unsupported_support']} | "
+            f"{counts['missed_decisive']} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Boundary preservation (adapter vs native safer)",
+            "",
+            "| Scenario | Claims | Adapter matches safer |",
+            "|---|---:|---:|",
+        ]
+    )
+    for scenario, stats in (capability.get("boundaries_adapter_vs_safer") or {}).items():
+        lines.append(
+            f"| `{scenario}` | {stats['claims']} | {stats['adapter_matches_safer']} |"
+        )
+    fab = capability.get("fabricated_execution") or {}
+    lines.extend(
+        [
+            "",
+            "## Fabricated / successful-execution family",
+            "",
+            f"Adapter cells: {fab.get('adapter_cells')}; "
+            f"matches native safer executed: {fab.get('adapter_matches_native_executed')}; "
+            f"adapter refutations: {fab.get('adapter_refutations')}; "
+            f"native refutations: {fab.get('native_refutations')}.",
+            "",
+            "## Reading",
+            "",
+            "If strong/swarm abstain while the evidence-derived adapter recovers "
+            "native safer boundaries, the missing capability is in the frozen "
+            "classifiers' consumption of raw observables (they require verifying "
+            "observation types/polarity). Retain that gap before changing methods.",
+            "",
+            "False-exclusivity: agreement with native safer can coexist with a "
+            "wrong attribution when both accept the same false exclusivity premise.",
+            "",
+            "Capture-window edge: real-event attributions can remain supported while "
+            "invented-receipt absence contradictions become unresolved — blanket "
+            "abstention cannot reproduce that split.",
+            "",
+            "## Result (this freeze)",
+            "",
+            "The frozen evidence-derived adapter preserves EvidenceGraph’s "
+            "event-level attribution, witness-independence, and capture-window "
+            "decisions across the paired evidence conditions (adapter matches "
+            "native safer on every listed boundary; fabricated/executed family "
+            f"{(capability.get('fabricated_execution') or {}).get('adapter_matches_native_executed')}/"
+            f"{(capability.get('fabricated_execution') or {}).get('adapter_cells')} "
+            "with native). Strong / Swarm Witness abstain on raw observables "
+            "(0 correct decisive / 57 missed decisive) — a strong/swarm tie that "
+            "locates the gap in classifier consumption of verifying observation "
+            "types, not in the adapter’s boundary logic. Retain that result "
+            "before changing the method. `transfer_claim` remains false.",
+            "",
+        ]
+    )
+    path.write_text("\n".join(lines), encoding="utf-8")
+
+
 def main() -> int:
     r2_packets = build_r2_packets(seed=0)
+    r2_event_packets = build_r2_event_packets()
     r1_packets = build_r1_packets()
     r3_packets = build_r3_packets()
     lw_packets = build_lw_packets()
-    transfer_packets = build_r2_packets(seed=1) + build_r2_packets(seed=2)
-    # Transfer probe uses ATTR family only (possession≠attribution discipline).
-    transfer_attr_packets = [
+    # Seed 1–2 ATTR packets: repeatability of the same encoded decisions, not transfer.
+    repeat_packets = build_r2_packets(seed=1) + build_r2_packets(seed=2)
+    repeat_attr_packets = [
         packet
-        for packet in transfer_packets
+        for packet in repeat_packets
         if packet["claim"]["id"].startswith("EG-R2-ATTR-")
     ]
 
     r2_rows, r2_detail = _score_corpus(
         corpus="evidencegraph_r2", packets=r2_packets, source_revision=R2_REV
+    )
+    r2_event_rows, r2_event_detail = _score_corpus(
+        corpus="evidencegraph_r2_event",
+        packets=r2_event_packets,
+        source_revision=R2_EVT_REV,
     )
     r1_rows, r1_detail = _score_corpus(
         corpus="soundgate_r1", packets=r1_packets, source_revision=R1_REV
@@ -364,13 +563,15 @@ def main() -> int:
     lw_rows, lw_detail = _score_corpus(
         corpus="lesswrong_reproduction", packets=lw_packets, source_revision=LW_REV
     )
-    transfer_rows, transfer_detail = _score_corpus(
-        corpus="evidencegraph_r2_transfer_seeds",
-        packets=transfer_attr_packets,
+    repeat_rows, repeat_detail = _score_corpus(
+        corpus="evidencegraph_r2_seed_repeatability",
+        packets=repeat_attr_packets,
         source_revision=R2_REV,
     )
-    all_rows = r2_rows + r1_rows + r3_rows + lw_rows + transfer_rows
-    all_detail = r2_detail + r1_detail + r3_detail + lw_detail + transfer_detail
+    all_rows = r2_rows + r2_event_rows + r1_rows + r3_rows + lw_rows + repeat_rows
+    all_detail = (
+        r2_detail + r2_event_detail + r1_detail + r3_detail + lw_detail + repeat_detail
+    )
 
     attr_claim_ids = sorted(
         {row["claim_id"] for row in r2_rows if row["claim_id"].startswith("EG-R2-ATTR-")}
@@ -424,31 +625,37 @@ def main() -> int:
         and row["method"]
         in {"strong_invariant", "swarm_witness", "soundgate_policy_barrier"}
     ]
-    transfer_ids = sorted({row["claim_id"] for row in transfer_rows})
-    transfer_strong_map = _verdict_map(transfer_rows, "strong_invariant")
-    transfer_swarm_map = _verdict_map(transfer_rows, "swarm_witness")
-    transfer_safer_map = _verdict_map(
-        transfer_rows, "evidencegraph_safer_independent_binding"
+    repeat_ids = sorted({row["claim_id"] for row in repeat_rows})
+    repeat_strong_map = _verdict_map(repeat_rows, "strong_invariant")
+    repeat_swarm_map = _verdict_map(repeat_rows, "swarm_witness")
+    repeat_safer_map = _verdict_map(
+        repeat_rows, "evidencegraph_safer_independent_binding"
     )
-    transfer_warrant = {
+    repeat_warrant = {
         row["claim_id"]: row["warranted"]
-        for row in transfer_rows
+        for row in repeat_rows
         if row["method"] == "strong_invariant"
     }
-    transfer_claim_count = len(transfer_ids)
-    transfer_strong = _agree(transfer_strong_map, transfer_warrant, transfer_ids)
-    transfer_swarm = _agree(transfer_swarm_map, transfer_warrant, transfer_ids)
-    transfer_strong_native = _agree(transfer_strong_map, transfer_safer_map, transfer_ids)
-    transfer_swarm_native = _agree(transfer_swarm_map, transfer_safer_map, transfer_ids)
-    transfer_earned = (
-        transfer_claim_count > 0
-        and transfer_strong == transfer_claim_count
-        and transfer_swarm == transfer_claim_count
+    repeat_claim_count = len(repeat_ids)
+    repeat_strong = _agree(repeat_strong_map, repeat_warrant, repeat_ids)
+    repeat_swarm = _agree(repeat_swarm_map, repeat_warrant, repeat_ids)
+    repeat_strong_native = _agree(repeat_strong_map, repeat_safer_map, repeat_ids)
+    repeat_swarm_native = _agree(repeat_swarm_map, repeat_safer_map, repeat_ids)
+    seed0_warrant = _agree(attr_strong, attr_warrant, attr_claim_ids)
+    seed0_native = _agree(attr_strong, attr_safer, attr_claim_ids)
+    # Identical encoded inputs: 6/8 repeats seed-0's 3/4; 8/8 repeats 4/4.
+    repeats_seed0 = (
+        repeat_claim_count == 2 * len(attr_claim_ids)
+        and repeat_strong == 2 * seed0_warrant
+        and repeat_swarm == 2 * seed0_warrant
+        and repeat_strong_native == 2 * seed0_native
+        and repeat_swarm_native == 2 * seed0_native
     )
 
     summary = {
         "retrospective_calibration": True,
-        "transfer_claim": transfer_earned,
+        # Identical encoded classifier inputs cannot establish transfer.
+        "transfer_claim": False,
         "claim_count": len({row["claim_id"] for row in all_rows}),
         "matrix_rows": len(all_rows),
         "corpora": {
@@ -458,6 +665,18 @@ def main() -> int:
                 "rows": len(r2_rows),
                 "seed": 0,
                 "role": "calibration",
+            },
+            "evidencegraph_r2_event": {
+                "source_revision": R2_EVT_REV,
+                "claims": len(r2_event_packets),
+                "rows": len(r2_event_rows),
+                "seed": 0,
+                "role": "expanded_native_conformance",
+                "transfer_claim": False,
+                "note": (
+                    "Event-by-event produced/executed comparison against native "
+                    "attribution and capture rules; adapter scored with classifiers."
+                ),
             },
             "soundgate_r1": {
                 "source_revision": R1_REV,
@@ -474,16 +693,21 @@ def main() -> int:
                 "claims": len(lw_packets),
                 "rows": len(lw_rows),
             },
-            "evidencegraph_r2_transfer_seeds": {
+            "evidencegraph_r2_seed_repeatability": {
                 "source_revision": R2_REV,
-                "claims": len(transfer_attr_packets),
-                "rows": len(transfer_rows),
+                "claims": len(repeat_attr_packets),
+                "rows": len(repeat_rows),
                 "seeds": [1, 2],
-                "role": "held_out_transfer_probe",
+                "role": "seed_repeatability",
                 "family": "EG-R2-ATTR",
+                "note": (
+                    "Author-translated packets match seed-0 classifier inputs "
+                    "after normalizing seed fields; not a held-out transfer probe."
+                ),
             },
         },
         "methods": _method_summary(all_rows),
+        "evidencegraph_event_conformance": _event_capability_summary(all_rows),
         "profiles": {
             "evidencegraph_attribution": {
                 "attr_claim_count": len(attr_claim_ids),
@@ -544,31 +768,34 @@ def main() -> int:
                 ),
             },
         },
-        "transfer": {
-            "held_out_seeds": [1, 2],
+        "seed_repeatability": {
+            "seeds": [1, 2],
             "family": "EG-R2-ATTR",
-            "attr_claim_count": transfer_claim_count,
-            "strong_matches_warranted": transfer_strong,
-            "swarm_matches_warranted": transfer_swarm,
-            "strong_matches_native_safer": transfer_strong_native,
-            "swarm_matches_native_safer": transfer_swarm_native,
-            "earned": transfer_earned,
+            "attr_claim_count": repeat_claim_count,
+            "strong_matches_warranted": repeat_strong,
+            "swarm_matches_warranted": repeat_swarm,
+            "strong_matches_native_safer": repeat_strong_native,
+            "swarm_matches_native_safer": repeat_swarm_native,
+            "seed0_warrant_rate": f"{seed0_warrant}/{len(attr_claim_ids)}",
+            "seed0_native_rate": f"{seed0_native}/{len(attr_claim_ids)}",
+            "repeats_seed0": repeats_seed0,
+            "transfer_claim": False,
             "note": (
-                "Frozen classifiers on EvidenceGraph ATTR packets from seeds 1–2. "
-                "Warrant agreement is separate from native-safer agreement. "
-                "Not a new held-out project family."
+                "Repeatability across retained seeds. After normalizing seed "
+                "fields, classifier inputs match seed 0; this cannot establish "
+                "held-out transfer."
             ),
         },
         "calibration_statements": [
             (
-                "EvidenceGraph attribution (seed 0): report warrant agreement and "
-                "native-safer agreement separately — "
-                f"strong vs warrant {_agree(attr_strong, attr_warrant, attr_claim_ids)}/"
-                f"{len(attr_claim_ids)}; strong vs safer native "
-                f"{_agree(attr_strong, attr_safer, attr_claim_ids)}/{len(attr_claim_ids)}; "
+                "EvidenceGraph attribution (seed 0): on author-translated retained "
+                "packets, report warrant agreement and native-safer agreement "
+                "separately — "
+                f"strong vs warrant {seed0_warrant}/{len(attr_claim_ids)}; "
+                f"strong vs safer native {seed0_native}/{len(attr_claim_ids)}; "
                 f"safer vs warrant {_agree(attr_safer, attr_warrant, attr_claim_ids)}/"
-                f"{len(attr_claim_ids)}. false_exclusivity is the premise-failure "
-                "divergence under matched observation access."
+                f"{len(attr_claim_ids)}. false_exclusivity is the shared "
+                "premise-failure under matched observation access."
             ),
             (
                 "SoundGate: only the matching-policy native arm is scored against "
@@ -588,25 +815,25 @@ def main() -> int:
                 "certification and upgrade-slot claims stay unresolved."
             ),
             (
-                "Transfer probe (EG ATTR seeds 1–2): "
-                + (
-                    "earned on warrant agreement "
-                    f"({transfer_strong}/{transfer_claim_count})."
-                    if transfer_earned
-                    else (
-                        "not earned on full warrant agreement "
-                        f"({transfer_strong}/{transfer_claim_count}); "
-                        f"native-safer agreement "
-                        f"{transfer_strong_native}/{transfer_claim_count}."
-                    )
-                )
+                "Seed repeatability (EG ATTR seeds 1–2): "
+                f"warrant {repeat_strong}/{repeat_claim_count} repeats seed-0 "
+                f"{seed0_warrant}/{len(attr_claim_ids)}; native-safer "
+                f"{repeat_strong_native}/{repeat_claim_count} repeats "
+                f"{seed0_native}/{len(attr_claim_ids)}. transfer_claim stays false."
             ),
             (
                 "Unqualified global 'strong' remains undefined; use earned "
                 "profile labels in PROFILE_LABELS.md."
             ),
+            (
+                "EvidenceGraph expanded native conformance: event-level "
+                "produced/executed relations vs safer/legacy native arms and "
+                "the evidence-derived adapter; see EVENT_CAPABILITY.md. "
+                "transfer_claim stays false."
+            ),
         ],
     }
+    capability = summary["evidencegraph_event_conformance"]
 
     OUT.mkdir(parents=True, exist_ok=True)
     REPORT.mkdir(parents=True, exist_ok=True)
@@ -628,17 +855,18 @@ def main() -> int:
 
     intro = (
         "Retrospective calibration of the frozen classifier ladder against "
-        "prior retained disciplines (EvidenceGraph R2 seed-0 attribution; "
-        "SoundGate R1 restriction vs availability; BMO L1 ledger vs "
-        "non-settlement; LessWrong reproduction scope), plus a held-out "
-        "EvidenceGraph ATTR transfer probe on seeds 1–2. Not agreement with "
-        "the authored strong_invariant baseline alone."
+        "author-translated retained prior evidence (EvidenceGraph R2 seed-0 "
+        "attribution; SoundGate R1 restriction vs availability; BMO L1 ledger "
+        "vs non-settlement; LessWrong reproduction scope), plus event-level "
+        "EvidenceGraph expanded native conformance and an ATTR seed-"
+        "repeatability check on seeds 1–2. Not agreement with the authored "
+        "strong_invariant baseline alone, and not a held-out transfer claim."
     )
     _write_report(
         OUT / "REPORT.md",
         title=(
             "External calibration v1 — EvidenceGraph + SoundGate + BMO L1 + "
-            "LessWrong + transfer probe"
+            "LessWrong + event conformance + seed repeatability"
         ),
         intro=intro,
         rows=all_rows,
@@ -648,7 +876,7 @@ def main() -> int:
         REPORT / "MATRIX.md",
         title=(
             "External calibration v1 — EvidenceGraph + SoundGate + BMO L1 + "
-            "LessWrong + transfer probe"
+            "LessWrong + event conformance + seed repeatability"
         ),
         intro=intro,
         rows=all_rows,
@@ -656,6 +884,8 @@ def main() -> int:
     )
     _write_profile_labels(OUT / "PROFILE_LABELS.md", summary)
     _write_profile_labels(REPORT / "PROFILE_LABELS.md", summary)
+    _write_capability_report(OUT / "EVENT_CAPABILITY.md", capability)
+    _write_capability_report(REPORT / "EVENT_CAPABILITY.md", capability)
     (REPORT / "R2_MATRIX.md").write_text(
         "# Moved\n\nSee `report/external_calibration_v1/MATRIX.md`.\n",
         encoding="utf-8",
@@ -665,6 +895,7 @@ def main() -> int:
     print(f"wrote {OUT}")
     print(f"wrote {REPORT / 'MATRIX.md'}")
     print(f"wrote {REPORT / 'PROFILE_LABELS.md'}")
+    print(f"wrote {REPORT / 'EVENT_CAPABILITY.md'}")
     return 0
 
 

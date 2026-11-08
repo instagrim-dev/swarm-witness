@@ -98,7 +98,7 @@ The earlier staged comparison, naive 24 and checklist 12 against Swarm Witness 0
 
 ### 4.3 Retrospective external calibration (profile labels)
 
-A separate denominator asks whether the frozen classifiers recover claim-assessment disciplines already demonstrated by prior systems under matched observation access (`experiments/external_calibration/`). Packets translate retained native assessments under matched observation access. Profiles: EvidenceGraph attribution (warrant agreement vs native-safer agreement, reported separately); SoundGate restriction and availability (matching-policy arms only); BMO L1 ledger vs evidentiary non-settlement; LessWrong scope scored against author warrants only—no external LW native method is claimed. A seed 1–2 ATTR probe reports warrant and native-safer transfer separately (`PROFILE_LABELS.md`). Naive and weak checklist identify specific shortcuts. “Strong” means conformance to a named applicable profile, not an unqualified global grade.
+A separate denominator asks whether the frozen classifiers recover claim-assessment disciplines already demonstrated by prior systems under matched observation access (`experiments/external_calibration/`). Packets are author-translated representations of retained prior evidence under matched observation access. Profiles: EvidenceGraph attribution (warrant vs native-safer agreement, reported separately); SoundGate restriction and availability (matching-policy arms only); BMO L1 ledger vs evidentiary non-settlement; LessWrong scope scored against author warrants only—no external LW native method is claimed. Seeds 1–2 check ATTR repeatability of the same encoded decisions, not transfer (`PROFILE_LABELS.md`). Naive and weak checklist identify specific shortcuts. “Strong” means conformance to a named applicable profile, not an unqualified global grade.
 
 ## 5. Discussion and limitations
 
@@ -110,7 +110,7 @@ For the 2026 OpenAI–Hugging Face agent-swarm incident, the evidence standard i
 
 Author reassessment against this completed evidence, not a judge outcome:
 
-Impact/innovation: 3/5. Constraint: Swarm Witness ties the authored `strong_invariant` checker on the frozen public comparison (both 0 unsupported supports; naive PASS has 24). That tie is not an external meaning of “strong.” Retrospective profile calibration against EvidenceGraph, SoundGate, BMO L1, and LessWrong is reported separately; `superiority_claim` stays false. Warrant vs native-method agreements are not collapsed. The seed 1–2 ATTR probe does not earn full warrant transfer. No held-out run shows a useful advantage under the same evidence budget. The 4–4.5/5 aspiration is not a result.
+Impact/innovation: 3/5. Constraint: Swarm Witness ties the authored `strong_invariant` checker on the frozen public comparison (both 0 unsupported supports; naive PASS has 24). That tie is not an external meaning of “strong.” Retrospective profile calibration against EvidenceGraph, SoundGate, BMO L1, and LessWrong is reported separately; `superiority_claim` stays false. Warrant vs native-method agreements are not collapsed. Seed 1–2 ATTR results are repeatability, not transfer. No held-out run shows a useful advantage under the same evidence budget. The 4–4.5/5 aspiration is not a result.
 
 Execution: 3/5. Constraint: tables were regenerated from retained data, and the advertised commands were rerun from a fresh review-bundle extract in this environment without private BMO access. No separate reviewer reproduced the study. Assistant agreement is not independent verification.
 

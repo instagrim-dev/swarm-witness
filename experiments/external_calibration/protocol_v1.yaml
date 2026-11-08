@@ -18,6 +18,7 @@ scope:
     - SoundGate_R1
     - BMO_R3_L1
     - LessWrong_public_reproduction
+    - EvidenceGraph_R2_seed_repeatability
 
 authorship:
   curator: single repository author
@@ -56,4 +57,7 @@ focal_scenarios:
 seed: 0
 note_on_seeds: >
   Headline per-seed tallies in evidence/r2/summary.json agree across seeds
-  0–2 for the focal contrasts. Seed 0 rows are expanded into claim packets.
+  0–2 for the focal contrasts. Seed 0 rows are the calibration packets.
+  Seeds 1–2 are a repeatability check: after normalizing seed fields, the
+  author-translated classifier inputs match seed 0, so they cannot establish
+  held-out transfer. transfer_claim stays false for that probe.
