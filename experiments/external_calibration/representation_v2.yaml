@@ -1,0 +1,21 @@
+# Frozen-slice representation study.
+# Eligibility is the existing held-out rule. This file does not list claim ids or outcomes.
+id: representation-v2
+study_kind: frozen-slice representation study
+eligibility: external-heldout-v1
+independent_jury: false
+superiority_claim: false
+transfer_claim: false
+arms:
+  - raw_strong
+  - raw_qualifier
+  - composed_strong
+  - composed_qualifier
+adapter: composed_observations
+label_use: scoring only, after prediction
+notes:
+  - The slice overlaps the earlier retained corpus. Freezing the next scoring call does not make those packets unseen.
+  - Derived records are transformations of supplied observations, not additional independent sources.
+  - Matching the assessor is composition fidelity. The assessor and the adapter share premise logic.
+  - The historical refutation nominee stays the lexicographically first fabricated claim.
+  - A supplementary refuted row is an inspected representative, not a blind validation case.
