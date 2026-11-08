@@ -220,3 +220,44 @@ def test_runner_matches_summary_and_does_not_claim_prevention():
     text = finding["proposition"].lower()
     assert "not incident detection or prevention" in text
     assert "would have prevented" not in text
+
+
+def _pins():
+    spec = importlib.util.spec_from_file_location(
+        "incident_verify_pins", EXP / "verify_pins.py"
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_source_pins_quotes_and_unavailable_telemetry():
+    pins = _pins()
+    manifest = _load("corpus_manifest.yaml")
+    excerpts = _load("excerpts_v1.yaml")
+    passages = _load("pinned_passages.yaml")
+    assert pins.manifest_errors(manifest, excerpts) == []
+    assert pins.passage_errors(excerpts, passages) == []
+    raw = b'<a href="#x">&gt;70,000 messages and files</a>'
+    assert b">70,000 messages and files" not in raw
+    assert pins.quote_in_unescaped(">70,000 messages and files", raw)
+    first = b'<script>window.requestId = "Root=1-aaaa";</script><p>allowlist</p>'
+    second = b'<script>window.requestId = "Root=1-bbbb";</script><p>allowlist</p>'
+    assert first != second
+    assert pins.normalize_huggingface_html(first) == pins.normalize_huggingface_html(
+        second
+    )
+    assert pins.sha256(pins.normalize_huggingface_html(first)) == pins.sha256(
+        pins.normalize_huggingface_html(second)
+    )
+    unavailable = {item["id"] for item in manifest["unavailable"]}
+    assert set(pins.UNAVAILABLE_TELEMETRY) <= unavailable
+    claims, observations, _protocol, rows = _rows()
+    assert all(obs.get("access_level") != "raw_telemetry_public" for obs in observations)
+    world = {claim["id"] for claim in claims if claim["kind"] == "world_effect"}
+    for row in rows:
+        if row["method"] != "swarm_witness" or row["claim_id"] not in world:
+            continue
+        assert row["predicted"] == "unresolved"
+        assert row["swarm"]["verification_status"] == "raw_telemetry_unverified"

@@ -12,9 +12,9 @@ Quotes were checked on 2026-11-07 against the retrievals in `corpus_manifest.yam
 
 | Source | Publication | In scoring | Bytes pinned |
 | --- | --- | --- | --- |
-| [OpenAI blog](https://openai.com/index/hugging-face-incident-and-the-road-ahead/) | 2026-08-26 | yes, via readability text | readability sha256 `db566386c305210c…`; direct GET returned HTTP 403 |
+| [OpenAI blog](https://openai.com/index/hugging-face-incident-and-the-road-ahead/) | 2026-08-26 | yes, via readability text | readability sha256 `db566386c305210c…` is not rechecked; direct GET returned HTTP 403 and those bytes are not in the repo |
 | [METR / Redwood](https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/) | 2026-08-26 | yes, HTML quotes | HTML sha256 `37ec7c48dc11ba00…` |
-| [Hugging Face timeline](https://huggingface.co/blog/agent-intrusion-technical-timeline) | 2026-07-27 | yes | HTML sha256 `a5b2ebfc7a9aadfc…` |
+| [Hugging Face timeline](https://huggingface.co/blog/agent-intrusion-technical-timeline) | 2026-07-27 | yes | request-id-normalized sha256 `56e0322898285927…`; a full-response digest is not stable |
 | [Apart sprint page](https://apartresearch.com/sprints/projects/what-happened-and-what-breaks-next-a-defenderusable-reconstruction-of-the-summer2026-agentswarm-incidents-tfn2) | 2026-09-12 | no | HTML sha256 `4a63ccdc3efe69a1…`; PDF not retrieved |
 
 The METR PDF (`f7e87133833363da…`, 7,443,085 bytes) was hashed and not parsed.
@@ -61,6 +61,8 @@ Withholding stage B leaves `C03` and `C05` unresolved, so the update depends on 
 
 ```bash
 PYTHONPATH=src python3 experiments/incident_audit/run.py
+PYTHONPATH=src python3 experiments/incident_audit/verify_pins.py
+PYTHONPATH=src python3 experiments/incident_audit/verify_pins.py --fetch
 pytest -q tests/test_incident_audit.py
 ```
 

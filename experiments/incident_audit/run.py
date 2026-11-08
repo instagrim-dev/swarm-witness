@@ -84,6 +84,7 @@ def run(root: Path = ROOT) -> dict:
     excerpt_path = root / "experiments" / "incident_audit" / "excerpts_v1.yaml"
     warrant_path = root / "experiments" / "incident_audit" / "adjudication_v1.yaml"
     manifest_path = root / "experiments" / "incident_audit" / "corpus_manifest.yaml"
+    passage_path = root / "experiments" / "incident_audit" / "pinned_passages.yaml"
     claim_doc = _load(claim_path)
     protocol = _load(protocol_path)
     excerpts = _load(excerpt_path)
@@ -289,6 +290,7 @@ def run(root: Path = ROOT) -> dict:
         "excerpts": _sha256(excerpt_path),
         "adjudication": _sha256(warrant_path),
         "corpus_manifest": _sha256(manifest_path),
+        "pinned_passages": _sha256(passage_path),
     }
     (artifact_dir / "input_sha256.json").write_text(
         json.dumps(inputs, indent=2) + "\n", encoding="utf-8"
