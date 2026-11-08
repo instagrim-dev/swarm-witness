@@ -1,0 +1,1670 @@
+{
+  "independent_adjudication": false,
+  "compare_only": true,
+  "live_model_edit": false,
+  "full_system_equivalence": false,
+  "source_pins": {
+    "architecture_context": "e0038cc48872b274c22deaed8e24236530e9821e",
+    "ledger_measurement": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+    "settlement_measurement": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f"
+  },
+  "ledger_case_count": 6,
+  "ledger_step_count": 22,
+  "initial_settlement_case_count": 2,
+  "controls_case_count": 9,
+  "ledger_native_requalification": {
+    "native_bmo": false,
+    "note": "bridge hash mismatch for bmo_adapter_test.go: file\u2260manifest",
+    "retained_receipt_rewritten": false
+  },
+  "rows": [
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T01",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T01",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T02",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T02",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T03",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T03",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T04",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "rolled_back",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 0,
+        "settlement_present": false,
+        "grant_spent": false
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T04",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "rolled_back",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 0,
+        "settlement_present": false,
+        "grant_spent": false
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T05",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 0,
+        "settlement_present": false,
+        "grant_spent": false
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T05",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 0,
+        "settlement_present": false,
+        "grant_spent": false
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T06",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 0,
+        "settlement_present": false,
+        "grant_spent": false
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-claim-v1",
+      "run_id": "2026-11-07-ledger-v1-repair2",
+      "case_id": "T06",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Selected first-edit claim contract on six cases. Compare-only retained rows. Not a settlement measurement and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "ledger_measurement",
+          "ref": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+          "path": "internal/sessioncompaction/ordinary_retry_retained_grant.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/a2a/managedsupervisor/supervisor.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 0,
+        "settlement_present": false,
+        "grant_spent": false
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1",
+      "case_id": "S01",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_applied",
+        "from": "unresolved",
+        "to": "supported"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1",
+      "case_id": "S01",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "applied",
+      "effect_applied_verdict": "supported",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_applied",
+        "from": "unresolved",
+        "to": "supported"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": true,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1",
+      "case_id": "S01",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_applied",
+        "from": "unresolved",
+        "to": "supported"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1",
+      "case_id": "S01",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "applied",
+      "effect_applied_verdict": "supported",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_applied",
+        "from": "unresolved",
+        "to": "supported"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": true,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1",
+      "case_id": "S02",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_no_effect",
+        "from": "unresolved",
+        "to": "refuted"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1",
+      "case_id": "S02",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "not_entered",
+      "effect_applied_verdict": "refuted",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_no_effect",
+        "from": "unresolved",
+        "to": "refuted"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": true,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1",
+      "case_id": "S02",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_no_effect",
+        "from": "unresolved",
+        "to": "refuted"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1",
+      "case_id": "S02",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "not_entered",
+      "effect_applied_verdict": "refuted",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_no_effect",
+        "from": "unresolved",
+        "to": "refuted"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": true,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S01",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_applied",
+        "from": "unresolved",
+        "to": "supported"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S01",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "applied",
+      "effect_applied_verdict": "supported",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_applied",
+        "from": "unresolved",
+        "to": "supported"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": true,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S01",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_applied",
+        "from": "unresolved",
+        "to": "supported"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S01",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "applied",
+      "effect_applied_verdict": "supported",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_applied",
+        "from": "unresolved",
+        "to": "supported"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": true,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S02",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_no_effect",
+        "from": "unresolved",
+        "to": "refuted"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S02",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "not_entered",
+      "effect_applied_verdict": "refuted",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_no_effect",
+        "from": "unresolved",
+        "to": "refuted"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": true,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S02",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_no_effect",
+        "from": "unresolved",
+        "to": "refuted"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S02",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "not_entered",
+      "effect_applied_verdict": "refuted",
+      "resolving_observation": {
+        "step": 3,
+        "op": "settle_no_effect",
+        "from": "unresolved",
+        "to": "refuted"
+      },
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": true,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S03",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S03",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S03",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S03",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S04",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S04",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S04",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S04",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S05",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S05",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S05",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S05",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S06",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S06",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S06",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S06",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S07",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S07",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S07",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S07",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S08",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S08",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S08",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S08",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S09",
+      "arm": "classical",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S09",
+      "arm": "classical",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S09",
+      "arm": "bmo",
+      "stage": "claim",
+      "contract_disposition": "committed",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    },
+    {
+      "protocol_id": "r3-ledger-settlement-v1",
+      "run_id": "2026-11-08-ledger-settlement-v1-controls",
+      "case_id": "S09",
+      "arm": "bmo",
+      "stage": "settlement",
+      "contract_disposition": "refused",
+      "effect_applied_verdict": "unresolved",
+      "resolving_observation": null,
+      "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
+      "source_refs": [
+        {
+          "role": "settlement_measurement",
+          "ref": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+          "path": "internal/sessioncompaction/ordinary_retry_first_edit_settlement.go"
+        },
+        {
+          "role": "architecture_context",
+          "ref": "e0038cc48872b274c22deaed8e24236530e9821e",
+          "path": "internal/permission/coordinator_delegation_v2.go"
+        }
+      ],
+      "persisted_state": {
+        "claim_count": 1,
+        "settlement_present": false,
+        "grant_spent": true
+      }
+    }
+  ]
+}
