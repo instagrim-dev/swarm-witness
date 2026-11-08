@@ -31,6 +31,12 @@ from swarm_witness.telemetry import (
     load_origin_packet,
     reconcile_events,
 )
+from swarm_witness.evidence_binding import (
+    PROTOCOL_ID as EVIDENCE_BINDING_PROTOCOL_ID,
+    audit_claim_run,
+    audit_entrypoint,
+    bind_family,
+)
 from swarm_witness.schema import (
     Claim,
     Finding,
@@ -58,6 +64,10 @@ __all__ = [
     "normalize_lineage",
     "TELEMETRY_VERSION",
     "UnsupportedAttachment",
+    "EVIDENCE_BINDING_PROTOCOL_ID",
+    "audit_claim_run",
+    "audit_entrypoint",
+    "bind_family",
     "adapt_agent_tool_records",
     "adapt_service_effect_logs",
     "comparator_packet",

@@ -1,0 +1,30 @@
+id: evidence_binding_v1
+source_ref: protocol/evidence_binding_v1.md
+source_version: evidence-binding-v1
+original_proposition: >
+  Retained observations license support or refutation only when a declared
+  finite abstraction leaves a nonempty compatible-world set entirely inside
+  or entirely outside the property.
+operational_interpretation: >
+  The audit entrypoint translates one retained property-graph workflow and
+  one native-witness packet into compatible-world constraints, judges them
+  with the production subset rule, and checks that rule against the separate
+  mask reference. Manually supplied bitmasks are not an audit.
+property: Conditional soundness of the evidence-binding verdict.
+scope: >
+  Declared property families on the retained incident-property-graph fixture
+  and the forensic telemetry origin packet. Not a real-world certificate and
+  not the SQLite application witness.
+quantifier: >
+  The url_held_worker_local_read workflow, the native-witness packet, and the
+  declared finite mask domain for each supported family.
+success_criterion: >
+  Production and the reference agree on the record-derived cases and the mask
+  domain. Each injected mutation of verification, empty-set handling, property
+  kind, and temporal binding is caught. P_system stays the boundary conjunction.
+assumptions:
+  - The actual world remains in the compatible set only when the applied constraints are sound.
+  - A source digest does not prove real-world authenticity or completeness.
+  - A passing conformance test does not prove real-world authenticity or completeness.
+  - Missing observations preserve compatible alternatives unless a completeness premise is declared.
+  - Unavailable original transcripts and platform logs are not upgrade gates.

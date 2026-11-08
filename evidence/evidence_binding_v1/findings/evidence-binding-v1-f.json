@@ -1,0 +1,21 @@
+{
+  "id": "evidence-binding-v1-f",
+  "claim_id": "evidence_binding_v1",
+  "run_ids": [
+    "evidence-binding-v1-run"
+  ],
+  "proposition": "The production verdict and the mask reference agree on the retained workflow and the native-witness packet. P_system is not a URL allowlist. Hashes and passing tests do not certify the actual world.",
+  "scope": "evidence-binding-v1 on the retained url_held_worker_local_read case and the forensic telemetry origin packet. Not live workers and not the SQLite application witness.",
+  "label": "reproduced",
+  "basis": "computed",
+  "conclusion_class": "supported",
+  "evaluation_method": "synthetic_protocol_conformance",
+  "supporting_observation_refs": [
+    "evidence-binding-v1-run.observations.passed",
+    "evidence-binding-v1-run.observations.reference_agreement",
+    "evidence-binding-v1-run.observations.retained_p_system_epistemic",
+    "evidence-binding-v1-run.observations.retained_p_url_epistemic",
+    "evidence-binding-v1-run.observations.native_epistemic",
+    "evidence-binding-v1-run.observations.real_world_authenticity_certified"
+  ]
+}
