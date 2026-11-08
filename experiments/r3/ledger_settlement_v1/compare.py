@@ -275,10 +275,11 @@ def build_finding(summary: dict[str, Any], run_ids: list[str]) -> dict[str, Any]
     if cls == "supported":
         proposition = (
             "After a committed retained-grant claim, the ledger view leaves the "
-            "delegated effect unresolved. BMO's existing applied settlement supports "
-            "that effect, and BMO's existing definite no-effect settlement refutes it. "
-            "Both continuations match the classical settlement contract on the shared "
-            "ledger prefix and on the continuation's own settlement record."
+            "effect-applied proposition unresolved. A bound applied settlement "
+            "supports it, and a bound definite no-effect settlement refutes it. "
+            "Missing, swapped, wrong-call, write-contradicted, and unrelated "
+            "terminal records leave it unresolved. The refutation is only of "
+            "that proposition. Both arms satisfy this contract."
         )
     elif cls == "comparison_divergent":
         proposition = (
@@ -344,9 +345,13 @@ def write_compare_artifacts(run_dir: Path, summary: dict[str, Any]) -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-dir", type=Path, required=True)
-    parser.add_argument("--cases", type=Path, default=HERE / "cases.yaml")
+    parser.add_argument("--cases", type=Path, default=None)
     args = parser.parse_args(argv)
-    bundle = load_cases(args.cases)
+    cases_path = args.cases
+    if cases_path is None:
+        frozen = args.run_dir / "cases.yaml"
+        cases_path = frozen if frozen.is_file() else HERE / "cases.yaml"
+    bundle = load_cases(cases_path)
     summary_path = args.run_dir / "summary.json"
     prior = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.is_file() else {}
     native = bool(prior.get("native_bmo"))

@@ -103,3 +103,308 @@ cases:
         transfer_count: 1
         claim_call_ids: [call-s02]
         transfer_call_ids: [call-s02]
+
+  - case_id: S03
+    name: applied-missing-mutation
+    description: Applied label with the mutation record omitted.
+    fixture: &alpha
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions: &claim_then_applied
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s03
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_applied
+        call_id: call-s03
+        outcome: applied
+        evidence: missing_mutation
+      - step: 4
+        op: inspect
+    expected: &unresolved_applied
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: refused
+          effect_verdict: unresolved
+        - step: 4
+          disposition: observed
+          effect_verdict: unresolved
+      final_state: &spent_s03
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s03]
+        transfer_call_ids: [call-s03]
+
+  - case_id: S04
+    name: applied-swapped-order
+    description: Applied label with artifact recorded before mutation.
+    fixture:
+      <<: *alpha
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s04
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_applied
+        call_id: call-s04
+        outcome: applied
+        evidence: swapped
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: refused
+          effect_verdict: unresolved
+        - step: 4
+          disposition: observed
+          effect_verdict: unresolved
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s04]
+        transfer_call_ids: [call-s04]
+
+  - case_id: S05
+    name: applied-wrong-call
+    description: Applied label whose mutation and artifact name a different call.
+    fixture:
+      <<: *alpha
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s05
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_applied
+        call_id: call-s05
+        outcome: applied
+        evidence: wrong_call
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: refused
+          effect_verdict: unresolved
+        - step: 4
+          disposition: observed
+          effect_verdict: unresolved
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s05]
+        transfer_call_ids: [call-s05]
+
+  - case_id: S06
+    name: no-effect-contradicted-by-write
+    description: No-effect label contradicted by a write record.
+    fixture:
+      <<: *alpha
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s06
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_no_effect
+        call_id: call-s06
+        outcome: not_entered
+        evidence: write_present
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: refused
+          effect_verdict: unresolved
+        - step: 4
+          disposition: observed
+          effect_verdict: unresolved
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s06]
+        transfer_call_ids: [call-s06]
+
+  - case_id: S07
+    name: applied-label-without-terminal-evidence
+    description: Applied label with no terminal records.
+    fixture:
+      <<: *alpha
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s07
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_applied
+        call_id: call-s07
+        outcome: applied
+        evidence: missing
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: refused
+          effect_verdict: unresolved
+        - step: 4
+          disposition: observed
+          effect_verdict: unresolved
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s07]
+        transfer_call_ids: [call-s07]
+
+  - case_id: S08
+    name: applied-label-with-unrelated-tool
+    description: Applied label with an unrelated tool record.
+    fixture:
+      <<: *alpha
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s08
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_applied
+        call_id: call-s08
+        outcome: applied
+        evidence: unrelated
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: refused
+          effect_verdict: unresolved
+        - step: 4
+          disposition: observed
+          effect_verdict: unresolved
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s08]
+        transfer_call_ids: [call-s08]
+
+  - case_id: S09
+    name: no-effect-label-without-terminal-evidence
+    description: No-effect label with no bound terminal records.
+    fixture:
+      <<: *alpha
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s09
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_no_effect
+        call_id: call-s09
+        outcome: not_entered
+        evidence: missing
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: refused
+          effect_verdict: unresolved
+        - step: 4
+          disposition: observed
+          effect_verdict: unresolved
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s09]
+        transfer_call_ids: [call-s09]

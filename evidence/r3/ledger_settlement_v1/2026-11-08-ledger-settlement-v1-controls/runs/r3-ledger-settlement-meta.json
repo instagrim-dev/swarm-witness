@@ -1,0 +1,16 @@
+{
+  "id": "r3-ledger-settlement-meta",
+  "claim_id": "r3_ledger_settlement_v1",
+  "protocol_id": "r3-ledger-settlement-v1",
+  "case_id": "meta",
+  "source_pin": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+  "execution_status": "completed",
+  "observations": {
+    "agreement": {
+      "result": "matched"
+    },
+    "validity": {
+      "valid": true
+    }
+  }
+}

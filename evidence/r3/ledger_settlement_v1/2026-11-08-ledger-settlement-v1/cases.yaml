@@ -1,0 +1,105 @@
+# Protocol r3-ledger-settlement-v1.
+# Two continuations of a valid committed claim. Equality is the shared prefix
+# and the settlement contract for that continuation. Applied and no-effect
+# records are expected to differ from each other.
+
+protocol_id: r3-ledger-settlement-v1
+claim_id: r3_ledger_settlement_v1
+bmo_base_rev: "c8297333b3bf31ded96ca0e8b39c531d3bcea97f"
+
+cases:
+  - case_id: S01
+    name: applied-after-claim
+    description: Valid claim, ledger inspect, then the applied settlement path.
+    fixture:
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s01
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_applied
+        call_id: call-s01
+        outcome: applied
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: committed
+          settlement_disposition: applied
+          effect_verdict: supported
+        - step: 4
+          disposition: observed
+          settlement_disposition: applied
+          effect_verdict: supported
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s01]
+        transfer_call_ids: [call-s01]
+
+  - case_id: S02
+    name: no-effect-after-claim
+    description: Valid claim, ledger inspect, then a definite no-effect settlement.
+    fixture:
+      task_id: task-alpha
+      grant_id: grant-alpha
+      owner_revision: 1
+      retry_epoch: epoch-1
+      initial_spent: false
+    actions:
+      - step: 1
+        op: claim_first_edit
+        call_id: call-s02
+        task_id: task-alpha
+        grant_id: grant-alpha
+        owner_revision: 1
+        retry_epoch: epoch-1
+        transaction_completion: commit
+      - step: 2
+        op: inspect
+      - step: 3
+        op: settle_no_effect
+        call_id: call-s02
+        outcome: not_entered
+      - step: 4
+        op: inspect
+    expected:
+      steps:
+        - step: 1
+          disposition: committed
+        - step: 2
+          disposition: observed
+          effect_verdict: unresolved
+        - step: 3
+          disposition: committed
+          settlement_disposition: not_entered
+          effect_verdict: refuted
+        - step: 4
+          disposition: observed
+          settlement_disposition: not_entered
+          effect_verdict: refuted
+      final_state:
+        grant_spent: true
+        claim_count: 1
+        transfer_count: 1
+        claim_call_ids: [call-s02]
+        transfer_call_ids: [call-s02]

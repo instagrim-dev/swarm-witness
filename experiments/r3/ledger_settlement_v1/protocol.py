@@ -20,6 +20,19 @@ DISPOSITIONS = frozenset(
 OPS = frozenset({"claim_first_edit", "inspect", "settle_applied", "settle_no_effect"})
 TX_COMPLETIONS = frozenset({"commit", "rollback_after_native_success"})
 SETTLEMENT_OUTCOMES = frozenset({"applied", "not_entered"})
+EVIDENCE_SHAPES = frozenset(
+    {
+        "bound",
+        "missing_mutation",
+        "swapped",
+        "wrong_call",
+        "write_present",
+        "missing",
+        "unrelated",
+    }
+)
+# Only a bound terminal record may decide the effect-applied proposition.
+DECISIVE_EVIDENCE = frozenset({"bound"})
 
 
 @dataclass(frozen=True)
@@ -33,6 +46,7 @@ class Action:
     retry_epoch: str | None = None
     transaction_completion: str = "commit"
     outcome: str | None = None
+    evidence: str | None = None
     raw: dict[str, Any] = field(default_factory=dict, compare=False)
 
 
@@ -78,8 +92,14 @@ def parse_action(raw: dict[str, Any]) -> Action:
         declared = raw.get("outcome", outcome)
         if declared != outcome:
             raise ValueError(f"{op} outcome must be {outcome!r}")
+        evidence = raw.get("evidence", "bound")
+        if evidence not in EVIDENCE_SHAPES:
+            raise ValueError(f"unsupported evidence {evidence!r}")
+        if op == "settle_applied" and evidence == "write_present":
+            raise ValueError("write_present belongs to settle_no_effect")
     else:
         outcome = None
+        evidence = None
     call_id = raw.get("call_id")
     return Action(
         step=step,
@@ -93,6 +113,7 @@ def parse_action(raw: dict[str, Any]) -> Action:
         retry_epoch=None if raw.get("retry_epoch") is None else str(raw["retry_epoch"]),
         transaction_completion=str(tx),
         outcome=outcome,
+        evidence=None if evidence is None else str(evidence),
         raw=dict(raw),
     )
 

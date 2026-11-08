@@ -35,6 +35,7 @@ type probeCaseAction struct {
 	RetryEpoch             string `json:"retry_epoch"`
 	TransactionCompletion  string `json:"transaction_completion"`
 	Outcome                string `json:"outcome"`
+	Evidence               string `json:"evidence"`
 }
 
 // swarmWitnessR3ProtocolID is the protocol stamped by the settlement wrapper.

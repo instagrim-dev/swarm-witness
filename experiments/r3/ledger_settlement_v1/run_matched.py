@@ -129,6 +129,7 @@ def _probe_input(cases: list[Any], db_dir: Path) -> dict[str, Any]:
                         "retry_epoch": action.retry_epoch,
                         "transaction_completion": action.transaction_completion,
                         "outcome": action.outcome,
+                        "evidence": action.evidence,
                     }
                     for action in case.actions
                 ],
@@ -234,6 +235,7 @@ def execute_run(*, run_id: str, bmo_root: Path, cases_path: Path) -> Path:
     cases = list(bundle["cases"])
     run_dir = validate_run_id(run_id)
     run_dir.mkdir(parents=True, exist_ok=False)
+    shutil.copy2(cases_path, run_dir / "cases.yaml")
     classical = run_classical(cases, run_dir / "classical_work")
     bmo_rows, manifest = run_bmo(cases, run_dir / "bmo_work", bmo_root)
     for name, rows in (("classical.ndjson", classical), ("bmo.ndjson", bmo_rows)):

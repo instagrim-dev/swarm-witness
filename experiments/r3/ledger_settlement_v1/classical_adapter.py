@@ -107,8 +107,11 @@ class ClassicalAdapter:
             )
         if action.op in {"settle_applied", "settle_no_effect"}:
             outcome = "applied" if action.op == "settle_applied" else "not_entered"
-            inputs = {"call_id": action.call_id, "outcome": outcome}
-            result = self.gate.settle_continuation(call_id=str(action.call_id), outcome=outcome)
+            evidence = action.evidence or "bound"
+            inputs = {"call_id": action.call_id, "outcome": outcome, "evidence": evidence}
+            result = self.gate.settle_continuation(
+                call_id=str(action.call_id), outcome=outcome, evidence=evidence
+            )
             return self._row(
                 action,
                 disposition=str(result["disposition"]),

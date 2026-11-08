@@ -1,0 +1,5 @@
+claim_id: r3_ledger_settlement_v1
+label: classical_baseline_matches
+authoritative: finding
+finding_path: findings/r3-ledger-settlement-v1-comparison.json
+native_bmo: true

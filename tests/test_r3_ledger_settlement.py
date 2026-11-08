@@ -96,7 +96,53 @@ def test_classical_continuations_resolve_at_the_settlement_step(tmp_path: Path) 
     assert stages["S02"]["resolving_observation"]["op"] == "settle_no_effect"
     assert stages["S02"]["resolving_observation"]["to"] == "refuted"
     for case in bundle["cases"]:
-        assert compare.evaluate_arm(case, [r for r in rows if r["case_id"] == case.case_id])["passed"]
+        result = compare.evaluate_arm(case, [r for r in rows if r["case_id"] == case.case_id])
+        assert result["passed"], result["errors"]
+    for case_id in ("S03", "S04", "S05", "S06", "S07", "S08", "S09"):
+        verdicts = [step["effect_verdict"] for step in stages[case_id]["verdicts"]]
+        assert verdicts == ["unresolved", "unresolved", "unresolved", "unresolved"]
+        assert stages[case_id]["resolving_observation"] is None
+
+
+def test_classical_judges_its_own_records(tmp_path: Path) -> None:
+    gate = ClassicalLedgerGate(tmp_path / "ledger.sqlite")
+    fixture = {
+        "task_id": "task-alpha",
+        "grant_id": "grant-alpha",
+        "owner_revision": 1,
+        "retry_epoch": "epoch-1",
+        "initial_spent": False,
+    }
+    gate.open_case(fixture)
+    gate.claim_first_edit(
+        call_id="call-s04",
+        task_id="task-alpha",
+        grant_id="grant-alpha",
+        owner_revision=1,
+        retry_epoch="epoch-1",
+    )
+    refused = gate.settle_continuation(
+        call_id="call-s04", outcome="applied", evidence="swapped"
+    )
+    assert refused["disposition"] == "refused"
+    assert gate.inspect()["settlement"] is None
+    stored = gate.conn.execute(
+        "SELECT seq, kind, call_id FROM terminal_records ORDER BY seq"
+    ).fetchall()
+    assert [tuple(row) for row in stored] == [
+        (1, "tool", "call-s04"),
+        (2, "artifact", "call-s04"),
+        (3, "mutation", "call-s04"),
+    ]
+    assert ClassicalLedgerGate._records_satisfy("call-s04", "applied", stored) is False
+    gate.close()
+
+    source = (ROOT / "src" / "swarm_witness" / "classical_ledger_gate.py").read_text()
+    adapter = (SETTLEMENT / "classical_adapter.py").read_text()
+    runner = (SETTLEMENT / "run_matched.py").read_text()
+    assert "bmo" not in source.lower()
+    assert "bmo_rows" not in adapter
+    assert runner.index("classical = run_classical") < runner.index("bmo_rows, manifest = run_bmo")
 
 
 def test_retained_claim_protocol_is_unchanged() -> None:

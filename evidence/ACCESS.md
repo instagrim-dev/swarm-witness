@@ -49,6 +49,8 @@ The [comparison reproduction guide](../report/bounded_comparison_v1/REPLAY.md) d
 
 ```bash
 python experiments/r3/ledger_claim_v1/compare.py --run-dir evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2
+python experiments/r3/ledger_settlement_v1/compare.py --run-dir evidence/r3/ledger_settlement_v1/2026-11-08-ledger-settlement-v1
+python experiments/r3/ledger_settlement_v1/compare.py --run-dir evidence/r3/ledger_settlement_v1/2026-11-08-ledger-settlement-v1-controls
 PYTHONPATH=src python experiments/causal_swarm/run.py --output /tmp/swarm-witness-causal
 PYTHONPATH=src python experiments/r5_v2/run.py --output /tmp/swarm-witness-r5-v2
 PYTHONPATH=src python experiments/taxonomy_formal/run.py
@@ -56,7 +58,7 @@ PYTHONPATH=src python experiments/multi_agent_sim/run.py
 PYTHONPATH=src python experiments/swarm_r5_v3/run.py
 ```
 
-The first command compares retained BMO and SQLite records. Native BMO re-execution requires Go and access to source revision `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe`, as described in `experiments/r3/ledger_claim_v1/README.md`. The causal and settlement experiments use declared model schedules. They are separate from the local application execution and the public reproduction record.
+The first command compares the retained six-case BMO and SQLite ledger records. The next two compare the separate settlement protocol: first the two bound continuations, then the run that adds the negative controls. Those commands do not re-execute BMO. Native BMO re-execution requires Go and access to source revision `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe` for the ledger study, and `c8297333b3bf31ded96ca0e8b39c531d3bcea97f` for the settlement study, as described in the corresponding protocol READMEs. The causal and settlement experiments use declared model schedules. They are separate from the local application execution and the public reproduction record.
 
 ## Build the paper
 

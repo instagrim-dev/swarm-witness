@@ -41,6 +41,12 @@ CREATE TABLE IF NOT EXISTS transfers (
   FOREIGN KEY (call_id) REFERENCES claims(call_id)
 );
 
+CREATE TABLE IF NOT EXISTS terminal_records (
+  seq INTEGER NOT NULL,
+  kind TEXT NOT NULL,
+  call_id TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS executions (
   call_id TEXT PRIMARY KEY,
   outcome TEXT NOT NULL CHECK (outcome IN ('applied', 'not_entered')),
@@ -90,6 +96,7 @@ class ClassicalLedgerGate:
         self.open()
         spent = 1 if fixture.get("initial_spent") else 0
         self.conn.execute("DELETE FROM executions")
+        self.conn.execute("DELETE FROM terminal_records")
         self.conn.execute("DELETE FROM transfers")
         self.conn.execute("DELETE FROM claims")
         self.conn.execute("DELETE FROM authority")
@@ -187,12 +194,96 @@ class ClassicalLedgerGate:
             "source_receipt_bound": bool(item["source_receipt_bound"]),
         }
 
-    def settle_continuation(self, *, call_id: str, outcome: str) -> dict[str, Any]:
-        """Record the declared settlement contract for one committed claim.
+    def _terminal_records(
+        self, *, call_id: str, outcome: str, evidence: str
+    ) -> list[tuple[int, str, str]]:
+        """Records supplied to this arm. The evidence name is not a verdict."""
+        foreign = "call-foreign"
+        if evidence == "missing":
+            return []
+        if evidence == "unrelated":
+            return [(1, "tool", foreign)]
+        if evidence == "missing_mutation":
+            return [(1, "tool", call_id), (2, "artifact", call_id)]
+        if evidence == "swapped":
+            return [
+                (1, "tool", call_id),
+                (2, "artifact", call_id),
+                (3, "mutation", call_id),
+            ]
+        if evidence == "wrong_call":
+            return [
+                (1, "tool", call_id),
+                (2, "mutation", foreign),
+                (3, "artifact", foreign),
+            ]
+        if evidence == "write_present":
+            return [
+                (1, "tool", call_id),
+                (2, "source_receipt", call_id),
+                (3, "mutation", call_id),
+            ]
+        if evidence == "bound" and outcome == "applied":
+            return [
+                (1, "tool", call_id),
+                (2, "mutation", call_id),
+                (3, "artifact", call_id),
+            ]
+        if evidence == "bound" and outcome == "not_entered":
+            return [(1, "tool", call_id), (2, "source_receipt", call_id)]
+        return []
 
-        ``applied`` binds tool, mutation, and artifact, with no no-effect receipt.
-        ``not_entered`` binds the tool and a definite no-effect receipt, with no
-        mutation or artifact. This is the classical contract, not BMO's settler.
+    @staticmethod
+    def _records_satisfy(
+        call_id: str, outcome: str, records: list[tuple[int, str, str]]
+    ) -> bool:
+        def matching(kind: str, wanted: str | None = None) -> list[tuple[int, str, str]]:
+            return [
+                row
+                for row in records
+                if row[1] == kind and (wanted is None or row[2] == wanted)
+            ]
+
+        if outcome == "applied":
+            tool = matching("tool", call_id)
+            mutation = matching("mutation", call_id)
+            artifact = matching("artifact", call_id)
+            foreign_write = [
+                row
+                for row in records
+                if row[1] in {"mutation", "artifact"} and row[2] != call_id
+            ]
+            return bool(
+                len(tool) == 1
+                and len(mutation) == 1
+                and len(artifact) == 1
+                and not foreign_write
+                and mutation[0][0] < artifact[0][0]
+                and not matching("source_receipt")
+            )
+        if outcome == "not_entered":
+            foreign_tool = [
+                row for row in records if row[1] == "tool" and row[2] != call_id
+            ]
+            return bool(
+                len(matching("tool", call_id)) == 1
+                and len(matching("source_receipt", call_id)) == 1
+                and not matching("mutation")
+                and not matching("artifact")
+                and not foreign_tool
+            )
+        return False
+
+    def settle_continuation(
+        self, *, call_id: str, outcome: str, evidence: str = "bound"
+    ) -> dict[str, Any]:
+        """Record a settlement only when this arm's own terminal records satisfy it.
+
+        The evidence name selects which records are supplied. The decision reads
+        those records: an applied settlement needs the claim's tool, then its
+        mutation, then its artifact; a no-effect settlement needs the claim's
+        tool and source receipt and no write. This gate does not read another
+        arm's disposition.
         """
         if outcome not in {"applied", "not_entered"}:
             return {
@@ -221,6 +312,23 @@ class ClassicalLedgerGate:
                     "disposition": "refused",
                     "reason": "already_settled",
                     "native_ok": False,
+                }
+            records = self._terminal_records(
+                call_id=call_id, outcome=outcome, evidence=evidence
+            )
+            self.conn.execute("DELETE FROM terminal_records")
+            self.conn.executemany(
+                "INSERT INTO terminal_records(seq, kind, call_id) VALUES (?, ?, ?)",
+                records,
+            )
+            if not self._records_satisfy(call_id, outcome, records):
+                self.conn.execute("COMMIT")
+                return {
+                    "disposition": "refused",
+                    "reason": "terminal_records_do_not_satisfy_contract",
+                    "native_ok": False,
+                    "evidence": evidence,
+                    "call_id": call_id,
                 }
             if outcome == "applied":
                 flags = (1, 1, 1, 0)
