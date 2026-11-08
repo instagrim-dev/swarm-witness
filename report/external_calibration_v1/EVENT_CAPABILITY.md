@@ -31,21 +31,32 @@ Attribution claims: 120
 | `false_exclusivity` | 12 | 12 |
 | `capture_window_edge` | 12 | 12 |
 
+Adapter vs safer on listed boundaries: 84/84.
+
+Adapter vs safer on all attribution packets: 120/120.
+
 ## Fabricated / successful-execution family
 
-Adapter cells: 10; matches native safer executed: 10; adapter refutations: 2; native refutations: 2.
+**8 native execution comparisons** + **2 additional controls** (total cells 10; not ten exported native execution decisions).
 
+Adapter matches the execution reference mapping: 10/10 (on native-executed only: 8/8). Adapter refutations: 2; native refutations among exported executed relations: 2.
 
-Adapter vs safer on listed boundaries: 84/84.
+Describe as 8 native execution comparisons + 2 additional controls (relay spoofed receipts with no exported executed relation, mapped unresolved). Do not imply ten exported native execution decisions.
+
+## Warrant qualification (secondary)
+
+Attribution warrants use the adapter’s support verdict as the public-evidence sufficiency predicate. Execution warrants consult native refutation status when an exported executed relation is present. Assessor inputs remain independent of native fields, but warrants are not fully independent of evaluated methods. **Primary result:** `adapter_vs_native_safer_conformance`.
 
 ## Reading
 
-Classifier abstention on these raw packets means the frozen classifiers do not consume them as verifying evidence. That does not establish adapter correctness; adapter vs native safer is the conformance column, and warrant/factual_outcome stay separate.
+Use regenerated attribution counts: safer/adapter 48 correct decisive, 10 unsupported supports, and 1 factually wrong supported attribution. Strong/Swarm Witness: 48 missed decisive (replacing the earlier 57).
 
-False-exclusivity: agreement with native safer can coexist with a wrong attribution when both accept the same false exclusivity premise.
+The ten unsupported supports are the false-exclusivity premise convention (all ten safer/adapter supports marked unwarranted, including correct event identities).
+
+Classifier abstention on these raw packets means the frozen classifiers do not consume them as verifying evidence. That does not establish adapter correctness; adapter vs native safer is the conformance column.
 
 Capture-window edge: real-event attributions can remain supported while invented-receipt absence contradictions become unresolved — blanket abstention cannot reproduce that split.
 
 ## Result (this freeze)
 
-Propositions and candidate sets are selected from public entities; native object_ids/candidates/outcomes are scoring-only. The adapter computes receipt-commitment matching, temporal compatibility, affirmative exclusivity/independence, and absence under covering capture. Boundary agreement with native safer is reported above; it is not explained by a receipt-presence shortcut on mutation entities. `transfer_claim` remains false.
+Propositions and candidate sets are selected from public entities; native object_ids/candidates/outcomes are scoring-only for assessor inputs. The adapter computes receipt-commitment matching, temporal compatibility, affirmative exclusivity/independence, and absence under covering capture. Boundary agreement with native safer is the primary conformance result; warrant columns remain qualified as method-dependent. `transfer_claim` remains false.

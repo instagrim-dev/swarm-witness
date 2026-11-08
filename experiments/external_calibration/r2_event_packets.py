@@ -451,12 +451,15 @@ def build_packets(export_path: Path = EXPORT) -> list[dict[str, Any]]:
                 },
                 "warranted_conclusion": {
                     "status": warranted,
-                    "basis": "private_identity_and_public_evidence_sufficiency",
+                    "basis": "private_identity_and_adapter_sufficiency_predicate",
                     "note": (
                         f"safer_native_outcome={safer_arm.get('native_outcome')}; "
                         f"safer_aligned={safer_arm.get('proposition_aligned')}; "
-                        "factual_outcome=execution truth; warrant=evidence sufficiency"
+                        "factual_outcome=execution truth; warrant uses adapter "
+                        "support as the public-evidence sufficiency predicate "
+                        "(method-dependent; conformance column is primary)"
                     ),
+                    "depends_on_evaluated_method": True,
                 },
                 "factual_outcome": factual,
                 "row_refs": {
@@ -524,30 +527,40 @@ def build_packets(export_path: Path = EXPORT) -> list[dict[str, Any]]:
                 ),
             ]
             rel = executed_by.get(subject_id)
-            if rel:
+            has_native_executed = bool(rel and rel.get("method") == "complete_registry_absence")
+            if has_native_executed:
                 native_verdict = _map_native(rel.get("outcome"))
                 native_arm = {
                     "verdict": native_verdict,
                     "native_outcome": rel.get("outcome"),
                     "method": rel.get("method"),
                     "rationale": rel.get("rationale"),
+                    "comparison_role": "native_executed_relation",
                 }
+                comparison_role = "native_executed_comparison"
             else:
+                # Additional control (e.g. relay spoofed receipt): no exported
+                # native executed relation; mapped unresolved for reference only.
                 native_arm = {
                     "verdict": "unresolved",
                     "native_outcome": None,
                     "method": None,
                     "rationale": "no native executed relation for this public event",
+                    "comparison_role": "additional_control_no_native_executed",
                 }
+                comparison_role = "additional_control"
             # Factual: spoofed receipts never establish real execution.
             factual = {
                 "spoofed": euuid in spoofed_uuids,
                 "proposition_holds": False if euuid in spoofed_uuids else None,
                 "known": euuid in spoofed_uuids,
-                "native_executed_outcome": (rel or {}).get("outcome"),
+                "native_executed_outcome": (rel or {}).get("outcome") if has_native_executed else None,
+                "comparison_role": comparison_role,
             }
-            if euuid in spoofed_uuids:
-                warranted = "refuted" if native_arm["verdict"] == "refuted" else "unresolved"
+            # Execution warrants still consult native refutation when present;
+            # that dependence is scoring-only and disclosed — not assessor input.
+            if euuid in spoofed_uuids and has_native_executed and native_arm["verdict"] == "refuted":
+                warranted = "refuted"
             else:
                 warranted = "unresolved"
             adapter = assess_fabricated_execution({"id": cid}, observations)
@@ -571,11 +584,18 @@ def build_packets(export_path: Path = EXPORT) -> list[dict[str, Any]]:
                         "scenario": name,
                         "seed": scenario["seed"],
                         "family": "fabricated_execution",
+                        "comparison_role": comparison_role,
                     },
                     "assumptions": [
                         "Successful-execution claims are a separate family from attribution.",
                         "Assessor inputs exclude private spoofed labels and native outcomes.",
-                        "Corpus membership may use private spoofed for coverage; observations do not.",
+                        (
+                            "Corpus is 8 native executed comparisons plus additional "
+                            "controls selected with private spoofed membership; "
+                            "assessor observations remain public."
+                            if comparison_role == "additional_control"
+                            else "Native executed relation is the reference mapping."
+                        ),
                     ],
                     "observations": observations,
                     "declared_assumptions": _assessor_decl(decl),
@@ -591,11 +611,20 @@ def build_packets(export_path: Path = EXPORT) -> list[dict[str, Any]]:
                     },
                     "warranted_conclusion": {
                         "status": warranted,
-                        "basis": "private_spoofed_and_absence_discipline",
-                        "note": (
-                            f"native_executed_outcome={(rel or {}).get('outcome')}; "
-                            f"private_spoofed={euuid in spoofed_uuids}"
+                        "basis": (
+                            "native_refutation_when_executed_relation_present"
+                            if has_native_executed
+                            else "additional_control_unresolved_without_native_executed"
                         ),
+                        "note": (
+                            f"comparison_role={comparison_role}; "
+                            f"native_executed_outcome="
+                            f"{(rel or {}).get('outcome') if has_native_executed else None}; "
+                            f"private_spoofed={euuid in spoofed_uuids}; "
+                            "warrant may depend on native refutation status "
+                            "(assessor inputs do not)"
+                        ),
+                        "depends_on_evaluated_method": has_native_executed,
                     },
                     "factual_outcome": factual,
                     "row_refs": {
@@ -603,6 +632,7 @@ def build_packets(export_path: Path = EXPORT) -> list[dict[str, Any]]:
                         "scenario": name,
                         "event_uuid": euuid,
                         "subject_id": subject_id,
+                        "comparison_role": comparison_role,
                     },
                 }
             )

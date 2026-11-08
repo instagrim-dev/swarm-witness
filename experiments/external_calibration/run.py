@@ -115,6 +115,7 @@ def _score_corpus(
                 "classifier_verdicts": classifiers,
             }
         )
+        factual = packet.get("factual_outcome") or {}
         for method, payload in methods.items():
             predicted = payload["verdict"]
             matrix_rows.append(
@@ -128,7 +129,11 @@ def _score_corpus(
                     "predicted": predicted,
                     "warranted": warranted,
                     "category": _category(predicted, warranted),
-                    "factual_known": bool(packet["factual_outcome"].get("known")),
+                    "factual_known": bool(factual.get("known")),
+                    "proposition_holds": factual.get("proposition_holds"),
+                    "comparison_role": claim.get("comparison_role")
+                    or factual.get("comparison_role")
+                    or "",
                     "source_revision": source_revision,
                     "warrant_basis": packet["warranted_conclusion"]["basis"],
                 }
@@ -431,14 +436,62 @@ def _event_capability_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     out["adapter_safer_boundary_claims"] = sum(
         stats["claims"] for stats in boundaries.values()
     )
-    # Fabricated / successful-execution family vs native safer executed.
-    fab_cells = [
+    adapter = out["methods"].get("eg_evidence_derived_adapter") or {}
+    safer = out["methods"].get("evidencegraph_safer_produced") or {}
+    attr_safer_map = {
+        row["claim_id"]: row["predicted"]
+        for row in rows
+        if row["corpus"] == "evidencegraph_r2_event"
+        and row["family"] == "event_attribution"
+        and row["method"] == "evidencegraph_safer_produced"
+    }
+    attr_adapter_rows = [
         row
         for row in rows
         if row["corpus"] == "evidencegraph_r2_event"
-        and row["family"] == "fabricated_execution"
+        and row["family"] == "event_attribution"
         and row["method"] == "eg_evidence_derived_adapter"
     ]
+    attr_adapter_map = {row["claim_id"]: row["predicted"] for row in attr_adapter_rows}
+    factually_wrong_supported = sum(
+        1
+        for row in attr_adapter_rows
+        if row["predicted"] == "supported"
+        and row.get("factual_known")
+        and row.get("proposition_holds") is False
+    )
+    false_ex_supported = sum(
+        1
+        for row in attr_adapter_rows
+        if row["scenario"] == "false_exclusivity" and row["predicted"] == "supported"
+    )
+    out["attribution_conformance"] = {
+        "adapter_matches_safer_all_attr": sum(
+            1
+            for cid, pred in attr_adapter_map.items()
+            if attr_safer_map.get(cid) == pred
+        ),
+        "attr_claim_count": len(attr_adapter_map),
+        "correct_decisive": adapter.get("correct_decisive"),
+        "unsupported_support": adapter.get("unsupported_support"),
+        "missed_decisive_strong": (out["methods"].get("strong_invariant") or {}).get(
+            "missed_decisive"
+        ),
+        "missed_decisive_swarm": (out["methods"].get("swarm_witness") or {}).get(
+            "missed_decisive"
+        ),
+        "safer_correct_decisive": safer.get("correct_decisive"),
+        "safer_unsupported_support": safer.get("unsupported_support"),
+        "false_exclusivity_supported": false_ex_supported,
+        "factually_wrong_supported_attributions": factually_wrong_supported,
+        "note": (
+            "Regenerated counts: safer/adapter correct decisive and unsupported "
+            "supports as tabulated; Strong/Swarm Witness missed decisive replaces "
+            "the earlier 57. Ten unsupported supports are the false-exclusivity "
+            "premise convention."
+        ),
+    }
+
     fab_native = {
         row["claim_id"]: row["predicted"]
         for row in rows
@@ -446,15 +499,61 @@ def _event_capability_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         and row["family"] == "fabricated_execution"
         and row["method"] == "evidencegraph_safer_executed"
     }
+    fab_cells = [
+        row
+        for row in rows
+        if row["corpus"] == "evidencegraph_r2_event"
+        and row["family"] == "fabricated_execution"
+        and row["method"] == "eg_evidence_derived_adapter"
+    ]
+    native_fab = [
+        row
+        for row in fab_cells
+        if row.get("comparison_role") == "native_executed_comparison"
+    ]
+    control_fab = [
+        row for row in fab_cells if row.get("comparison_role") == "additional_control"
+    ]
     out["fabricated_execution"] = {
-        "adapter_cells": len(fab_cells),
-        "adapter_matches_native_executed": sum(
+        "total_cells": len(fab_cells),
+        "native_executed_comparisons": len(native_fab),
+        "additional_controls": len(control_fab),
+        "adapter_matches_native_executed_mapping": sum(
             1
             for row in fab_cells
             if fab_native.get(row["claim_id"]) == row["predicted"]
         ),
+        "adapter_matches_on_native_executed_only": sum(
+            1
+            for row in native_fab
+            if fab_native.get(row["claim_id"]) == row["predicted"]
+        ),
         "adapter_refutations": sum(1 for row in fab_cells if row["predicted"] == "refuted"),
-        "native_refutations": sum(1 for v in fab_native.values() if v == "refuted"),
+        "native_refutations": sum(
+            1
+            for row in rows
+            if row["corpus"] == "evidencegraph_r2_event"
+            and row["family"] == "fabricated_execution"
+            and row["method"] == "evidencegraph_safer_executed"
+            and row.get("comparison_role") == "native_executed_comparison"
+            and row["predicted"] == "refuted"
+        ),
+        "note": (
+            "Describe as 8 native execution comparisons + 2 additional controls "
+            "(relay spoofed receipts with no exported executed relation, mapped "
+            "unresolved). Do not imply ten exported native execution decisions."
+        ),
+    }
+    out["warrant_qualification"] = {
+        "attribution_warrant_depends_on_adapter_sufficiency": True,
+        "execution_warrant_depends_on_native_refutation_when_present": True,
+        "assessor_inputs_independent_of_native_fields": True,
+        "primary_result": "adapter_vs_native_safer_conformance",
+        "note": (
+            "Warrant agreement remains method-dependent. Mutating native fields "
+            "leaves assessor inputs unchanged but can change execution warrants. "
+            "Use the conformance column as the primary result."
+        ),
     }
     return out
 
@@ -495,30 +594,64 @@ def _write_capability_report(path: Path, capability: dict[str, Any]) -> None:
             f"| `{scenario}` | {stats['claims']} | {stats['adapter_matches_safer']} |"
         )
     fab = capability.get("fabricated_execution") or {}
+    attrc = capability.get("attribution_conformance") or {}
+    wq = capability.get("warrant_qualification") or {}
     lines.extend(
         [
-            "",
-            "## Fabricated / successful-execution family",
-            "",
-            f"Adapter cells: {fab.get('adapter_cells')}; "
-            f"matches native safer executed: {fab.get('adapter_matches_native_executed')}; "
-            f"adapter refutations: {fab.get('adapter_refutations')}; "
-            f"native refutations: {fab.get('native_refutations')}.",
-            "",
             "",
             f"Adapter vs safer on listed boundaries: "
             f"{capability.get('adapter_matches_safer_total')}/"
             f"{capability.get('adapter_safer_boundary_claims')}.",
             "",
+            f"Adapter vs safer on all attribution packets: "
+            f"{attrc.get('adapter_matches_safer_all_attr')}/"
+            f"{attrc.get('attr_claim_count')}.",
+            "",
+            "## Fabricated / successful-execution family",
+            "",
+            f"**{fab.get('native_executed_comparisons')} native execution comparisons** "
+            f"+ **{fab.get('additional_controls')} additional controls** "
+            f"(total cells {fab.get('total_cells')}; not ten exported native "
+            f"execution decisions).",
+            "",
+            f"Adapter matches the execution reference mapping: "
+            f"{fab.get('adapter_matches_native_executed_mapping')}/{fab.get('total_cells')} "
+            f"(on native-executed only: "
+            f"{fab.get('adapter_matches_on_native_executed_only')}/"
+            f"{fab.get('native_executed_comparisons')}). "
+            f"Adapter refutations: {fab.get('adapter_refutations')}; "
+            f"native refutations among exported executed relations: "
+            f"{fab.get('native_refutations')}.",
+            "",
+            fab.get("note") or "",
+            "",
+            "## Warrant qualification (secondary)",
+            "",
+            "Attribution warrants use the adapter’s support verdict as the "
+            "public-evidence sufficiency predicate. Execution warrants consult "
+            "native refutation status when an exported executed relation is "
+            "present. Assessor inputs remain independent of native fields, but "
+            "warrants are not fully independent of evaluated methods. "
+            f"**Primary result:** `{wq.get('primary_result')}`.",
+            "",
             "## Reading",
+            "",
+            "Use regenerated attribution counts: safer/adapter "
+            f"{attrc.get('correct_decisive')} correct decisive, "
+            f"{attrc.get('unsupported_support')} unsupported supports, "
+            f"and {attrc.get('factually_wrong_supported_attributions')} factually "
+            "wrong supported attribution. Strong/Swarm Witness: "
+            f"{attrc.get('missed_decisive_strong')} missed decisive "
+            "(replacing the earlier 57).",
+            "",
+            "The ten unsupported supports are the false-exclusivity premise "
+            "convention (all ten safer/adapter supports marked unwarranted, "
+            "including correct event identities).",
             "",
             "Classifier abstention on these raw packets means the frozen "
             "classifiers do not consume them as verifying evidence. That does "
             "not establish adapter correctness; adapter vs native safer is the "
-            "conformance column, and warrant/factual_outcome stay separate.",
-            "",
-            "False-exclusivity: agreement with native safer can coexist with a "
-            "wrong attribution when both accept the same false exclusivity premise.",
+            "conformance column.",
             "",
             "Capture-window edge: real-event attributions can remain supported while "
             "invented-receipt absence contradictions become unresolved — blanket "
@@ -527,12 +660,12 @@ def _write_capability_report(path: Path, capability: dict[str, Any]) -> None:
             "## Result (this freeze)",
             "",
             "Propositions and candidate sets are selected from public entities; "
-            "native object_ids/candidates/outcomes are scoring-only. The adapter "
-            "computes receipt-commitment matching, temporal compatibility, "
-            "affirmative exclusivity/independence, and absence under covering "
-            "capture. Boundary agreement with native safer is reported above; "
-            "it is not explained by a receipt-presence shortcut on mutation "
-            "entities. `transfer_claim` remains false.",
+            "native object_ids/candidates/outcomes are scoring-only for assessor "
+            "inputs. The adapter computes receipt-commitment matching, temporal "
+            "compatibility, affirmative exclusivity/independence, and absence "
+            "under covering capture. Boundary agreement with native safer is "
+            "the primary conformance result; warrant columns remain qualified as "
+            "method-dependent. `transfer_claim` remains false.",
             "",
         ]
     )

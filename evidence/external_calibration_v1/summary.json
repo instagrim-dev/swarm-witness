@@ -58,6 +58,19 @@
     "adapter_matches_safer_total": 84,
     "adapter_safer_boundary_claims": 84,
     "attr_claim_count": 120,
+    "attribution_conformance": {
+      "adapter_matches_safer_all_attr": 120,
+      "attr_claim_count": 120,
+      "correct_decisive": 48,
+      "factually_wrong_supported_attributions": 1,
+      "false_exclusivity_supported": 10,
+      "missed_decisive_strong": 48,
+      "missed_decisive_swarm": 48,
+      "note": "Regenerated counts: safer/adapter correct decisive and unsupported supports as tabulated; Strong/Swarm Witness missed decisive replaces the earlier 57. Ten unsupported supports are the false-exclusivity premise convention.",
+      "safer_correct_decisive": 48,
+      "safer_unsupported_support": 10,
+      "unsupported_support": 10
+    },
     "boundaries_adapter_vs_safer": {
       "capture_window_edge": {
         "adapter_matches_safer": 12,
@@ -89,10 +102,14 @@
       }
     },
     "fabricated_execution": {
-      "adapter_cells": 10,
-      "adapter_matches_native_executed": 10,
+      "adapter_matches_native_executed_mapping": 10,
+      "adapter_matches_on_native_executed_only": 8,
       "adapter_refutations": 2,
-      "native_refutations": 2
+      "additional_controls": 2,
+      "native_executed_comparisons": 8,
+      "native_refutations": 2,
+      "note": "Describe as 8 native execution comparisons + 2 additional controls (relay spoofed receipts with no exported executed relation, mapped unresolved). Do not imply ten exported native execution decisions.",
+      "total_cells": 10
     },
     "methods": {
       "eg_evidence_derived_adapter": {
@@ -158,6 +175,13 @@
         "unsupported_refutation": 0,
         "unsupported_support": 0
       }
+    },
+    "warrant_qualification": {
+      "assessor_inputs_independent_of_native_fields": true,
+      "attribution_warrant_depends_on_adapter_sufficiency": true,
+      "execution_warrant_depends_on_native_refutation_when_present": true,
+      "note": "Warrant agreement remains method-dependent. Mutating native fields leaves assessor inputs unchanged but can change execution warrants. Use the conformance column as the primary result.",
+      "primary_result": "adapter_vs_native_safer_conformance"
     }
   },
   "matrix_rows": 1097,

@@ -374,6 +374,25 @@ def test_external_calibration_runner_matrix():
     assert boundaries["missing_tokens"]["adapter_matches_safer"] == boundaries["missing_tokens"][
         "claims"
     ]
+    attrc = capability["attribution_conformance"]
+    assert attrc["adapter_matches_safer_all_attr"] == attrc["attr_claim_count"] == 120
+    assert attrc["correct_decisive"] == 48
+    assert attrc["unsupported_support"] == 10
+    assert attrc["missed_decisive_strong"] == 48
+    assert attrc["missed_decisive_swarm"] == 48
+    assert attrc["factually_wrong_supported_attributions"] == 1
+    fab = capability["fabricated_execution"]
+    assert fab["native_executed_comparisons"] == 8
+    assert fab["additional_controls"] == 2
+    assert fab["total_cells"] == 10
+    assert fab["adapter_matches_on_native_executed_only"] == 8
+    assert capability["warrant_qualification"]["primary_result"] == (
+        "adapter_vs_native_safer_conformance"
+    )
+    capability_md = (out / "EVENT_CAPABILITY.md").read_text(encoding="utf-8")
+    assert "8 native execution comparisons" in capability_md
+    assert "2 additional controls" in capability_md
+    assert "method-dependent" in capability_md or "Method-dependent" in capability_md.lower() or "method-dependent" in capability_md
     assert (out / "EVENT_CAPABILITY.md").exists()
     assert (ROOT / "report" / "external_calibration_v1" / "EVENT_CAPABILITY.md").exists()
     assert (out / "PROFILE_LABELS.md").exists()

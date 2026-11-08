@@ -1012,8 +1012,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -1319,8 +1320,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -1626,8 +1628,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -1934,8 +1937,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -2241,8 +2245,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -2548,8 +2553,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -2855,8 +2861,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -3162,8 +3169,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -3469,8 +3477,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -3776,8 +3785,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -4083,8 +4093,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -4390,8 +4401,9 @@
       "scenario": "clean"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -4697,8 +4709,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -5004,8 +5017,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -5311,8 +5325,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -5619,8 +5634,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -5926,8 +5942,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -6233,8 +6250,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -6540,8 +6558,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -6847,8 +6866,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -7154,8 +7174,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -7461,8 +7482,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -7768,8 +7790,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -8075,8 +8098,9 @@
       "scenario": "fabricated"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -8084,10 +8108,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Native executed relation is the reference mapping."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "native_executed_comparison",
       "family": "fabricated_execution",
       "id": "EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242",
       "kind": "world_effect",
@@ -8126,6 +8151,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "native_executed_comparison",
       "known": true,
       "native_executed_outcome": "contradicted",
       "proposition_holds": false,
@@ -8140,6 +8166,7 @@
         "verdict": "refuted"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "native_executed_relation",
         "method": "complete_registry_absence",
         "native_outcome": "contradicted",
         "rationale": "Successful receipt claims a mutation absent from the declared complete independent registry, whose capture covers the whole tool window plus the clock bound",
@@ -8563,14 +8590,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "native_executed_comparison",
       "event_uuid": "64SUiiUNPDThbTqHmBj8fa",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "fabricated",
       "subject_id": "e-bbf61614fd34b9973b98efb9"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=contradicted; private_spoofed=True",
+      "basis": "native_refutation_when_executed_relation_present",
+      "depends_on_evaluated_method": true,
+      "note": "comparison_role=native_executed_comparison; native_executed_outcome=contradicted; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "refuted"
     }
   },
@@ -8578,10 +8607,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Native executed relation is the reference mapping."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "native_executed_comparison",
       "family": "fabricated_execution",
       "id": "EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6",
       "kind": "world_effect",
@@ -8620,6 +8650,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "native_executed_comparison",
       "known": true,
       "native_executed_outcome": "contradicted",
       "proposition_holds": false,
@@ -8634,6 +8665,7 @@
         "verdict": "refuted"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "native_executed_relation",
         "method": "complete_registry_absence",
         "native_outcome": "contradicted",
         "rationale": "Successful receipt claims a mutation absent from the declared complete independent registry, whose capture covers the whole tool window plus the clock bound",
@@ -9057,14 +9089,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "native_executed_comparison",
       "event_uuid": "3X4pY96GZqzJZdPCVF9A7g",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "fabricated",
       "subject_id": "e-ec37c1c04f706cbb3164954e"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=contradicted; private_spoofed=True",
+      "basis": "native_refutation_when_executed_relation_present",
+      "depends_on_evaluated_method": true,
+      "note": "comparison_role=native_executed_comparison; native_executed_outcome=contradicted; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "refuted"
     }
   },
@@ -9369,8 +9403,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -9599,8 +9634,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=unmatched; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=unmatched; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -9905,8 +9941,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -10212,8 +10249,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -10518,8 +10556,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -10824,8 +10863,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -11130,8 +11170,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -11436,8 +11477,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -11742,8 +11784,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -12048,8 +12091,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -12354,8 +12398,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -12584,8 +12629,9 @@
       "scenario": "full_receipt_relay"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=unmatched; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=unmatched; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -12593,10 +12639,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Corpus is 8 native executed comparisons plus additional controls selected with private spoofed membership; assessor observations remain public."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "additional_control",
       "family": "fabricated_execution",
       "id": "EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe",
       "kind": "world_effect",
@@ -12635,6 +12682,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "additional_control",
       "known": true,
       "native_executed_outcome": null,
       "proposition_holds": false,
@@ -12649,6 +12697,7 @@
         "verdict": "unresolved"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "additional_control_no_native_executed",
         "method": null,
         "native_outcome": null,
         "rationale": "no native executed relation for this public event",
@@ -13074,14 +13123,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "additional_control",
       "event_uuid": "9XkRU6n3yVJvqBPLVz5t4t",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "full_receipt_relay",
       "subject_id": "e-793bffd3155f8f6a2017f9ad"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=None; private_spoofed=True",
+      "basis": "additional_control_unresolved_without_native_executed",
+      "depends_on_evaluated_method": false,
+      "note": "comparison_role=additional_control; native_executed_outcome=None; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "unresolved"
     }
   },
@@ -13388,8 +13439,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -13619,8 +13671,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=unmatched; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=unmatched; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -13927,8 +13980,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -14236,8 +14290,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -14544,8 +14599,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -14852,8 +14908,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -15160,8 +15217,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -15468,8 +15526,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -15776,8 +15835,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -16084,8 +16144,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -16392,8 +16453,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -16623,8 +16685,9 @@
       "scenario": "false_exclusivity"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=unmatched; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=unmatched; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -16632,10 +16695,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Corpus is 8 native executed comparisons plus additional controls selected with private spoofed membership; assessor observations remain public."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "additional_control",
       "family": "fabricated_execution",
       "id": "EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe",
       "kind": "world_effect",
@@ -16674,6 +16738,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "additional_control",
       "known": true,
       "native_executed_outcome": null,
       "proposition_holds": false,
@@ -16688,6 +16753,7 @@
         "verdict": "unresolved"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "additional_control_no_native_executed",
         "method": null,
         "native_outcome": null,
         "rationale": "no native executed relation for this public event",
@@ -17113,14 +17179,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "additional_control",
       "event_uuid": "9XkRU6n3yVJvqBPLVz5t4t",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "false_exclusivity",
       "subject_id": "e-793bffd3155f8f6a2017f9ad"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=None; private_spoofed=True",
+      "basis": "additional_control_unresolved_without_native_executed",
+      "depends_on_evaluated_method": false,
+      "note": "comparison_role=additional_control; native_executed_outcome=None; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "unresolved"
     }
   },
@@ -17425,8 +17493,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -17731,8 +17800,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -18037,8 +18107,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -18344,8 +18415,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -18650,8 +18722,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -18956,8 +19029,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -19262,8 +19336,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -19568,8 +19643,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -19874,8 +19950,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -20180,8 +20257,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -20486,8 +20564,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -20792,8 +20871,9 @@
       "scenario": "shared_tokens_no_attack"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -21096,8 +21176,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -21400,8 +21481,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -21704,8 +21786,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -22009,8 +22092,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -22313,8 +22397,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -22617,8 +22702,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -22921,8 +23007,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -23225,8 +23312,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -23529,8 +23617,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -23833,8 +23922,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -24137,8 +24227,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -24441,8 +24532,9 @@
       "scenario": "missing_tokens"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -24738,8 +24830,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -25035,8 +25128,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -25332,8 +25426,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -25630,8 +25725,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -25927,8 +26023,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -26224,8 +26321,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -26521,8 +26619,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -26818,8 +26917,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -27115,8 +27215,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -27412,8 +27513,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -27709,8 +27811,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -28006,8 +28109,9 @@
       "scenario": "missing_clock_bound"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=not_assessable; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -28311,8 +28415,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -28616,8 +28721,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -28921,8 +29027,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -29227,8 +29334,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -29532,8 +29640,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -29837,8 +29946,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -30142,8 +30252,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -30447,8 +30558,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -30752,8 +30864,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -31057,8 +31170,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -31362,8 +31476,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -31667,8 +31782,9 @@
       "scenario": "dependent_witnesses"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=ambiguous; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "unresolved"
     }
   },
@@ -31676,10 +31792,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Native executed relation is the reference mapping."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "native_executed_comparison",
       "family": "fabricated_execution",
       "id": "EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242",
       "kind": "world_effect",
@@ -31718,6 +31835,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "native_executed_comparison",
       "known": true,
       "native_executed_outcome": "not_assessable",
       "proposition_holds": false,
@@ -31732,6 +31850,7 @@
         "verdict": "unresolved"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "native_executed_relation",
         "method": "complete_registry_absence",
         "native_outcome": "not_assessable",
         "rationale": "Absence cannot establish spoofing unless independent complete capture covers the whole tool execution window widened by a declared clock bound",
@@ -32155,14 +32274,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "native_executed_comparison",
       "event_uuid": "64SUiiUNPDThbTqHmBj8fa",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "dependent_witnesses",
       "subject_id": "e-bbf61614fd34b9973b98efb9"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=not_assessable; private_spoofed=True",
+      "basis": "native_refutation_when_executed_relation_present",
+      "depends_on_evaluated_method": true,
+      "note": "comparison_role=native_executed_comparison; native_executed_outcome=not_assessable; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "unresolved"
     }
   },
@@ -32170,10 +32291,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Native executed relation is the reference mapping."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "native_executed_comparison",
       "family": "fabricated_execution",
       "id": "EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6",
       "kind": "world_effect",
@@ -32212,6 +32334,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "native_executed_comparison",
       "known": true,
       "native_executed_outcome": "not_assessable",
       "proposition_holds": false,
@@ -32226,6 +32349,7 @@
         "verdict": "unresolved"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "native_executed_relation",
         "method": "complete_registry_absence",
         "native_outcome": "not_assessable",
         "rationale": "Absence cannot establish spoofing unless independent complete capture covers the whole tool execution window widened by a declared clock bound",
@@ -32649,14 +32773,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "native_executed_comparison",
       "event_uuid": "3X4pY96GZqzJZdPCVF9A7g",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "dependent_witnesses",
       "subject_id": "e-ec37c1c04f706cbb3164954e"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=not_assessable; private_spoofed=True",
+      "basis": "native_refutation_when_executed_relation_present",
+      "depends_on_evaluated_method": true,
+      "note": "comparison_role=native_executed_comparison; native_executed_outcome=not_assessable; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "unresolved"
     }
   },
@@ -32962,8 +33088,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -33269,8 +33396,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -33576,8 +33704,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -33884,8 +34013,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -34191,8 +34321,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -34498,8 +34629,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -34805,8 +34937,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -35112,8 +35245,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -35419,8 +35553,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -35726,8 +35861,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -36033,8 +36169,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -36340,8 +36477,9 @@
       "scenario": "capture_window_edge"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -36349,10 +36487,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Native executed relation is the reference mapping."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "native_executed_comparison",
       "family": "fabricated_execution",
       "id": "EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1",
       "kind": "world_effect",
@@ -36391,6 +36530,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "native_executed_comparison",
       "known": true,
       "native_executed_outcome": "not_assessable",
       "proposition_holds": false,
@@ -36405,6 +36545,7 @@
         "verdict": "unresolved"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "native_executed_relation",
         "method": "complete_registry_absence",
         "native_outcome": "not_assessable",
         "rationale": "Absence cannot establish spoofing unless independent complete capture covers the whole tool execution window widened by a declared clock bound",
@@ -36828,14 +36969,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "native_executed_comparison",
       "event_uuid": "dtXvHnaK9farXqFbZhKqwp",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "capture_window_edge",
       "subject_id": "e-4ea05855cad07b3c8221d786"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=not_assessable; private_spoofed=True",
+      "basis": "native_refutation_when_executed_relation_present",
+      "depends_on_evaluated_method": true,
+      "note": "comparison_role=native_executed_comparison; native_executed_outcome=not_assessable; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "unresolved"
     }
   },
@@ -36843,10 +36986,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Native executed relation is the reference mapping."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "native_executed_comparison",
       "family": "fabricated_execution",
       "id": "EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4",
       "kind": "world_effect",
@@ -36885,6 +37029,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "native_executed_comparison",
       "known": true,
       "native_executed_outcome": "not_assessable",
       "proposition_holds": false,
@@ -36899,6 +37044,7 @@
         "verdict": "unresolved"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "native_executed_relation",
         "method": "complete_registry_absence",
         "native_outcome": "not_assessable",
         "rationale": "Absence cannot establish spoofing unless independent complete capture covers the whole tool execution window widened by a declared clock bound",
@@ -37322,14 +37468,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "native_executed_comparison",
       "event_uuid": "oJjor2NkRaPt563i2rD9H6",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "capture_window_edge",
       "subject_id": "e-587b51f18e9057ce8aed12d4"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=not_assessable; private_spoofed=True",
+      "basis": "native_refutation_when_executed_relation_present",
+      "depends_on_evaluated_method": true,
+      "note": "comparison_role=native_executed_comparison; native_executed_outcome=not_assessable; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "unresolved"
     }
   },
@@ -37635,8 +37783,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -37942,8 +38091,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -38249,8 +38399,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -38557,8 +38708,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -38864,8 +39016,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -39171,8 +39324,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -39478,8 +39632,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -39785,8 +39940,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -40092,8 +40248,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -40399,8 +40556,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -40706,8 +40864,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -41013,8 +41172,9 @@
       "scenario": "incomplete_capture"
     },
     "warranted_conclusion": {
-      "basis": "private_identity_and_public_evidence_sufficiency",
-      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant=evidence sufficiency",
+      "basis": "private_identity_and_adapter_sufficiency_predicate",
+      "depends_on_evaluated_method": true,
+      "note": "safer_native_outcome=supported; safer_aligned=True; factual_outcome=execution truth; warrant uses adapter support as the public-evidence sufficiency predicate (method-dependent; conformance column is primary)",
       "status": "supported"
     }
   },
@@ -41022,10 +41182,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Native executed relation is the reference mapping."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "native_executed_comparison",
       "family": "fabricated_execution",
       "id": "EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0",
       "kind": "world_effect",
@@ -41064,6 +41225,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "native_executed_comparison",
       "known": true,
       "native_executed_outcome": "not_assessable",
       "proposition_holds": false,
@@ -41078,6 +41240,7 @@
         "verdict": "unresolved"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "native_executed_relation",
         "method": "complete_registry_absence",
         "native_outcome": "not_assessable",
         "rationale": "Absence cannot establish spoofing unless independent complete capture covers the whole tool execution window widened by a declared clock bound",
@@ -41501,14 +41664,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "native_executed_comparison",
       "event_uuid": "XAJTYob57cioV2W33629fd",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "incomplete_capture",
       "subject_id": "e-cc99ce30188935dc181bb960"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=not_assessable; private_spoofed=True",
+      "basis": "native_refutation_when_executed_relation_present",
+      "depends_on_evaluated_method": true,
+      "note": "comparison_role=native_executed_comparison; native_executed_outcome=not_assessable; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "unresolved"
     }
   },
@@ -41516,10 +41681,11 @@
     "assumptions": [
       "Successful-execution claims are a separate family from attribution.",
       "Assessor inputs exclude private spoofed labels and native outcomes.",
-      "Corpus membership may use private spoofed for coverage; observations do not."
+      "Native executed relation is the reference mapping."
     ],
     "author_scope_reading": null,
     "claim": {
+      "comparison_role": "native_executed_comparison",
       "family": "fabricated_execution",
       "id": "EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18",
       "kind": "world_effect",
@@ -41558,6 +41724,7 @@
     "cross_policy_reference": null,
     "evidence_translation": null,
     "factual_outcome": {
+      "comparison_role": "native_executed_comparison",
       "known": true,
       "native_executed_outcome": "not_assessable",
       "proposition_holds": false,
@@ -41572,6 +41739,7 @@
         "verdict": "unresolved"
       },
       "evidencegraph_safer_executed": {
+        "comparison_role": "native_executed_relation",
         "method": "complete_registry_absence",
         "native_outcome": "not_assessable",
         "rationale": "Absence cannot establish spoofing unless independent complete capture covers the whole tool execution window widened by a declared clock bound",
@@ -41995,14 +42163,16 @@
       }
     ],
     "row_refs": {
+      "comparison_role": "native_executed_comparison",
       "event_uuid": "Z5AXks6kZr4EAztafaygRJ",
       "export": "evidence/external_calibration_v1/eg_native_relations_seed0.json",
       "scenario": "incomplete_capture",
       "subject_id": "e-dfa019ce45a069878314d2c7"
     },
     "warranted_conclusion": {
-      "basis": "private_spoofed_and_absence_discipline",
-      "note": "native_executed_outcome=not_assessable; private_spoofed=True",
+      "basis": "native_refutation_when_executed_relation_present",
+      "depends_on_evaluated_method": true,
+      "note": "comparison_role=native_executed_comparison; native_executed_outcome=not_assessable; private_spoofed=True; warrant may depend on native refutation status (assessor inputs do not)",
       "status": "unresolved"
     }
   },
