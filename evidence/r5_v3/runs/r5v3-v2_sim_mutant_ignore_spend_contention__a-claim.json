@@ -1,0 +1,83 @@
+{
+  "id": "r5v3-v2_sim_mutant_ignore_spend_contention__a-claim",
+  "claim_id": "r5_v3",
+  "protocol_id": "r5-swarm-audit-v3",
+  "case_id": "v2_sim_mutant_ignore_spend_contention__a-claim",
+  "source_pin": "swarm-witness-r5-v3",
+  "execution_status": "completed",
+  "observations": {
+    "family": "concurrency_interleaving",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "mechanism_arm": "mutant_ignore_spend",
+    "paired_input_id": "sim:contention_one_use_seed404",
+    "evidence_source": "multi-agent-sim-v1:mas-mutant_ignore_spend_contention.json#a-claim",
+    "expectation_source": "experiments/swarm_r5_v3/case_expectations.yaml",
+    "assessment": "permission_justified",
+    "conclusion_class": "supported",
+    "finding_label": "reproduced",
+    "property_holds": true,
+    "decision": "allow",
+    "required_decision": "allow",
+    "agent": "A",
+    "grant_id": "grant-shared",
+    "call_id": "a-claim",
+    "observation_mode": "sim_local",
+    "gate_mode": "mutant_ignore_spend",
+    "receipt_kind": "sim",
+    "presented_receipt": null,
+    "effect_committed": true,
+    "evidence_status": "authentic",
+    "decision_status": "correct",
+    "effect_status": "committed",
+    "failure_origin": "none",
+    "authoritative_owner_state": {
+      "grant": {
+        "grant_id": "grant-shared",
+        "owner": "A",
+        "state": "spent",
+        "epoch": "epoch-1",
+        "owner_version": 4,
+        "assignees": [
+          "A",
+          "B",
+          "C"
+        ],
+        "spent": true
+      },
+      "committed_effect_count": 1,
+      "committed_effects": [
+        {
+          "effect_id": "effect-a-claim",
+          "grant_id": "grant-shared",
+          "agent": "A",
+          "call_id": "a-claim",
+          "decision_event_id": "evt-404-0008",
+          "owner_version_at_commit": 4
+        }
+      ],
+      "ledger_owner_version": 4
+    },
+    "trusted_ground_truth": null,
+    "held_out_artifact": null,
+    "sim_source_run_id": "mas-mutant_ignore_spend_contention",
+    "sim_protocol_id": "multi-agent-sim-v1",
+    "sim_exclusions": [
+      "live_bmo_mesh_equivalence",
+      "production_concurrency_guarantees",
+      "unbounded_swarm_safety"
+    ],
+    "expected": {
+      "conclusion_class": "supported",
+      "decision": "allow",
+      "effect_committed": true,
+      "failure_origin": "none",
+      "assessment": "permission_justified"
+    },
+    "conclusion_match": true,
+    "reason": "evidence complete and property holds in scope; evidence_integrity=authentic; decision=allow required=allow committed_effect=True effect_settlement=committed"
+  }
+}

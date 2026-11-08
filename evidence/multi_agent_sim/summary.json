@@ -1,0 +1,228 @@
+{
+  "protocol_id": "multi-agent-sim-v1",
+  "claim_id": "multi_agent_sim",
+  "source_pin": "swarm-witness-multi-agent-sim-v1",
+  "model": "deterministic_in_process_interleaving_simulator",
+  "exclusions": [
+    "live_bmo_mesh_equivalence",
+    "production_concurrency_guarantees",
+    "unbounded_swarm_safety",
+    "r5_v1_relabeled_as_concurrent"
+  ],
+  "replay_stable": true,
+  "cases": [
+    {
+      "case_id": "interleave_a_first_reference",
+      "role": "interleaving",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "a-claim",
+          "decision": "allow",
+          "committed_effect": true,
+          "conclusion_class": "supported"
+        },
+        {
+          "call_id": "b-claim",
+          "decision": "deny",
+          "committed_effect": false,
+          "conclusion_class": "supported"
+        }
+      ]
+    },
+    {
+      "case_id": "interleave_b_first_reference",
+      "role": "interleaving",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-claim",
+          "decision": "allow",
+          "committed_effect": true,
+          "conclusion_class": "supported"
+        },
+        {
+          "call_id": "a-claim",
+          "decision": "deny",
+          "committed_effect": false,
+          "conclusion_class": "supported"
+        }
+      ]
+    },
+    {
+      "case_id": "revocation_late_observation_reference",
+      "role": "revocation_late_observation",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-late",
+          "decision": "allow",
+          "committed_effect": false,
+          "conclusion_class": "failed_enforcement"
+        },
+        {
+          "call_id": "c-fresh",
+          "decision": "deny",
+          "committed_effect": false,
+          "conclusion_class": "supported"
+        }
+      ]
+    },
+    {
+      "case_id": "reference_contention_one_use",
+      "role": "reference_vs_mutant",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "a-claim",
+          "decision": "allow",
+          "committed_effect": true,
+          "conclusion_class": "supported"
+        },
+        {
+          "call_id": "b-claim",
+          "decision": "allow",
+          "committed_effect": false,
+          "conclusion_class": "failed_enforcement"
+        }
+      ]
+    },
+    {
+      "case_id": "mutant_ignore_spend_contention",
+      "role": "reference_vs_mutant",
+      "policy_id": "mutant_ignore_spend",
+      "claims": [
+        {
+          "call_id": "a-claim",
+          "decision": "allow",
+          "committed_effect": true,
+          "conclusion_class": "supported"
+        },
+        {
+          "call_id": "b-claim",
+          "decision": "allow",
+          "committed_effect": true,
+          "conclusion_class": "failed_enforcement"
+        }
+      ]
+    },
+    {
+      "case_id": "reference_forged_assignee_boundary",
+      "role": "reference_vs_mutant",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-forge",
+          "decision": "allow",
+          "committed_effect": false,
+          "conclusion_class": "failed_enforcement"
+        }
+      ]
+    },
+    {
+      "case_id": "mutant_forged_assignee_boundary",
+      "role": "reference_vs_mutant",
+      "policy_id": "mutant_ignore_spend",
+      "claims": [
+        {
+          "call_id": "b-forge",
+          "decision": "allow",
+          "committed_effect": true,
+          "conclusion_class": "failed_enforcement"
+        }
+      ]
+    },
+    {
+      "case_id": "paired_world_active_blind",
+      "role": "paired_world",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-blind",
+          "decision": "deny",
+          "committed_effect": false,
+          "conclusion_class": "missing_evidence"
+        }
+      ]
+    },
+    {
+      "case_id": "paired_world_revoked_blind",
+      "role": "paired_world",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-blind",
+          "decision": "deny",
+          "committed_effect": false,
+          "conclusion_class": "missing_evidence"
+        }
+      ]
+    },
+    {
+      "case_id": "paired_world_active_irrelevant",
+      "role": "negative_control",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-irr",
+          "decision": "deny",
+          "committed_effect": false,
+          "conclusion_class": "missing_evidence"
+        }
+      ]
+    },
+    {
+      "case_id": "paired_world_revoked_irrelevant",
+      "role": "negative_control",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-irr",
+          "decision": "deny",
+          "committed_effect": false,
+          "conclusion_class": "missing_evidence"
+        }
+      ]
+    },
+    {
+      "case_id": "paired_world_active_distinguished",
+      "role": "paired_world",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-disc",
+          "decision": "allow",
+          "committed_effect": true,
+          "conclusion_class": "supported"
+        }
+      ]
+    },
+    {
+      "case_id": "paired_world_revoked_distinguished",
+      "role": "paired_world",
+      "policy_id": "reference",
+      "claims": [
+        {
+          "call_id": "b-disc",
+          "decision": "deny",
+          "committed_effect": false,
+          "conclusion_class": "supported"
+        }
+      ]
+    }
+  ],
+  "score": {
+    "passed": true,
+    "errors": [],
+    "case_count": 13,
+    "protocol_id": "multi-agent-sim-v1",
+    "source_pin": "swarm-witness-multi-agent-sim-v1",
+    "three_way_classes_exercised": true,
+    "missing_evidence_count": 4,
+    "failed_enforcement_count": 5,
+    "supported_count": 9,
+    "all_checks_pass": true
+  },
+  "finding_id": "mas-f-multi-agent-sim",
+  "label": "reproduced"
+}

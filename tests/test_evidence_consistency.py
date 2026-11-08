@@ -171,6 +171,20 @@ def test_reproduced_with_unresolved_only_summary_fails(tmp_tree: Path):
     assert "unresolved" in joined or "reproduced" in joined
 
 
+def test_mismatched_observation_ref_fails(tmp_tree: Path):
+    """A supporting ref that names a real run but a missing field is an explicit failure."""
+    finding_path = tmp_tree / "evidence" / "r1" / "findings" / "r1-f-primary.json"
+    finding = json.loads(finding_path.read_text(encoding="utf-8"))
+    finding["supporting_observation_refs"] = [
+        "r1-run-barrier-sweep.observations.not_a_recorded_field",
+    ]
+    finding_path.write_text(json.dumps(finding, indent=2) + "\n", encoding="utf-8")
+
+    errors = check_consistency(tmp_tree)
+    assert errors
+    assert any("not_a_recorded_field" in err or "unresolved" in err for err in errors)
+
+
 def test_unregistered_claim_id_fails(tmp_tree: Path):
     """finding.claim_id not in claims/ → FAIL"""
     finding_path = tmp_tree / "evidence" / "r1" / "findings" / "r1-f-primary.json"

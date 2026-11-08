@@ -1,0 +1,117 @@
+{
+  "case_id": "mutant_ignore_spend_contention",
+  "name": "Mutant ignore-spend on identical TOCTOU schedule (counterexample)",
+  "role": "reference_vs_mutant",
+  "policy_id": "mutant_ignore_spend",
+  "schedule": {
+    "schedule_id": "sched-toctou-contend",
+    "seed": 404,
+    "description": "Same TOCTOU schedule/seed as reference contention; mutant disables effect-boundary enforcement and double-commits",
+    "steps": [
+      {
+        "kind": "grant_issue",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "issue shared one-use grant"
+      },
+      {
+        "kind": "delegation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "assign B"
+      },
+      {
+        "kind": "delegation",
+        "actor": "ledger",
+        "grant_id": "grant-shared",
+        "target": "C",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "assign C"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "A",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "A observes active grant"
+      },
+      {
+        "kind": "observation_deliver",
+        "actor": "scheduler",
+        "grant_id": "grant-shared",
+        "target": "B",
+        "call_id": null,
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "B observes active grant before either claim"
+      },
+      {
+        "kind": "claim",
+        "actor": "A",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "a-claim",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "A claims with active local observation"
+      },
+      {
+        "kind": "claim",
+        "actor": "B",
+        "grant_id": "grant-shared",
+        "target": null,
+        "call_id": "b-claim",
+        "use_foreign_receipt": false,
+        "foreign_receipt_from": null,
+        "irrelevant_fact": null,
+        "stale_grant": null,
+        "note": "B claims with stale-active local observation (no refresh)"
+      }
+    ]
+  },
+  "expected": {
+    "claim_decisions": {
+      "a-claim": "allow",
+      "b-claim": "allow"
+    },
+    "committed_effects": {
+      "a-claim": true,
+      "b-claim": true
+    },
+    "effect_settlements": {
+      "a-claim": "committed",
+      "b-claim": "committed"
+    },
+    "one_use_ok": false,
+    "claim_conclusions": {
+      "a-claim": "supported",
+      "b-claim": "failed_enforcement"
+    },
+    "counterexample": true
+  }
+}

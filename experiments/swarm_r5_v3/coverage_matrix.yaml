@@ -1,0 +1,119 @@
+# R5-v2 coverage matrix (issue #11).
+# Each dimension reports tested and untested seams — not only a total count.
+# Every `tested` seam MUST be bound to ≥1 case via `seams` on that case
+# (enforced by coverage_report / evaluate_r5_v2_success).
+protocol_id: r5-swarm-audit-v2
+source_pin: swarm-witness-r5-v2
+prior_protocol_id: r5-swarm-audit-v1
+notes: >
+  Orthogonal scenario families for the versioned R5 extension. Concurrency
+  rows consume pinned multi-agent-sim-v1 traces (issue #10); sequential and
+  observation-quality rows are independent. No live concurrent swarm claim.
+  Reference vs mutant contention pins share seed, event_count, and
+  schedule_id sched-toctou-contend (simulator commit 28b3642, PR #23).
+  The run documents are not byte-identical, so
+  reference_vs_mutant_byte_identical_schedule_id stays untested.
+  PR #15 and PR #19 snapshots are not the current pins.
+
+dimensions:
+  - id: authority_observation
+    family: authority_observation
+    tested:
+      - valid_active
+      - revoked
+      - spent
+      - missing
+      - misbound
+      - stale_epoch
+      - broken_deny_on_active
+    untested:
+      - cryptographic_attestation
+      - multi_epoch_rekey
+      - cross_domain_authority_bridge
+
+  - id: delegation_scope
+    family: delegation_scope
+    tested:
+      - multi_hop_attenuated_allow
+      - scope_exceeded_deny
+      - non_assignee
+      - revoke_after_hops
+    untested:
+      - capability_token_cryptography
+      - cross_organization_delegation
+      - partial_revocation_of_one_assignee
+      - broken_deny_on_revoked_after_hops
+
+  - id: receipt_provenance
+    family: receipt_provenance
+    tested:
+      - foreign_ledger_receipt
+      - copied_replay
+      - forged_unbound
+      - correct_bound_deny_after_spend
+    untested:
+      - signature_forgery_resistance
+      - receipt_revocation_lists
+
+  - id: observation_delivery
+    family: observation_delivery
+    tested:
+      - partial_observation
+      - irrelevant_information_control
+      - partial_broken_allow
+    untested:
+      - network_partition_recovery
+      - byzantine_reordering_beyond_pinned_sim
+      # missing peer observation is tested under authority_observation, not here
+
+  - id: decision_effect_separation
+    # Cross-cutting: cases tagged with these seams (not a separate run family).
+    family: null
+    bind_by: seams
+    tested:
+      - authorized_commit
+      - incorrect_allow_prevented
+      - incorrect_deny
+      - unauthorized_commit_effect_boundary
+    untested:
+      - partial_commit_rollback
+      - multi_resource_atomic_settlement
+
+  - id: mechanism_arms
+    family: null
+    bind_by: seams
+    tested:
+      - correct_vs_broken_allow_same_inputs
+      - correct_vs_broken_deny_same_inputs
+      - correct_vs_broken_allow_and_commit_same_inputs
+      - reference_vs_mutant_same_seed_contention
+    untested:
+      - randomized_policy_search
+      - learned_policy_regression_suite
+      - reference_vs_mutant_byte_identical_schedule_id
+
+  - id: concurrency_interleaving
+    family: concurrency_interleaving
+    source_protocol: multi-agent-sim-v1
+    tested:
+      - a_first_vs_b_first_contention
+      - reference_vs_mutant_same_seed_contention
+      - revocation_late_observation
+    untested:
+      - live_distributed_mesh
+      - wall_clock_races
+      - unbounded_swarm_populations
+      - reference_vs_mutant_byte_identical_schedule_id
+    exclusions:
+      - live_bmo_mesh_equivalence
+      - production_concurrency_guarantees
+      - unbounded_swarm_safety
+      - r5_v1_relabeled_as_concurrent
+
+# Major families that MUST have ≥1 correct+faulty pair on the same paired_input_id.
+major_families_requiring_paired_arms:
+  - authority_observation
+  - delegation_scope
+  - receipt_provenance
+  - observation_delivery
+  - concurrency_interleaving

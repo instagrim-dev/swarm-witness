@@ -44,6 +44,9 @@ results:
 - claim_id: provenance_contract_v1
   label: reproduced
   finding_id: provenance-contract-v1-f
+- claim_id: multi_agent_sim
+  label: reproduced
+  finding_id: mas-f-multi-agent-sim
 - claim_id: r1
   label: reproduced
   finding_id: r1-f-primary
@@ -65,6 +68,9 @@ results:
 - claim_id: r5_v2
   label: reproduced
   finding_id: r5_v2-f-property
+- claim_id: r5_v3
+  label: reproduced
+  finding_id: r5v3-f-swarm-audit
 - claim_id: taxonomy_theory
   label: reproduced
   finding_id: taxonomy-theory-finite-check

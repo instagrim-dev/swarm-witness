@@ -1,0 +1,81 @@
+{
+  "id": "r5v3-v2_held_out_misleading_stale_assignee",
+  "claim_id": "r5_v3",
+  "protocol_id": "r5-swarm-audit-v3",
+  "case_id": "v2_held_out_misleading_stale_assignee",
+  "source_pin": "swarm-witness-r5-v3",
+  "execution_status": "completed",
+  "observations": {
+    "family": "held_out",
+    "agents": [
+      "A",
+      "B",
+      "C"
+    ],
+    "mechanism_arm": "correct",
+    "paired_input_id": "held_out_stale_assignee",
+    "evidence_source": "held_out:misleading_stale_assignee.json",
+    "expectation_source": "held_out:misleading_stale_assignee.json",
+    "assessment": "enforcement_failed",
+    "conclusion_class": "failed_enforcement",
+    "finding_label": "contradicted_in_scope",
+    "property_holds": false,
+    "decision": "allow",
+    "required_decision": "deny",
+    "agent": "C",
+    "grant_id": "g-held-1",
+    "call_id": "held-c-1",
+    "observation_mode": "misbound",
+    "gate_mode": "correct",
+    "receipt_kind": "none",
+    "presented_receipt": null,
+    "effect_committed": false,
+    "evidence_status": "misbound",
+    "decision_status": "incorrect",
+    "effect_status": "prevented",
+    "failure_origin": "evidence",
+    "authoritative_owner_state": {
+      "owner": "A",
+      "state": "revoked",
+      "epoch": "epoch-1",
+      "spent": false,
+      "assignees": [
+        "A",
+        "B",
+        "C"
+      ],
+      "task_scopes": {
+        "A": "task-*",
+        "B": "task-*",
+        "C": "task-*"
+      },
+      "owner_version": 4
+    },
+    "trusted_ground_truth": {
+      "grant_state": "revoked",
+      "assignees": [
+        "A",
+        "B",
+        "C"
+      ],
+      "required_decision_for_c": "deny",
+      "effect_may_commit": false
+    },
+    "held_out_artifact": "misleading_stale_assignee.json",
+    "sim_source_run_id": null,
+    "sim_protocol_id": null,
+    "sim_exclusions": null,
+    "expected": {
+      "conclusion_class": "failed_enforcement",
+      "decision": "allow",
+      "effect_committed": false,
+      "evidence_status": "misbound",
+      "decision_status": "incorrect",
+      "effect_status": "prevented",
+      "failure_origin": "evidence",
+      "assessment": "enforcement_failed"
+    },
+    "conclusion_match": true,
+    "reason": "misbound grant observation; gate view disagrees with authoritative required=deny; decision=allow"
+  }
+}
