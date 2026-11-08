@@ -64,3 +64,15 @@ Pytest reported 386 passed. The fresh effect-witness run wrote to `/tmp/swarm-wi
 The source is commit `fa8d215b09c99292b0cb2e4e924fcb7c9c9e27f3`, packed from `git archive` of that commit. The archive digest is `3e83785dbe8a0e5bc5442741b4a2a2f279378c3c05b162c42a3724e422c89887`. The review bundle digest is `513544dfc1a577b28e67aa3680ff74387f5ae548f8791305900e2325babd2d63`. Both are recorded in `clean_extract_fa8d215.json`, and the command log is `clean_extract_fa8d215.log`.
 
 Every advertised command exited 0. Pytest reported 386 passed. Table N still showed Swarm Witness unsupported support 11 and correct decisive 24/24. The six-case ledger compare and both settlement compares exited 0 with `agreement: matched`. The LibreOffice build produced a 9-page research PDF, with references on page 8, and a 10-page templated PDF, with references on page 9. Both contain the seven-negative-controls paragraph.
+
+## Clean extract of fde17ab
+
+This section records a replay of commit `fde17ab15cbb92e23b93513a8a5c9486379f17c7`. It was added after that commit. It does not claim to have tested the commit that contains this paragraph.
+
+The source archive digest is `3a29508cd299460470bc11183452d6b4dc343b7c1a0167443636d13de2a5c627`. The review-bundle digest is `47ac53340afb0cb611433f31f23e8862e56b9cfc94e23e5590f5ec772e29c658`. The archive contained no workbench directory, sqlite file, or `bmo_work` tree. The command log is `clean_extract_fde17ab.log`, and the digests are in `clean_extract_fde17ab.json`.
+
+In `/tmp/sw-review-extract-fde17ab/swarm-witness-review-bundle`, a new virtualenv ran the advertised commands and the contract, challenge, and representation commands. Pytest reported 403 passed. That count is the count for this commit. It does not reuse the historical 386. Table N still showed Swarm Witness unsupported support 11 and correct decisive 24/24. Table N2 still showed 0 unsupported supports. The historical qualification packets, the v1 challenge ledger, and `heldout_v1/result.json` kept the same digests.
+
+The six-case ledger compare exited 0 with `agreement: matched` and `validity: true`, and its printed label was `unresolved`. It rewrote the extract's `summary.json`: `native_bmo` became false and the qualification note was `bridge hash mismatch for bmo_adapter_test.go: file≠manifest`. That is a compare-only requalification of retained records, not a native Go re-execution. Native Go re-execution was not run. The two settlement compares exited 0 with `agreement: matched` and did not change their summary files. The contract report, challenge v2, and representation study wrote only under the temporary run directory.
+
+The LibreOffice build in the extract produced a 9-page research PDF, with references on page 8, and a 10-page templated PDF, with references on page 9. The source commit was not pushed.
