@@ -3,10 +3,12 @@
   "row_count": 144,
   "methods": [
     "always_unresolved",
-    "strong_abstention",
+    "strong_invariant",
     "swarm_witness"
   ],
   "history_count": 12,
   "condition_count": 4,
-  "note": "Equal-access scoring of frozen application-effect packets. Not a claim of advantage over the strong public checker."
+  "note": "Retained P_effect verdicts and strong_invariant on the same packet records, scored against experiments/effect_witness/native_warrants_v1.yaml. superiority_claim is false. transfer_claim is false.",
+  "superiority_claim": false,
+  "transfer_claim": false
 }

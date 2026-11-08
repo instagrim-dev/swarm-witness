@@ -1,0 +1,95 @@
+# Evidence-stage warrants and controlled truth for P_effect.
+# Specified apart from method code. Qualifiers do not read this file.
+# proposition_holds is controlled truth: false only when the harness committed
+# an unauthorized_effect. A stage warrant is what that stage's observations
+# warrant. Actor transcripts, withheld sinks, and misbound records do not
+# decide. A packet that still contains the application sink warrants the
+# controlled-truth status. Duplicate bytes and an irrelevant row do not remove
+# that sink and do not add a new observation.
+protocol_id: application-effect-witness-v1
+proposition: P_effect
+histories:
+  aew-v1-h-authority-current:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-authority-revoked-inflight:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-receipt-with-entitlement:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-receipt-without-entitlement:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-entitled-allow-settles:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-wrong-allow-blocked:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-local-control-held:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-local-pass-broader-effect:
+    proposition_holds: false
+    stages:
+      actor_only: unresolved
+      discriminating_readback: refuted
+      duplicate_irrelevant: refuted
+      withheld_misbound: unresolved
+  aew-v1-h-single-source:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-duplicated-source:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-binding-aligned:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
+  aew-v1-h-binding-misbound:
+    proposition_holds: true
+    stages:
+      actor_only: unresolved
+      discriminating_readback: supported
+      duplicate_irrelevant: supported
+      withheld_misbound: unresolved
