@@ -17,7 +17,7 @@
 | #10 causal simulator | 9 schedules, 18 arms; defective policy produces six unauthorized effects, reference zero | Deterministic causal interleavings, model effect ledger |
 | #11 R5 v2 | 14 fixed scenarios, 28 arms, nine dimensions; faulty local policy nine unauthorized effects, reference zero | Fixed synthetic matrix with separately reconstructed effects |
 | #12 mathematical foundation | Five conditional theorems/countermodels; 2,646 finite checks, zero violations | Four-world possible-world model and written proofs |
-| Incident audit v1 | Blinded public postmortem qualification; fewer unsupported conclusions than two matched baselines | Pinned 2026 reports only; not detection or prevention |
+| Incident audit v1 | Earlier author-curated staged comparison: fewer unsupported conclusions than two matched baselines (naive PASS and a weak checklist). Beside that, the frozen public comparison ties the strong checker (both 0 unsupported supports; naive PASS has 24). superiority_claim is false. Mechanical withholding of later-stage evidence is not independent curation. | Pinned 2026 reports only; not detection or prevention |
 | Eight-world formal checker | Separate finite permission model beside the four-world checker | Does not replace `taxonomy_theory` |
 | Settlement-ledger simulator | Reference effect settlement can refuse after allow | Separate from historical `causal_swarm` |
 | R5-v3 | Wider coverage pinned to that ledger | Separate from historical `r5_v2` (14 scenarios / 28 arms) |

@@ -10,6 +10,12 @@ On the public layer the naive baseline has 24 unsupported supports and decisive 
 
 C03 and C05 stay refuted. Their Swarm Witness conclusion class is `refuted`, not `failed_enforcement`. The effect stays unobserved, and enforcement and effect origin stay undetermined. The unauthenticated displayed command on C03 is withheld, so stage A does not count it as an admitted support. The rate scalars above did not change.
 
+Tables for the three denominators are rendered from these retained files, not rescored:
+
+```bash
+python3 scripts/render_bounded_comparison.py
+```
+
 ```bash
 PYTHONPATH=src python3 experiments/incident_audit/compare.py
 PYTHONPATH=src python3 -m pytest -q tests/test_comparison_freeze.py tests/test_incident_audit.py tests/test_provenance_contract.py

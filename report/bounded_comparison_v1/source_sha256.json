@@ -1,0 +1,21 @@
+{
+  "retained_files": {
+    "frozen_summary": "055828475ff58c7f44c5b5bb858fb6701663978680fd324b001ccded5e6716a0",
+    "frozen_matrix": "cb431d2cc079ca5183accc0c7d8563a1e9848608c556f7fbe992723fd897b3e0",
+    "staged_summary": "cf5c885ea02b4669d8e07d95cdc128b7dfa0d6193f08fa3eb75d843acb7dff64",
+    "staged_matrix": "bc5e497d96ace75f24c7b0b504e3d2a5a8cb5e096b342d80fd321dd3d243de22",
+    "effect_summary": "4cb42d811aab039ca7fbd8e3346898496eb716abde9f2f450eec0615ac879d74",
+    "effect_witness": "e9c26bee430d771a7ca03dfcc24fd88b9886fb381c5b02d62ffd4780c9202e1e",
+    "effect_packets": "64a91273b7cacda2b736af16901f81be76ad5d288ac6960719411649ee340d00",
+    "binding_summary": "cbada3c1496e55bce74eb09486c12aee33fe231bb861d87e899f8646d134d0b4",
+    "frozen_input_sha256": "70c642989ab1e19bcbe247bc40cb7f1da3e449ad950e04470f7b907b688d6f33"
+  },
+  "frozen_inputs": {
+    "census": "c6fed312f872775a3c6e7585614f9ee67281426f0bbbb20bdf2b37d0f5a2e3c7",
+    "packets": "8ed1083fb667c41353d94384a8175001abab5dfd9e70cd6fb2f97e33bf37e324",
+    "claims": "282b12e5e3831bd882ceca0297b239883b82f28f224529df3b0ac3b318e40520",
+    "warrants": "029a76cb6d0d69b517a348c8d8aa4bcea7004d4f67aba2a03c3da19d87a2fd2e",
+    "protocol": "21d72385b4fb781e211e00acd87c91b2d5cfdf20b88d8fca890aa2ce6dd867b9",
+    "lineage": "ed967b010694f716e0437249000dae615920eb0c00ba0a8f63de1846367c272d"
+  }
+}
