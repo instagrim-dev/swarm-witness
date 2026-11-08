@@ -11,6 +11,9 @@ results:
 - claim_id: incident_comparison_v1
   label: reproduced
   finding_id: incident-comparison-v1-f
+- claim_id: detection_latency
+  label: reproduced
+  finding_id: detection-latency-f-protocol
 - claim_id: forensic_telemetry_v1
   label: reproduced
   finding_id: forensic-telemetry-v1-f

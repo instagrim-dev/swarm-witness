@@ -1,0 +1,53 @@
+claim_id: detection_latency
+label: reproduced
+authoritative: finding
+finding_path: findings/detection-latency-f-protocol.json
+metrics:
+  passed: true
+  seed: 32
+  seed_draws: 0
+  alert_budget: 1
+  synthetic_case_count: 7
+  historical_case_count: 1
+  required_case_shape_count: 3
+  synthetic_stage_count: 10
+  detectable_case_denominator: 5
+  historical_stages_excluded: 4
+  audit_true_alert_count: 5
+  audit_false_alert_count: 0
+  audit_abstention_count: 3
+  audit_miss_count: 0
+  rule_baseline_true_alert_count: 3
+  rule_baseline_false_alert_count: 0
+  rule_baseline_miss_count: 2
+  higher_threshold_2_true_alert_count: 1
+  higher_threshold_2_false_alert_count: 0
+  higher_threshold_2_miss_count: 4
+  higher_threshold_1_true_alert_count: 4
+  higher_threshold_1_false_alert_count: 0
+  weak_threshold_false_alert_count: 2
+  weak_threshold_true_alert_count: 2
+  tie_count: 6
+  failure_count: 4
+  budget_suppressed_count: 3
+  hindsight_document_qualified_alert_count: 0
+  historical_latency_result_count: 0
+  withheld_latency_claim_count: 8
+  incident_detection_claimed: false
+  incident_prevention_claimed: false
+  incident_latency_status: absent
+  incident_detection_latency_emitted: false
+  incident_detection_latency_seconds: null
+  incident_trustworthy_event_time_count: 0
+  reproduction_one_public_record: true
+  reproduction_independent_observation_count: 1
+  unavailable_record_count: 6
+  unavailable_row_count: 0
+  unavailable_effect_time_count: 0
+  unavailable_records_are_gates: false
+  held_source_gate_prevents_supported: true
+  unavailable_gate_rejected: true
+  real_world_authenticity_certified: false
+notes: Incident detection latency is absent. Forensic telemetry holds no trustworthy
+  event time for the original incident. Synthetic durations live under observations.replay.synthetic_control_measures
+  and are not incident measurements.

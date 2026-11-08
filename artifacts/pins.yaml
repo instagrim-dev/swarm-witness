@@ -122,3 +122,10 @@ forensic_telemetry_v1:
   notes: >
     Executable forensic-telemetry-v1 replay. The reproduction record qualifies.
     The original incident is not certified.
+detection_latency:
+  source_pin: detection-latency-replay-v1
+  source_revision: detection-latency-replay-v1
+  notes: >
+    Issue 32 replay stacked on forensic telemetry. Synthetic controls are
+    protocol-authored. Incident detection latency is absent because the
+    executed telemetry graph holds no trustworthy event time.
