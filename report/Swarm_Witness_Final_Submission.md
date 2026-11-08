@@ -75,13 +75,23 @@ An additional EvidenceGraph experiment tests whether an adapter can express prio
 
 ## 4 Results
 
-### 4.1 A local control and a forbidden effect
+### 4.1 Native transaction-contract calibration
 
-In the named application witness, the ordinary `remote_url_allowlist` test passes. The actor-only packet leaves `P_effect` unresolved. The application readback establishes a forbidden downstream commit and therefore refutes `P_effect`. That refutation also refutes `P_system`, while the passing local control remains correctly reported. The witness identifier is `aew-v1-local-control-pass-broader-effect` [7].
+The retained native comparison establishes that BMO and an independent classical implementation satisfy the same bounded transaction contract. BMO exposes `ClaimOrdinaryRetainedGrantFirstEditTx`. The comparator is an independent SQLite `ClassicalLedgerGate`. On six cases and 22 paired steps, both implementations satisfy the declared properties and match on dispositions and the relevant ledger-state projections. The cases cover repeated claims, spent and unspent authority after database reopen, rollback, wrong-task requests, and noncurrent owner revisions [7]. The comparison measures claim and transfer behavior. It supplies a calibrated upstream result from which to ask which later observations establish a delegated effect.
+
+A scope-control packet refutes the further proposition that these ledger traces establish external settlement. That refutation follows from the experiment's declared scope. The packet contains no measured downstream execution, and it does not show that an effect failed to occur.
+
+The application witness and the EvidenceGraph study answer neighboring questions. The witness pairs a local URL control with application-owned storage effects and does not execute the BMO retained-grant owner. EvidenceGraph examines attribution and the assumptions carried through an adapter. Neither measures BMO's path from a committed claim through later settlement.
+
+A settlement-inclusive comparison remains a distinct extension. It would connect the retained-grant owner to BMO's existing applied and definite no-effect settlement path, then compare a valid claim followed by an applied effect with a valid claim followed by a definite no-effect outcome. The claim and ledger view come first; the bound execution and settlement records come second. Both arms receive the same declared settlement contract. Contract conformity, evidence sufficiency, and behavioral difference are separate measurements. Equality concerns the initial ledger projection or the shared execution prefix. Later applied and no-effect records may differ, and that difference may be the observation that resolves the delegated effect. The extension can find that BMO's existing settlement records already close the inference for the specified operation. It does not presuppose a failure in BMO or a divergence between the implementations.
+
+### 4.2 A local control and a forbidden effect
+
+The application study asks the downstream question for a different owner. In the named witness, the ordinary `remote_url_allowlist` test passes. The actor-only packet leaves `P_effect` unresolved. The application readback establishes a forbidden downstream commit and therefore refutes `P_effect`. That refutation also refutes `P_system`, while the passing local control remains correctly reported. The witness identifier is `aew-v1-local-control-pass-broader-effect` [7].
 
 The clean authority-current control provides the complementary result: complete observations of an authorized commit support `P_effect`. They leave `P_system` unresolved because this one boundary does not establish every component. These paired outcomes show why a record of settlement and the proposition being evaluated must remain explicit.
 
-### 4.2 Warrant and truth diverge
+### 4.3 Warrant and truth diverge
 
 Both methods recover all twenty-four warranted decisive conclusions in the native comparison. Their treatment of incomplete evidence differs substantially (Table 2).
 
@@ -99,7 +109,7 @@ The invariant checker avoids these unsupported supports while recovering the sam
 
 Table N2 replays the same 48 packet files with the current evaluator and does not replace the retained 11 unsupported supports. That replay has 0 unsupported supports, 0 unsupported refutations, correct decisive 24 of 24, and 24 correct abstentions. The twelve retained actor-only diagnostics say prevented; the current evaluator records those incomplete observations as unobserved. Attribution is not evaluated on this layer, and the replay makes 0 additional source requests.
 
-### 4.3 Public and translated evidence
+### 4.4 Public and translated evidence
 
 On the twenty-four public-record conditions, Swarm Witness and the invariant checker agree throughout: each returns twenty-two warranted abstentions and both warranted decisive conclusions, with no unsupported supports or refutations. A naive rule that treats a passing result as support produces twenty-four unsupported supports. The smaller controlled comparison also ties the two principal methods, with two correct decisive conclusions and two correct abstentions across four claims [7].
 
@@ -109,7 +119,7 @@ In the EvidenceGraph study, both composed classifiers preserve all 130 adapter d
 
 Complete mediation and reference-monitor reasoning motivate the distinction between a local check and the boundary at which an action becomes effective [1, 2]. Causal ordering provides a basis for relating authorization, revocation, and execution events [3]. Possible-worlds semantics supplies the language for reasoning about what observations establish [4]. Swarm Witness uses these foundations to define a concrete experimental interface between claims, evidence conditions, and warranted conclusions.
 
-SoundGate studies whether restart preserves a durable refusal [5]. EvidenceGraph studies why possession of a receipt does not establish event attribution [6]. Retained supporting experiments confirm selected behavior under pinned sources or later published harnesses. A native first-edit comparison also matches a preexisting BMO transactional owner with a SQLite baseline on six declared cases, covering one-use claims, rollback, and cold reopen [7]. These studies motivate the protocol's distinctions; they do not turn a ledger property into a guarantee about later execution.
+SoundGate studies whether restart preserves a durable refusal [5]. EvidenceGraph studies why possession of a receipt does not establish event attribution [6]. Retained supporting experiments confirm selected behavior under pinned sources or later published harnesses. Section 4.1 reports the completed native calibration: BMO and the classical ledger satisfy the same claim and transfer contract. That result leaves the evidence required for later execution as a separate question.
 
 The principal result is the separation of three judgments that can otherwise collapse into a single pass label: whether the relevant property holds, whether a control behaved as specified, and whether the available observations justify the conclusion. The application witness separates a correct local control from a forbidden effect. The incomplete-evidence comparison then separates truth from warrant. Together they give a concrete way to investigate where an authorization argument loses support.
 
@@ -119,7 +129,7 @@ The corpus is small and deliberately constructed. Packet conditions are dependen
 
 ## 6 Conclusion
 
-Authorization conclusions require evidence that addresses the claimed property at the relevant boundary. Application readback can distinguish a passing local control from a forbidden effect in the same execution. The matched comparison also shows that the current Swarm Witness qualifier can overstate incomplete evidence even when its conclusion happens to be true. Scoped claims, controlled observation conditions, and separately specified warrants make these relationships explicit and testable.
+Authorization conclusions require evidence that addresses the claimed property at the relevant boundary. The retained native comparison shows that BMO and a classical ledger satisfy the same claim and transfer contract. Application readback can distinguish a passing local control from a forbidden effect in a separate execution. The matched evidence comparison also shows that the current Swarm Witness qualifier can overstate incomplete evidence even when its conclusion happens to be true. Scoped claims, controlled observation conditions, and separately specified warrants make these relationships explicit and testable. Which subsequent observations establish a delegated effect, once that transaction contract has been satisfied, remains a distinct measurement.
 
 ## Code and data
 
