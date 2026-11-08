@@ -1,0 +1,209 @@
+layer,claim_id,history,stage,method,predicted,adjudicated,category,attributed_origin,warranted_origin,proposition_holds,observation_ids,certifies_original_incident,conclusion_class,prompt_sha256
+public_warrants,C01,C01,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E01,False,,
+public_warrants,C01,C01,A,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E01,False,,
+public_warrants,C01,C01,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E01,False,,
+public_warrants,C02,C02,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E03,False,,
+public_warrants,C02,C02,A,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E03,False,,
+public_warrants,C02,C02,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E03,False,,
+public_warrants,C03,C03,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E06,False,,
+public_warrants,C03,C03,A,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E06,False,,
+public_warrants,C03,C03,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E06,False,,
+public_warrants,C04,C04,A,naive,supported,unresolved,false_support_against_unresolved,report_named_actor,undetermined,,E08 E09,False,,
+public_warrants,C04,C04,A,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E08 E09,False,,
+public_warrants,C04,C04,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E08 E09,False,,
+public_warrants,C05,C05,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E10,False,,
+public_warrants,C05,C05,A,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E10,False,,
+public_warrants,C05,C05,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E10,False,,
+public_warrants,C06,C06,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E12,False,,
+public_warrants,C06,C06,A,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E12,False,,
+public_warrants,C06,C06,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E12,False,,
+public_warrants,C07,C07,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E14,False,,
+public_warrants,C07,C07,A,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E14,False,,
+public_warrants,C07,C07,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E14,False,,
+public_warrants,C08,C08,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E16,False,,
+public_warrants,C08,C08,A,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E16,False,,
+public_warrants,C08,C08,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E16,False,,
+public_warrants,C09,C09,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E17,False,,
+public_warrants,C09,C09,A,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E17,False,,
+public_warrants,C09,C09,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E17,False,,
+public_warrants,C10,C10,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E19,False,,
+public_warrants,C10,C10,A,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E19,False,,
+public_warrants,C10,C10,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E19,False,,
+public_warrants,C11,C11,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E21,False,,
+public_warrants,C11,C11,A,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E21,False,,
+public_warrants,C11,C11,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E21,False,,
+public_warrants,C12,C12,A,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E23 E24,False,,
+public_warrants,C12,C12,A,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E23 E24,False,,
+public_warrants,C12,C12,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E23 E24,False,,
+public_warrants,C01,C01,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E01 E02 E26,False,,
+public_warrants,C01,C01,B,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E01 E02 E26,False,,
+public_warrants,C01,C01,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E01 E02 E26,False,,
+public_warrants,C02,C02,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E03 E04 E05 E26,False,,
+public_warrants,C02,C02,B,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E03 E04 E05 E26,False,,
+public_warrants,C02,C02,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E03 E04 E05 E26,False,,
+public_warrants,C03,C03,B,naive,supported,refuted,false_support_against_refuted,undetermined,undetermined,,E06 E07,False,,
+public_warrants,C03,C03,B,weak_checklist,unresolved,refuted,missed_resolution_of_refutation,undetermined,undetermined,,E06 E07,False,,
+public_warrants,C03,C03,B,swarm_witness,refuted,refuted,warranted_refutation,undetermined,undetermined,,E06 E07,False,,
+public_warrants,C04,C04,B,naive,supported,unresolved,false_support_against_unresolved,report_named_actor,undetermined,,E08 E09,False,,
+public_warrants,C04,C04,B,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E08 E09,False,,
+public_warrants,C04,C04,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E08 E09,False,,
+public_warrants,C05,C05,B,naive,supported,refuted,false_support_against_refuted,undetermined,undetermined,,E10 E11,False,,
+public_warrants,C05,C05,B,weak_checklist,refuted,refuted,warranted_refutation,undetermined,undetermined,,E10 E11,False,,
+public_warrants,C05,C05,B,swarm_witness,refuted,refuted,warranted_refutation,undetermined,undetermined,,E10 E11,False,,
+public_warrants,C06,C06,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E12 E13,False,,
+public_warrants,C06,C06,B,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E12 E13,False,,
+public_warrants,C06,C06,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E12 E13,False,,
+public_warrants,C07,C07,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E14 E15,False,,
+public_warrants,C07,C07,B,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E14 E15,False,,
+public_warrants,C07,C07,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E14 E15,False,,
+public_warrants,C08,C08,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E16,False,,
+public_warrants,C08,C08,B,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E16,False,,
+public_warrants,C08,C08,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E16,False,,
+public_warrants,C09,C09,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E17 E18,False,,
+public_warrants,C09,C09,B,weak_checklist,refuted,unresolved,wrong_refutation_against_unresolved,undetermined,undetermined,,E17 E18,False,,
+public_warrants,C09,C09,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E17 E18,False,,
+public_warrants,C10,C10,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E19 E20,False,,
+public_warrants,C10,C10,B,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E19 E20,False,,
+public_warrants,C10,C10,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E19 E20,False,,
+public_warrants,C11,C11,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E21 E22,False,,
+public_warrants,C11,C11,B,weak_checklist,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E21 E22,False,,
+public_warrants,C11,C11,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E21 E22,False,,
+public_warrants,C12,C12,B,naive,supported,unresolved,false_support_against_unresolved,undetermined,undetermined,,E23 E24 E25 E26,False,,
+public_warrants,C12,C12,B,weak_checklist,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E23 E24 E25 E26,False,,
+public_warrants,C12,C12,B,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E23 E24 E25 E26,False,,
+public_warrants,C01,C01,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E01,False,,
+public_warrants,C01,C01,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E01,False,,
+public_warrants,C02,C02,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E03,False,,
+public_warrants,C02,C02,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E03,False,,
+public_warrants,C03,C03,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E06,False,,
+public_warrants,C03,C03,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E06,False,,
+public_warrants,C04,C04,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E08 E09,False,,
+public_warrants,C04,C04,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E08 E09,False,,
+public_warrants,C05,C05,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E10,False,,
+public_warrants,C05,C05,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E10,False,,
+public_warrants,C06,C06,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E12,False,,
+public_warrants,C06,C06,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E12,False,,
+public_warrants,C07,C07,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E14,False,,
+public_warrants,C07,C07,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E14,False,,
+public_warrants,C08,C08,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E16,False,,
+public_warrants,C08,C08,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E16,False,,
+public_warrants,C09,C09,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E17,False,,
+public_warrants,C09,C09,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E17,False,,
+public_warrants,C10,C10,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E19,False,,
+public_warrants,C10,C10,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E19,False,,
+public_warrants,C11,C11,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E21,False,,
+public_warrants,C11,C11,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E21,False,,
+public_warrants,C12,C12,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E23 E24,False,,
+public_warrants,C12,C12,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E23 E24,False,,
+public_warrants,C01,C01,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E01 E02 E26,False,,
+public_warrants,C01,C01,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E01 E02 E26,False,,
+public_warrants,C02,C02,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E03 E04 E05 E26,False,,
+public_warrants,C02,C02,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E03 E04 E05 E26,False,,
+public_warrants,C03,C03,B,strong_invariant,refuted,refuted,warranted_refutation,undetermined,undetermined,,E06 E07,False,,
+public_warrants,C03,C03,B,always_unresolved,unresolved,refuted,missed_resolution_of_refutation,undetermined,undetermined,,E06 E07,False,,
+public_warrants,C04,C04,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E08 E09,False,,
+public_warrants,C04,C04,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E08 E09,False,,
+public_warrants,C05,C05,B,strong_invariant,refuted,refuted,warranted_refutation,undetermined,undetermined,,E10 E11,False,,
+public_warrants,C05,C05,B,always_unresolved,unresolved,refuted,missed_resolution_of_refutation,undetermined,undetermined,,E10 E11,False,,
+public_warrants,C06,C06,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E12 E13,False,,
+public_warrants,C06,C06,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E12 E13,False,,
+public_warrants,C07,C07,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E14 E15,False,,
+public_warrants,C07,C07,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E14 E15,False,,
+public_warrants,C08,C08,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E16,False,,
+public_warrants,C08,C08,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E16,False,,
+public_warrants,C09,C09,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E17 E18,False,,
+public_warrants,C09,C09,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E17 E18,False,,
+public_warrants,C10,C10,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E19 E20,False,,
+public_warrants,C10,C10,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E19 E20,False,,
+public_warrants,C11,C11,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E21 E22,False,,
+public_warrants,C11,C11,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E21 E22,False,,
+public_warrants,C12,C12,B,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E23 E24 E25 E26,False,,
+public_warrants,C12,C12,B,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,E23 E24 E25 E26,False,,
+controlled_comparison,K-release,H-release,A,naive,supported,supported,warranted_support,lesswrong-reproduction-2026-09,lesswrong-reproduction-2026-09,,LW-post LW-appendix,False,,
+controlled_comparison,K-certify,H-release,A,naive,supported,unresolved,false_support_against_unresolved,lesswrong-reproduction-2026-09,undetermined,,LW-post LW-appendix UNAVAIL-transcripts UNAVAIL-hf-logs,True,,
+controlled_comparison,K-census,H-census,A,naive,supported,supported,warranted_support,undetermined,undetermined,,CENSUS UNAVAIL-transcripts UNAVAIL-hf-logs,False,,
+controlled_comparison,K-gate,H-gate,A,naive,supported,unresolved,false_support_against_unresolved,lesswrong-reproduction-2026-09,undetermined,,LW-post HELD-SLOT UNAVAIL-transcripts UNAVAIL-hf-logs,False,,
+controlled_comparison,K-release,H-release,A,strong_invariant,supported,supported,warranted_support,lesswrong-reproduction-2026-09,lesswrong-reproduction-2026-09,,LW-post LW-appendix,False,,
+controlled_comparison,K-certify,H-release,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,LW-post LW-appendix UNAVAIL-transcripts UNAVAIL-hf-logs,True,,
+controlled_comparison,K-census,H-census,A,strong_invariant,supported,supported,warranted_support,undetermined,undetermined,,CENSUS UNAVAIL-transcripts UNAVAIL-hf-logs,False,,
+controlled_comparison,K-gate,H-gate,A,strong_invariant,unresolved,unresolved,correct_refusal,undetermined,undetermined,,LW-post HELD-SLOT UNAVAIL-transcripts UNAVAIL-hf-logs,False,,
+controlled_comparison,K-release,H-release,A,swarm_witness,supported,supported,warranted_support,lesswrong-reproduction-2026-09,lesswrong-reproduction-2026-09,,LW-post LW-appendix,False,,
+controlled_comparison,K-certify,H-release,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,LW-post LW-appendix UNAVAIL-transcripts UNAVAIL-hf-logs,True,,
+controlled_comparison,K-census,H-census,A,swarm_witness,supported,supported,warranted_support,undetermined,undetermined,,CENSUS UNAVAIL-transcripts UNAVAIL-hf-logs,False,,
+controlled_comparison,K-gate,H-gate,A,swarm_witness,unresolved,unresolved,correct_refusal,undetermined,undetermined,,LW-post HELD-SLOT UNAVAIL-transcripts UNAVAIL-hf-logs,False,,
+controlled_comparison,K-release,H-release,A,always_unresolved,unresolved,supported,missed_resolution_of_support,undetermined,lesswrong-reproduction-2026-09,,LW-post LW-appendix,False,,
+controlled_comparison,K-certify,H-release,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,LW-post LW-appendix UNAVAIL-transcripts UNAVAIL-hf-logs,True,,
+controlled_comparison,K-census,H-census,A,always_unresolved,unresolved,supported,missed_resolution_of_support,undetermined,undetermined,,CENSUS UNAVAIL-transcripts UNAVAIL-hf-logs,False,,
+controlled_comparison,K-gate,H-gate,A,always_unresolved,unresolved,unresolved,correct_refusal,undetermined,undetermined,,LW-post HELD-SLOT UNAVAIL-transcripts UNAVAIL-hf-logs,False,,
+staged_author_curated,C01,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E01,,,a91c6fb912ac1adc613ab5b661c70f21cef4202e864d2698da663e1391583da7
+staged_author_curated,C01,,A,checklist,supported,unresolved,false_support_against_unresolved,,,,E01,,,a91c6fb912ac1adc613ab5b661c70f21cef4202e864d2698da663e1391583da7
+staged_author_curated,C01,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E01,,missing_evidence,a91c6fb912ac1adc613ab5b661c70f21cef4202e864d2698da663e1391583da7
+staged_author_curated,C02,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E03,,,a0d65faa14093489e5ac4251148c95748f1c6cc7f33a444f0596d007068c6862
+staged_author_curated,C02,,A,checklist,supported,unresolved,false_support_against_unresolved,,,,E03,,,a0d65faa14093489e5ac4251148c95748f1c6cc7f33a444f0596d007068c6862
+staged_author_curated,C02,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E03,,missing_evidence,a0d65faa14093489e5ac4251148c95748f1c6cc7f33a444f0596d007068c6862
+staged_author_curated,C03,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E06,,,8f53da8b6f70bdb3478d73cb9254eda812e0343fe6a28cb2b4c41b311ec0f0dc
+staged_author_curated,C03,,A,checklist,supported,unresolved,false_support_against_unresolved,,,,E06,,,8f53da8b6f70bdb3478d73cb9254eda812e0343fe6a28cb2b4c41b311ec0f0dc
+staged_author_curated,C03,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E06,,missing_evidence,8f53da8b6f70bdb3478d73cb9254eda812e0343fe6a28cb2b4c41b311ec0f0dc
+staged_author_curated,C04,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E08 E09,,,b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860
+staged_author_curated,C04,,A,checklist,unresolved,unresolved,correct_refusal,,,,E08 E09,,,b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860
+staged_author_curated,C04,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E08 E09,,missing_evidence,b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860
+staged_author_curated,C05,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E10,,,a85cc9177896de22ffd35ffec17bb7e7de639aa28375ff583e83b6be8ab15dfc
+staged_author_curated,C05,,A,checklist,unresolved,unresolved,correct_refusal,,,,E10,,,a85cc9177896de22ffd35ffec17bb7e7de639aa28375ff583e83b6be8ab15dfc
+staged_author_curated,C05,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E10,,missing_evidence,a85cc9177896de22ffd35ffec17bb7e7de639aa28375ff583e83b6be8ab15dfc
+staged_author_curated,C06,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E12,,,c57d3c784cbbafd99e0e8684e9fb6903794f5e367a1d871a7ea207309da4fb9f
+staged_author_curated,C06,,A,checklist,supported,unresolved,false_support_against_unresolved,,,,E12,,,c57d3c784cbbafd99e0e8684e9fb6903794f5e367a1d871a7ea207309da4fb9f
+staged_author_curated,C06,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E12,,missing_evidence,c57d3c784cbbafd99e0e8684e9fb6903794f5e367a1d871a7ea207309da4fb9f
+staged_author_curated,C07,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E14,,,b7ecdaa19b92df87d78fd057011adc4d0dae33e7d51a4ee66e76b4879b1d4cba
+staged_author_curated,C07,,A,checklist,supported,unresolved,false_support_against_unresolved,,,,E14,,,b7ecdaa19b92df87d78fd057011adc4d0dae33e7d51a4ee66e76b4879b1d4cba
+staged_author_curated,C07,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E14,,missing_evidence,b7ecdaa19b92df87d78fd057011adc4d0dae33e7d51a4ee66e76b4879b1d4cba
+staged_author_curated,C08,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E16,,,584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b
+staged_author_curated,C08,,A,checklist,unresolved,unresolved,correct_refusal,,,,E16,,,584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b
+staged_author_curated,C08,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E16,,missing_evidence,584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b
+staged_author_curated,C09,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E17,,,b97d206f536b999210544bb1940a54751bf65e1653cf3b1a9558bc27db7474f4
+staged_author_curated,C09,,A,checklist,unresolved,unresolved,correct_refusal,,,,E17,,,b97d206f536b999210544bb1940a54751bf65e1653cf3b1a9558bc27db7474f4
+staged_author_curated,C09,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E17,,missing_evidence,b97d206f536b999210544bb1940a54751bf65e1653cf3b1a9558bc27db7474f4
+staged_author_curated,C10,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E19,,,c0bb236d147eb766b601662375222394c118282b7993f082d79b391b4e80c04a
+staged_author_curated,C10,,A,checklist,unresolved,unresolved,correct_refusal,,,,E19,,,c0bb236d147eb766b601662375222394c118282b7993f082d79b391b4e80c04a
+staged_author_curated,C10,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E19,,missing_evidence,c0bb236d147eb766b601662375222394c118282b7993f082d79b391b4e80c04a
+staged_author_curated,C11,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E21,,,def815b40cadf5527dbaa795e73420a0d01d53c17d08674da7af5c689dc3521a
+staged_author_curated,C11,,A,checklist,supported,unresolved,false_support_against_unresolved,,,,E21,,,def815b40cadf5527dbaa795e73420a0d01d53c17d08674da7af5c689dc3521a
+staged_author_curated,C11,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E21,,missing_evidence,def815b40cadf5527dbaa795e73420a0d01d53c17d08674da7af5c689dc3521a
+staged_author_curated,C12,,A,naive,supported,unresolved,false_support_against_unresolved,,,,E23 E24,,,6e0ed75aba8c64a6675d85f7fb573a25b15b7c91d0dbcb50cfc8ba98af7f438c
+staged_author_curated,C12,,A,checklist,unresolved,unresolved,correct_refusal,,,,E23 E24,,,6e0ed75aba8c64a6675d85f7fb573a25b15b7c91d0dbcb50cfc8ba98af7f438c
+staged_author_curated,C12,,A,swarm_witness,unresolved,unresolved,correct_refusal,,,,E23 E24,,missing_evidence,6e0ed75aba8c64a6675d85f7fb573a25b15b7c91d0dbcb50cfc8ba98af7f438c
+staged_author_curated,C01,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E01 E02 E26,,,a7e7e2ed54dff290d0dfe34ded8b195c101daeab8c9d8ae0bc1a5709044ea5ca
+staged_author_curated,C01,,B,checklist,supported,unresolved,false_support_against_unresolved,,,,E01 E02 E26,,,a7e7e2ed54dff290d0dfe34ded8b195c101daeab8c9d8ae0bc1a5709044ea5ca
+staged_author_curated,C01,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E01 E02 E26,,missing_evidence,a7e7e2ed54dff290d0dfe34ded8b195c101daeab8c9d8ae0bc1a5709044ea5ca
+staged_author_curated,C02,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E03 E04 E05 E26,,,8f5e2b8ec37a29b25bb836edceccb79a74d68d0bf909239e9f40c4d1720ae690
+staged_author_curated,C02,,B,checklist,supported,unresolved,false_support_against_unresolved,,,,E03 E04 E05 E26,,,8f5e2b8ec37a29b25bb836edceccb79a74d68d0bf909239e9f40c4d1720ae690
+staged_author_curated,C02,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E03 E04 E05 E26,,missing_evidence,8f5e2b8ec37a29b25bb836edceccb79a74d68d0bf909239e9f40c4d1720ae690
+staged_author_curated,C03,,B,naive,supported,refuted,false_support_against_refuted,,,,E06 E07,,,e1d459b5ca900e22562153b9944485d9c8e335a9eed3ea60811cd3408fa408a6
+staged_author_curated,C03,,B,checklist,unresolved,refuted,missed_resolution_of_refutation,,,,E06 E07,,,e1d459b5ca900e22562153b9944485d9c8e335a9eed3ea60811cd3408fa408a6
+staged_author_curated,C03,,B,swarm_witness,refuted,refuted,warranted_refutation,,,,E06 E07,,refuted,e1d459b5ca900e22562153b9944485d9c8e335a9eed3ea60811cd3408fa408a6
+staged_author_curated,C04,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E08 E09,,,b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860
+staged_author_curated,C04,,B,checklist,unresolved,unresolved,correct_refusal,,,,E08 E09,,,b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860
+staged_author_curated,C04,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E08 E09,,missing_evidence,b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860
+staged_author_curated,C05,,B,naive,supported,refuted,false_support_against_refuted,,,,E10 E11,,,fb5c76ba8a7eeacd1815d6e55ed7304add1055f20499f31c4ced9992d3ab2695
+staged_author_curated,C05,,B,checklist,refuted,refuted,warranted_refutation,,,,E10 E11,,,fb5c76ba8a7eeacd1815d6e55ed7304add1055f20499f31c4ced9992d3ab2695
+staged_author_curated,C05,,B,swarm_witness,refuted,refuted,warranted_refutation,,,,E10 E11,,refuted,fb5c76ba8a7eeacd1815d6e55ed7304add1055f20499f31c4ced9992d3ab2695
+staged_author_curated,C06,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E12 E13,,,2c25c778ba9a801c73e8071043bface6cf0ec03fd1dd6022089e89038b7949bf
+staged_author_curated,C06,,B,checklist,supported,unresolved,false_support_against_unresolved,,,,E12 E13,,,2c25c778ba9a801c73e8071043bface6cf0ec03fd1dd6022089e89038b7949bf
+staged_author_curated,C06,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E12 E13,,missing_evidence,2c25c778ba9a801c73e8071043bface6cf0ec03fd1dd6022089e89038b7949bf
+staged_author_curated,C07,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E14 E15,,,caa2dc4c671c68aaaae9421488443bbb3bd0fcde7c12f3001d2d3cc328980956
+staged_author_curated,C07,,B,checklist,supported,unresolved,false_support_against_unresolved,,,,E14 E15,,,caa2dc4c671c68aaaae9421488443bbb3bd0fcde7c12f3001d2d3cc328980956
+staged_author_curated,C07,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E14 E15,,missing_evidence,caa2dc4c671c68aaaae9421488443bbb3bd0fcde7c12f3001d2d3cc328980956
+staged_author_curated,C08,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E16,,,584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b
+staged_author_curated,C08,,B,checklist,unresolved,unresolved,correct_refusal,,,,E16,,,584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b
+staged_author_curated,C08,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E16,,missing_evidence,584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b
+staged_author_curated,C09,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E17 E18,,,9deac5ef71d1b7100bbc90c0526ce158bd8bd67c7d75e55ec76a570dc729f49b
+staged_author_curated,C09,,B,checklist,refuted,unresolved,wrong_refutation_against_unresolved,,,,E17 E18,,,9deac5ef71d1b7100bbc90c0526ce158bd8bd67c7d75e55ec76a570dc729f49b
+staged_author_curated,C09,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E17 E18,,missing_evidence,9deac5ef71d1b7100bbc90c0526ce158bd8bd67c7d75e55ec76a570dc729f49b
+staged_author_curated,C10,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E19 E20,,,6aec9f30407ea6c3ae90d7596c7aa28f13ab76a23bd4b435142adabfd843760c
+staged_author_curated,C10,,B,checklist,unresolved,unresolved,correct_refusal,,,,E19 E20,,,6aec9f30407ea6c3ae90d7596c7aa28f13ab76a23bd4b435142adabfd843760c
+staged_author_curated,C10,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E19 E20,,missing_evidence,6aec9f30407ea6c3ae90d7596c7aa28f13ab76a23bd4b435142adabfd843760c
+staged_author_curated,C11,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E21 E22,,,1dceae096de6549794c79f922eedcb145e462525ae035873de29aeb0929a0029
+staged_author_curated,C11,,B,checklist,supported,unresolved,false_support_against_unresolved,,,,E21 E22,,,1dceae096de6549794c79f922eedcb145e462525ae035873de29aeb0929a0029
+staged_author_curated,C11,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E21 E22,,missing_evidence,1dceae096de6549794c79f922eedcb145e462525ae035873de29aeb0929a0029
+staged_author_curated,C12,,B,naive,supported,unresolved,false_support_against_unresolved,,,,E23 E24 E25 E26,,,c8cd1db62290cc03108796f615a9ee89accec7725f432a958009c4c97721e13b
+staged_author_curated,C12,,B,checklist,unresolved,unresolved,correct_refusal,,,,E23 E24 E25 E26,,,c8cd1db62290cc03108796f615a9ee89accec7725f432a958009c4c97721e13b
+staged_author_curated,C12,,B,swarm_witness,unresolved,unresolved,correct_refusal,,,,E23 E24 E25 E26,,missing_evidence,c8cd1db62290cc03108796f615a9ee89accec7725f432a958009c4c97721e13b

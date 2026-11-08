@@ -19,6 +19,13 @@ labels without needing the author’s local absolute paths or a full BMO checkou
 | Expanded R5 v2 causal matrix (#11, historical) | `evidence/r5_v2/`, `artifacts/r5_v2/` |
 | Formal taxonomy, four-world (#12, historical) | `evidence/taxonomy_theory/`, `theory/`, `artifacts/taxonomy_proof_checks.json` |
 | Incident audit v1 (#27) | `evidence/incident_audit_v1/`, `experiments/incident_audit/` |
+| Frozen comparison (#27, consumed by #42) | `evidence/incident_comparison_v1/`, `report/bounded_comparison_v1/TABLES.md`, `report/bounded_comparison_v1/ledger.csv` |
+| Provenance | `experiments/provenance/`, `evidence/provenance/` |
+| Forensic telemetry | `experiments/telemetry/`, `evidence/telemetry/` |
+| Coordination | `experiments/coordination/`, `evidence/coordination/` |
+| Detection latency | `experiments/detection_latency/`, `evidence/detection_latency/` |
+| Application effect witness | `experiments/effect_witness/`, `evidence/effect_witness_v1/` |
+| Evidence binding | `experiments/evidence_binding/`, `evidence/evidence_binding_v1/` |
 | Formal taxonomy, eight-world | `experiments/taxonomy_formal/`, `src/swarm_witness/formal/` |
 | Settlement-ledger simulator | `evidence/multi_agent_sim/` |
 | R5-v3 wider coverage | `evidence/r5_v3/`, `experiments/swarm_r5_v3/` |
@@ -55,6 +62,14 @@ PYTHONPATH=src python3 experiments/causal_swarm/run.py --output /tmp/causal-swar
 PYTHONPATH=src python3 experiments/r5_v2/run.py --output /tmp/r5-v2-recheck
 python3 theory/check_taxonomy.py               # 2,646 finite instances
 PYTHONPATH=src python3 experiments/incident_audit/run.py  # public postmortem audit
+PYTHONPATH=src python3 experiments/incident_audit/compare.py  # frozen public and controlled comparison
+PYTHONPATH=src python3 experiments/provenance/qualify.py
+PYTHONPATH=src python3 experiments/telemetry/qualify.py
+PYTHONPATH=src python3 experiments/coordination/qualify.py
+PYTHONPATH=src python3 experiments/detection_latency/run.py
+PYTHONPATH=src python3 experiments/effect_witness/run.py
+PYTHONPATH=src python3 experiments/evidence_binding/run.py
+python3 scripts/render_bounded_comparison.py
 PYTHONPATH=src python3 experiments/taxonomy_formal/run.py
 PYTHONPATH=src python3 experiments/multi_agent_sim/run.py
 PYTHONPATH=src python3 experiments/swarm_r5_v3/run.py

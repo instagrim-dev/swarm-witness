@@ -3,8 +3,7 @@
 Title: Swarm Witness: An Executable Evidence Protocol for Agent Authorization Claims
 Tracks: 3 (primary), 4 (application surface only)
 
-Abstract:
-Agent systems generate receipts, decisions, traces and recovery records, yet a successful test does not automatically justify the security claim made about it. We introduce Swarm Witness, an executable evidence protocol that binds authorization claims to specified observations and reports whether those observations support, refute, or leave the claim unresolved, while recording evidence provenance, decision correctness and committed effects separately. The method combines source-pinned re-execution and later-harness confirmation of prior studies, a native BMO versus SQLite reference-monitor comparison, a three-way evidence-conclusion evaluator, and a separately implemented finite-world checker. We extend evaluation to deterministic multi-principal interleavings with a distinct modeled effect ledger. Across six native BMO ledger cases, both arms satisfy the declared one-use properties. In 14 fixed multi-principal scenarios (28 policy runs), a separately implemented trace oracle detects nine unauthorized effects under a deliberately faulty local-evidence policy and zero under the authoritative reference monitor. Paired worlds show why identical cached grant observations cannot establish current permission. The package provides executable counterexamples, provenance-bound findings and a foundation for rigorous agent delegation audits.
+Abstract: see `report/ABSTRACT.md` (150–250 words). The manuscript leads with one question, the witness `aew-v1-local-control-pass-broader-effect`, and the frozen public tie with the strong checker (both 0 unsupported supports; naive PASS 24). `superiority_claim` stays false.
 
 Author: Jonathan Maye-Hobbs
 Affiliation: Independent
