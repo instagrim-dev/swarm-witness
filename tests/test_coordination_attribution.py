@@ -55,7 +55,16 @@ def test_incident_propositions_stay_unresolved():
     board = qualified["coord_board_participation"]
     work = qualified["coord_delegated_workstream"]
     impact = qualified["coord_collective_impact"]
-    assert board["independence_groups"] == ["openai-artifactory-message-board-dump"]
+    assert "openai-artifactory-message-board-dump" in board["independence_groups"]
+    assert "lesswrong-reproduction-2026-09" in board["independence_groups"]
+    record = board["reproduction_public_record"]
+    assert record["one_public_record"] is True
+    assert record["corroboration_keys"] == work["reproduction_public_record"]["corroboration_keys"]
+    assert len(record["corroboration_keys"]) == 1
+    assert record["source_ids"] == [
+        "src-lw-reproduction-post",
+        "src-lw-reproduction-appendix",
+    ]
     reported = next(row for row in board["populations"] if row["unit"] == "agents")
     assert reported["count"] == 1200
     assert reported["count_label"] == "investigator_reported"
@@ -70,25 +79,35 @@ def test_incident_propositions_stay_unresolved():
     assert {row["source_id"] for row in work["unavailable_telemetry"]} >= {"src-transcript-dump"}
     assert impact["edges"][-1]["labels"] == ["causal_contribution_unresolved"]
     assert all(edge["event_time"] is None for edge in impact["edges"])
-    assert "upgrade_blocker_remains" in impact["unsupported_seams"]
+    assert "upgrade_blocker_remains" not in impact["unsupported_seams"]
+    assert "public_excerpt_does_not_verify" in impact["unsupported_seams"]
     for result in (board, work, impact):
         assert result["provenance_contract"] == CONTRACT_VERSION
         assert result["finding_label"] == "unresolved"
+        assert result["primary_upgrade_blocker"] is None
+        assert result["unavailable_originals_are_gates"] is False
         assert result["supported_while_blocked"] is False
         assert result["added_claim_qualification_value"] is False
+        assert result["incident_detection_claimed"] is False
+        assert result["incident_prevention_claimed"] is False
 
 
-def test_foreign_log_does_not_clear_incident_blockers():
+def test_held_gate_blocks_and_unavailable_originals_do_not():
     graph, _cases, _qualified, controls = _bundle()
-    foreign = controls.foreign_log_does_not_upgrade(graph)
-    assert foreign["effect"]["primary_upgrade_blocker"] == "src-hf-platform-logs"
-    assert foreign["effect"]["augmented_finding_label"] == "unresolved"
-    assert foreign["effect"]["added"] is False
-    assert foreign["spoof"]["primary_upgrade_blocker"] == "src-transcript-dump"
-    assert foreign["spoof"]["augmented_finding_label"] == "unresolved"
-    assert foreign["spoof"]["added"] is False
-    assert foreign["effect"]["refused_blocked_support"] is False
-    assert foreign["spoof"]["refused_blocked_support"] is False
+    gates = controls.held_gate_and_unavailable_originals(graph)
+    assert gates["unavailable_gate_rejected"] is True
+    assert gates["open_effect"]["added"] is True
+    assert gates["open_effect"]["augmented_finding_label"] == "reproduced"
+    assert gates["open_effect"]["primary_upgrade_blocker"] is None
+    assert gates["held_effect"]["added"] is False
+    assert gates["held_effect"]["augmented_finding_label"] == "unresolved"
+    assert gates["held_effect"]["primary_upgrade_blocker"] == "src-held-effect"
+    assert gates["open_spoof"]["added"] is True
+    assert gates["open_spoof"]["primary_upgrade_blocker"] is None
+    assert gates["held_spoof"]["added"] is False
+    assert gates["held_spoof"]["primary_upgrade_blocker"] == "src-held-exec"
+    assert gates["held_effect"]["refused_blocked_support"] is False
+    assert gates["held_spoof"]["refused_blocked_support"] is False
 
 
 def test_negative_controls_and_distinctions():

@@ -9,7 +9,7 @@
     "finding_label": "unresolved",
     "incident_detection_claimed": false,
     "incident_prevention_claimed": false,
-    "primary_upgrade_blocker": "src-hf-platform-logs",
+    "primary_upgrade_blocker": null,
     "qualification": {
       "added_claim_qualification_value": false,
       "case_id": "coord_collective_impact",
@@ -139,7 +139,7 @@
         "Possession or repetition of board content is not authorship and is not causal contribution.",
         "A copied or forged actor identifier is not a bound participant.",
         "A verified narrative_report verifies publication bytes only.",
-        "A blocks_upgrade slot that no verified supporting event uses prevents an upgrade to supported. A log from a different source does not clear it."
+        "A blocks_upgrade slot on evidence this audit holds prevents an upgrade to supported until a verified supporting event uses that source. An unavailable original is not a gate, and a log from another source does not clear a held gate."
       ],
       "finding_label": "unresolved",
       "goal_contagion_claimed": false,
@@ -157,13 +157,9 @@
         "coverage_denominator": 6,
         "finding_label": "unresolved",
         "independent_observation_count": 0,
-        "primary_upgrade_blocker": "src-hf-platform-logs",
+        "primary_upgrade_blocker": null,
         "refused_blocked_support": false,
-        "upgrade_blocked_by": [
-          "src-hf-platform-logs",
-          "src-hf-indicators",
-          "src-launchpad-logs"
-        ]
+        "upgrade_blocked_by": []
       },
       "intent_inferred": false,
       "investigator_reported_agents_are_traced_actors": false,
@@ -225,7 +221,7 @@
           "unit": "publication_sentences"
         }
       ],
-      "primary_upgrade_blocker": "src-hf-platform-logs",
+      "primary_upgrade_blocker": null,
       "property_holds": null,
       "proposition": "Coordination among the reported board population caused a committed effect on Hugging Face infrastructure.",
       "proposition_kind": "collective_causal_impact",
@@ -236,60 +232,68 @@
         "augmented_finding_label": "unresolved",
         "individual_claim_id": "prov_hf_effect",
         "individual_finding_label": "unresolved",
-        "primary_upgrade_blocker": "src-hf-platform-logs",
+        "primary_upgrade_blocker": null,
         "reason": "coordination cites no admissible event beyond the individual claim",
         "refused_blocked_support": false,
-        "upgrade_blocked_by": [
-          {
-            "coverage_status": "unobserved",
-            "reason": "unobserved source src-hf-platform-logs prevents an upgrade",
-            "slot_id": "slot-hf-platform-logs",
-            "source_id": "src-hf-platform-logs"
-          },
-          {
-            "coverage_status": "redacted",
-            "reason": "redacted source src-hf-indicators cannot upgrade the claim",
-            "slot_id": "slot-hf-indicators",
-            "source_id": "src-hf-indicators"
-          },
-          {
-            "coverage_status": "withheld",
-            "reason": "withheld source src-launchpad-logs is not held by this audit",
-            "slot_id": "slot-launchpad-logs",
-            "source_id": "src-launchpad-logs"
-          }
-        ]
+        "upgrade_blocked_by": []
       },
       "real_world_authenticity_certified": false,
-      "reason": "required discriminating evidence missing or incomplete",
+      "reason": "cited excerpts do not verify the proposition; unavailable originals are recorded and are not gates",
       "refused_blocked_support": false,
+      "reproduction_public_record": {
+        "corroboration_keys": [
+          "digest:b4cb7b533f22a27b28a1b9f7312b10a27060952d1408ac888489c67ec2b5080d"
+        ],
+        "distinct_from": [
+          "src-transcript-dump",
+          "src-hf-platform-logs"
+        ],
+        "event_ids": [
+          "ev-lw-release",
+          "ev-lw-appendix"
+        ],
+        "one_public_record": true,
+        "source_ids": [
+          "src-lw-reproduction-post",
+          "src-lw-reproduction-appendix"
+        ]
+      },
       "supported_while_blocked": false,
       "traced_causal_actor_count": 0,
       "traced_causal_actor_ids": [],
+      "unavailable_originals_are_gates": false,
       "unavailable_telemetry": [
         {
           "access_level": "withheld",
           "coverage_status": "withheld",
           "observation_origin": "unavailable_private_original",
-          "source_id": "src-board-dump"
+          "reason": "recorded unavailable; not an upgrade gate",
+          "source_id": "src-board-dump",
+          "upgrade_gate": false
         },
         {
           "access_level": "redacted",
           "coverage_status": "redacted",
           "observation_origin": "independent_provider_telemetry",
-          "source_id": "src-hf-indicators"
+          "reason": "recorded unavailable; not an upgrade gate",
+          "source_id": "src-hf-indicators",
+          "upgrade_gate": false
         },
         {
           "access_level": "unobserved",
           "coverage_status": "unobserved",
           "observation_origin": "independent_provider_telemetry",
-          "source_id": "src-hf-platform-logs"
+          "reason": "recorded unavailable; not an upgrade gate",
+          "source_id": "src-hf-platform-logs",
+          "upgrade_gate": false
         },
         {
           "access_level": "private_original",
           "coverage_status": "withheld",
           "observation_origin": "unavailable_private_original",
-          "source_id": "src-launchpad-logs"
+          "reason": "recorded unavailable; not an upgrade gate",
+          "source_id": "src-launchpad-logs",
+          "upgrade_gate": false
         }
       ],
       "unsupported_seams": [
@@ -302,17 +306,10 @@
         "narrative_is_not_communication",
         "narrative_time_not_promoted",
         "no_added_qualification_value",
-        "redacted_source",
-        "temporal_correlation_not_causal",
-        "unobserved_source",
-        "upgrade_blocker_remains",
-        "withheld_source"
+        "public_excerpt_does_not_verify",
+        "temporal_correlation_not_causal"
       ],
-      "upgrade_blocked_by": [
-        "src-hf-platform-logs",
-        "src-hf-indicators",
-        "src-launchpad-logs"
-      ],
+      "upgrade_blocked_by": [],
       "withheld_labels": [
         {
           "label": "communication_observed",

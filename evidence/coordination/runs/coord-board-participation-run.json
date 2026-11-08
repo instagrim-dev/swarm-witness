@@ -9,7 +9,7 @@
     "finding_label": "unresolved",
     "incident_detection_claimed": false,
     "incident_prevention_claimed": false,
-    "primary_upgrade_blocker": "src-board-dump",
+    "primary_upgrade_blocker": null,
     "qualification": {
       "added_claim_qualification_value": false,
       "case_id": "coord_board_participation",
@@ -50,6 +50,37 @@
           "to_id": "msg-redwood-board",
           "verified_effect_ids": [],
           "verified_service_log_ids": []
+        },
+        {
+          "authorship_supported": false,
+          "causal_link_supported": false,
+          "event_time": null,
+          "from_id": "msg-lw-post",
+          "id": "edge-lw-one-record",
+          "kind": "duplicate_report",
+          "labels": [],
+          "link_class": "duplicate_report",
+          "observed_time": null,
+          "provenance_event_ids": [
+            "ev-lw-release",
+            "ev-lw-appendix"
+          ],
+          "provenance_source_ids": [
+            "src-lw-reproduction-post",
+            "src-lw-reproduction-appendix"
+          ],
+          "seams": [
+            "duplicate_report",
+            "narrative_is_not_communication"
+          ],
+          "source_citation_ids": [
+            "cite-lw-post",
+            "cite-lw-appendix"
+          ],
+          "time_basis": "missing",
+          "to_id": "msg-lw-appendix",
+          "verified_effect_ids": [],
+          "verified_service_log_ids": []
         }
       ],
       "falsifiers": [
@@ -59,27 +90,25 @@
         "Possession or repetition of board content is not authorship and is not causal contribution.",
         "A copied or forged actor identifier is not a bound participant.",
         "A verified narrative_report verifies publication bytes only.",
-        "A blocks_upgrade slot that no verified supporting event uses prevents an upgrade to supported. A log from a different source does not clear it."
+        "A blocks_upgrade slot on evidence this audit holds prevents an upgrade to supported until a verified supporting event uses that source. An unavailable original is not a gate, and a log from another source does not clear a held gate."
       ],
       "finding_label": "unresolved",
       "goal_contagion_claimed": false,
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
       "independence_groups": [
+        "lesswrong-reproduction-2026-09",
         "openai-artifactory-message-board-dump"
       ],
-      "independent_observation_count": 1,
+      "independent_observation_count": 2,
       "individual": {
         "claim_id": "prov_message_board",
         "coverage_denominator": 5,
         "finding_label": "unresolved",
         "independent_observation_count": 0,
-        "primary_upgrade_blocker": "src-board-dump",
+        "primary_upgrade_blocker": null,
         "refused_blocked_support": false,
-        "upgrade_blocked_by": [
-          "src-board-dump",
-          "src-other-channels"
-        ]
+        "upgrade_blocked_by": []
       },
       "intent_inferred": false,
       "investigator_reported_agents_are_traced_actors": false,
@@ -91,6 +120,16 @@
         },
         {
           "event_id": "ev-redwood-board",
+          "event_kind": "narrative_report",
+          "reason": "excerpt digest verifies publication bytes, not communication or contribution"
+        },
+        {
+          "event_id": "ev-lw-release",
+          "event_kind": "narrative_report",
+          "reason": "excerpt digest verifies publication bytes, not communication or contribution"
+        },
+        {
+          "event_id": "ev-lw-appendix",
           "event_kind": "narrative_report",
           "reason": "excerpt digest verifies publication bytes, not communication or contribution"
         }
@@ -136,7 +175,7 @@
           "unit": "publication_sentences"
         }
       ],
-      "primary_upgrade_blocker": "src-board-dump",
+      "primary_upgrade_blocker": null,
       "property_holds": null,
       "proposition": "About 1200 agents participated in an unsanctioned Artifactory message board, as observed from the board records rather than from a repeated public sentence.",
       "proposition_kind": "board_participation",
@@ -147,42 +186,52 @@
         "augmented_finding_label": "unresolved",
         "individual_claim_id": "prov_message_board",
         "individual_finding_label": "unresolved",
-        "primary_upgrade_blocker": "src-board-dump",
+        "primary_upgrade_blocker": null,
         "reason": "coordination cites no admissible event beyond the individual claim",
         "refused_blocked_support": false,
-        "upgrade_blocked_by": [
-          {
-            "coverage_status": "withheld",
-            "reason": "withheld source src-board-dump is not held by this audit",
-            "slot_id": "slot-board-dump",
-            "source_id": "src-board-dump"
-          },
-          {
-            "coverage_status": "unobserved",
-            "reason": "unobserved source src-other-channels prevents an upgrade",
-            "slot_id": "slot-other-channels",
-            "source_id": "src-other-channels"
-          }
-        ]
+        "upgrade_blocked_by": []
       },
       "real_world_authenticity_certified": false,
-      "reason": "required discriminating evidence missing or incomplete",
+      "reason": "cited excerpts do not verify the proposition; unavailable originals are recorded and are not gates",
       "refused_blocked_support": false,
+      "reproduction_public_record": {
+        "corroboration_keys": [
+          "digest:b4cb7b533f22a27b28a1b9f7312b10a27060952d1408ac888489c67ec2b5080d"
+        ],
+        "distinct_from": [
+          "src-transcript-dump",
+          "src-hf-platform-logs"
+        ],
+        "event_ids": [
+          "ev-lw-release",
+          "ev-lw-appendix"
+        ],
+        "one_public_record": true,
+        "source_ids": [
+          "src-lw-reproduction-post",
+          "src-lw-reproduction-appendix"
+        ]
+      },
       "supported_while_blocked": false,
       "traced_causal_actor_count": 0,
       "traced_causal_actor_ids": [],
+      "unavailable_originals_are_gates": false,
       "unavailable_telemetry": [
         {
           "access_level": "withheld",
           "coverage_status": "withheld",
           "observation_origin": "unavailable_private_original",
-          "source_id": "src-board-dump"
+          "reason": "recorded unavailable; not an upgrade gate",
+          "source_id": "src-board-dump",
+          "upgrade_gate": false
         },
         {
           "access_level": "unobserved",
           "coverage_status": "unobserved",
           "observation_origin": "unknown",
-          "source_id": "src-other-channels"
+          "reason": "recorded unavailable; not an upgrade gate",
+          "source_id": "src-other-channels",
+          "upgrade_gate": false
         }
       ],
       "unsupported_seams": [
@@ -191,14 +240,9 @@
         "missing_agent_instances",
         "narrative_is_not_communication",
         "no_added_qualification_value",
-        "unobserved_source",
-        "upgrade_blocker_remains",
-        "withheld_source"
+        "public_excerpt_does_not_verify"
       ],
-      "upgrade_blocked_by": [
-        "src-board-dump",
-        "src-other-channels"
-      ],
+      "upgrade_blocked_by": [],
       "withheld_labels": [
         {
           "label": "causal_contribution_unresolved",

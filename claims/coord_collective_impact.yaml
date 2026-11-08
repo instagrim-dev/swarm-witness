@@ -7,8 +7,9 @@ original_proposition: >
 operational_interpretation: >
   The reported agent population is not a set of traced actors. Public
   timelines are narratives. Their stated window is not the effect
-  chronology. prov_hf_effect stays blocked by the unobserved platform logs,
-  and a verified log from another source does not clear that slot.
+  chronology. The platform logs stay unavailable and are not a gate.
+  prov_hf_effect stays unresolved because those narratives are not a
+  committed effect.
 property: co-occurrence is not causal contribution
 scope: >
   Public narratives, the withheld board dump, and the unobserved or
@@ -16,11 +17,11 @@ scope: >
   Not a detection or prevention claim.
 quantifier: the collective-impact proposition in the coordination fixture
 success_criterion: >
-  The label stays causal_contribution_unresolved. The primary upgrade
-  blocker remains the Hugging Face platform logs. Added qualification
-  value is false. Traced causal actors stay zero.
+  The label stays causal_contribution_unresolved because the public
+  excerpts do not verify a committed effect. There is no primary upgrade
+  blocker. Added qualification value is false. Traced causal actors stay zero.
 assumptions:
   - "Causal contribution is attributed only along the provenance lineage"
-  - "A blocks_upgrade slot blocks support until a verified event uses that source"
+  - "A blocks_upgrade slot on held evidence blocks support until a verified event uses that source"
   - "Temporal correlation is not a traced handoff"
   - "The reported population is not interpreted as traced actors"

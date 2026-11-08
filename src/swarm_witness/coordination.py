@@ -8,11 +8,12 @@ delegation, adoption, effect, time, and edge cites nodes from an
 and chronology all come from ``swarm_witness.provenance``. A label is withheld
 when that lineage does not admit it.
 
-A remaining ``blocks_upgrade`` slot prevents an upgrade to ``supported``.
-Verified bytes from some other source do not clear a withheld transcript, an
-unobserved platform log, or any other blocking slot. This module calls
-``qualify_claim`` and will not report a supported incident verdict while that
-blocker remains.
+A ``blocks_upgrade`` slot prevents ``supported`` only for evidence this audit
+holds. The original OpenAI transcript dump and the Hugging Face platform logs
+stay unavailable and are not gates. A verified log from another held source
+does not clear a held gate. The LessWrong reproduction post and its appendix
+are one public record. This module calls ``qualify_claim`` and will not report
+a supported verdict while a held gate remains unused.
 
 Nothing here claims Swarm Witness detected or prevented an incident.
 """
@@ -28,11 +29,16 @@ from swarm_witness.provenance import (
     CERTIFICATION_INPUTS,
     CONTRACT_VERSION,
     event_verified,
+    normalize_lineage,
     qualify_claim,
     rejection_reason,
     slot_coverage,
+    source_unavailable,
     validate_graph,
 )
+
+REPRODUCTION_EVENTS = ("ev-lw-release", "ev-lw-appendix")
+REPRODUCTION_SOURCES = ("src-lw-reproduction-post", "src-lw-reproduction-appendix")
 
 COORDINATION_VERSION = "coordination-attribution-v1"
 
@@ -734,6 +740,8 @@ def _unavailable(
                 "coverage_status": status,
                 "access_level": source["access_level"],
                 "observation_origin": source["observation_origin"],
+                "upgrade_gate": False,
+                "reason": "recorded unavailable; not an upgrade gate",
             }
         )
     return rows
@@ -918,14 +926,21 @@ def _qualify_edge(
     }
 
 
-def _blocking_source_ids(claim: dict[str, Any] | None) -> list[str]:
+def _blocking_source_ids(
+    claim: dict[str, Any] | None, sources: dict[str, dict[str, Any]]
+) -> list[str]:
+    """Held evidence only. An unavailable original cannot be a gate."""
     if claim is None:
         return []
-    return [
-        slot["source_id"]
-        for slot in claim["evidence_slots"]
-        if slot["blocks_upgrade"]
-    ]
+    held: list[str] = []
+    for slot in claim["evidence_slots"]:
+        if not slot["blocks_upgrade"]:
+            continue
+        source = sources[slot["source_id"]]
+        if source_unavailable(source):
+            continue
+        held.append(slot["source_id"])
+    return held
 
 
 def _clears_blockers(events: list[dict[str, Any]], blocking_ids: list[str]) -> bool:
@@ -960,7 +975,9 @@ def _guard_verdict(qualification: dict[str, Any]) -> dict[str, Any]:
 
 def _connect_contribution(qualified_edges: list[dict[str, Any]], indexed: dict[str, Any]) -> None:
     prov = indexed["prov"]
-    blocking_ids = _blocking_source_ids(indexed.get("provenance_claim"))
+    blocking_ids = _blocking_source_ids(
+        indexed.get("provenance_claim"), indexed["prov"]["sources"]
+    )
     evidenced = {
         edge["from_id"]
         for edge in qualified_edges
@@ -1136,7 +1153,7 @@ def _falsifiers(kind: str) -> list[str]:
         "Possession or repetition of board content is not authorship and is not causal contribution.",
         "A copied or forged actor identifier is not a bound participant.",
         "A verified narrative_report verifies publication bytes only.",
-        "A blocks_upgrade slot that no verified supporting event uses prevents an upgrade to supported. A log from a different source does not clear it.",
+        "A blocks_upgrade slot on evidence this audit holds prevents an upgrade to supported until a verified supporting event uses that source. An unavailable original is not a gate, and a log from another source does not clear a held gate.",
     ]
     specific = {
         "board_participation": [
@@ -1163,10 +1180,8 @@ def _world_complete(
     causal: bool,
     traced_actors: int,
     populations: list[dict[str, Any]],
-    unavailable: list[dict[str, str]],
 ) -> bool:
-    if unavailable:
-        return False
+    """Public excerpts have to verify the proposition. Missing originals do not."""
     reported = [row for row in populations if row["count_label"] == "investigator_reported"]
     if any(row["held_by_audit"] is not False for row in reported):
         return False
@@ -1182,6 +1197,32 @@ def _world_complete(
                 return False
         return True
     return False
+
+
+def _reproduction_public_record(graph: dict[str, Any]) -> dict[str, Any] | None:
+    """The LessWrong post and its appendix are one public record, when present."""
+    events = {event["id"]: event for event in graph["observed_events"]}
+    if any(event_id not in events for event_id in REPRODUCTION_EVENTS):
+        return None
+    lineage = normalize_lineage(graph)
+    by_event = {row["event_id"]: row for row in lineage["observations"]}
+    keys: list[str] = []
+    for event_id in REPRODUCTION_EVENTS:
+        necessary = set(events[event_id]["necessary_source_ids"])
+        if necessary & {"src-transcript-dump", "src-hf-platform-logs"}:
+            raise ValueError(f"{event_id} was bound to an unavailable original")
+        key = by_event[event_id]["corroboration_key"]
+        if key not in keys:
+            keys.append(key)
+    if len(keys) != 1:
+        raise RuntimeError("LessWrong post and appendix were counted as separate records")
+    return {
+        "event_ids": list(REPRODUCTION_EVENTS),
+        "source_ids": list(REPRODUCTION_SOURCES),
+        "corroboration_keys": keys,
+        "one_public_record": True,
+        "distinct_from": ["src-transcript-dump", "src-hf-platform-logs"],
+    }
 
 
 def qualify_case(case: dict[str, Any], graph: dict[str, Any]) -> dict[str, Any]:
@@ -1218,12 +1259,6 @@ def qualify_case(case: dict[str, Any], graph: dict[str, Any]) -> dict[str, Any]:
         cited_sources.update(edge["provenance_source_ids"])
         cited_events.extend(edge["provenance_event_ids"])
     unavailable = _unavailable(cited_sources, prov)
-    if any(row["coverage_status"] == "withheld" for row in unavailable):
-        seams.add("withheld_source")
-    if any(row["coverage_status"] == "unobserved" for row in unavailable):
-        seams.add("unobserved_source")
-    if any(row["coverage_status"] == "redacted" for row in unavailable):
-        seams.add("redacted_source")
 
     causal = any(edge["causal_link_supported"] for edge in qualified_edges)
     traced = sorted(
@@ -1282,10 +1317,8 @@ def qualify_case(case: dict[str, Any], graph: dict[str, Any]) -> dict[str, Any]:
             causal,
             len(traced),
             populations,
-            unavailable,
         )
-        # Incident and other provenance claims stay unresolved while a
-        # blocking slot is unused, including when some other log verifies.
+        # A held gate still prevents support. An unavailable original does not.
         if value.get("upgrade_blocked_by") or value.get("refused_blocked_support"):
             complete = False
     classified = classify_conclusion(
@@ -1296,6 +1329,20 @@ def qualify_case(case: dict[str, Any], graph: dict[str, Any]) -> dict[str, Any]:
         value.get("upgrade_blocked_by") or value.get("refused_blocked_support")
     ):
         classified = classify_conclusion(evidence_complete=False, property_holds=None)
+    held_gate = bool(value.get("upgrade_blocked_by") or value.get("refused_blocked_support"))
+    if classified["conclusion_class"] == "supported" and held_gate:
+        raise RuntimeError("supported while a held blocks_upgrade slot remained")
+    if world and classified["conclusion_class"] != "supported" and not held_gate:
+        seams.add("public_excerpt_does_not_verify")
+        reason = (
+            "cited excerpts do not verify the proposition; "
+            "unavailable originals are recorded and are not gates"
+        )
+    elif held_gate:
+        reason = "a blocks_upgrade slot on held evidence prevents supported"
+    else:
+        reason = classified["reason"]
+    reproduction = _reproduction_public_record(graph)
     withheld = [
         {
             "label": label,
@@ -1331,6 +1378,8 @@ def qualify_case(case: dict[str, Any], graph: dict[str, Any]) -> dict[str, Any]:
         "investigator_reported_agents_are_traced_actors": False,
         "independent_observation_count": len(groups),
         "independence_groups": groups,
+        "reproduction_public_record": reproduction,
+        "unavailable_originals_are_gates": False,
         "unavailable_telemetry": unavailable,
         "kind_rejections": kind_rejections,
         "added_claim_qualification_value": value["added"],
@@ -1349,7 +1398,7 @@ def qualify_case(case: dict[str, Any], graph: dict[str, Any]) -> dict[str, Any]:
         "conclusion_class": classified["conclusion_class"],
         "finding_label": classified["finding_label"],
         "property_holds": classified["property_holds"],
-        "reason": classified["reason"],
+        "reason": reason,
         "real_world_authenticity_certified": False,
         "incident_detection_claimed": False,
         "incident_prevention_claimed": False,

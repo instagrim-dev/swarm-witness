@@ -7,21 +7,22 @@ original_proposition: >
   public sentence.
 operational_interpretation: >
   METR and Redwood repeat one sentence about that board. Both depend on
-  the withheld Artifactory dump, so they are one independence group. No
-  agent_instance is held. The reported count is not a traced-actor
-  denominator. The provenance blocks_upgrade slot on the dump stays in
-  force.
+  the withheld Artifactory dump, so they are one independence group. The
+  LessWrong reproduction post and its appendix are one other public record
+  and do not verify participation. No agent_instance is held. The reported
+  count is not a traced-actor denominator. The dump stays unavailable and
+  is not an upgrade gate.
 property: board participation is not established by repeated narration
 scope: >
   Public sentences and the explicitly withheld dump. Not a download of the
   reported messages, and not a detection claim.
 quantifier: the board-participation proposition in the coordination fixture
 success_criterion: >
-  Qualification stays unresolved. communication_observed is withheld.
-  Duplicate publication does not increase the independence count. The
-  primary upgrade blocker remains the board dump.
+  Qualification stays unresolved because the public excerpts do not verify
+  participation. communication_observed is withheld. Duplicate publication
+  does not increase the independence count. The board dump is not a gate.
 assumptions:
   - "Coordination cites the evidence-provenance-v1 graph and does not redefine it"
   - "A narrative_report does not verify communication"
   - "Investigator-reported counts are not held records"
-  - "A remaining blocks_upgrade slot prevents an upgrade to supported"
+  - "A blocks_upgrade slot prevents support only for evidence this audit holds"

@@ -114,6 +114,10 @@ def build_artifacts() -> dict:
         case_id
         for case_id in INCIDENT_CASES
         if qualified[case_id]["finding_label"] == "unresolved"
+        and qualified[case_id]["primary_upgrade_blocker"] is None
+        and qualified[case_id]["unavailable_originals_are_gates"] is False
+        and qualified[case_id]["reproduction_public_record"]["one_public_record"] is True
+        and "public_excerpt_does_not_verify" in qualified[case_id]["unsupported_seams"]
         and qualified[case_id]["supported_while_blocked"] is False
         and qualified[case_id]["added_claim_qualification_value"] is False
         and qualified[case_id]["real_world_authenticity_certified"] is False
@@ -162,8 +166,9 @@ def build_artifacts() -> dict:
                 "run_ids": ["coordination-attribution-v1-run"],
                 "proposition": (
                     "Replaying the coordination fixture leaves the three public-record "
-                    "propositions unresolved, keeps upgrade blockers in force, and "
-                    "certifies neither detection nor prevention."
+                    "propositions unresolved because the cited excerpts do not verify "
+                    "them. Unavailable originals are not gates. The run certifies "
+                    "neither detection nor prevention."
                 ),
                 "scope": "coordination-attribution-v1 fixture conformance",
                 "label": "reproduced",
@@ -224,9 +229,11 @@ def write_artifacts() -> None:
         },
         "notes": (
             "Fixture conformance for coordination-attribution-v1. The three public "
-            "propositions stay unresolved because board records, transcripts, and "
-            "platform logs are not held. A verified log from another source does not "
-            "clear those blockers. This is not an incident detection or prevention result."
+            "propositions stay unresolved because the cited excerpts do not verify "
+            "them. The OpenAI transcript dump and the Hugging Face platform logs stay "
+            "unavailable and are not gates. A blocks_upgrade slot blocks support only "
+            "for evidence this audit holds. The LessWrong post and its appendix are "
+            "one public record. This is not an incident detection or prevention result."
         ),
     }
     (EVIDENCE / "result.yaml").write_text(

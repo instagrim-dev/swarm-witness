@@ -16,6 +16,8 @@ metrics:
   incident_detection_claimed: false
   incident_prevention_claimed: false
 notes: Fixture conformance for coordination-attribution-v1. The three public propositions
-  stay unresolved because board records, transcripts, and platform logs are not held.
-  A verified log from another source does not clear those blockers. This is not an
-  incident detection or prevention result.
+  stay unresolved because the cited excerpts do not verify them. The OpenAI transcript
+  dump and the Hugging Face platform logs stay unavailable and are not gates. A blocks_upgrade
+  slot blocks support only for evidence this audit holds. The LessWrong post and its
+  appendix are one public record. This is not an incident detection or prevention
+  result.
