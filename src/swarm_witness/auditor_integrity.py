@@ -409,8 +409,7 @@ def build_cases() -> list[dict[str, Any]]:
                 kind="world_effect",
                 proposition="Two independent sources corroborate the committed effect.",
                 required=["application_settlement"],
-                # Require cross-source: still one verifying level; independence
-                # is enforced by swarm_witness group collapse under ablation tests.
+                minimum_independent_groups=2,
             ),
             "observations": [
                 _obs(
@@ -437,13 +436,54 @@ def build_cases() -> list[dict[str, Any]]:
             ],
             "truth": {
                 "proposition_holds": None,
-                "expected_epistemic": "supported",
-                # One authentic settlement support is enough for world_effect;
-                # independence collapse is checked via attribution + mutation.
+                "expected_epistemic": "unresolved",
                 "expected_support_group_count": 1,
                 "adjudication": "duplicate_not_independent",
                 "evaluation_contaminated": False,
                 "witness": "report-a",
+                "falsifier": "single_origin",
+            },
+        }
+    )
+    cases.append(
+        {
+            "case_id": "src-independent-sources",
+            "mechanism": "source_laundering",
+            "control": "positive",
+            "claim": _claim(
+                "P_cross_source_effect",
+                kind="world_effect",
+                proposition="Two independent sources corroborate the committed effect.",
+                required=["application_settlement"],
+                minimum_independent_groups=2,
+            ),
+            "observations": [
+                _obs(
+                    "origin-a",
+                    claim_ids=["P_cross_source_effect"],
+                    polarity="supports",
+                    observation_types=["application_settlement", "raw_runner_record"],
+                    independence_group="origin-a",
+                    named_origin="report_a",
+                    quote="origin A settlement line",
+                ),
+                _obs(
+                    "origin-b",
+                    claim_ids=["P_cross_source_effect"],
+                    polarity="supports",
+                    observation_types=["application_settlement", "raw_runner_record"],
+                    independence_group="origin-b",
+                    named_origin="report_b",
+                    quote="origin B settlement line",
+                ),
+            ],
+            "truth": {
+                "proposition_holds": True,
+                "expected_epistemic": "supported",
+                "expected_support_group_count": 2,
+                "adjudication": "two_independent_sources",
+                "evaluation_contaminated": False,
+                "witness": "origin-a",
                 "falsifier": None,
             },
         }
@@ -711,7 +751,8 @@ def build_cases() -> list[dict[str, Any]]:
         "tx-effect-agree": "app_owned_sink",
         "tx-missing-effect": "undetermined",
         "tx-false-effect": "undetermined",
-        "src-duplicate-origin": "report_a",
+        "src-duplicate-origin": "undetermined",
+        "src-independent-sources": "undetermined",
         "src-distinct-provider": "provider_api",
         "prop-url-not-system": "undetermined",
         "prop-local-control-only": "undetermined",

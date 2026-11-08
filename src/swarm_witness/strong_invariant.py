@@ -60,12 +60,32 @@ def _digest(obs: dict[str, Any]) -> str:
     return quote_digest(str(obs.get("quote") or ""))
 
 
+_DECIDING_POLARITY = frozenset({"supports", "refutes"})
+
+
+def _deciding_polarity(obs: dict[str, Any]) -> str | None:
+    polarity = obs.get("literal_polarity")
+    if polarity in _DECIDING_POLARITY:
+        return str(polarity)
+    return None
+
+
 def _conflicting_digests(rows: list[dict[str, Any]]) -> set[str]:
-    """Same bytes with different polarities do not pick a winner by list order."""
-    grouped: dict[str, set[Any]] = {}
+    """A supports/refutes clash on the same bytes is order-independent.
+
+    A missing or neutral polarity is not a contrary observation.
+    """
+    grouped: dict[str, set[str]] = {}
     for obs in rows:
-        grouped.setdefault(_digest(obs), set()).add(obs.get("literal_polarity"))
+        polarity = _deciding_polarity(obs)
+        if polarity is None:
+            continue
+        grouped.setdefault(_digest(obs), set()).add(polarity)
     return {digest for digest, polarities in grouped.items() if len(polarities) > 1}
+
+
+def _digests_with_decision(rows: list[dict[str, Any]]) -> set[str]:
+    return {_digest(obs) for obs in rows if _deciding_polarity(obs) is not None}
 
 
 def _admit(
@@ -85,10 +105,14 @@ def _admit(
             continue
         eligible.append(obs)
     conflict = _conflicting_digests(eligible)
+    deciding = _digests_with_decision(eligible)
     seen: set[str] = set()
     for obs in eligible:
         digest = _digest(obs)
         if digest in conflict or digest in seen:
+            withheld.append(obs)
+            continue
+        if _deciding_polarity(obs) is None and digest in deciding:
             withheld.append(obs)
             continue
         seen.add(digest)
@@ -199,6 +223,13 @@ def _finish(
     }
 
 
+def _required_independent_groups(claim: dict[str, Any]) -> int:
+    value = claim.get("minimum_independent_groups", 1)
+    if isinstance(value, int) and not isinstance(value, bool) and value >= 1:
+        return value
+    return 1
+
+
 def strong_invariant_verdict(
     claim: dict[str, Any], observations: list[dict[str, Any]]
 ) -> dict[str, Any]:
@@ -243,6 +274,18 @@ def strong_invariant_verdict(
         support_status = _evidence_status(support)
         refute_status = _evidence_status(refute)
         if support and not refute and support_status == "authentic":
+            origins = {
+                str(obs.get("independence_group") or obs.get("id")) for obs in support
+            }
+            if len(origins) < _required_independent_groups(claim):
+                return _finish(
+                    "unresolved",
+                    "verifying records do not meet the independent-source requirement",
+                    claim,
+                    admitted,
+                    withheld,
+                    evidence_status="authentic",
+                )
             if _upgrade_blocked(
                 claim,
                 applicable,

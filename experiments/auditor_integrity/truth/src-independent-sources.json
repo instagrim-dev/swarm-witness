@@ -1,0 +1,10 @@
+{
+  "adjudication": "two_independent_sources",
+  "evaluation_contaminated": false,
+  "expected_attribution": "undetermined",
+  "expected_epistemic": "supported",
+  "expected_support_group_count": 2,
+  "falsifier": null,
+  "proposition_holds": true,
+  "witness": "origin-a"
+}

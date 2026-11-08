@@ -2,16 +2,16 @@
 
 Protocol `auditor-integrity-v1`. Issue #51.
 
-- cases: 15
+- cases: 16
 - mechanisms: baseline_controls, evaluator_source_leakage, property_laundering, source_laundering, transcript_effect_divergence
 - swarm false support: 0
 - swarm correct supported: 7
 - swarm correct refuted: 4
-- swarm correct unresolved: 4
+- swarm correct unresolved: 5
 - swarm decisive coverage: 1.0
-- naive false support: 7
+- naive false support: 8
 - checklist false support: 0
-- swarm attribution coverage: 7/7
+- swarm attribution coverage: 6/6
 - swarm unsupported attribution: 0
 - counted mutations passed: True
 - overall passed: True

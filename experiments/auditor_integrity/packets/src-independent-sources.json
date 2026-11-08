@@ -1,0 +1,72 @@
+{
+  "case_id": "src-independent-sources",
+  "claim": {
+    "family": "auditor_integrity",
+    "id": "P_cross_source_effect",
+    "kind": "world_effect",
+    "minimum_independent_groups": 2,
+    "proposition": "Two independent sources corroborate the committed effect.",
+    "required_observation_types": [
+      "application_settlement"
+    ],
+    "verifying_access_levels": [
+      "raw_telemetry_public"
+    ]
+  },
+  "control": "positive",
+  "mechanism": "source_laundering",
+  "observations": [
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_cross_source_effect"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "8b28b8db37208f8d17f6bd828962b69d8849e327cd7569d47e2b1443cc5acb3d",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "origin-a",
+      "independence_group": "origin-a",
+      "literal_claims": [
+        "P_cross_source_effect"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "report_a",
+      "observation_types": [
+        "application_settlement",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "origin A settlement line",
+      "source_id": "report_a"
+    },
+    {
+      "access_level": "raw_telemetry_public",
+      "applies_to": [
+        "P_cross_source_effect"
+      ],
+      "authenticity": "released_reproduction_transcript",
+      "binding": "bound",
+      "content_sha256": "3dd5f2698ef99b7a210975c1eb5d1e2aa8d1810234319d8613008378dd92885f",
+      "event_time": "2026-09-01T12:00:00Z",
+      "freshness": "fresh",
+      "id": "origin-b",
+      "independence_group": "origin-b",
+      "literal_claims": [
+        "P_cross_source_effect"
+      ],
+      "literal_polarity": "supports",
+      "locally_held": true,
+      "named_origin": "report_b",
+      "observation_types": [
+        "application_settlement",
+        "raw_runner_record"
+      ],
+      "publication_ordinal": 1,
+      "quote": "origin B settlement line",
+      "source_id": "report_b"
+    }
+  ]
+}

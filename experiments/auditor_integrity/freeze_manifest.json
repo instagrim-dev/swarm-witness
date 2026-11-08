@@ -8,6 +8,7 @@
     "tx-missing-effect",
     "tx-false-effect",
     "src-duplicate-origin",
+    "src-independent-sources",
     "src-distinct-provider",
     "prop-url-not-system",
     "prop-local-control-only",
@@ -28,7 +29,8 @@
     "packet:prop-local-control-only": "b4be534c8fd4535f4eae57ec4312b13a084209ca0fd4f7b7dc42f6edff8d9f5e",
     "packet:prop-url-not-system": "cf8eba47e6a034574daf1c6dde03d5d73befb79221bd2991782a140e74af3e1f",
     "packet:src-distinct-provider": "27cb0688e2f61a28b1dff9a9053bd094fdf77b5460ae347805803684bbcfaac8",
-    "packet:src-duplicate-origin": "ff7ecff058468d140f8e9834ec18e6e5ccb760f2041b4aba349915afef3bd7a0",
+    "packet:src-duplicate-origin": "4173acb02157bba6b3e52f0b6ca0b64100b50db2db81f2959df71a869095c414",
+    "packet:src-independent-sources": "75962e5d398e48c83cbe6206460fa4c681f0a084de1ce575e846ceffbe7c5fca",
     "packet:tx-effect-agree": "c4db26ac36923121b15abaeed00cf6ff943f7514dc6bf6c4b2ae533f56bc96fd",
     "packet:tx-false-effect": "e07b18adf03c603d99f07b246a3da893aecbb784fc5757da0c4a830f144932c0",
     "packet:tx-missing-effect": "4522d5c40885027ac1f87c1566078c15937fe4ecc1fa0ab53d7e2adda1934a56",
@@ -43,13 +45,14 @@
     "truth:prop-local-control-only": "474b6236315c97fed784eaeb00f71c5bd5f86d927e54e045b1a9338b65cb592e",
     "truth:prop-url-not-system": "bc00719aa740226bc2b2cb8fde4e2d8c9a1481c26d0565e68d532b7d72168756",
     "truth:src-distinct-provider": "f599f437fad4316036e9493858fab1ad75353c5b75ed7f9c9d13206011521189",
-    "truth:src-duplicate-origin": "13e4f6a437d074f4d99350ca47f735e50448720d23d94df94431992b03dbeaca",
+    "truth:src-duplicate-origin": "17186a8a737f5c9f3c5ffbfbff6f9accbc14e6a303ba9a72a83e34eb16a97979",
+    "truth:src-independent-sources": "cda773a4c2e5dd39943fec01373547a29d83590c4cf9170e001116a174a83c03",
     "truth:tx-effect-agree": "96703fd36875297155d6da68afff22054f0251db20fcd4e2580fedc72446f57c",
     "truth:tx-false-effect": "a0dd117000060e01aec923597daadff6c92bd5011ed78ecd70f52349629dfb86",
     "truth:tx-missing-effect": "e6b675da5c1fcd22482ac506753d50d92acb56c06814bd77d9601e0895a3857d"
   },
   "freeze": {
-    "case_count": 15,
+    "case_count": 16,
     "mechanisms": [
       "baseline_controls",
       "evaluator_source_leakage",
@@ -58,7 +61,7 @@
       "transcript_effect_divergence"
     ],
     "negative": 5,
-    "positive": 6,
+    "positive": 7,
     "unknown": 4
   },
   "protocol_id": "auditor-integrity-v1",

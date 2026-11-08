@@ -4,8 +4,8 @@ Protocol `splitup-sabotage-v1`. Issue #52.
 
 - pairs: 7
 - swarm false support: 0
-- joint refuted while locals pass: False
-- settlement-only swarm: unresolved
+- joint refuted while locals pass: True
+- settlement-only swarm: refuted
 - settlement-only checklist: refuted
 - local comparator false support: True
 - application sink executed: False

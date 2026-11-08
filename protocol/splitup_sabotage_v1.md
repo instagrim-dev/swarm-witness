@@ -7,7 +7,9 @@
 
 Scripted multi-principal packets. The settlement-only pair keeps local
 records identical and changes only the settlement row. Under that intervention
-the checklist refutes and Swarm Witness stays unresolved. Settlement rows are
+both Swarm Witness and the checklist refute joint safety. A local policy pass
+does not veto the settlement. Methods are scored against that joint warrant,
+not against a Swarm Witness-specific expected status. Settlement rows are
 authored dictionaries, not an execution of the application-owned sink.
 
 ## Limits

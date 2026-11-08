@@ -3,7 +3,7 @@
   "claim_id": "splitup_sabotage_v1",
   "id": "splitup-sabotage-v1-f",
   "label": "reproduced",
-  "proposition": "With local records held fixed, changing only settlement leaves Swarm Witness unresolved and lets the whole-trace checklist refute. The settlement-only discriminator is not isolated for Swarm Witness. Scripted actors only; emergent collusion is not claimed.",
+  "proposition": "With local records held fixed, changing only settlement refutes joint safety for Swarm Witness and the whole-trace checklist. The local comparator still false-supports. Scripted actors only; emergent collusion is not claimed.",
   "run_ids": [
     "splitup-sabotage-v1-run"
   ],
