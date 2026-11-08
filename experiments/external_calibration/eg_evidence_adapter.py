@@ -20,18 +20,44 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 
 
-def _decl(observations: list[dict[str, Any]]) -> dict[str, Any]:
+def _claim_id(claim: dict[str, Any]) -> str | None:
+    value = claim.get("id")
+    return value if isinstance(value, str) and value else None
+
+
+def _scoped_to_claim(obs: dict[str, Any], claim_id: str) -> bool:
+    applies = obs.get("applies_to")
+    return isinstance(applies, list) and claim_id in applies
+
+
+def _authenticity_admitted(obs: dict[str, Any]) -> bool:
+    return obs.get("authenticity") in ADMISSIBLE_PREMISE_AUTHENTICITY
+
+
+def _decl(
+    observations: list[dict[str, Any]], claim: dict[str, Any]
+) -> tuple[dict[str, Any], str | None]:
+    """Admissible declaration for this claim, or a conflict.
+
+    Missing authenticity and a declaration for another claim are not consumed.
+    Two applicable declarations that disagree do not resolve by list order.
+    """
+    claim_id = _claim_id(claim)
+    if claim_id is None:
+        return {}, "declaration_claim_unscoped"
+    found: list[dict[str, Any]] = []
     for obs in observations:
         if "declared_assumptions" not in set(obs.get("observation_types") or []):
             continue
-        authenticity = obs.get("authenticity")
-        if (
-            authenticity is not None
-            and authenticity not in ADMISSIBLE_PREMISE_AUTHENTICITY
-        ):
+        if not _authenticity_admitted(obs) or not _scoped_to_claim(obs, claim_id):
             continue
-        return obs.get("declared_assumptions") or {}
-    return {}
+        declared = obs.get("declared_assumptions")
+        found.append(declared if isinstance(declared, dict) else {})
+    if not found:
+        return {}, None
+    if any(item != found[0] for item in found[1:]):
+        return {}, "conflicting_declarations"
+    return found[0], None
 
 
 def _exclusive(decl: dict[str, Any]) -> bool | None:
@@ -234,6 +260,7 @@ def admit_required_premises(
     allowlist, is not admitted.
     """
     premises: list[dict[str, Any]] = []
+    claim_id = _claim_id(claim) or ""
     for observation_type in required_observation_types(claim):
         candidates = [
             obs
@@ -242,9 +269,21 @@ def admit_required_premises(
         ]
         if not candidates:
             continue
+        qualified = [
+            obs
+            for obs in candidates
+            if _authenticity_admitted(obs) and _scoped_to_claim(obs, claim_id)
+        ]
+        if not qualified:
+            return {
+                "admitted": False,
+                "reason": "required_premise_not_admitted",
+                "premises": [],
+                "qualifications": [],
+            }
         target = _target_entity_id(claim, observation_type)
         if target is not None:
-            bound = [obs for obs in candidates if _entity_identifier(obs) == target]
+            bound = [obs for obs in qualified if _entity_identifier(obs) == target]
             if len(bound) != 1:
                 return {
                     "admitted": False,
@@ -254,17 +293,7 @@ def admit_required_premises(
                 }
             chosen = bound[0]
         else:
-            chosen = candidates[0]
-        if (
-            "authenticity" in chosen
-            and chosen.get("authenticity") not in ADMISSIBLE_PREMISE_AUTHENTICITY
-        ):
-            return {
-                "admitted": False,
-                "reason": "required_premise_not_admitted",
-                "premises": [],
-                "qualifications": [],
-            }
+            chosen = qualified[0]
         if all(chosen is not existing for existing in premises):
             premises.append(chosen)
     return {
@@ -304,16 +333,11 @@ def population_detail_census(
     A declared event id with no detail row contradicts absence. A declared
     count that disagrees with the retained rows is not a complete census.
     """
-    detail_ids: set[str] = set()
     detail_count = 0
     for mutation in registry_mutations:
         if not mutation:
             continue
         detail_count += 1
-        attrs = mutation.get("attrs") or {}
-        key = mutation.get("natural_key") or attrs.get("id")
-        if key:
-            detail_ids.add(str(key))
     if not populations:
         return {
             "complete": False,
@@ -330,40 +354,78 @@ def population_detail_census(
             "detail_count": detail_count,
         }
     for pop in complete_pops:
-        missing: list[str] = []
-        for item in pop.get("event_ids") or []:
-            if item in (None, ""):
-                continue
-            event_id = str(item)
-            if event_id not in detail_ids and event_id not in missing:
-                missing.append(event_id)
-        if missing:
+        if "count" not in pop or pop.get("count") in (None, ""):
             return {
                 "complete": False,
-                "reason": "population_lists_events_missing_detail_rows",
-                "missing_event_ids": missing,
+                "reason": "population_count_absent",
+                "missing_event_ids": [],
                 "detail_count": detail_count,
-                "declared_count": pop.get("count"),
             }
-        count = pop.get("count")
-        if count not in (None, ""):
-            try:
-                declared_count = int(count)
-            except (TypeError, ValueError):
+        if not isinstance(pop.get("event_ids"), list):
+            return {
+                "complete": False,
+                "reason": "population_event_ids_absent",
+                "missing_event_ids": [],
+                "detail_count": detail_count,
+            }
+        namespace = pop.get("namespace")
+        scoped_ids: list[str] = []
+        for mutation in registry_mutations:
+            if not mutation:
+                continue
+            attrs = mutation.get("attrs") or {}
+            if isinstance(namespace, str) and namespace:
+                row_namespace = attrs.get("namespace") or mutation.get("namespace")
+                if row_namespace != namespace:
+                    continue
+            key = mutation.get("natural_key") or attrs.get("id")
+            if key in (None, ""):
                 return {
                     "complete": False,
-                    "reason": "population_count_unreadable",
+                    "reason": "population_detail_id_missing",
                     "missing_event_ids": [],
                     "detail_count": detail_count,
                 }
-            if declared_count != detail_count:
+            scoped_ids.append(str(key))
+        declared: list[str] = []
+        for item in pop["event_ids"]:
+            if item in (None, ""):
                 return {
                     "complete": False,
-                    "reason": "population_count_disagrees_with_detail_rows",
+                    "reason": "population_event_ids_unreadable",
                     "missing_event_ids": [],
                     "detail_count": detail_count,
-                    "declared_count": declared_count,
                 }
+            declared.append(str(item))
+        try:
+            declared_count = int(pop["count"])
+        except (TypeError, ValueError):
+            return {
+                "complete": False,
+                "reason": "population_count_unreadable",
+                "missing_event_ids": [],
+                "detail_count": detail_count,
+            }
+        if (
+            declared_count != len(declared)
+            or len(declared) != len(set(declared))
+            or set(declared) != set(scoped_ids)
+            or len(scoped_ids) != len(set(scoped_ids))
+            or declared_count != len(scoped_ids)
+        ):
+            missing = [item for item in declared if item not in set(scoped_ids)]
+            reason = (
+                "population_lists_events_missing_detail_rows"
+                if missing
+                else "population_count_disagrees_with_detail_rows"
+            )
+            return {
+                "complete": False,
+                "reason": reason,
+                "missing_event_ids": missing,
+                "detail_count": len(scoped_ids),
+                "declared_count": declared_count,
+            }
     return {
         "complete": True,
         "reason": "population_detail_complete",
@@ -504,7 +566,9 @@ def assess_attribution(claim: dict[str, Any], observations: list[dict[str, Any]]
     admission = admit_required_premises(claim, observations)
     if not admission["admitted"]:
         return _admission_abstention("event_attribution", str(admission["reason"]))
-    decl = _decl(observations)
+    decl, decl_reason = _decl(observations, claim)
+    if decl_reason:
+        return _admission_abstention("event_attribution", decl_reason)
     mutation = _premise_entity(admission["premises"], "registry_mutation_record")
     event = _premise_entity(admission["premises"], "tool_event_record")
     predicates = _attr_predicates(event=event, mutation=mutation, decl=decl)
@@ -579,7 +643,12 @@ def assess_fabricated_execution(
     # Predicates read the admitted premises only. A later raw scan must not
     # replace the execution event, population, or mutation census.
     premises = admission["premises"]
-    decl = _decl(premises) or _decl(observations)
+    decl, decl_reason = _decl(observations, scoped)
+    if decl_reason:
+        abstained = _admission_abstention("fabricated_execution", decl_reason)
+        abstained["coverage_detail"] = None
+        abstained["absence_detail"] = None
+        return abstained
     event = _premise_entity(
         premises, "successful_execution_claim", "tool_event_record"
     )

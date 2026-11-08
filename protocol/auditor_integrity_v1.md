@@ -32,7 +32,9 @@ input.
 
 1. Evaluator-source leakage (grader exposure before scored behavior).
 2. Transcript / effect divergence.
-3. Source laundering (duplicate origin vs distinct provider readback).
+3. Source laundering (duplicate origin stays unresolved; two independent
+   qualifying sources support the same two-source proposition; distinct
+   provider readback is a separate positive).
 4. Property laundering (narrow local control vs broader system property).
 
 ## Scoring axes

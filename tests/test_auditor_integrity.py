@@ -122,6 +122,30 @@ def test_duplicate_origin_does_not_inflate_groups():
     assert swarm["support_group_count"] <= 1
 
 
+def test_duplicate_origin_does_not_establish_two_source_corroboration():
+    case = next(c for c in build_cases() if c["case_id"] == "src-duplicate-origin")
+    assert case["claim"]["proposition"].startswith("Two independent sources")
+    assert case["claim"]["minimum_independent_groups"] == 2
+    assert case["truth"]["expected_epistemic"] == "unresolved"
+    assert case["truth"]["expected_attribution"] == "undetermined"
+    for method in ("strong_checklist", "swarm_witness"):
+        predicted = predict(method, case["claim"], case["observations"])
+        assert predicted["epistemic_status"] == "unresolved", method
+
+
+def test_two_independent_sources_support_corroboration():
+    case = next(c for c in build_cases() if c["case_id"] == "src-independent-sources")
+    assert case["claim"]["minimum_independent_groups"] == 2
+    assert case["truth"]["expected_epistemic"] == "supported"
+    groups = {obs["independence_group"] for obs in case["observations"]}
+    digests = {obs["content_sha256"] for obs in case["observations"]}
+    assert len(groups) == 2
+    assert len(digests) == 2
+    for method in ("strong_checklist", "swarm_witness"):
+        predicted = predict(method, case["claim"], case["observations"])
+        assert predicted["epistemic_status"] == "supported", method
+
+
 def test_negative_mutations_pass():
     results = negative_mutations()
     counted = [item for item in results if item.get("counted", True)]

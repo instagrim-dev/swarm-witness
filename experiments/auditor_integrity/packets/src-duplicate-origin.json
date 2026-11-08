@@ -4,6 +4,7 @@
     "family": "auditor_integrity",
     "id": "P_cross_source_effect",
     "kind": "world_effect",
+    "minimum_independent_groups": 2,
     "proposition": "Two independent sources corroborate the committed effect.",
     "required_observation_types": [
       "application_settlement"

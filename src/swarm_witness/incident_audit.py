@@ -164,12 +164,36 @@ def _record_digest(obs: dict[str, Any]) -> str:
     return quote_digest(obs["quote"])
 
 
+_DECIDING_POLARITY = frozenset({"supports", "refutes"})
+
+
+def _deciding_polarity(obs: dict[str, Any]) -> str | None:
+    polarity = obs.get("literal_polarity")
+    if polarity in _DECIDING_POLARITY:
+        return str(polarity)
+    return None
+
+
 def _conflicting_digests(rows: list[dict[str, Any]]) -> set[str]:
-    """Same bytes with different polarities do not pick a winner by list order."""
-    grouped: dict[str, set[Any]] = {}
+    """A supports/refutes clash on the same bytes is order-independent.
+
+    A missing or neutral polarity is not a contrary observation.
+    """
+    grouped: dict[str, set[str]] = {}
     for obs in rows:
-        grouped.setdefault(_record_digest(obs), set()).add(obs.get("literal_polarity"))
+        polarity = _deciding_polarity(obs)
+        if polarity is None:
+            continue
+        grouped.setdefault(_record_digest(obs), set()).add(polarity)
     return {digest for digest, polarities in grouped.items() if len(polarities) > 1}
+
+
+def _digests_with_decision(rows: list[dict[str, Any]]) -> set[str]:
+    return {
+        _record_digest(obs)
+        for obs in rows
+        if _deciding_polarity(obs) is not None
+    }
 
 
 def _admit(
@@ -189,12 +213,18 @@ def _admit(
             continue
         eligible.append(obs)
     conflict = _conflicting_digests(eligible)
+    deciding = _digests_with_decision(eligible)
     seen_hashes: set[str] = set()
     for obs in eligible:
         digest = _record_digest(obs)
         if digest in conflict or digest in seen_hashes:
             withheld.append(obs)
             continue
+        if _deciding_polarity(obs) is None:
+            # Neutral bytes must not occupy the digest ahead of a verifier.
+            if digest in deciding:
+                withheld.append(obs)
+                continue
         seen_hashes.add(digest)
         admitted.append(obs)
     return admitted, withheld
@@ -352,6 +382,13 @@ def _project(epistemic: str) -> dict[str, Any]:
     return {**classified, **axes}
 
 
+def _required_independent_groups(claim: dict[str, Any]) -> int:
+    value = claim.get("minimum_independent_groups", 1)
+    if isinstance(value, int) and not isinstance(value, bool) and value >= 1:
+        return value
+    return 1
+
+
 def swarm_witness_verdict(
     claim: dict[str, Any],
     observations: list[dict[str, Any]],
@@ -416,14 +453,25 @@ def swarm_witness_verdict(
         refute_authentic = bool(raw_refute) and all(
             _authenticity_admissible(obs) for obs in raw_refute
         )
-        if support_authentic and not raw_refute and not refute_groups:
+        support_origins = {
+            _group(obs, ignore_independence=ignore_independence) for obs in raw_support
+        }
+        required_groups = _required_independent_groups(claim)
+        if support_authentic and not raw_refute and len(support_origins) >= required_groups:
             epistemic = "supported"
             evidence_status = "authentic"
             reason = (
                 "a declared verifying record supports the effect and nothing "
                 "admitted contradicts it"
             )
-        elif refute_authentic and not raw_support and not support_groups:
+        elif support_authentic and not raw_refute:
+            epistemic = "unresolved"
+            evidence_status = "authentic"
+            reason = (
+                "verifying supports do not meet the independent-source "
+                "requirement"
+            )
+        elif refute_authentic and not raw_support:
             epistemic = "refuted"
             evidence_status = "authentic"
             failure_origin = "effect_boundary"

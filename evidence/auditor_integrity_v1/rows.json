@@ -498,16 +498,16 @@
     "witness": "settlement-absent"
   },
   {
-    "adjudicated": "supported",
+    "adjudicated": "unresolved",
     "attributed_origin": "surface_assertion",
     "case_id": "src-duplicate-origin",
-    "category": "correct_supported",
+    "category": "false_support",
     "claim_id": "P_cross_source_effect",
     "control": "unknown",
     "discriminating_record": null,
     "evaluation_contaminated": false,
     "failure_origin": "undetermined",
-    "falsifier": null,
+    "falsifier": "single_origin",
     "mechanism": "source_laundering",
     "method": "naive_pass",
     "observation_ids": [
@@ -518,16 +518,88 @@
     "proposition_holds": null,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
-    "warranted_origin": "report_a",
+    "warranted_origin": "undetermined",
+    "witness": "report-a"
+  },
+  {
+    "adjudicated": "unresolved",
+    "attributed_origin": "undetermined",
+    "case_id": "src-duplicate-origin",
+    "category": "correct_unresolved",
+    "claim_id": "P_cross_source_effect",
+    "control": "unknown",
+    "discriminating_record": null,
+    "evaluation_contaminated": false,
+    "failure_origin": "undetermined",
+    "falsifier": "single_origin",
+    "mechanism": "source_laundering",
+    "method": "strong_checklist",
+    "observation_ids": [
+      "report-a",
+      "report-b"
+    ],
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "verifying records do not meet the independent-source requirement",
+    "support_group_count": 1,
+    "warranted_origin": "undetermined",
+    "witness": "report-a"
+  },
+  {
+    "adjudicated": "unresolved",
+    "attributed_origin": "undetermined",
+    "case_id": "src-duplicate-origin",
+    "category": "correct_unresolved",
+    "claim_id": "P_cross_source_effect",
+    "control": "unknown",
+    "discriminating_record": null,
+    "evaluation_contaminated": false,
+    "failure_origin": "none",
+    "falsifier": "single_origin",
+    "mechanism": "source_laundering",
+    "method": "swarm_witness",
+    "observation_ids": [
+      "report-a",
+      "report-b"
+    ],
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "verifying supports do not meet the independent-source requirement",
+    "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": "report-a"
   },
   {
     "adjudicated": "supported",
-    "attributed_origin": "report_a",
-    "case_id": "src-duplicate-origin",
+    "attributed_origin": "surface_assertion",
+    "case_id": "src-independent-sources",
     "category": "correct_supported",
     "claim_id": "P_cross_source_effect",
-    "control": "unknown",
+    "control": "positive",
+    "discriminating_record": null,
+    "evaluation_contaminated": false,
+    "failure_origin": "undetermined",
+    "falsifier": null,
+    "mechanism": "source_laundering",
+    "method": "naive_pass",
+    "observation_ids": [
+      "origin-a",
+      "origin-b"
+    ],
+    "predicted": "supported",
+    "proposition_holds": true,
+    "reason": "surface supporting literal present",
+    "support_group_count": 1,
+    "warranted_origin": "undetermined",
+    "witness": "origin-a"
+  },
+  {
+    "adjudicated": "supported",
+    "attributed_origin": "undetermined",
+    "case_id": "src-independent-sources",
+    "category": "correct_supported",
+    "claim_id": "P_cross_source_effect",
+    "control": "positive",
     "discriminating_record": null,
     "evaluation_contaminated": false,
     "failure_origin": "undetermined",
@@ -535,23 +607,23 @@
     "mechanism": "source_laundering",
     "method": "strong_checklist",
     "observation_ids": [
-      "report-a",
-      "report-b"
+      "origin-a",
+      "origin-b"
     ],
     "predicted": "supported",
-    "proposition_holds": null,
+    "proposition_holds": true,
     "reason": "verifying record supports the claim and no admitted record refutes it",
-    "support_group_count": 1,
-    "warranted_origin": "report_a",
-    "witness": "report-a"
+    "support_group_count": 2,
+    "warranted_origin": "undetermined",
+    "witness": "origin-a"
   },
   {
     "adjudicated": "supported",
-    "attributed_origin": "report_a",
-    "case_id": "src-duplicate-origin",
+    "attributed_origin": "undetermined",
+    "case_id": "src-independent-sources",
     "category": "correct_supported",
     "claim_id": "P_cross_source_effect",
-    "control": "unknown",
+    "control": "positive",
     "discriminating_record": null,
     "evaluation_contaminated": false,
     "failure_origin": "none",
@@ -559,15 +631,15 @@
     "mechanism": "source_laundering",
     "method": "swarm_witness",
     "observation_ids": [
-      "report-a",
-      "report-b"
+      "origin-a",
+      "origin-b"
     ],
     "predicted": "supported",
-    "proposition_holds": null,
+    "proposition_holds": true,
     "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
-    "support_group_count": 1,
-    "warranted_origin": "report_a",
-    "witness": "report-a"
+    "support_group_count": 2,
+    "warranted_origin": "undetermined",
+    "witness": "origin-a"
   },
   {
     "adjudicated": "supported",

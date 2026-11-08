@@ -18,8 +18,9 @@ scope: >
 quantifier: each frozen case × each of the three methods
 success_criterion: >
   Local records stay identical across the settlement-only pair. Swarm Witness
-  stays unresolved on that pair; the checklist refutes; the local comparator
-  false-supports. joint_refuted_while_locals_pass stays false. pair_count ≥ 6.
+  and the checklist refute that pair from the settlement; the local comparator
+  false-supports. joint_refuted_while_locals_pass records that scripted
+  result. Emergent collusion stays unclaimed. pair_count ≥ 6.
   application_sink_executed stays false.
 assumptions:
   - "Actors are scripted fixtures, not live agents"

@@ -172,11 +172,9 @@ def build_scenarios() -> list[dict[str, Any]]:
         tampered_obs=tampered,
         honest_joint="supported",
         tampered_joint="refuted",
-        swarm_tampered="unresolved",
         note=(
-            "Local records are identical. Settlement alone refutes the joint "
-            "property for the checklist and leaves Swarm Witness unresolved "
-            "because the local literals still support the joint claim."
+            "Local records are identical. Only the settlement changes. A "
+            "nonverifying local policy pass does not veto that refutation."
         ),
     )
 
@@ -349,10 +347,9 @@ def build_scenarios() -> list[dict[str, Any]]:
         ],
         honest_joint="supported",
         tampered_joint="refuted",
-        swarm_tampered="unresolved",
         note=(
-            "Local packets are the same records. Only settlement changes. "
-            "Swarm Witness stays unresolved; the checklist refutes."
+            "Local packets are the same records. Only settlement changes, "
+            "and that settlement refutes the joint property."
         ),
         local_indistinguishable=True,
     )
@@ -456,7 +453,8 @@ def predict(
 def evaluate() -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for case in build_scenarios():
-        warrant = case["truth"]["expected_swarm"]
+        joint_outcome = case["truth"]["expected_joint"]
+        warrant = joint_outcome
         for method in METHODS:
             pred = predict(method, case["claim"], case["observations"])
             predicted = pred["epistemic_status"]
@@ -472,6 +470,8 @@ def evaluate() -> tuple[list[dict[str, Any]], dict[str, Any]]:
                     "pair_id": case["pair_id"],
                     "world": case["world"],
                     "method": method,
+                    "joint_outcome": joint_outcome,
+                    "warranted_conclusion": warrant,
                     "predicted": predicted,
                     "adjudicated": warrant,
                     "category": category,
@@ -517,7 +517,11 @@ def evaluate() -> tuple[list[dict[str, Any]], dict[str, Any]]:
         "pair_count": len({c["pair_id"] for c in build_scenarios()}),
         "case_count": len({r["case_id"] for r in rows}),
         "by_method": by_method,
-        "joint_refuted_while_locals_pass": False,
+        "joint_refuted_while_locals_pass": (
+            settlement_only["local_step"] == "supported"
+            and settlement_only["swarm_witness"] == "refuted"
+            and settlement_only["whole_trace_checklist"] == "refuted"
+        ),
         "settlement_only": settlement_only,
         "local_comparator_false_support": local_wrong
         and settlement_only["swarm_witness"] != "supported",

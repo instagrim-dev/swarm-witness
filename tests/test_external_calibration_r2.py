@@ -260,6 +260,8 @@ def test_eg_adapter_behavioral_predicates_and_input_independence():
     exec_obs = [
         {
             "observation_types": ["declared_assumptions"],
+            "authenticity": "authentic_public_text",
+            "applies_to": ["clean-exec"],
             "declared_assumptions": {
                 "clock_bounds": decl.get("clock_bounds") or [],
                 "trust_domains": decl.get("trust_domains") or [],
@@ -267,14 +269,20 @@ def test_eg_adapter_behavioral_predicates_and_input_independence():
         },
         {
             "observation_types": ["capture_declaration"],
+            "authenticity": "authentic_public_text",
+            "applies_to": ["clean-exec"],
             "populations": scenario["public_entities"]["populations"],
         },
         {
             "observation_types": ["tool_event_record", "successful_execution_claim"],
+            "authenticity": "authentic_public_text",
+            "applies_to": ["clean-exec"],
             "entity": event,
         },
         {
             "observation_types": ["registry_mutation_population"],
+            "authenticity": "authentic_public_text",
+            "applies_to": ["clean-exec"],
             "registry_mutations": scenario["public_entities"]["registry_mutations"],
         },
     ]
@@ -295,16 +303,19 @@ def test_eg_adapter_behavioral_predicates_and_input_independence():
     mutations = list(scenario["public_entities"]["registry_mutations"])
     assert len(mutations) == 12
 
-    def _execution_obs(rows):
+    def _execution_obs(rows, claim_id: str):
         observed = copy.deepcopy(exec_obs)
         for row in observed:
+            row["applies_to"] = [claim_id]
             if "successful_execution_claim" in row.get("observation_types", []):
                 row["entity"] = genuine
             if "registry_mutation_population" in row.get("observation_types", []):
                 row["registry_mutations"] = rows
         return observed
 
-    held = assess_fabricated_execution({"id": "genuine-held"}, _execution_obs(mutations))
+    held = assess_fabricated_execution(
+        {"id": "genuine-held"}, _execution_obs(mutations, "genuine-held")
+    )
     assert held["verdict"] == "unresolved"
     assert held["reason"] == "claimed_event_id_present_in_registry"
     assert held["predicates"]["population_detail_complete"] is True
@@ -316,7 +327,8 @@ def test_eg_adapter_behavioral_predicates_and_input_independence():
     ]
     assert len(trimmed) == 11
     missing = assess_fabricated_execution(
-        {"id": "genuine-missing-detail"}, _execution_obs(trimmed)
+        {"id": "genuine-missing-detail"},
+        _execution_obs(trimmed, "genuine-missing-detail"),
     )
     assert missing["verdict"] == "unresolved"
     assert missing["reason"] == "population_lists_events_missing_detail_rows"
@@ -622,7 +634,7 @@ def test_composed_classifiers_do_not_promote_spoofed_or_wrong_target_evidence():
     assert _unchanged(right["observations"]) == before
     assert crossed["raw_strong"] == crossed["raw_swarm"] == "unresolved"
     assert crossed["assessment"] == "unresolved"
-    assert crossed["reason"] == "premise_entity_not_bound_to_claim"
+    assert crossed["reason"] == "required_premise_not_admitted"
     assert crossed["strong"] == crossed["swarm"] == "unresolved"
     assert crossed["derived_authenticity"] == []
     assert all(claim["id"] not in (obs.get("applies_to") or []) for obs in crossed["projected"])
@@ -667,6 +679,7 @@ def test_fabricated_execution_ignores_prepended_unrelated_spoof():
             "id": "assumptions",
             "observation_types": ["declared_assumptions"],
             "authenticity": "authentic_public_text",
+            "applies_to": ["genuine-held"],
             "declared_assumptions": {
                 "clock_bounds": decl.get("clock_bounds") or [],
                 "trust_domains": decl.get("trust_domains") or [],
@@ -676,6 +689,7 @@ def test_fabricated_execution_ignores_prepended_unrelated_spoof():
             "id": "capture",
             "observation_types": ["capture_declaration"],
             "authenticity": "authentic_public_text",
+            "applies_to": ["genuine-held"],
             "populations": scenario["public_entities"]["populations"],
         },
         genuine_obs,
@@ -683,6 +697,7 @@ def test_fabricated_execution_ignores_prepended_unrelated_spoof():
             "id": "mutations",
             "observation_types": ["registry_mutation_population"],
             "authenticity": "authentic_public_text",
+            "applies_to": ["genuine-held"],
             "registry_mutations": scenario["public_entities"]["registry_mutations"],
         },
     ]
@@ -840,3 +855,121 @@ def test_external_calibration_runner_matrix():
     assert "matches_evidencegraph_safer_native_verdicts_on_r2_seed0" in labels
     assert "repeats_evidencegraph_attribution_across_r2_seeds" in labels
     assert "transfers_evidencegraph_attribution_across_r2_seeds" not in labels
+
+
+def _permissive_decl() -> dict:
+    return {
+        "clock_bounds": [{"bound_seconds": 5}],
+        "trust_domains": [
+            {"id": "runner", "exclusive_receipt_tokens": True},
+            {"id": "registry", "related_to": {"runner": "independent"}},
+        ],
+    }
+
+
+def _withheld_decl() -> dict:
+    return {"clock_bounds": [], "trust_domains": []}
+
+
+def test_missing_authenticity_and_wrong_claim_declarations_do_not_bind():
+    import copy
+
+    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
+    from eg_evidence_adapter import assess_attribution
+    from r2_event_packets import build_packets
+
+    clean = next(
+        packet
+        for packet in build_packets()
+        if packet["claim"]["scenario"] == "clean"
+        and packet["claim"]["family"] == "event_attribution"
+    )
+    claim = clean["claim"]
+    base = [
+        row
+        for row in copy.deepcopy(clean["observations"])
+        if "declared_assumptions" not in (row.get("observation_types") or [])
+    ]
+    genuine = {
+        "id": "genuine-decl",
+        "observation_types": ["declared_assumptions"],
+        "authenticity": "authentic_public_text",
+        "applies_to": [claim["id"]],
+        "declared_assumptions": _withheld_decl(),
+    }
+    unqualified = {
+        "id": "unqualified-decl",
+        "observation_types": ["declared_assumptions"],
+        "applies_to": [claim["id"]],
+        "declared_assumptions": _permissive_decl(),
+    }
+    wrong_claim = {
+        "id": "other-claim-decl",
+        "observation_types": ["declared_assumptions"],
+        "authenticity": "authentic_public_text",
+        "applies_to": ["some-other-claim"],
+        "declared_assumptions": _permissive_decl(),
+    }
+    held = assess_attribution(claim, base + [genuine])
+    assert held["verdict"] != "supported"
+    for extra in (unqualified, wrong_claim):
+        prepend = assess_attribution(claim, [extra] + base + [genuine])
+        append = assess_attribution(claim, base + [genuine, extra])
+        assert prepend["verdict"] == append["verdict"] == held["verdict"]
+        assert prepend["verdict"] != "supported"
+
+
+def test_conflicting_applicable_declarations_stay_unresolved():
+    import copy
+
+    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
+    from eg_evidence_adapter import assess_attribution
+    from r2_event_packets import build_packets
+
+    clean = next(
+        packet
+        for packet in build_packets()
+        if packet["claim"]["scenario"] == "clean"
+        and packet["claim"]["family"] == "event_attribution"
+    )
+    claim = clean["claim"]
+    base = [
+        row
+        for row in copy.deepcopy(clean["observations"])
+        if "declared_assumptions" not in (row.get("observation_types") or [])
+    ]
+    first = {
+        "id": "decl-a",
+        "observation_types": ["declared_assumptions"],
+        "authenticity": "authentic_public_text",
+        "applies_to": [claim["id"]],
+        "declared_assumptions": _withheld_decl(),
+    }
+    second = {
+        "id": "decl-b",
+        "observation_types": ["declared_assumptions"],
+        "authenticity": "authentic_public_text",
+        "applies_to": [claim["id"]],
+        "declared_assumptions": _permissive_decl(),
+    }
+    forward = assess_attribution(claim, base + [first, second])
+    reverse = assess_attribution(claim, base + [second, first])
+    assert forward["verdict"] == reverse["verdict"] == "unresolved"
+    assert forward["reason"] == reverse["reason"] == "conflicting_declarations"
+
+
+def test_population_complete_without_inventory_stays_incomplete():
+    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
+    from eg_evidence_adapter import population_detail_census
+
+    census = population_detail_census(
+        [{"complete": True, "namespace": "registry-lab"}],
+        [
+            {
+                "natural_key": "event-000001",
+                "attrs": {"id": "event-000001", "namespace": "registry-lab"},
+            }
+        ],
+    )
+    assert census["complete"] is False
+    assert census["reason"] != "population_detail_complete"

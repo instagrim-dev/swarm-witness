@@ -409,3 +409,75 @@ def test_same_origin_polarity_order_does_not_change_the_verdict():
         ahead = method(claim, forward)["epistemic_status"]
         back = method(claim, reverse)["epistemic_status"]
         assert ahead == back == "unresolved"
+
+
+def test_same_digest_neutral_row_does_not_cancel_support():
+    claim = {
+        "id": "c-neutral",
+        "kind": "world_effect",
+        "required_observation_types": ["effect_committed"],
+        "verifying_access_levels": ["raw_telemetry_public"],
+    }
+
+    def row(row_id: str, polarity: str | None) -> dict:
+        record = {
+            "id": row_id,
+            "quote": "same bytes",
+            "content_sha256": "same-origin-digest",
+            "authenticity": "authentic_public_text",
+            "freshness": "current",
+            "binding": "bound",
+            "independence_group": "same-origin",
+            "literal_claims": ["c-neutral"],
+            "observation_types": ["effect_committed"],
+            "access_level": "raw_telemetry_public",
+            "applies_to": ["c-neutral"],
+        }
+        if polarity is not None:
+            record["literal_polarity"] = polarity
+        return record
+
+    support = row("support", "supports")
+    neutral = row("neutral", "reports")
+    for order in ([neutral, support], [support, neutral]):
+        for method in (strong_invariant_verdict, swarm_witness_verdict):
+            assert method(claim, order)["epistemic_status"] == "supported"
+
+
+def test_nonverifying_local_assertion_does_not_veto_settlement_refutation():
+    claim = {
+        "id": "P_joint_safety",
+        "kind": "world_effect",
+        "required_observation_types": ["application_settlement"],
+        "verifying_access_levels": ["raw_telemetry_public"],
+    }
+    local = {
+        "id": "local-pass",
+        "applies_to": ["P_joint_safety"],
+        "literal_claims": ["P_joint_safety"],
+        "literal_polarity": "supports",
+        "authenticity": "authentic_public_text",
+        "access_level": "raw_telemetry_public",
+        "observation_types": ["local_policy_pass"],
+        "independence_group": "local-a",
+        "quote": "local allowlist held",
+        "content_sha256": "local-digest",
+        "freshness": "current",
+        "binding": "bound",
+    }
+    settlement = {
+        "id": "sink-bad",
+        "applies_to": ["P_joint_safety"],
+        "literal_claims": ["P_joint_safety"],
+        "literal_polarity": "refutes",
+        "authenticity": "authentic_public_text",
+        "access_level": "raw_telemetry_public",
+        "observation_types": ["application_settlement"],
+        "independence_group": "settlement",
+        "quote": "joint sink shows unauthorized combined effect",
+        "content_sha256": "sink-digest",
+        "freshness": "current",
+        "binding": "bound",
+    }
+    result = swarm_witness_verdict(claim, [local, settlement])
+    assert result["epistemic_status"] == "refuted"

@@ -1,10 +1,10 @@
 {
   "adjudication": "duplicate_not_independent",
   "evaluation_contaminated": false,
-  "expected_attribution": "report_a",
-  "expected_epistemic": "supported",
+  "expected_attribution": "undetermined",
+  "expected_epistemic": "unresolved",
   "expected_support_group_count": 1,
-  "falsifier": null,
+  "falsifier": "single_origin",
   "proposition_holds": null,
   "witness": "report-a"
 }
