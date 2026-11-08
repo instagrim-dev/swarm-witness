@@ -908,6 +908,129 @@ def test_unavailable_source_cannot_be_declared_as_a_gate():
         validate_graph(graph)
 
 
+def test_blocks_upgrade_on_unheld_evidence_cannot_prevent_supported():
+    """A public narrative the audit did not pin is not a gate."""
+    narrative = make_source(
+        id="narr",
+        observation_origin="correlated_analysis_of_single_dataset",
+        independence_group="narr-group",
+        access_level="public_narrative",
+        redaction="none",
+        custody="intact",
+        locally_held=False,
+        collection_boundary="A public page this audit did not pin.",
+    )
+    held = _pinned(
+        "held-log",
+        "service-log:held",
+        observation_origin="independent_provider_telemetry",
+        independence_group="held-log",
+    )
+    event = make_event(
+        id="ev",
+        extraction_ids=["ext"],
+        necessary_source_ids=["held-log"],
+        event_kind="committed_effect",
+        statement="A log this audit holds.",
+        polarity="supports",
+        actor_binding="bound",
+        verification_method="independent_log_digest",
+        time_basis="source_stated",
+        event_time="2026-07-11T10:10:00Z",
+    )
+    claim = make_claim(
+        id="claim",
+        proposition="The held log shows a committed effect.",
+        required_event_kinds=["committed_effect"],
+        insufficient_event_kinds=["narrative_report"],
+        requires_bound_actor=True,
+        requires_event_time=True,
+        event_ids=["ev"],
+        evidence_slots=[
+            {"id": "slot-narr", "source_id": "narr", "blocks_upgrade": True, "role": "unpinned-narrative"},
+            {"id": "slot-held", "source_id": "held-log", "blocks_upgrade": False, "role": "log"},
+        ],
+    )
+    graph = _graph(
+        "unheld-gate",
+        [narrative, held],
+        [make_extraction(id="ext", analyst_id="a", analysis_origin="human", source_ids=["held-log"])],
+        [event],
+        [claim],
+    )
+    with pytest.raises(ValueError, match="requires evidence this audit holds"):
+        validate_graph(copy.deepcopy(graph))
+
+    duplicate = _pinned(
+        "dup-log",
+        "service-log:duplicate",
+        observation_origin="independent_provider_telemetry",
+        independence_group="held-log",
+        duplicate_of="held-log",
+    )
+    dup_graph = _graph(
+        "dup-gate",
+        [held, duplicate],
+        [make_extraction(id="ext", analyst_id="a", analysis_origin="human", source_ids=["held-log"])],
+        [event],
+        [
+            make_claim(
+                id="claim",
+                proposition="A duplicate handle blocks the claim.",
+                required_event_kinds=["committed_effect"],
+                insufficient_event_kinds=["narrative_report"],
+                event_ids=["ev"],
+                evidence_slots=[
+                    {"id": "slot-dup", "source_id": "dup-log", "blocks_upgrade": True, "role": "duplicate"},
+                ],
+            )
+        ],
+    )
+    with pytest.raises(ValueError, match="requires evidence this audit holds"):
+        validate_graph(dup_graph)
+
+    broken = _pinned(
+        "broken-log",
+        "service-log:broken",
+        observation_origin="independent_provider_telemetry",
+        independence_group="broken-log",
+        custody="unknown",
+    )
+    broken_graph = _one_claim_graph(
+        broken,
+        {
+            "id": "ev-broken",
+            "event_kind": "committed_effect",
+            "statement": "Bytes with unknown custody.",
+            "verification_method": "independent_log_digest",
+            "polarity": "supports",
+            "actor_binding": "bound",
+            "time_basis": "source_stated",
+            "event_time": "2026-07-11T10:10:00Z",
+        },
+        {
+            "id": "claim",
+            "proposition": "Unknown custody is a gate.",
+            "required_event_kinds": ["committed_effect"],
+            "insufficient_event_kinds": ["narrative_report"],
+            "evidence_slots": [
+                {"id": "slot-broken", "source_id": "broken-log", "blocks_upgrade": True, "role": "broken"},
+            ],
+        },
+    )
+    with pytest.raises(ValueError, match="requires evidence this audit holds"):
+        validate_graph(broken_graph)
+
+    graph["claims"][0]["evidence_slots"][0]["blocks_upgrade"] = False
+    qualified = qualify_graph(graph)["claims"]["claim"]
+    assert qualified["conclusion_class"] == "supported"
+    assert qualified["primary_upgrade_blocker"] is None
+    assert qualified["upgrade_blocked_by"] == []
+    assert qualified["real_world_authenticity_certified"] is False
+    assert qualified["incident_detection_claimed"] is False
+    assert qualified["incident_prevention_claimed"] is False
+
+
 def test_duplicate_reports_do_not_corroborate_and_irrelevant_records_do_not_move_the_verdict():
     text = "same-log-bytes"
     first = _pinned(
