@@ -1,103 +1,80 @@
-# Accessing Swarm Witness evidence (judges / external reviewers)
+# Evidence access and reproduction
 
-The GitHub repository may be **private**. This file describes how to verify
-labels without needing the author’s local absolute paths or a full BMO checkout.
+The repository contains the observations, claim definitions, warrants, and method outputs used by the paper. Retained results can be inspected without obtaining the private BMO source checkout.
 
-## What is self-contained in-repo
+## Evidence map
 
-| Artifact | Path |
-| --- | --- |
-| Label index | `evidence/index.yaml` |
-| R1 | `evidence/r1/` (+ `raw.json.gz`) |
-| R2 | `evidence/r2/` |
-| R3 decision-model (unresolved) | `evidence/r3/` |
-| R3-L1 selected run | `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` |
-| R3-L1 index mirror | `evidence/r3_ledger_claim_v1/` |
-| R4 evidence sufficiency | `evidence/r4/` |
-| R5 multi-principal audit | `evidence/r5/` |
-| Causal simulator (#10, historical) | `evidence/causal_swarm/`, `artifacts/causal_swarm_v1/` |
-| Expanded R5 v2 causal matrix (#11, historical) | `evidence/r5_v2/`, `artifacts/r5_v2/` |
-| Formal taxonomy, four-world (#12, historical) | `evidence/taxonomy_theory/`, `theory/`, `artifacts/taxonomy_proof_checks.json` |
-| Incident audit v1 (#27) | `evidence/incident_audit_v1/`, `experiments/incident_audit/` |
-| Frozen comparison (#27, consumed by #42) | `evidence/incident_comparison_v1/`, `report/bounded_comparison_v1/TABLES.md`, `report/bounded_comparison_v1/ledger.csv` |
-| Provenance | `experiments/provenance/`, `evidence/provenance/` |
-| Forensic telemetry | `experiments/telemetry/`, `evidence/telemetry/` |
-| Coordination | `experiments/coordination/`, `evidence/coordination/` |
-| Detection latency | `experiments/detection_latency/`, `evidence/detection_latency/` |
-| Application effect witness | `experiments/effect_witness/`, `evidence/effect_witness_v1/` |
-| Evidence binding | `experiments/evidence_binding/`, `evidence/evidence_binding_v1/` |
-| Formal taxonomy, eight-world | `experiments/taxonomy_formal/`, `src/swarm_witness/formal/` |
-| Settlement-ledger simulator | `evidence/multi_agent_sim/` |
-| R5-v3 wider coverage | `evidence/r5_v3/`, `experiments/swarm_r5_v3/` |
-| Claims / pins | `claims/`, `artifacts/pins.yaml` |
-| Final report PDF | `report/Swarm_Witness_Final_Submission.pdf` |
-| Final editable report | `report/Swarm_Witness_Final_Submission.docx` |
-| Templated official-chrome PDF/DOCX | `report/Swarm_Witness_Templated_Submission.pdf` / `.docx` |
-| Slides | `report/Swarm_Witness_Slides.pdf` |
+| Study | Protocol and inputs | Retained results |
+| --- | --- | --- |
+| Application effect witness | `experiments/effect_witness/PROTOCOL.md`, `experiments/effect_witness/native_warrants_v1.yaml` | `evidence/effect_witness_v1/` |
+| Native, public, and controlled comparisons | `experiments/incident_audit/`, `src/swarm_witness/native_comparison.py` | `report/bounded_comparison_v1/TABLES.md`, `report/bounded_comparison_v1/ledger.csv` |
+| EvidenceGraph composition | `experiments/external_calibration/` | `report/external_calibration_v1/`, `evidence/external_calibration_v1/` |
+| SoundGate | `claims/r1_restart.yaml`, `experiments/r1/` | `evidence/r1/`, including `evidence/r1/raw.json.gz` |
+| EvidenceGraph stress confirmation | `claims/r2_receipt.yaml`, `experiments/r2/` | `evidence/r2/` |
+| Native BMO and SQLite first-edit comparison | `experiments/r3/ledger_claim_v1/` | `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` |
+| Four-world evidence semantics | `theory/` | `evidence/taxonomy_theory/`, `artifacts/taxonomy_proof_checks.json` |
+| Additional controlled protocols | `experiments/`, `protocol/`, `claims/` | `evidence/index.yaml` and the corresponding study directories |
 
-R3-L1 `source_manifest.json` uses portable locators (`bmo_go_test.log`,
-`<local-checkout>`, relative `cases_path`). Bridge log is archived at the run
-root. Native re-execution needs a BMO tree containing pin
-`4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe` and Go; label verification does not.
+The [paper and publication sources](../report/README.md) identify the current manuscript and exports. Source revisions are recorded in `artifacts/pins.yaml`; [preexisting material](../PREEXISTING.md) identifies the underlying systems.
 
-## Verify from a fresh review-bundle extract
+## Install and validate
 
-The portable zip includes `src/`, all R3/R4/R5 study sources and comparator,
-new causal-swarm and R5-v2 runners, `theory/`, `tests/`, raw evidence,
-`report/`, `scripts/`, and `pyproject.toml`.
+Python 3.11 or later is required. Run these commands from the repository root or an extracted review bundle.
 
 ```bash
-unzip swarm-witness-review-bundle.zip && cd swarm-witness-review-bundle
-python3 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
-pytest -q
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev]'
+python -m pytest -q
 python scripts/validate_claims.py
 python scripts/check_evidence.py
-python3 experiments/r3/ledger_claim_v1/compare.py \
-  --run-dir evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2
-# expect: classical_baseline_matches, native qualification ok
-python3 experiments/evidence_sufficiency/run.py  # R4
-python3 experiments/swarm_r5/run.py             # R5 v1
-PYTHONPATH=src python3 experiments/causal_swarm/run.py --output /tmp/causal-swarm-recheck
-PYTHONPATH=src python3 experiments/r5_v2/run.py --output /tmp/r5-v2-recheck
-python3 theory/check_taxonomy.py               # 2,646 finite instances
-PYTHONPATH=src python3 experiments/incident_audit/run.py  # public postmortem audit
-PYTHONPATH=src python3 experiments/incident_audit/compare.py  # frozen public and controlled comparison
-PYTHONPATH=src python3 experiments/provenance/qualify.py
-PYTHONPATH=src python3 experiments/telemetry/qualify.py
-PYTHONPATH=src python3 experiments/coordination/qualify.py
-PYTHONPATH=src python3 experiments/detection_latency/run.py
-PYTHONPATH=src python3 experiments/effect_witness/run.py
-PYTHONPATH=src python3 experiments/evidence_binding/run.py
-python3 scripts/render_bounded_comparison.py
-PYTHONPATH=src python3 experiments/taxonomy_formal/run.py
-PYTHONPATH=src python3 experiments/multi_agent_sim/run.py
-PYTHONPATH=src python3 experiments/swarm_r5_v3/run.py
-# expect: R5-v1 synthetic conformance; historical v2 14 cases/28 arms (PR #33);
-# causal 9 schedules/18 arms; four-world checker passes; eight-world checker passes;
-# settlement ledger and r5_v3 pass without replacing those historical trees.
-# Native BMO re-execution stays a separately stated access-dependent route.
-# Incident evidence standard: the public LessWrong reproduction
-# (Palan, Chute, Kim, and Van Roy, 2026). Original transcripts and
-# platform logs are unavailable and are not a replay requirement.
-python scripts/check_evidence.py --write-index
-python scripts/check_evidence.py
 ```
+
+The index validates the retained findings and their evidence references. A completed command is not itself a supported authorization claim; the per-case outputs carry that conclusion.
+
+## Reproduce the principal experiments
+
+```bash
+PYTHONPATH=src python experiments/effect_witness/run.py /tmp/swarm-witness-effect
+python scripts/render_bounded_comparison.py
+PYTHONPATH=src python experiments/external_calibration/run.py
+python theory/check_taxonomy.py
+```
+
+The application runner creates twelve histories and four evidence conditions per history in the supplied output directory. Its `witness.json` records the local control, actor-only conclusion, and application readback conclusion. The comparison renderer uses the retained packets under `evidence/effect_witness_v1/` and preserves the separate public, controlled, and native denominators. Its generated ledger and tables are in `report/bounded_comparison_v1/`. The EvidenceGraph report distinguishes composition agreement from agreement with warrants and native judgments.
+
+The [comparison reproduction guide](../report/bounded_comparison_v1/REPLAY.md) describes the input and output relationships. Re-executing runners that use their default paths can replace generated results in the checkout; use a disposable checkout when retaining an unchanged copy of the published outputs matters.
+
+## Supporting studies
+
+```bash
+python experiments/r3/ledger_claim_v1/compare.py --run-dir evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2
+PYTHONPATH=src python experiments/causal_swarm/run.py --output /tmp/swarm-witness-causal
+PYTHONPATH=src python experiments/r5_v2/run.py --output /tmp/swarm-witness-r5-v2
+PYTHONPATH=src python experiments/taxonomy_formal/run.py
+PYTHONPATH=src python experiments/multi_agent_sim/run.py
+PYTHONPATH=src python experiments/swarm_r5_v3/run.py
+```
+
+The first command compares retained BMO and SQLite records. Native BMO re-execution requires Go and access to source revision `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe`, as described in `experiments/r3/ledger_claim_v1/README.md`. The causal and settlement experiments use declared model schedules. They are separate from the local application execution and the public reproduction record.
+
+## Build the paper
+
+Install Pandoc and LibreOffice, then run:
+
+```bash
+python -m pip install -e '.[paper]'
+bash scripts/build_submission_variants.sh
+```
+
+Both paper layouts, their PDF and DOCX exports, and the Markdown extracts derive from `report/Swarm_Witness_Final_Submission.md`. The committed template and fonts are included with the source.
 
 ## Pack a portable review bundle
 
 ```bash
 bash scripts/pack_review_bundle.sh
-# writes dist/swarm-witness-review-bundle.zip
-# and artifacts/swarm-witness-review-bundle.zip (committed copy for repo readers)
 ```
 
-R1/R2 third-party trees and native BMO product checkouts are **not** bundled
-(see `PREEXISTING.md`).
+The output is `dist/swarm-witness-review-bundle.zip`. It contains the current paper, publication dependencies, source, protocols, retained evidence, and tests. Historical presentations, caches, disposable worktrees, and earlier bundles are excluded. External SoundGate, EvidenceGraph, and BMO source checkouts are not included; their access requirements and pins remain documented.
 
-## Private-repo access
-
-If Apart judges cannot clone `instagrim-dev/swarm-witness`, the author must
-either (a) grant temporary read access, (b) publish a public mirror, or
-(c) attach `artifacts/swarm-witness-review-bundle.zip` to the submission.
-Author: Jonathan Maye-Hobbs. No institutional affiliation.
+Where repository access is restricted, the bundle can be shared with readers who need the retained evidence. It supports local inspection and the included reproduction commands without changing repository visibility.

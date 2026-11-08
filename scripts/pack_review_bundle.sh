@@ -1,191 +1,153 @@
 #!/usr/bin/env bash
-# Pack judge-facing evidence + report without local work trees or secrets.
+# Package the current paper, evidence, and reproduction sources.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-OUT_DIR="${ROOT}/dist"
-STAGING="${OUT_DIR}/swarm-witness-review-bundle"
-ZIP="${OUT_DIR}/swarm-witness-review-bundle.zip"
 
-rm -rf "${STAGING}" "${ZIP}"
-mkdir -p "${STAGING}"
-
-copy_tree() {
-  local src="$1"
-  local dst="$2"
-  mkdir -p "$(dirname "${dst}")"
-  if command -v rsync >/dev/null 2>&1; then
-    rsync -a --exclude 'bmo_work/' --exclude 'classical_work/' \
-      --exclude '**/tree/' --exclude '.bmo-session-fences/' \
-      "${src}" "${dst}"
-  else
-    cp -R "${src}" "${dst}"
-  fi
-}
-
-copy_tree "${ROOT}/claims/" "${STAGING}/claims/"
-# Copy artifacts but never nest the previous review ZIP inside a new one.
-mkdir -p "${STAGING}/artifacts"
-if command -v rsync >/dev/null 2>&1; then
-  rsync -a --exclude 'swarm-witness-review-bundle.zip' \
-    "${ROOT}/artifacts/" "${STAGING}/artifacts/"
-else
-  cp -R "${ROOT}/artifacts/." "${STAGING}/artifacts/"
-  rm -f "${STAGING}/artifacts/swarm-witness-review-bundle.zip"
-fi
-copy_tree "${ROOT}/baselines/" "${STAGING}/baselines/"
-copy_tree "${ROOT}/evidence/" "${STAGING}/evidence/"
-copy_tree "${ROOT}/src/" "${STAGING}/src/"
-copy_tree "${ROOT}/tests/" "${STAGING}/tests/"
-# Whole experiment tree. A partial list omitted incident audit, provenance,
-# telemetry, coordination, detection-latency, and property inputs that
-# pytest and the ACCESS.md runners import. Work-tree excludes still apply.
-copy_tree "${ROOT}/experiments/" "${STAGING}/experiments/"
-copy_tree "${ROOT}/theory/" "${STAGING}/theory/"
-copy_tree "${ROOT}/docs/" "${STAGING}/docs/"
-mkdir -p "${STAGING}/scripts"
-cp "${ROOT}/scripts/check_evidence.py" "${STAGING}/scripts/"
-cp "${ROOT}/scripts/validate_claims.py" "${STAGING}/scripts/"
-cp "${ROOT}/scripts/annotate_conclusion_classes.py" "${STAGING}/scripts/"
-cp "${ROOT}/scripts/pack_review_bundle.sh" "${STAGING}/scripts/"
-cp "${ROOT}/pyproject.toml" "${STAGING}/"
-# Drop bulky disposable trees if any slipped through.
-find "${STAGING}/evidence" -type d \( -name bmo_work -o -name classical_work -o -name tree \) -prune -exec rm -rf {} + 2>/dev/null || true
-find "${STAGING}" -type d -name '__pycache__' -prune -exec rm -rf {} + 2>/dev/null || true
-
-mkdir -p "${STAGING}/report"
-cp "${ROOT}/report/Swarm_Witness_Apart_Submission.pdf" "${STAGING}/report/"
-cp "${ROOT}/report/Swarm_Witness_Final_Submission.pdf" "${STAGING}/report/"
-cp "${ROOT}/report/Swarm_Witness_Final_Submission.docx" "${STAGING}/report/"
-cp "${ROOT}/report/Swarm_Witness_Final_Submission.md" "${STAGING}/report/"
-cp "${ROOT}/report/Swarm_Witness_Templated_Submission.pdf" "${STAGING}/report/"
-cp "${ROOT}/report/Swarm_Witness_Templated_Submission.docx" "${STAGING}/report/"
-cp "${ROOT}/report/Swarm_Witness_Templated_Submission.md" "${STAGING}/report/"
-cp "${ROOT}/report/Swarm_Witness_Slides.pdf" "${STAGING}/report/"
-mkdir -p "${STAGING}/report/slides" "${STAGING}/report/fonts"
-cp "${ROOT}/report/slides/slides.html" "${STAGING}/report/slides/"
-cp "${ROOT}/report/slides/Swarm_Witness_Slides.pdf" "${STAGING}/report/slides/"
-cp "${ROOT}/report/fonts/"*.ttf "${STAGING}/report/fonts/" 2>/dev/null || true
-cp "${ROOT}/report/fig01_evidence_to_warrant.png" "${STAGING}/report/"
-cp "${ROOT}/report/ABSTRACT.md" "${STAGING}/report/"
-cp "${ROOT}/report/body.md" "${STAGING}/report/"
-cp "${ROOT}/report/LIMITATIONS_DUAL_USE.md" "${STAGING}/report/"
-cp "${ROOT}/report/SUBMISSION_FORM.md" "${STAGING}/report/"
-cp "${ROOT}/report/SOURCES.md" "${STAGING}/report/"
-cp "${ROOT}/scripts/build_submission_variants.sh" "${STAGING}/scripts/"
-cp "${ROOT}/scripts/build_templated_submission.py" "${STAGING}/scripts/"
-cp "${ROOT}/scripts/render_bounded_comparison.py" "${STAGING}/scripts/"
-mkdir -p "${STAGING}/report/bounded_comparison_v1"
-cp "${ROOT}/report/bounded_comparison_v1/"* "${STAGING}/report/bounded_comparison_v1/"
-cp "${ROOT}/README.md" "${STAGING}/"
-cp "${ROOT}/PREEXISTING.md" "${STAGING}/"
-cp "${ROOT}/CHECKLIST.md" "${STAGING}/"
-cp "${ROOT}/evidence/ACCESS.md" "${STAGING}/ACCESS.md"
-
-# Exclude accidental absolute-path dumps / caches.
-find "${STAGING}" -name '.DS_Store' -delete 2>/dev/null || true
-
-# Fail if a path advertised in evidence/ACCESS.md is absent from the bundle.
-ACCESS_MD="${ROOT}/evidence/ACCESS.md" STAGING="${STAGING}" ROOT="${ROOT}" python3 - <<'PY'
-import os
+python3 - "${ROOT}" <<'PY'
 import re
+import shlex
+import shutil
 import sys
+import tempfile
+import zipfile
 from pathlib import Path
 
-access_path = Path(os.environ["ACCESS_MD"])
-staging = Path(os.environ["STAGING"])
-root = Path(os.environ["ROOT"])
-text = access_path.read_text(encoding="utf-8")
-end = re.search(r"^## Pack a portable review bundle\s*$", text, re.M)
-if end is None:
-    sys.exit("ACCESS.md is missing the portable review-bundle section")
-section = text[: end.start()]
+root = Path(sys.argv[1])
+bundle_name = "swarm-witness-review-bundle"
+out_dir = root / "dist"
+output = out_dir / f"{bundle_name}.zip"
 
-paths: list[str] = []
-last = None
-for token in re.findall(r"`([^`]+)`", section):
-    token = token.strip()
-    if not token or token.startswith("<") or "://" in token or " " in token:
-        continue
-    if re.fullmatch(r"\.[A-Za-z0-9]+", token) and last and "." in Path(last).name:
-        swapped = str(Path(last).with_suffix(token))
-        paths.append(swapped)
-        last = swapped
-        continue
-    if "/" in token:
-        if token.startswith("dist/") or token.endswith(".zip"):
-            continue
-        rel = token.strip("/")
-        paths.append(rel)
-        last = rel
-        continue
-    if (root / token).exists():
-        paths.append(token)
-        last = token
-
-for fence in re.findall(r"```(?:bash|sh)?\n(.*?)```", section, re.S):
-    logical: list[str] = []
-    buf = ""
-    for line in fence.splitlines():
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#"):
-            continue
-        if stripped.endswith("\\"):
-            buf += stripped[:-1].strip() + " "
-            continue
-        buf += stripped
-        logical.append(buf)
-        buf = ""
-    if buf.strip():
-        logical.append(buf.strip())
-    for line in logical:
-        for match in re.finditer(r"(?:^|\s)[A-Za-z_][A-Za-z0-9_]*=([^\s]+)", line):
-            val = match.group(1).strip("'\"")
-            if val.startswith("/") or val.startswith(".venv"):
-                continue
-            if val == "src" or "/" in val:
-                paths.append(val.strip("/"))
-        for tok in line.split():
-            tok = tok.strip("'\"")
-            if (
-                not tok
-                or tok.startswith("-")
-                or tok.startswith("/")
-                or tok.startswith(".venv")
-                or tok.startswith("http")
-                or "/" not in tok
-                or tok.endswith(".zip")
-            ):
-                continue
-            paths.append(tok.strip("/"))
-
-ordered: list[str] = []
-seen: set[str] = set()
-for path in paths:
-    if path not in seen:
-        seen.add(path)
-        ordered.append(path)
-if not ordered:
-    sys.exit("no advertised paths parsed from evidence/ACCESS.md")
-
-missing = [path for path in ordered if not (staging / path).exists()]
-if missing:
-    for path in missing:
-        print(f"advertised path missing from bundle: {path}", file=sys.stderr)
-    sys.exit(1)
-print(f"advertised paths present in bundle: {len(ordered)}")
-PY
-
-(
-  cd "${OUT_DIR}"
-  rm -f swarm-witness-review-bundle.zip
-  zip -qr swarm-witness-review-bundle.zip swarm-witness-review-bundle
+trees = (
+    "artifacts", "baselines", "claims", "docs", "evidence", "experiments",
+    "protocol", "report", "scenarios", "scripts", "src", "tests", "theory",
 )
+root_files = ("README.md", "pyproject.toml", "LICENSE", "PREEXISTING.md", "CHECKLIST.md")
+required_files = (
+    *root_files,
+    "evidence/ACCESS.md",
+    "report/ABSTRACT.md",
+    "report/body.md",
+    "report/LIMITATIONS_DUAL_USE.md",
+    "report/SOURCES.md",
+    "report/official-template.docx",
+    "report/fonts/OldStandardTT-regular.ttf",
+    "report/fonts/OldStandardTT-bold.ttf",
+    "report/fonts/OldStandardTT-italic.ttf",
+    *(f"report/{stem}.{extension}"
+      for stem in ("Swarm_Witness_Final_Submission", "Swarm_Witness_Templated_Submission")
+      for extension in ("md", "docx", "pdf")),
+)
+missing = [path for path in trees if not (root / path).is_dir()]
+missing += [path for path in required_files if not (root / path).is_file()]
+if missing:
+    sys.exit("Missing required bundle inputs:\n" + "\n".join(f"  {path}" for path in missing))
 
-# Also publish a repo-tree copy for judges with read access (dist/ is gitignored).
-mkdir -p "${ROOT}/artifacts"
-cp -f "${ZIP}" "${ROOT}/artifacts/swarm-witness-review-bundle.zip"
+excluded_names = {
+    ".git", ".venv", ".pytest_cache", ".mypy_cache", ".ruff_cache",
+    "__pycache__", ".DS_Store", ".bmo-session-fences", "node_modules",
+    ".worktrees", "worktrees",
+    "bmo_work", "classical_work", "tree", "REASSESSMENT.md",
+    f"{bundle_name}.zip",
+}
 
-echo "Wrote ${ZIP}"
-echo "Also wrote ${ROOT}/artifacts/swarm-witness-review-bundle.zip"
-unzip -l "${ZIP}" | tail -5
-du -h "${ZIP}"
+
+def excluded(directory, names):
+    omitted = []
+    for name in names:
+        relative = (Path(directory) / name).relative_to(root)
+        if (
+            name in excluded_names
+            or name.endswith((".pyc", ".pyo"))
+            or name == ".env"
+            or (name.startswith(".env.") and name != ".env.example")
+            or (relative.parts[0] == "report" and (
+                name in {"archive", "alternatives", "slides"}
+                or name.startswith(("Swarm_Witness_Apart_Submission.", "Swarm_Witness_Slides."))
+                or name.startswith(("_build", "_templated_build", "_slides_build"))
+            ))
+        ):
+            omitted.append(name)
+    return omitted
+
+
+def validate_advertised_paths(staging):
+    text = (root / "evidence/ACCESS.md").read_text(encoding="utf-8")
+    boundary = re.search(r"^## Pack a portable review bundle\s*$", text, re.M)
+    if boundary is None:
+        sys.exit("evidence/ACCESS.md is missing the portable review-bundle section")
+    section = text[:boundary.start()]
+    paths = set()
+    last = None
+
+    def add_path(token):
+        token = token.strip("'\"")
+        if (
+            not token or token.startswith(("<", "/", ".venv", "dist/", "-"))
+            or "://" in token or token.endswith(".zip")
+            or any(char.isspace() for char in token)
+        ):
+            return
+        if "/" in token or (root / token).exists():
+            paths.add(token.rstrip("/"))
+
+    for token in re.findall(r"`([^`]+)`", section):
+        token = token.strip()
+        if re.fullmatch(r"\.[A-Za-z0-9]+", token) and last and "." in Path(last).name:
+            token = str(Path(last).with_suffix(token))
+        add_path(token)
+        if token in paths:
+            last = token
+
+    # Local Markdown links are relative to evidence/ACCESS.md.
+    for target in re.findall(r"\[[^\]]+\]\(([^)]+)\)", section):
+        target = target.split("#", 1)[0]
+        if not target or "://" in target or target.startswith("/"):
+            continue
+        resolved = (root / "evidence" / target).resolve()
+        if resolved.is_relative_to(root):
+            add_path(resolved.relative_to(root).as_posix())
+
+    for fence in re.findall(r"```(?:bash|sh)?\n(.*?)```", section, re.S):
+        for line in fence.replace("\\\n", " ").splitlines():
+            for token in shlex.split(line, comments=True):
+                if re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", token):
+                    token = token.split("=", 1)[1]
+                if "/" in token or token == "src":
+                    add_path(token)
+
+    if not paths:
+        sys.exit("No advertised paths parsed from evidence/ACCESS.md")
+    missing = sorted(path for path in paths if not (staging / path).exists())
+    if missing:
+        sys.exit("Advertised paths missing from bundle:\n" + "\n".join(f"  {path}" for path in missing))
+    return len(paths)
+
+
+out_dir.mkdir(exist_ok=True)
+with tempfile.TemporaryDirectory(prefix=".review-bundle-", dir=out_dir) as temporary:
+    staging = Path(temporary) / bundle_name
+    staging.mkdir()
+    for tree in trees:
+        shutil.copytree(root / tree, staging / tree, ignore=excluded, symlinks=True)
+    archive_index = root / "report/archive/README.md"
+    if archive_index.is_file():
+        (staging / "report/archive").mkdir(parents=True, exist_ok=True)
+        shutil.copy2(archive_index, staging / "report/archive/README.md")
+    for filename in root_files:
+        shutil.copy2(root / filename, staging / filename)
+    for filename in ("CITATION.cff", "CITATION.md", "NOTICE", ".gitignore"):
+        if (root / filename).is_file():
+            shutil.copy2(root / filename, staging / filename)
+
+    advertised_count = validate_advertised_paths(staging)
+    archive = Path(temporary) / output.name
+    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
+        for path in sorted(staging.rglob("*")):
+            if path.is_symlink():
+                sys.exit(f"Bundle input is a symbolic link: {path.relative_to(staging)}")
+            bundle.write(path, Path(bundle_name) / path.relative_to(staging))
+    archive.replace(output)
+
+print(f"Wrote {output}")
+print(f"Validated {advertised_count} advertised paths")
+PY

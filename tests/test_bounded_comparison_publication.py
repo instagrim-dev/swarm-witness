@@ -1,4 +1,4 @@
-"""Issue #42 publication: separate denominators, lead, and reassessment."""
+"""Publication consistency, evidence denominators, and native warrants."""
 
 from __future__ import annotations
 
@@ -11,11 +11,6 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 W_NS = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 LESSWRONG = "https://www.lesswrong.com/posts/fMnC6ZD37qrnZAFYz/openai-huggingface-a-reproduction-and-lessons-for-alignment"
-SCORES = (
-    "Impact/innovation: 3/5. Constraint: Swarm Witness ties the strong checker on the frozen public comparison (both 0 unsupported supports; naive PASS has 24). superiority_claim stays false. No held-out run shows a useful advantage over the strong checker under the same evidence budget. The 4–4.5/5 aspiration is not a result.",
-    "Execution: 3/5. Constraint: tables were regenerated from retained data, and the advertised commands were rerun from a fresh review-bundle extract in this environment without private BMO access. No separate reviewer reproduced the study. Assistant agreement is not independent verification.",
-    "Clarity: 4/5. Constraint: this is an author judgment that the manuscript states one question, the witness aew-v1-local-control-pass-broader-effect, the strong-checker tie, separate denominators, and the conditional formal boundary, and that it labels the earlier staged comparison as author-curated. It is not a judge score, and it does not convert the tie into a superiority result.",
-)
 
 
 def _render():
@@ -64,63 +59,83 @@ def test_tables_keep_separate_denominators_and_the_tie():
     assert "superiority_claim" in text
 
 
-def test_readme_labels_the_staged_comparison_and_states_the_tie():
-    readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    line = next(
-        row for row in readme.splitlines() if "fewer unsupported conclusions" in row
+def test_markdown_extracts_and_mirror_match_the_canonical_manuscript():
+    report = ROOT / "report"
+    source = (report / "Swarm_Witness_Final_Submission.md").read_text(encoding="utf-8")
+    sections = list(re.finditer(r"^## ([^\n]+)$", source, re.M))
+    abstract_index = next(i for i, section in enumerate(sections) if section[1] == "Abstract")
+    abstract = sections[abstract_index]
+    body_start = sections[abstract_index + 1].start()
+    references = next(section for section in sections if section[1] == "References")
+    appendix = next(section for section in sections if section[1].startswith("Appendix A"))
+
+    expected = {
+        "ABSTRACT.md": source[abstract.end():body_start],
+        "body.md": source[body_start:references.start()],
+        "LIMITATIONS_DUAL_USE.md": source[appendix.start():],
+    }
+    for filename, content in expected.items():
+        assert (report / filename).read_text(encoding="utf-8").strip() == content.strip(), filename
+
+    mirror = (report / "Swarm_Witness_Templated_Submission.md").read_text(encoding="utf-8")
+    assert mirror.splitlines()[0] == source.splitlines()[0]
+    assert mirror.split("## Abstract", 1)[1].strip() == source.split("## Abstract", 1)[1].strip()
+
+
+def test_current_manuscripts_exclude_assessment_grades_and_metaprompting():
+    report = ROOT / "report"
+    texts = {
+        filename: (report / filename).read_text(encoding="utf-8")
+        for filename in (
+            "Swarm_Witness_Final_Submission.md",
+            "Swarm_Witness_Templated_Submission.md",
+            "ABSTRACT.md",
+            "body.md",
+            "LIMITATIONS_DUAL_USE.md",
+        )
+    }
+    for variant in ("Final", "Templated"):
+        filename = f"Swarm_Witness_{variant}_Submission.docx"
+        texts[filename] = "\n".join(_docx_paragraphs(report / filename))
+    forbidden = re.compile(
+        r"\b[0-5](?:\.\d+)?\s*/\s*5\b|\bmetaprompt(?:ing)?\b|\bself[- ]assessment\b",
+        re.I,
     )
-    assert "author-curated" in line
-    assert "strong checker" in line
-    assert "not independent curation" in line
-    assert "superiority_claim is false" in line
+    for filename, text in texts.items():
+        assert forbidden.search(text) is None, filename
 
 
-def test_manuscript_leads_with_question_witness_and_finding():
-    body = (ROOT / "report" / "body.md").read_text(encoding="utf-8")
-    intro = body.split("## 2. Background", 1)[0]
-    question = intro.find("what evidence is sufficient")
-    witness = intro.find("aew-v1-local-control-pass-broader-effect")
-    finding = intro.find("matches the strong checker")
-    guarantee = intro.find("conditional on the adapter's observation and abstraction assumptions")
-    assert 0 <= question < witness < finding < guarantee
-    assert "Both record 0 unsupported supports" in intro
-    assert "Naive PASS records 24" in intro
-    assert "Separately coded verdict logic" in intro
-    assert "not the twelve-history application experiment" in intro
-    assert "does not claim that Swarm Witness detected or prevented" in intro
-    for score in SCORES:
-        assert score in body
-        assert score in (ROOT / "report" / "Swarm_Witness_Final_Submission.md").read_text(encoding="utf-8")
-        assert score in (ROOT / "report" / "bounded_comparison_v1" / "REASSESSMENT.md").read_text(encoding="utf-8")
-
-
-def test_abstract_length_author_and_single_appendix():
+def test_abstract_length_author_and_required_sections():
     abstract = (ROOT / "report" / "ABSTRACT.md").read_text()
     assert 150 <= len(abstract.split()) <= 250
     final = (ROOT / "report" / "Swarm_Witness_Final_Submission.md").read_text(encoding="utf-8")
-    assert final.count("\n# Appendix A") == 1
+    headings = re.findall(r"^#{1,6}\s+(.+)$", final, re.M)
+    assert sum(heading.startswith("Appendix A") for heading in headings) == 1
+    assert headings.count("References") == 1
+    assert headings.count("LLM Usage Statement") == 1
     assert "Jonathan Maye-Hobbs" in final
     assert "Independent" in final
     assert LESSWRONG in final
-    assert "4–4.5/5 aspiration is not a result" in final
 
 
-def test_templated_docx_matches_markdown_appendix_and_lesswrong_refs():
-    markdown = (ROOT / "report" / "Swarm_Witness_Templated_Submission.md").read_text(encoding="utf-8")
-    docx = ROOT / "report" / "Swarm_Witness_Templated_Submission.docx"
-    assert docx.exists()
-    paragraphs = _docx_paragraphs(docx)
-    md_appendices = [
-        line for line in markdown.splitlines() if line.startswith("#") and "Appendix A" in line
-    ]
-    docx_appendices = [paragraph for paragraph in paragraphs if paragraph.startswith("Appendix A")]
-    assert len(md_appendices) == 1
-    assert len(docx_appendices) == 1
-    md_refs = _reference_block(markdown.splitlines())
-    docx_refs = _reference_block(paragraphs)
-    assert LESSWRONG in md_refs
-    assert LESSWRONG in docx_refs
-    assert md_refs.count(LESSWRONG) == docx_refs.count(LESSWRONG)
+def test_docx_exports_preserve_sections_references_and_table_cells():
+    report = ROOT / "report"
+    source = (report / "Swarm_Witness_Final_Submission.md").read_text(encoding="utf-8")
+    source_refs = _reference_block(source.splitlines())
+    source_tables = _markdown_tables(source)
+    assert source_tables
+    for variant in ("Final", "Templated"):
+        docx = report / f"Swarm_Witness_{variant}_Submission.docx"
+        assert docx.exists()
+        paragraphs = _docx_paragraphs(docx)
+        assert sum(paragraph.startswith("Appendix A") for paragraph in paragraphs) == 1
+        assert paragraphs.count("References") == 1
+        assert paragraphs.count("LLM Usage Statement") == 1
+        docx_refs = _reference_block(paragraphs)
+        assert LESSWRONG in source_refs
+        assert LESSWRONG in docx_refs
+        assert source_refs.count(LESSWRONG) == docx_refs.count(LESSWRONG)
+        assert _docx_tables(docx) == source_tables
 
 
 def test_positive_coverage_count_without_commit_detail_stays_unresolved():
@@ -193,10 +208,45 @@ def test_evidence_free_actor_upgrade_is_unsupported_support_not_correct_decisive
 
 
 def _reference_block(lines: list[str]) -> str:
-    start = next(i for i, line in enumerate(lines) if line.strip() in {"## References", "References"})
+    start = next(i for i, line in enumerate(lines) if re.sub(r"^#+\s*", "", line.strip()) == "References")
     end = next(
         i
         for i, line in enumerate(lines)
         if i > start and ("Appendix A" in line)
     )
     return "\n".join(lines[start:end])
+
+
+def _cell_text(text: str) -> str:
+    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    text = text.replace("`", "").replace("**", "").replace("*", "")
+    return " ".join(text.split())
+
+
+def _markdown_tables(text: str) -> list[list[list[str]]]:
+    tables = []
+    rows = []
+    for line in text.splitlines() + [""]:
+        if line.startswith("|"):
+            cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            if not all(re.fullmatch(r":?-+:?", cell) for cell in cells):
+                rows.append([_cell_text(cell) for cell in cells])
+        elif rows:
+            tables.append(rows)
+            rows = []
+    return tables
+
+
+def _docx_tables(path: Path) -> list[list[list[str]]]:
+    with zipfile.ZipFile(path) as archive:
+        root = ET.fromstring(archive.read("word/document.xml"))
+    return [
+        [
+            [
+                _cell_text("".join(node.text or "" for node in cell.iter(f"{W_NS}t")))
+                for cell in row.findall(f"{W_NS}tc")
+            ]
+            for row in table.findall(f"{W_NS}tr")
+        ]
+        for table in root.iter(f"{W_NS}tbl")
+    ]
