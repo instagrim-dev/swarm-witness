@@ -1,0 +1,21 @@
+# Scores the frozen held-out packets. It does not add cases or drop false exclusivity.
+id: heldout-pipeline-v1
+eligibility: external-heldout-v1
+labels: evidence/external_calibration_v1/heldout_v1/result.json
+adapter: composed_observations
+arms:
+  - raw swarm_witness_verdict
+  - raw strong_invariant_verdict
+  - swarm_witness_verdict on the raw observations plus that adapter
+  - strong_invariant_verdict on the raw observations plus that adapter
+measures:
+  - decisive coverage against the retained assessor labels
+  - decisive coverage and unsupported support against the separate warrant
+  - unsupported support
+  - unsupported refutation
+  - abstention
+  - source demand
+false_exclusivity: retained in the seventy-packet denominator and reported separately
+independent_jury: false
+superiority_claim: false
+transfer_claim: false
