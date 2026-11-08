@@ -8,6 +8,24 @@ results:
 - claim_id: incident_claims_v1
   label: reproduced
   finding_id: incident-audit-v1-f-comparison
+- claim_id: incident_comparison_v1
+  label: reproduced
+  finding_id: incident-comparison-v1-f
+- claim_id: prov_hf_effect
+  label: unresolved
+  finding_id: prov-hf-effect-f
+- claim_id: prov_message_board
+  label: unresolved
+  finding_id: prov-message-board-f
+- claim_id: prov_reproduction_transcripts
+  label: reproduced
+  finding_id: prov-reproduction-transcripts-f
+- claim_id: prov_tool_call_spoof
+  label: unresolved
+  finding_id: prov-tool-call-spoof-f
+- claim_id: provenance_contract_v1
+  label: reproduced
+  finding_id: provenance-contract-v1-f
 - claim_id: r1
   label: reproduced
   finding_id: r1-f-primary

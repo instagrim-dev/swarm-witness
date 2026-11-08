@@ -144,10 +144,23 @@ def checklist_verdict(claim: dict[str, Any], observations: list[dict[str, Any]])
     return "unresolved"
 
 
+def _verifying_levels(claim: dict[str, Any]) -> set[str]:
+    """Access levels that may verify this claim.
+
+    Public incident claims keep the default: a held verifying record. Original
+    transcripts and platform logs are not that record. Their absence is not an
+    upgrade gate and does not fail the comparison; the claim stays unsupported.
+    """
+    declared = claim.get("verifying_access_levels")
+    if not declared:
+        return {"raw_telemetry_public"}
+    return {str(level) for level in declared}
+
+
 def _admit(
     applicable: list[dict[str, Any]], *, count_derived_as_independent: bool
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Drop copied receipts and same-origin derivatives. Keep document count."""
+    """Drop copied receipts, same-origin derivatives, stale and misbound rows."""
     admitted: list[dict[str, Any]] = []
     withheld: list[dict[str, Any]] = []
     seen_hashes: set[str] = set()
@@ -155,12 +168,106 @@ def _admit(
         authenticity = obs.get("authenticity")
         digest = obs.get("content_sha256") or quote_digest(obs["quote"])
         dependent = authenticity in {"copied", "derived_same_origin"}
-        if digest in seen_hashes or (dependent and not count_derived_as_independent):
+        unusable = obs.get("freshness") == "stale" or obs.get("binding") == "misbound"
+        if (
+            digest in seen_hashes
+            or unusable
+            or (dependent and not count_derived_as_independent)
+        ):
             withheld.append(obs)
             continue
         seen_hashes.add(digest)
         admitted.append(obs)
     return admitted, withheld
+
+
+def _effect_record(
+    obs: dict[str, Any], claim: dict[str, Any], polarity: str
+) -> bool:
+    if obs.get("access_level") not in _verifying_levels(claim):
+        return False
+    if obs.get("literal_polarity") != polarity:
+        return False
+    if claim["id"] not in (obs.get("literal_claims") or []):
+        return False
+    required = set(claim.get("required_observation_types") or [])
+    types = set(obs.get("observation_types") or [])
+    if required and not required.issubset(types):
+        return False
+    if types and types <= {
+        "url_allowlist",
+        "displayed_command",
+        "policy_allow",
+        "credential_use",
+    }:
+        return False
+    return True
+
+
+_UNAVAILABLE_ACCESS = frozenset(
+    {"withheld", "unobserved", "private_original", "unknown"}
+)
+
+
+def _held(obs: dict[str, Any]) -> bool:
+    if obs.get("locally_held") is False:
+        return False
+    return obs.get("access_level") not in _UNAVAILABLE_ACCESS
+
+
+def _verifies_support(obs: dict[str, Any], claim: dict[str, Any]) -> bool:
+    if _effect_record(obs, claim, "supports"):
+        return True
+    if claim.get("kind") != "evidentiary_sufficiency":
+        return False
+    required = set(claim.get("required_observation_types") or [])
+    types = set(obs.get("observation_types") or [])
+    return (
+        obs.get("literal_polarity") == "supports"
+        and claim["id"] in (obs.get("literal_claims") or [])
+        and (not required or required.issubset(types))
+    )
+
+
+def _held_upgrade_blocked(
+    claim: dict[str, Any],
+    applicable: list[dict[str, Any]],
+    admitted: list[dict[str, Any]],
+) -> bool:
+    """A held blocks_upgrade slot prevents support until that slot verifies.
+
+    An unavailable original cannot be the slot. That configuration is rejected.
+    """
+    admitted_ids = {obs["id"] for obs in admitted}
+    blocked = False
+    for obs in applicable:
+        if not obs.get("blocks_upgrade"):
+            continue
+        if not _held(obs):
+            raise ValueError(
+                f"{obs.get('id')}: unavailable source cannot be an upgrade gate"
+            )
+        if obs["id"] not in admitted_ids or not _verifies_support(obs, claim):
+            blocked = True
+    return blocked
+
+
+def _attributed_origin(claim: dict[str, Any], admitted: list[dict[str, Any]]) -> str:
+    """Unique verifying support origin, or undetermined. Does not read warrants."""
+    levels = _verifying_levels(claim)
+    origins: list[str] = []
+    for obs in admitted:
+        if obs.get("access_level") not in levels:
+            continue
+        if obs.get("literal_polarity") != "supports":
+            continue
+        origin = obs.get("named_origin")
+        if isinstance(origin, str) and origin.strip():
+            origins.append(origin.strip())
+    unique = set(origins)
+    if len(unique) == 1:
+        return next(iter(unique))
+    return "undetermined"
 
 
 def _group(obs: dict[str, Any], *, ignore_independence: bool) -> str:
@@ -251,28 +358,23 @@ def swarm_witness_verdict(
         )
     elif kind == "world_effect":
         raw_support = [
-            obs
-            for obs in admitted
-            if obs.get("access_level") == "raw_telemetry_public"
-            and obs.get("literal_polarity") == "supports"
-            and claim["id"] in obs.get("literal_claims", [])
+            obs for obs in admitted if _effect_record(obs, claim, "supports")
         ]
         raw_refute = [
-            obs
-            for obs in admitted
-            if obs.get("access_level") == "raw_telemetry_public"
-            and obs.get("literal_polarity") == "refutes"
-            and claim["id"] in obs.get("literal_claims", [])
+            obs for obs in admitted if _effect_record(obs, claim, "refutes")
         ]
         if raw_support and not raw_refute and not refute_groups:
             epistemic = "supported"
             evidence_status = "authentic"
-            reason = "raw telemetry publicly available and uncontradicted"
+            reason = (
+                "a declared verifying record supports the effect and nothing "
+                "admitted contradicts it"
+            )
         elif raw_refute and not raw_support and not support_groups:
             epistemic = "refuted"
             evidence_status = "authentic"
             failure_origin = "effect_boundary"
-            reason = "raw telemetry publicly refutes the effect"
+            reason = "a declared verifying record refutes the effect"
         elif public_text_verifies_world_effects and support_groups and not refute_groups:
             epistemic = "supported"
             evidence_status = "unverified"
@@ -304,7 +406,10 @@ def swarm_witness_verdict(
                 "derived_same_origin",
             }:
                 continue
-            if obs.get("authenticity") != "authentic_public_text":
+            if obs.get("authenticity") not in {
+                "authentic_public_text",
+                "released_reproduction_transcript",
+            }:
                 continue
             covering.append(obs)
         tags: set[str] = set()
@@ -353,6 +458,14 @@ def swarm_witness_verdict(
             reason = "sufficiency claim is not verified by the admitted sentences"
     else:
         raise ValueError(f"unknown claim kind {kind!r}")
+
+    if epistemic == "supported" and _held_upgrade_blocked(claim, applicable, admitted):
+        epistemic = "unresolved"
+        evidence_status = "unverified"
+        reason = (
+            "a blocks_upgrade slot on a record this audit holds is not the "
+            "verifying observation, so the claim is not supported"
+        )
 
     if epistemic == "unresolved":
         projected = classify_conclusion(evidence_complete=False, property_holds=None)
@@ -421,6 +534,12 @@ def swarm_witness_verdict(
         "support_group_count": len(support_groups),
         "refute_group_count": len(refute_groups),
         "estimate_imprecise": imprecise,
+        "attributed_origin": (
+            _attributed_origin(claim, admitted)
+            if epistemic == "supported"
+            else "undetermined"
+        ),
+        "real_world_authenticity_certified": False,
         "detection_or_prevention_claimed": False,
         **axes,
     }

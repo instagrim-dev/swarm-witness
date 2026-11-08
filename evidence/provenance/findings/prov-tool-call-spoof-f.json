@@ -1,0 +1,16 @@
+{
+  "basis": "computed",
+  "claim_id": "prov_tool_call_spoof",
+  "conclusion_class": "missing_evidence",
+  "evaluation_method": "held_out_artifact_audit",
+  "id": "prov-tool-call-spoof-f",
+  "label": "unresolved",
+  "proposition": "The command displayed in the METR/Redwood transcript example was the command actually executed.",
+  "run_ids": [
+    "prov-tool-call-spoof-run"
+  ],
+  "scope": "Public excerpts in experiments/provenance/incident_lineage.yaml. The OpenAI transcript dump and Hugging Face platform logs are recorded unavailable and are not upgrade gates.",
+  "supporting_observation_refs": [
+    "prov-tool-call-spoof-run.observations.finding_label"
+  ]
+}

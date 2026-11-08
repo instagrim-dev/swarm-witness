@@ -1,0 +1,26 @@
+id: provenance_contract_v1
+source_ref: protocol/evidence_provenance_v1.md
+source_version: evidence-provenance-v1
+original_proposition: >
+  The evidence-provenance-v1 qualifier regenerates the same lineage decisions
+  from the incident fixture and refuses unsupported upgrades.
+operational_interpretation: >
+  Replaying experiments/provenance/incident_lineage.yaml yields three
+  unresolved incident qualifications. Publication digests, independence
+  groups, coverage denominators, and upgrade blockers are computed. The
+  result does not certify real-world authenticity and does not claim that
+  Swarm Witness detected or prevented the incident.
+property: fixture-regenerable provenance qualification
+scope: >
+  The versioned contract and its incident fixture. Not the blinded
+  experiment, property catalog, coordination model, telemetry adapters, or
+  response-latency replay.
+quantifier: the three incident claims in the fixture
+success_criterion: >
+  All three incident finding labels are unresolved, detection and prevention
+  flags stay false, and real_world_authenticity_certified stays false.
+assumptions:
+  - "Verdicts use the existing conclusion classes and audit diagnosis"
+  - "Unknown and withheld sources remain explicit"
+  - "Self-reported authenticity is not verification"
+  - "Historical #10-#12 findings are unchanged"

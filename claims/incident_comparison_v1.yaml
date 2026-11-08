@@ -1,0 +1,34 @@
+id: incident_comparison_v1
+source_ref: swarm-witness://incident-comparison/public-and-reproduction-2026
+source_version: incident-comparison-v1
+original_proposition: >
+  At a matched evidence budget, a strong invariant checker and Swarm Witness
+  can be compared with a naive PASS baseline on the frozen public claims and
+  on the held LessWrong reproduction record, without certifying the original
+  incident.
+operational_interpretation: >
+  Twelve public claims are scored at two stages. A separate controlled layer
+  scores the reproduction release, the refused incident certification, the
+  held step-1 signature extract, and one held blocks_upgrade slot. The
+  LessWrong post and appendix are one record. Original transcripts and
+  Hugging Face platform logs are unavailable and are not gates. Beating the
+  naive baseline is not a superiority claim.
+property: interpretable comparison under partial observation
+scope: >
+  Public incident excerpts plus the pinned LessWrong reproduction record and
+  the released step-1 signature extract. Not detection or prevention, and not
+  certification of the original incident.
+quantifier: >
+  each public claim-stage cell and each controlled claim, with lineage
+  qualifications reported as their own denominator
+success_criterion: >
+  The comparison completes with full denominators. Unavailable originals do
+  not fail it. A held blocks_upgrade slot prevents support. The original
+  incident is not certified. No ranking is required.
+assumptions:
+  - "The LessWrong post and appendix are one public record"
+  - "Original OpenAI transcripts are withheld and are not an upgrade gate"
+  - "Hugging Face platform logs are unobserved and are not an upgrade gate"
+  - "A blocks_upgrade slot prevents support only for evidence this audit holds"
+  - "This comparison does not certify the original incident"
+  - "Human warrants are stored apart from the qualifiers"

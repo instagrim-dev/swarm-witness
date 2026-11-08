@@ -1,0 +1,18 @@
+{
+  "basis": "computed",
+  "claim_id": "provenance_contract_v1",
+  "conclusion_class": "supported",
+  "evaluation_method": "synthetic_protocol_conformance",
+  "id": "provenance-contract-v1-f",
+  "label": "reproduced",
+  "proposition": "Replaying the incident lineage fixture leaves all three incident claims unresolved and certifies neither detection nor prevention.",
+  "run_ids": [
+    "provenance-contract-v1-run"
+  ],
+  "scope": "evidence-provenance-v1 fixture conformance",
+  "supporting_observation_refs": [
+    "provenance-contract-v1-run.observations.incident_unresolved",
+    "provenance-contract-v1-run.observations.real_world_authenticity_certified",
+    "provenance-contract-v1-run.observations.incident_detection_claimed"
+  ]
+}
