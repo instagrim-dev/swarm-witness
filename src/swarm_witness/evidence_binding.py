@@ -790,18 +790,32 @@ def _complete_support(record: Mapping[str, Any], claim: Mapping[str, Any]) -> bo
     return _premise_complete(claim)
 
 
+def _binding_polarity(record: Mapping[str, Any], family: str) -> Any:
+    """Polarity of one observation for one family.
+
+    ``family_constraints`` is the family-specific translation. A shared source
+    polarity is not reused for a family the observation does not constrain.
+    """
+    constraints = record.get("family_constraints")
+    if isinstance(constraints, Mapping):
+        return constraints.get(family, "reports")
+    return record.get("polarity")
+
+
 def _apply_polarity(
     universe: Sequence[str],
     satisfying: frozenset[str],
     records: Sequence[Mapping[str, Any]],
     claim: Mapping[str, Any],
+    *,
+    family: str,
 ) -> tuple[set[str], str, list[str]]:
     """Apply support then contradiction in a fixed order (input-order independent)."""
     seen: set[tuple[str, str, str]] = set()
     supports: list[Mapping[str, Any]] = []
     contradicts: list[Mapping[str, Any]] = []
     for record in records:
-        polarity = record.get("polarity")
+        polarity = _binding_polarity(record, family)
         if polarity not in {"supports", "contradicts"}:
             continue
         signature = (
@@ -1385,7 +1399,7 @@ def bind_family(
             used = [record["id"] for record in model_records]
     else:
         compatible, reason, used = _apply_polarity(
-            universe, declared_satisfying, admitted_for_constraints, claim
+            universe, declared_satisfying, admitted_for_constraints, claim, family=family
         )
 
     support_ids = set(used) if reason in {
@@ -1583,6 +1597,54 @@ _NATIVE_KIND_TO_CHANNEL: dict[str, str] = {
 }
 
 
+def _public_fields(text: Any) -> dict[str, str]:
+    if not isinstance(text, str):
+        return {}
+    fields: dict[str, str] = {}
+    for line in text.splitlines():
+        if "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        fields[key] = value
+    return fields
+
+
+def _commit_family_constraints(
+    event: Mapping[str, Any], channel: str | None, fields: Mapping[str, str]
+) -> dict[str, str]:
+    """One committed row, one polarity per family.
+
+    Commit existence supports ``P_commitment``. The same row refutes effect
+    safety, and commit authorization, when the subject is that channel's
+    forbidden class. An allowed subject clears only its own channel. It does
+    not support ``P_system``, and it is not an authorization proof.
+    """
+    source = event.get("polarity") or "reports"
+    if source == "contradicts":
+        commitment = "contradicts"
+    elif source == "supports":
+        commitment = "supports"
+    else:
+        commitment = "reports"
+    constraints = {"P_commitment": commitment}
+    observed = fields.get("channel") or channel
+    subject = fields.get("subject_class")
+    prop = PROPERTY_OF_CHANNEL.get(str(observed)) if observed else None
+    forbidden = FORBIDDEN_SUBJECT.get(str(observed)) if observed else None
+    if prop and forbidden and subject == forbidden:
+        constraints[prop] = "contradicts"
+        constraints["P_system"] = "contradicts"
+        constraints["P_commit_authorization"] = "contradicts"
+    elif (
+        prop
+        and subject
+        and observed in CHANNEL_SUBJECTS
+        and subject in CHANNEL_SUBJECTS[str(observed)]
+    ):
+        constraints[prop] = "supports"
+    return constraints
+
+
 def records_from_native_packet(directory: Path, *, salt: str = SOURCE_PIN) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Load a native-witness origin packet. Does not invent the SQLite export.
 
@@ -1603,13 +1665,21 @@ def records_from_native_packet(directory: Path, *, salt: str = SOURCE_PIN) -> tu
         raw = event.get("raw_reference") or {}
         kind = event.get("event_kind") or "native"
         family = _NATIVE_KIND_TO_FAMILY.get(str(kind))
+        parsed = _public_fields(event.get("public_bytes"))
         channel = event.get("channel") or _NATIVE_KIND_TO_CHANNEL.get(str(kind))
+        if kind == "committed_effect" and parsed.get("channel"):
+            channel = parsed["channel"]
         applies = []
         if family:
             applies.append(family)
+        constraints = None
         if kind == "committed_effect":
-            applies.extend(["P_commit_authorization", "P_effect", "P_system"])
-        if kind == "transcript_visible_command":
+            # Do not copy "the row exists" onto safety or authorization.
+            constraints = _commit_family_constraints(event, channel, parsed)
+            for name in constraints:
+                if name not in applies:
+                    applies.append(name)
+        elif kind == "transcript_visible_command":
             applies.extend(["P_system", "P_url", "P_effect"])
         method = event.get("verification_method") or "none"
         # Only application-owned sink rows become deciding. Legacy telemetry
@@ -1646,7 +1716,13 @@ def records_from_native_packet(directory: Path, *, salt: str = SOURCE_PIN) -> tu
                 "actor_ref": event.get("actor_ref"),
                 "object_scope": event.get("object_scope"),
                 "action": event.get("action"),
+                "subject_class": parsed.get("subject_class"),
                 "polarity": event.get("polarity") or "reports",
+                "family_constraints": constraints,
+                "exercised_mechanism": bool(
+                    constraints
+                    and constraints.get("P_effect") == "contradicts"
+                ),
                 "access_level": event.get("access_level"),
                 "locally_held": event.get("locally_held"),
                 "observation_availability": "available"

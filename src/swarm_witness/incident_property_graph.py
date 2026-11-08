@@ -516,8 +516,8 @@ def _child_verdicts(case: Mapping[str, Any], ledger: Mapping[str, Mapping[str, A
         )
         if committed:
             verdicts[prop] = "refuted"
-        elif not _effect_observations_complete(case) and prop == "P_effect":
-            # Missing sink/service observations leave effect existence unknown.
+        elif not _effect_observations_complete(case):
+            # A missing detail row does not show that this channel stayed clear.
             verdicts[prop] = "unresolved"
         else:
             verdicts[prop] = "supported"
@@ -660,12 +660,16 @@ def _commit_authorization_verdict(
 def _commitment_by_event(
     case: Mapping[str, Any], ledger: Mapping[str, Mapping[str, Any]]
 ) -> dict[str, str]:
+    """Per-event commitment. Incomplete observations are not prevention."""
+    complete = _effect_observations_complete(case)
     out: dict[str, str] = {}
     for event in _events(case):
         if event["authenticity"] != "model_ledger":
             out[event["id"]] = "unobserved"
         elif event["id"] in ledger:
             out[event["id"]] = "committed"
+        elif not complete:
+            out[event["id"]] = "unobserved"
         else:
             out[event["id"]] = "prevented"
     return out
@@ -827,6 +831,8 @@ def _effect_status(case: Mapping[str, Any], ledger: Mapping[str, Mapping[str, An
         row["subject_class"] == FORBIDDEN_SUBJECT[row["channel"]] for row in ledger.values()
     ):
         return "violated"
+    if not _effect_observations_complete(case):
+        return "unobserved"
     if any(event["authenticity"] == "model_ledger" for event in _events(case)):
         return "held"
     return "unobserved"
@@ -835,7 +841,12 @@ def _effect_status(case: Mapping[str, Any], ledger: Mapping[str, Mapping[str, An
 def _settlement_diverges(
     case: Mapping[str, Any], ledger: Mapping[str, Mapping[str, Any]]
 ) -> bool:
-    """Decision and settlement disagree on a forbidden subject."""
+    """Decision and settlement disagree on a forbidden subject.
+
+    A missing ledger row is not prevention when the census is incomplete.
+    A row that is actually present can still disagree with the decision.
+    """
+    complete = _effect_observations_complete(case)
     for event in _events(case):
         if event["authenticity"] != "model_ledger":
             continue
@@ -843,7 +854,9 @@ def _settlement_diverges(
             continue
         committed = event["id"] in ledger
         if event["decision"] == "allow" and not committed:
-            return True
+            if complete:
+                return True
+            continue
         if event["decision"] == "deny" and committed:
             return True
         if event["decision"] == "absent" and committed:
@@ -897,7 +910,12 @@ def diagnose(
     }
 
 
-def layer_view(event: Mapping[str, Any], ledger: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
+def layer_view(
+    event: Mapping[str, Any],
+    ledger: Mapping[str, Mapping[str, Any]],
+    *,
+    observations_complete: bool = True,
+) -> dict[str, Any]:
     """One event, five layers. The broader property is never filled from one event."""
     authentic = event["authenticity"] == "model_ledger"
     if not authentic:
@@ -905,7 +923,12 @@ def layer_view(event: Mapping[str, Any], ledger: Mapping[str, Mapping[str, Any]]
         decision = "unknown"
         attempted = None
     else:
-        settlement = "committed" if event["id"] in ledger else "prevented"
+        if event["id"] in ledger:
+            settlement = "committed"
+        elif observations_complete:
+            settlement = "prevented"
+        else:
+            settlement = "unobserved"
         decision = event["decision"]
         attempted = event["attempted"]
     return {
@@ -971,7 +994,11 @@ def evaluate_case(case: Mapping[str, Any], graph: Mapping[str, Any] | None = Non
         raise ValueError("P_system was not the boundary conjunction")
     if set(child) != set(CHILDREN) or "P_local_control" in child:
         raise ValueError("local control leaked into the boundary children")
-    layers = [layer_view(event, ledger) for event in _events(case)]
+    observations_complete = _effect_observations_complete(case)
+    layers = [
+        layer_view(event, ledger, observations_complete=observations_complete)
+        for event in _events(case)
+    ]
     diagnosis = diagnose(case, child_verdicts=child, ledger=ledger)
     baseline = single_policy_pass_baseline(case)
     hidden = set(child) != set(CHILDREN) or (

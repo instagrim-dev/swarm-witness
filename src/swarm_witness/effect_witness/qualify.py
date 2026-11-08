@@ -377,6 +377,21 @@ def _graph_for(
     }
 
 
+def row_count_contradicts(coverage: dict[str, Any] | None, commit_count: int) -> bool:
+    """A declared census that disagrees with the held commit-detail rows.
+
+    No ``row_count`` is not a contradiction. An unreadable count, or a count
+    that differs from the rows in hand, is. Callers share this one check.
+    """
+    if not coverage or coverage.get("row_count") in (None, ""):
+        return False
+    try:
+        declared = int(coverage["row_count"])
+    except (TypeError, ValueError):
+        return True
+    return declared != commit_count
+
+
 def _coverage_assumption(
     operation: str,
     views: dict[str, Any],
@@ -389,16 +404,8 @@ def _coverage_assumption(
     A positive ``row_count`` with missing commit-detail rows preserves uncertainty.
     """
     coverage = views["coverage"]
-    if coverage is None:
+    if coverage is None or row_count_contradicts(coverage, commit_count):
         return {"operation": operation, "interval": None, "completeness": "partial"}
-    row_count_raw = coverage.get("row_count")
-    if row_count_raw not in (None, ""):
-        try:
-            declared = int(row_count_raw)
-        except (TypeError, ValueError):
-            declared = None
-        if declared is not None and declared != commit_count:
-            return {"operation": operation, "interval": None, "completeness": "partial"}
     if (
         complete
         and operation in coverage["operations"].split(",")
@@ -572,8 +579,12 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
             for line in text.splitlines():
                 if line.startswith("event_id="):
                     confirmed_event_ids.add(line.split("=", 1)[1].strip())
-    # Commitment/effect use every sink row once the service origin is present.
-    # Authorization requires confirmed binding; actor/object mismatches stay open.
+    # One census: a declared row_count must match the commit-detail rows.
+    # The service origin being present is not that census. Authorization still
+    # requires confirmed binding; actor/object mismatches stay open.
+    census_contradicted = row_count_contradicts(
+        views.get("coverage"), len(views["commits"])
+    )
     if service_missing:
         admitted_commits: list[dict[str, Any]] = []
         auth_commits: list[dict[str, Any]] = []
@@ -594,7 +605,9 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
         else:
             auth_commits = list(views["commits"])
             auth_complete = True
-        ledger_complete = True
+        ledger_complete = not census_contradicted
+        if census_contradicted:
+            auth_complete = False
     case = project_case(
         case_id=f"{history['history_id']}:{packet_dir.name}",
         policy=history["revocation_policy"],

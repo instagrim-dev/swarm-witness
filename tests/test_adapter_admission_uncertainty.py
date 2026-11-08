@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import copy
+import json
+import shutil
+import tempfile
 from pathlib import Path
 
 from swarm_witness.effect_witness.histories import HISTORY_BY_ID
@@ -28,6 +31,7 @@ def test_actor_only_leaves_commitment_and_effect_unresolved():
     assert result["property"]["child_verdicts"]["P_effect"] == "unresolved"
     assert result["property"]["family_verdicts"]["P_commit_authorization"] == "unresolved"
     assert result["committed_claim"]["conclusion_class"] == "missing_evidence"
+    assert "prevented" not in result["property"]["commitment_by_event"].values()
 
 
 def test_misbound_authorization_stays_unresolved():
@@ -247,3 +251,60 @@ def test_native_packet_records_admit_declared_families():
     assert without["formal_binding"]["epistemic_status"] == "unresolved"
     assert with_readback["formal_binding"]["epistemic_status"] == "supported"
     assert with_readback["formal_binding"]["verified"] is True
+
+
+def test_forbidden_commit_supports_commitment_and_refutes_safety():
+    """A committed forbidden effect supports commitment and refutes safety."""
+    history = HISTORY_BY_ID["aew-v1-h-local-pass-broader-effect"]
+    packet = PACKETS / history["history_id"] / "discriminating_readback"
+    ordinary = evaluate_packet(packet, history)
+    commitment = audit_native_packet(ROOT, family="P_commitment", directory=packet)
+    effect = audit_native_packet(ROOT, family="P_effect", directory=packet)
+    system = audit_native_packet(ROOT, family="P_system", directory=packet)
+    authorization = audit_native_packet(
+        ROOT, family="P_commit_authorization", directory=packet
+    )
+    assert ordinary["property"]["family_verdicts"]["P_commitment"] == "supported"
+    assert ordinary["property"]["child_verdicts"]["P_effect"] == "refuted"
+    assert ordinary["property"]["family_verdicts"]["P_system"] == "refuted"
+    assert commitment["epistemic_status"] == "supported"
+    assert commitment["verified"] is True
+    assert effect["epistemic_status"] == "refuted"
+    assert system["epistemic_status"] == "refuted"
+    assert authorization["epistemic_status"] == "refuted"
+    assert ordinary["formal_binding"]["epistemic_status"] == "supported"
+
+
+def test_missing_commit_detail_does_not_prove_absence():
+    """row_count=1 with the commit row removed stays unresolved, not prevented."""
+    history = HISTORY_BY_ID["aew-v1-h-authority-current"]
+    source = PACKETS / history["history_id"] / "discriminating_readback"
+    intact = evaluate_packet(source, history)
+    assert intact["property"]["family_verdicts"]["P_commitment"] == "supported"
+    assert intact["property"]["commitment_by_event"][
+        "aew-v1-event-authority-current"
+    ] == "committed"
+    scratch = Path(tempfile.mkdtemp())
+    packet = scratch / "pkt"
+    shutil.copytree(source, packet)
+    kept = []
+    for line in (packet / "service_records.jsonl").read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        if row.get("surface") == "committed_effect":
+            continue
+        kept.append(line)
+    (packet / "service_records.jsonl").write_text("\n".join(kept) + "\n", encoding="utf-8")
+    result = evaluate_packet(packet, history)
+    claim = result["committed_claim"]
+    assert claim["conclusion_class"] == "missing_evidence"
+    assert claim["finding_label"] == "unresolved"
+    assert claim["property_holds"] is None
+    assert claim["absence_of_sink_is_no_effect"] is False
+    assert result["property"]["family_verdicts"]["P_commitment"] == "unresolved"
+    assert result["property"]["child_verdicts"]["P_effect"] == "unresolved"
+    assert "prevented" not in result["property"]["commitment_by_event"].values()
+    assert result["property"]["commitment_by_event"][
+        "aew-v1-event-authority-current"
+    ] == "unobserved"
