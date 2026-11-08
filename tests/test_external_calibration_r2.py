@@ -282,6 +282,52 @@ def test_eg_adapter_behavioral_predicates_and_input_independence():
     assert result["verdict"] == "unresolved"
     assert result["reason"] == "claimed_event_id_present_in_registry"
 
+    # The retained population declares 12 mutations and lists event-000007.
+    # Dropping only that detail row must not refute the genuine execution.
+    genuine = next(
+        e
+        for e in scenario["public_entities"]["tool_events"]
+        if ((e.get("attrs") or {}).get("receipt") or {}).get("event_id") == "event-000007"
+    )
+    populations = scenario["public_entities"]["populations"]
+    assert populations[0]["count"] == 12
+    assert "event-000007" in populations[0]["event_ids"]
+    mutations = list(scenario["public_entities"]["registry_mutations"])
+    assert len(mutations) == 12
+
+    def _execution_obs(rows):
+        observed = copy.deepcopy(exec_obs)
+        for row in observed:
+            if "successful_execution_claim" in row.get("observation_types", []):
+                row["entity"] = genuine
+            if "registry_mutation_population" in row.get("observation_types", []):
+                row["registry_mutations"] = rows
+        return observed
+
+    held = assess_fabricated_execution({"id": "genuine-held"}, _execution_obs(mutations))
+    assert held["verdict"] == "unresolved"
+    assert held["reason"] == "claimed_event_id_present_in_registry"
+    assert held["predicates"]["population_detail_complete"] is True
+    trimmed = [
+        row
+        for row in mutations
+        if str(row.get("natural_key")) != "event-000007"
+        and str((row.get("attrs") or {}).get("id")) != "event-000007"
+    ]
+    assert len(trimmed) == 11
+    missing = assess_fabricated_execution(
+        {"id": "genuine-missing-detail"}, _execution_obs(trimmed)
+    )
+    assert missing["verdict"] == "unresolved"
+    assert missing["reason"] == "population_lists_events_missing_detail_rows"
+    assert missing["reason"] != "absence_under_complete_covering_capture"
+    assert missing["predicates"]["claimed_mutation_absent"] is False
+    assert missing["predicates"]["capture_covers_execution"] is False
+    assert missing["predicates"]["population_detail_complete"] is False
+    assert missing["predicates"]["population_missing_event_ids"] == ["event-000007"]
+    assert missing["predicates"]["coverage_detail"] == missing["reason"]
+    assert missing["predicates"]["absence_detail"] == missing["reason"]
+
     # Changing native outcomes/object_ids/candidates must not change assessor inputs.
     import tempfile
     from pathlib import Path

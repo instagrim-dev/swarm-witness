@@ -288,13 +288,96 @@ def _registry_mutations(observations: list[dict[str, Any]]) -> list[dict[str, An
     return [mutation] if mutation else []
 
 
+def population_detail_census(
+    populations: list[dict[str, Any]],
+    registry_mutations: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """One completeness judgment for a retained population and its detail rows.
+
+    A declared event id with no detail row contradicts absence. A declared
+    count that disagrees with the retained rows is not a complete census.
+    """
+    detail_ids: set[str] = set()
+    detail_count = 0
+    for mutation in registry_mutations:
+        if not mutation:
+            continue
+        detail_count += 1
+        attrs = mutation.get("attrs") or {}
+        key = mutation.get("natural_key") or attrs.get("id")
+        if key:
+            detail_ids.add(str(key))
+    if not populations:
+        return {
+            "complete": False,
+            "reason": "no_population_declaration",
+            "missing_event_ids": [],
+            "detail_count": detail_count,
+        }
+    complete_pops = [pop for pop in populations if pop.get("complete")]
+    if not complete_pops:
+        return {
+            "complete": False,
+            "reason": "population_incomplete",
+            "missing_event_ids": [],
+            "detail_count": detail_count,
+        }
+    for pop in complete_pops:
+        missing: list[str] = []
+        for item in pop.get("event_ids") or []:
+            if item in (None, ""):
+                continue
+            event_id = str(item)
+            if event_id not in detail_ids and event_id not in missing:
+                missing.append(event_id)
+        if missing:
+            return {
+                "complete": False,
+                "reason": "population_lists_events_missing_detail_rows",
+                "missing_event_ids": missing,
+                "detail_count": detail_count,
+                "declared_count": pop.get("count"),
+            }
+        count = pop.get("count")
+        if count not in (None, ""):
+            try:
+                declared_count = int(count)
+            except (TypeError, ValueError):
+                return {
+                    "complete": False,
+                    "reason": "population_count_unreadable",
+                    "missing_event_ids": [],
+                    "detail_count": detail_count,
+                }
+            if declared_count != detail_count:
+                return {
+                    "complete": False,
+                    "reason": "population_count_disagrees_with_detail_rows",
+                    "missing_event_ids": [],
+                    "detail_count": detail_count,
+                    "declared_count": declared_count,
+                }
+    return {
+        "complete": True,
+        "reason": "population_detail_complete",
+        "missing_event_ids": [],
+        "detail_count": detail_count,
+    }
+
+
 def capture_covers_execution(
     *,
     populations: list[dict[str, Any]],
     event: dict[str, Any] | None,
     clock_bound_seconds: float | None,
+    census: dict[str, Any] | None = None,
 ) -> tuple[bool, str]:
-    """Whether declared capture covers the tool execution window + clock bound."""
+    """Whether declared capture covers the tool execution window + clock bound.
+
+    ``census`` is the single population-detail completeness judgment. A window
+    that merely contains the event is not a complete covering capture when
+    that census is contradicted.
+    """
     if not populations:
         return False, "no_population_declaration"
     if clock_bound_seconds is None:
@@ -317,14 +400,22 @@ def capture_covers_execution(
         if started is None or stopped is None:
             continue
         if window_start >= started and window_end <= stopped:
+            if census is not None and census.get("complete") is not True:
+                return False, str(census.get("reason") or "population_detail_incomplete")
             return True, "complete_capture_covers_widened_window"
     return False, "capture_does_not_cover_widened_window"
 
 
 def claimed_mutation_absent(
-    event: dict[str, Any] | None, registry_mutations: list[dict[str, Any]]
+    event: dict[str, Any] | None,
+    registry_mutations: list[dict[str, Any]],
+    census: dict[str, Any] | None = None,
 ) -> tuple[bool, str]:
-    """Whether the receipt's claimed registry key is absent from observed mutations."""
+    """Whether the receipt's claimed registry key is absent from observed mutations.
+
+    A missing detail row that the retained population still lists is not absence.
+    An incomplete census does not establish absence of any other key either.
+    """
     receipt = receipt_of(event)
     if not receipt or receipt.get("accepted") is not True:
         return False, "no_accepted_receipt"
@@ -346,6 +437,8 @@ def claimed_mutation_absent(
         return False, "claimed_event_id_present_in_registry"
     if claimed_name is not None and (claimed_ns, claimed_name) in present_keys:
         return False, "claimed_name_present_in_registry"
+    if census is not None and census.get("complete") is not True:
+        return False, str(census.get("reason") or "population_detail_incomplete")
     return True, "claimed_mutation_absent_from_registry"
 
 
@@ -479,12 +572,15 @@ def assess_fabricated_execution(
     pops = _populations(observations)
     mutations = _registry_mutations(observations)
     independent = _independent(decl)
+    # One census, then every coverage and absence verdict reads it.
+    census = population_detail_census(pops, mutations)
     covers, cover_reason = capture_covers_execution(
         populations=pops,
         event=event,
         clock_bound_seconds=_clock_bound_seconds(decl),
+        census=census,
     )
-    absent, absent_reason = claimed_mutation_absent(event, mutations)
+    absent, absent_reason = claimed_mutation_absent(event, mutations, census=census)
     predicates = {
         "independence_declared": independent is not None,
         "independence_status": independent,
@@ -492,6 +588,9 @@ def assess_fabricated_execution(
         "coverage_detail": cover_reason,
         "claimed_mutation_absent": absent,
         "absence_detail": absent_reason,
+        "population_detail_complete": census["complete"],
+        "population_detail_reason": census["reason"],
+        "population_missing_event_ids": list(census.get("missing_event_ids") or []),
         "clock_bound_present": _clock_bound_seconds(decl) is not None,
     }
 
