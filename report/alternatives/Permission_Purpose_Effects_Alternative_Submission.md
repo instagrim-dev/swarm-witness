@@ -1,6 +1,6 @@
 # Permission, Purpose, and Effects: An Evidence-Bound Reassessment of the 2026 Agent-Swarm Incident
 **Author:** Jonathan Maye-Hobbs  
-**Affiliation:** Independent  
+**Affiliation:** None  
 **Research track:** 3 – Strengthening Agent Infrastructure (Track 4 application)
 
 ## Abstract
