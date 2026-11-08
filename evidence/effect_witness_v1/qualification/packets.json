@@ -37,6 +37,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-authority-current",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -66,7 +74,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -76,8 +84,8 @@
           "aew-v1-event-authority-current": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -150,6 +158,14 @@
       "confirmed_effect_count": 1,
       "duplicated_actor_ids": [],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-authority-current",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -267,6 +283,14 @@
         "ev-aew-v1-rec-actor-authority-current-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-authority-current",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -412,6 +436,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-authority-current",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -519,6 +551,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-authority-revoked-inflight",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -548,7 +588,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -558,8 +598,8 @@
           "aew-v1-event-authority-revoked-inflight": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -617,7 +657,7 @@
       "committed_claim": {
         "absence_of_sink_is_no_effect": true,
         "claim_id": "aew-v1-claim-authority-revoked-inflight-discriminating_readback-committed",
-        "conclusion_class": "failed_enforcement",
+        "conclusion_class": "refuted",
         "coverage_established": true,
         "duplicated_report_ids": [],
         "effect_status": "unobserved",
@@ -632,6 +672,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-authority-revoked-inflight",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -743,7 +791,7 @@
       "committed_claim": {
         "absence_of_sink_is_no_effect": true,
         "claim_id": "aew-v1-claim-authority-revoked-inflight-duplicate_irrelevant-committed",
-        "conclusion_class": "failed_enforcement",
+        "conclusion_class": "refuted",
         "coverage_established": true,
         "duplicated_report_ids": [],
         "effect_status": "unobserved",
@@ -760,6 +808,14 @@
         "ev-aew-v1-rec-actor-authority-revoked-inflight-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-authority-revoked-inflight",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -892,6 +948,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-authority-revoked-inflight",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -999,6 +1063,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-binding-aligned",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -1028,7 +1100,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -1038,8 +1110,8 @@
           "aew-v1-event-binding-aligned": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -1112,6 +1184,14 @@
       "confirmed_effect_count": 1,
       "duplicated_actor_ids": [],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-binding-aligned",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -1229,6 +1309,14 @@
         "ev-aew-v1-rec-actor-binding-aligned-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-binding-aligned",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -1374,6 +1462,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-binding-aligned",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -1481,6 +1577,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-binding-misbound",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -1510,7 +1614,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -1520,8 +1624,8 @@
           "aew-v1-event-binding-misbound-other": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -1594,6 +1698,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-binding-misbound",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -1636,7 +1748,7 @@
           "aew-v1-event-binding-misbound-other": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "refuted",
+          "P_commit_authorization": "unresolved",
           "P_commitment": "supported",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
@@ -1715,6 +1827,14 @@
         "ev-aew-v1-rec-actor-binding-misbound-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-binding-misbound",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -1789,7 +1909,7 @@
           "aew-v1-event-binding-misbound-other": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "refuted",
+          "P_commit_authorization": "unresolved",
           "P_commitment": "supported",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
@@ -1863,6 +1983,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-binding-misbound",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -1974,6 +2102,14 @@
         "ev-aew-v1-rec-actor-duplicated-source-copy"
       ],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-duplicated-source",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -2003,7 +2139,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -2013,8 +2149,8 @@
           "aew-v1-event-duplicated-source": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -2091,6 +2227,14 @@
         "ev-aew-v1-rec-actor-duplicated-source-copy"
       ],
       "event_count": 4,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-duplicated-source",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -2234,6 +2378,14 @@
         "ev-aew-v1-rec-actor-duplicated-source-copy"
       ],
       "event_count": 6,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-duplicated-source",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -2412,6 +2564,14 @@
         "ev-aew-v1-rec-actor-duplicated-source-misbound"
       ],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-duplicated-source",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -2537,6 +2697,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-entitled-allow-settles",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -2566,7 +2734,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -2576,8 +2744,8 @@
           "aew-v1-event-entitled-allow-settles": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -2650,6 +2818,14 @@
       "confirmed_effect_count": 1,
       "duplicated_actor_ids": [],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-entitled-allow-settles",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -2767,6 +2943,14 @@
         "ev-aew-v1-rec-actor-entitled-allow-settles-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-entitled-allow-settles",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -2912,6 +3096,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-entitled-allow-settles",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -3023,6 +3215,14 @@
         "ev-aew-v1-rec-actor-local-control-held-url"
       ],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-local-control-held",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -3052,7 +3252,7 @@
         "baseline_false_system_support": true,
         "baseline_system": "supported",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -3063,8 +3263,8 @@
           "aew-v1-event-local-control-held-url": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -3124,7 +3324,7 @@
       "committed_claim": {
         "absence_of_sink_is_no_effect": true,
         "claim_id": "aew-v1-claim-local-control-held-discriminating_readback-committed",
-        "conclusion_class": "failed_enforcement",
+        "conclusion_class": "refuted",
         "coverage_established": true,
         "duplicated_report_ids": [],
         "effect_status": "unobserved",
@@ -3141,6 +3341,14 @@
         "ev-aew-v1-rec-actor-local-control-held-url"
       ],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-local-control-held",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -3245,7 +3453,7 @@
       "committed_claim": {
         "absence_of_sink_is_no_effect": true,
         "claim_id": "aew-v1-claim-local-control-held-duplicate_irrelevant-committed",
-        "conclusion_class": "failed_enforcement",
+        "conclusion_class": "refuted",
         "coverage_established": true,
         "duplicated_report_ids": [],
         "effect_status": "unobserved",
@@ -3263,6 +3471,14 @@
         "ev-aew-v1-rec-actor-local-control-held-url-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-local-control-held",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -3409,6 +3625,14 @@
         "ev-aew-v1-rec-actor-local-control-held-url-misbound"
       ],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-local-control-held",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -3517,6 +3741,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-local-pass-broader-effect",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -3556,8 +3788,8 @@
           "aew-v1-event-local-pass-broader-effect-url": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -3630,6 +3862,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-local-pass-broader-effect",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -3750,6 +3990,14 @@
         "ev-aew-v1-rec-actor-local-pass-broader-effect-url-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-local-pass-broader-effect",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -3892,6 +4140,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-local-pass-broader-effect",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4008,6 +4264,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-receipt-with-entitlement",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4037,7 +4301,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -4047,8 +4311,8 @@
           "aew-v1-event-receipt-with-entitlement": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -4121,6 +4385,14 @@
       "confirmed_effect_count": 1,
       "duplicated_actor_ids": [],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-receipt-with-entitlement",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4238,6 +4510,14 @@
         "ev-aew-v1-rec-actor-receipt-with-entitlement-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-receipt-with-entitlement",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4383,6 +4663,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-receipt-with-entitlement",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4490,6 +4778,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-receipt-without-entitlement",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4519,7 +4815,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -4529,8 +4825,8 @@
           "aew-v1-event-receipt-without-entitlement": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "refuted",
           "P_local_control": "refuted",
           "P_system": "unresolved"
@@ -4588,7 +4884,7 @@
       "committed_claim": {
         "absence_of_sink_is_no_effect": true,
         "claim_id": "aew-v1-claim-receipt-without-entitlement-discriminating_readback-committed",
-        "conclusion_class": "failed_enforcement",
+        "conclusion_class": "refuted",
         "coverage_established": true,
         "duplicated_report_ids": [],
         "effect_status": "unobserved",
@@ -4603,6 +4899,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-receipt-without-entitlement",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4705,7 +5009,7 @@
       "committed_claim": {
         "absence_of_sink_is_no_effect": true,
         "claim_id": "aew-v1-claim-receipt-without-entitlement-duplicate_irrelevant-committed",
-        "conclusion_class": "failed_enforcement",
+        "conclusion_class": "refuted",
         "coverage_established": true,
         "duplicated_report_ids": [],
         "effect_status": "unobserved",
@@ -4722,6 +5026,14 @@
         "ev-aew-v1-rec-actor-receipt-without-entitlement-added"
       ],
       "event_count": 4,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-receipt-without-entitlement",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4845,6 +5157,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-receipt-without-entitlement",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4952,6 +5272,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-single-source",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -4981,7 +5309,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -4991,8 +5319,8 @@
           "aew-v1-event-single-source": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "supported",
           "P_local_control": "unresolved",
           "P_system": "unresolved"
@@ -5065,6 +5393,14 @@
       "confirmed_effect_count": 1,
       "duplicated_actor_ids": [],
       "event_count": 3,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-single-source",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -5182,6 +5518,14 @@
         "ev-aew-v1-rec-actor-single-source-added"
       ],
       "event_count": 5,
+      "formal_binding": {
+        "conclusion_class": "supported",
+        "epistemic_status": "supported",
+        "event_count": null,
+        "independent_origin_count": 1,
+        "reason": "support",
+        "verified": true
+      },
       "history_id": "aew-v1-h-single-source",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -5327,6 +5671,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-single-source",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -5434,6 +5786,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-wrong-allow-blocked",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -5463,7 +5823,7 @@
         "baseline_false_system_support": false,
         "baseline_system": "unresolved",
         "child_verdicts": {
-          "P_effect": "supported",
+          "P_effect": "unresolved",
           "P_exec": "unresolved",
           "P_file_read": "unresolved",
           "P_identity": "unresolved",
@@ -5473,8 +5833,8 @@
           "aew-v1-event-wrong-allow-blocked": "prevented"
         },
         "family_verdicts": {
-          "P_commit_authorization": "supported",
-          "P_commitment": "refuted",
+          "P_commit_authorization": "unresolved",
+          "P_commitment": "unresolved",
           "P_decision_entitlement": "refuted",
           "P_local_control": "refuted",
           "P_system": "unresolved"
@@ -5532,7 +5892,7 @@
       "committed_claim": {
         "absence_of_sink_is_no_effect": true,
         "claim_id": "aew-v1-claim-wrong-allow-blocked-discriminating_readback-committed",
-        "conclusion_class": "failed_enforcement",
+        "conclusion_class": "refuted",
         "coverage_established": true,
         "duplicated_report_ids": [],
         "effect_status": "unobserved",
@@ -5547,6 +5907,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 2,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-wrong-allow-blocked",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -5649,7 +6017,7 @@
       "committed_claim": {
         "absence_of_sink_is_no_effect": true,
         "claim_id": "aew-v1-claim-wrong-allow-blocked-duplicate_irrelevant-committed",
-        "conclusion_class": "failed_enforcement",
+        "conclusion_class": "refuted",
         "coverage_established": true,
         "duplicated_report_ids": [],
         "effect_status": "unobserved",
@@ -5666,6 +6034,14 @@
         "ev-aew-v1-rec-actor-wrong-allow-blocked-added"
       ],
       "event_count": 4,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-wrong-allow-blocked",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,
@@ -5789,6 +6165,14 @@
       "confirmed_effect_count": 0,
       "duplicated_actor_ids": [],
       "event_count": 1,
+      "formal_binding": {
+        "conclusion_class": "missing_evidence",
+        "epistemic_status": "unresolved",
+        "event_count": null,
+        "independent_origin_count": 0,
+        "reason": "no_binding_record",
+        "verified": false
+      },
       "history_id": "aew-v1-h-wrong-allow-blocked",
       "incident_detection_claimed": false,
       "incident_prevention_claimed": false,

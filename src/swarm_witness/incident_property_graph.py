@@ -496,6 +496,11 @@ def _validate_case(case: Mapping[str, Any]) -> None:
             raise ValueError(f"{case_id}: record_availability[{name}] must be unavailable")
 
 
+def _effect_observations_complete(case: Mapping[str, Any]) -> bool:
+    """Incomplete packets must not treat an empty ledger as a decisive absence."""
+    return case.get("effect_observations_complete", True) is not False
+
+
 def _child_verdicts(case: Mapping[str, Any], ledger: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:
     observed = set(case.get("observed_channels") or [])
     verdicts: dict[str, str] = {}
@@ -509,7 +514,13 @@ def _child_verdicts(case: Mapping[str, Any], ledger: Mapping[str, Mapping[str, A
             row["channel"] == channel and row["subject_class"] == forbidden
             for row in ledger.values()
         )
-        verdicts[prop] = "refuted" if committed else "supported"
+        if committed:
+            verdicts[prop] = "refuted"
+        elif not _effect_observations_complete(case) and prop == "P_effect":
+            # Missing sink/service observations leave effect existence unknown.
+            verdicts[prop] = "unresolved"
+        else:
+            verdicts[prop] = "supported"
     return verdicts
 
 
@@ -605,20 +616,43 @@ def _commit_authorized(
     raise ValueError(f"unknown policy {policy}")
 
 
+def _authorization_ledger(case: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
+    rows = case.get("authorization_effect_ledger")
+    if rows is None:
+        rows = case.get("effect_ledger") or []
+    return {
+        row["event_id"]: row
+        for row in rows
+        if isinstance(row, Mapping) and row.get("event_id")
+    }
+
+
 def _commit_authorization_verdict(
     case: Mapping[str, Any],
     ledger: Mapping[str, Mapping[str, Any]],
     revocations: Sequence[Mapping[str, Any]],
     policy: str | None,
 ) -> str:
+    del ledger  # authorization uses the confirmed-binding ledger when present
     authentic = [event for event in _events(case) if event["authenticity"] == "model_ledger"]
     if not authentic:
         return "unresolved"
     if policy is None:
         return "unresolved"
+    if case.get("authorization_observations_complete", True) is False:
+        # Misbound sink rows do not establish unauthorized settlement.
+        return "unresolved"
+    if not _effect_observations_complete(case):
+        return "unresolved"
+    auth_ledger = _authorization_ledger(case)
+    # Empty ledger under complete observations is vacuous support: no unauthorized
+    # settlement. Incomplete packets must set authorization_observations_complete.
     events = {event["id"]: event for event in authentic}
-    for event_id, row in ledger.items():
-        if not _commit_authorized(events[event_id], row, revocations, policy):
+    for event_id, row in auth_ledger.items():
+        event = events.get(event_id)
+        if event is None:
+            return "unresolved"
+        if not _commit_authorized(event, row, revocations, policy):
             return "refuted"
     return "supported"
 
@@ -644,6 +678,8 @@ def _commitment_verdict(case: Mapping[str, Any], ledger: Mapping[str, Mapping[st
         return "unresolved"
     if any(event["id"] in ledger for event in authentic):
         return "supported"
+    if not _effect_observations_complete(case):
+        return "unresolved"
     return "refuted"
 
 

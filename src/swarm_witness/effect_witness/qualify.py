@@ -22,6 +22,7 @@ from swarm_witness.provenance import (
     make_source,
     qualify_graph,
 )
+from swarm_witness.evidence_binding import bind_family, records_from_native_packet
 from swarm_witness.telemetry import (
     apply_conflicts,
     load_origin_packet,
@@ -51,6 +52,23 @@ def remote_url_allowlist_test(actor_records: list[dict[str, Any]]) -> str:
     return "fail"
 
 
+def _ledger_rows(commits: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows = []
+    for commit in commits:
+        if "commit_flag" in commit or "decision" in commit:
+            raise ValueError("a commit observation carried a decision flag")
+        rows.append(
+            {
+                "event_id": commit["event_id"],
+                "channel": commit["channel"],
+                "subject_class": commit["subject_class"],
+                "committed": True,
+                "commit_time": int(commit["logical_time"]),
+            }
+        )
+    return rows
+
+
 def project_case(
     *,
     case_id: str,
@@ -58,8 +76,19 @@ def project_case(
     decisions: list[dict[str, Any]],
     commits: list[dict[str, Any]],
     revocations: list[dict[str, Any]],
+    effect_ledger_available: bool = True,
+    authorization_commits: list[dict[str, Any]] | None = None,
+    authorization_observations_complete: bool | None = None,
+    decision_authenticity: str = "model_ledger",
 ) -> dict[str, Any]:
-    """Property-graph case. The ledger is the commit list, never a decision flag."""
+    """Property-graph case. The ledger is the commit list, never a decision flag.
+
+    Incomplete packets must not acquire full model-ledger semantics: when the
+    qualified service origin is missing, ``effect_ledger_available`` is false and
+    commitment/effect stay unresolved rather than vacuous. Misbound sink rows may
+    still evidence that a commit occurred, but authorization requires confirmed
+    binding (``authorization_commits``).
+    """
     events: list[dict[str, Any]] = []
     seen: set[str] = set()
     for decision in decisions:
@@ -69,7 +98,7 @@ def project_case(
             "subject_class": decision["subject_class"],
             "decision": decision["decision"],
             "attempted": bool(decision["attempted"]),
-            "authenticity": "model_ledger",
+            "authenticity": decision_authenticity,
             "time": int(decision["logical_time"]),
         }
         if decision.get("grant_id"):
@@ -78,8 +107,6 @@ def project_case(
         seen.add(decision["event_id"])
     ledger = []
     for commit in commits:
-        if "commit_flag" in commit or "decision" in commit:
-            raise ValueError("a commit observation carried a decision flag")
         if commit["event_id"] not in seen:
             events.append(
                 {
@@ -93,14 +120,16 @@ def project_case(
                 }
             )
             seen.add(commit["event_id"])
-        ledger.append(
-            {
-                "event_id": commit["event_id"],
-                "channel": commit["channel"],
-                "subject_class": commit["subject_class"],
-                "committed": True,
-                "commit_time": int(commit["logical_time"]),
-            }
+        ledger.extend(_ledger_rows([commit]))
+    if authorization_commits is None:
+        auth_ledger = list(ledger)
+        auth_complete = bool(effect_ledger_available)
+    else:
+        auth_ledger = _ledger_rows(authorization_commits)
+        auth_complete = (
+            bool(effect_ledger_available)
+            if authorization_observations_complete is None
+            else bool(authorization_observations_complete)
         )
     graph_revocations = []
     for revocation in revocations:
@@ -123,10 +152,13 @@ def project_case(
         "observed_channels": channels,
         "events": events,
         "effect_ledger": ledger,
+        "authorization_effect_ledger": auth_ledger,
         "narrative_claims": [],
         "authority_policy": policy,
         "revocations": graph_revocations,
         "record_availability": {},
+        "effect_observations_complete": bool(effect_ledger_available),
+        "authorization_observations_complete": auth_complete,
     }
 
 
@@ -169,6 +201,9 @@ def _views_from_events(events: list[dict[str, Any]], history_id: str) -> dict[st
                 }
             )
         elif header == "aew-v1 sink commit":
+            # Actor-origin text that merely looks like a sink row is not a commit.
+            if event.get("event_kind") != "committed_effect":
+                continue
             if "decision" in fields or fields.get("readback") != "commit_row":
                 raise ValueError("sink readback is not a commit row")
             commits.append(
@@ -342,11 +377,30 @@ def _graph_for(
     }
 
 
-def _coverage_assumption(operation: str, views: dict[str, Any], *, complete: bool) -> dict[str, Any]:
+def _coverage_assumption(
+    operation: str,
+    views: dict[str, Any],
+    *,
+    complete: bool,
+    commit_count: int = 0,
+) -> dict[str, Any]:
+    """Declare coverage only when the observer record reconciles with commit rows.
+
+    A positive ``row_count`` with missing commit-detail rows preserves uncertainty.
+    """
     coverage = views["coverage"]
+    if coverage is None:
+        return {"operation": operation, "interval": None, "completeness": "partial"}
+    row_count_raw = coverage.get("row_count")
+    if row_count_raw not in (None, ""):
+        try:
+            declared = int(row_count_raw)
+        except (TypeError, ValueError):
+            declared = None
+        if declared is not None and declared != commit_count:
+            return {"operation": operation, "interval": None, "completeness": "partial"}
     if (
         complete
-        and coverage is not None
         and operation in coverage["operations"].split(",")
         and coverage["interval_start"]
         and coverage["interval_end"]
@@ -416,7 +470,10 @@ def _claims(
             evidence_slots=slots,
             subject=operation,
             coverage_assumption=_coverage_assumption(
-                operation, views, complete=not committed
+                operation,
+                views,
+                complete=not committed,
+                commit_count=len(committed),
             ),
         ),
         make_claim(
@@ -435,7 +492,7 @@ def _claims(
             evidence_slots=slots,
             subject=UNCOVERED_OPERATION,
             coverage_assumption=_coverage_assumption(
-                UNCOVERED_OPERATION, views, complete=False
+                UNCOVERED_OPERATION, views, complete=False, commit_count=0
             ),
         ),
     ]
@@ -485,12 +542,68 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
     reconciliation = reconcile_events(events)
     conflicted = apply_conflicts(events, reconciliation["links"])
     views = _views_from_events(conflicted, history["history_id"])
+    service_missing = any(
+        origin.get("origin") == "service_effect" and int(origin.get("rows") or 0) == 0
+        for origin in loaded["missing_origins"]
+    )
+    links_preview = reconciliation["links"]
+    events_by_id = {event["id"]: event for event in conflicted}
+    confirmed_record_ids: set[str] = set()
+    mismatched_sink = False
+    for link in links_preview:
+        flags = set(link.get("flags") or [])
+        endpoints = [link.get("left_id"), link.get("right_id")]
+        if link.get("confirmed_effect"):
+            for endpoint in endpoints:
+                if isinstance(endpoint, str) and endpoint:
+                    confirmed_record_ids.add(endpoint)
+        if flags & {"actor_mismatch", "object_mismatch"}:
+            for endpoint in endpoints:
+                event = events_by_id.get(endpoint or "")
+                if event and event.get("event_kind") == "committed_effect":
+                    mismatched_sink = True
+    confirmed_event_ids: set[str] = set()
+    for record_id in confirmed_record_ids:
+        event = events_by_id.get(record_id)
+        if not event:
+            continue
+        text = event.get("public_bytes")
+        if isinstance(text, str) and "event_id=" in text:
+            for line in text.splitlines():
+                if line.startswith("event_id="):
+                    confirmed_event_ids.add(line.split("=", 1)[1].strip())
+    # Commitment/effect use every sink row once the service origin is present.
+    # Authorization requires confirmed binding; actor/object mismatches stay open.
+    if service_missing:
+        admitted_commits: list[dict[str, Any]] = []
+        auth_commits: list[dict[str, Any]] = []
+        ledger_complete = False
+        auth_complete = False
+    else:
+        admitted_commits = list(views["commits"])
+        if confirmed_event_ids:
+            auth_commits = [
+                commit
+                for commit in views["commits"]
+                if commit["event_id"] in confirmed_event_ids
+            ]
+            auth_complete = True
+        elif mismatched_sink:
+            auth_commits = []
+            auth_complete = False
+        else:
+            auth_commits = list(views["commits"])
+            auth_complete = True
+        ledger_complete = True
     case = project_case(
         case_id=f"{history['history_id']}:{packet_dir.name}",
         policy=history["revocation_policy"],
         decisions=views["decisions"],
-        commits=views["commits"],
+        commits=admitted_commits,
         revocations=views["revocations"],
+        effect_ledger_available=ledger_complete,
+        authorization_commits=auth_commits,
+        authorization_observations_complete=auth_complete,
     )
     # The interval the property graph does not see. Coverage strings are checked
     # before qualify_claim is allowed to treat absence as no effect.
@@ -516,6 +629,26 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
         }
         for link in reconciliation["links"]
     ]
+    formal_binding = None
+    try:
+        native_records, _meta = records_from_native_packet(packet_dir)
+        # Commitment binds the sink row when present. Binding to the first
+        # decision's object (often a URL allowlist) wrongly excludes the effect.
+        commit = views["commits"][0] if views["commits"] else {}
+        decision = views["decisions"][0] if views["decisions"] else {}
+        target = commit or decision
+        formal_binding = bind_family(
+            native_records,
+            family="P_commitment",
+            claim={
+                "target_actor": target.get("actor_id"),
+                "target_object": target.get("object_scope"),
+                "target_operation": target.get("operation"),
+                "minimum_independent_groups": 1,
+            },
+        )
+    except Exception as exc:  # pragma: no cover - adapter must not break packet scoring
+        formal_binding = {"epistemic_status": "unresolved", "error": str(exc)}
     return {
         "history_id": history["history_id"],
         "condition": packet_dir.name,
@@ -536,6 +669,14 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
             "baseline_system": property_result["baseline_system"],
             "baseline_false_system_support": property_result["baseline_false_system_support"],
             "commitment_by_event": property_result["commitment_by_event"],
+        },
+        "formal_binding": {
+            "epistemic_status": formal_binding.get("epistemic_status"),
+            "conclusion_class": formal_binding.get("conclusion_class"),
+            "verified": formal_binding.get("verified"),
+            "reason": formal_binding.get("reason"),
+            "event_count": formal_binding.get("event_count"),
+            "independent_origin_count": formal_binding.get("independent_origin_count"),
         },
         "committed_claim": _compact(committed),
         "uncovered_claim": _compact(uncovered),
