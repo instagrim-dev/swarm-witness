@@ -229,15 +229,45 @@ def _sink_in_scope(
     return _time_in_interval(covered, record.get("event_time"))
 
 
+def _stated(record: dict[str, Any], fields: dict[str, str], key: str) -> str:
+    value = fields.get(key) or record.get(key)
+    return value if isinstance(value, str) else ""
+
+
 def _parent_maps_to_actor(
     record: dict[str, Any],
+    fields: dict[str, str],
     actors: list[tuple[dict[str, Any], dict[str, str]]],
 ) -> bool:
-    """An explicit parent link is the verified mapping. A history id is not."""
+    """A parent id is a mapping only when the relationship itself checks out.
+
+    The named actor must share this sink's call. Actor, object, and event
+    must then all agree, or all differ as the other binding of that call.
+    A matching id with one rewritten field is an assertion, not that mapping.
+    """
     parent = record.get("parent_id")
     if not isinstance(parent, str) or not parent:
         return False
-    return any(actor.get("record_id") == parent for actor, _fields in actors)
+    named = [
+        (actor, actor_fields)
+        for actor, actor_fields in actors
+        if actor.get("record_id") == parent and _premise_decides(actor, actor_fields)
+    ]
+    if len(named) != 1:
+        return False
+    actor, actor_fields = named[0]
+    sink_call = _stated(record, fields, "call_id")
+    actor_call = _stated(actor, actor_fields, "call_id")
+    if not sink_call or sink_call != actor_call:
+        return False
+    compared: list[bool] = []
+    for key in ("actor_id", "object_scope", "event_id"):
+        left = _stated(record, fields, key)
+        right = _stated(actor, actor_fields, key)
+        if not left or not right:
+            return False
+        compared.append(left == right)
+    return all(compared) or not any(compared)
 
 
 def _names_match_actor(
@@ -262,8 +292,8 @@ def _binding_matches(
     fields: dict[str, str],
     actors: list[tuple[dict[str, Any], dict[str, str]]],
 ) -> bool:
-    """Actor, object, and event match a declared actor, or a parent mapping says so."""
-    return _parent_maps_to_actor(record, actors) or _names_match_actor(fields, actors)
+    """Actor, object, and event match a declared actor, or a verified parent mapping says so."""
+    return _parent_maps_to_actor(record, fields, actors) or _names_match_actor(fields, actors)
 
 
 def _coverage_signature(fields: dict[str, str]) -> tuple[str, ...]:

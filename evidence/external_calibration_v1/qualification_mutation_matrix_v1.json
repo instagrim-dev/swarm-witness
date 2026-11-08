@@ -1,0 +1,2370 @@
+{
+  "protocol_id": "eg-qualification-mutation-v1",
+  "claim_id": "EG-EVT-clean-event-000007-4af90bc41e",
+  "family": "event_attribution",
+  "note": "Measured raw observations, projected observations, and both composed-method outputs. The expected-outcome matrix is a separate file.",
+  "rows": [
+    {
+      "mutation": "none",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-adapter-derivation",
+          "source_id": "eg-evidence-derived-adapter",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "composed method: adapter predicate projection (not an independent witness)",
+          "quote": "adapter_derivation verdict=supported; reason=exclusive_independent_bound_temporally_compatible; capability=receipt_binding; predicates={\"clock_bound_present\": true, \"clock_bound_seconds\": 0.05, \"event_has_event_uuid\": true, \"event_present\": true, \"exclusivity_declared\": true, \"exclusivity_independently_verified\": false, \"independence_declared\": true, \"independence_status\": true, \"mutation_present\": true, \"receipt_binding\": \"bound\", \"temporal_compatible\": true}",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "tool_event_record"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "adapter-derivation",
+          "literal_polarity": "supports",
+          "literal_claims": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "derivation": "adapter_checks",
+          "supporting_observation_ids": [
+            "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+            "EG-EVT-clean-event-000007-4af90bc41e-event"
+          ],
+          "premise_qualifications": [
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+              "observation_types": [
+                "registry_mutation_record",
+                "receipt_commitment"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-121cf1e9f3ff7f7947104252",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            },
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+              "observation_types": [
+                "tool_event_record",
+                "execution_interval"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            }
+          ],
+          "adapter_assessment": {
+            "verdict": "supported",
+            "reason": "exclusive_independent_bound_temporally_compatible",
+            "capability": "receipt_binding",
+            "predicates": {
+              "clock_bound_present": true,
+              "clock_bound_seconds": 0.05,
+              "independence_declared": true,
+              "independence_status": true,
+              "exclusivity_declared": true,
+              "exclusivity_independently_verified": false,
+              "receipt_binding": "bound",
+              "temporal_compatible": true,
+              "event_has_event_uuid": true,
+              "mutation_present": true,
+              "event_present": true
+            }
+          },
+          "composed_method_trusts_derivation": true
+        }
+      ],
+      "assessment": "supported",
+      "reason": "exclusive_independent_bound_temporally_compatible",
+      "strong": "supported",
+      "swarm": "supported",
+      "forced_projection_empty": false
+    },
+    {
+      "mutation": "binding=misbound",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          },
+          "binding": "misbound"
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [],
+      "assessment": "unresolved",
+      "reason": "required_premise_not_admitted",
+      "strong": "unresolved",
+      "swarm": "unresolved",
+      "forced_projection_empty": true
+    },
+    {
+      "mutation": "binding restored",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-adapter-derivation",
+          "source_id": "eg-evidence-derived-adapter",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "composed method: adapter predicate projection (not an independent witness)",
+          "quote": "adapter_derivation verdict=supported; reason=exclusive_independent_bound_temporally_compatible; capability=receipt_binding; predicates={\"clock_bound_present\": true, \"clock_bound_seconds\": 0.05, \"event_has_event_uuid\": true, \"event_present\": true, \"exclusivity_declared\": true, \"exclusivity_independently_verified\": false, \"independence_declared\": true, \"independence_status\": true, \"mutation_present\": true, \"receipt_binding\": \"bound\", \"temporal_compatible\": true}",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "tool_event_record"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "adapter-derivation",
+          "literal_polarity": "supports",
+          "literal_claims": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "derivation": "adapter_checks",
+          "supporting_observation_ids": [
+            "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+            "EG-EVT-clean-event-000007-4af90bc41e-event"
+          ],
+          "premise_qualifications": [
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+              "observation_types": [
+                "registry_mutation_record",
+                "receipt_commitment"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-121cf1e9f3ff7f7947104252",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            },
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+              "observation_types": [
+                "tool_event_record",
+                "execution_interval"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            }
+          ],
+          "adapter_assessment": {
+            "verdict": "supported",
+            "reason": "exclusive_independent_bound_temporally_compatible",
+            "capability": "receipt_binding",
+            "predicates": {
+              "clock_bound_present": true,
+              "clock_bound_seconds": 0.05,
+              "independence_declared": true,
+              "independence_status": true,
+              "exclusivity_declared": true,
+              "exclusivity_independently_verified": false,
+              "receipt_binding": "bound",
+              "temporal_compatible": true,
+              "event_has_event_uuid": true,
+              "mutation_present": true,
+              "event_present": true
+            }
+          },
+          "composed_method_trusts_derivation": true
+        }
+      ],
+      "assessment": "supported",
+      "reason": "exclusive_independent_bound_temporally_compatible",
+      "strong": "supported",
+      "swarm": "supported",
+      "forced_projection_empty": false
+    },
+    {
+      "mutation": "freshness=stale",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          },
+          "freshness": "stale"
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [],
+      "assessment": "unresolved",
+      "reason": "required_premise_not_admitted",
+      "strong": "unresolved",
+      "swarm": "unresolved",
+      "forced_projection_empty": true
+    },
+    {
+      "mutation": "freshness restored",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-adapter-derivation",
+          "source_id": "eg-evidence-derived-adapter",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "composed method: adapter predicate projection (not an independent witness)",
+          "quote": "adapter_derivation verdict=supported; reason=exclusive_independent_bound_temporally_compatible; capability=receipt_binding; predicates={\"clock_bound_present\": true, \"clock_bound_seconds\": 0.05, \"event_has_event_uuid\": true, \"event_present\": true, \"exclusivity_declared\": true, \"exclusivity_independently_verified\": false, \"independence_declared\": true, \"independence_status\": true, \"mutation_present\": true, \"receipt_binding\": \"bound\", \"temporal_compatible\": true}",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "tool_event_record"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "adapter-derivation",
+          "literal_polarity": "supports",
+          "literal_claims": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "derivation": "adapter_checks",
+          "supporting_observation_ids": [
+            "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+            "EG-EVT-clean-event-000007-4af90bc41e-event"
+          ],
+          "premise_qualifications": [
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+              "observation_types": [
+                "registry_mutation_record",
+                "receipt_commitment"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-121cf1e9f3ff7f7947104252",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            },
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+              "observation_types": [
+                "tool_event_record",
+                "execution_interval"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            }
+          ],
+          "adapter_assessment": {
+            "verdict": "supported",
+            "reason": "exclusive_independent_bound_temporally_compatible",
+            "capability": "receipt_binding",
+            "predicates": {
+              "clock_bound_present": true,
+              "clock_bound_seconds": 0.05,
+              "independence_declared": true,
+              "independence_status": true,
+              "exclusivity_declared": true,
+              "exclusivity_independently_verified": false,
+              "receipt_binding": "bound",
+              "temporal_compatible": true,
+              "event_has_event_uuid": true,
+              "mutation_present": true,
+              "event_present": true
+            }
+          },
+          "composed_method_trusts_derivation": true
+        }
+      ],
+      "assessment": "supported",
+      "reason": "exclusive_independent_bound_temporally_compatible",
+      "strong": "supported",
+      "swarm": "supported",
+      "forced_projection_empty": false
+    },
+    {
+      "mutation": "locally_held=false",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          },
+          "locally_held": false
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [],
+      "assessment": "unresolved",
+      "reason": "required_premise_not_admitted",
+      "strong": "unresolved",
+      "swarm": "unresolved",
+      "forced_projection_empty": true
+    },
+    {
+      "mutation": "locally_held restored",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-adapter-derivation",
+          "source_id": "eg-evidence-derived-adapter",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "composed method: adapter predicate projection (not an independent witness)",
+          "quote": "adapter_derivation verdict=supported; reason=exclusive_independent_bound_temporally_compatible; capability=receipt_binding; predicates={\"clock_bound_present\": true, \"clock_bound_seconds\": 0.05, \"event_has_event_uuid\": true, \"event_present\": true, \"exclusivity_declared\": true, \"exclusivity_independently_verified\": false, \"independence_declared\": true, \"independence_status\": true, \"mutation_present\": true, \"receipt_binding\": \"bound\", \"temporal_compatible\": true}",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "tool_event_record"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "adapter-derivation",
+          "literal_polarity": "supports",
+          "literal_claims": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "derivation": "adapter_checks",
+          "supporting_observation_ids": [
+            "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+            "EG-EVT-clean-event-000007-4af90bc41e-event"
+          ],
+          "premise_qualifications": [
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+              "observation_types": [
+                "registry_mutation_record",
+                "receipt_commitment"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-121cf1e9f3ff7f7947104252",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            },
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+              "observation_types": [
+                "tool_event_record",
+                "execution_interval"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            }
+          ],
+          "adapter_assessment": {
+            "verdict": "supported",
+            "reason": "exclusive_independent_bound_temporally_compatible",
+            "capability": "receipt_binding",
+            "predicates": {
+              "clock_bound_present": true,
+              "clock_bound_seconds": 0.05,
+              "independence_declared": true,
+              "independence_status": true,
+              "exclusivity_declared": true,
+              "exclusivity_independently_verified": false,
+              "receipt_binding": "bound",
+              "temporal_compatible": true,
+              "event_has_event_uuid": true,
+              "mutation_present": true,
+              "event_present": true
+            }
+          },
+          "composed_method_trusts_derivation": true
+        }
+      ],
+      "assessment": "supported",
+      "reason": "exclusive_independent_bound_temporally_compatible",
+      "strong": "supported",
+      "swarm": "supported",
+      "forced_projection_empty": false
+    },
+    {
+      "mutation": "derivation=copied",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          },
+          "derivation": "copied"
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [],
+      "assessment": "unresolved",
+      "reason": "required_premise_not_admitted",
+      "strong": "unresolved",
+      "swarm": "unresolved",
+      "forced_projection_empty": true
+    },
+    {
+      "mutation": "derivation restored",
+      "raw_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-decl",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Declared trust domains and clock bounds from case.json (exclusive_receipt_tokens / independence / clock_bounds).",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "declared_assumptions"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "declared_assumptions": {
+            "clock_bounds": [
+              {
+                "bound_seconds": 0.05,
+                "clock_a": "runner",
+                "clock_b": "container",
+                "note": "",
+                "source": "Shared in-process clock; collection padded by 0.1 s"
+              }
+            ],
+            "trust_domains": [
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": false,
+                "id": "registry",
+                "label": "Registry",
+                "related_to": {
+                  "runner": "independent"
+                },
+                "sources": []
+              },
+              {
+                "authentic_records": false,
+                "exclusive_receipt_tokens": true,
+                "id": "runner",
+                "label": "Scripted Inspect records",
+                "related_to": {},
+                "sources": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-capture",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "Public population.json capture declarations: w-0f1bb05252eaf05c:complete=True,[2026-11-07T13:36:25.058448+00:00,2026-11-07T13:36:25.270703+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "capture_declaration"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "populations": [
+            {
+              "complete": true,
+              "count": 12,
+              "definition": "Every accepted registry mutation within this collection window",
+              "event_ids": [
+                "event-000001",
+                "event-000002",
+                "event-000003",
+                "event-000004",
+                "event-000005",
+                "event-000006",
+                "event-000007",
+                "event-000008",
+                "event-000009",
+                "event-000010",
+                "event-000011",
+                "event-000012"
+              ],
+              "namespace": "registry-lab",
+              "started_at": "2026-11-07T13:36:25.058448+00:00",
+              "stopped_at": "2026-11-07T13:36:25.270703+00:00",
+              "witness_id": "w-0f1bb05252eaf05c"
+            }
+          ]
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "registry_mutation natural_key=event-000007; commitment=55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b; interval=[2026-11-07T13:36:25.164487+00:00,2026-11-07T13:36:25.164487+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "receipt_commitment"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "id": "event-000007",
+              "name": "note-B-0.txt",
+              "namespace": "registry-lab",
+              "operation": "create",
+              "path": "/cache/registry-lab/note-B-0.txt",
+              "previous_sha256": null,
+              "receipt_token_sha256": "55863df1e2ac5634120236c4adc4100d57c3d529bb151b049aa4bc72ca80045b",
+              "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6",
+              "ts": "2026-11-07T13:36:25.164487+00:00"
+            },
+            "entity_id": "e-121cf1e9f3ff7f7947104252",
+            "kind": "action",
+            "natural_key": "event-000007",
+            "subkind": "registry_mutation",
+            "time_lower": "2026-11-07T13:36:25.164487+00:00",
+            "time_upper": "2026-11-07T13:36:25.164487+00:00",
+            "winning_clock_id": "w-cbcb3ddb5f1f4267:container",
+            "witness_id": "w-cbcb3ddb5f1f4267"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "tool_event event_uuid=X7ptxvdmYqUsfCJT8RyBSq; receipt_present=True; interval=[2026-11-07T13:36:25.164287+00:00,2026-11-07T13:36:25.164565+00:00]",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "tool_event_record",
+            "execution_interval"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "entity": {
+            "attrs": {
+              "arguments": {
+                "name": "note-B-0.txt",
+                "payload": "status 536110"
+              },
+              "error": null,
+              "event_uuid": "X7ptxvdmYqUsfCJT8RyBSq",
+              "function": "registry_write",
+              "receipt": {
+                "accepted": true,
+                "event_id": "event-000007",
+                "name": "note-B-0.txt",
+                "namespace": "registry-lab",
+                "path": "/cache/registry-lab/note-B-0.txt",
+                "payload": "status 536110",
+                "receipt_token": "f522600a92fc4ebeaa8cb2609507c028",
+                "sha256": "e3ddc0b0a0ad822c960be6d7a997a0b95f2c5fc4aed2fa2c7fefc6a5b99754e6"
+              }
+            },
+            "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+            "kind": "action",
+            "natural_key": "agent-B:X7ptxvdmYqUsfCJT8RyBSq",
+            "subkind": "tool_event",
+            "time_lower": "2026-11-07T13:36:25.164287+00:00",
+            "time_upper": "2026-11-07T13:36:25.164565+00:00",
+            "winning_clock_id": "w-f24438d9d76e8926:runner",
+            "witness_id": "w-f24438d9d76e8926"
+          }
+        },
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-candidates",
+          "source_id": "evidencegraph-r2-event",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "retained EvidenceGraph public entities @ a5ea5c9947039009ca795275d834be7b61069080",
+          "quote": "evidence_derived_candidate_tool_event_ids=['e-e64d2ae9db6f0d227a26af2d']",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "candidate_event_set"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "retained-r2-event",
+          "candidate_event_ids": [
+            "e-e64d2ae9db6f0d227a26af2d"
+          ]
+        }
+      ],
+      "projected_observations": [
+        {
+          "id": "EG-EVT-clean-event-000007-4af90bc41e-adapter-derivation",
+          "source_id": "eg-evidence-derived-adapter",
+          "stage": "A",
+          "publication_ordinal": 1,
+          "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e",
+          "authenticity": "authentic_public_text",
+          "access_level": "raw_telemetry_public",
+          "anchor": "composed method: adapter predicate projection (not an independent witness)",
+          "quote": "adapter_derivation verdict=supported; reason=exclusive_independent_bound_temporally_compatible; capability=receipt_binding; predicates={\"clock_bound_present\": true, \"clock_bound_seconds\": 0.05, \"event_has_event_uuid\": true, \"event_present\": true, \"exclusivity_declared\": true, \"exclusivity_independently_verified\": false, \"independence_declared\": true, \"independence_status\": true, \"mutation_present\": true, \"receipt_binding\": \"bound\", \"temporal_compatible\": true}",
+          "applies_to": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "observation_types": [
+            "registry_mutation_record",
+            "tool_event_record"
+          ],
+          "time_basis": "source_stated",
+          "event_time": "adapter-derivation",
+          "literal_polarity": "supports",
+          "literal_claims": [
+            "EG-EVT-clean-event-000007-4af90bc41e"
+          ],
+          "derivation": "adapter_checks",
+          "supporting_observation_ids": [
+            "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+            "EG-EVT-clean-event-000007-4af90bc41e-event"
+          ],
+          "premise_qualifications": [
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-mutation",
+              "observation_types": [
+                "registry_mutation_record",
+                "receipt_commitment"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-121cf1e9f3ff7f7947104252",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            },
+            {
+              "observation_id": "EG-EVT-clean-event-000007-4af90bc41e-event",
+              "observation_types": [
+                "tool_event_record",
+                "execution_interval"
+              ],
+              "authenticity": "authentic_public_text",
+              "access_level": "raw_telemetry_public",
+              "binding": null,
+              "freshness": null,
+              "locally_held": null,
+              "derivation": null,
+              "entity_id": "e-e64d2ae9db6f0d227a26af2d",
+              "independence_group": "eg-evt-EG-EVT-clean-event-000007-4af90bc41e"
+            }
+          ],
+          "adapter_assessment": {
+            "verdict": "supported",
+            "reason": "exclusive_independent_bound_temporally_compatible",
+            "capability": "receipt_binding",
+            "predicates": {
+              "clock_bound_present": true,
+              "clock_bound_seconds": 0.05,
+              "independence_declared": true,
+              "independence_status": true,
+              "exclusivity_declared": true,
+              "exclusivity_independently_verified": false,
+              "receipt_binding": "bound",
+              "temporal_compatible": true,
+              "event_has_event_uuid": true,
+              "mutation_present": true,
+              "event_present": true
+            }
+          },
+          "composed_method_trusts_derivation": true
+        }
+      ],
+      "assessment": "supported",
+      "reason": "exclusive_independent_bound_temporally_compatible",
+      "strong": "supported",
+      "swarm": "supported",
+      "forced_projection_empty": false
+    }
+  ]
+}

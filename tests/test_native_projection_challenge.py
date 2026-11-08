@@ -7,6 +7,7 @@ their own ledger and are not scored by agreement with Swarm Witness.
 from __future__ import annotations
 
 import copy
+import importlib.util
 import json
 from pathlib import Path
 
@@ -14,6 +15,20 @@ import yaml
 
 from swarm_witness.effect_witness.histories import HISTORY_BY_ID
 from swarm_witness.native_comparison import competent_verdict, project_packet_observations
+
+_CHALLENGE_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "experiments"
+    / "effect_witness"
+    / "native_projection_challenge.py"
+)
+_spec = importlib.util.spec_from_file_location("native_projection_challenge", _CHALLENGE_PATH)
+assert _spec and _spec.loader
+_challenge = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_challenge)
+build_cases = _challenge.build_cases
+paired_ledger = _challenge.paired_ledger
+LEDGER = _challenge.LEDGER
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKETS = ROOT / "evidence" / "effect_witness_v1" / "packets"
@@ -95,96 +110,32 @@ def test_projection_challenge_uses_its_own_warrants():
     history_id, _condition = ledger["source_packet"].split("/", 1)
     base = _records(history_id, "discriminating_readback")
     expected = {case_id: case["expected"] for case_id, case in ledger["cases"].items()}
+    cases = build_cases(history_id)
 
     def status(records: list[dict]) -> str:
         return competent_verdict(history_id, records)["epistemic_status"]
 
-    cases: dict[str, list[dict]] = {"clean-positive": copy.deepcopy(base)}
-
-    misbound = copy.deepcopy(base)
-    sink = _sink(misbound)
-    sink["record_id"] = sink["record_id"] + "-misbound"
-    cases["sink-misbound"] = misbound
-
-    spoofed = copy.deepcopy(base)
-    _sink(spoofed)["authenticity"] = "spoofed_tool_line"
-    cases["sink-spoofed"] = spoofed
-
-    unauthenticated = copy.deepcopy(base)
-    _sink(unauthenticated)["authenticity"] = "unauthenticated_tool_line"
-    cases["sink-unauthenticated"] = unauthenticated
-
-    stale = copy.deepcopy(base)
-    _sink(stale)["freshness"] = "stale"
-    cases["sink-stale"] = stale
-
-    wrong_run = copy.deepcopy(base)
-    _replace_body(_sink(wrong_run), run_id="aew-v1-run-other")
-    cases["sink-run-mismatch"] = wrong_run
-
-    wrong_actor = copy.deepcopy(base)
-    _replace_body(_sink(wrong_actor), actor_id="aew-v1-actor-other")
-    _sink(wrong_actor)["actor"] = "aew-v1-actor-other"
-    _sink(wrong_actor)["parent_id"] = None
-    cases["sink-actor-mismatch"] = wrong_actor
-
-    wrong_object = copy.deepcopy(base)
-    _replace_body(_sink(wrong_object), object_scope="aew-v1-object-other")
-    _sink(wrong_object)["object"] = "aew-v1-object-other"
-    _sink(wrong_object)["parent_id"] = None
-    cases["sink-object-mismatch"] = wrong_object
-
-    mapped_actor = copy.deepcopy(base)
-    _replace_body(_sink(mapped_actor), actor_id="aew-v1-actor-other")
-    _sink(mapped_actor)["actor"] = "aew-v1-actor-other"
-    cases["sink-mapped-actor-mismatch"] = mapped_actor
-
-    mixed = copy.deepcopy(base)
-    extra = copy.deepcopy(_sink(mixed))
-    extra["record_id"] = extra["record_id"] + "-unknown"
-    extra["source_id"] = "src-" + extra["record_id"]
-    _replace_body(extra, subject_class="unknown")
-    _replace_body(_coverage(mixed), row_count="2")
-    cases["mixed-unknown-authorization"] = mixed + [extra]
-    reversed_mixed = [extra] + mixed
-    assert status(cases["mixed-unknown-authorization"]) == status(reversed_mixed)
-
-    conflict = copy.deepcopy(base)
-    other = copy.deepcopy(_coverage(conflict))
-    other["record_id"] = other["record_id"] + "-other"
-    other["source_id"] = "src-" + other["record_id"]
-    _replace_body(other, row_count="0")
-    cases["coverage-conflict"] = conflict + [other]
-    assert status(cases["coverage-conflict"]) == status([other] + conflict)
-
-    duplicate = copy.deepcopy(base)
-    copied = copy.deepcopy(_coverage(duplicate))
-    copied["record_id"] = copied["record_id"] + "-copy"
-    copied["source_id"] = "src-" + copied["record_id"]
-    cases["coverage-duplicate"] = duplicate + [copied]
-
-    unknown = copy.deepcopy(base)
-    _replace_body(_sink(unknown), subject_class="unknown")
-    cases["sink-unknown-subject"] = unknown
-
-    wrong_operation = copy.deepcopy(base)
-    _replace_body(_coverage(wrong_operation), operations="aew-v1-op-not-the-target")
-    cases["coverage-operation-mismatch"] = wrong_operation
-
-    outside = copy.deepcopy(base)
+    assert _sink(cases["sink-mapped-actor-mismatch"]).get("parent_id")
+    coherent = copy.deepcopy(base)
     _replace_body(
-        _coverage(outside),
-        interval_start="2030-01-01T00:00:00Z",
-        interval_end="2030-01-01T00:01:00Z",
+        _sink(coherent),
+        actor_id="aew-v1-actor-other",
+        object_scope="aew-v1-object-other",
+        event_id="aew-v1-event-other",
     )
-    cases["coverage-interval-outside"] = outside
+    _sink(coherent)["actor"] = "aew-v1-actor-other"
+    _sink(coherent)["object"] = "aew-v1-object-other"
+    assert status(coherent) == "supported"
 
-    withheld = copy.deepcopy(base)
-    coverage = _coverage(withheld)
-    coverage["locally_held"] = False
-    coverage["access_level"] = "withheld"
-    coverage["redaction"] = "withheld_original"
-    cases["coverage-withheld"] = withheld
+    mixed = cases["mixed-unknown-authorization"]
+    extra = next(row for row in mixed if str(row.get("record_id", "")).endswith("-unknown"))
+    without_extra = [row for row in mixed if row is not extra]
+    assert status(mixed) == status([extra] + without_extra)
+
+    conflict = cases["coverage-conflict"]
+    other = next(row for row in conflict if str(row.get("record_id", "")).endswith("-other"))
+    without_other = [row for row in conflict if row is not other]
+    assert status(conflict) == status([other] + without_other)
 
     assert set(cases) == set(expected)
     for case_id, records in cases.items():
@@ -200,3 +151,12 @@ def test_projection_challenge_uses_its_own_warrants():
             sink_obs = next(obs for obs in projected if obs["id"] == _sink(records)["record_id"])
             assert sink_obs["authenticity"] == "spoofed_tool_line"
             assert sink_obs["authenticity"] != "application_owned_readback"
+
+
+def test_retained_challenge_ledger_scores_both_methods(tmp_path: Path):
+    retained = json.loads(LEDGER.read_text(encoding="utf-8"))
+    fresh = paired_ledger(tmp_path)
+    assert fresh["agreement_is_not_the_label"] is True
+    assert fresh["case_count"] == 16
+    assert fresh == retained
+    assert all(row["competent_matches_warrant"] for row in fresh["rows"])

@@ -1,0 +1,61 @@
+# Frozen before the held-out labels are read.
+# This file names eligibility and measures. It does not list claim ids or outcomes.
+id: external-heldout-v1
+status: prospectively_frozen
+independent_jury: false
+authorship:
+  evidence: EvidenceGraph retained export, translated by the repository author
+  methods: separate implementations by the same repository author
+  adjudication: same author
+  distinction: >
+    A second implementation by the same author is not an independent
+    adjudicator. Disagreements are recorded and resolved from the visible
+    evidence, not from agreement between the methods.
+eligibility:
+  seed: 0
+  include:
+    - family: event_attribution
+      scenarios:
+        - clean
+        - full_receipt_relay
+        - shared_tokens_no_attack
+        - false_exclusivity
+        - incomplete_capture
+    - family: fabricated_execution
+exclusions:
+  - any other scenario
+  - any other seed
+  - packets added after this file
+sample_size: all eligible packets
+method_versions:
+  visible_evidence_label: assess_attribution or assess_fabricated_execution
+  comparator: strong_invariant_verdict
+  subject: swarm_witness_verdict
+evidence_stages:
+  - raw observations supplied with the packet
+  - the same observations after removing the discriminating required record
+  - the same observations after duplicating that record
+  - the same observations after adding an irrelevant record
+outcome_measures:
+  - label from the frozen visible-evidence assessor
+  - controlled truth recorded separately and not used as the label
+  - unsupported support
+  - unsupported refutation
+  - correct decisive coverage
+  - abstention
+  - source demand
+  - processing time
+controls:
+  successful: lexicographically first eligible event_attribution claim in scenario clean
+  unresolved: that same claim with its registry_mutation_record removed
+  refutation: lexicographically first eligible fabricated_execution claim
+hypothesis: >
+  On this frozen eligible set, scoring the same observations under the
+  premise-preservation contract does not by itself establish transfer
+  beyond the set.
+superiority_claim: false
+transfer_claim: false
+null_result_rule: >
+  Keep every eligible packet. Do not drop a case, change the hypothesis,
+  or promote superiority when a method loses or the set contains no example
+  of a label class.

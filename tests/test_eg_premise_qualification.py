@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
 
 from eg_adapter_projector import composed_observations, project_checks  # noqa: E402
+from qualification_mutation_measurement import MEASUREMENT, measure  # noqa: E402
 from r2_event_packets import build_packets  # noqa: E402
 from swarm_witness.incident_audit import swarm_witness_verdict  # noqa: E402
 from swarm_witness.strong_invariant import strong_invariant_verdict  # noqa: E402
@@ -94,6 +95,16 @@ def test_qualification_mutation_matrix_matches_both_classifiers():
             }
         )
     assert [item["mutation"] for item in measured] == [row["mutation"] for row in matrix["rows"]]
+    retained = json.loads(MEASUREMENT.read_text(encoding="utf-8"))
+    fresh = measure()
+    assert fresh["claim_id"] == claim["id"]
+    assert [row["mutation"] for row in fresh["rows"]] == [row["mutation"] for row in matrix["rows"]]
+    for row in fresh["rows"]:
+        assert row["raw_observations"]
+        assert "projected_observations" in row
+        assert row["strong"] in {"supported", "refuted", "unresolved"}
+        assert row["swarm"] in {"supported", "refuted", "unresolved"}
+    assert fresh == retained
     clean = _score(claim, packet["observations"])
     qualifications = clean["projected"][0]["premise_qualifications"]
     assert qualifications

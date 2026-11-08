@@ -27,8 +27,8 @@ cases:
     mutation: change the sink object and drop its parent link
     expected: unresolved
   sink-mapped-actor-mismatch:
-    mutation: change the sink actor while its parent link still names the actor record
-    expected: supported
+    mutation: change the sink actor while its parent id still names the actor record
+    expected: unresolved
   mixed-unknown-authorization:
     mutation: add an in-scope commit whose subject class is unknown and reconcile the count
     expected: unresolved
