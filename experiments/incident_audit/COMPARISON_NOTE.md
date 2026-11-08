@@ -2,6 +2,8 @@
 
 The public layer is the twelve incident claims at two stages. The controlled layer is four claims about the held LessWrong record and the released step-1 signature extract. Lineage qualifications are a third denominator.
 
+**External calibration (separate denominator).** The frozen public/controlled tie with `strong_invariant` is agreement with an authored comparator. Retrospective calibration against prior disciplines lives in `report/external_calibration_v1/MATRIX.md` (EvidenceGraph attribution; SoundGate restriction vs availability; BMO L1 ledger vs non-settlement; LessWrong reproduction scope). That matrix defines source-grounded **profile** labels; an unqualified global “strong” remains undefined. It is not a held-out transfer claim. Regenerate with `PYTHONPATH=src python experiments/external_calibration/run.py`.
+
 The LessWrong post and its appendix are one public record. Original OpenAI transcripts and Hugging Face platform logs are listed as unavailable. They are not upgrade gates, and they do not make this comparison fail. A `blocks_upgrade` slot prevents support only when the audit holds that slot and the slot is not the verifying observation.
 
 Naive PASS accepts report assertions, including an overread that treats the reproduction post as certification of the original compromise. The strong checker and Swarm Witness do not. The reproduction release statement is supported as one record. The original incident is not certified. Beating the naive baseline is not a superiority claim.

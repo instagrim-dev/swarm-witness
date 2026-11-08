@@ -4,7 +4,7 @@ This paper asks one question: **what evidence is sufficient to justify an author
 
 The named same-run witness is `aew-v1-local-control-pass-broader-effect`, on run `aew-v1-run-local-pass-broader-effect`. The ordinary `remote_url_allowlist` test passes. Actor-only evidence leaves `P_effect` unresolved. The application-owned readback refutes `P_effect`. A passing allowlist does not support `P_system`. The witness is a local synthetic control on a SQLite sink the application owns. It is not the Artifactory / Hugging Face incident, and it is not the public LessWrong reproduction.
 
-On the frozen public comparison, Swarm Witness matches the strong checker. Both record 0 unsupported supports. Naive PASS records 24. `superiority_claim` stays false: no held-out run shows a useful advantage over the strong checker under the same evidence budget. The 4–4.5/5 aspiration is not a result. An earlier author-curated staged comparison reported fewer unsupported conclusions than naive PASS and a weak checklist. Mechanical withholding of later-stage evidence is not independent curation. That earlier comparison sits beside the strong-checker tie and does not replace it.
+On the frozen public comparison, Swarm Witness matches the authored `strong_invariant` checker. Both record 0 unsupported supports. Naive PASS records 24. That tie is not external calibration of “strong.” Retrospective calibration against prior disciplines (`report/external_calibration_v1/MATRIX.md`) recovers named profiles rather than a single strength ordering. `superiority_claim` stays false: no held-out run shows a useful advantage over the authored checker under the same evidence budget. The 4–4.5/5 aspiration is not a result. An earlier author-curated staged comparison reported fewer unsupported conclusions than naive PASS and a weak checklist. Mechanical withholding of later-stage evidence is not independent curation. That earlier comparison sits beside the authored-checker tie and does not replace it.
 
 The formal guarantee is conditional on the adapter's observation and abstraction assumptions. Support requires the nonempty compatible set to sit inside the proposition, and refutation requires an empty intersection, only for the finite abstraction declared for that family, and only if the actual world remains in the compatible set. A source hash, a passing test, or assistant agreement does not establish that membership. Separately coded verdict logic, author curation of excerpts and warrants, replay from retained inputs, and the observation sources themselves are different objects. Assistant agreement is not independent verification.
 
@@ -92,7 +92,13 @@ On the controlled layer, four claims over three histories give 4 cells. Naive PA
 
 The application witness is twelve histories, not those cells. On `aew-v1-local-control-pass-broader-effect` the URL allowlist passes and stays supported, actor-only evidence leaves `P_effect` unresolved, and the application readback refutes `P_effect`. A clean covered commit, `aew-v1-h-authority-current`, supports `P_effect` and leaves `P_system` unresolved. Public `C04` at stage B stays unresolved for the strong checker and for Swarm Witness. The retained workflow `url_held_worker_local_read` refutes `P_system` while `P_url` stays supported. The native telemetry packet stays unresolved.
 
+A fourth ledger layer scores the same twelve histories under four evidence conditions with matched methods (`swarm_witness`, `always_unresolved`, `strong_abstention`). Adjudication is the discriminating-readback `P_effect` for each history. The layer adds 144 rows (ledger total 352). Swarm Witness has 0 unsupported supports and matches readback on 12 of 12; strong abstention matches readback on 12 of 12 and refuses the other conditions by design. This is acceptance evidence for native integration, not a superiority claim.
+
 The earlier staged comparison, naive 24 and checklist 12 against Swarm Witness 0 unsupported conclusions, remains the author-curated result. Its ablations stay in the generated table, including text-trust unsupported conclusions of 13. Mechanical withholding of stage B is not independent curation.
+
+### 4.3 Retrospective external calibration (profile labels)
+
+A separate denominator asks whether the frozen classifiers recover claim-assessment disciplines already demonstrated by prior systems under matched observation access (`experiments/external_calibration/`). Packets translate retained native assessments; they do not author new local warrants that merely copy desired conclusions. `transfer_claim` remains false. Profiles: EvidenceGraph attribution; SoundGate restriction and availability (kept separate); BMO L1 ledger vs non-settlement; LessWrong reproduction scope (release/census vs certification, upgrade slots, and environment identity). Naive and weak checklist identify specific shortcuts. “Strong” means conformance to a named applicable profile, not an unqualified global grade.
 
 ## 5. Discussion and limitations
 
@@ -104,13 +110,13 @@ For the 2026 OpenAI–Hugging Face agent-swarm incident, the evidence standard i
 
 Author reassessment against this completed evidence, not a judge outcome:
 
-Impact/innovation: 3/5. Constraint: Swarm Witness ties the strong checker on the frozen public comparison (both 0 unsupported supports; naive PASS has 24). superiority_claim stays false. No held-out run shows a useful advantage over the strong checker under the same evidence budget. The 4–4.5/5 aspiration is not a result.
+Impact/innovation: 3/5. Constraint: Swarm Witness ties the authored `strong_invariant` checker on the frozen public comparison (both 0 unsupported supports; naive PASS has 24). That tie is not an external meaning of “strong.” Retrospective profile calibration against EvidenceGraph, SoundGate, BMO L1, and LessWrong is reported separately; `superiority_claim` and `transfer_claim` stay false. No held-out run shows a useful advantage under the same evidence budget. The 4–4.5/5 aspiration is not a result.
 
 Execution: 3/5. Constraint: tables were regenerated from retained data, and the advertised commands were rerun from a fresh review-bundle extract in this environment without private BMO access. No separate reviewer reproduced the study. Assistant agreement is not independent verification.
 
-Clarity: 4/5. Constraint: this is an author judgment that the manuscript states one question, the witness aew-v1-local-control-pass-broader-effect, the strong-checker tie, separate denominators, and the conditional formal boundary, and that it labels the earlier staged comparison as author-curated. It is not a judge score, and it does not convert the tie into a superiority result.
+Clarity: 4/5. Constraint: this is an author judgment that the manuscript states one question, the witness aew-v1-local-control-pass-broader-effect, the authored-checker tie versus external profile calibration, separate denominators, and the conditional formal boundary, and that it labels the earlier staged comparison as author-curated. It is not a judge score, and it does not convert the tie into a superiority result.
 
-Next steps: live gateway observation, real delegated effects, independently authored corpora, and integrating the formal semantics into the audit schema. A higher innovation assessment stays contingent on a measured advantage over the strong checker.
+Next steps: held-out or fresh claim families for transfer claims; live gateway observation; real delegated effects; independently authored corpora; integrating the formal semantics into the audit schema. A higher innovation assessment stays contingent on measured transfer or advantage beyond retrospective profile matches.
 
 ## 6. Conclusion
 

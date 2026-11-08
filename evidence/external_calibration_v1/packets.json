@@ -1,0 +1,2877 @@
+[
+  {
+    "assumptions": [
+      "Tokens are isolated by construction (retained scenario description).",
+      "Capture is complete for the staged population.",
+      "Not a claim about the original OpenAI/Hugging Face incident."
+    ],
+    "claim": {
+      "id": "EG-R2-ATTR-clean-isolated",
+      "kind": "world_effect",
+      "proposition": "Under complete EvidenceGraph evidence with tokens isolated by construction, the recorded events are attributable to their binders.",
+      "quantifier": "all 12 population events in the retained clean view",
+      "required_observation_types": [
+        "receipt_binding"
+      ],
+      "scenario": "clean",
+      "seed": 0,
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "verifying_access_levels": [
+        "raw_telemetry_public",
+        "application_owned"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "evidencegraph_r2",
+    "factual_outcome": {
+      "correct": 12,
+      "known": true,
+      "population": 12
+    },
+    "native_arms": {
+      "evidencegraph_accept_success_claims": {
+        "accepted_claims": 12,
+        "description": "Scripted positive control accepting every well-formed successful receipt; claim-level, not a model or investigator evaluation",
+        "false_accepts": 0,
+        "note": "Receipt/mutation acceptance control; not event attribution.",
+        "verdict": "supported"
+      },
+      "evidencegraph_old_implicit_token_exclusivity": {
+        "confident_errors": 0,
+        "correct": 12,
+        "description": "Pre-fix decision rule: a matching token implicitly grants event binding, with all other rules unchanged",
+        "supported": 12,
+        "verdict": "supported"
+      },
+      "evidencegraph_safer_independent_binding": {
+        "abstention_rate": 0.0,
+        "confident_errors": 0,
+        "correct": 12,
+        "methods": {
+          "independent_receipt_binding": 12
+        },
+        "outcomes": {
+          "supported": 12
+        },
+        "population": 12,
+        "supported": 12,
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "EvidenceGraph retained row @ a5ea5c9947039009ca795275d834be7b61069080",
+        "applies_to": [
+          "EG-R2-ATTR-clean-isolated"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r2",
+        "id": "EG-R2-ATTR-clean-isolated-binding",
+        "independence_group": "eg-r2-clean-binding",
+        "literal_claims": [
+          "EG-R2-ATTR-clean-isolated"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "receipt_binding",
+          "event_attribution"
+        ],
+        "publication_ordinal": 1,
+        "quote": "Complete evidence; tokens isolated by construction; independent_receipt_binding=12; produced.supported=12/12",
+        "source_id": "evidencegraph-r2",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "bundle": "bundles/0-clean",
+      "case": "cases/0-clean",
+      "case_config_sha256": "6f83d8bf40fdd99e4ae50b0a8a995eed4519603fc9a662698855737ac6d22810",
+      "public_inventory_sha256": "7bd60c9e67840bc9d15cf79dc7e2601c6e66c23f1e73dd94f0ef135e2cb37be3"
+    },
+    "warranted_conclusion": {
+      "basis": "native_safer_discipline",
+      "note": "Retained safer independent_receipt_binding supports 12/12 with 0 confident errors under isolation.",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "A's full receipt is copied into B; A is withheld (retained description).",
+      "No independent exclusivity/authenticity declaration for the holder.",
+      "Attribution is distinct from whether a receipt/mutation artifact exists."
+    ],
+    "claim": {
+      "id": "EG-R2-ATTR-relay-possession",
+      "kind": "world_effect",
+      "proposition": "Possession of a copied full receipt establishes that the holder authored the recorded event.",
+      "quantifier": "attributions under full_receipt_relay retained view",
+      "required_observation_types": [
+        "receipt_binding",
+        "event_attribution"
+      ],
+      "scenario": "full_receipt_relay",
+      "seed": 0,
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
+        "verdict": "unresolved"
+      },
+      "swarm_witness": {
+        "conclusion_class": "missing_evidence",
+        "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
+        "verdict": "unresolved"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "evidencegraph_r2",
+    "factual_outcome": {
+      "correct": 0,
+      "known": true,
+      "old_rule_confident_errors": 1,
+      "population": 12
+    },
+    "native_arms": {
+      "evidencegraph_accept_success_claims": {
+        "accepted_claims": 10,
+        "description": "Scripted positive control accepting every well-formed successful receipt; claim-level, not a model or investigator evaluation",
+        "false_accepts": 1,
+        "note": "Receipt/mutation acceptance control; not event attribution.",
+        "verdict": "supported"
+      },
+      "evidencegraph_old_implicit_token_exclusivity": {
+        "confident_errors": 1,
+        "correct": 9,
+        "description": "Pre-fix decision rule: a matching token implicitly grants event binding, with all other rules unchanged",
+        "supported": 10,
+        "verdict": "supported"
+      },
+      "evidencegraph_safer_independent_binding": {
+        "abstention_rate": 1.0,
+        "confident_errors": 0,
+        "correct": 0,
+        "methods": {
+          "key_and_version": 2,
+          "receipt_possession_only": 10
+        },
+        "outcomes": {
+          "ambiguous": 10,
+          "unmatched": 2
+        },
+        "population": 12,
+        "supported": 0,
+        "verdict": "unresolved"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "EvidenceGraph retained row @ a5ea5c9947039009ca795275d834be7b61069080",
+        "applies_to": [
+          "EG-R2-ATTR-relay-possession"
+        ],
+        "authenticity": "copied",
+        "binding": "misbound",
+        "event_time": "retained-r2",
+        "id": "EG-R2-ATTR-relay-possession-copied-receipt",
+        "independence_group": "eg-r2-relay-possession",
+        "literal_claims": [
+          "EG-R2-ATTR-relay-possession"
+        ],
+        "literal_polarity": "supports",
+        "naive_overread_supports": [
+          "EG-R2-ATTR-relay-possession"
+        ],
+        "observation_types": [
+          "receipt_possession",
+          "event_attribution"
+        ],
+        "publication_ordinal": 1,
+        "quote": "Copy A's full receipt into B; withhold A; methods={'key_and_version': 2, 'receipt_possession_only': 10}; safer produced.supported=0/12; old-rule confident_errors=1",
+        "source_id": "evidencegraph-r2",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "bundle": "bundles/0-full_receipt_relay",
+      "case": "cases/0-full_receipt_relay",
+      "case_config_sha256": "c035fae2a86e1d02b859a1d316672bd28ee0c8013909175225823344ee839239",
+      "public_inventory_sha256": "cdb3112d30e07f45c6dc7fd37808230648ff64921ac276a3536a786800dad790"
+    },
+    "warranted_conclusion": {
+      "basis": "native_safer_discipline",
+      "note": "Safer rule supports 0/12 on relay (full abstention). Old-rule implicit token exclusivity records 1 confident error with 10 supported \u2014 possession-only wrong support.",
+      "status": "unresolved"
+    }
+  },
+  {
+    "assumptions": [
+      "This claim is occurrence of receipt artifacts, not event attribution.",
+      "accept_success_claims is a scripted positive control in the retained pack."
+    ],
+    "claim": {
+      "id": "EG-R2-MUTATION-relay-receipt-present",
+      "kind": "world_effect",
+      "proposition": "Well-formed successful receipt artifacts are present in the relay view (mutation/receipt occurrence, not authorship attribution).",
+      "quantifier": "accept_success_claims control on full_receipt_relay",
+      "required_observation_types": [
+        "receipt_presence"
+      ],
+      "scenario": "full_receipt_relay",
+      "seed": 0,
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "evidencegraph_r2",
+    "factual_outcome": {
+      "accepted_claims": 10,
+      "false_accepts": 1,
+      "known": true
+    },
+    "native_arms": {
+      "evidencegraph_accept_success_claims": {
+        "accepted_claims": 10,
+        "description": "Scripted positive control accepting every well-formed successful receipt; claim-level, not a model or investigator evaluation",
+        "false_accepts": 1,
+        "note": "Receipt/mutation acceptance control; not event attribution.",
+        "verdict": "supported"
+      },
+      "evidencegraph_old_implicit_token_exclusivity": {
+        "confident_errors": 1,
+        "correct": 9,
+        "description": "Pre-fix decision rule: a matching token implicitly grants event binding, with all other rules unchanged",
+        "supported": 10,
+        "verdict": "supported"
+      },
+      "evidencegraph_safer_independent_binding": {
+        "accepted_claims": 10,
+        "false_accepts": 1,
+        "note": "Mapped from accept_success_claims for the occurrence claim.",
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "EvidenceGraph retained row @ a5ea5c9947039009ca795275d834be7b61069080",
+        "applies_to": [
+          "EG-R2-MUTATION-relay-receipt-present"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r2",
+        "id": "EG-R2-MUTATION-relay-receipt-present-presence",
+        "independence_group": "eg-r2-relay-presence",
+        "literal_claims": [
+          "EG-R2-MUTATION-relay-receipt-present"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "receipt_presence"
+        ],
+        "publication_ordinal": 1,
+        "quote": "accept_success_claims on relay: accepted_claims=10, false_accepts=1",
+        "source_id": "evidencegraph-r2",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "bundle": "bundles/0-full_receipt_relay",
+      "case": "cases/0-full_receipt_relay",
+      "case_config_sha256": "c035fae2a86e1d02b859a1d316672bd28ee0c8013909175225823344ee839239",
+      "public_inventory_sha256": "cdb3112d30e07f45c6dc7fd37808230648ff64921ac276a3536a786800dad790"
+    },
+    "warranted_conclusion": {
+      "basis": "native_accept_success_claims_control",
+      "note": "Receipt presence can be supported while attribution remains unresolved on the same bytes \u2014 the discipline separation.",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "Clean bytes; token exclusivity not established (retained description).",
+      "Withholding correct attributions when isolation is unknown is an intended cost of the safer discipline."
+    ],
+    "claim": {
+      "id": "EG-R2-ATTR-shared-tokens-no-exclusivity",
+      "kind": "world_effect",
+      "proposition": "Matching tokens establish event attribution when token exclusivity is not established.",
+      "quantifier": "shared_tokens_no_attack retained view",
+      "required_observation_types": [
+        "receipt_binding",
+        "event_attribution"
+      ],
+      "scenario": "shared_tokens_no_attack",
+      "seed": 0,
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
+        "verdict": "unresolved"
+      },
+      "swarm_witness": {
+        "conclusion_class": "missing_evidence",
+        "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
+        "verdict": "unresolved"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "evidencegraph_r2",
+    "factual_outcome": {
+      "known": true,
+      "note": "Factual binders exist; safer withholds for missing exclusivity premise.",
+      "old_rule_correct": 12,
+      "population": 12,
+      "safer_correct": 0
+    },
+    "native_arms": {
+      "evidencegraph_accept_success_claims": {
+        "accepted_claims": 12,
+        "description": "Scripted positive control accepting every well-formed successful receipt; claim-level, not a model or investigator evaluation",
+        "false_accepts": 0,
+        "note": "Receipt/mutation acceptance control; not event attribution.",
+        "verdict": "supported"
+      },
+      "evidencegraph_old_implicit_token_exclusivity": {
+        "confident_errors": 0,
+        "correct": 12,
+        "description": "Pre-fix decision rule: a matching token implicitly grants event binding, with all other rules unchanged",
+        "supported": 12,
+        "verdict": "supported"
+      },
+      "evidencegraph_safer_independent_binding": {
+        "abstention_rate": 1.0,
+        "confident_errors": 0,
+        "correct": 0,
+        "methods": {
+          "receipt_possession_only": 12
+        },
+        "outcomes": {
+          "ambiguous": 12
+        },
+        "population": 12,
+        "supported": 0,
+        "verdict": "unresolved"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "EvidenceGraph retained row @ a5ea5c9947039009ca795275d834be7b61069080",
+        "applies_to": [
+          "EG-R2-ATTR-shared-tokens-no-exclusivity"
+        ],
+        "authenticity": "unauthenticated_tool_line",
+        "event_time": "retained-r2",
+        "id": "EG-R2-ATTR-shared-tokens-no-exclusivity-tokens",
+        "independence_group": "eg-r2-shared-tokens",
+        "literal_claims": [
+          "EG-R2-ATTR-shared-tokens-no-exclusivity"
+        ],
+        "literal_polarity": "supports",
+        "naive_overread_supports": [
+          "EG-R2-ATTR-shared-tokens-no-exclusivity"
+        ],
+        "observation_types": [
+          "receipt_possession",
+          "event_attribution"
+        ],
+        "publication_ordinal": 1,
+        "quote": "Clean bytes; token exclusivity not established; methods={'receipt_possession_only': 12}; safer supported=0/12; old-rule supported=12",
+        "source_id": "evidencegraph-r2",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "bundle": null,
+      "case": "cases/0-shared_tokens_no_attack",
+      "case_config_sha256": "8278ed8acf36cf897071732647d5f22274e154af66e3ac62e357cfc8f668c984",
+      "public_inventory_sha256": "7bd60c9e67840bc9d15cf79dc7e2601c6e66c23f1e73dd94f0ef135e2cb37be3"
+    },
+    "warranted_conclusion": {
+      "basis": "native_safer_discipline",
+      "note": "Safer abstains on all 12; old-rule supports 12. Clean evidence without exclusivity withholds correct attributions.",
+      "status": "unresolved"
+    }
+  },
+  {
+    "assumptions": [
+      "Exclusivity declaration is intentionally false (invalid_assumption_control).",
+      "This case measures premise failure, not safe behavior under true exclusivity."
+    ],
+    "claim": {
+      "id": "EG-R2-ATTR-false-exclusivity",
+      "kind": "world_effect",
+      "proposition": "Under a declared exclusive-token premise on the same relay bytes, event attributions are warranted.",
+      "quantifier": "false_exclusivity retained view",
+      "required_observation_types": [
+        "receipt_binding",
+        "event_attribution"
+      ],
+      "scenario": "false_exclusivity",
+      "seed": 0,
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
+        "verdict": "unresolved"
+      },
+      "swarm_witness": {
+        "conclusion_class": "missing_evidence",
+        "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
+        "verdict": "unresolved"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "evidencegraph_r2",
+    "factual_outcome": {
+      "confident_errors": 1,
+      "correct": 9,
+      "known": true,
+      "population": 12
+    },
+    "native_arms": {
+      "evidencegraph_accept_success_claims": {
+        "accepted_claims": 10,
+        "description": "Scripted positive control accepting every well-formed successful receipt; claim-level, not a model or investigator evaluation",
+        "false_accepts": 1,
+        "note": "Receipt/mutation acceptance control; not event attribution.",
+        "verdict": "supported"
+      },
+      "evidencegraph_old_implicit_token_exclusivity": {
+        "confident_errors": 1,
+        "correct": 9,
+        "description": "Pre-fix decision rule: a matching token implicitly grants event binding, with all other rules unchanged",
+        "supported": 10,
+        "verdict": "supported"
+      },
+      "evidencegraph_safer_independent_binding": {
+        "abstention_rate": 0.16666666666666666,
+        "confident_errors": 1,
+        "correct": 9,
+        "methods": {
+          "independent_receipt_binding": 10,
+          "key_and_version": 2
+        },
+        "outcomes": {
+          "supported": 10,
+          "unmatched": 2
+        },
+        "population": 12,
+        "supported": 10,
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "EvidenceGraph retained row @ a5ea5c9947039009ca795275d834be7b61069080",
+        "applies_to": [
+          "EG-R2-ATTR-false-exclusivity"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r2",
+        "id": "EG-R2-ATTR-false-exclusivity-false-decl",
+        "independence_group": "eg-r2-false-exclusivity",
+        "literal_claims": [
+          "EG-R2-ATTR-false-exclusivity"
+        ],
+        "literal_polarity": "supports",
+        "naive_overread_supports": [
+          "EG-R2-ATTR-false-exclusivity"
+        ],
+        "observation_types": [
+          "receipt_binding",
+          "exclusivity_declaration"
+        ],
+        "publication_ordinal": 1,
+        "quote": "Same relay bytes, falsely declare exclusive tokens; invalid_assumption_control=True; safer supported=10 correct=9 confident_errors=1",
+        "source_id": "evidencegraph-r2",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "bundle": null,
+      "case": "cases/0-false_exclusivity",
+      "case_config_sha256": "9943bdf3f5a6b1cecc2ab80d2b48afb057480977587508766af448d4b6237dc6",
+      "public_inventory_sha256": "cdb3112d30e07f45c6dc7fd37808230648ff64921ac276a3536a786800dad790"
+    },
+    "warranted_conclusion": {
+      "basis": "invalid_assumption_control",
+      "note": "Retained pack marks this an intentionally false declaration. Native safer still emits supports with confident_errors=1; warranted reading is that the premise fails \u2014 not that attribution is established.",
+      "premise_status": "false",
+      "status": "unresolved"
+    }
+  },
+  {
+    "assumptions": [
+      "Population is not complete (retained description).",
+      "A fabricated claim not contradicted remains unresolved in the pack."
+    ],
+    "claim": {
+      "id": "EG-R2-ABSENCE-incomplete-capture",
+      "kind": "world_effect",
+      "proposition": "Invented receipts outside the incomplete capture are absent from the world (absence-as-no-effect under partial population).",
+      "public_text_may_refute_sufficiency": true,
+      "quantifier": "fabricated claims under incomplete_capture",
+      "required_observation_types": [
+        "complete_capture"
+      ],
+      "scenario": "incomplete_capture",
+      "seed": 0,
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "unresolved"
+      },
+      "strong_invariant": {
+        "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
+        "verdict": "unresolved"
+      },
+      "swarm_witness": {
+        "conclusion_class": "missing_evidence",
+        "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
+        "verdict": "unresolved"
+      },
+      "weak_checklist": {
+        "verdict": "unresolved"
+      }
+    },
+    "corpus": "evidencegraph_r2",
+    "factual_outcome": {
+      "known": true,
+      "spoofed": {
+        "captured": 2,
+        "contradicted": 0,
+        "false_positives": 0,
+        "missed": 2
+      }
+    },
+    "native_arms": {
+      "evidencegraph_accept_success_claims": {
+        "accepted_claims": 14,
+        "description": "Scripted positive control accepting every well-formed successful receipt; claim-level, not a model or investigator evaluation",
+        "false_accepts": 2,
+        "note": "Receipt/mutation acceptance control; not event attribution.",
+        "verdict": "supported"
+      },
+      "evidencegraph_old_implicit_token_exclusivity": {
+        "note": "Old-rule attribution tallies do not establish world-absence.",
+        "spoofed": {
+          "captured": 2,
+          "contradicted": 0,
+          "false_positives": 0,
+          "missed": 2
+        },
+        "verdict": "unresolved"
+      },
+      "evidencegraph_safer_independent_binding": {
+        "note": "Attribution supports on the captured population are a different claim; fabricated rows were not contradicted.",
+        "spoofed": {
+          "captured": 2,
+          "contradicted": 0,
+          "false_positives": 0,
+          "missed": 2
+        },
+        "verdict": "unresolved"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "EvidenceGraph retained row @ a5ea5c9947039009ca795275d834be7b61069080",
+        "applies_to": [
+          "EG-R2-ABSENCE-incomplete-capture"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r2",
+        "id": "EG-R2-ABSENCE-incomplete-capture-partial",
+        "independence_group": "eg-r2-incomplete-capture",
+        "observation_types": [
+          "partial_capture",
+          "receipt_binding"
+        ],
+        "publication_ordinal": 1,
+        "quote": "Invented receipts; population not complete; spoofed.captured=2 contradicted=0 missed=2; RESULTS.md: fabricated claims contradicted 0/2",
+        "source_id": "evidencegraph-r2",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "bundle": null,
+      "case": "cases/0-incomplete_capture",
+      "case_config_sha256": "bc2c16c27eaaf925d9f8054dca20d543f937a54acc4933b43982c1d8c9f5a132",
+      "public_inventory_sha256": "9e1f60cfa11adda7be9c03ea499cd04c1b642f19844d6cf61cbc0dbe0f96c76e"
+    },
+    "warranted_conclusion": {
+      "basis": "native_complete_capture_discipline",
+      "note": "Incomplete capture does not contradict invented receipts (0/2 contradicted). Absence of a row is not evidence of no effect without coverage.",
+      "status": "unresolved"
+    }
+  },
+  {
+    "assumptions": [
+      "Tallies counted from evidence/r1/local-run-analysis.json.",
+      "Restriction survival and useful fresh work are distinct claims.",
+      "Not a claim about the Artifactory / Hugging Face incident."
+    ],
+    "claim": {
+      "family": "restriction",
+      "id": "SG-R1-RESTRICT-original",
+      "kind": "world_effect",
+      "proposition": "Under the original SoundGate policy, the acknowledged restriction remains effective after the recovery sequence (no prohibited effects).",
+      "quantifier": "all 153 retained histories under policy=original",
+      "required_observation_types": [
+        "restriction_effect",
+        "recovery_outcome"
+      ],
+      "scenario": "original",
+      "seed": null,
+      "source_revision": "656840348dcf9660f8db7add9f3ca9f794a55926",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "refuted"
+      },
+      "strong_invariant": {
+        "reason": "verifying record refutes the claim",
+        "verdict": "refuted"
+      },
+      "swarm_witness": {
+        "conclusion_class": "failed_enforcement",
+        "reason": "a declared verifying record refutes the effect",
+        "verdict": "refuted"
+      },
+      "weak_checklist": {
+        "verdict": "refuted"
+      }
+    },
+    "corpus": "soundgate_r1",
+    "factual_outcome": {
+      "known": true,
+      "tallies": {
+        "cases": 153,
+        "fresh_work": 149,
+        "prefix_controls": 149,
+        "prohibited_effect": 143,
+        "refused_after_ack": 0,
+        "refused_before_ack": 4,
+        "supported": 6,
+        "unresolved": 0
+      }
+    },
+    "native_arms": {
+      "soundgate_policy_barrier": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 153,
+          "prefix_controls": 153,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 0,
+          "supported": 153,
+          "unresolved": 0
+        },
+        "verdict": "supported"
+      },
+      "soundgate_policy_original": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 149,
+          "prefix_controls": 149,
+          "prohibited_effect": 143,
+          "refused_after_ack": 0,
+          "refused_before_ack": 4,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "refuted"
+      },
+      "soundgate_policy_strict": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 6,
+          "prefix_controls": 6,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 147,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "SoundGate local-run-analysis @ 656840348dcf9660f8db7add9f3ca9f794a55926",
+        "applies_to": [
+          "SG-R1-RESTRICT-original"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r1",
+        "id": "SG-R1-RESTRICT-original-tally",
+        "independence_group": "sg-r1-SG-R1-RESTRICT-original",
+        "literal_claims": [
+          "SG-R1-RESTRICT-original"
+        ],
+        "literal_polarity": "refutes",
+        "observation_types": [
+          "restriction_effect",
+          "recovery_outcome",
+          "prohibited_effect"
+        ],
+        "publication_ordinal": 1,
+        "quote": "policy=original; cases=153; supported=6; prohibited_effect=143; refused_before_ack=4; fresh_work=149; prefix_controls=149",
+        "source_id": "soundgate-r1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "analysis": "evidence/r1/local-run-analysis.json",
+      "policy": "original"
+    },
+    "warranted_conclusion": {
+      "basis": "native_soundgate_policy_tallies",
+      "note": "Original policy: 143/153 prohibited_effect in retained tallies.",
+      "status": "refuted"
+    }
+  },
+  {
+    "assumptions": [
+      "Tallies counted from evidence/r1/local-run-analysis.json.",
+      "Restriction survival and useful fresh work are distinct claims.",
+      "Not a claim about the Artifactory / Hugging Face incident."
+    ],
+    "claim": {
+      "family": "restriction",
+      "id": "SG-R1-RESTRICT-strict",
+      "kind": "world_effect",
+      "proposition": "Under the strict-refusal SoundGate policy, the acknowledged restriction remains effective after recovery (no prohibited effects).",
+      "quantifier": "all 153 retained histories under policy=strict",
+      "required_observation_types": [
+        "restriction_effect",
+        "recovery_outcome"
+      ],
+      "scenario": "strict",
+      "seed": null,
+      "source_revision": "656840348dcf9660f8db7add9f3ca9f794a55926",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "soundgate_r1",
+    "factual_outcome": {
+      "known": true,
+      "tallies": {
+        "cases": 153,
+        "fresh_work": 6,
+        "prefix_controls": 6,
+        "prohibited_effect": 0,
+        "refused_after_ack": 0,
+        "refused_before_ack": 147,
+        "supported": 6,
+        "unresolved": 0
+      }
+    },
+    "native_arms": {
+      "soundgate_policy_barrier": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 153,
+          "prefix_controls": 153,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 0,
+          "supported": 153,
+          "unresolved": 0
+        },
+        "verdict": "supported"
+      },
+      "soundgate_policy_original": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 149,
+          "prefix_controls": 149,
+          "prohibited_effect": 143,
+          "refused_after_ack": 0,
+          "refused_before_ack": 4,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "refuted"
+      },
+      "soundgate_policy_strict": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 6,
+          "prefix_controls": 6,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 147,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "SoundGate local-run-analysis @ 656840348dcf9660f8db7add9f3ca9f794a55926",
+        "applies_to": [
+          "SG-R1-RESTRICT-strict"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r1",
+        "id": "SG-R1-RESTRICT-strict-tally",
+        "independence_group": "sg-r1-SG-R1-RESTRICT-strict",
+        "literal_claims": [
+          "SG-R1-RESTRICT-strict"
+        ],
+        "literal_polarity": "supports",
+        "naive_overread_supports": [
+          "SG-R1-RESTRICT-strict"
+        ],
+        "observation_types": [
+          "restriction_effect",
+          "recovery_outcome"
+        ],
+        "publication_ordinal": 1,
+        "quote": "policy=strict; cases=153; supported=6; prohibited_effect=0; refused_before_ack=147; fresh_work=6; prefix_controls=6",
+        "source_id": "soundgate-r1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "analysis": "evidence/r1/local-run-analysis.json",
+      "policy": "strict"
+    },
+    "warranted_conclusion": {
+      "basis": "native_soundgate_policy_tallies",
+      "note": "Strict policy: 0 prohibited_effect; 147/153 refused_before_ack.",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "Tallies counted from evidence/r1/local-run-analysis.json.",
+      "Restriction survival and useful fresh work are distinct claims.",
+      "Not a claim about the Artifactory / Hugging Face incident."
+    ],
+    "claim": {
+      "family": "availability",
+      "id": "SG-R1-AVAIL-strict",
+      "kind": "world_effect",
+      "proposition": "Under the strict-refusal SoundGate policy, unrelated permitted work remains executable after recovery.",
+      "quantifier": "all 153 retained histories under policy=strict",
+      "required_observation_types": [
+        "fresh_work",
+        "availability"
+      ],
+      "scenario": "strict",
+      "seed": null,
+      "source_revision": "656840348dcf9660f8db7add9f3ca9f794a55926",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "refuted"
+      },
+      "strong_invariant": {
+        "reason": "verifying record refutes the claim",
+        "verdict": "refuted"
+      },
+      "swarm_witness": {
+        "conclusion_class": "failed_enforcement",
+        "reason": "a declared verifying record refutes the effect",
+        "verdict": "refuted"
+      },
+      "weak_checklist": {
+        "verdict": "refuted"
+      }
+    },
+    "corpus": "soundgate_r1",
+    "factual_outcome": {
+      "known": true,
+      "tallies": {
+        "cases": 153,
+        "fresh_work": 6,
+        "prefix_controls": 6,
+        "prohibited_effect": 0,
+        "refused_after_ack": 0,
+        "refused_before_ack": 147,
+        "supported": 6,
+        "unresolved": 0
+      }
+    },
+    "native_arms": {
+      "soundgate_policy_barrier": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 153,
+          "prefix_controls": 153,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 0,
+          "supported": 153,
+          "unresolved": 0
+        },
+        "verdict": "supported"
+      },
+      "soundgate_policy_original": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 149,
+          "prefix_controls": 149,
+          "prohibited_effect": 143,
+          "refused_after_ack": 0,
+          "refused_before_ack": 4,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "unresolved"
+      },
+      "soundgate_policy_strict": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 6,
+          "prefix_controls": 6,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 147,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "refuted"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "SoundGate local-run-analysis @ 656840348dcf9660f8db7add9f3ca9f794a55926",
+        "applies_to": [
+          "SG-R1-AVAIL-strict"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r1",
+        "id": "SG-R1-AVAIL-strict-tally",
+        "independence_group": "sg-r1-SG-R1-AVAIL-strict",
+        "literal_claims": [
+          "SG-R1-AVAIL-strict"
+        ],
+        "literal_polarity": "refutes",
+        "observation_types": [
+          "fresh_work",
+          "availability",
+          "startup_refusal"
+        ],
+        "publication_ordinal": 1,
+        "quote": "policy=strict; cases=153; supported=6; prohibited_effect=0; refused_before_ack=147; fresh_work=6; prefix_controls=6",
+        "source_id": "soundgate-r1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "analysis": "evidence/r1/local-run-analysis.json",
+      "policy": "strict"
+    },
+    "warranted_conclusion": {
+      "basis": "native_soundgate_policy_tallies",
+      "note": "Strict policy: fresh_work only 6/153 \u2014 mass startup refusal.",
+      "status": "refuted"
+    }
+  },
+  {
+    "assumptions": [
+      "Tallies counted from evidence/r1/local-run-analysis.json.",
+      "Restriction survival and useful fresh work are distinct claims.",
+      "Not a claim about the Artifactory / Hugging Face incident."
+    ],
+    "claim": {
+      "family": "restriction",
+      "id": "SG-R1-RESTRICT-barrier",
+      "kind": "world_effect",
+      "proposition": "Under the recovery-barrier SoundGate policy, the acknowledged restriction remains effective after recovery (no prohibited effects).",
+      "quantifier": "all 153 retained histories under policy=barrier",
+      "required_observation_types": [
+        "restriction_effect",
+        "recovery_outcome"
+      ],
+      "scenario": "barrier",
+      "seed": null,
+      "source_revision": "656840348dcf9660f8db7add9f3ca9f794a55926",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "soundgate_r1",
+    "factual_outcome": {
+      "known": true,
+      "tallies": {
+        "cases": 153,
+        "fresh_work": 153,
+        "prefix_controls": 153,
+        "prohibited_effect": 0,
+        "refused_after_ack": 0,
+        "refused_before_ack": 0,
+        "supported": 153,
+        "unresolved": 0
+      }
+    },
+    "native_arms": {
+      "soundgate_policy_barrier": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 153,
+          "prefix_controls": 153,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 0,
+          "supported": 153,
+          "unresolved": 0
+        },
+        "verdict": "supported"
+      },
+      "soundgate_policy_original": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 149,
+          "prefix_controls": 149,
+          "prohibited_effect": 143,
+          "refused_after_ack": 0,
+          "refused_before_ack": 4,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "refuted"
+      },
+      "soundgate_policy_strict": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 6,
+          "prefix_controls": 6,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 147,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "SoundGate local-run-analysis @ 656840348dcf9660f8db7add9f3ca9f794a55926",
+        "applies_to": [
+          "SG-R1-RESTRICT-barrier"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r1",
+        "id": "SG-R1-RESTRICT-barrier-tally",
+        "independence_group": "sg-r1-SG-R1-RESTRICT-barrier",
+        "literal_claims": [
+          "SG-R1-RESTRICT-barrier"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "restriction_effect",
+          "recovery_outcome"
+        ],
+        "publication_ordinal": 1,
+        "quote": "policy=barrier; cases=153; supported=153; prohibited_effect=0; refused_before_ack=0; fresh_work=153; prefix_controls=153",
+        "source_id": "soundgate-r1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "analysis": "evidence/r1/local-run-analysis.json",
+      "policy": "barrier"
+    },
+    "warranted_conclusion": {
+      "basis": "native_soundgate_policy_tallies",
+      "note": "Barrier policy: 0 prohibited_effect across 153 histories.",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "Tallies counted from evidence/r1/local-run-analysis.json.",
+      "Restriction survival and useful fresh work are distinct claims.",
+      "Not a claim about the Artifactory / Hugging Face incident."
+    ],
+    "claim": {
+      "family": "availability",
+      "id": "SG-R1-AVAIL-barrier",
+      "kind": "world_effect",
+      "proposition": "Under the recovery-barrier SoundGate policy, unrelated permitted work remains executable after recovery.",
+      "quantifier": "all 153 retained histories under policy=barrier",
+      "required_observation_types": [
+        "fresh_work",
+        "availability"
+      ],
+      "scenario": "barrier",
+      "seed": null,
+      "source_revision": "656840348dcf9660f8db7add9f3ca9f794a55926",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "soundgate_r1",
+    "factual_outcome": {
+      "known": true,
+      "tallies": {
+        "cases": 153,
+        "fresh_work": 153,
+        "prefix_controls": 153,
+        "prohibited_effect": 0,
+        "refused_after_ack": 0,
+        "refused_before_ack": 0,
+        "supported": 153,
+        "unresolved": 0
+      }
+    },
+    "native_arms": {
+      "soundgate_policy_barrier": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 153,
+          "prefix_controls": 153,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 0,
+          "supported": 153,
+          "unresolved": 0
+        },
+        "verdict": "supported"
+      },
+      "soundgate_policy_original": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 149,
+          "prefix_controls": 149,
+          "prohibited_effect": 143,
+          "refused_after_ack": 0,
+          "refused_before_ack": 4,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "unresolved"
+      },
+      "soundgate_policy_strict": {
+        "tallies": {
+          "cases": 153,
+          "fresh_work": 6,
+          "prefix_controls": 6,
+          "prohibited_effect": 0,
+          "refused_after_ack": 0,
+          "refused_before_ack": 147,
+          "supported": 6,
+          "unresolved": 0
+        },
+        "verdict": "refuted"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "SoundGate local-run-analysis @ 656840348dcf9660f8db7add9f3ca9f794a55926",
+        "applies_to": [
+          "SG-R1-AVAIL-barrier"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r1",
+        "id": "SG-R1-AVAIL-barrier-tally",
+        "independence_group": "sg-r1-SG-R1-AVAIL-barrier",
+        "literal_claims": [
+          "SG-R1-AVAIL-barrier"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "fresh_work",
+          "availability"
+        ],
+        "publication_ordinal": 1,
+        "quote": "policy=barrier; cases=153; supported=153; prohibited_effect=0; refused_before_ack=0; fresh_work=153; prefix_controls=153",
+        "source_id": "soundgate-r1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "analysis": "evidence/r1/local-run-analysis.json",
+      "policy": "barrier"
+    },
+    "warranted_conclusion": {
+      "basis": "native_soundgate_policy_tallies",
+      "note": "Barrier policy: fresh_work 153/153 with restrictions preserved.",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "L1 first-edit claim/transfer under cold DB reopen and explicit rollback.",
+      "Not external execute/settle or process restart (finding scope)."
+    ],
+    "claim": {
+      "family": "transaction_ledger",
+      "id": "BMO-L1-LEDGER-T01",
+      "kind": "world_effect",
+      "proposition": "Case T01: ClassicalLedgerGate and native BMO L1 satisfy the declared first-edit ledger-claim trace properties (dispositions and property-relevant state).",
+      "quantifier": "every retained step in T01",
+      "required_observation_types": [
+        "ledger_disposition",
+        "property_projection"
+      ],
+      "scenario": "T01",
+      "source_revision": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "bmo_l1",
+    "factual_outcome": {
+      "known": true,
+      "pairs": [
+        {
+          "bmo_present": true,
+          "case_id": "T01",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 1,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T01",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 2,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T01",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 3,
+          "valid": true
+        }
+      ]
+    },
+    "native_arms": {
+      "bmo_l1_native": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "classical_ledger_gate": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "r3_agreement": {
+        "result": "matched",
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "r3-ledger-claim-v1 @ 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+        "applies_to": [
+          "BMO-L1-LEDGER-T01"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r3-l1",
+        "id": "BMO-L1-LEDGER-T01-match",
+        "independence_group": "bmo-l1-BMO-L1-LEDGER-T01",
+        "literal_claims": [
+          "BMO-L1-LEDGER-T01"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "ledger_disposition",
+          "property_projection",
+          "matched_baseline"
+        ],
+        "publication_ordinal": 1,
+        "quote": "case=T01; steps=1:claim_first_edit,2:claim_first_edit,3:inspect; all_valid=True; agreement=matched; scope=r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+        "source_id": "bmo-r3-l1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "case_id": "T01",
+      "finding": "evidence/r3_ledger_claim_v1/findings/r3-ledger-claim-v1-comparison.json"
+    },
+    "warranted_conclusion": {
+      "basis": "native_r3_ledger_validity_pairs",
+      "note": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "L1 first-edit claim/transfer under cold DB reopen and explicit rollback.",
+      "Not external execute/settle or process restart (finding scope)."
+    ],
+    "claim": {
+      "family": "transaction_ledger",
+      "id": "BMO-L1-LEDGER-T02",
+      "kind": "world_effect",
+      "proposition": "Case T02: ClassicalLedgerGate and native BMO L1 satisfy the declared first-edit ledger-claim trace properties (dispositions and property-relevant state).",
+      "quantifier": "every retained step in T02",
+      "required_observation_types": [
+        "ledger_disposition",
+        "property_projection"
+      ],
+      "scenario": "T02",
+      "source_revision": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "bmo_l1",
+    "factual_outcome": {
+      "known": true,
+      "pairs": [
+        {
+          "bmo_present": true,
+          "case_id": "T02",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 1,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T02",
+          "classical_present": true,
+          "notes": [],
+          "op": "reopen",
+          "step": 2,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T02",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 3,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T02",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 4,
+          "valid": true
+        }
+      ]
+    },
+    "native_arms": {
+      "bmo_l1_native": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "classical_ledger_gate": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "r3_agreement": {
+        "result": "matched",
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "r3-ledger-claim-v1 @ 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+        "applies_to": [
+          "BMO-L1-LEDGER-T02"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r3-l1",
+        "id": "BMO-L1-LEDGER-T02-match",
+        "independence_group": "bmo-l1-BMO-L1-LEDGER-T02",
+        "literal_claims": [
+          "BMO-L1-LEDGER-T02"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "ledger_disposition",
+          "property_projection",
+          "matched_baseline"
+        ],
+        "publication_ordinal": 1,
+        "quote": "case=T02; steps=1:claim_first_edit,2:reopen,3:claim_first_edit,4:inspect; all_valid=True; agreement=matched; scope=r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+        "source_id": "bmo-r3-l1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "case_id": "T02",
+      "finding": "evidence/r3_ledger_claim_v1/findings/r3-ledger-claim-v1-comparison.json"
+    },
+    "warranted_conclusion": {
+      "basis": "native_r3_ledger_validity_pairs",
+      "note": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "L1 first-edit claim/transfer under cold DB reopen and explicit rollback.",
+      "Not external execute/settle or process restart (finding scope)."
+    ],
+    "claim": {
+      "family": "transaction_ledger",
+      "id": "BMO-L1-LEDGER-T03",
+      "kind": "world_effect",
+      "proposition": "Case T03: ClassicalLedgerGate and native BMO L1 satisfy the declared first-edit ledger-claim trace properties (dispositions and property-relevant state).",
+      "quantifier": "every retained step in T03",
+      "required_observation_types": [
+        "ledger_disposition",
+        "property_projection"
+      ],
+      "scenario": "T03",
+      "source_revision": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "bmo_l1",
+    "factual_outcome": {
+      "known": true,
+      "pairs": [
+        {
+          "bmo_present": true,
+          "case_id": "T03",
+          "classical_present": true,
+          "notes": [],
+          "op": "reopen",
+          "step": 1,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T03",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 2,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T03",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 3,
+          "valid": true
+        }
+      ]
+    },
+    "native_arms": {
+      "bmo_l1_native": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "classical_ledger_gate": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "r3_agreement": {
+        "result": "matched",
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "r3-ledger-claim-v1 @ 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+        "applies_to": [
+          "BMO-L1-LEDGER-T03"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r3-l1",
+        "id": "BMO-L1-LEDGER-T03-match",
+        "independence_group": "bmo-l1-BMO-L1-LEDGER-T03",
+        "literal_claims": [
+          "BMO-L1-LEDGER-T03"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "ledger_disposition",
+          "property_projection",
+          "matched_baseline"
+        ],
+        "publication_ordinal": 1,
+        "quote": "case=T03; steps=1:reopen,2:claim_first_edit,3:inspect; all_valid=True; agreement=matched; scope=r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+        "source_id": "bmo-r3-l1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "case_id": "T03",
+      "finding": "evidence/r3_ledger_claim_v1/findings/r3-ledger-claim-v1-comparison.json"
+    },
+    "warranted_conclusion": {
+      "basis": "native_r3_ledger_validity_pairs",
+      "note": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "L1 first-edit claim/transfer under cold DB reopen and explicit rollback.",
+      "Not external execute/settle or process restart (finding scope)."
+    ],
+    "claim": {
+      "family": "transaction_ledger",
+      "id": "BMO-L1-LEDGER-T04",
+      "kind": "world_effect",
+      "proposition": "Case T04: ClassicalLedgerGate and native BMO L1 satisfy the declared first-edit ledger-claim trace properties (dispositions and property-relevant state).",
+      "quantifier": "every retained step in T04",
+      "required_observation_types": [
+        "ledger_disposition",
+        "property_projection"
+      ],
+      "scenario": "T04",
+      "source_revision": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "bmo_l1",
+    "factual_outcome": {
+      "known": true,
+      "pairs": [
+        {
+          "bmo_present": true,
+          "case_id": "T04",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 1,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T04",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 2,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T04",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 3,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T04",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 4,
+          "valid": true
+        }
+      ]
+    },
+    "native_arms": {
+      "bmo_l1_native": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "classical_ledger_gate": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "r3_agreement": {
+        "result": "matched",
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "r3-ledger-claim-v1 @ 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+        "applies_to": [
+          "BMO-L1-LEDGER-T04"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r3-l1",
+        "id": "BMO-L1-LEDGER-T04-match",
+        "independence_group": "bmo-l1-BMO-L1-LEDGER-T04",
+        "literal_claims": [
+          "BMO-L1-LEDGER-T04"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "ledger_disposition",
+          "property_projection",
+          "matched_baseline"
+        ],
+        "publication_ordinal": 1,
+        "quote": "case=T04; steps=1:claim_first_edit,2:inspect,3:claim_first_edit,4:inspect; all_valid=True; agreement=matched; scope=r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+        "source_id": "bmo-r3-l1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "case_id": "T04",
+      "finding": "evidence/r3_ledger_claim_v1/findings/r3-ledger-claim-v1-comparison.json"
+    },
+    "warranted_conclusion": {
+      "basis": "native_r3_ledger_validity_pairs",
+      "note": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "L1 first-edit claim/transfer under cold DB reopen and explicit rollback.",
+      "Not external execute/settle or process restart (finding scope)."
+    ],
+    "claim": {
+      "family": "transaction_ledger",
+      "id": "BMO-L1-LEDGER-T05",
+      "kind": "world_effect",
+      "proposition": "Case T05: ClassicalLedgerGate and native BMO L1 satisfy the declared first-edit ledger-claim trace properties (dispositions and property-relevant state).",
+      "quantifier": "every retained step in T05",
+      "required_observation_types": [
+        "ledger_disposition",
+        "property_projection"
+      ],
+      "scenario": "T05",
+      "source_revision": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "bmo_l1",
+    "factual_outcome": {
+      "known": true,
+      "pairs": [
+        {
+          "bmo_present": true,
+          "case_id": "T05",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 1,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T05",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 2,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T05",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 3,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T05",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 4,
+          "valid": true
+        }
+      ]
+    },
+    "native_arms": {
+      "bmo_l1_native": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "classical_ledger_gate": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "r3_agreement": {
+        "result": "matched",
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "r3-ledger-claim-v1 @ 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+        "applies_to": [
+          "BMO-L1-LEDGER-T05"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r3-l1",
+        "id": "BMO-L1-LEDGER-T05-match",
+        "independence_group": "bmo-l1-BMO-L1-LEDGER-T05",
+        "literal_claims": [
+          "BMO-L1-LEDGER-T05"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "ledger_disposition",
+          "property_projection",
+          "matched_baseline"
+        ],
+        "publication_ordinal": 1,
+        "quote": "case=T05; steps=1:claim_first_edit,2:inspect,3:claim_first_edit,4:inspect; all_valid=True; agreement=matched; scope=r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+        "source_id": "bmo-r3-l1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "case_id": "T05",
+      "finding": "evidence/r3_ledger_claim_v1/findings/r3-ledger-claim-v1-comparison.json"
+    },
+    "warranted_conclusion": {
+      "basis": "native_r3_ledger_validity_pairs",
+      "note": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "L1 first-edit claim/transfer under cold DB reopen and explicit rollback.",
+      "Not external execute/settle or process restart (finding scope)."
+    ],
+    "claim": {
+      "family": "transaction_ledger",
+      "id": "BMO-L1-LEDGER-T06",
+      "kind": "world_effect",
+      "proposition": "Case T06: ClassicalLedgerGate and native BMO L1 satisfy the declared first-edit ledger-claim trace properties (dispositions and property-relevant state).",
+      "quantifier": "every retained step in T06",
+      "required_observation_types": [
+        "ledger_disposition",
+        "property_projection"
+      ],
+      "scenario": "T06",
+      "source_revision": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "bmo_l1",
+    "factual_outcome": {
+      "known": true,
+      "pairs": [
+        {
+          "bmo_present": true,
+          "case_id": "T06",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 1,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T06",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 2,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T06",
+          "classical_present": true,
+          "notes": [],
+          "op": "claim_first_edit",
+          "step": 3,
+          "valid": true
+        },
+        {
+          "bmo_present": true,
+          "case_id": "T06",
+          "classical_present": true,
+          "notes": [],
+          "op": "inspect",
+          "step": 4,
+          "valid": true
+        }
+      ]
+    },
+    "native_arms": {
+      "bmo_l1_native": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "classical_ledger_gate": {
+        "present": true,
+        "verdict": "supported"
+      },
+      "r3_agreement": {
+        "result": "matched",
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "r3-ledger-claim-v1 @ 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+        "applies_to": [
+          "BMO-L1-LEDGER-T06"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r3-l1",
+        "id": "BMO-L1-LEDGER-T06-match",
+        "independence_group": "bmo-l1-BMO-L1-LEDGER-T06",
+        "literal_claims": [
+          "BMO-L1-LEDGER-T06"
+        ],
+        "literal_polarity": "supports",
+        "observation_types": [
+          "ledger_disposition",
+          "property_projection",
+          "matched_baseline"
+        ],
+        "publication_ordinal": 1,
+        "quote": "case=T06; steps=1:claim_first_edit,2:inspect,3:claim_first_edit,4:inspect; all_valid=True; agreement=matched; scope=r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+        "source_id": "bmo-r3-l1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "case_id": "T06",
+      "finding": "evidence/r3_ledger_claim_v1/findings/r3-ledger-claim-v1-comparison.json"
+    },
+    "warranted_conclusion": {
+      "basis": "native_r3_ledger_validity_pairs",
+      "note": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "Finding scope explicitly excludes external execute/settle.",
+      "Absence of settlement observations leaves the claim unresolved."
+    ],
+    "claim": {
+      "family": "transaction_ledger",
+      "id": "BMO-L1-NOT-EXECUTION-SETTLEMENT",
+      "kind": "world_effect",
+      "proposition": "Matched Classical/BMO L1 first-edit ledger traces establish external execution settlement of delegated effects.",
+      "quantifier": "the r3-ledger-claim-v1 declared scope",
+      "required_observation_types": [
+        "execution_settlement"
+      ],
+      "scenario": "scope",
+      "source_revision": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "unresolved"
+      },
+      "strong_invariant": {
+        "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
+        "verdict": "unresolved"
+      },
+      "swarm_witness": {
+        "conclusion_class": "missing_evidence",
+        "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
+        "verdict": "unresolved"
+      },
+      "weak_checklist": {
+        "verdict": "unresolved"
+      }
+    },
+    "corpus": "bmo_l1",
+    "factual_outcome": {
+      "execution_settlement_observed": false,
+      "known": true
+    },
+    "native_arms": {
+      "bmo_l1_native": {
+        "note": "L1 adapter does not claim execution settlement.",
+        "verdict": "unresolved"
+      },
+      "classical_ledger_gate": {
+        "note": "Classical ledger gate is not an execution settler here.",
+        "verdict": "unresolved"
+      },
+      "r3_agreement": {
+        "note": "Matched ledger traces \u2260 settlement certification.",
+        "verdict": "unresolved"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "raw_telemetry_public",
+        "anchor": "r3-ledger-claim-v1 @ 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+        "applies_to": [
+          "BMO-L1-NOT-EXECUTION-SETTLEMENT"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "retained-r3-l1",
+        "id": "BMO-L1-NOT-EXECUTION-SETTLEMENT-scope",
+        "independence_group": "bmo-l1-BMO-L1-NOT-EXECUTION-SETTLEMENT",
+        "observation_types": [
+          "scope_boundary",
+          "ledger_disposition"
+        ],
+        "publication_ordinal": 1,
+        "quote": "finding.scope=r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart; no execution_settlement observation retained",
+        "source_id": "bmo-r3-l1",
+        "stage": "A",
+        "time_basis": "source_stated"
+      }
+    ],
+    "row_refs": {
+      "finding": "evidence/r3_ledger_claim_v1/findings/r3-ledger-claim-v1-comparison.json"
+    },
+    "warranted_conclusion": {
+      "basis": "declared_scope_excludes_settlement",
+      "note": "r3-ledger-claim-v1 L1 first-edit claim/transfer under cold DB reopen and explicit rollback; not external execute/settle or process restart",
+      "status": "unresolved"
+    }
+  },
+  {
+    "assumptions": [
+      "One public LessWrong record (post + appendix) is held.",
+      "Release sentence refers to that reproduction, not the original incident.",
+      "protocol.certifies_original_incident=False",
+      "protocol.one_public_record=lesswrong-reproduction-2026-09"
+    ],
+    "claim": {
+      "certifies_original_incident": false,
+      "family": "reproduction_scope",
+      "id": "LW-K-release",
+      "kind": "world_effect",
+      "proposition": "The public LessWrong reproduction post and its appendix are one record that releases transcripts of that reproduction.",
+      "quantifier": "the held LessWrong reproduction record",
+      "required_observation_types": [
+        "public_report_assertion"
+      ],
+      "scenario": "reproduction_release",
+      "source_revision": "399ef5d0b280f528ea66a30836f6111cf886ec85",
+      "verifying_access_levels": [
+        "public_bytes"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "lesswrong_reproduction",
+    "factual_outcome": {
+      "known": true,
+      "proposition_holds": true
+    },
+    "native_arms": {
+      "lesswrong_scope_discipline": {
+        "note": "One held public record releases the reproduction transcripts.",
+        "origin": "lesswrong-reproduction-2026-09",
+        "reconstruction": false,
+        "verdict": "supported"
+      },
+      "reconstructed_narrative_overread": {
+        "note": "Reconstruction: accepts public narrative as decisive for release, certification, census, and upgrade-slot claims; not a native LessWrong method.",
+        "reconstruction": true,
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "public_bytes",
+        "anchor": "LessWrong post, release sentence",
+        "applies_to": [
+          "LW-K-release"
+        ],
+        "authenticity": "authentic_public_text",
+        "blocks_upgrade": false,
+        "id": "LW-post",
+        "independence_group": "lesswrong-reproduction-2026-09",
+        "literal_claims": [
+          "LW-K-release"
+        ],
+        "literal_polarity": "supports",
+        "locally_held": true,
+        "naive_overread_supports": [
+          "LW-K-release"
+        ],
+        "named_origin": "lesswrong-reproduction-2026-09",
+        "observation_types": [
+          "public_report_assertion"
+        ],
+        "publication_ordinal": 1,
+        "quote": "We release our [code](https://github.com/msp895/oai-hf-incident-reproduction) and [transcripts](/api/post/fMnC6ZD37qrnZAFYz#Transcripts).",
+        "source_id": "lesswrong",
+        "stage": "A"
+      },
+      {
+        "access_level": "public_bytes",
+        "anchor": "LessWrong appendix, same release",
+        "applies_to": [
+          "LW-K-release"
+        ],
+        "authenticity": "authentic_public_text",
+        "blocks_upgrade": false,
+        "id": "LW-appendix",
+        "independence_group": "lesswrong-reproduction-2026-09",
+        "literal_claims": [
+          "LW-K-release"
+        ],
+        "literal_polarity": "supports",
+        "locally_held": true,
+        "named_origin": "lesswrong-reproduction-2026-09",
+        "observation_types": [
+          "public_report_assertion"
+        ],
+        "publication_ordinal": 1,
+        "quote": "We upload transcripts to Docent collections.",
+        "source_id": "lesswrong",
+        "stage": "A"
+      }
+    ],
+    "row_refs": {
+      "claims": "experiments/incident_audit/comparison/claims_v1.yaml",
+      "native_claim_id": "K-release",
+      "packets": "experiments/incident_audit/comparison/packets_v1.yaml",
+      "warrants": "experiments/incident_audit/comparison/warrants_v1.yaml"
+    },
+    "warranted_conclusion": {
+      "basis": "lesswrong_warrants_v1_native_scope",
+      "note": "One held public record releases the reproduction transcripts.",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "Original OpenAI transcripts and Hugging Face platform logs are unavailable.",
+      "Unavailable originals are listed and do not carry blocks_upgrade.",
+      "Public narrative is not raw telemetry of the original compromise.",
+      "protocol.certifies_original_incident=False",
+      "protocol.one_public_record=lesswrong-reproduction-2026-09"
+    ],
+    "claim": {
+      "certifies_original_incident": true,
+      "family": "reproduction_scope",
+      "id": "LW-K-certify",
+      "kind": "world_effect",
+      "proposition": "The LessWrong post and appendix certify the original Hugging Face compromise as an independently verified effect.",
+      "quantifier": "the held LessWrong reproduction record",
+      "required_observation_types": [
+        "committed_effect"
+      ],
+      "scenario": "incident_certification",
+      "source_revision": "399ef5d0b280f528ea66a30836f6111cf886ec85",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
+        "verdict": "unresolved"
+      },
+      "swarm_witness": {
+        "conclusion_class": "missing_evidence",
+        "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
+        "verdict": "unresolved"
+      },
+      "weak_checklist": {
+        "verdict": "unresolved"
+      }
+    },
+    "corpus": "lesswrong_reproduction",
+    "factual_outcome": {
+      "known": true,
+      "proposition_holds": false
+    },
+    "native_arms": {
+      "lesswrong_scope_discipline": {
+        "note": "The posts do not verify the original compromise. Missing logs are not a gate.",
+        "origin": "undetermined",
+        "reconstruction": false,
+        "verdict": "unresolved"
+      },
+      "reconstructed_narrative_overread": {
+        "note": "Reconstruction: accepts public narrative as decisive for release, certification, census, and upgrade-slot claims; not a native LessWrong method.",
+        "reconstruction": true,
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "public_bytes",
+        "anchor": "LessWrong post, release sentence",
+        "applies_to": [
+          "LW-K-certify"
+        ],
+        "authenticity": "authentic_public_text",
+        "blocks_upgrade": false,
+        "id": "LW-post",
+        "independence_group": "lesswrong-reproduction-2026-09",
+        "locally_held": true,
+        "naive_overread_supports": [
+          "LW-K-certify"
+        ],
+        "named_origin": "lesswrong-reproduction-2026-09",
+        "observation_types": [
+          "public_report_assertion"
+        ],
+        "publication_ordinal": 1,
+        "quote": "We release our [code](https://github.com/msp895/oai-hf-incident-reproduction) and [transcripts](/api/post/fMnC6ZD37qrnZAFYz#Transcripts).",
+        "source_id": "lesswrong",
+        "stage": "A"
+      },
+      {
+        "access_level": "public_bytes",
+        "anchor": "LessWrong appendix, same release",
+        "applies_to": [
+          "LW-K-certify"
+        ],
+        "authenticity": "authentic_public_text",
+        "blocks_upgrade": false,
+        "id": "LW-appendix",
+        "independence_group": "lesswrong-reproduction-2026-09",
+        "locally_held": true,
+        "named_origin": "lesswrong-reproduction-2026-09",
+        "observation_types": [
+          "public_report_assertion"
+        ],
+        "publication_ordinal": 1,
+        "quote": "We upload transcripts to Docent collections.",
+        "source_id": "lesswrong",
+        "stage": "A"
+      },
+      {
+        "access_level": "withheld",
+        "anchor": "original OpenAI transcripts, not held",
+        "applies_to": [
+          "LW-K-certify"
+        ],
+        "authenticity": "unavailable",
+        "blocks_upgrade": false,
+        "id": "UNAVAIL-transcripts",
+        "independence_group": "openai-supplied-transcript-dump",
+        "locally_held": false,
+        "observation_types": [
+          "unavailable_original"
+        ],
+        "publication_ordinal": 9,
+        "quote": "Original OpenAI transcripts are not held by this audit.",
+        "source_id": "openai-transcript-dump",
+        "stage": "A"
+      },
+      {
+        "access_level": "unobserved",
+        "anchor": "Hugging Face platform logs, not held",
+        "applies_to": [
+          "LW-K-certify"
+        ],
+        "authenticity": "unavailable",
+        "blocks_upgrade": false,
+        "id": "UNAVAIL-hf-logs",
+        "independence_group": "huggingface-platform-telemetry-2026-07",
+        "locally_held": false,
+        "observation_types": [
+          "unavailable_original"
+        ],
+        "publication_ordinal": 9,
+        "quote": "Hugging Face platform logs are not held by this audit.",
+        "source_id": "huggingface-platform-logs",
+        "stage": "A"
+      }
+    ],
+    "row_refs": {
+      "claims": "experiments/incident_audit/comparison/claims_v1.yaml",
+      "native_claim_id": "K-certify",
+      "packets": "experiments/incident_audit/comparison/packets_v1.yaml",
+      "warrants": "experiments/incident_audit/comparison/warrants_v1.yaml"
+    },
+    "warranted_conclusion": {
+      "basis": "lesswrong_warrants_v1_native_scope",
+      "note": "The posts do not verify the original compromise. Missing logs are not a gate.",
+      "status": "unresolved"
+    }
+  },
+  {
+    "assumptions": [
+      "Held step-1 GLM 5.2 signature_rate extract is a reproduction count.",
+      "Census does not upgrade to a claim about the original incident.",
+      "protocol.certifies_original_incident=False",
+      "protocol.one_public_record=lesswrong-reproduction-2026-09"
+    ],
+    "claim": {
+      "certifies_original_incident": false,
+      "family": "reproduction_scope",
+      "id": "LW-K-census",
+      "kind": "world_effect",
+      "proposition": "The released GLM 5.2 step-1 Docker run records signature_rate 1.0 on 7 files and 0.0 on 57. This is a reproduction count, not the original incident.",
+      "quantifier": "the held LessWrong reproduction record",
+      "required_observation_types": [
+        "score_census"
+      ],
+      "scenario": "reproduction_census",
+      "source_revision": "399ef5d0b280f528ea66a30836f6111cf886ec85",
+      "verifying_access_levels": [
+        "released_reproduction_transcript"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "verifying record supports the claim and no admitted record refutes it",
+        "verdict": "supported"
+      },
+      "swarm_witness": {
+        "conclusion_class": "supported",
+        "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+        "verdict": "supported"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "lesswrong_reproduction",
+    "factual_outcome": {
+      "known": true,
+      "proposition_holds": true
+    },
+    "native_arms": {
+      "lesswrong_scope_discipline": {
+        "note": "The held step-1 extract states the signature counts.",
+        "origin": "undetermined",
+        "reconstruction": false,
+        "verdict": "supported"
+      },
+      "reconstructed_narrative_overread": {
+        "note": "Reconstruction: accepts public narrative as decisive for release, certification, census, and upgrade-slot claims; not a native LessWrong method.",
+        "reconstruction": true,
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "released_reproduction_transcript",
+        "anchor": "stewy33/oai-hf-incident-replication step-1 GLM 5.2 signature_rate extract",
+        "applies_to": [
+          "LW-K-census"
+        ],
+        "authenticity": "released_reproduction_transcript",
+        "blocks_upgrade": false,
+        "id": "CENSUS",
+        "independence_group": "lesswrong-reproduction-2026-09",
+        "literal_claims": [
+          "LW-K-census"
+        ],
+        "literal_polarity": "supports",
+        "locally_held": true,
+        "observation_types": [
+          "score_census"
+        ],
+        "publication_ordinal": 2,
+        "quote": "Run 260905_step1_xlsx_glm52_n64 signature_rate is 1.0 on 7 files and 0.0 on 57 files.",
+        "source_id": "reproduction-transcripts",
+        "stage": "A"
+      },
+      {
+        "access_level": "withheld",
+        "anchor": "original OpenAI transcripts, not held",
+        "applies_to": [
+          "LW-K-census"
+        ],
+        "authenticity": "unavailable",
+        "blocks_upgrade": false,
+        "id": "UNAVAIL-transcripts",
+        "independence_group": "openai-supplied-transcript-dump",
+        "locally_held": false,
+        "observation_types": [
+          "unavailable_original"
+        ],
+        "publication_ordinal": 9,
+        "quote": "Original OpenAI transcripts are not held by this audit.",
+        "source_id": "openai-transcript-dump",
+        "stage": "A"
+      },
+      {
+        "access_level": "unobserved",
+        "anchor": "Hugging Face platform logs, not held",
+        "applies_to": [
+          "LW-K-census"
+        ],
+        "authenticity": "unavailable",
+        "blocks_upgrade": false,
+        "id": "UNAVAIL-hf-logs",
+        "independence_group": "huggingface-platform-telemetry-2026-07",
+        "locally_held": false,
+        "observation_types": [
+          "unavailable_original"
+        ],
+        "publication_ordinal": 9,
+        "quote": "Hugging Face platform logs are not held by this audit.",
+        "source_id": "huggingface-platform-logs",
+        "stage": "A"
+      }
+    ],
+    "row_refs": {
+      "claims": "experiments/incident_audit/comparison/claims_v1.yaml",
+      "native_claim_id": "K-census",
+      "packets": "experiments/incident_audit/comparison/packets_v1.yaml",
+      "warrants": "experiments/incident_audit/comparison/warrants_v1.yaml"
+    },
+    "warranted_conclusion": {
+      "basis": "lesswrong_warrants_v1_native_scope",
+      "note": "The held step-1 extract states the signature counts.",
+      "status": "supported"
+    }
+  },
+  {
+    "assumptions": [
+      "HELD-SLOT carries blocks_upgrade=true and is not the verifying observation.",
+      "Release sentence alone cannot satisfy the upgrade slot.",
+      "protocol.certifies_original_incident=False",
+      "protocol.one_public_record=lesswrong-reproduction-2026-09"
+    ],
+    "claim": {
+      "certifies_original_incident": false,
+      "family": "reproduction_scope",
+      "id": "LW-K-gate",
+      "kind": "world_effect",
+      "proposition": "The release sentence supports this claim while the held step-1 extract remains an unsatisfied blocks_upgrade slot.",
+      "quantifier": "the held LessWrong reproduction record",
+      "required_observation_types": [
+        "public_report_assertion"
+      ],
+      "scenario": "held_upgrade_slot",
+      "source_revision": "399ef5d0b280f528ea66a30836f6111cf886ec85",
+      "verifying_access_levels": [
+        "public_bytes"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "a blocks_upgrade slot on a record this audit holds is not the verifying observation",
+        "verdict": "unresolved"
+      },
+      "swarm_witness": {
+        "conclusion_class": "missing_evidence",
+        "reason": "a blocks_upgrade slot on a record this audit holds is not the verifying observation, so the claim is not supported",
+        "verdict": "unresolved"
+      },
+      "weak_checklist": {
+        "verdict": "supported"
+      }
+    },
+    "corpus": "lesswrong_reproduction",
+    "factual_outcome": {
+      "known": true,
+      "proposition_holds": false
+    },
+    "native_arms": {
+      "lesswrong_scope_discipline": {
+        "note": "The held blocks_upgrade slot is not the verifying observation.",
+        "origin": "undetermined",
+        "reconstruction": false,
+        "verdict": "unresolved"
+      },
+      "reconstructed_narrative_overread": {
+        "note": "Reconstruction: accepts public narrative as decisive for release, certification, census, and upgrade-slot claims; not a native LessWrong method.",
+        "reconstruction": true,
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "public_bytes",
+        "anchor": "LessWrong post, release sentence",
+        "applies_to": [
+          "LW-K-gate"
+        ],
+        "authenticity": "authentic_public_text",
+        "blocks_upgrade": false,
+        "id": "LW-post",
+        "independence_group": "lesswrong-reproduction-2026-09",
+        "literal_claims": [
+          "LW-K-gate"
+        ],
+        "literal_polarity": "supports",
+        "locally_held": true,
+        "naive_overread_supports": [
+          "LW-K-gate"
+        ],
+        "named_origin": "lesswrong-reproduction-2026-09",
+        "observation_types": [
+          "public_report_assertion"
+        ],
+        "publication_ordinal": 1,
+        "quote": "We release our [code](https://github.com/msp895/oai-hf-incident-reproduction) and [transcripts](/api/post/fMnC6ZD37qrnZAFYz#Transcripts).",
+        "source_id": "lesswrong",
+        "stage": "A"
+      },
+      {
+        "access_level": "public_bytes",
+        "anchor": "held step-1 extract declared as an unsatisfied upgrade slot",
+        "applies_to": [
+          "LW-K-gate"
+        ],
+        "authenticity": "released_reproduction_transcript",
+        "blocks_upgrade": true,
+        "id": "HELD-SLOT",
+        "independence_group": "lesswrong-reproduction-2026-09",
+        "locally_held": true,
+        "observation_types": [
+          "score_census"
+        ],
+        "publication_ordinal": 2,
+        "quote": "Run 260905_step1_xlsx_glm52_n64 signature_rate is 1.0 on 7 files and 0.0 on 57 files.",
+        "source_id": "reproduction-transcripts",
+        "stage": "A"
+      },
+      {
+        "access_level": "withheld",
+        "anchor": "original OpenAI transcripts, not held",
+        "applies_to": [
+          "LW-K-gate"
+        ],
+        "authenticity": "unavailable",
+        "blocks_upgrade": false,
+        "id": "UNAVAIL-transcripts",
+        "independence_group": "openai-supplied-transcript-dump",
+        "locally_held": false,
+        "observation_types": [
+          "unavailable_original"
+        ],
+        "publication_ordinal": 9,
+        "quote": "Original OpenAI transcripts are not held by this audit.",
+        "source_id": "openai-transcript-dump",
+        "stage": "A"
+      },
+      {
+        "access_level": "unobserved",
+        "anchor": "Hugging Face platform logs, not held",
+        "applies_to": [
+          "LW-K-gate"
+        ],
+        "authenticity": "unavailable",
+        "blocks_upgrade": false,
+        "id": "UNAVAIL-hf-logs",
+        "independence_group": "huggingface-platform-telemetry-2026-07",
+        "locally_held": false,
+        "observation_types": [
+          "unavailable_original"
+        ],
+        "publication_ordinal": 9,
+        "quote": "Hugging Face platform logs are not held by this audit.",
+        "source_id": "huggingface-platform-logs",
+        "stage": "A"
+      }
+    ],
+    "row_refs": {
+      "claims": "experiments/incident_audit/comparison/claims_v1.yaml",
+      "native_claim_id": "K-gate",
+      "packets": "experiments/incident_audit/comparison/packets_v1.yaml",
+      "warrants": "experiments/incident_audit/comparison/warrants_v1.yaml"
+    },
+    "warranted_conclusion": {
+      "basis": "lesswrong_warrants_v1_native_scope",
+      "note": "The held blocks_upgrade slot is not the verifying observation.",
+      "status": "unresolved"
+    }
+  },
+  {
+    "assumptions": [
+      "Released transcripts and scores are from the reproduction setup.",
+      "Post discloses differences from the original environment (including simulated peers).",
+      "Identity of environments is not established by publicity alone."
+    ],
+    "claim": {
+      "certifies_original_incident": false,
+      "family": "reproduction_scope",
+      "id": "LW-K-env-scope",
+      "kind": "world_effect",
+      "proposition": "The held LessWrong reproduction environment is identical to the original OpenAI\u2013Hugging Face incident environment, including peer composition.",
+      "quantifier": "the reproduction vs original environments",
+      "required_observation_types": [
+        "environment_identity"
+      ],
+      "scenario": "environment_difference",
+      "source_revision": "399ef5d0b280f528ea66a30836f6111cf886ec85",
+      "verifying_access_levels": [
+        "raw_telemetry_public"
+      ]
+    },
+    "classifier_verdicts": {
+      "naive": {
+        "verdict": "supported"
+      },
+      "strong_invariant": {
+        "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
+        "verdict": "unresolved"
+      },
+      "swarm_witness": {
+        "conclusion_class": "missing_evidence",
+        "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
+        "verdict": "unresolved"
+      },
+      "weak_checklist": {
+        "verdict": "unresolved"
+      }
+    },
+    "corpus": "lesswrong_reproduction",
+    "factual_outcome": {
+      "environments_identical": false,
+      "known": true,
+      "note": "Disclosed differences; identity claim does not hold."
+    },
+    "native_arms": {
+      "lesswrong_scope_discipline": {
+        "note": "Scope discipline: evaluate reproduction evidence at its stated scope; do not equate environments.",
+        "reconstruction": false,
+        "verdict": "unresolved"
+      },
+      "reconstructed_narrative_overread": {
+        "note": "Reconstruction: publicity overread as environment identity.",
+        "reconstruction": true,
+        "verdict": "supported"
+      }
+    },
+    "observations": [
+      {
+        "access_level": "public_bytes",
+        "anchor": "LessWrong reproduction scope / environment differences",
+        "applies_to": [
+          "LW-K-env-scope"
+        ],
+        "authenticity": "authentic_public_text",
+        "event_time": "lesswrong-reproduction-2026-09",
+        "id": "LW-env-scope-boundary",
+        "independence_group": "lesswrong-reproduction-2026-09",
+        "naive_overread_supports": [
+          "LW-K-env-scope"
+        ],
+        "observation_types": [
+          "scope_boundary",
+          "public_report_assertion"
+        ],
+        "publication_ordinal": 1,
+        "quote": "Released evidence is a reproduction under disclosed conditions (including simulated peers); it is not an identity claim about the original incident environment.",
+        "source_id": "lesswrong",
+        "stage": "A",
+        "time_basis": "source_stated"
+      },
+      {
+        "access_level": "withheld",
+        "anchor": "original environment telemetry, not held",
+        "applies_to": [
+          "LW-K-env-scope"
+        ],
+        "authenticity": "unavailable",
+        "blocks_upgrade": false,
+        "id": "UNAVAIL-original-env",
+        "independence_group": "openai-supplied-transcript-dump",
+        "locally_held": false,
+        "observation_types": [
+          "unavailable_original",
+          "environment_identity"
+        ],
+        "publication_ordinal": 9,
+        "quote": "Original environment telemetry is not held by this audit.",
+        "source_id": "openai-transcript-dump",
+        "stage": "A"
+      }
+    ],
+    "row_refs": {
+      "native_claim_id": "K-env-scope",
+      "protocol": "experiments/incident_audit/comparison/protocol_v1.yaml"
+    },
+    "warranted_conclusion": {
+      "basis": "reproduction_scope_excludes_environment_identity",
+      "note": "Released reproduction evidence does not establish identity with the original incident environment.",
+      "status": "unresolved"
+    }
+  }
+]

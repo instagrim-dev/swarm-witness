@@ -14,6 +14,8 @@ from docx.text.paragraph import Paragraph
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "report"
 TEMPLATE = REPORT / "official-template.docx"
+# Prefer a freshly copied Apart template when present (Downloads drop).
+DOWNLOADS_TEMPLATE = Path.home() / "Downloads" / "Copy of Apart Research hackathon submission template.docx"
 OUT_DOCX = REPORT / "Swarm_Witness_Templated_Submission.docx"
 OUT_MD = REPORT / "Swarm_Witness_Templated_Submission.md"
 
@@ -71,12 +73,28 @@ def _load_parts() -> dict[str, str]:
     lim_brief_raw = re.split(
         r"\*\*Possible adversarial|\nPossible adversarial", lim, maxsplit=1
     )[0]
+    # Keep LLM usage in its own template section; strip it from Appendix A.
+    lim_parts = re.split(
+        r"\*\*LLM usage statement\.\*\*|\nLLM usage statement\.",
+        lim,
+        maxsplit=1,
+    )
+    lim_appendix_raw = lim_parts[0]
+    llm_from_lim = lim_parts[1] if len(lim_parts) > 1 else ""
     final = (REPORT / "Swarm_Witness_Final_Submission.md").read_text()
     # Heading depth is not part of the boundary: the manuscript uses
     # "# Appendix A", and a literal "## Appendix" split would keep that
     # section inside References and then append a second appendix below.
     refs = _between_headings(final, "References", "Appendix")
     refs = re.sub(r"^\d+\.\s+", "", refs, flags=re.M)
+    llm = (
+        "AI assistants contributed to research brainstorming, implementation, "
+        "validation scripts and draft writing. Reported experimental counts are "
+        "taken from retained program outputs and tests; the author remains "
+        "responsible for verifying released artifacts and the manuscript."
+    )
+    if llm_from_lim.strip():
+        llm = _strip_md(llm_from_lim).strip()
     return {
         "abstract": abstract,
         "intro": _section_after(body, "# 1. Introduction", "## 2."),
@@ -87,14 +105,9 @@ def _load_parts() -> dict[str, str]:
         "conclusion": _section_after(body, "## 6. Conclusion", "## Code"),
         "code": _section_after(body, "## Code, data and reproducibility", None),
         "limitations_brief": _strip_md_heading(lim_brief_raw),
-        "limitations": _strip_md_heading(lim),
+        "limitations": _strip_md_heading(lim_appendix_raw),
         "refs": refs,
-        "llm": (
-            "AI assistants contributed to research brainstorming, implementation, "
-            "validation scripts and draft writing. Reported experimental counts are "
-            "taken from retained program outputs and tests; the author remains "
-            "responsible for verifying released artifacts and the manuscript."
-        ),
+        "llm": llm,
     }
 
 
@@ -151,10 +164,14 @@ def _paragraphs_to_blocks(text: str) -> list[str]:
 
 
 def fill_template() -> Path:
-    if not TEMPLATE.exists():
-        raise SystemExit(f"missing template: {TEMPLATE}")
+    template = TEMPLATE
+    if DOWNLOADS_TEMPLATE.exists():
+        shutil.copy2(DOWNLOADS_TEMPLATE, TEMPLATE)
+        template = TEMPLATE
+    if not template.exists():
+        raise SystemExit(f"missing template: {template}")
     parts = _load_parts()
-    doc = Document(str(TEMPLATE))
+    doc = Document(str(template))
 
     # Title
     title_cell = doc.tables[0].rows[0].cells[0]
@@ -227,20 +244,20 @@ def fill_template() -> Path:
     add_blocks(parts["methods"])
     add_heading("4. Results", 2)
     add_blocks(parts["results"])
-    # Re-add compact result tables as plain text lines (markdown tables stripped)
+    # Compact comparative summary (markdown tables are stripped from body sections).
     add_blocks(
-        "Table 1 (summary). R1 confirms the SoundGate recovery barrier under pinned "
-        "histories. R2 confirms the later EvidenceGraph stress harness. R3-D remains "
-        "unresolved (0/4 BMO mappings). R3-L1 matches on six first-edit cases. R4 "
-        "classifies 18 evidence cases. Causal simulator: 9×2 arms, defective 6 "
-        "unauthorized effects, reference 0. R5 v2: 14×2 arms, defective 9 unauthorized "
-        "effects and 10 incorrect decisions. Formal checker: 2,646 finite checks."
+        "Comparative summary. Public layer (24 cells): naive PASS 24 unsupported "
+        "supports; strong checker and Swarm Witness 0 each, with 22 correct "
+        "abstentions and decisive coverage 2/2 (tie; superiority_claim false). "
+        "Controlled layer (4 cells): both competent methods 0 unsupported supports. "
+        "Application witness: twelve histories; named run "
+        "aew-v1-local-control-pass-broader-effect progresses actor-only unresolved "
+        "to application-readback refuted. Native matched-method layer: 144 rows "
+        "(ledger 352); 0 unsupported supports for Swarm Witness; readback match "
+        "12/12. Earlier staged comparison remains author-curated. R1–R5 and the "
+        "causal/formal checks stay in the retained evidence pack."
     )
-    add_blocks(
-        "Table 2 (paired worlds). Identical cached grant observations in active vs "
-        "revoked worlds; reference allows only the active world; faulty local allows "
-        "both; distinct effect ledger records the unauthorized commit."
-    )
+
     add_heading("5. Discussion and Limitations", 2)
     add_blocks(parts["discussion"])
     add_heading("Limitations", 3)
@@ -311,7 +328,7 @@ def fill_template() -> Path:
 
 ### Limitations
 
-{parts['limitations']}
+{parts['limitations_brief']}
 
 ### Future Work
 

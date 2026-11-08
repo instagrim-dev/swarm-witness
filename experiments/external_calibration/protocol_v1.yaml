@@ -1,0 +1,59 @@
+id: external-calibration-v1
+title: External calibration of classifier ladder against prior disciplines
+status: retrospective_calibration
+research_question: >
+  Can one executable evidence protocol recover and transfer the
+  claim-assessment disciplines demonstrated across existing systems,
+  under matched observation access?
+research_question_note: >
+  This replaces the narrower question of whether Swarm Witness ties an
+  authored strong_invariant comparator. A tie on external calibration
+  establishes bounded cross-project conformance; the public comparison
+  tie alone establishes agreement with an authored comparator.
+scope:
+  first_corpus: EvidenceGraph R2 (retained results.json at pinned a5ea5c9)
+  later: [SoundGate_R1, BMO_R3_L1, LessWrong_public_reproduction]
+  completed_corpora:
+    - EvidenceGraph_R2
+    - SoundGate_R1
+    - BMO_R3_L1
+    - LessWrong_public_reproduction
+
+authorship:
+  curator: single repository author
+  implementer: single repository author
+  packet_translation: single repository author
+  independent_jury: false
+  note: >
+    External inputs (Junejo EvidenceGraph retained rows) supply native
+    assessments. Translation into the shared schema is still author-owned.
+    This run is retrospective calibration, not a held-out transfer claim.
+rules:
+  - Run frozen local classifiers unchanged (naive, weak_checklist,
+    strong_invariant, swarm_witness).
+  - Preserve native EvidenceGraph method arms as first-class comparators
+    (implicit_token_exclusivity / old-rule; independent_receipt_binding /
+    safer; accept_success_claims where relevant).
+  - Do not invent local warrants that merely mirror desired conclusions;
+    warranted_conclusion is taken from the retained native safer discipline
+    plus the paper's disclosed invalid-assumption controls.
+  - Match observation access: every method sees the same packet.
+  - Report unsupported support, unsupported refutation, justified abstention,
+    and correctly decisive coverage separately from factual luck.
+  - Level labels after calibration must cite named prior disciplines;
+    an unqualified "strong" is not a result of this first matrix.
+superiority_rule: >
+  Ties and losses against native prior disciplines are permitted.
+  Agreement with an authored strong_invariant baseline is not external
+  calibration. Matching Junejo's attribution discipline on these packets
+  is the testable claim for this slice.
+focal_scenarios:
+  - clean
+  - full_receipt_relay
+  - shared_tokens_no_attack
+  - false_exclusivity
+  - incomplete_capture
+seed: 0
+note_on_seeds: >
+  Headline per-seed tallies in evidence/r2/summary.json agree across seeds
+  0–2 for the focal contrasts. Seed 0 rows are expanded into claim packets.
