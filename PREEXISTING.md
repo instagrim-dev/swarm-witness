@@ -24,7 +24,7 @@ The comparison covers selected transactional claim, rollback and reopen properti
 
 The ledger measurement pin is `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe`. The settlement measurement pin is `c8297333b3bf31ded96ca0e8b39c531d3bcea97f`, covering `ordinary_retry_first_edit_settlement.go` and `ordinary_retry_no_effect.go`. The architecture-context pin is `e0038cc48872b274c22deaed8e24236530e9821e`. These three revisions are not interchangeable.
 
-The subordinate peer supervisor at that architecture-context pin, `internal/a2a/managedsupervisor/supervisor.go`, requires explicit configuration and owner-provided admission. Signed coordinator delegation, `internal/permission/coordinator_delegation_v2.go`, authenticates a delegation envelope; the application must still join it to current authority state. Both surfaces are preexisting source. They are not measured by S01–S09.
+The subordinate peer supervisor at that architecture-context pin, `internal/a2a/managedsupervisor/supervisor.go`, requires explicit configuration and owner-provided admission. Signed coordinator delegation, `internal/permission/coordinator_delegation_v2.go`, authenticates a delegation envelope; the application must still join it to current authority state. Both surfaces are preexisting source. They are not measured by S01–S09. The frozen-slice representation study scores the research instrument on EvidenceGraph packets. It is not a measurement of these BMO pins.
 
 ### BMO source surfaces
 

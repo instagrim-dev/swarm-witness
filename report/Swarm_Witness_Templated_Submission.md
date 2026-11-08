@@ -77,17 +77,15 @@ An additional EvidenceGraph experiment tests whether an adapter can express prio
 
 ## 4 Results
 
-H1: a committed first-edit claim leaves effect-applied unresolved. H2: bound records support it or refute only effect-applied; refusal leaves it unresolved. H3: Table 2 is the historical qualifier and its eleven unwarranted supports; Table 2b is the current evaluator and does not replace Table 2. H4: translation is part of the method. The sixteen-case challenge is a separate denominator.
+Six ledger cases are not added to the settlement cases. The initial settlement run is two cases; the controls run is those cases inside a nine-case denominator, not nine further cases. The 70-packet slice is not added to the 130-packet corpus, and the sixteen-case challenge is not added to the 48-packet comparison.
 
 ### 4.1 Native transaction-contract calibration
 
-The retained native comparison establishes that BMO and an independent classical implementation satisfy the same bounded transaction contract. BMO exposes `ClaimOrdinaryRetainedGrantFirstEditTx`. The comparator is an independent SQLite `ClassicalLedgerGate`. On six cases and 22 paired steps, both implementations satisfy the declared properties and match on dispositions and the relevant ledger-state projections. The cases cover repeated claims, spent and unspent authority after database reopen, rollback, wrong-task requests, and noncurrent owner revisions [7]. The comparison measures claim and transfer behavior. It supplies a calibrated upstream result from which to ask which later observations establish a delegated effect.
-
-A scope-control packet refutes the further proposition that these ledger traces establish external settlement. That refutation follows from the experiment's declared scope. The packet contains no measured downstream execution, and it does not show that an effect failed to occur. Table 3 is the later settlement measurement, and it is not part of these six cases.
+The question is whether BMO and the classical gate satisfy the same bounded claim contract. The observation is the retained comparison of six cases and 22 paired steps. That comparison is compare-only: it reads recorded transactions and does not re-execute BMO. The result is that both implementations match on dispositions and the relevant ledger-state projections, covering repeated claims, spent and unspent authority after reopen, rollback, wrong-task requests, and noncurrent owner revisions [7]. The implication is a calibrated claim contract. A scope-control packet refutes the further claim that these traces establish external settlement, and Table 3 is not part of these six cases.
 
 ### 4.2 From transaction authorization to observed settlement
 
-The settlement experiment starts from one committed first-edit claim and then varies only the terminal records. Both native BMO and the classical gate read those fixture-authored records. Table 3 is the resulting discrimination. It is not part of the six-case ledger count, and it does not claim that a live model edit was executed.
+The question is which terminal records resolve the effect-applied proposition after one committed first-edit claim. The observation is fixture-authored records read by both arms. It is not a live model edit, and it is not part of the six-case ledger count. The result is Table 3. S02 refutes only the effect-applied proposition. The implication is that refusal leaves the committed claim in place and leaves that proposition unresolved. Effect-applied asks whether the delegated effect entered. It is not `P_effect`, and it is not `P_system`.
 
 **Table 3. Terminal evidence, settlement, and the effect-applied verdict. Both arms match on every row.**
 
@@ -107,13 +105,11 @@ S02 refutes only the effect-applied proposition. Refusal leaves the committed cl
 
 ### 4.3 A local control and a forbidden effect
 
-The application study asks the downstream question for a different owner. In the named witness, the ordinary `remote_url_allowlist` test passes. The actor-only packet leaves `P_effect` unresolved. The application readback establishes a forbidden downstream commit and therefore refutes `P_effect`. That refutation also refutes `P_system`, while the passing local control remains correctly reported. The witness identifier is `aew-v1-local-control-pass-broader-effect` [7].
-
-The clean authority-current control provides the complementary result: complete observations of an authorized commit support `P_effect`. They leave `P_system` unresolved because this one boundary does not establish every component. These paired outcomes show why a record of settlement and the proposition being evaluated must remain explicit.
+The question is whether a passing local control establishes `P_effect` or `P_system`. The observation is the witness `aew-v1-local-control-pass-broader-effect`: `remote_url_allowlist` passes, the actor-only packet lacks the sink record, and the application readback supplies it [7]. The result is that actor-only `P_effect` stays unresolved, while the readback refutes `P_effect` and therefore `P_system`; the local control remains supported. Complete observations of the clean authority-current commit support `P_effect` and leave `P_system` unresolved. The implication is that a record answers only its proposition. `P_effect` says unauthorized downstream effects do not commit. `P_system` is the conjunction of the five boundary properties.
 
 ### 4.4 Warrant and truth diverge
 
-Both methods recover all twenty-four warranted decisive conclusions in the native comparison. Their treatment of incomplete evidence differs substantially (Table 2).
+The question is whether the historical qualifier's supports are warranted by the packet. The observation is 48 packets from 12 histories, with warrants kept separate from controlled truth. The result is Table 2. The implication is that a true proposition can still be an unwarranted support, and a later replay does not replace Table 2.
 
 **Table 2. Native comparison on 48 evidence packets from 12 executed histories. Decisive coverage and abstention have separate denominators of 24.**
 
@@ -123,9 +119,7 @@ Both methods recover all twenty-four warranted decisive conclusions in the nativ
 | Invariant checker | 0 | 24/24 | 24/24 |
 | Always unresolved | 0 | 0/24 | 24/24 |
 
-Table 2 is the historical comparison. Its eleven unsupported supports are the published Swarm Witness result, and later code does not rewrite them. All eleven are withheld or misbound packets. Their controlled propositions happen to be true, so they are unwarranted conclusions rather than false propositions. The invariant checker on that same historical comparison avoids the eleven and still recovers the 24 decisive conclusions. The always-unresolved reference avoids them by recovering none.
-
-The current evaluator is a separate replay of those same 48 files. It does not replace Table 2.
+Table 2 is the historical comparison. Its eleven unsupported supports are withheld or misbound packets whose controlled propositions happen to be true. The current evaluator is a separate replay of those same 48 files and does not replace Table 2. The sixteen-case challenge is a separate denominator: the historical record still marks the spoofed sink supported, while the later admission check leaves it unresolved and records a malformed packet as a rejection rather than a verdict.
 
 **Table 2b. Historical Swarm Witness and the current evaluator on the same 48 packets.**
 
@@ -138,13 +132,11 @@ The current replay also has 0 unsupported refutations. On the twelve actor-only 
 
 ### 4.5 Public and translated evidence
 
-On the twenty-four public-record conditions, Swarm Witness and the invariant checker agree throughout: each returns twenty-two warranted abstentions and both warranted decisive conclusions, with no unsupported supports or refutations. A naive rule that treats a passing result as support produces twenty-four unsupported supports. The smaller controlled comparison also ties the two principal methods, with two correct decisive conclusions and two correct abstentions across four claims [7].
+The question is what public records and translated packets justify. The observation on the public layer is 24 conditions, separate from the 48 packets. The result is that Swarm Witness and the invariant checker each return 22 warranted abstentions and both warranted decisive conclusions, with no unsupported supports; a naive passing rule produces 24 unsupported supports. Four controlled claims remain a smaller, separate denominator [7]. The implication is that public agreement is not the application result.
 
-In the EvidenceGraph study, both composed classifiers preserve all 130 adapter decisions. This includes ten unsupported attribution supports and one factually wrong supported attribution under a false exclusivity premise. The agreement establishes that the composition preserves the adapter's behavior; it does not establish independent correctness. The result makes the adapter's assumptions part of the method that must be examined, rather than treating translation as a neutral change of format [6, 7].
+The translated-evidence question is whether composition adds a source or only a representation. The observation is the 130-packet corpus and, inside it, the frozen 70-packet slice: 332 supplied records and no further request. Both composed classifiers preserve all 130 adapter decisions, including ten unsupported attribution supports and one factually wrong supported attribution [6, 7]. The result on the slice is Table 4. The implication is composition fidelity on packets already inside that corpus, not unseen validation and not transfer. The historical refutation nominee on the slice stays unresolved.
 
-The frozen 70-packet pipeline asks whether those same observations become usable once a qualified adapter supplies a decisive record. Raw Swarm Witness and the raw invariant checker do not treat the packet bytes as that record, so both abstain. The assessor is decisive on 36 packets. The separate warrant is decisive on 26.
-
-**Table 4. Frozen 70-packet pipeline. Raw arms abstain on 70 packets and adapted arms on 34. The adapter reads 332 records and requests none further. The adapted verdict equals the adapter verdict.**
+**Table 4. Frozen-slice representation study: 70 of the 130 packets. Raw arms abstain on all 70. Composed arms abstain on 34. Derived records are not extra sources.**
 
 | Arm | Assessor coverage | Warrant coverage | Unsupported vs warrant |
 | --- | ---: | ---: | ---: |
@@ -161,7 +153,9 @@ The corpus is small and deliberately constructed. Packet conditions are dependen
 
 ## 6 Conclusion
 
-BMO and a classical ledger satisfy the same claim and settlement contract, and Table 3 shows which terminal records support, refute, or leave unresolved an effect. The historical qualifier can overstate incomplete evidence; Table 2b is the later evaluator on those files. Table 4 recovers the 26 warrant-decisive labels and also the ten false-exclusivity supports the warrant leaves unresolved.
+BMO and the classical ledger satisfy the same retained claim contract. The comparison that shows this reads recorded transactions and does not re-execute BMO. Table 3 then separates the effect-applied proposition from that claim: bound applied records support it, bound no-effect records refute only that proposition, and refusal leaves it unresolved while the committed claim remains.
+
+The other studies qualify what may be concluded next, and what translation adds. The historical qualifier's eleven unsupported supports remain the published 48-packet comparison; the current evaluator and the sixteen-case challenge do not replace that count. Table 4 shows that an admitted-premise adapter makes 36 assessor labels and 26 warrant labels decisive for both classifiers, and still supports ten false-exclusivity packets the warrant leaves unresolved. Those 70 packets already belong to the 130-packet corpus. Recovery is fidelity to the shared adapter, not transfer to an unrelated platform.
 
 ## Code and data
 
