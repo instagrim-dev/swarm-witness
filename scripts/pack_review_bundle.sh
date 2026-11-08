@@ -36,18 +36,10 @@ copy_tree "${ROOT}/baselines/" "${STAGING}/baselines/"
 copy_tree "${ROOT}/evidence/" "${STAGING}/evidence/"
 copy_tree "${ROOT}/src/" "${STAGING}/src/"
 copy_tree "${ROOT}/tests/" "${STAGING}/tests/"
-# Synthetic protocols + R3-L1 comparator (label verification; no BMO tree).
-mkdir -p "${STAGING}/experiments"
-copy_tree "${ROOT}/experiments/r1/" "${STAGING}/experiments/r1/"
-copy_tree "${ROOT}/experiments/r2/" "${STAGING}/experiments/r2/"
-copy_tree "${ROOT}/experiments/r3/" "${STAGING}/experiments/r3/"
-copy_tree "${ROOT}/experiments/evidence_sufficiency/" "${STAGING}/experiments/evidence_sufficiency/"
-copy_tree "${ROOT}/experiments/swarm_r5/" "${STAGING}/experiments/swarm_r5/"
-copy_tree "${ROOT}/experiments/causal_swarm/" "${STAGING}/experiments/causal_swarm/"
-copy_tree "${ROOT}/experiments/r5_v2/" "${STAGING}/experiments/r5_v2/"
-copy_tree "${ROOT}/experiments/taxonomy_formal/" "${STAGING}/experiments/taxonomy_formal/"
-copy_tree "${ROOT}/experiments/multi_agent_sim/" "${STAGING}/experiments/multi_agent_sim/"
-copy_tree "${ROOT}/experiments/swarm_r5_v3/" "${STAGING}/experiments/swarm_r5_v3/"
+# Whole experiment tree. A partial list omitted incident audit, provenance,
+# telemetry, coordination, detection-latency, and property inputs that
+# pytest and the ACCESS.md runners import. Work-tree excludes still apply.
+copy_tree "${ROOT}/experiments/" "${STAGING}/experiments/"
 copy_tree "${ROOT}/theory/" "${STAGING}/theory/"
 copy_tree "${ROOT}/docs/" "${STAGING}/docs/"
 mkdir -p "${STAGING}/scripts"
@@ -88,6 +80,97 @@ cp "${ROOT}/evidence/ACCESS.md" "${STAGING}/ACCESS.md"
 
 # Exclude accidental absolute-path dumps / caches.
 find "${STAGING}" -name '.DS_Store' -delete 2>/dev/null || true
+
+# Fail if a path advertised in evidence/ACCESS.md is absent from the bundle.
+ACCESS_MD="${ROOT}/evidence/ACCESS.md" STAGING="${STAGING}" ROOT="${ROOT}" python3 - <<'PY'
+import os
+import re
+import sys
+from pathlib import Path
+
+access_path = Path(os.environ["ACCESS_MD"])
+staging = Path(os.environ["STAGING"])
+root = Path(os.environ["ROOT"])
+text = access_path.read_text(encoding="utf-8")
+end = re.search(r"^## Pack a portable review bundle\s*$", text, re.M)
+if end is None:
+    sys.exit("ACCESS.md is missing the portable review-bundle section")
+section = text[: end.start()]
+
+paths: list[str] = []
+last = None
+for token in re.findall(r"`([^`]+)`", section):
+    token = token.strip()
+    if not token or token.startswith("<") or "://" in token or " " in token:
+        continue
+    if re.fullmatch(r"\.[A-Za-z0-9]+", token) and last and "." in Path(last).name:
+        swapped = str(Path(last).with_suffix(token))
+        paths.append(swapped)
+        last = swapped
+        continue
+    if "/" in token:
+        if token.startswith("dist/") or token.endswith(".zip"):
+            continue
+        rel = token.strip("/")
+        paths.append(rel)
+        last = rel
+        continue
+    if (root / token).exists():
+        paths.append(token)
+        last = token
+
+for fence in re.findall(r"```(?:bash|sh)?\n(.*?)```", section, re.S):
+    logical: list[str] = []
+    buf = ""
+    for line in fence.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.endswith("\\"):
+            buf += stripped[:-1].strip() + " "
+            continue
+        buf += stripped
+        logical.append(buf)
+        buf = ""
+    if buf.strip():
+        logical.append(buf.strip())
+    for line in logical:
+        for match in re.finditer(r"(?:^|\s)[A-Za-z_][A-Za-z0-9_]*=([^\s]+)", line):
+            val = match.group(1).strip("'\"")
+            if val.startswith("/") or val.startswith(".venv"):
+                continue
+            if val == "src" or "/" in val:
+                paths.append(val.strip("/"))
+        for tok in line.split():
+            tok = tok.strip("'\"")
+            if (
+                not tok
+                or tok.startswith("-")
+                or tok.startswith("/")
+                or tok.startswith(".venv")
+                or tok.startswith("http")
+                or "/" not in tok
+                or tok.endswith(".zip")
+            ):
+                continue
+            paths.append(tok.strip("/"))
+
+ordered: list[str] = []
+seen: set[str] = set()
+for path in paths:
+    if path not in seen:
+        seen.add(path)
+        ordered.append(path)
+if not ordered:
+    sys.exit("no advertised paths parsed from evidence/ACCESS.md")
+
+missing = [path for path in ordered if not (staging / path).exists()]
+if missing:
+    for path in missing:
+        print(f"advertised path missing from bundle: {path}", file=sys.stderr)
+    sys.exit(1)
+print(f"advertised paths present in bundle: {len(ordered)}")
+PY
 
 (
   cd "${OUT_DIR}"
