@@ -300,6 +300,7 @@ def test_spoofed_or_unauthenticated_census_is_not_supported():
     swarm = swarm_witness_verdict(claim, packets)
     assert strong["epistemic_status"] == "supported"
     assert swarm["epistemic_status"] == "supported"
+    assert strong["evidence_status"] == "authentic"
     assert swarm["evidence_status"] == "authentic"
     for authenticity in ("spoofed_tool_line", "unauthenticated_tool_line"):
         altered = copy.deepcopy(packets)
@@ -309,9 +310,34 @@ def test_spoofed_or_unauthenticated_census_is_not_supported():
         swarm_bad = swarm_witness_verdict(claim, altered)
         assert strong_bad["epistemic_status"] == "unresolved"
         assert swarm_bad["epistemic_status"] == "unresolved"
+        assert strong_bad["evidence_status"] == "missing"
+        assert swarm_bad["evidence_status"] == "missing"
         assert strong_bad.get("evidence_status") != "authentic"
         assert swarm_bad["evidence_status"] != "authentic"
         assert swarm_bad["real_world_authenticity_certified"] is False
+
+
+def test_non_admissible_census_authenticity_does_not_decide():
+    """unavailable and not_checked are outside the admissible allowlist."""
+    claim, packets = _census_packet()
+    for authenticity in ("unavailable", "not_checked"):
+        for polarity in ("supports", "refutes"):
+            altered = copy.deepcopy(packets)
+            census = next(obs for obs in altered if obs["id"] == "CENSUS")
+            census["authenticity"] = authenticity
+            census["literal_polarity"] = polarity
+            strong = strong_invariant_verdict(claim, altered)
+            swarm = swarm_witness_verdict(claim, altered)
+            assert strong["epistemic_status"] == "unresolved"
+            assert swarm["epistemic_status"] == "unresolved"
+            assert strong["epistemic_status"] not in {"supported", "refuted"}
+            assert swarm["epistemic_status"] not in {"supported", "refuted"}
+            assert strong["evidence_status"] == "missing"
+            assert swarm["evidence_status"] == "missing"
+            assert strong["real_world_authenticity_certified"] is False
+            assert swarm["real_world_authenticity_certified"] is False
+            assert strong["detection_or_prevention_claimed"] is False
+            assert swarm["detection_or_prevention_claimed"] is False
 
 
 def test_context_record_does_not_attribute_census_to_bob():
