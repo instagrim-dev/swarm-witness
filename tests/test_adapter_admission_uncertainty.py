@@ -162,6 +162,83 @@ def test_stale_reports_do_not_attribute_fault():
     assert result["fault_attribution"] == "undetermined"
 
 
+def test_same_origin_support_order_does_not_change_the_verdict():
+    incomplete = {
+        "id": "partial",
+        "kind": "public",
+        "authenticity": "authentic_public_text",
+        "family": "P_url",
+        "channel": "remote_url",
+        "polarity": "supports",
+        "coverage": "partial",
+        "independence_group": "same-origin",
+        "event_time": "2026-01-01T00:00:00Z",
+        "time_basis": "source_stated",
+    }
+    complete = {
+        "id": "full",
+        "kind": "public",
+        "authenticity": "authentic_public_text",
+        "family": "P_url",
+        "channel": "remote_url",
+        "polarity": "supports",
+        "coverage": "complete",
+        "independence_group": "same-origin",
+        "event_time": "2026-01-01T00:00:00Z",
+        "time_basis": "source_stated",
+    }
+    forward = bind_family([incomplete, complete], family="P_url", claim={})
+    reverse = bind_family([complete, incomplete], family="P_url", claim={})
+    assert forward["epistemic_status"] == reverse["epistemic_status"] == "supported"
+    assert forward["conclusion_class"] == reverse["conclusion_class"]
+
+
+def test_current_nonbinding_report_does_not_attribute_fault():
+    record = {
+        "id": "current-nonbinding",
+        "kind": "public",
+        "authenticity": "authentic_public_text",
+        "family": "P_effect",
+        "polarity": "reports",
+        "attribute_fault": True,
+        "actor_ref": "Ada",
+        "binding": "nonbinding",
+        "freshness": "current",
+        "temporal_applicability": "current",
+        "independence_group": "current-nonbinding",
+        "coverage": "complete",
+        "event_time": "2026-01-01T00:00:00Z",
+        "time_basis": "source_stated",
+    }
+    result = bind_family([record], family="P_effect", claim={})
+    assert result["fault_attribution"] == "undetermined"
+
+
+def test_missing_decisions_do_not_count_as_agreement():
+    arms = [
+        {
+            "id": "arm-a",
+            "kind": "comparison_arm",
+            "authenticity": "authentic_public_text",
+            "independence_group": "arm-a",
+            "evidence_complete": True,
+            "property_holds": True,
+        },
+        {
+            "id": "arm-b",
+            "kind": "comparison_arm",
+            "authenticity": "authentic_public_text",
+            "independence_group": "arm-b",
+            "evidence_complete": True,
+            "property_holds": True,
+        },
+    ]
+    result = bind_family(arms, family="comparison_equality", claim={})
+    assert result["epistemic_status"] == "unresolved"
+    assert result["comparison_status"] == "incomplete"
+    assert result["verified"] is False
+
+
 def test_polarity_order_is_independent():
     partial = {
         "id": "partial",

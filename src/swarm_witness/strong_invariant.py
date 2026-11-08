@@ -60,23 +60,38 @@ def _digest(obs: dict[str, Any]) -> str:
     return quote_digest(str(obs.get("quote") or ""))
 
 
+def _conflicting_digests(rows: list[dict[str, Any]]) -> set[str]:
+    """Same bytes with different polarities do not pick a winner by list order."""
+    grouped: dict[str, set[Any]] = {}
+    for obs in rows:
+        grouped.setdefault(_digest(obs), set()).add(obs.get("literal_polarity"))
+    return {digest for digest, polarities in grouped.items() if len(polarities) > 1}
+
+
 def _admit(
     applicable: list[dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     admitted: list[dict[str, Any]] = []
     withheld: list[dict[str, Any]] = []
-    seen: set[str] = set()
+    eligible: list[dict[str, Any]] = []
     for obs in applicable:
         blocked = (
             obs.get("authenticity") in _WITHHELD_AUTHENTICITY
             or obs.get("freshness") == "stale"
             or obs.get("binding") == "misbound"
-            or _digest(obs) in seen
         )
         if blocked:
             withheld.append(obs)
             continue
-        seen.add(_digest(obs))
+        eligible.append(obs)
+    conflict = _conflicting_digests(eligible)
+    seen: set[str] = set()
+    for obs in eligible:
+        digest = _digest(obs)
+        if digest in conflict or digest in seen:
+            withheld.append(obs)
+            continue
+        seen.add(digest)
         admitted.append(obs)
     return admitted, withheld
 

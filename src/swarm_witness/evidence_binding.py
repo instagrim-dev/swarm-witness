@@ -825,11 +825,12 @@ def _apply_polarity(
         )
         if signature in seen:
             continue
+        if polarity == "supports" and not _complete_support(record, claim):
+            # Do not consume the signature. A later complete support from the
+            # same origin must still bind, independent of record order.
+            continue
         seen.add(signature)
         if polarity == "supports":
-            # Incomplete supports never constrain; contradicts may still refute.
-            if not _complete_support(record, claim):
-                continue
             supports.append(record)
         else:
             contradicts.append(record)
@@ -911,10 +912,9 @@ def _apply_comparison(
     # Completeness must be explicit True; missing outcomes stay unresolved.
     if len(arms) != 2 or any(record.get("evidence_complete") is not True for record in arms):
         return set(universe), "pair_incomplete", []
-    if any(
-        record.get("property_holds") is None and record.get("decision") is None
-        for record in arms
-    ):
+    if any(record.get("decision") is None for record in arms):
+        return set(universe), "pair_incomplete", []
+    if any(record.get("property_holds") is None for record in arms):
         return set(universe), "pair_incomplete", []
     used = [record["id"] for record in arms]
     if arms[0].get("decision") != arms[1].get("decision"):
@@ -1113,7 +1113,9 @@ def _fault_attribution(
             continue
         if not in_scope(record, family, claim):
             continue
-        if record.get("actor_binding") not in {None, "bound"}:
+        if record.get("actor_binding") != "bound":
+            continue
+        if record.get("binding") in {"nonbinding", "unbound", "misbound"}:
             continue
         actor = record.get("named_origin") or record.get("actor_ref")
         if isinstance(actor, str) and actor:

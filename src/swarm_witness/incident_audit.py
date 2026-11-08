@@ -157,25 +157,42 @@ def _verifying_levels(claim: dict[str, Any]) -> set[str]:
     return {str(level) for level in declared}
 
 
+def _record_digest(obs: dict[str, Any]) -> str:
+    recorded = obs.get("content_sha256")
+    if isinstance(recorded, str) and recorded:
+        return recorded
+    return quote_digest(obs["quote"])
+
+
+def _conflicting_digests(rows: list[dict[str, Any]]) -> set[str]:
+    """Same bytes with different polarities do not pick a winner by list order."""
+    grouped: dict[str, set[Any]] = {}
+    for obs in rows:
+        grouped.setdefault(_record_digest(obs), set()).add(obs.get("literal_polarity"))
+    return {digest for digest, polarities in grouped.items() if len(polarities) > 1}
+
+
 def _admit(
     applicable: list[dict[str, Any]], *, count_derived_as_independent: bool
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Drop copied receipts, same-origin derivatives, stale and misbound rows."""
     admitted: list[dict[str, Any]] = []
     withheld: list[dict[str, Any]] = []
-    seen_hashes: set[str] = set()
+    eligible: list[dict[str, Any]] = []
     for obs in applicable:
         authenticity = obs.get("authenticity")
-        digest = obs.get("content_sha256") or quote_digest(obs["quote"])
         dependent = authenticity in {"copied", "derived_same_origin"}
         unusable = obs.get("freshness") == "stale" or obs.get("binding") == "misbound"
         inauthentic = authenticity in _INAUTHENTIC
-        if (
-            digest in seen_hashes
-            or unusable
-            or inauthentic
-            or (dependent and not count_derived_as_independent)
-        ):
+        if unusable or inauthentic or (dependent and not count_derived_as_independent):
+            withheld.append(obs)
+            continue
+        eligible.append(obs)
+    conflict = _conflicting_digests(eligible)
+    seen_hashes: set[str] = set()
+    for obs in eligible:
+        digest = _record_digest(obs)
+        if digest in conflict or digest in seen_hashes:
             withheld.append(obs)
             continue
         seen_hashes.add(digest)

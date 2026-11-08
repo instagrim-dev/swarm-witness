@@ -377,3 +377,35 @@ def test_context_record_does_not_attribute_census_to_bob():
     assert swarm["attributed_origin"] == "undetermined"
     assert strong["attributed_origin"] != "Bob"
     assert swarm["attributed_origin"] != "Bob"
+
+
+def test_same_origin_polarity_order_does_not_change_the_verdict():
+    claim = {
+        "id": "c-order",
+        "kind": "world_effect",
+        "required_observation_types": ["effect_committed"],
+        "verifying_access_levels": ["raw_telemetry_public"],
+    }
+
+    def row(row_id: str, polarity: str) -> dict:
+        return {
+            "id": row_id,
+            "quote": "same bytes",
+            "content_sha256": "same-origin-digest",
+            "authenticity": "authentic_public_text",
+            "freshness": "current",
+            "binding": "bound",
+            "independence_group": "same-origin",
+            "literal_claims": ["c-order"],
+            "literal_polarity": polarity,
+            "observation_types": ["effect_committed"],
+            "access_level": "raw_telemetry_public",
+            "applies_to": ["c-order"],
+        }
+
+    forward = [row("a", "supports"), row("b", "refutes")]
+    reverse = [row("b", "refutes"), row("a", "supports")]
+    for method in (strong_invariant_verdict, swarm_witness_verdict):
+        ahead = method(claim, forward)["epistemic_status"]
+        back = method(claim, reverse)["epistemic_status"]
+        assert ahead == back == "unresolved"
