@@ -1,0 +1,494 @@
+commit 33715e5c790437261c25f0559016928f43ed9baf
+extract /tmp/sw-review-extract-g56/swarm-witness-review-bundle
+=== pytest ===
+........................................................................ [ 18%]
+........................................................................ [ 37%]
+........................................................................ [ 55%]
+........................................................................ [ 74%]
+........................................................................ [ 93%]
+..........................                                               [100%]
+386 passed in 3.02s
+EXIT 0 pytest
+=== validate_claims ===
+OK auditor_integrity_v1.yaml
+OK causal_swarm.yaml
+OK coord_board_participation.yaml
+OK coord_collective_impact.yaml
+OK coord_delegated_workstream.yaml
+OK coordination_attribution_v1.yaml
+OK detection_latency.yaml
+OK eval_integrity_replay_v1.yaml
+OK evidence_binding_v1.yaml
+OK forensic_telemetry_v1.yaml
+OK incident_claims_v1.yaml
+OK incident_comparison_v1.yaml
+OK incident_property_graph.yaml
+OK multi_agent_sim.yaml
+OK prov_hf_effect.yaml
+OK prov_message_board.yaml
+OK prov_reproduction_transcripts.yaml
+OK prov_tool_call_spoof.yaml
+OK provenance_contract_v1.yaml
+OK r1_restart.yaml
+OK r2_receipt.yaml
+OK r3_bmo.yaml
+OK r3_ledger_claim_v1.yaml
+OK r4_evidence_sufficiency.yaml
+OK r5_swarm_audit.yaml
+OK r5_v2.yaml
+OK r5_v3.yaml
+OK splitup_sabotage_v1.yaml
+OK taxonomy_theory.yaml
+OK tel_original_logs.yaml
+OK tel_reproduction_record.yaml
+EXIT 0 validate_claims
+=== check_evidence ===
+OK evidence consistency (index matches findings-derived labels)
+EXIT 0 check_evidence
+=== effect_witness ===
+wrote /tmp/swarm-witness-effect-g56
+witness aew-v1-local-control-pass-broader-effect
+executions 12
+evidence conditions 48
+EXIT 0 effect_witness
+=== render_bounded_comparison ===
+{
+  "ledger_rows": 496,
+  "native_matched_rows": 144,
+  "public_tie_cells": 24,
+  "public_naive_unsupported_support": 24,
+  "public_strong_unsupported_support": 0,
+  "public_swarm_unsupported_support": 0,
+  "witness_id": "aew-v1-local-control-pass-broader-effect",
+  "native_swarm_unsupported_support": 11,
+  "native_swarm_correct_decisive": 24,
+  "native_strong_unsupported_support": 0,
+  "native_strong_correct_decisive": 24
+}
+wrote /private/tmp/sw-review-extract-g56/swarm-witness-review-bundle/report/bounded_comparison_v1/TABLES.md
+EXIT 0 render_bounded_comparison
+=== external_calibration ===
+{
+  "retrospective_calibration": true,
+  "transfer_claim": false,
+  "claim_count": 161,
+  "matrix_rows": 1357,
+  "corpora": {
+    "evidencegraph_r2": {
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "claims": 6,
+      "rows": 42,
+      "seed": 0,
+      "role": "calibration"
+    },
+    "evidencegraph_r2_event": {
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "claims": 130,
+      "rows": 1160,
+      "seed": 0,
+      "role": "expanded_native_conformance",
+      "transfer_claim": false,
+      "note": "Event-by-event produced/executed comparison against native attribution and capture rules; adapter scored with classifiers."
+    },
+    "soundgate_r1": {
+      "source_revision": "656840348dcf9660f8db7add9f3ca9f794a55926",
+      "claims": 5,
+      "rows": 25
+    },
+    "bmo_l1": {
+      "source_revision": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
+      "claims": 7,
+      "rows": 49
+    },
+    "lesswrong_reproduction": {
+      "source_revision": "399ef5d0b280f528ea66a30836f6111cf886ec85",
+      "claims": 5,
+      "rows": 25
+    },
+    "evidencegraph_r2_seed_repeatability": {
+      "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
+      "claims": 8,
+      "rows": 56,
+      "seeds": [
+        1,
+        2
+      ],
+      "role": "seed_repeatability",
+      "family": "EG-R2-ATTR",
+      "note": "Author-translated packets match seed-0 classifier inputs after normalizing seed fields; not a held-out transfer probe."
+    }
+  },
+  "evidencegraph_event_conformance": {
+    "attr_claim_count": 120,
+    "methods": {
+      "evidencegraph_safer_produced": {
+        "cells": 120,
+        "native_or_warrant_agreement": 110,
+        "correct_decisive": 48,
+        "unsupported_support": 10,
+        "unsupported_refutation": 0,
+        "justified_abstention": 62,
+        "missed_decisive": 0
+      },
+      "evidencegraph_legacy_produced": {
+        "cells": 120,
+        "native_or_warrant_agreement": 88,
+        "correct_decisive": 48,
+        "unsupported_support": 32,
+        "unsupported_refutation": 0,
+        "justified_abstention": 40,
+        "missed_decisive": 0
+      },
+      "eg_evidence_derived_adapter": {
+        "cells": 120,
+        "native_or_warrant_agreement": 110,
+        "correct_decisive": 48,
+        "unsupported_support": 10,
+        "unsupported_refutation": 0,
+        "justified_abstention": 62,
+        "missed_decisive": 0
+      },
+      "naive": {
+        "cells": 120,
+        "native_or_warrant_agreement": 72,
+        "correct_decisive": 0,
+        "unsupported_support": 0,
+        "unsupported_refutation": 0,
+        "justified_abstention": 72,
+        "missed_decisive": 48
+      },
+      "weak_checklist": {
+        "cells": 120,
+        "native_or_warrant_agreement": 72,
+        "correct_decisive": 0,
+        "unsupported_support": 0,
+        "unsupported_refutation": 0,
+        "justified_abstention": 72,
+        "missed_decisive": 48
+      },
+      "strong_invariant": {
+        "cells": 120,
+        "native_or_warrant_agreement": 72,
+        "correct_decisive": 0,
+        "unsupported_support": 0,
+        "unsupported_refutation": 0,
+        "justified_abstention": 72,
+        "missed_decisive": 48
+      },
+      "swarm_witness": {
+        "cells": 120,
+        "native_or_warrant_agreement": 72,
+        "correct_decisive": 0,
+        "unsupported_support": 0,
+        "unsupported_refutation": 0,
+        "justified_abstention": 72,
+        "missed_decisive": 48
+      },
+      "strong_on_adapter_checks": {
+        "cells": 120,
+        "native_or_warrant_agreement": 110,
+        "correct_decisive": 48,
+        "unsupported_support": 10,
+        "unsupported_refutation": 0,
+        "justified_abstention": 62,
+        "missed_decisive": 0
+      },
+      "swarm_on_adapter_checks": {
+        "cells": 120,
+        "native_or_warrant_agreement": 110,
+        "correct_decisive": 48,
+        "unsupported_support": 10,
+        "unsupported_refutation": 0,
+        "justified_abstention": 62,
+        "missed_decisive": 0
+      }
+    },
+    "boundaries_adapter_vs_safer": {
+      "clean": {
+        "claims": 12,
+        "adapter_matches_safer": 12
+      },
+      "missing_tokens": {
+        "claims": 12,
+        "adapter_matches_safer": 12
+      },
+      "missing_clock_bound": {
+        "claims": 12,
+        "adapter_matches_safer": 12
+      },
+      "dependent_witnesses": {
+        "claims": 12,
+        "adapter_matches_safer": 12
+      },
+      "full_receipt_relay": {
+        "claims": 12,
+        "adapter_matches_safer": 12
+      },
+      "false_exclusivity": {
+        "claims": 12,
+        "adapter_matches_safer": 12
+      },
+      "capture_window_edge": {
+        "claims": 12,
+        "adapter_matches_safer": 12
+      }
+    },
+    "adapter_matches_safer_total": 84,
+    "adapter_safer_boundary_claims": 84,
+    "attribution_conformance": {
+      "adapter_matches_safer_all_attr": 120,
+      "attr_claim_count": 120,
+      "correct_decisive": 48,
+      "unsupported_support": 10,
+      "missed_decisive_strong": 48,
+      "missed_decisive_swarm": 48,
+      "safer_correct_decisive": 48,
+      "safer_unsupported_support": 10,
+      "false_exclusivity_supported": 10,
+      "factually_wrong_supported_attributions": 1,
+      "note": "Regenerated counts: safer/adapter correct decisive and unsupported supports as tabulated; Strong/Swarm Witness missed decisive replaces the earlier 57. Ten unsupported supports are the false-exclusivity premise convention."
+    },
+    "fabricated_execution": {
+      "total_cells": 10,
+      "native_executed_comparisons": 8,
+      "additional_controls": 2,
+      "adapter_matches_native_executed_mapping": 10,
+      "adapter_matches_on_native_executed_only": 8,
+      "adapter_refutations": 2,
+      "native_refutations": 2,
+      "note": "Describe as 8 native execution comparisons + 2 additional controls (relay spoofed receipts with no exported executed relation, mapped unresolved). Do not imply ten exported native execution decisions."
+    },
+    "warrant_qualification": {
+      "attribution_warrant_depends_on_adapter_sufficiency": true,
+      "execution_warrant_depends_on_native_refutation_when_present": true,
+      "assessor_inputs_independent_of_native_fields": true,
+      "primary_result": "adapter_vs_native_safer_conformance",
+      "note": "Warrant agreement remains method-dependent. Mutating native fields leaves assessor inputs unchanged but can change execution warrants. Use the conformance column as the primary result."
+    },
+    "classifier_integration": {
+      "expectation": "C(x \u222a P(A(x))) = A(x)",
+      "packet_denominator": 130,
+      "strong_on_adapter_matches_adapter": 130,
+      "swarm_on_adapter_matches_adapter": 130,
+      "integration_cells": 130,
+      "strong_on_adapter_matches_safer_attr": 120,
+      "swarm_on_adapter_matches_safer_attr": 120,
+      "safer_attr_cells": 120,
+      "strong_on_adapter_matches_safer_native_exec": 8,
+      "swarm_on_adapter_matches_safer_native_exec": 8,
+      "native_exec_cells": 8,
+      "strong_on_adapter_matches_safer_control": 2,
+      "swarm_on_adapter_matches_safer_control": 2,
+      "control_exec_cells": 2,
+      "strong_on_adapter_matches_safer_exec_mapping": 10,
+      "swarm_on_adapter_matches_safer_exec_mapping": 10,
+      "safer_exec_mapping_cells": 10,
+      "raw_strong_decisive": 0,
+      "raw_swarm_decisive": 0,
+      "raw_strong_packets": 130,
+      "raw_swarm_packets": 130,
+      "composed_strong_decisive": 60,
+      "composed_swarm_decisive": 60,
+      "note": "Frozen classifiers admit and consume the adapter derivation; they do not independently evaluate predicate prose. EG-specific inference remains part of the composed method. Raw baselines stay unchanged. Report attribution 120/120, native execution 8/8, and controls 2/2 (equivalently 10/10 against the execution reference mapping).",
+      "transfer_claim": false
+    }
+  },
+  "profiles": {
+    "evidencegraph_attribution": {
+      "attr_claim_count": 4,
+      "strong_matches_warranted": 3,
+      "swarm_matches_warranted": 3,
+      "strong_matches_native_safer": 4,
+      "swarm_matches_native_safer": 4,
+      "safer_native_matches_warranted": 3,
+      "premise_failure_claim": "EG-R2-ATTR-false-exclusivity",
+      "note": "Warrant agreement and native-safer agreement are separate. false_exclusivity: safer supports under a false premise; warrant stays unresolved."
+    },
+    "soundgate_restriction": {
+      "claim_count": 3,
+      "strong_matches_warranted": 3,
+      "swarm_matches_warranted": 3
+    },
+    "soundgate_availability": {
+      "claim_count": 2,
+      "strong_matches_warranted": 2,
+      "swarm_matches_warranted": 2
+    },
+    "soundgate_barrier_joint": {
+      "claim_count": 2,
+      "strong_matches_warranted": 2,
+      "swarm_matches_warranted": 2,
+      "barrier_native_matches_warranted": 2
+    },
+    "bmo_transaction_ledger": {
+      "claim_count": 7,
+      "strong_matches_warranted": 7,
+      "swarm_matches_warranted": 7,
+      "bmo_native_matches_warranted": 7
+    },
+    "lesswrong_reproduction_scope": {
+      "claim_count": 5,
+      "strong_matches_warranted": 5,
+      "swarm_matches_warranted": 5,
+      "external_native_method_scored": false,
+      "note": "warrants_v1 is the author scoring key. reconstructed_narrative_overread is an ablation only."
+    }
+  },
+  "seed_repeatability": {
+    "seeds": [
+      1,
+      2
+    ],
+    "family": "EG-R2-ATTR",
+    "attr_claim_count": 8,
+    "strong_matches_warranted": 6,
+    "swarm_matches_warranted": 6,
+    "strong_matches_native_safer": 8,
+    "swarm_matches_native_safer": 8,
+    "seed0_warrant_rate": "3/4",
+    "seed0_native_rate": "4/4",
+    "repeats_seed0": true,
+    "transfer_claim": false,
+    "note": "Repeatability across retained seeds. After normalizing seed fields, classifier inputs match seed 0; this cannot establish held-out transfer."
+  },
+  "calibration_statements": [
+    "EvidenceGraph attribution (seed 0): on author-translated retained packets, report warrant agreement and native-safer agreement separately \u2014 strong vs warrant 3/4; strong vs safer native 4/4; safer vs warrant 3/4. false_exclusivity is the shared premise-failure under matched observation access.",
+    "SoundGate: only the matching-policy native arm is scored against each claim. Cross-policy tallies are reference-only. Barrier matches restriction and availability on its own claims; strict matches restriction but fails availability.",
+    "BMO L1: ledger first-edit properties can be supported while the evidentiary claim that those traces establish execution settlement is refuted under declared scope.",
+    "LessWrong: classifiers are scored against author warrants_v1. No independently specified LessWrong executable method is scored. Environment identity is refuted given disclosed differences; certification and upgrade-slot claims stay unresolved.",
+    "Seed repeatability (EG ATTR seeds 1\u20132): warrant 6/8 repeats seed-0 3/4; native-safer 8/8 repeats 4/4. transfer_claim stays false.",
+    "Unqualified global 'strong' remains undefined; use earned profile labels in PROFILE_LABELS.md.",
+    "EvidenceGraph expanded native conformance: event-level produced/executed relations vs safer/legacy native arms and the evidence-derived adapter; see EVENT_CAPABILITY.md. transfer_claim stays false."
+  ]
+}
+wrote /private/tmp/sw-review-extract-g56/swarm-witness-review-bundle/evidence/external_calibration_v1
+wrote /private/tmp/sw-review-extract-g56/swarm-witness-review-bundle/report/external_calibration_v1/MATRIX.md
+wrote /private/tmp/sw-review-extract-g56/swarm-witness-review-bundle/report/external_calibration_v1/PROFILE_LABELS.md
+wrote /private/tmp/sw-review-extract-g56/swarm-witness-review-bundle/report/external_calibration_v1/EVENT_CAPABILITY.md
+EXIT 0 external_calibration
+=== check_taxonomy ===
+{"worlds": 4, "predicate_assignments": 16, "checks": {"nonvacuity": 256, "support_soundness": 108, "refutation_soundness": 108, "indistinguishability": 110, "irrelevance": 768, "verified_refinement_persistence": 1040, "unverified_observation_cannot_support": 256}, "passed": true}
+EXIT 0 check_taxonomy
+=== ledger_compare ===
+{"label": "unresolved", "agreement": "matched", "validity": true}
+EXIT 0 ledger_compare
+=== settlement_bound ===
+{"agreement": "matched", "conclusion_class": "supported"}
+EXIT 0 settlement_bound
+=== settlement_controls ===
+{"agreement": "matched", "conclusion_class": "supported"}
+EXIT 0 settlement_controls
+=== causal_swarm ===
+{"protocol": "causal-swarm-v1", "scenario_count": 9, "arm_count": 18, "dimension_count": 6, "passed": true, "paired_worlds_local_indistinguishable": true, "irrelevant_control_unchanged": true}
+EXIT 0 causal_swarm
+=== r5_v2 ===
+{"protocol": "r5-v2-causal-matrix", "scenario_count": 14, "arm_count": 28, "dimension_count": 9, "passed": true}
+EXIT 0 r5_v2
+=== taxonomy_formal ===
+Swarm Witness taxonomy formalization — finite-model check
+  worlds enumerated: 8
+  passed: True
+  [OK] T1_support_soundness
+  [OK] T2_refutation_soundness
+  [OK] T3_indistinguishability
+  [OK] T4_non_upgrade
+  [OK] T5_monotonic_refinement
+  [OK] T6_mutual_exclusivity_mechanism_object
+  [OK] matched_equality_route_rejected
+  [OK] comparison_attribution
+  [OK] C_counterexample_suite
+counterexamples:
+  [OK] C1_known_false_observation: Misbound grant observation with a decision that happens to match classical null for the *false* reading
+  [OK] C2_incomplete_observation: Blind observation leaves active and revoked compatible
+  [OK] C3_correct_but_different_implementations: Two complete arms disagree on disposition while each reports local property success — equality refuted, not enforcement failure
+  [OK] C4_three_way_lossy_for_orthogonal_diagnoses: Epistemic status × failure_origin × decision/effect are needed; comparison_divergent and evidence-misbind both refute 'supported' but differ in origin
+  [OK] C5_correct_decision_does_not_forge_P_eff_support: Authentic revoked+deny without effect observation leaves P_eff unresolved on Γ — must not emit supported
+  [OK] C6_unauthorized_effect_under_correct_deny: Authentic revoked+deny+effect=True falsifies P_eff — failed_enforcement with failure_origin=effect_boundary
+  [OK] C7_P_dec_supported_joint_refutes_unauth_effect: Same revoked+deny+effect package: P_dec can be supported (lossy) while P_dec∧P_eff is failed_enforcement/effect_boundary
+experiment mapping:
+  [supported] R4/r4_blind_world_ab: R4 Worlds A/B without current grant — indistinguishable
+  [supported] R4/r4_supported_active_allow: R4 discriminated World A with correct allow
+  [supported] R4/r4_failed_enforcement_revoked_allow: R4 broken gate allows under revoked grant
+  [supported] R4/r4_misbound_observation: R4 misbound: evidence invalidity (not decision_policy)
+  [supported] R4/r4_irrelevant_blind: R4 irrelevant fact must not upgrade
+  [supported] R3-L1/r3_l1_matched_supported: Native-qualified matched L1 agreement + property success
+  [supported] R3-L1/r3_l1_comparison_divergent: Arm divergence refutes equality ≠ failed_enforcement
+  [supported] R3-L1/r3_legacy_decision_model: Legacy r3-matched-decision-model lacks isomorphic BMO observations — still missing_evidence / unresolved
+  [supported] R5/r5_missing_peer_observation: Missing peer grant observation
+  [supported] R5/r5_sequential_revoked_allow_prevented: Sequential revoked grant, wrong allow, effect prevented; not the concurrent contention loser
+  [supported] R5/r5_contention_first_claim_supported: First claim under active shared grant
+  [still_unverifiable] R5/r5_unbounded_population_safety: Unbounded population-scale or live BMO-mesh safety is outside the finite model — still unverifiable
+  [still_unverifiable] R5/r5_concurrent_reference_loser_unmapped: The concurrent reference loser (stale at decision, settlement refused) is outside this finite model; interleavings are not in Γ
+limits:
+  - grant ∈ {active, revoked}
+  - decision ∈ {allow, deny}
+  - effect_committed ∈ {false, true}
+  - ≤2 implementation arms in comparison models
+  - no concurrent interleavings (see issue #10)
+  - no cryptographic authenticity adversary beyond a misbind flag
+EXIT 0 taxonomy_formal
+=== multi_agent_sim ===
+{"label": "reproduced", "passed": true, "case_count": 13, "replay_stable": true, "three_way": true, "counts": {"missing_evidence": 4, "failed_enforcement": 5, "supported": 9}, "errors": []}
+EXIT 0 multi_agent_sim
+=== swarm_r5_v3 ===
+{
+  "label": "reproduced",
+  "passed": true,
+  "case_count": 40,
+  "families": [
+    "authority_observation",
+    "concurrency_interleaving",
+    "delegation_scope",
+    "held_out",
+    "observation_delivery",
+    "receipt_provenance"
+  ],
+  "coverage_dimensions": 7,
+  "concurrency_rows": 12,
+  "held_out": 3,
+  "v1_retained": true,
+  "boundary_changes": {
+    "new_failure_origin_effect_boundary": true,
+    "new_misbound_evidence_rows": true,
+    "new_concurrency_derived_rows": true,
+    "v1_finding_unchanged": true,
+    "notes": "r5_v3 expands tested seams (misbound, stale, attenuated scope, forged/replay receipts, effect_boundary commits, pinned sim interleavings). R5 v1 and the historical r5_v2 causal matrix stay unmodified."
+  },
+  "counts": {
+    "missing_evidence": 4,
+    "failed_enforcement": 15,
+    "supported": 21,
+    "effect_boundary": 3,
+    "decision_policy": 8
+  },
+  "errors": []
+}
+EXIT 0 swarm_r5_v3
+=== build_paper_without_venv ===
+report/Swarm_Witness_Final_Submission.docx
+report/Swarm_Witness_Templated_Submission.docx
+Fontconfig warning: no <cachedir> elements found. Check configuration.
+Fontconfig warning: adding <cachedir>/usr/local/var/cache/fontconfig</cachedir>
+Fontconfig warning: adding <cachedir prefix="xdg">fontconfig</cachedir>
+Fontconfig warning: no <cachedir> elements found. Check configuration.
+Fontconfig warning: adding <cachedir>/usr/local/var/cache/fontconfig</cachedir>
+Fontconfig warning: adding <cachedir prefix="xdg">fontconfig</cachedir>
+convert /tmp/sw-review-extract-g56/swarm-witness-review-bundle/report/Swarm_Witness_Final_Submission.docx as a Writer document -> /private/var/folders/wn/ztyqyq7947j2_sp5q12rjygh0000gn/T/swarm-witness-paper.7k4Fpcuo/Swarm_Witness_Final_Submission.pdf using filter : writer_pdf_Export
+convert /tmp/sw-review-extract-g56/swarm-witness-review-bundle/report/Swarm_Witness_Templated_Submission.docx as a Writer document -> /private/var/folders/wn/ztyqyq7947j2_sp5q12rjygh0000gn/T/swarm-witness-paper.7k4Fpcuo/Swarm_Witness_Templated_Submission.pdf using filter : writer_pdf_Export
+report/Swarm_Witness_Final_Submission.pdf
+report/Swarm_Witness_Templated_Submission.pdf
+EXIT 0 build_paper_without_venv
+=== build_paper_activated_venv ===
+report/Swarm_Witness_Final_Submission.docx
+report/Swarm_Witness_Templated_Submission.docx
+Fontconfig warning: no <cachedir> elements found. Check configuration.
+Fontconfig warning: adding <cachedir>/usr/local/var/cache/fontconfig</cachedir>
+Fontconfig warning: adding <cachedir prefix="xdg">fontconfig</cachedir>
+Fontconfig warning: no <cachedir> elements found. Check configuration.
+Fontconfig warning: adding <cachedir>/usr/local/var/cache/fontconfig</cachedir>
+Fontconfig warning: adding <cachedir prefix="xdg">fontconfig</cachedir>
+convert /tmp/sw-review-extract-g56/swarm-witness-review-bundle/report/Swarm_Witness_Final_Submission.docx as a Writer document -> /private/var/folders/wn/ztyqyq7947j2_sp5q12rjygh0000gn/T/swarm-witness-paper.OlZ8LHoA/Swarm_Witness_Final_Submission.pdf using filter : writer_pdf_Export
+convert /tmp/sw-review-extract-g56/swarm-witness-review-bundle/report/Swarm_Witness_Templated_Submission.docx as a Writer document -> /private/var/folders/wn/ztyqyq7947j2_sp5q12rjygh0000gn/T/swarm-witness-paper.OlZ8LHoA/Swarm_Witness_Templated_Submission.pdf using filter : writer_pdf_Export
+report/Swarm_Witness_Final_Submission.pdf
+report/Swarm_Witness_Templated_Submission.pdf
+EXIT 0 build_paper_activated_venv

@@ -50,3 +50,11 @@ Public-record warrants establish what the available material supports. Where the
 On 2026-11-08 the retained native comparison was separated from the current evaluator. Table N reads `experiments/effect_witness/historical_qualification_packets_v1.json` and still reports Swarm Witness unsupported support 11 and correct decisive 24/24. Table N2 scores the same packet files with the current evaluator. After `experiments/effect_witness/run.py` in an extracted bundle, `render_bounded_comparison.py` still reported those retained counts.
 
 The advertised local commands were run in `/tmp/sw-review-extract-g5c/swarm-witness-review-bundle` with `PYTHONPATH=src` and the source checkout's existing virtualenv. No new virtualenv was created. Private access was not used. Every advertised command exited 0, including `pytest -q` with 376 passed. The witness replay did not change the retained 11 or the 24 correct decisive conclusions. `check_evidence.py --write-index` and comparison processing times stayed in the extract.
+
+## Clean extract of 33715e5
+
+`dist/swarm-witness-review-bundle.zip` was built from commit `33715e5c790437261c25f0559016928f43ed9baf` and extracted to `/tmp/sw-review-extract-g56/swarm-witness-review-bundle`. A new virtualenv was created there. Private access was not used. The command log is `clean_extract_2026-11-08.log`.
+
+Pytest reported 386 passed. The fresh effect-witness run wrote to `/tmp/swarm-witness-effect-g56` and did not replace the retained packets. After `render_bounded_comparison.py`, Table N still showed Swarm Witness unsupported support 11 and correct decisive 24/24. The six-case ledger compare and both settlement compares, including S01–S09, exited 0 with `agreement: matched`. The other advertised runners exited 0.
+
+`scripts/build_submission_variants.sh` exited 0 in that extract. An earlier invocation, whose `python3` was outside a virtualenv and had no `python-docx`, exited 1. That failure is an interpreter mismatch, not a second paper. The LibreOffice render from the activated extract is 9 pages for the research PDF, with references on page 8, and 10 pages for the templated PDF, with references on page 9. Both contain the seven-negative-controls paragraph.
