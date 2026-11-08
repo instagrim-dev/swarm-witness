@@ -58,3 +58,9 @@ The advertised local commands were run in `/tmp/sw-review-extract-g5c/swarm-witn
 Pytest reported 386 passed. The fresh effect-witness run wrote to `/tmp/swarm-witness-effect-g56` and did not replace the retained packets. After `render_bounded_comparison.py`, Table N still showed Swarm Witness unsupported support 11 and correct decisive 24/24. The six-case ledger compare and both settlement compares, including S01–S09, exited 0 with `agreement: matched`. The other advertised runners exited 0.
 
 `scripts/build_submission_variants.sh` exited 0 in that extract. An earlier invocation, whose `python3` was outside a virtualenv and had no `python-docx`, exited 1. That failure is an interpreter mismatch, not a second paper. The LibreOffice render from the activated extract is 9 pages for the research PDF, with references on page 8, and 10 pages for the templated PDF, with references on page 9. Both contain the seven-negative-controls paragraph.
+
+## Clean extract of fa8d215
+
+The source is commit `fa8d215b09c99292b0cb2e4e924fcb7c9c9e27f3`, packed from `git archive` of that commit. The archive digest is `3e83785dbe8a0e5bc5442741b4a2a2f279378c3c05b162c42a3724e422c89887`. The review bundle digest is `513544dfc1a577b28e67aa3680ff74387f5ae548f8791305900e2325babd2d63`. Both are recorded in `clean_extract_fa8d215.json`, and the command log is `clean_extract_fa8d215.log`.
+
+Every advertised command exited 0. Pytest reported 386 passed. Table N still showed Swarm Witness unsupported support 11 and correct decisive 24/24. The six-case ledger compare and both settlement compares exited 0 with `agreement: matched`. The LibreOffice build produced a 9-page research PDF, with references on page 8, and a 10-page templated PDF, with references on page 9. Both contain the seven-negative-controls paragraph.
