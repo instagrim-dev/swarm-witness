@@ -1,4 +1,4 @@
-# Incident property decomposition (v1)
+# Incident property decomposition (v2)
 
 Post-submission research for issue #29, under epic #26. This note measures a property graph. It does not claim that Swarm Witness detected or prevented the July 2026 Hugging Face incident, and a correct local decision is not treated as proof of a correct effect.
 
@@ -15,15 +15,35 @@ Post-submission research for issue #29, under epic #26. This note measures a pro
 
 `P_system` is supported only when every child is supported. It is refuted when any child is refuted, and that child stays in the report. Otherwise it is unresolved. These verdicts use the same supported / refuted / unresolved partition as the #12 evidence-set model: unverified or empty evidence supports nothing. Settlement is read from an effect ledger, the same separation as the #10 simulator, and is not copied from the decision.
 
+## Five typed families
+
+| Id | Proposition | What it does not decide |
+| --- | --- | --- |
+| `P_local_control` | The named control's decisions match its own subject rule. | Whether anything committed, or whether `P_system` holds. |
+| `P_decision_entitlement` | At the decision instant, the recorded decision was the entitled one. | Commit-time authorization. A later revocation does not rewrite this. |
+| `P_commit_authorization` | Every authentic commit was authorized under the policy frozen for that interval. | Whether a commit happened, or whether `P_system` holds. |
+| `P_commitment` | Some authentic effect in the observed interval committed. | Whether that commit was authorized. |
+| `P_system` | The five boundary properties all hold. | It does not read the other four families. |
+
+On `url_deny_ledger_commits` the local-control family is supported, decision-time entitlement is supported, commit authorization is refuted, commitment is supported, and `P_system` is refuted. On `url_held_worker_local_read` the URL allowlist control is supported and `P_system` is refuted. On `wrong_allow_blocked_at_settlement` the local-control family is refuted, the URL event's settlement is prevented, and `P_system` is supported.
+
+Two revocation policies are frozen in the graph. There is no default. `issued_survives_revocation` does not treat a revocation as invalidating an authorization already issued. `revocation_closes_inflight` does, for a revocation after the decision and at or before commit time. `inflight_closes` and `inflight_survives` are the same events: decision-time entitlement is supported in both, and commit authorization is refuted only under the closing policy. `system_clean_inflight_closes` keeps `P_system` supported while commit authorization is refuted. Comparison with the single-policy baseline is a separate coordinate. It is not an enforcement failure, and fault attribution stays undetermined.
+
+## Evidence standard
+
+The evidence standard is Malayandi Palan, Christopher Chute, Michael Kim, and Benjamin Van Roy, "OpenAI-HuggingFace: A Reproduction & Lessons for Alignment Testing," LessWrong, published 2026-09-11, retrieved 2026-11-07. It is a public reproduction with its own released transcripts. It is not an original agent transcript and not a platform log. This run does not re-execute it.
+
+Original agent transcripts and platform logs are `unavailable`. Each incident proposition is well-formed without those records. Their absence is not a contract failure. Reported text from the reproduction, including the reported shared-infrastructure write and the statement that distinct behaviors were compounded, stays `observed: unresolved` and is not adopted as an incident verdict. The Hugging Face technical timeline remains narrative in the same way.
+
 The conjunction rule is support-sound. It is not refutation-complete: if shared evidence refutes only the intersection, while each child remains unresolved, the rule stays unresolved. That gap is counted, not papered over (`conservative_unresolved_gap` is true).
 
 ## What was measured
 
-Nine synthetic fixtures and one public-narrative case. Fresh run of `experiments/incident_properties/run.py`:
+Seventeen synthetic fixtures and one public-narrative case. Fresh run of `experiments/incident_properties/run.py`:
 
 | Quantity | Value |
 | --- | --- |
-| Synthetic fixtures | 9 |
+| Synthetic fixtures | 17 |
 | Graph false supports of `P_system` | 0 |
 | Single-policy-pass baseline false supports of `P_system` | 6 |
 | Baseline false rejects of `P_system` | 1 |
@@ -32,7 +52,14 @@ Nine synthetic fixtures and one public-narrative case. Fresh run of `experiments
 | Postmortem properties independently supported | 0 |
 | Postmortem properties independently refuted | 0 |
 | Postmortem properties unresolved | 5 |
-| Finite conjunction checks | 6905, 0 violations |
+| Finite conjunction checks | 6917, 0 violations |
+| Family-split check | passed |
+| Discriminator failures | 0 |
+| In-flight commit authorization, closing policy | refuted |
+| Same events, issued authorization survives | supported |
+| Comparison counted as an enforcement failure | 0 |
+| Withheld records counted as a contract failure | false |
+| Propositions well-formed without those records | true |
 | Incident detection claimed | false |
 | Incident prevention claimed | false |
 
@@ -68,20 +95,22 @@ Reading of those quotes, which is not a verdict:
 
 Independent verdicts, given only that narrative: all five unresolved, `P_system` unresolved. A reported URL rejection does not support `P_system`. If those narrative labels were mistaken for verified verdicts, the conjunction rule would refute `P_system` and still would not adopt that illustration as the case verdict.
 
-## Telemetry required for a stronger claim
+## Records that are unavailable
 
-Each item is necessary for the named property. None of these records are in this repository.
+Original agent transcripts and platform logs are not in this repository. Each is recorded as `unavailable`. That status does not make any proposition ill-formed, and it is not a contract failure. The properties above are stated without them. A verdict about the original platform stays unresolved because those records are not the evidence in hand, not because the proposition failed a gate.
 
-1. **`P_url`.** Allowlist decisions with timestamp, worker id, URL class (platform or non-platform), decision, and whether a fetch client ran. The blog's `ValueError` sentence is not that log.
-2. **`P_file_read`.** File-open audit with path class (dataset sandbox or worker-local), dataset revision, and whether bytes were returned. Not the bytes. The file-read sentence is not this audit.
-3. **`P_exec`.** A boolean that untrusted configuration was evaluated as code, with workload id and timestamp, from a process or config-evaluation audit that is not the file-open record. Not a template and not a payload.
-4. **`P_identity`.** Credential identifier (not the secret), intended scope, API called, and allow or deny. The cluster-admin sentence needs the cluster authorization decision for that identity.
-5. **`P_effect`.** A mutating-call ledger with commit or deny, actor, and timestamp, kept separate from file-read and code-execution rows. The cloud-policy and database-audit sentences cite logs that are not here, and they do not settle the other effect classes the page also describes.
-6. **Cross-source join.** A key across the worker log, the Hugging Face API dataset commit, and the external sandbox log, each with its owner. Agreement between the two public pages is not that join.
+The LessWrong reproduction is the evidence standard for what a public reproduction can report. It is not a substitute observation of the original platform. These are the records whose absence is unavailability rather than a failed property:
+
+1. **`P_url`.** An allowlist decision log is not here. The timeline's `ValueError` sentence is not that log, and the proposition does not require it in order to be stated.
+2. **`P_file_read`.** A file-open audit is not here. The proposition does not require the bytes or the audit.
+3. **`P_exec`.** A process or config-evaluation audit is not here.
+4. **`P_identity`.** A cluster authorization log is not here. No credential value is required.
+5. **`P_effect`.** The cloud and database audits cited by the timeline are not here.
+6. **Cross-source join.** Worker, API, and sandbox logs with owners are not here. Agreement between public pages is not that join.
 
 ## What this does not show
 
-The six baseline misses are on a fixed synthetic ledger, not an estimate of how often a URL allowlist fails open in production. The timeline score does not confirm or deny the incident. Historical #10–#12 results are unchanged. No blinded claim audit, transcript-integrity experiment, multi-agent attribution study, forensic adapter, or detection-latency replay is part of this protocol.
+The six baseline misses are on a fixed synthetic ledger, not an estimate of how often a URL allowlist fails open in production. The timeline score does not confirm or deny the incident. Historical #10–#12 results are unchanged. No blinded claim audit, transcript-integrity experiment, multi-agent attribution study, forensic adapter, or detection-latency replay is part of this protocol. Issues #40–#42 are not implemented. The event-time fixture file is a handoff for those later units.
 
 ## Reproduce
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import sys
 from pathlib import Path
@@ -16,13 +17,18 @@ from check_taxonomy import FULL, verdict  # noqa: E402
 from swarm_witness.incident_property_graph import (  # noqa: E402
     CHILDREN,
     DIAGNOSIS_TYPES,
+    EVIDENCE_STANDARD_ID,
+    FAMILIES,
     GRAPH_FIELDS,
     SYSTEM,
+    WITHHELD_RECORDS,
     conjoin,
+    evaluate_case,
     evaluate_manifest,
     finite_conjunction_check,
     load_inputs,
     mask_verdict,
+    validate_graph,
 )
 
 FORBIDDEN_FRAGMENTS = (
@@ -47,7 +53,7 @@ def bundle():
 
 def test_graph_maps_every_property(bundle):
     graph, *_ = bundle
-    assert graph["schema_version"] == "incident_property_graph_v1"
+    assert graph["schema_version"] == "incident_property_graph_v2"
     assert graph["conjunction"]["children"] == list(CHILDREN)
     for name, node in graph["properties"].items():
         for field in GRAPH_FIELDS:
@@ -261,6 +267,147 @@ def test_postmortem_stays_unresolved_and_names_telemetry(bundle):
     assert "cross_source" in properties
     for item in score["telemetry_required"]:
         assert item["observation"] and item["why_insufficient"] and item["qualifying_source"]
+
+
+def test_supported_local_control_does_not_support_system(bundle):
+    _, _, _, summary, by_id = bundle
+    held = by_id["url_held_worker_local_read"]
+    assert held["local_control_verdicts"]["remote_url_allowlist"] == "supported"
+    assert held["child_verdicts"]["P_file_read"] == "refuted"
+    assert held["family_verdicts"]["P_system"] == "refuted"
+    assert held["family_verdicts"]["P_local_control"] == "unresolved"
+    deny = by_id["url_deny_ledger_commits"]
+    assert deny["family_verdicts"]["P_local_control"] == "supported"
+    assert deny["family_verdicts"]["P_decision_entitlement"] == "supported"
+    assert deny["family_verdicts"]["P_commit_authorization"] == "refuted"
+    assert deny["family_verdicts"]["P_commitment"] == "supported"
+    assert deny["system_verdict"] == "refuted"
+    assert set(deny["family_verdicts"]) == set(FAMILIES)
+    blocked = by_id["wrong_allow_blocked_at_settlement"]
+    assert blocked["family_verdicts"]["P_local_control"] == "refuted"
+    assert blocked["family_verdicts"]["P_system"] == "supported"
+    assert blocked["commitment_by_event"]["url-1"] == "prevented"
+    assert summary["family_split_passed"] is True
+    assert summary["graph_false_system_supports"] == 0
+
+
+def test_revocation_policy_is_frozen_and_not_universal(bundle):
+    _, fixtures, _, summary, by_id = bundle
+    closes = by_id["inflight_closes"]
+    survives = by_id["inflight_survives"]
+    assert closes["family_verdicts"]["P_decision_entitlement"] == "supported"
+    assert survives["family_verdicts"]["P_decision_entitlement"] == "supported"
+    assert closes["family_verdicts"]["P_commit_authorization"] == "refuted"
+    assert survives["family_verdicts"]["P_commit_authorization"] == "supported"
+    by_case = {case["id"]: case for case in fixtures["cases"]}
+    assert by_case["inflight_closes"]["events"] == by_case["inflight_survives"]["events"]
+    assert by_case["inflight_closes"]["revocations"] == by_case["inflight_survives"]["revocations"]
+    assert by_case["inflight_closes"]["effect_ledger"] == by_case["inflight_survives"]["effect_ledger"]
+    clean = by_id["system_clean_inflight_closes"]
+    assert clean["family_verdicts"]["P_system"] == "supported"
+    assert clean["family_verdicts"]["P_commit_authorization"] == "refuted"
+    assert clean["coordinates"]["comparison_is_enforcement_failure"] is False
+    assert clean["coordinates"]["effect_status"] == "held"
+    assert summary["inflight_closes_commit_authorization"] == "refuted"
+    assert summary["inflight_survives_commit_authorization"] == "supported"
+    bare = {
+        "id": "missing-policy",
+        "claim_scope": "P_system",
+        "observed_channels": ["remote_url"],
+        "events": [
+            {
+                "id": "url-1",
+                "time": 1,
+                "channel": "remote_url",
+                "subject_class": "unapproved_remote",
+                "decision": "deny",
+                "attempted": False,
+                "authenticity": "model_ledger",
+            }
+        ],
+        "revocations": [],
+        "effect_ledger": [],
+        "narrative_claims": [],
+    }
+    with pytest.raises(ValueError, match="freeze a revocation policy"):
+        evaluate_case(bare)
+
+
+def test_discriminators_change_one_family(bundle):
+    _, _, _, summary, _ = bundle
+    reports = { (item["family"], item["case"]): item for item in summary["discriminators"]["reports"] }
+    assert summary["discriminator_failures"] == 0
+    assert reports[("P_local_control", "lc_wrong_allow")]["verdict_before"] == "refuted"
+    assert reports[("P_local_control", "lc_wrong_allow")]["verdict_after"] == "unresolved"
+    entitlement = reports[("P_decision_entitlement", "entitlement_revoked_before_decision")]
+    assert entitlement["verdict_before"] == "refuted"
+    assert entitlement["verdict_after"] == "supported"
+    closes = reports[("P_commit_authorization", "inflight_closes")]
+    assert closes["flipped"] is True
+    survives = reports[("P_commit_authorization", "inflight_survives")]
+    assert survives["verdict_before"] == "supported"
+    assert survives["verdict_after"] == "supported"
+    assert survives["flipped"] is False
+    commitment = reports[("P_commitment", "commitment_committed")]
+    assert commitment["verdict_before"] == "supported"
+    assert commitment["verdict_after"] == "refuted"
+    system = reports[("P_system", "url_held_worker_local_read")]
+    assert system["verdict_before"] == "refuted"
+    assert system["verdict_after"] == "supported"
+
+
+def test_comparison_inequality_is_not_an_enforcement_failure(bundle):
+    _, _, _, summary, by_id = bundle
+    assert summary["comparison_counted_as_enforcement_failure"] == 0
+    for row in by_id.values():
+        assert row["coordinates"]["fault_attribution"] == "undetermined"
+        assert row["coordinates"]["comparison_is_enforcement_failure"] is False
+        assert row["coordinates"]["well_formed"] is True
+        assert row["contract_failure"] is False
+        assert "comparison_inequality" not in row["diagnosis"]["types"]
+    scope = by_id["url_only_system_claim"]
+    assert scope["coordinates"]["comparison_inequality"] is True
+    assert "effect_boundary" not in scope["diagnosis"]["types"]
+
+
+def test_withheld_records_do_not_fail_the_contract(bundle):
+    graph, _, _, summary, _ = bundle
+    score = summary["postmortem"]
+    assert score["well_formed"] is True
+    assert score["contract_failure"] is False
+    assert score["unavailable_records_are_contract_failure"] is False
+    standard = score["evidence_standard"]
+    assert standard["id"] == EVIDENCE_STANDARD_ID
+    assert standard["reproduction_rerun"] is False
+    assert standard["withheld_records"]["original_agent_transcripts"]["availability"] == "unavailable"
+    assert standard["withheld_records"]["platform_logs"]["blocks_well_formed"] is False
+    assert standard["withheld_records"]["platform_logs"]["blocks_contract"] is False
+    ids = [item["id"] for item in score["reported_versus_observed"]]
+    assert ids == [*CHILDREN, *FAMILIES]
+    for item in score["reported_versus_observed"]:
+        assert item["well_formed"] is True
+        assert item["observed"] == "unresolved"
+        assert item["contract_failure"] is False
+        assert item["required_records"] == []
+        assert item["adopted_as_incident_verdict"] is False
+        assert set(item["record_availability"]) == set(WITHHELD_RECORDS)
+    for item in score["telemetry_required"]:
+        assert item["availability"] == "unavailable"
+        assert item["blocks_well_formed"] is False
+        assert item["blocks_contract"] is False
+    for node in list(graph["properties"].values()) + list(graph["families"].values()):
+        text = " ".join(node["required_observations"]).lower()
+        assert "platform log" not in text
+        assert "original transcript" not in text
+    broken = copy.deepcopy(graph)
+    broken["families"]["P_system"]["required_observations"] = ["original agent transcript"]
+    with pytest.raises(ValueError, match="withheld record"):
+        validate_graph(broken)
+    assert summary["issues_40_42_implemented"] is False
+    assert summary["event_time_fixtures"]["implemented_in_this_unit"] is False
+    assert summary["event_time_fixtures"]["not_implemented"] == [40, 41, 42]
+    assert summary["event_time_fixtures"]["default_authority_policy"] is None
+    assert summary["event_time_fixtures"]["withheld_records_required"] is False
 
 
 def test_records_do_not_carry_exploit_payloads():

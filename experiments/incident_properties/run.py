@@ -46,6 +46,15 @@ SCALAR_KEYS = (
     "conjunction_checks",
     "conjunction_checks_passed",
     "conservative_unresolved_gap",
+    "family_split_passed",
+    "discriminator_failures",
+    "local_control_supported_system_not",
+    "inflight_closes_commit_authorization",
+    "inflight_survives_commit_authorization",
+    "comparison_counted_as_enforcement_failure",
+    "unavailable_records_are_contract_failure",
+    "propositions_well_formed",
+    "issues_40_42_implemented",
     "incident_detection_claimed",
     "incident_prevention_claimed",
 )
@@ -75,19 +84,20 @@ def publish(root: Path | None = None) -> dict:
         "claim_id": CLAIM_ID,
         "run_ids": [RUN_ID],
         "proposition": (
-            "On nine synthetic boundary fixtures, supported(P_url) does not "
-            "yield supported(P_system) when another child is refuted or "
-            "unresolved; the single-policy-pass baseline does so on the "
-            "counted counterexamples. A deny decision is not recorded as "
-            "proof the effect was prevented. The Hugging Face timeline case "
-            "stays unresolved on every boundary property because only public "
-            "narrative is in hand. This run does not claim the incident was "
-            "detected or prevented."
+            "Local-control correctness, decision-time entitlement, commit-time "
+            "authorization, actual commitment, and P_system are separate. A "
+            "supported local control does not support P_system. The same "
+            "revocation refutes commit authorization only under the frozen "
+            "policy that says it does. Original transcripts and platform logs "
+            "are unavailable; that is not a contract failure, and the "
+            "LessWrong reproduction is the evidence standard. This run does "
+            "not claim the incident was detected or prevented."
         ),
         "scope": (
-            "incident-property-graph-v1 synthetic model ledger plus one "
-            "public-narrative case pinned to the 2026-07-27 Hugging Face "
-            "technical timeline. Not live workers and not raw incident telemetry."
+            "incident-property-graph-v2 synthetic model ledger, the 2026-07-27 "
+            "Hugging Face technical timeline as narrative, and the 2026-09-11 "
+            "LessWrong reproduction post as the evidence standard. Not live "
+            "workers, not original transcripts, and not platform logs."
         ),
         "label": "reproduced",
         "basis": "computed",
@@ -112,8 +122,16 @@ def publish(root: Path | None = None) -> dict:
         "results": summary["results"],
         "postmortem": summary["postmortem"],
         "finite": summary["finite"],
+        "family_split": {
+            "passed": summary["family_split"]["passed"],
+            "violations": summary["family_split"]["violations"],
+        },
+        "discriminators": summary["discriminators"],
     }
     (slot / "report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    (slot / "event_time_fixtures.json").write_text(
+        json.dumps(summary["event_time_fixtures"], indent=2) + "\n", encoding="utf-8"
+    )
     (slot / "summary.json").write_text(
         json.dumps(
             {

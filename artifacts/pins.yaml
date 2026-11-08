@@ -49,9 +49,10 @@ r5:
     Synthetic three-agent swarm audit (A/B/C) generalizing three-way conclusions
     to contention, delegation chains, and cross-agent receipt misuse.
 incident_property_graph:
-  source_pin: "incident-property-graph-v1"
-  protocol_id: "incident-property-graph-v1"
+  source_pin: "incident-property-graph-v2"
+  protocol_id: "incident-property-graph-v2"
   notes: >
-    Post-submission property decomposition across URL, file-read, execution,
-    credential, and effect boundaries. Synthetic analogues plus one public
-    narrative case. Not an incident detection or prevention claim.
+    Property split across local control, decision-time entitlement,
+    commit-time authorization, commitment, and P_system. The LessWrong
+    reproduction post is the incident evidence standard. Original transcripts
+    and platform logs are unavailable and are not a contract gate.

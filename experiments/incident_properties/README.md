@@ -1,6 +1,6 @@
-# Incident property graph (v1)
+# Incident property graph (v2)
 
-Post-submission check for issue #29. A passing URL allowlist is not the conjunction of file-read, execution, credential, and downstream-effect properties. The fixtures are labels and an in-model effect ledger. They do not fetch URLs, read worker files, or run untrusted configuration.
+Post-submission check for issue #29. Local control, decision-time entitlement, commit-time authorization, commitment, and `P_system` are separate. A supported local control is not `P_system`. The LessWrong reproduction post is the evidence standard. Original transcripts and platform logs are unavailable and are not required for a proposition to be well-formed. The fixtures are labels and an in-model effect ledger. They do not fetch URLs, read worker files, or run untrusted configuration. Issues #40–#42 are not implemented here.
 
 ```bash
 PYTHONPATH=src python experiments/incident_properties/run.py
