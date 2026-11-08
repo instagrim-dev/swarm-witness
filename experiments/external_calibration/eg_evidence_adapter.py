@@ -7,6 +7,10 @@ truth, or scenario names.
 
 Assessments return structured predicate records for projection into classifier
 verifying observations; decisions are unchanged by those fields.
+
+Required premises are admitted before predicates run. A premise is admitted
+only when its authenticity is on the allowlist and, where the claim names a
+target entity, that premise's entity identifier is the claim's target.
 """
 
 from __future__ import annotations
@@ -148,6 +152,132 @@ def _populations(observations: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return []
 
 
+# Same allowlist the frozen classifiers use before support or refutation.
+ADMISSIBLE_PREMISE_AUTHENTICITY = frozenset(
+    {
+        "authentic_public_text",
+        "released_reproduction_transcript",
+    }
+)
+_ENTITY_TARGET_FIELD = {
+    "registry_mutation_record": "mutation_id",
+    "tool_event_record": "proposed_event_id",
+    "successful_execution_claim": "proposed_event_id",
+}
+
+
+def _observation_types(obs: dict[str, Any]) -> set[str]:
+    return set(obs.get("observation_types") or [])
+
+
+def _entity_identifier(obs: dict[str, Any]) -> str | None:
+    entity = obs.get("entity")
+    if not isinstance(entity, dict):
+        return None
+    entity_id = entity.get("entity_id")
+    if isinstance(entity_id, str) and entity_id:
+        return entity_id
+    return None
+
+
+def required_observation_types(claim: dict[str, Any]) -> tuple[str, ...]:
+    """Observation types the claim requires, in claim order."""
+    declared = claim.get("required_observation_types")
+    if isinstance(declared, list) and declared:
+        return tuple(str(item) for item in declared)
+    if claim.get("family") == "fabricated_execution":
+        return (
+            "successful_execution_claim",
+            "capture_declaration",
+            "registry_mutation_population",
+        )
+    return ("registry_mutation_record", "tool_event_record")
+
+
+def _target_entity_id(claim: dict[str, Any], observation_type: str) -> str | None:
+    field = _ENTITY_TARGET_FIELD.get(observation_type)
+    if field is None:
+        return None
+    value = claim.get(field)
+    if isinstance(value, str) and value:
+        return value
+    return None
+
+
+def premise_qualification(obs: dict[str, Any]) -> dict[str, Any]:
+    """Copy one premise's qualification. Callers must not upgrade it."""
+    return {
+        "observation_id": obs.get("id"),
+        "observation_types": list(obs.get("observation_types") or []),
+        "authenticity": obs.get("authenticity"),
+        "access_level": obs.get("access_level"),
+        "entity_id": _entity_identifier(obs),
+        "independence_group": obs.get("independence_group"),
+    }
+
+
+def admit_required_premises(
+    claim: dict[str, Any], observations: list[dict[str, Any]]
+) -> dict[str, Any]:
+    """Select required premises and admit them before predicate evaluation.
+
+    Missing types stay unresolved in the predicate layer, so retained
+    abstention reasons are unchanged. A present premise that names a different
+    entity than the claim, or whose recorded authenticity is outside the
+    allowlist, is not admitted.
+    """
+    premises: list[dict[str, Any]] = []
+    for observation_type in required_observation_types(claim):
+        candidates = [
+            obs
+            for obs in observations
+            if observation_type in _observation_types(obs)
+        ]
+        if not candidates:
+            continue
+        target = _target_entity_id(claim, observation_type)
+        if target is not None:
+            bound = [obs for obs in candidates if _entity_identifier(obs) == target]
+            if len(bound) != 1:
+                return {
+                    "admitted": False,
+                    "reason": "premise_entity_not_bound_to_claim",
+                    "premises": [],
+                    "qualifications": [],
+                }
+            chosen = bound[0]
+        else:
+            chosen = candidates[0]
+        if (
+            "authenticity" in chosen
+            and chosen.get("authenticity") not in ADMISSIBLE_PREMISE_AUTHENTICITY
+        ):
+            return {
+                "admitted": False,
+                "reason": "required_premise_not_admitted",
+                "premises": [],
+                "qualifications": [],
+            }
+        if all(chosen is not existing for existing in premises):
+            premises.append(chosen)
+    return {
+        "admitted": True,
+        "reason": None,
+        "premises": premises,
+        "qualifications": [premise_qualification(obs) for obs in premises],
+    }
+
+
+def _premise_entity(premises: list[dict[str, Any]], *types: str) -> dict[str, Any] | None:
+    wanted = set(types)
+    for obs in premises:
+        if _observation_types(obs) & wanted:
+            entity = obs.get("entity")
+            if isinstance(entity, dict):
+                return entity
+    return None
+
+
 def _registry_mutations(observations: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for obs in observations:
         if "registry_mutation_population" in set(obs.get("observation_types") or []):
@@ -255,12 +385,28 @@ def _attr_predicates(
     }
 
 
+def _admission_abstention(family: str, reason: str) -> dict[str, Any]:
+    """Unresolved before predicates. Not a support or refutation."""
+    return {
+        "verdict": "unresolved",
+        "reason": reason,
+        "capability": "premise_admission",
+        "predicates": {
+            "premises_admitted": False,
+            "admission": reason,
+        },
+        "family": family,
+    }
+
+
 def assess_attribution(claim: dict[str, Any], observations: list[dict[str, Any]]) -> dict[str, Any]:
     """Return supported | refuted | unresolved with structured predicates."""
-    del claim
+    admission = admit_required_premises(claim, observations)
+    if not admission["admitted"]:
+        return _admission_abstention("event_attribution", str(admission["reason"]))
     decl = _decl(observations)
-    mutation = _entity(observations, "registry_mutation_record")
-    event = _entity(observations, "tool_event_record")
+    mutation = _premise_entity(admission["premises"], "registry_mutation_record")
+    event = _premise_entity(admission["premises"], "tool_event_record")
     predicates = _attr_predicates(event=event, mutation=mutation, decl=decl)
 
     def _result(verdict: str, reason: str, capability: str, **extra: Any) -> dict[str, Any]:
@@ -322,7 +468,12 @@ def assess_fabricated_execution(
     claim: dict[str, Any], observations: list[dict[str, Any]]
 ) -> dict[str, Any]:
     """Refute successful-execution only when capture covers and claimed mutation is absent."""
-    del claim
+    admission = admit_required_premises(claim, observations)
+    if not admission["admitted"]:
+        abstained = _admission_abstention("fabricated_execution", str(admission["reason"]))
+        abstained["coverage_detail"] = None
+        abstained["absence_detail"] = None
+        return abstained
     decl = _decl(observations)
     event = _entity(observations, "tool_event_record", "successful_execution_claim")
     pops = _populations(observations)
