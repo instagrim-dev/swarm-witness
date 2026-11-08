@@ -467,6 +467,127 @@ def test_composed_classifiers_consume_adapter_derivations():
     assert empty == []
 
 
+def test_composed_classifiers_do_not_promote_spoofed_or_wrong_target_evidence():
+    """Spoofed, unauthenticated, and cross-event premises stay unresolved.
+
+    Raw classifiers already abstain. The composed arms must abstain too, and
+    must not relabel another event's evidence or upgrade authenticity.
+    """
+    import copy
+
+    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
+    from eg_adapter_projector import composed_observations, project_checks
+    from r2_event_packets import build_packets
+    from swarm_witness.incident_audit import swarm_witness_verdict
+    from swarm_witness.strong_invariant import strong_invariant_verdict
+
+    packets = build_packets()
+
+    def _natural_key(packet):
+        for obs in packet["observations"]:
+            if "registry_mutation_record" in (obs.get("observation_types") or []):
+                return (obs.get("entity") or {}).get("natural_key")
+        return None
+
+    def _packet(natural_key):
+        return next(
+            packet
+            for packet in packets
+            if packet["claim"]["scenario"] == "clean"
+            and packet["claim"]["family"] == "event_attribution"
+            and _natural_key(packet) == natural_key
+        )
+
+    def _probe(claim, observations):
+        assessment, projected = composed_observations(claim, observations)
+        composed = list(observations) + projected
+        return {
+            "assessment": assessment["verdict"],
+            "reason": assessment["reason"],
+            "strong": strong_invariant_verdict(claim, composed)["epistemic_status"],
+            "swarm": swarm_witness_verdict(claim, composed)["epistemic_status"],
+            "raw_strong": strong_invariant_verdict(claim, observations)["epistemic_status"],
+            "raw_swarm": swarm_witness_verdict(claim, observations)["epistemic_status"],
+            "derived_authenticity": [obs.get("authenticity") for obs in projected],
+            "projected": projected,
+        }
+
+    left = _packet("event-000006")
+    right = _packet("event-000007")
+    claim = left["claim"]
+    own = _probe(claim, left["observations"])
+    assert own["assessment"] == own["strong"] == own["swarm"] == "supported"
+    assert own["raw_strong"] == own["raw_swarm"] == "unresolved"
+    derived = own["projected"][0]
+    quals = derived["premise_qualifications"]
+    covered = set()
+    for qual in quals:
+        covered.update(qual["observation_types"])
+        assert qual["authenticity"] == derived["authenticity"]
+        assert qual["access_level"] == derived["access_level"]
+    assert set(claim["required_observation_types"]).issubset(covered)
+    assert all("declared_assumptions" not in qual["observation_types"] for qual in quals)
+    assert derived["authenticity"] == "authentic_public_text"
+    entity_ids = {qual["entity_id"] for qual in quals}
+    assert claim["mutation_id"] in entity_ids
+    assert claim["proposed_event_id"] in entity_ids
+    # event-000007 evidence supports its own claim, so the cross pair is a real promotion.
+    assert _probe(right["claim"], right["observations"])["assessment"] == "supported"
+
+    def _mark_mutation(observations, authenticity):
+        copied = copy.deepcopy(observations)
+        marked = False
+        for row in copied:
+            if "registry_mutation_record" in (row.get("observation_types") or []):
+                row["authenticity"] = authenticity
+                marked = True
+        assert marked
+        return copied
+
+    def _unchanged(observations):
+        return [
+            (
+                obs.get("id"),
+                obs.get("authenticity"),
+                tuple(obs.get("applies_to") or []),
+                (obs.get("entity") or {}).get("entity_id"),
+            )
+            for obs in observations
+        ]
+
+    for authenticity in ("spoofed_tool_line", "unauthenticated_tool_line"):
+        marked = _mark_mutation(left["observations"], authenticity)
+        result = _probe(claim, marked)
+        assert result["raw_strong"] == result["raw_swarm"] == "unresolved"
+        assert result["assessment"] == "unresolved"
+        assert result["reason"] == "required_premise_not_admitted"
+        assert result["strong"] == result["swarm"] == "unresolved"
+        assert "authentic_public_text" not in result["derived_authenticity"]
+        assert result["assessment"] != "supported"
+        forced = project_checks(
+            claim,
+            marked,
+            {"verdict": "supported", "reason": "laundered", "predicates": {}},
+        )
+        assert forced == []
+
+    before = _unchanged(right["observations"])
+    crossed = _probe(claim, right["observations"])
+    assert _unchanged(right["observations"]) == before
+    assert crossed["raw_strong"] == crossed["raw_swarm"] == "unresolved"
+    assert crossed["assessment"] == "unresolved"
+    assert crossed["reason"] == "premise_entity_not_bound_to_claim"
+    assert crossed["strong"] == crossed["swarm"] == "unresolved"
+    assert crossed["derived_authenticity"] == []
+    assert all(claim["id"] not in (obs.get("applies_to") or []) for obs in crossed["projected"])
+    forced = project_checks(
+        claim,
+        right["observations"],
+        {"verdict": "supported", "reason": "laundered", "predicates": {}},
+    )
+    assert forced == []
+
+
 def test_external_calibration_runner_matrix():
     out = ROOT / "evidence" / "external_calibration_v1"
     env = os.environ.copy()

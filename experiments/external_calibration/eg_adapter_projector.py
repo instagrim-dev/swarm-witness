@@ -2,6 +2,11 @@
 
 Does not re-implement attribution. Does not read warrants, private labels, or
 native-method verdicts. Serializes structured adapter predicates only.
+
+A decisive record is emitted only after the required premises are admitted and
+their entity identifiers are bound to the claim. The record keeps every
+required premise's qualification and does not inherit authenticity from an
+unrelated observation.
 """
 
 from __future__ import annotations
@@ -9,7 +14,13 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from eg_evidence_adapter import assess_attribution, assess_fabricated_execution
+from eg_evidence_adapter import (
+    ADMISSIBLE_PREMISE_AUTHENTICITY,
+    admit_required_premises,
+    assess_attribution,
+    assess_fabricated_execution,
+    required_observation_types,
+)
 
 # Fixed evidence bundles (not claim-copied requirements).
 ATTRIBUTION_EVIDENCE_TYPES = [
@@ -37,44 +48,35 @@ def _evidence_types(family: str) -> list[str]:
     return list(ATTRIBUTION_EVIDENCE_TYPES)
 
 
-def _supporting_meta(observations: list[dict[str, Any]]) -> dict[str, Any]:
-    """Carry authenticity/access basis and ids from supporting raw records."""
-    ids: list[str] = []
-    groups: list[str] = []
-    authenticities: list[str] = []
-    access_levels: list[str] = []
+def _supporting_ids(observations: list[dict[str, Any]]) -> list[str]:
+    return [obs["id"] for obs in observations if isinstance(obs.get("id"), str)]
+
+
+def _independence_group(observations: list[dict[str, Any]]) -> str:
+    """Prefer the shared group used by EG event packets."""
     for obs in observations:
-        oid = obs.get("id")
-        if isinstance(oid, str):
-            ids.append(oid)
         group = obs.get("independence_group")
         if isinstance(group, str):
-            groups.append(group)
-        auth = obs.get("authenticity")
-        if isinstance(auth, str):
-            authenticities.append(auth)
-        access = obs.get("access_level")
-        if isinstance(access, str):
-            access_levels.append(access)
-    # Prefer the shared group used by EG event packets.
-    independence_group = groups[0] if groups else "eg-adapter-derivation"
-    # Keep admissible authenticity for frozen admission (not derived_same_origin).
-    authenticity = (
-        "authentic_public_text"
-        if all(a == "authentic_public_text" for a in authenticities) or not authenticities
-        else authenticities[0]
-    )
-    access_level = (
-        "raw_telemetry_public"
-        if all(a == "raw_telemetry_public" for a in access_levels) or not access_levels
-        else access_levels[0]
-    )
-    return {
-        "supporting_observation_ids": ids,
-        "independence_group": independence_group,
-        "authenticity": authenticity,
-        "access_level": access_level,
-    }
+            return group
+    return "eg-adapter-derivation"
+
+
+def _shared_field(premises: list[dict[str, Any]], field: str) -> str | None:
+    """Return the field only when every required premise carries that same value."""
+    if not premises:
+        return None
+    values = [obs.get(field) for obs in premises]
+    first = values[0]
+    if isinstance(first, str) and all(value == first for value in values):
+        return first
+    return None
+
+
+def _covers_required(claim: dict[str, Any], premises: list[dict[str, Any]]) -> bool:
+    covered: set[str] = set()
+    for obs in premises:
+        covered.update(obs.get("observation_types") or [])
+    return set(required_observation_types(claim)).issubset(covered)
 
 
 def assess_for_claim(
@@ -99,9 +101,21 @@ def project_checks(
     if verdict not in {"supported", "refuted"}:
         return []
 
+    admission = admit_required_premises(claim, raw_observations)
+    if not admission["admitted"]:
+        return []
+    premises = admission["premises"]
+    if not _covers_required(claim, premises):
+        return []
+    # Shared qualification only. Never default to authentic_public_text, and
+    # never take authenticity from the first observation in the bundle.
+    authenticity = _shared_field(premises, "authenticity")
+    access_level = _shared_field(premises, "access_level")
+    if authenticity not in ADMISSIBLE_PREMISE_AUTHENTICITY or access_level is None:
+        return []
+
     claim_id = claim["id"]
     family = _family(claim, assessment)
-    meta = _supporting_meta(raw_observations)
     predicates = assessment.get("predicates") or {}
     polarity = "supports" if verdict == "supported" else "refutes"
     quote = (
@@ -115,9 +129,12 @@ def project_checks(
         "source_id": "eg-evidence-derived-adapter",
         "stage": "A",
         "publication_ordinal": 1,
-        "independence_group": meta["independence_group"],
-        "authenticity": meta["authenticity"],
-        "access_level": meta["access_level"],
+        "independence_group": (
+            _shared_field(premises, "independence_group")
+            or _independence_group(raw_observations)
+        ),
+        "authenticity": authenticity,
+        "access_level": access_level,
         "anchor": "composed method: adapter predicate projection (not an independent witness)",
         "quote": quote,
         "applies_to": [claim_id],
@@ -127,7 +144,8 @@ def project_checks(
         "literal_polarity": polarity,
         "literal_claims": [claim_id],
         "derivation": "adapter_checks",
-        "supporting_observation_ids": meta["supporting_observation_ids"],
+        "supporting_observation_ids": _supporting_ids(raw_observations),
+        "premise_qualifications": list(admission["qualifications"]),
         "adapter_assessment": {
             "verdict": verdict,
             "reason": assessment.get("reason"),
