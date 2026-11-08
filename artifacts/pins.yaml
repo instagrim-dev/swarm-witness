@@ -48,3 +48,10 @@ r5:
   notes: >
     Synthetic three-agent swarm audit (A/B/C) generalizing three-way conclusions
     to contention, delegation chains, and cross-agent receipt misuse.
+incident_property_graph:
+  source_pin: "incident-property-graph-v1"
+  protocol_id: "incident-property-graph-v1"
+  notes: >
+    Post-submission property decomposition across URL, file-read, execution,
+    credential, and effect boundaries. Synthetic analogues plus one public
+    narrative case. Not an incident detection or prevention claim.

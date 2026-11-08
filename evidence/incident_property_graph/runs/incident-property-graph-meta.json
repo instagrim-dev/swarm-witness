@@ -1,0 +1,31 @@
+{
+  "id": "incident-property-graph-meta",
+  "claim_id": "incident_property_graph",
+  "protocol_id": "incident-property-graph-v1",
+  "case_id": "aggregate",
+  "source_pin": "incident-property-graph-v1",
+  "execution_status": "completed",
+  "observations": {
+    "passed": true,
+    "synthetic_case_count": 9,
+    "postmortem_case_count": 1,
+    "graph_false_system_supports": 0,
+    "baseline_false_system_supports": 6,
+    "baseline_false_system_rejects": 1,
+    "decision_used_as_effect_proof_count": 0,
+    "deny_with_committed_effect": 2,
+    "refuted_child_hidden_count": 0,
+    "url_held_local_read_p_url": "supported",
+    "url_held_local_read_p_file_read": "refuted",
+    "url_held_local_read_p_exec": "supported",
+    "url_held_local_read_p_system": "refuted",
+    "postmortem_independent_supported": 0,
+    "postmortem_independent_refuted": 0,
+    "postmortem_unresolved_properties": 5,
+    "conjunction_checks": 6905,
+    "conjunction_checks_passed": true,
+    "conservative_unresolved_gap": true,
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false
+  }
+}

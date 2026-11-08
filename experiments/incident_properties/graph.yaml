@@ -1,0 +1,102 @@
+schema_version: incident_property_graph_v1
+layers:
+  - local_evidence
+  - decision
+  - attempted_effect
+  - settlement
+  - broader_safety_property
+layer_rule: A value recorded at an earlier layer does not determine a later layer. In particular, a correct decision does not establish settlement, and settlement of one boundary does not establish the conjunction.
+properties:
+  P_url:
+    proposition: Unapproved remote URL requests are blocked.
+    control: remote_url_allowlist
+    trust_boundary: remote_fetch
+    required_observations:
+      - subject class of the requested URL (approved_remote or unapproved_remote)
+      - allowlist decision (allow, deny, or absent)
+      - whether a fetch was attempted
+      - settlement from an effect ledger independent of the decision
+      - authenticity of that ledger (model_ledger versus narrative_only)
+    independent_falsifier: An authentic effect-ledger row commits an unapproved_remote subject. A deny decision with no such row does not falsify this property, and neither the decision nor the row speaks to file disclosure, code execution, credentials, or other downstream commits.
+    source_provenance: Synthetic cases use the in-model effect ledger. The public incident case uses the Hugging Face technical timeline retrieved 2026-11-07 as narrative only; this repository has no raw allowlist log.
+    evaluated_scope: Remote URL fetch boundary only.
+  P_file_read:
+    proposition: Untrusted dataset inputs cannot disclose worker-local secrets.
+    control: file_boundary
+    trust_boundary: worker_local_filesystem
+    required_observations:
+      - subject class of the read (sandbox_local or worker_local)
+      - file-boundary decision, if a decision was emitted
+      - whether a read was attempted
+      - settlement from an effect ledger independent of any URL decision
+      - authenticity of that ledger
+    independent_falsifier: An authentic effect-ledger row commits a worker_local subject, recorded as an abstract marker rather than file contents. A sandbox_local commit does not falsify this property. A URL deny neither falsifies nor supports it.
+    source_provenance: Synthetic cases use the in-model effect ledger. The public incident case uses the Hugging Face technical timeline retrieved 2026-11-07 as narrative only; this repository has no worker file-open audit.
+    evaluated_scope: Disclosure of worker-local material by untrusted dataset input. Not code execution.
+  P_exec:
+    proposition: Untrusted configuration cannot execute code.
+    control: config_exec_boundary
+    trust_boundary: untrusted_config_evaluation
+    required_observations:
+      - subject class of the configuration (trusted_config or untrusted_config)
+      - config-boundary decision, if a decision was emitted
+      - whether execution was attempted
+      - settlement from an effect ledger independent of the file-read ledger
+      - authenticity of that ledger
+    independent_falsifier: An authentic effect-ledger row commits an untrusted_config subject. The row is a boolean commit, not a payload. A file-read commit neither falsifies nor supports this property.
+    source_provenance: Synthetic cases use the in-model effect ledger. The public incident case uses the Hugging Face technical timeline retrieved 2026-11-07 as narrative only; this repository has no process-execution audit.
+    evaluated_scope: Execution caused by untrusted configuration. Not file disclosure and not a URL fetch.
+  P_identity:
+    proposition: Stolen or unscoped credentials cannot authorize lateral effects.
+    control: credential_scope
+    trust_boundary: credential_use
+    required_observations:
+      - subject class of the credential (scoped_credential or unscoped_credential)
+      - scope decision, if a decision was emitted
+      - whether a lateral use was attempted
+      - settlement from an effect ledger independent of the credential's narrative description
+      - authenticity of that ledger
+    independent_falsifier: An authentic effect-ledger row commits an unscoped_credential subject. A scoped credential commit does not falsify this property. No credential value is an observation.
+    source_provenance: Synthetic cases use the in-model effect ledger. The public incident case uses the Hugging Face technical timeline retrieved 2026-11-07 as narrative only; this repository has no cluster authz log.
+    evaluated_scope: Lateral effects authorized by an unscoped or stolen credential. Not the URL, file, or config boundaries.
+  P_effect:
+    proposition: Unauthorized downstream effects do not commit.
+    control: downstream_decision_gate
+    trust_boundary: downstream_commit
+    required_observations:
+      - subject class of the downstream effect (authorized_effect or unauthorized_effect)
+      - gate decision, if a decision was emitted
+      - whether the effect was attempted
+      - settlement from an effect ledger independent of the decision record
+      - authenticity of that ledger
+    independent_falsifier: An authentic effect-ledger row commits an unauthorized_effect subject. A prevented attempt does not falsify the property. A narrative sentence neither falsifies nor supports it. File disclosure and config execution are separate properties even when they are also effects.
+    source_provenance: Synthetic cases use the in-model effect ledger. The public incident case uses the Hugging Face technical timeline retrieved 2026-11-07 as narrative only; the database audit and cloud-policy denies it cites are not in this repository.
+    evaluated_scope: Commit of unauthorized downstream effects. A deny decision is not this observation.
+conjunction:
+  id: P_system
+  children:
+    - P_url
+    - P_file_read
+    - P_exec
+    - P_identity
+    - P_effect
+  proposition: All five boundary properties hold in the evaluated scope.
+  control: no_single_control
+  trust_boundary: cross_boundary
+  required_observations:
+    - authenticated observations required by each child property
+    - an explicit child verdict for every child, including refuted and unresolved children
+    - no upgrade from a single child's support
+  independent_falsifier: Any child verdict of refuted. Support requires every child to be supported. A passing child does not drop a refuted child from the report. Unverified narrative does not support or refute the conjunction.
+  source_provenance: The conjunction inherits the weakest child provenance. Public narrative remains narrative for every child it touches.
+  evaluated_scope: The conjunction of the five boundary properties inside one declared case scope. Not a claim that an incident was detected or prevented.
+  rule: supported if and only if every child is supported; refuted if any child is refuted; otherwise unresolved. A refuted child is reported beside any supported sibling.
+rejected_implications:
+  - [P_url, P_file_read]
+  - [P_url, P_exec]
+  - [P_url, P_identity]
+  - [P_url, P_effect]
+  - [P_url, P_system]
+  - [P_file_read, P_exec]
+  - [P_exec, P_file_read]
+  - [decision_deny, settlement_prevented]

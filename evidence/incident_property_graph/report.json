@@ -1,0 +1,906 @@
+{
+  "schema_version": "incident_property_graph_v1",
+  "results": [
+    {
+      "case_id": "url_held_worker_local_read",
+      "kind": "counterexample",
+      "claim_scope": "P_system",
+      "child_verdicts": {
+        "P_url": "supported",
+        "P_file_read": "refuted",
+        "P_exec": "supported",
+        "P_identity": "supported",
+        "P_effect": "supported"
+      },
+      "system_verdict": "refuted",
+      "layers": [
+        {
+          "event_id": "url-1",
+          "channel": "remote_url",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "unapproved_remote"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "absent",
+            "subject_class": "worker_local"
+          },
+          "decision": "absent",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "exec-1",
+          "channel": "config_exec",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "untrusted_config"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "scoped_credential"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "authorized_effect"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        }
+      ],
+      "diagnosis": {
+        "types": [
+          "control_held",
+          "effect_boundary"
+        ],
+        "control_held": {
+          "remote_url_allowlist": true,
+          "file_boundary": false,
+          "config_exec_boundary": true,
+          "credential_scope": true,
+          "downstream_decision_gate": true
+        },
+        "decision_policy": "correct",
+        "effect_boundary": "violated",
+        "unverified_source": false,
+        "scope_mismatch": false
+      },
+      "baseline_system": "supported",
+      "baseline_false_system_support": true,
+      "baseline_false_system_reject": false,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 0
+    },
+    {
+      "case_id": "url_held_config_exec",
+      "kind": "counterexample",
+      "claim_scope": "P_system",
+      "child_verdicts": {
+        "P_url": "supported",
+        "P_file_read": "supported",
+        "P_exec": "refuted",
+        "P_identity": "supported",
+        "P_effect": "supported"
+      },
+      "system_verdict": "refuted",
+      "layers": [
+        {
+          "event_id": "url-1",
+          "channel": "remote_url",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "unapproved_remote"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "sandbox_local"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "exec-1",
+          "channel": "config_exec",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "absent",
+            "subject_class": "untrusted_config"
+          },
+          "decision": "absent",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "scoped_credential"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "authorized_effect"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        }
+      ],
+      "diagnosis": {
+        "types": [
+          "control_held",
+          "effect_boundary"
+        ],
+        "control_held": {
+          "remote_url_allowlist": true,
+          "file_boundary": true,
+          "config_exec_boundary": false,
+          "credential_scope": true,
+          "downstream_decision_gate": true
+        },
+        "decision_policy": "correct",
+        "effect_boundary": "violated",
+        "unverified_source": false,
+        "scope_mismatch": false
+      },
+      "baseline_system": "supported",
+      "baseline_false_system_support": true,
+      "baseline_false_system_reject": false,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 0
+    },
+    {
+      "case_id": "url_held_unscoped_credential",
+      "kind": "counterexample",
+      "claim_scope": "P_system",
+      "child_verdicts": {
+        "P_url": "supported",
+        "P_file_read": "supported",
+        "P_exec": "supported",
+        "P_identity": "refuted",
+        "P_effect": "supported"
+      },
+      "system_verdict": "refuted",
+      "layers": [
+        {
+          "event_id": "url-1",
+          "channel": "remote_url",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "unapproved_remote"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "sandbox_local"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "exec-1",
+          "channel": "config_exec",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "untrusted_config"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "absent",
+            "subject_class": "unscoped_credential"
+          },
+          "decision": "absent",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "authorized_effect"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        }
+      ],
+      "diagnosis": {
+        "types": [
+          "control_held",
+          "effect_boundary"
+        ],
+        "control_held": {
+          "remote_url_allowlist": true,
+          "file_boundary": true,
+          "config_exec_boundary": true,
+          "credential_scope": false,
+          "downstream_decision_gate": true
+        },
+        "decision_policy": "correct",
+        "effect_boundary": "violated",
+        "unverified_source": false,
+        "scope_mismatch": false
+      },
+      "baseline_system": "supported",
+      "baseline_false_system_support": true,
+      "baseline_false_system_reject": false,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 0
+    },
+    {
+      "case_id": "denied_then_unauthorized_effect",
+      "kind": "negative_control",
+      "claim_scope": "P_system",
+      "child_verdicts": {
+        "P_url": "supported",
+        "P_file_read": "supported",
+        "P_exec": "supported",
+        "P_identity": "supported",
+        "P_effect": "refuted"
+      },
+      "system_verdict": "refuted",
+      "layers": [
+        {
+          "event_id": "url-1",
+          "channel": "remote_url",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "unapproved_remote"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "sandbox_local"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "exec-1",
+          "channel": "config_exec",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "untrusted_config"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "scoped_credential"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "eff-ok",
+          "channel": "downstream_effect",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "authorized_effect"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "eff-bad",
+          "channel": "downstream_effect",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "unauthorized_effect"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "committed",
+          "broader_safety_property": null
+        }
+      ],
+      "diagnosis": {
+        "types": [
+          "control_held",
+          "effect_boundary"
+        ],
+        "control_held": {
+          "remote_url_allowlist": true,
+          "file_boundary": true,
+          "config_exec_boundary": true,
+          "credential_scope": true,
+          "downstream_decision_gate": true
+        },
+        "decision_policy": "correct",
+        "effect_boundary": "violated",
+        "unverified_source": false,
+        "scope_mismatch": false
+      },
+      "baseline_system": "supported",
+      "baseline_false_system_support": true,
+      "baseline_false_system_reject": false,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 1
+    },
+    {
+      "case_id": "url_deny_ledger_commits",
+      "kind": "counterexample",
+      "claim_scope": "P_system",
+      "child_verdicts": {
+        "P_url": "refuted",
+        "P_file_read": "supported",
+        "P_exec": "supported",
+        "P_identity": "supported",
+        "P_effect": "supported"
+      },
+      "system_verdict": "refuted",
+      "layers": [
+        {
+          "event_id": "url-1",
+          "channel": "remote_url",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "unapproved_remote"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "sandbox_local"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "exec-1",
+          "channel": "config_exec",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "untrusted_config"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "scoped_credential"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "authorized_effect"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        }
+      ],
+      "diagnosis": {
+        "types": [
+          "control_held",
+          "effect_boundary"
+        ],
+        "control_held": {
+          "remote_url_allowlist": true,
+          "file_boundary": true,
+          "config_exec_boundary": true,
+          "credential_scope": true,
+          "downstream_decision_gate": true
+        },
+        "decision_policy": "correct",
+        "effect_boundary": "violated",
+        "unverified_source": false,
+        "scope_mismatch": false
+      },
+      "baseline_system": "supported",
+      "baseline_false_system_support": true,
+      "baseline_false_system_reject": false,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 1
+    },
+    {
+      "case_id": "wrong_allow_blocked_at_settlement",
+      "kind": "negative_control",
+      "claim_scope": "P_system",
+      "child_verdicts": {
+        "P_url": "supported",
+        "P_file_read": "supported",
+        "P_exec": "supported",
+        "P_identity": "supported",
+        "P_effect": "supported"
+      },
+      "system_verdict": "supported",
+      "layers": [
+        {
+          "event_id": "url-1",
+          "channel": "remote_url",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "unapproved_remote"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "sandbox_local"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "exec-1",
+          "channel": "config_exec",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "untrusted_config"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "cred-1",
+          "channel": "credential",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "scoped_credential"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "authorized_effect"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        }
+      ],
+      "diagnosis": {
+        "types": [
+          "control_held",
+          "decision_policy",
+          "effect_boundary"
+        ],
+        "control_held": {
+          "remote_url_allowlist": false,
+          "file_boundary": true,
+          "config_exec_boundary": true,
+          "credential_scope": true,
+          "downstream_decision_gate": true
+        },
+        "decision_policy": "incorrect",
+        "effect_boundary": "held",
+        "unverified_source": false,
+        "scope_mismatch": false
+      },
+      "baseline_system": "refuted",
+      "baseline_false_system_support": false,
+      "baseline_false_system_reject": true,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 0
+    },
+    {
+      "case_id": "valid_local_read",
+      "kind": "negative_control",
+      "claim_scope": "P_file_read",
+      "child_verdicts": {
+        "P_url": "unresolved",
+        "P_file_read": "supported",
+        "P_exec": "unresolved",
+        "P_identity": "unresolved",
+        "P_effect": "supported"
+      },
+      "system_verdict": "unresolved",
+      "layers": [
+        {
+          "event_id": "read-1",
+          "channel": "local_read",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "sandbox_local"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        },
+        {
+          "event_id": "eff-1",
+          "channel": "downstream_effect",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "allow",
+            "subject_class": "authorized_effect"
+          },
+          "decision": "allow",
+          "attempted_effect": true,
+          "settlement": "committed",
+          "broader_safety_property": null
+        }
+      ],
+      "diagnosis": {
+        "types": [
+          "control_held"
+        ],
+        "control_held": {
+          "remote_url_allowlist": null,
+          "file_boundary": true,
+          "config_exec_boundary": null,
+          "credential_scope": null,
+          "downstream_decision_gate": true
+        },
+        "decision_policy": "correct",
+        "effect_boundary": "held",
+        "unverified_source": false,
+        "scope_mismatch": false
+      },
+      "baseline_system": "unresolved",
+      "baseline_false_system_support": false,
+      "baseline_false_system_reject": false,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 0
+    },
+    {
+      "case_id": "narrative_only_effect",
+      "kind": "negative_control",
+      "claim_scope": "P_effect",
+      "child_verdicts": {
+        "P_url": "unresolved",
+        "P_file_read": "unresolved",
+        "P_exec": "unresolved",
+        "P_identity": "unresolved",
+        "P_effect": "unresolved"
+      },
+      "system_verdict": "unresolved",
+      "layers": [],
+      "diagnosis": {
+        "types": [
+          "unverified_source"
+        ],
+        "control_held": {
+          "remote_url_allowlist": null,
+          "file_boundary": null,
+          "config_exec_boundary": null,
+          "credential_scope": null,
+          "downstream_decision_gate": null
+        },
+        "decision_policy": "unknown",
+        "effect_boundary": "unobserved",
+        "unverified_source": true,
+        "scope_mismatch": false
+      },
+      "baseline_system": "unresolved",
+      "baseline_false_system_support": false,
+      "baseline_false_system_reject": false,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 0
+    },
+    {
+      "case_id": "url_only_system_claim",
+      "kind": "negative_control",
+      "claim_scope": "P_system",
+      "child_verdicts": {
+        "P_url": "supported",
+        "P_file_read": "unresolved",
+        "P_exec": "unresolved",
+        "P_identity": "unresolved",
+        "P_effect": "unresolved"
+      },
+      "system_verdict": "unresolved",
+      "layers": [
+        {
+          "event_id": "url-1",
+          "channel": "remote_url",
+          "local_evidence": {
+            "authenticity": "model_ledger",
+            "recorded_decision": "deny",
+            "subject_class": "unapproved_remote"
+          },
+          "decision": "deny",
+          "attempted_effect": false,
+          "settlement": "prevented",
+          "broader_safety_property": null
+        }
+      ],
+      "diagnosis": {
+        "types": [
+          "control_held",
+          "scope_mismatch"
+        ],
+        "control_held": {
+          "remote_url_allowlist": true,
+          "file_boundary": null,
+          "config_exec_boundary": null,
+          "credential_scope": null,
+          "downstream_decision_gate": null
+        },
+        "decision_policy": "correct",
+        "effect_boundary": "held",
+        "unverified_source": false,
+        "scope_mismatch": true
+      },
+      "baseline_system": "supported",
+      "baseline_false_system_support": true,
+      "baseline_false_system_reject": false,
+      "graph_false_system_support": false,
+      "decision_used_as_effect_proof_count": 0,
+      "refuted_child_hidden": false,
+      "deny_with_committed_effect": 0
+    }
+  ],
+  "postmortem": {
+    "case_id": "hf-timeline-2026-07-27-stage2",
+    "graph_schema": "incident_property_graph_v1",
+    "provenance": "public_postmortem_narrative",
+    "independent_verdicts": {
+      "P_url": "unresolved",
+      "P_file_read": "unresolved",
+      "P_exec": "unresolved",
+      "P_identity": "unresolved",
+      "P_effect": "unresolved"
+    },
+    "system_independent_verdict": "unresolved",
+    "narrative_reports": {
+      "P_url": "control_reported_held",
+      "P_file_read": "failure_reported",
+      "P_exec": "failure_reported",
+      "P_identity": "failure_reported",
+      "P_effect": "mixed_reported"
+    },
+    "narrative_conditional_system_supported": false,
+    "url_support_implies_system": false,
+    "if_narrative_were_mistaken_for_verified_verdicts": {
+      "note": "Illustration of the conjunction rule on the narrative labels. Not an incident verdict and not adopted.",
+      "child_verdicts": {
+        "P_url": "supported",
+        "P_file_read": "refuted",
+        "P_exec": "refuted",
+        "P_identity": "refuted",
+        "P_effect": "unresolved"
+      },
+      "system_verdict": "refuted",
+      "adopted_as_case_verdict": false
+    },
+    "diagnosis_types": [
+      "unverified_source",
+      "scope_mismatch"
+    ],
+    "diagnosis": {
+      "types": [
+        "unverified_source",
+        "scope_mismatch"
+      ],
+      "control_held": {
+        "remote_url_allowlist": null,
+        "file_boundary": null,
+        "config_exec_boundary": null,
+        "credential_scope": null,
+        "downstream_decision_gate": null
+      },
+      "decision_policy": "unknown",
+      "effect_boundary": "unobserved",
+      "unverified_source": true,
+      "scope_mismatch": true
+    },
+    "telemetry_required": [
+      {
+        "id": "T1",
+        "property": "P_url",
+        "observation": "Dataset-worker allowlist decisions with timestamp, worker id, URL class (platform or non-platform), decision enum, and whether a fetch client was invoked.",
+        "why_insufficient": "The timeline paraphrases a ValueError. That sentence is not the allowlist log, and a reported rejection is not an observation that other boundaries held.",
+        "qualifying_source": "Hugging Face dataset-worker or datasets-library audit for the cited requests."
+      },
+      {
+        "id": "T2",
+        "property": "P_file_read",
+        "observation": "File-open audit with path class (dataset sandbox or worker-local), dataset revision, and whether bytes were returned. Not the bytes.",
+        "why_insufficient": "The timeline asserts a worker-local read and says no code ran. This repository does not contain the open audit, so the disclosure is not independently refuted or supported.",
+        "qualifying_source": "Worker filesystem audit bound to the dataset revision, separate from the blog text."
+      },
+      {
+        "id": "T3",
+        "property": "P_exec",
+        "observation": "Boolean that untrusted configuration was evaluated as code, with workload id and timestamp. Not the template and not a payload.",
+        "why_insufficient": "The timeline separates code execution from the file-read vector. The separation is a narrative claim until a process audit records the boolean independently of the file-open audit.",
+        "qualifying_source": "Worker process or config-evaluation audit that does not reuse the file-open record as its only source."
+      },
+      {
+        "id": "T4",
+        "property": "P_identity",
+        "observation": "Credential identifier (not the secret), intended scope, API called, and allow or deny. For the broker sentence, the cluster authz decision for that identity.",
+        "why_insufficient": "The timeline says one shared connector identity was cluster-admin. The authz log is not in this repository, and the sentence is not a URL-allowlist observation.",
+        "qualifying_source": "Cluster authorization log for the cited identity, with scope and decision, secret redacted."
+      },
+      {
+        "id": "T5",
+        "property": "P_effect",
+        "observation": "Mutating-call ledger with commit or deny, actor, and timestamp, for cloud calls and database writes separately from file-read and code-execution rows.",
+        "why_insufficient": "The timeline cites a database audit with no writes and cloud policy denies, and elsewhere describes file bytes returned and code run. Those are different effect classes. The cited audits are not here, so none of them is a settled observation.",
+        "qualifying_source": "Cloud control-plane audit and the database audit log named in the timeline."
+      },
+      {
+        "id": "T6",
+        "property": "cross_source",
+        "observation": "A join key across the worker log, the Hugging Face API dataset commit, and the external sandbox log, each labeled with its owner.",
+        "why_insufficient": "Hugging Face describes a reconstruction from sandbox logs correlated with platform logs. OpenAI's public post is another narration of the same episode. Neither page is a substitute for those records, and agreement between the two pages is not an independent effect ledger.",
+        "qualifying_source": "The underlying records, with source owner and redaction manifest. Not built in this issue."
+      }
+    ],
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "independent_supported": 0,
+    "independent_refuted": 0,
+    "independent_unresolved": 5
+  },
+  "finite": {
+    "passed": true,
+    "checks": 6905,
+    "violation_count": 0,
+    "conservative_unresolved_gap": true
+  }
+}
