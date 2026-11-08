@@ -1,0 +1,798 @@
+{
+  "families": [
+    "current_versus_revoked",
+    "receipt_versus_entitlement",
+    "wrong_allow_blocked",
+    "local_control_broader_violation",
+    "duplicated_source",
+    "actor_task_epoch_event_misbinding"
+  ],
+  "histories": [
+    {
+      "expect": {
+        "actor_omits": [],
+        "claimed_success": [],
+        "commits": [
+          "aew-v1-event-authority-current"
+        ],
+        "decisions": {
+          "aew-v1-op-authority-current": "allow"
+        }
+      },
+      "family": "current_versus_revoked",
+      "history_id": "aew-v1-h-authority-current",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "control",
+      "run_id": "aew-v1-run-authority-current",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-authority-current",
+          "kind": "grant",
+          "logical_time": 1,
+          "object_scope": "aew-v1-object-authority-current",
+          "operation_id": "aew-v1-op-authority-current",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-authority-current"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-authority-current",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-authority-current",
+          "grant_id": "aew-v1-grant-authority-current",
+          "kind": "decide",
+          "logical_time": 2,
+          "object_scope": "aew-v1-object-authority-current",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-authority-current",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-authority-current",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-authority-current"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 4,
+          "operation_id": "aew-v1-op-authority-current"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 5,
+          "operation_id": "aew-v1-op-authority-current",
+          "policy": "issued_survives_revocation"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [],
+        "claimed_success": [],
+        "commits": [],
+        "decisions": {
+          "aew-v1-op-authority-revoked-inflight": "allow"
+        }
+      },
+      "family": "current_versus_revoked",
+      "history_id": "aew-v1-h-authority-revoked-inflight",
+      "revocation_policy": "revocation_closes_inflight",
+      "role": "counterpart",
+      "run_id": "aew-v1-run-authority-revoked-inflight",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-authority-revoked-inflight",
+          "kind": "grant",
+          "logical_time": 101,
+          "object_scope": "aew-v1-object-authority-revoked-inflight",
+          "operation_id": "aew-v1-op-authority-revoked-inflight",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-authority-revoked-inflight"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-authority-revoked-inflight",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-authority-revoked-inflight",
+          "grant_id": "aew-v1-grant-authority-revoked-inflight",
+          "kind": "decide",
+          "logical_time": 102,
+          "object_scope": "aew-v1-object-authority-revoked-inflight",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-authority-revoked-inflight",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-authority-revoked-inflight",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-authority-revoked-inflight"
+        },
+        {
+          "grant_id": "aew-v1-grant-authority-revoked-inflight",
+          "kind": "revoke",
+          "logical_time": 103,
+          "operation_id": "aew-v1-op-authority-revoked-inflight",
+          "policy": "revocation_closes_inflight",
+          "revocation_id": "aew-v1-revocation-authority-revoked-inflight"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 104,
+          "operation_id": "aew-v1-op-authority-revoked-inflight"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 105,
+          "operation_id": "aew-v1-op-authority-revoked-inflight",
+          "policy": "revocation_closes_inflight"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [],
+        "claimed_success": [],
+        "commits": [
+          "aew-v1-event-receipt-with-entitlement"
+        ],
+        "decisions": {
+          "aew-v1-op-receipt-with-entitlement": "allow"
+        },
+        "local_grant_view": "present",
+        "receipt_id": "aew-v1-receipt-shared"
+      },
+      "family": "receipt_versus_entitlement",
+      "history_id": "aew-v1-h-receipt-with-entitlement",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "control",
+      "run_id": "aew-v1-run-receipt-with-entitlement",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-receipt-with-entitlement",
+          "kind": "grant",
+          "logical_time": 201,
+          "object_scope": "aew-v1-object-receipt-with-entitlement",
+          "operation_id": "aew-v1-op-receipt-with-entitlement",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-receipt-with-entitlement"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-receipt-with-entitlement",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-receipt-with-entitlement",
+          "grant_id": "aew-v1-grant-receipt-with-entitlement",
+          "kind": "decide",
+          "logical_time": 202,
+          "object_scope": "aew-v1-object-receipt-with-entitlement",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-receipt-with-entitlement",
+          "receipt_id": "aew-v1-receipt-shared",
+          "record_id": "aew-v1-rec-actor-receipt-with-entitlement",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-receipt-with-entitlement"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 204,
+          "operation_id": "aew-v1-op-receipt-with-entitlement"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 205,
+          "operation_id": "aew-v1-op-receipt-with-entitlement",
+          "policy": "issued_survives_revocation"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [],
+        "claimed_success": [],
+        "commits": [],
+        "decisions": {
+          "aew-v1-op-receipt-without-entitlement": "deny"
+        },
+        "local_grant_view": "absent",
+        "receipt_id": "aew-v1-receipt-shared"
+      },
+      "family": "receipt_versus_entitlement",
+      "history_id": "aew-v1-h-receipt-without-entitlement",
+      "revocation_policy": "revocation_closes_inflight",
+      "role": "counterpart",
+      "run_id": "aew-v1-run-receipt-without-entitlement",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-beta",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-receipt-without-entitlement",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-receipt-without-entitlement",
+          "grant_id": null,
+          "kind": "decide",
+          "logical_time": 302,
+          "object_scope": "aew-v1-object-receipt-without-entitlement",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-receipt-without-entitlement",
+          "receipt_id": "aew-v1-receipt-shared",
+          "record_id": "aew-v1-rec-actor-receipt-without-entitlement",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-receipt-without-entitlement"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 304,
+          "operation_id": "aew-v1-op-receipt-without-entitlement"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 305,
+          "operation_id": "aew-v1-op-receipt-without-entitlement",
+          "policy": "revocation_closes_inflight"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [],
+        "claimed_success": [],
+        "commits": [
+          "aew-v1-event-entitled-allow-settles"
+        ],
+        "decisions": {
+          "aew-v1-op-entitled-allow-settles": "allow"
+        }
+      },
+      "family": "wrong_allow_blocked",
+      "history_id": "aew-v1-h-entitled-allow-settles",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "control",
+      "run_id": "aew-v1-run-entitled-allow-settles",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-entitled-allow-settles",
+          "kind": "grant",
+          "logical_time": 401,
+          "object_scope": "aew-v1-object-entitled-allow-settles",
+          "operation_id": "aew-v1-op-entitled-allow-settles",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-entitled-allow-settles"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-entitled-allow-settles",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-entitled-allow-settles",
+          "grant_id": "aew-v1-grant-entitled-allow-settles",
+          "kind": "decide",
+          "logical_time": 402,
+          "object_scope": "aew-v1-object-entitled-allow-settles",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-entitled-allow-settles",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-entitled-allow-settles",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-entitled-allow-settles"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 404,
+          "operation_id": "aew-v1-op-entitled-allow-settles"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 405,
+          "operation_id": "aew-v1-op-entitled-allow-settles",
+          "policy": "issued_survives_revocation"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [],
+        "claimed_success": [
+          "aew-v1-event-wrong-allow-blocked"
+        ],
+        "commits": [],
+        "decisions": {
+          "aew-v1-op-wrong-allow-blocked": "allow"
+        }
+      },
+      "family": "wrong_allow_blocked",
+      "history_id": "aew-v1-h-wrong-allow-blocked",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "counterpart",
+      "run_id": "aew-v1-run-wrong-allow-blocked",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-wrong-allow-blocked",
+          "kind": "grant",
+          "logical_time": 501,
+          "object_scope": "aew-v1-object-wrong-allow-blocked",
+          "operation_id": "aew-v1-op-wrong-allow-blocked",
+          "subject_class": "unauthorized_effect",
+          "task_id": "aew-v1-task-wrong-allow-blocked"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-wrong-allow-blocked",
+          "channel": "downstream_effect",
+          "claim_success": true,
+          "decision_policy": "faulty_allow",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-wrong-allow-blocked",
+          "grant_id": "aew-v1-grant-wrong-allow-blocked",
+          "kind": "decide",
+          "logical_time": 502,
+          "object_scope": "aew-v1-object-wrong-allow-blocked",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-wrong-allow-blocked",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-wrong-allow-blocked",
+          "subject_class": "unauthorized_effect",
+          "task_id": "aew-v1-task-wrong-allow-blocked"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 504,
+          "operation_id": "aew-v1-op-wrong-allow-blocked"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 505,
+          "operation_id": "aew-v1-op-wrong-allow-blocked",
+          "policy": "issued_survives_revocation"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [],
+        "claimed_success": [],
+        "commits": [],
+        "decisions": {
+          "aew-v1-op-local-control-held-downstream": "deny",
+          "aew-v1-op-local-control-held-url": "deny"
+        }
+      },
+      "family": "local_control_broader_violation",
+      "history_id": "aew-v1-h-local-control-held",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "control",
+      "run_id": "aew-v1-run-local-control-held",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-local-control-held-url",
+          "channel": "remote_url",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-local-control-held-url",
+          "grant_id": null,
+          "kind": "decide",
+          "logical_time": 602,
+          "object_scope": "aew-v1-object-local-control-held-url",
+          "operation": "reject_unapproved_url",
+          "operation_id": "aew-v1-op-local-control-held-url",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-local-control-held-url",
+          "subject_class": "unapproved_remote",
+          "task_id": "aew-v1-task-local-control-held"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-local-control-held-downstream",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-local-control-held-downstream",
+          "grant_id": null,
+          "kind": "decide",
+          "logical_time": 606,
+          "object_scope": "aew-v1-object-local-control-held-downstream",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-local-control-held-downstream",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-local-control-held-downstream",
+          "subject_class": "unauthorized_effect",
+          "task_id": "aew-v1-task-local-control-held"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [
+          "aew-v1-event-local-pass-broader-effect-effect"
+        ],
+        "claimed_success": [],
+        "commits": [
+          "aew-v1-event-local-pass-broader-effect-effect"
+        ],
+        "decisions": {
+          "aew-v1-op-local-pass-broader-effect-url": "deny"
+        },
+        "witness": true
+      },
+      "family": "local_control_broader_violation",
+      "history_id": "aew-v1-h-local-pass-broader-effect",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "counterpart",
+      "run_id": "aew-v1-run-local-pass-broader-effect",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-local-pass-broader-effect-url",
+          "channel": "remote_url",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-local-pass-broader-effect-url",
+          "grant_id": null,
+          "kind": "decide",
+          "logical_time": 702,
+          "object_scope": "aew-v1-object-local-pass-broader-effect-url",
+          "operation": "reject_unapproved_url",
+          "operation_id": "aew-v1-op-local-pass-broader-effect-url",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-local-pass-broader-effect-url",
+          "subject_class": "unapproved_remote",
+          "task_id": "aew-v1-task-local-pass-broader-effect"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_record": false,
+          "call_id": "aew-v1-call-local-pass-broader-effect-effect",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-local-pass-broader-effect-effect",
+          "grant_id": null,
+          "kind": "ungated_commit",
+          "logical_time": 707,
+          "object_scope": "aew-v1-object-local-pass-broader-effect-effect",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-local-pass-broader-effect-effect",
+          "subject_class": "unauthorized_effect",
+          "task_id": "aew-v1-task-local-pass-broader-effect"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_copies": 1,
+        "actor_omits": [],
+        "claimed_success": [],
+        "commits": [
+          "aew-v1-event-single-source"
+        ],
+        "decisions": {
+          "aew-v1-op-single-source": "allow"
+        }
+      },
+      "family": "duplicated_source",
+      "history_id": "aew-v1-h-single-source",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "control",
+      "run_id": "aew-v1-run-single-source",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-single-source",
+          "kind": "grant",
+          "logical_time": 801,
+          "object_scope": "aew-v1-object-single-source",
+          "operation_id": "aew-v1-op-single-source",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-single-source"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-single-source",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-single-source",
+          "grant_id": "aew-v1-grant-single-source",
+          "kind": "decide",
+          "logical_time": 802,
+          "object_scope": "aew-v1-object-single-source",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-single-source",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-single-source",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-single-source"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 804,
+          "operation_id": "aew-v1-op-single-source"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 805,
+          "operation_id": "aew-v1-op-single-source",
+          "policy": "issued_survives_revocation"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_copies": 2,
+        "actor_omits": [],
+        "claimed_success": [],
+        "commits": [
+          "aew-v1-event-duplicated-source"
+        ],
+        "decisions": {
+          "aew-v1-op-duplicated-source": "allow"
+        }
+      },
+      "family": "duplicated_source",
+      "history_id": "aew-v1-h-duplicated-source",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "counterpart",
+      "run_id": "aew-v1-run-duplicated-source",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-duplicated-source",
+          "kind": "grant",
+          "logical_time": 901,
+          "object_scope": "aew-v1-object-duplicated-source",
+          "operation_id": "aew-v1-op-duplicated-source",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-duplicated-source"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-duplicated-source",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": true,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-duplicated-source",
+          "grant_id": "aew-v1-grant-duplicated-source",
+          "kind": "decide",
+          "logical_time": 902,
+          "object_scope": "aew-v1-object-duplicated-source",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-duplicated-source",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-duplicated-source",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-duplicated-source"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 904,
+          "operation_id": "aew-v1-op-duplicated-source"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 905,
+          "operation_id": "aew-v1-op-duplicated-source",
+          "policy": "issued_survives_revocation"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [],
+        "binding": "aligned",
+        "claimed_success": [],
+        "commits": [
+          "aew-v1-event-binding-aligned"
+        ],
+        "decisions": {
+          "aew-v1-op-binding-aligned": "allow"
+        }
+      },
+      "family": "actor_task_epoch_event_misbinding",
+      "history_id": "aew-v1-h-binding-aligned",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "control",
+      "run_id": "aew-v1-run-binding-aligned",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-binding-aligned",
+          "kind": "grant",
+          "logical_time": 1001,
+          "object_scope": "aew-v1-object-binding-aligned",
+          "operation_id": "aew-v1-op-binding-aligned",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-binding-aligned"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": null,
+          "actor_record": true,
+          "call_id": "aew-v1-call-binding-aligned",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-binding-aligned",
+          "grant_id": "aew-v1-grant-binding-aligned",
+          "kind": "decide",
+          "logical_time": 1002,
+          "object_scope": "aew-v1-object-binding-aligned",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-binding-aligned",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-binding-aligned",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-binding-aligned"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 1004,
+          "operation_id": "aew-v1-op-binding-aligned"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 1005,
+          "operation_id": "aew-v1-op-binding-aligned",
+          "policy": "issued_survives_revocation"
+        }
+      ]
+    },
+    {
+      "expect": {
+        "actor_omits": [
+          "aew-v1-event-binding-misbound"
+        ],
+        "binding": "misbound",
+        "claimed_success": [],
+        "commits": [
+          "aew-v1-event-binding-misbound"
+        ],
+        "decisions": {
+          "aew-v1-op-binding-misbound": "allow"
+        },
+        "reused_call_id": "aew-v1-call-binding-misbound"
+      },
+      "family": "actor_task_epoch_event_misbinding",
+      "history_id": "aew-v1-h-binding-misbound",
+      "revocation_policy": "issued_survives_revocation",
+      "role": "counterpart",
+      "run_id": "aew-v1-run-binding-misbound",
+      "steps": [
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "channel": "downstream_effect",
+          "epoch_id": "aew-v1-epoch-1",
+          "grant_id": "aew-v1-grant-binding-misbound",
+          "kind": "grant",
+          "logical_time": 1101,
+          "object_scope": "aew-v1-object-binding-misbound",
+          "operation_id": "aew-v1-op-binding-misbound",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-binding-misbound"
+        },
+        {
+          "actor_id": "aew-v1-actor-alpha",
+          "actor_override": {
+            "actor_id": "aew-v1-actor-beta",
+            "epoch_id": "aew-v1-epoch-0",
+            "event_id": "aew-v1-event-binding-misbound-other",
+            "object_scope": "aew-v1-object-binding-misbound-other",
+            "task_id": "aew-v1-task-binding-misbound-other"
+          },
+          "actor_record": true,
+          "call_id": "aew-v1-call-binding-misbound",
+          "channel": "downstream_effect",
+          "claim_success": false,
+          "decision_policy": "reference",
+          "duplicate_actor_record": false,
+          "epoch_id": "aew-v1-epoch-1",
+          "event_id": "aew-v1-event-binding-misbound",
+          "grant_id": "aew-v1-grant-binding-misbound",
+          "kind": "decide",
+          "logical_time": 1102,
+          "object_scope": "aew-v1-object-binding-misbound",
+          "operation": "commit_marker",
+          "operation_id": "aew-v1-op-binding-misbound",
+          "receipt_id": null,
+          "record_id": "aew-v1-rec-actor-binding-misbound",
+          "subject_class": "authorized_effect",
+          "task_id": "aew-v1-task-binding-misbound"
+        },
+        {
+          "kind": "attempt",
+          "logical_time": 1104,
+          "operation_id": "aew-v1-op-binding-misbound"
+        },
+        {
+          "kind": "settle",
+          "logical_time": 1105,
+          "operation_id": "aew-v1-op-binding-misbound",
+          "policy": "issued_survives_revocation"
+        }
+      ]
+    }
+  ],
+  "incident_detection_claimed": false,
+  "incident_prevention_claimed": false,
+  "lesswrong_post_is_this_experiment": false,
+  "original_logs_are_gates": false,
+  "packet_conditions": [
+    "actor_only",
+    "duplicate_irrelevant",
+    "discriminating_readback",
+    "withheld_misbound"
+  ],
+  "real_world_authenticity_certified": false,
+  "schema_version": "application-effect-witness-v1",
+  "these_are_incident_measurements": false,
+  "trust_boundary": "Shared-host trust boundary: the worker, the actor transcript, and the SQLite sink share one OS user. File permissions do not separate them. The harness owns writes. A commit is inserted only through EffectSink after the harness write token matches the hash stored in harness_ownership. The actor transcript writer and the read-only observer do not hold that token. The observer opens the database with mode=ro and reads committed rows. A same-uid process that bypasses the API and writes SQL directly is outside this boundary. This experiment does not claim OS isolation. A passing local control or URL allowlist does not establish the broader system property.",
+  "url_allowlist_pass_supports_system": false
+}
