@@ -1,0 +1,102 @@
+schema: swarm-witness-claim-evidence-map/v1
+framing: docs/research/FRAMING_DECISION.md
+claims:
+  - claim_id: H1
+    statement: A correctly committed first-edit claim does not by itself determine whether the edit applied.
+    status: measured_contract
+    sources:
+      - id: S03
+        ref: 7468d2795d9c6500c68c5daf6a970ed765903885
+        path: experiments/r3/ledger_settlement_v1/README.md
+      - id: S21
+        ref: 7468d2795d9c6500c68c5daf6a970ed765903885
+        path: evidence/r3/ledger_settlement_v1/2026-11-08-ledger-settlement-v1/summary.json
+    scope: S01 and S02 are unresolved at the claim stage and diverge only after bound terminal records.
+    not_established: The committed claim is not evidence that an edit applied, and it is not a measurement of broader BMO delegation paths.
+  - claim_id: H2
+    statement: The selected settlement contract distinguishes bound applied, bound no-effect, and invalid or missing terminal evidence.
+    status: measured_contract
+    sources:
+      - id: S22
+        ref: 7468d2795d9c6500c68c5daf6a970ed765903885
+        path: evidence/r3/ledger_settlement_v1/2026-11-08-ledger-settlement-v1-controls/summary.json
+      - id: S18
+        ref: c8297333b3bf31ded96ca0e8b39c531d3bcea97f
+        path: internal/sessioncompaction/ordinary_retry_first_edit_settlement.go
+    scope: S01 supports effect-applied; S02 refutes only effect-applied; S03–S09 refuse and leave effect-applied unresolved.
+    not_established: Refusal is not definite no-effect, and these rows are not a live model edit.
+  - claim_id: H3
+    statement: Agreement with controlled truth can conceal an insufficient evidence warrant.
+    status: inference
+    sources:
+      - id: S06
+        ref: 7468d2795d9c6500c68c5daf6a970ed765903885
+        path: report/bounded_comparison_v1/TABLES.md
+    scope: Table 2 is the historical qualifier on 48 packets, with eleven unsupported supports. Table 2b is the current evaluator on the same files.
+    not_established: The current evaluator does not replace the historical eleven, and the sixteen-case challenge is a separate denominator.
+  - claim_id: H4
+    statement: An observation representation and its translation are part of the evaluated method.
+    status: inference
+    sources:
+      - id: S09
+        ref: 7468d2795d9c6500c68c5daf6a970ed765903885
+        path: experiments/external_calibration/eg_adapter_projector.py
+      - id: S12
+        ref: 7468d2795d9c6500c68c5daf6a970ed765903885
+        path: evidence/external_calibration_v1/heldout_v1/result.json
+    scope: The 130-packet composition preserves adapter decisions, including known assumption limits. Raw classifiers abstain on the frozen 70-packet slice.
+    not_established: Matching the adapter is not independent correctness, and the slice is not external empirical transfer.
+  - claim_id: bmo_subordinate_supervisor
+    statement: BMO's subordinate peer supervisor requires explicit configuration and owner-provided admission.
+    status: preexisting_source
+    sources:
+      - id: S15
+        ref: e0038cc48872b274c22deaed8e24236530e9821e
+        path: internal/a2a/managedsupervisor/supervisor.go
+    scope: Architectural context for owner, reconcile, and drain interfaces. It is not a default registered backend.
+    not_established: This surface is not measured by S01–S09.
+  - claim_id: bmo_signed_delegation
+    statement: A signature authenticates a BMO delegation envelope; the application must still join it to current authority state.
+    status: preexisting_source
+    sources:
+      - id: S16
+        ref: e0038cc48872b274c22deaed8e24236530e9821e
+        path: internal/permission/coordinator_delegation_v2.go
+    scope: Architectural context at the architecture-context pin, distinct from the ledger and settlement measurement pins.
+    not_established: This surface is not measured by S01–S09.
+  - claim_id: ledger_t01_t06
+    statement: Native BMO and the classical SQLite gate satisfy the same selected first-edit claim contract on six cases and 22 paired steps.
+    status: measured_contract
+    sources:
+      - id: S17
+        ref: 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe
+        path: internal/sessioncompaction/ordinary_retry_retained_grant.go
+    scope: Claim consumption, rollback, reopen, and noncurrent owner revisions. This pin is the ledger measurement, not the settlement pin.
+    not_established: The six-case ledger does not establish settlement or external empirical transfer. Same-author implementations are not independent adjudication.
+  - claim_id: settlement_s01_s09
+    statement: Both arms satisfy the selected settlement contract on fixture-authored terminal records.
+    status: measured_contract
+    sources:
+      - id: S18
+        ref: c8297333b3bf31ded96ca0e8b39c531d3bcea97f
+        path: internal/sessioncompaction/ordinary_retry_first_edit_settlement.go
+    scope: The controls run contains S01–S09. The first published run contains S01 and S02 only. Do not add those denominators.
+    not_established: Bounded two-implementation conformance is not full-system equivalence and not a live model edit.
+  - claim_id: application_effect_witness
+    statement: A passing local control and a forbidden downstream commit are distinct, and P_effect, P_commitment, and P_system are distinct propositions.
+    status: measured_application
+    sources:
+      - id: S01
+        ref: 7468d2795d9c6500c68c5daf6a970ed765903885
+        path: report/Swarm_Witness_Final_Submission.md
+    scope: Twelve application-owned histories and forty-eight evidence packets.
+    not_established: This witness does not execute the BMO retained-grant owner.
+  - claim_id: external_empirical_transfer
+    statement: The measured contracts would transfer to an unrelated agent platform or an independently selected claim family.
+    status: proposed
+    sources:
+      - id: S11
+        ref: 7468d2795d9c6500c68c5daf6a970ed765903885
+        path: experiments/external_calibration/heldout_v1.yaml
+    scope: Proposed extension only. Architectural reuse and bounded contract portability are separate claims and remain available without this one.
+    not_established: Not established by the retained experiments. Independent jury, superiority, and transfer flags stay false.

@@ -21,10 +21,10 @@ The application experiment separates the actor's transcript from a read-only obs
 | Study | Result | Scope |
 | --- | --- | --- |
 | Application effect witness | Twelve histories and four evidence conditions separate a passing local control from authorization of a downstream effect. | Local controlled application with a SQLite sink and cold readback. |
-| Native method comparison | Across 48 packets, Swarm Witness produces 11 unsupported supports and the invariant checker produces none. Both identify all 24 warranted decisive conclusions. | The same retained records, evaluated against separate evidence-stage warrants. |
+| Historical native qualifier | On 48 packets the historical Swarm Witness qualifier produces 11 unsupported supports. The current evaluator on the same files produces none, keeps 24 of 24 decisive conclusions, and does not replace that historical count. A sixteen-case challenge is a separate denominator. | The same retained records, evaluated against separate evidence-stage warrants. |
 | Public evidence comparison | Swarm Witness and the invariant checker agree on all 24 conditions: 22 warranted abstentions and two warranted decisive conclusions. | Twelve claims about the public reproduction record, each evaluated at two evidence stages. |
 
-A true proposition can still be unsupported by the available evidence. The native comparison identifies that failure in the current Swarm Witness implementation; the experiments do not establish an advantage over the invariant checker.
+A true proposition can still be unsupported by the available evidence. That failure belongs to the historical qualifier. The current evaluator on the same 48 packets is a later result, and the sixteen-case challenge is not that comparison. The experiments do not require one method to defeat another.
 
 [Comparative tables](report/bounded_comparison_v1/TABLES.md) retain the separate denominators and per-method results. [EvidenceGraph conformance results](report/external_calibration_v1/EVENT_CAPABILITY.md) describe the additional adapter study and its inference boundary.
 
