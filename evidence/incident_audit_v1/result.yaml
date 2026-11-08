@@ -1,0 +1,15 @@
+claim_id: incident_claims_v1
+label: reproduced
+authoritative: finding
+finding_path: findings/incident-audit-v1-f-comparison.json
+metrics:
+  claim_count: 12
+  cell_count_per_method: 24
+  naive_unsupported: 24
+  checklist_unsupported: 12
+  swarm_witness_unsupported: 0
+  primary_endpoint_passed: true
+  detection_or_prevention_claimed: false
+  control_false_supports: 0
+notes: Postmortem qualification of public Artifactory / Hugging Face reports. Not
+  a detection or prevention result.

@@ -29,6 +29,7 @@ EVALUATION_METHODS: dict[str, str] = {
     "r3-ledger-claim-v1-comparison": "native_matched_baseline",
     "r4-f-evidence-sufficiency": "synthetic_protocol_conformance",
     "r5-f-swarm-audit": "synthetic_protocol_conformance",
+    "incident-audit-v1-f-comparison": "public_postmortem_qualification",
 }
 
 

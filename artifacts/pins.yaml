@@ -56,3 +56,12 @@ incident_property_graph:
     commit-time authorization, commitment, and P_system. The LessWrong
     reproduction post is the incident evidence standard. Original transcripts
     and platform logs are unavailable and are not a contract gate.
+incident_claims_v1:
+  source_pin: "incident-audit-v1"
+  source_revision: "incident-audit-v1"
+  protocol_id: "incident-audit-v1"
+  corpus_manifest: "experiments/incident_audit/corpus_manifest.yaml"
+  notes: >
+    Public postmortem qualification of the 2026 Artifactory / Hugging Face
+    reports. Not a detection or prevention result. Raw telemetry listed in
+    the manifest is unavailable.

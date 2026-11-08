@@ -5,6 +5,9 @@ results:
 - claim_id: incident_property_graph
   label: reproduced
   finding_id: incident-property-graph-f-separation
+- claim_id: incident_claims_v1
+  label: reproduced
+  finding_id: incident-audit-v1-f-comparison
 - claim_id: r1
   label: reproduced
   finding_id: r1-f-primary

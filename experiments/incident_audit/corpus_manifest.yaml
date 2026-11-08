@@ -1,0 +1,139 @@
+id: incident-corpus-v1
+retrieval_date: 2026-11-07
+scoring_rule: >
+  Excerpts admitted to scoring are short quotes from the four sources named in
+  issue #27. Bytes of the full pages are not redistributed. Quotes were checked
+  as contiguous substrings of the retrieval named below.
+sources:
+  - id: openai
+    title: The Hugging Face incident and the road ahead
+    url: https://openai.com/index/hugging-face-incident-and-the-road-ahead/
+    publication_date: 2026-08-26
+    publication_ordinal: 2
+    retrieval_date: 2026-11-07
+    admitted_to_scoring: true
+    direct_get:
+      status: 403
+      note: >
+        From this environment a browser-like GET returned a Cloudflare
+        challenge (HTTP 403, 10044 bytes), not the article.
+    readability_retrieval:
+      note: >
+        Article text was retrieved through a readability conversion on
+        2026-11-07 and is the quote source. It is not the raw HTML.
+      sha256: db566386c305210c0dd1cb6d9e4b7cac0a97ec3a0e5ac64ab4b3237ee79cc4e6
+      bytes: 40765
+    redaction_scope: >
+      The blog is a public summary. It points to a full technical report that
+      was not retrieved for this corpus. Chain-of-thought excerpts are the
+      ones OpenAI chose to publish.
+    provenance: publisher postmortem
+    access: public web page; raw Artifactory and transcript logs are not included
+  - id: metr
+    title: >
+      Brief independent investigation of agents' behavior, reasoning and
+      collaboration in the OpenAI / Hugging Face hacking incident
+    url: https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/
+    publication_date: 2026-08-26
+    publication_ordinal: 3
+    retrieval_date: 2026-11-07
+    admitted_to_scoring: true
+    html:
+      sha256: 37ec7c48dc11ba00e048e079b161e99d4cdf7c279ed6d0290a0494c81d9a740f
+      bytes: 437174
+      http_status: 200
+    pdf_not_parsed:
+      url: https://metr.org/hugging-face-incident-report-aug-2026.pdf
+      sha256: f7e87133833363da6eee661df0c86926ef852f8b202ad87695ea6596b92d3c73
+      bytes: 7443085
+      http_status: 200
+      admitted_to_scoring: false
+      note: >
+        Same post's PDF download. Hashed and not parsed, so quote anchors
+        refer to the HTML rendering rather than a second source.
+    redaction_scope: >
+      METR states that, except where explicitly noted, OpenAI redacted no
+      additional information important to METR's conclusions. OpenAI could
+      redact non-public information. The public post is not the raw transcripts.
+    provenance: >
+      Independent analysis of datasets OpenAI supplied. Investigator
+      independence is not observation independence.
+    access: public HTML; on-premises transcript and message-board dumps are not public
+  - id: huggingface
+    title: Anatomy of a Frontier Lab Agent Intrusion
+    url: https://huggingface.co/blog/agent-intrusion-technical-timeline
+    publication_date: 2026-07-27
+    publication_ordinal: 1
+    retrieval_date: 2026-11-07
+    admitted_to_scoring: true
+    html:
+      sha256: a5b2ebfc7a9aadfc29057b02c177a32928cb5db7dad12155aaff92b6f45d25cc
+      bytes: 734275
+      http_status: 200
+    redaction_scope: >
+      Hugging Face says live credentials, internal hostnames, and specific
+      indicators were redacted or genericized. Techniques are described as
+      observed by Hugging Face. Raw platform logs are not in the page.
+    provenance: affected provider's technical timeline
+    access: public blog; dataset-processor, API, pod, and audit logs are described, not attached
+  - id: apart
+    title: >
+      What Happened, and What Breaks Next: A Defender-Usable Reconstruction of
+      the Summer-2026 Agent-Swarm Incidents
+    url: https://apartresearch.com/sprints/projects/what-happened-and-what-breaks-next-a-defenderusable-reconstruction-of-the-summer2026-agentswarm-incidents-tfn2
+    publication_date: 2026-09-12
+    publication_ordinal: 5
+    retrieval_date: 2026-11-07
+    admitted_to_scoring: false
+    html:
+      sha256: 4a63ccdc3efe69a12e9c51aa25882199b3c8c7bead9be1635e987db987328247
+      bytes: 136513
+      http_status: 200
+    full_report_not_retrieved:
+      url: https://pys8vc40ox3z7qxp.public.blob.vercel-storage.com/files/21bc88fc285e995a--4db2-b68b-ee616882a53e-What_Happened_and_What_Breaks_Next_Haddock_Blackfish.pdf
+      admitted_to_scoring: false
+    note: >
+      Sprint-page abstract only. Excluded from scoring so a secondary
+      reconstruction cannot corroborate primary telemetry. Issue #27 says to
+      compare methods, not to treat this reconstruction as a new observation.
+unavailable:
+  - id: artifactory_message_board_dump
+    why: >
+      METR describes an OpenAI-supplied dump of about 1.2 million zz entries
+      from a namespace of about 20 million files, collected July 20. Those
+      bytes are not public.
+  - id: agent_transcripts
+    why: >
+      METR reviewed about 1,300 transcripts with raw chains of thought
+      on premises. They are not public. Individual action timestamps were not
+      in the original transcripts.
+  - id: huggingface_platform_logs
+    why: >
+      Hugging Face correlates the narrative with dataset-processor, API, pod,
+      and database audit logs. Those logs are not published.
+  - id: openai_technical_report
+    url: https://openai.com/index/hugging-face-model-evaluation-security-incident/
+    why: >
+      Linked from the METR and Hugging Face pages as OpenAI's incident writeup.
+      GET from this environment returned HTTP 403. Not retrieved and not scored.
+  - id: huggingface_july_disclosure
+    url: https://huggingface.co/blog/security-incident-july-2026
+    why: >
+      HTTP 200 on 2026-11-07. Not one of the four named sources. Not retrieved
+      into the scoring corpus.
+  - id: aisi_note
+    url: https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing
+    why: >
+      Linked from the METR page. HTTP 200 on 2026-11-07. Not retrieved into
+      the scoring corpus.
+synthetic_fixtures:
+  - id: synthetic_dependency_fixture
+    why: >
+      A declared synthetic blurb repeats METR's message count and labels its
+      origin as the same OpenAI-supplied dump. It is not a real third-party
+      report and is not evidence about the incident.
+  - id: shared_receipt
+    why: >
+      A second excerpt repeats the OpenAI sentence about 14 credentials,
+      byte for byte, under a different source id. It is a copy control, not
+      a newly retrieved document.

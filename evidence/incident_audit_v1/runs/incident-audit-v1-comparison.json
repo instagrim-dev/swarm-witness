@@ -1,0 +1,32 @@
+{
+  "id": "incident-audit-v1-comparison",
+  "claim_id": "incident_claims_v1",
+  "protocol_id": "incident-audit-v1",
+  "case_id": "blinded-postmortem-comparison",
+  "source_pin": "incident-audit-v1",
+  "execution_status": "completed",
+  "observations": {
+    "claim_count": 12,
+    "stage_count": 2,
+    "cell_count_per_method": 24,
+    "naive_unsupported": 24,
+    "checklist_unsupported": 12,
+    "swarm_witness_unsupported": 0,
+    "swarm_witness_correct_refusal": 22,
+    "swarm_witness_warranted_refutation": 2,
+    "swarm_witness_warranted_support": 0,
+    "primary_endpoint_passed": true,
+    "detection_or_prevention_claimed": false,
+    "control_false_supports": 0,
+    "ambiguous_c04_stage_b": "unresolved",
+    "update_c03_stage_b": "refuted",
+    "update_c05_stage_b": "refuted",
+    "c06_stage_b_epistemic": "unresolved",
+    "c06_stage_b_assertion": "cross_source_asserted",
+    "ablation_text_trust_unsupported": 13,
+    "ablation_stage_a_c03": "unresolved",
+    "ablation_stage_a_c05": "unresolved",
+    "ablation_scope_collapse_c05_a": "supported",
+    "ablation_dependency_c12_groups": 2
+  }
+}

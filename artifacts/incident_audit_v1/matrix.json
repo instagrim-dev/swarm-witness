@@ -1,0 +1,1091 @@
+{
+  "protocol_id": "incident-audit-v1",
+  "rows": [
+    {
+      "claim_id": "C01",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "a91c6fb912ac1adc613ab5b661c70f21cef4202e864d2698da663e1391583da7",
+      "observation_ids": [
+        "E01"
+      ]
+    },
+    {
+      "claim_id": "C01",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "a91c6fb912ac1adc613ab5b661c70f21cef4202e864d2698da663e1391583da7",
+      "observation_ids": [
+        "E01"
+      ]
+    },
+    {
+      "claim_id": "C01",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "a91c6fb912ac1adc613ab5b661c70f21cef4202e864d2698da663e1391583da7",
+      "observation_ids": [
+        "E01"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C02",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "a0d65faa14093489e5ac4251148c95748f1c6cc7f33a444f0596d007068c6862",
+      "observation_ids": [
+        "E03"
+      ]
+    },
+    {
+      "claim_id": "C02",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "a0d65faa14093489e5ac4251148c95748f1c6cc7f33a444f0596d007068c6862",
+      "observation_ids": [
+        "E03"
+      ]
+    },
+    {
+      "claim_id": "C02",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "a0d65faa14093489e5ac4251148c95748f1c6cc7f33a444f0596d007068c6862",
+      "observation_ids": [
+        "E03"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C03",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "8f53da8b6f70bdb3478d73cb9254eda812e0343fe6a28cb2b4c41b311ec0f0dc",
+      "observation_ids": [
+        "E06"
+      ]
+    },
+    {
+      "claim_id": "C03",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "8f53da8b6f70bdb3478d73cb9254eda812e0343fe6a28cb2b4c41b311ec0f0dc",
+      "observation_ids": [
+        "E06"
+      ]
+    },
+    {
+      "claim_id": "C03",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "8f53da8b6f70bdb3478d73cb9254eda812e0343fe6a28cb2b4c41b311ec0f0dc",
+      "observation_ids": [
+        "E06"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "required observation types are absent; a non-discriminating control or an unauthenticated tool line does not establish the broader claim"
+    },
+    {
+      "claim_id": "C04",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ]
+    },
+    {
+      "claim_id": "C04",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ]
+    },
+    {
+      "claim_id": "C04",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "assertion_status": "unasserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 0,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C05",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "a85cc9177896de22ffd35ffec17bb7e7de639aa28375ff583e83b6be8ab15dfc",
+      "observation_ids": [
+        "E10"
+      ]
+    },
+    {
+      "claim_id": "C05",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "a85cc9177896de22ffd35ffec17bb7e7de639aa28375ff583e83b6be8ab15dfc",
+      "observation_ids": [
+        "E10"
+      ]
+    },
+    {
+      "claim_id": "C05",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "a85cc9177896de22ffd35ffec17bb7e7de639aa28375ff583e83b6be8ab15dfc",
+      "observation_ids": [
+        "E10"
+      ],
+      "assertion_status": "unasserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 0,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "required observation types are absent; a non-discriminating control or an unauthenticated tool line does not establish the broader claim"
+    },
+    {
+      "claim_id": "C06",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "c57d3c784cbbafd99e0e8684e9fb6903794f5e367a1d871a7ea207309da4fb9f",
+      "observation_ids": [
+        "E12"
+      ]
+    },
+    {
+      "claim_id": "C06",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "c57d3c784cbbafd99e0e8684e9fb6903794f5e367a1d871a7ea207309da4fb9f",
+      "observation_ids": [
+        "E12"
+      ]
+    },
+    {
+      "claim_id": "C06",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "c57d3c784cbbafd99e0e8684e9fb6903794f5e367a1d871a7ea207309da4fb9f",
+      "observation_ids": [
+        "E12"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C07",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "b7ecdaa19b92df87d78fd057011adc4d0dae33e7d51a4ee66e76b4879b1d4cba",
+      "observation_ids": [
+        "E14"
+      ]
+    },
+    {
+      "claim_id": "C07",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "b7ecdaa19b92df87d78fd057011adc4d0dae33e7d51a4ee66e76b4879b1d4cba",
+      "observation_ids": [
+        "E14"
+      ]
+    },
+    {
+      "claim_id": "C07",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "b7ecdaa19b92df87d78fd057011adc4d0dae33e7d51a4ee66e76b4879b1d4cba",
+      "observation_ids": [
+        "E14"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C08",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b",
+      "observation_ids": [
+        "E16"
+      ]
+    },
+    {
+      "claim_id": "C08",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b",
+      "observation_ids": [
+        "E16"
+      ]
+    },
+    {
+      "claim_id": "C08",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b",
+      "observation_ids": [
+        "E16"
+      ],
+      "assertion_status": "unasserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 0,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C09",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "b97d206f536b999210544bb1940a54751bf65e1653cf3b1a9558bc27db7474f4",
+      "observation_ids": [
+        "E17"
+      ]
+    },
+    {
+      "claim_id": "C09",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "b97d206f536b999210544bb1940a54751bf65e1653cf3b1a9558bc27db7474f4",
+      "observation_ids": [
+        "E17"
+      ]
+    },
+    {
+      "claim_id": "C09",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "b97d206f536b999210544bb1940a54751bf65e1653cf3b1a9558bc27db7474f4",
+      "observation_ids": [
+        "E17"
+      ],
+      "assertion_status": "unasserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 0,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C10",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "c0bb236d147eb766b601662375222394c118282b7993f082d79b391b4e80c04a",
+      "observation_ids": [
+        "E19"
+      ]
+    },
+    {
+      "claim_id": "C10",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "c0bb236d147eb766b601662375222394c118282b7993f082d79b391b4e80c04a",
+      "observation_ids": [
+        "E19"
+      ]
+    },
+    {
+      "claim_id": "C10",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "c0bb236d147eb766b601662375222394c118282b7993f082d79b391b4e80c04a",
+      "observation_ids": [
+        "E19"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "counterfactual timing or response claim; a postmortem sentence does not verify what a monitor would have done"
+    },
+    {
+      "claim_id": "C11",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "def815b40cadf5527dbaa795e73420a0d01d53c17d08674da7af5c689dc3521a",
+      "observation_ids": [
+        "E21"
+      ]
+    },
+    {
+      "claim_id": "C11",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "def815b40cadf5527dbaa795e73420a0d01d53c17d08674da7af5c689dc3521a",
+      "observation_ids": [
+        "E21"
+      ]
+    },
+    {
+      "claim_id": "C11",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "def815b40cadf5527dbaa795e73420a0d01d53c17d08674da7af5c689dc3521a",
+      "observation_ids": [
+        "E21"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C12",
+      "stage": "A",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "6e0ed75aba8c64a6675d85f7fb573a25b15b7c91d0dbcb50cfc8ba98af7f438c",
+      "observation_ids": [
+        "E23",
+        "E24"
+      ]
+    },
+    {
+      "claim_id": "C12",
+      "stage": "A",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "6e0ed75aba8c64a6675d85f7fb573a25b15b7c91d0dbcb50cfc8ba98af7f438c",
+      "observation_ids": [
+        "E23",
+        "E24"
+      ]
+    },
+    {
+      "claim_id": "C12",
+      "stage": "A",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "6e0ed75aba8c64a6675d85f7fb573a25b15b7c91d0dbcb50cfc8ba98af7f438c",
+      "observation_ids": [
+        "E23",
+        "E24"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C01",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "a7e7e2ed54dff290d0dfe34ded8b195c101daeab8c9d8ae0bc1a5709044ea5ca",
+      "observation_ids": [
+        "E01",
+        "E02",
+        "E26"
+      ]
+    },
+    {
+      "claim_id": "C01",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "a7e7e2ed54dff290d0dfe34ded8b195c101daeab8c9d8ae0bc1a5709044ea5ca",
+      "observation_ids": [
+        "E01",
+        "E02",
+        "E26"
+      ]
+    },
+    {
+      "claim_id": "C01",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "a7e7e2ed54dff290d0dfe34ded8b195c101daeab8c9d8ae0bc1a5709044ea5ca",
+      "observation_ids": [
+        "E01",
+        "E02",
+        "E26"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 3,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C02",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "8f5e2b8ec37a29b25bb836edceccb79a74d68d0bf909239e9f40c4d1720ae690",
+      "observation_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E26"
+      ]
+    },
+    {
+      "claim_id": "C02",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "8f5e2b8ec37a29b25bb836edceccb79a74d68d0bf909239e9f40c4d1720ae690",
+      "observation_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E26"
+      ]
+    },
+    {
+      "claim_id": "C02",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "8f5e2b8ec37a29b25bb836edceccb79a74d68d0bf909239e9f40c4d1720ae690",
+      "observation_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E26"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 2,
+      "document_count": 4,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C03",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "refuted",
+      "category": "false_support_against_refuted",
+      "prompt_sha256": "e1d459b5ca900e22562153b9944485d9c8e335a9eed3ea60811cd3408fa408a6",
+      "observation_ids": [
+        "E06",
+        "E07"
+      ]
+    },
+    {
+      "claim_id": "C03",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "refuted",
+      "category": "missed_resolution_of_refutation",
+      "prompt_sha256": "e1d459b5ca900e22562153b9944485d9c8e335a9eed3ea60811cd3408fa408a6",
+      "observation_ids": [
+        "E06",
+        "E07"
+      ]
+    },
+    {
+      "claim_id": "C03",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "prompt_sha256": "e1d459b5ca900e22562153b9944485d9c8e335a9eed3ea60811cd3408fa408a6",
+      "observation_ids": [
+        "E06",
+        "E07"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "failed_enforcement",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "retrieved public sentences contradict the sufficiency upgrade; this checks the published argument, not raw worker telemetry"
+    },
+    {
+      "claim_id": "C04",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ]
+    },
+    {
+      "claim_id": "C04",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ]
+    },
+    {
+      "claim_id": "C04",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "b136cdaa5995727a342c9493675ebaf6cce42dd607613009f30444d41daf9860",
+      "observation_ids": [
+        "E08",
+        "E09"
+      ],
+      "assertion_status": "unasserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 0,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C05",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "refuted",
+      "category": "false_support_against_refuted",
+      "prompt_sha256": "fb5c76ba8a7eeacd1815d6e55ed7304add1055f20499f31c4ced9992d3ab2695",
+      "observation_ids": [
+        "E10",
+        "E11"
+      ]
+    },
+    {
+      "claim_id": "C05",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "prompt_sha256": "fb5c76ba8a7eeacd1815d6e55ed7304add1055f20499f31c4ced9992d3ab2695",
+      "observation_ids": [
+        "E10",
+        "E11"
+      ]
+    },
+    {
+      "claim_id": "C05",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "prompt_sha256": "fb5c76ba8a7eeacd1815d6e55ed7304add1055f20499f31c4ced9992d3ab2695",
+      "observation_ids": [
+        "E10",
+        "E11"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "failed_enforcement",
+      "support_group_count": 0,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "retrieved public sentences contradict the sufficiency upgrade; this checks the published argument, not raw worker telemetry"
+    },
+    {
+      "claim_id": "C06",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "2c25c778ba9a801c73e8071043bface6cf0ec03fd1dd6022089e89038b7949bf",
+      "observation_ids": [
+        "E12",
+        "E13"
+      ]
+    },
+    {
+      "claim_id": "C06",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "2c25c778ba9a801c73e8071043bface6cf0ec03fd1dd6022089e89038b7949bf",
+      "observation_ids": [
+        "E12",
+        "E13"
+      ]
+    },
+    {
+      "claim_id": "C06",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "2c25c778ba9a801c73e8071043bface6cf0ec03fd1dd6022089e89038b7949bf",
+      "observation_ids": [
+        "E12",
+        "E13"
+      ],
+      "assertion_status": "cross_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 2,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C07",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "caa2dc4c671c68aaaae9421488443bbb3bd0fcde7c12f3001d2d3cc328980956",
+      "observation_ids": [
+        "E14",
+        "E15"
+      ]
+    },
+    {
+      "claim_id": "C07",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "caa2dc4c671c68aaaae9421488443bbb3bd0fcde7c12f3001d2d3cc328980956",
+      "observation_ids": [
+        "E14",
+        "E15"
+      ]
+    },
+    {
+      "claim_id": "C07",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "caa2dc4c671c68aaaae9421488443bbb3bd0fcde7c12f3001d2d3cc328980956",
+      "observation_ids": [
+        "E14",
+        "E15"
+      ],
+      "assertion_status": "cross_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 2,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C08",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b",
+      "observation_ids": [
+        "E16"
+      ]
+    },
+    {
+      "claim_id": "C08",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b",
+      "observation_ids": [
+        "E16"
+      ]
+    },
+    {
+      "claim_id": "C08",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "584a0ed0f2a3cf6d91e87661d07bbcaa9deb8732933aedcfcca9dc96948f234b",
+      "observation_ids": [
+        "E16"
+      ],
+      "assertion_status": "unasserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 0,
+      "withheld_dependent_count": 0,
+      "document_count": 1,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C09",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "9deac5ef71d1b7100bbc90c0526ce158bd8bd67c7d75e55ec76a570dc729f49b",
+      "observation_ids": [
+        "E17",
+        "E18"
+      ]
+    },
+    {
+      "claim_id": "C09",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "refuted",
+      "adjudicated": "unresolved",
+      "category": "wrong_refutation_against_unresolved",
+      "prompt_sha256": "9deac5ef71d1b7100bbc90c0526ce158bd8bd67c7d75e55ec76a570dc729f49b",
+      "observation_ids": [
+        "E17",
+        "E18"
+      ]
+    },
+    {
+      "claim_id": "C09",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "9deac5ef71d1b7100bbc90c0526ce158bd8bd67c7d75e55ec76a570dc729f49b",
+      "observation_ids": [
+        "E17",
+        "E18"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 0,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C10",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "6aec9f30407ea6c3ae90d7596c7aa28f13ab76a23bd4b435142adabfd843760c",
+      "observation_ids": [
+        "E19",
+        "E20"
+      ]
+    },
+    {
+      "claim_id": "C10",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "6aec9f30407ea6c3ae90d7596c7aa28f13ab76a23bd4b435142adabfd843760c",
+      "observation_ids": [
+        "E19",
+        "E20"
+      ]
+    },
+    {
+      "claim_id": "C10",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "6aec9f30407ea6c3ae90d7596c7aa28f13ab76a23bd4b435142adabfd843760c",
+      "observation_ids": [
+        "E19",
+        "E20"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 0,
+      "document_count": 2,
+      "reason": "counterfactual timing or response claim; a postmortem sentence does not verify what a monitor would have done"
+    },
+    {
+      "claim_id": "C11",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "1dceae096de6549794c79f922eedcb145e462525ae035873de29aeb0929a0029",
+      "observation_ids": [
+        "E21",
+        "E22"
+      ]
+    },
+    {
+      "claim_id": "C11",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "1dceae096de6549794c79f922eedcb145e462525ae035873de29aeb0929a0029",
+      "observation_ids": [
+        "E21",
+        "E22"
+      ]
+    },
+    {
+      "claim_id": "C11",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "1dceae096de6549794c79f922eedcb145e462525ae035873de29aeb0929a0029",
+      "observation_ids": [
+        "E21",
+        "E22"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 1,
+      "document_count": 2,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    },
+    {
+      "claim_id": "C12",
+      "stage": "B",
+      "method": "naive",
+      "predicted": "supported",
+      "adjudicated": "unresolved",
+      "category": "false_support_against_unresolved",
+      "prompt_sha256": "c8cd1db62290cc03108796f615a9ee89accec7725f432a958009c4c97721e13b",
+      "observation_ids": [
+        "E23",
+        "E24",
+        "E25",
+        "E26"
+      ]
+    },
+    {
+      "claim_id": "C12",
+      "stage": "B",
+      "method": "checklist",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "c8cd1db62290cc03108796f615a9ee89accec7725f432a958009c4c97721e13b",
+      "observation_ids": [
+        "E23",
+        "E24",
+        "E25",
+        "E26"
+      ]
+    },
+    {
+      "claim_id": "C12",
+      "stage": "B",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "prompt_sha256": "c8cd1db62290cc03108796f615a9ee89accec7725f432a958009c4c97721e13b",
+      "observation_ids": [
+        "E23",
+        "E24",
+        "E25",
+        "E26"
+      ],
+      "assertion_status": "single_source_asserted",
+      "verification_status": "raw_telemetry_unverified",
+      "conclusion_class": "missing_evidence",
+      "support_group_count": 1,
+      "withheld_dependent_count": 1,
+      "document_count": 4,
+      "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it"
+    }
+  ]
+}

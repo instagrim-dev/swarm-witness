@@ -1,0 +1,90 @@
+# Human warrants, stored apart from method code. Qualifiers do not read this file.
+# Epistemic labels concern the world or sufficiency proposition, not whether a
+# postmortem sentence exists. Assertion updates are recorded by the method and
+# are not a second confidence scale.
+protocol_id: incident-audit-v1
+claims:
+  C01:
+    A:
+      epistemic: unresolved
+      reason: OpenAI asserts Artifactory message writes. The namespace dump is not public, so the world effect is unverified.
+    B:
+      epistemic: unresolved
+      reason: METR's writeup analyzes the OpenAI-supplied dump. A second document with that observation origin does not verify the writes.
+  C02:
+    A:
+      epistemic: unresolved
+      reason: OpenAI asserts Artifactory-mediated internet access. Egress logs are not public.
+    B:
+      epistemic: unresolved
+      reason: Hugging Face's stage-1 sentences cite OpenAI and are not an independent egress log.
+  C03:
+    A:
+      epistemic: unresolved
+      reason: A displayed command line does not bind execution or the returned output.
+    B:
+      epistemic: refuted
+      reason: The published example says the returned token was not the command's real output, so the line is not sufficient.
+  C04:
+    A:
+      epistemic: unresolved
+      reason: A mailbox handle and a two-model narrative do not verify one directing instance.
+    B:
+      epistemic: unresolved
+      reason: No stage-B source binds the handle to a unique model instance. The claim stays unresolved.
+  C05:
+    A:
+      epistemic: unresolved
+      reason: An allowlist rejection of non-platform URLs does not decide local file disclosure or code execution.
+    B:
+      epistemic: refuted
+      reason: The same Hugging Face page says the local file read and the local code execution were not URL fetches and were not seen by the allowlist.
+  C06:
+    A:
+      epistemic: unresolved
+      reason: OpenAI asserts an HDF5 credential extraction from the agent side. Worker logs are not public.
+    B:
+      epistemic: unresolved
+      reason: Hugging Face's platform narration is a second assertion with a different collection boundary, not a published worker log. Do not upgrade it to a verified effect.
+  C07:
+    A:
+      epistemic: unresolved
+      reason: OpenAI asserts RefJinja execution, including a published chain-of-thought timestamp. That timestamp is not a worker log.
+    B:
+      epistemic: unresolved
+      reason: Hugging Face asserts Jinja2 execution in a production worker. The two narrations still do not include the raw execution log.
+  C08:
+    A:
+      epistemic: unresolved
+      reason: A published GO quotation does not establish that the message caused a later Hugging Face effect.
+    B:
+      epistemic: unresolved
+      reason: No causal trace was added. Co-occurrence with other incident claims is not causation.
+  C09:
+    A:
+      epistemic: unresolved
+      reason: Authentication to MongoDB does not establish a write.
+    B:
+      epistemic: unresolved
+      reason: Hugging Face's sentence that the database was not written is a postmortem of an audit log. The log itself is not in the corpus, so the world effect stays unresolved either way.
+  C10:
+    A:
+      epistemic: unresolved
+      reason: The paging claim is a counterfactual about monitors that OpenAI says were not running on these evaluations.
+    B:
+      epistemic: unresolved
+      reason: METR placed safeguard effectiveness out of scope, which does not verify or refute the counterfactual.
+  C11:
+    A:
+      epistemic: unresolved
+      reason: One OpenAI sentence does not independently corroborate itself, and no credential-store record is public.
+    B:
+      epistemic: unresolved
+      reason: A byte-identical second excerpt is a copy, not a new observation origin.
+  C12:
+    A:
+      epistemic: unresolved
+      reason: METR's message count is a reconstructed estimate the authors say could be imprecise. The dump is not public.
+    B:
+      epistemic: unresolved
+      reason: The extra blurb is a declared synthetic restatement of the same OpenAI-supplied dump, not an independent count.
