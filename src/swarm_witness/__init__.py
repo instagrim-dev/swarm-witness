@@ -11,6 +11,11 @@ from swarm_witness.evidence_index import (
     generate_and_write_index,
 )
 from swarm_witness.labels import CONCLUSION_LABELS
+from swarm_witness.coordination import (
+    COORDINATION_VERSION,
+    qualify_case,
+    validate_case,
+)
 from swarm_witness.provenance import (
     CONTRACT_VERSION,
     normalize_lineage,
@@ -37,6 +42,7 @@ from swarm_witness.schema import (
 
 __all__ = [
     "CONTRACT_VERSION",
+    "COORDINATION_VERSION",
     "CONCLUSION_LABELS",
     "CONCLUSION_TO_FINDING_LABEL",
     "SUPPORTED_COMPARISON_LABEL",
@@ -56,10 +62,12 @@ __all__ = [
     "adapt_service_effect_logs",
     "comparator_packet",
     "load_origin_packet",
+    "qualify_case",
     "qualify_graph",
     "reconcile_events",
     "validate_claim",
     "validate_finding",
+    "validate_case",
     "validate_graph",
     "validate_run",
 ]

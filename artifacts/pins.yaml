@@ -129,3 +129,27 @@ detection_latency:
     Issue 32 replay stacked on forensic telemetry. Synthetic controls are
     protocol-authored. Incident detection latency is absent because the
     executed telemetry graph holds no trustworthy event time.
+coord_board_participation:
+  source_pin: coordination-attribution-v1
+  source_revision: coordination-attribution-v1
+  notes: >
+    Issue 30 board-participation proposition. The Artifactory dump is withheld.
+    Reported agent counts are not traced actors.
+coord_delegated_workstream:
+  source_pin: coordination-attribution-v1
+  source_revision: coordination-attribution-v1
+  notes: >
+    Issue 30 delegated-workstream proposition. No agent handoff is held.
+    The transcript dump stays withheld.
+coord_collective_impact:
+  source_pin: coordination-attribution-v1
+  source_revision: coordination-attribution-v1
+  notes: >
+    Issue 30 collective-impact proposition. Platform logs stay unobserved.
+    Another source's log does not clear that blocker.
+coordination_attribution_v1:
+  source_pin: coordination-attribution-v1
+  source_revision: coordination-attribution-v1
+  notes: >
+    Executable coordination-attribution-v1 contract. Fixture conformance only.
+    Not an incident detection or prevention result.

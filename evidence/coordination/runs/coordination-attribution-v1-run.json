@@ -1,0 +1,26 @@
+{
+  "case_id": "incident-lineage",
+  "claim_id": "coordination_attribution_v1",
+  "execution_status": "completed",
+  "id": "coordination-attribution-v1-run",
+  "observations": {
+    "contract_version": "coordination-attribution-v1",
+    "incident_added_claim_qualification_value": false,
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "incident_propositions": 3,
+    "incident_unresolved": 3,
+    "negative_controls": 6,
+    "negative_controls_passed": true,
+    "provenance_contract": "evidence-provenance-v1",
+    "real_world_authenticity_certified": false,
+    "scale_agent_pair_matrix_allocated": false,
+    "scale_all_pairs": 719400,
+    "scale_messages": 70000,
+    "scale_pairs_considered": 1200,
+    "supported_while_blocked": false,
+    "traced_causal_actor_count": 0
+  },
+  "protocol_id": "coordination-attribution-v1",
+  "source_pin": "coordination-attribution-v1"
+}

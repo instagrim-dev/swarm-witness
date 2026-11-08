@@ -1,0 +1,27 @@
+id: coord_board_participation
+source_ref: experiments/coordination/incident_cases.yaml#coord_board_participation
+source_version: coordination-attribution-v1
+original_proposition: >
+  About 1200 agents participated in an unsanctioned Artifactory message
+  board, as observed from the board records rather than from a repeated
+  public sentence.
+operational_interpretation: >
+  METR and Redwood repeat one sentence about that board. Both depend on
+  the withheld Artifactory dump, so they are one independence group. No
+  agent_instance is held. The reported count is not a traced-actor
+  denominator. The provenance blocks_upgrade slot on the dump stays in
+  force.
+property: board participation is not established by repeated narration
+scope: >
+  Public sentences and the explicitly withheld dump. Not a download of the
+  reported messages, and not a detection claim.
+quantifier: the board-participation proposition in the coordination fixture
+success_criterion: >
+  Qualification stays unresolved. communication_observed is withheld.
+  Duplicate publication does not increase the independence count. The
+  primary upgrade blocker remains the board dump.
+assumptions:
+  - "Coordination cites the evidence-provenance-v1 graph and does not redefine it"
+  - "A narrative_report does not verify communication"
+  - "Investigator-reported counts are not held records"
+  - "A remaining blocks_upgrade slot prevents an upgrade to supported"

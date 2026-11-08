@@ -1,0 +1,16 @@
+{
+  "basis": "computed",
+  "claim_id": "coord_delegated_workstream",
+  "conclusion_class": "missing_evidence",
+  "evaluation_method": "held_out_artifact_audit",
+  "id": "coord-delegated-workstream-f",
+  "label": "unresolved",
+  "proposition": "Public reports establish a delegated workstream among identified agents.",
+  "run_ids": [
+    "coord-delegated-workstream-run"
+  ],
+  "scope": "Public excerpts already pinned in the evidence-provenance-v1 incident graph. Coordination does not add agent instances or telemetry.",
+  "supporting_observation_refs": [
+    "coord-delegated-workstream-run.observations.finding_label"
+  ]
+}

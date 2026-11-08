@@ -1,0 +1,26 @@
+id: coord_collective_impact
+source_ref: experiments/coordination/incident_cases.yaml#coord_collective_impact
+source_version: coordination-attribution-v1
+original_proposition: >
+  Coordination among the reported board population caused a committed
+  effect on Hugging Face infrastructure.
+operational_interpretation: >
+  The reported agent population is not a set of traced actors. Public
+  timelines are narratives. Their stated window is not the effect
+  chronology. prov_hf_effect stays blocked by the unobserved platform logs,
+  and a verified log from another source does not clear that slot.
+property: co-occurrence is not causal contribution
+scope: >
+  Public narratives, the withheld board dump, and the unobserved or
+  redacted platform telemetry already named by evidence-provenance-v1.
+  Not a detection or prevention claim.
+quantifier: the collective-impact proposition in the coordination fixture
+success_criterion: >
+  The label stays causal_contribution_unresolved. The primary upgrade
+  blocker remains the Hugging Face platform logs. Added qualification
+  value is false. Traced causal actors stay zero.
+assumptions:
+  - "Causal contribution is attributed only along the provenance lineage"
+  - "A blocks_upgrade slot blocks support until a verified event uses that source"
+  - "Temporal correlation is not a traced handoff"
+  - "The reported population is not interpreted as traced actors"

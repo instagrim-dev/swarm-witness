@@ -1,0 +1,339 @@
+{
+  "case_id": "coord_collective_impact",
+  "claim_id": "coord_collective_impact",
+  "execution_status": "completed",
+  "id": "coord-collective-impact-run",
+  "observations": {
+    "added_claim_qualification_value": false,
+    "conclusion_class": "missing_evidence",
+    "finding_label": "unresolved",
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "primary_upgrade_blocker": "src-hf-platform-logs",
+    "qualification": {
+      "added_claim_qualification_value": false,
+      "case_id": "coord_collective_impact",
+      "conclusion_class": "missing_evidence",
+      "coordination_version": "coordination-attribution-v1",
+      "edges": [
+        {
+          "authorship_supported": false,
+          "causal_link_supported": false,
+          "event_time": null,
+          "from_id": "msg-metr-board",
+          "id": "edge-board-duplicate",
+          "kind": "duplicate_report",
+          "labels": [],
+          "link_class": "duplicate_report",
+          "observed_time": null,
+          "provenance_event_ids": [
+            "ev-metr-board",
+            "ev-redwood-board"
+          ],
+          "provenance_source_ids": [
+            "src-metr-board",
+            "src-redwood-board",
+            "src-board-dump"
+          ],
+          "seams": [
+            "duplicate_report",
+            "narrative_is_not_communication"
+          ],
+          "source_citation_ids": [
+            "cite-metr-board",
+            "cite-redwood-board",
+            "cite-board-dump"
+          ],
+          "time_basis": "missing",
+          "to_id": "msg-redwood-board",
+          "verified_effect_ids": [],
+          "verified_service_log_ids": []
+        },
+        {
+          "authorship_supported": false,
+          "causal_link_supported": false,
+          "event_time": null,
+          "from_id": "msg-metr-board",
+          "id": "edge-time-correlation",
+          "kind": "temporal_correlation",
+          "labels": [],
+          "link_class": "temporal_correlation",
+          "observed_time": null,
+          "provenance_event_ids": [
+            "ev-metr-board",
+            "ev-hf-narrative"
+          ],
+          "provenance_source_ids": [
+            "src-metr-board",
+            "src-hf-correlation",
+            "src-hf-window",
+            "src-hf-platform-logs"
+          ],
+          "seams": [
+            "incomplete_timeline",
+            "narrative_is_not_communication",
+            "narrative_time_not_promoted",
+            "temporal_correlation_not_causal"
+          ],
+          "source_citation_ids": [
+            "cite-metr-board",
+            "cite-hf-correlation",
+            "cite-hf-window",
+            "cite-hf-platform-logs"
+          ],
+          "time_basis": "missing",
+          "to_id": "eff-hf",
+          "verified_effect_ids": [],
+          "verified_service_log_ids": []
+        },
+        {
+          "authorship_supported": false,
+          "causal_link_supported": false,
+          "event_time": null,
+          "from_id": "msg-metr-board",
+          "id": "edge-alleged-contribution",
+          "kind": "contribution",
+          "labels": [
+            "causal_contribution_unresolved"
+          ],
+          "link_class": "incomplete_timeline",
+          "observed_time": null,
+          "provenance_event_ids": [
+            "ev-hf-narrative",
+            "ev-openai-hf",
+            "ev-metr-scope"
+          ],
+          "provenance_source_ids": [
+            "src-hf-correlation",
+            "src-hf-window",
+            "src-hf-platform-logs",
+            "src-hf-indicators",
+            "src-launchpad-logs",
+            "src-openai-hf-outline",
+            "src-metr-scope"
+          ],
+          "seams": [
+            "incomplete_timeline",
+            "narrative_is_not_communication",
+            "narrative_time_not_promoted"
+          ],
+          "source_citation_ids": [
+            "cite-hf-correlation",
+            "cite-hf-window",
+            "cite-hf-platform-logs",
+            "cite-hf-indicators",
+            "cite-launchpad-logs",
+            "cite-openai-outline",
+            "cite-metr-scope"
+          ],
+          "time_basis": "missing",
+          "to_id": "eff-hf",
+          "verified_effect_ids": [],
+          "verified_service_log_ids": []
+        }
+      ],
+      "falsifiers": [
+        "causal_contribution stays unresolved without a delegation_evidenced path to a verified committed_effect.",
+        "A source_stated window on a narrative_report is not the effect chronology.",
+        "Temporal correlation, shared vocabulary, a reused file, and investigator inference are not traced handoffs.",
+        "Possession or repetition of board content is not authorship and is not causal contribution.",
+        "A copied or forged actor identifier is not a bound participant.",
+        "A verified narrative_report verifies publication bytes only.",
+        "A blocks_upgrade slot that no verified supporting event uses prevents an upgrade to supported. A log from a different source does not clear it."
+      ],
+      "finding_label": "unresolved",
+      "goal_contagion_claimed": false,
+      "incident_detection_claimed": false,
+      "incident_prevention_claimed": false,
+      "independence_groups": [
+        "huggingface-platform-telemetry-2026-07",
+        "metr-redwood-investigation-scope",
+        "openai-artifactory-message-board-dump",
+        "openai-incident-report"
+      ],
+      "independent_observation_count": 4,
+      "individual": {
+        "claim_id": "prov_hf_effect",
+        "coverage_denominator": 6,
+        "finding_label": "unresolved",
+        "independent_observation_count": 0,
+        "primary_upgrade_blocker": "src-hf-platform-logs",
+        "refused_blocked_support": false,
+        "upgrade_blocked_by": [
+          "src-hf-platform-logs",
+          "src-hf-indicators",
+          "src-launchpad-logs"
+        ]
+      },
+      "intent_inferred": false,
+      "investigator_reported_agents_are_traced_actors": false,
+      "kind_rejections": [
+        {
+          "event_id": "ev-metr-board",
+          "event_kind": "narrative_report",
+          "reason": "excerpt digest verifies publication bytes, not communication or contribution"
+        },
+        {
+          "event_id": "ev-redwood-board",
+          "event_kind": "narrative_report",
+          "reason": "excerpt digest verifies publication bytes, not communication or contribution"
+        },
+        {
+          "event_id": "ev-hf-narrative",
+          "event_kind": "narrative_report",
+          "reason": "excerpt digest verifies publication bytes, not communication or contribution"
+        },
+        {
+          "event_id": "ev-openai-hf",
+          "event_kind": "narrative_report",
+          "reason": "excerpt digest verifies publication bytes, not communication or contribution"
+        },
+        {
+          "event_id": "ev-metr-scope",
+          "event_kind": "narrative_report",
+          "reason": "excerpt digest verifies publication bytes, not communication or contribution"
+        }
+      ],
+      "labels": [
+        "causal_contribution_unresolved"
+      ],
+      "populations": [
+        {
+          "count": 1200,
+          "count_label": "investigator_reported",
+          "directly_processed": false,
+          "held_by_audit": false,
+          "id": "pop-reported-agents",
+          "precision": "reported_approximate",
+          "provenance_source_id": "src-board-dump",
+          "reported_field": "agents_on_board",
+          "traced_causal_actors": false,
+          "unit": "agents"
+        },
+        {
+          "count": 2,
+          "count_label": "directly_processed",
+          "directly_processed": true,
+          "held_by_audit": false,
+          "id": "pop-processed-sentences",
+          "precision": "exact_records_in_case",
+          "record_ids": [
+            "msg-metr-board",
+            "msg-redwood-board"
+          ],
+          "traced_causal_actors": false,
+          "unit": "publication_sentences"
+        }
+      ],
+      "primary_upgrade_blocker": "src-hf-platform-logs",
+      "property_holds": null,
+      "proposition": "Coordination among the reported board population caused a committed effect on Hugging Face infrastructure.",
+      "proposition_kind": "collective_causal_impact",
+      "provenance_contract": "evidence-provenance-v1",
+      "qualification_value": {
+        "added": false,
+        "admissible_events_not_on_individual_claim": [],
+        "augmented_finding_label": "unresolved",
+        "individual_claim_id": "prov_hf_effect",
+        "individual_finding_label": "unresolved",
+        "primary_upgrade_blocker": "src-hf-platform-logs",
+        "reason": "coordination cites no admissible event beyond the individual claim",
+        "refused_blocked_support": false,
+        "upgrade_blocked_by": [
+          {
+            "coverage_status": "unobserved",
+            "reason": "unobserved source src-hf-platform-logs prevents an upgrade",
+            "slot_id": "slot-hf-platform-logs",
+            "source_id": "src-hf-platform-logs"
+          },
+          {
+            "coverage_status": "redacted",
+            "reason": "redacted source src-hf-indicators cannot upgrade the claim",
+            "slot_id": "slot-hf-indicators",
+            "source_id": "src-hf-indicators"
+          },
+          {
+            "coverage_status": "withheld",
+            "reason": "withheld source src-launchpad-logs is not held by this audit",
+            "slot_id": "slot-launchpad-logs",
+            "source_id": "src-launchpad-logs"
+          }
+        ]
+      },
+      "real_world_authenticity_certified": false,
+      "reason": "required discriminating evidence missing or incomplete",
+      "refused_blocked_support": false,
+      "supported_while_blocked": false,
+      "traced_causal_actor_count": 0,
+      "traced_causal_actor_ids": [],
+      "unavailable_telemetry": [
+        {
+          "access_level": "withheld",
+          "coverage_status": "withheld",
+          "observation_origin": "unavailable_private_original",
+          "source_id": "src-board-dump"
+        },
+        {
+          "access_level": "redacted",
+          "coverage_status": "redacted",
+          "observation_origin": "independent_provider_telemetry",
+          "source_id": "src-hf-indicators"
+        },
+        {
+          "access_level": "unobserved",
+          "coverage_status": "unobserved",
+          "observation_origin": "independent_provider_telemetry",
+          "source_id": "src-hf-platform-logs"
+        },
+        {
+          "access_level": "private_original",
+          "coverage_status": "withheld",
+          "observation_origin": "unavailable_private_original",
+          "source_id": "src-launchpad-logs"
+        }
+      ],
+      "unsupported_seams": [
+        "causal_contribution_unresolved",
+        "duplicate_report",
+        "incomplete_timeline",
+        "investigator_reported_population",
+        "missing_agent_instances",
+        "missing_delegation_records",
+        "narrative_is_not_communication",
+        "narrative_time_not_promoted",
+        "no_added_qualification_value",
+        "redacted_source",
+        "temporal_correlation_not_causal",
+        "unobserved_source",
+        "upgrade_blocker_remains",
+        "withheld_source"
+      ],
+      "upgrade_blocked_by": [
+        "src-hf-platform-logs",
+        "src-hf-indicators",
+        "src-launchpad-logs"
+      ],
+      "withheld_labels": [
+        {
+          "label": "communication_observed",
+          "reason": "duplicate_report"
+        },
+        {
+          "label": "delegation_evidenced",
+          "reason": "duplicate_report"
+        },
+        {
+          "label": "goal_adoption_inferred",
+          "reason": "communication_is_not_goal_contagion"
+        }
+      ],
+      "world_claim": true
+    },
+    "real_world_authenticity_certified": false,
+    "supported_while_blocked": false,
+    "traced_causal_actor_count": 0,
+    "underlying_telemetry": "unavailable"
+  },
+  "protocol_id": "coordination-attribution-v1",
+  "source_pin": "coordination-attribution-v1"
+}

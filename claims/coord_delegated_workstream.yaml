@@ -1,0 +1,22 @@
+id: coord_delegated_workstream
+source_ref: experiments/coordination/incident_cases.yaml#coord_delegated_workstream
+source_version: coordination-attribution-v1
+original_proposition: >
+  Public reports establish a delegated workstream among identified agents.
+operational_interpretation: >
+  The OpenAI outline sentence is investigator inference. It names neither
+  party nor a task handoff. The transcript dump is cited as withheld
+  telemetry and is not replaced by the outline.
+property: a public outline is not a traced delegation
+scope: >
+  The pinned outline sentence and the explicitly withheld transcript dump.
+  Not an invented agent pair, and not a detection claim.
+quantifier: the delegated-workstream proposition in the coordination fixture
+success_criterion: >
+  Qualification stays unresolved. delegation_evidenced is withheld.
+  Missing agents stay missing. The withheld transcript stays explicit.
+assumptions:
+  - "No agent instance is invented for this proposition"
+  - "Investigator inference is not a traced handoff"
+  - "Unavailable telemetry stays explicit"
+  - "Historical #10-#12 findings are unchanged"
