@@ -1,0 +1,77 @@
+# Unavailable originals are recorded and are not gates. blocks_upgrade is
+# false on every slot. The contract rejects that flag on a source this audit
+# does not hold. A gate on a held source is exercised only by a probe copy.
+claims:
+- id: tel_reproduction_record
+  proposition: >
+    The public LessWrong reproduction post and its appendix are one release.
+    They are not the OpenAI transcript dump and not Hugging Face platform logs.
+  world_claim: false
+  required_event_kinds:
+  - narrative_report
+  insufficient_event_kinds:
+  - transcript_visible_command
+  - tool_call_arguments
+  - actual_tool_response
+  - independent_service_log
+  - committed_effect
+  - message_board_record
+  - unknown
+  minimum_independent_groups: 1
+  requires_bound_actor: false
+  requires_event_time: false
+  coverage_assumption:
+    operation: reproduction-transcript-release
+    interval: null
+    completeness: partial
+  event_ids:
+  - ev-lw-release
+  - ev-lw-appendix
+  evidence_slots:
+  - id: slot-lw-post
+    source_id: src-lw-reproduction-post
+    blocks_upgrade: false
+    role: public reproduction post
+  - id: slot-lw-appendix
+    source_id: src-lw-reproduction-appendix
+    blocks_upgrade: false
+    role: appendix of the same release
+  - id: slot-transcript-dump
+    source_id: src-transcript-dump
+    blocks_upgrade: false
+    role: original transcript dump, unavailable, not a gate
+  - id: slot-hf-platform-logs
+    source_id: src-hf-platform-logs
+    blocks_upgrade: false
+    role: original platform logs, unavailable, not a gate
+- id: tel_original_logs
+  proposition: >
+    Original Hugging Face platform logs show a committed effect.
+  world_claim: true
+  required_event_kinds:
+  - committed_effect
+  insufficient_event_kinds:
+  - transcript_visible_command
+  - tool_call_arguments
+  - actual_tool_response
+  - independent_service_log
+  - narrative_report
+  - message_board_record
+  - unknown
+  minimum_independent_groups: 1
+  requires_bound_actor: false
+  requires_event_time: false
+  coverage_assumption:
+    operation: original-platform-effect
+    interval: null
+    completeness: partial
+  event_ids: []
+  evidence_slots:
+  - id: slot-original-platform-logs
+    source_id: src-hf-platform-logs
+    blocks_upgrade: false
+    role: original platform logs are absent and are not a gate
+  - id: slot-original-transcript-dump
+    source_id: src-transcript-dump
+    blocks_upgrade: false
+    role: original transcript dump is absent and is not a gate

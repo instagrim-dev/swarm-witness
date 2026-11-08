@@ -1,0 +1,24 @@
+id: tel_original_logs
+source_ref: experiments/provenance/incident_lineage.yaml#src-hf-platform-logs
+source_version: forensic-telemetry-v1
+original_proposition: >
+  Original Hugging Face platform logs show a committed effect.
+operational_interpretation: >
+  No committed-effect row is held. The platform logs and the OpenAI transcript
+  dump stay unavailable. They are not upgrade gates. A partial coverage
+  assumption does not treat that absence as evidence of no effect. This does
+  not certify the original incident.
+property: committed effect requires a held log
+scope: >
+  The unobserved Hugging Face platform logs and the withheld OpenAI transcript
+  dump. Not a claim that an effect was committed, detected, or prevented.
+quantifier: the original-effect proposition in the telemetry graph
+success_criterion: >
+  Qualification stays unresolved with effect_status unobserved. The primary
+  upgrade blocker stays empty. Absence of a sink row is not evidence of no
+  effect. Real-world authenticity is not certified.
+assumptions:
+  - "A missing platform log is not a committed effect"
+  - "Unavailable sources cannot carry blocks_upgrade"
+  - "A partial coverage assumption does not establish absence of effect"
+  - "Synthetic readback rows are not original platform logs"

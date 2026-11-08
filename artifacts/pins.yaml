@@ -103,3 +103,22 @@ provenance_contract_v1:
   source_revision: evidence-provenance-v1
   notes: >
     Executable evidence-provenance-v1 contract. Fixture conformance only.
+tel_reproduction_record:
+  source_pin: forensic-telemetry-v1
+  source_revision: forensic-telemetry-v1
+  notes: >
+    Issue 31 telemetry. The LessWrong post and appendix are one public record.
+    The OpenAI transcript dump and Hugging Face platform logs are unavailable
+    and are not upgrade gates.
+tel_original_logs:
+  source_pin: forensic-telemetry-v1
+  source_revision: forensic-telemetry-v1
+  notes: >
+    Issue 31 telemetry. No committed-effect row is held. The missing originals
+    are not gates and do not certify the incident.
+forensic_telemetry_v1:
+  source_pin: forensic-telemetry-v1
+  source_revision: forensic-telemetry-v1
+  notes: >
+    Executable forensic-telemetry-v1 replay. The reproduction record qualifies.
+    The original incident is not certified.

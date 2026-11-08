@@ -1,0 +1,25 @@
+schema_version: forensic-telemetry-v1
+# Bytes come from experiments/provenance/incident_lineage.yaml. The LessWrong
+# post and appendix are one release. The METR and Hugging Face sentences are
+# public postmortem text, not original telemetry.
+excerpts:
+- record_id: lw-release
+  pinned_source_id: src-lw-reproduction-post
+  surface: public_excerpt
+  polarity: supports
+  synthetic: false
+- record_id: lw-appendix
+  pinned_source_id: src-lw-reproduction-appendix
+  surface: public_excerpt
+  polarity: supports
+  synthetic: false
+- record_id: pub-metr-command
+  pinned_source_id: src-metr-command
+  surface: public_excerpt
+  polarity: reports
+  synthetic: false
+- record_id: pub-hf-correlation
+  pinned_source_id: src-hf-correlation
+  surface: public_excerpt
+  polarity: reports
+  synthetic: false

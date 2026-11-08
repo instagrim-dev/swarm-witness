@@ -1,0 +1,17 @@
+{
+  "basis": "computed",
+  "claim_id": "tel_original_logs",
+  "conclusion_class": "missing_evidence",
+  "evaluation_method": "held_out_artifact_audit",
+  "id": "tel-original-logs-f",
+  "label": "unresolved",
+  "proposition": "Original Hugging Face platform logs show a committed effect.\n",
+  "run_ids": [
+    "tel-original-logs-run"
+  ],
+  "scope": "No committed-effect row is held. The missing platform logs and transcript dump are not upgrade gates and are not evidence of no effect.",
+  "supporting_observation_refs": [
+    "tel-original-logs-run.observations.finding_label",
+    "tel-original-logs-run.observations.effect_status"
+  ]
+}

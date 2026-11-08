@@ -1,0 +1,25 @@
+{
+  "case_id": "forensic_telemetry_v1",
+  "claim_id": "forensic_telemetry_v1",
+  "execution_status": "completed",
+  "id": "forensic-telemetry-v1-run",
+  "observations": {
+    "blocks_upgrade_slot_count": 0,
+    "comparator_packet_sha256": "0dc34bebf3731be6a1e575587f99e3b216ba4d9511e8beea4d6c32583447232c",
+    "confirmed_effect_count": 0,
+    "eval_logs_copied": false,
+    "incident_detection_claimed": false,
+    "incident_prevention_claimed": false,
+    "independent_observation_count": 1,
+    "naive_agent_row_count": 6,
+    "native_witness_export_present": false,
+    "original_finding_label": "unresolved",
+    "real_world_authenticity_certified": false,
+    "reproduction_finding_label": "reproduced",
+    "stage_labels_match": true,
+    "unavailable_source_count": 9,
+    "unknown_source_count": 11
+  },
+  "protocol_id": "forensic-telemetry-v1",
+  "source_pin": "forensic-telemetry-v1"
+}
