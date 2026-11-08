@@ -40,9 +40,21 @@ def test_label_map_covers_core_and_comparison_divergent():
     assert set(CONCLUSION_TO_FINDING_LABEL) == {
         "missing_evidence",
         "failed_enforcement",
+        "refuted",
         "supported",
         "comparison_divergent",
     }
+
+
+def test_refuted_proposition_is_not_failed_enforcement():
+    out = classify_conclusion(
+        evidence_complete=True,
+        property_holds=False,
+        mechanism_exercised=False,
+    )
+    assert out["conclusion_class"] == "refuted"
+    assert out["finding_label"] == "contradicted_in_scope"
+    assert out["property_holds"] is False
 
 
 def test_matched_comparison_supported_uses_classical_baseline_label():

@@ -248,3 +248,71 @@ def test_evidence_matches_the_bundle():
     assert method["observations"]["confirmed_effect_count"] == 0
     assert method["observations"]["real_world_authenticity_certified"] is False
     assert artifacts["method_run"]["observations"]["reproduction_finding_label"] == "reproduced"
+
+
+def test_reused_call_id_does_not_confirm_a_different_actor_and_object():
+    boundary = "synthetic readback, not an incident log and not a LessWrong transcript"
+    agent = adapt_agent_tool_records(
+        [
+            {
+                "record_id": "alice-write",
+                "surface": "requested_command",
+                "origin": "synthetic_control",
+                "synthetic": True,
+                "independence_group": "synthetic:alice",
+                "publisher": "fixture",
+                "raw": "alice writes object-A",
+                "actor": "Alice",
+                "actor_binding": "bound",
+                "binding_basis": "source_stated_principal",
+                "call_id": "call-shared",
+                "object": "object-A",
+                "action": "write",
+                "result": "ok",
+                "event_time": "2026-07-11T10:10:00Z",
+                "time_basis": "source_stated",
+                "collection_boundary": boundary,
+                "canonical_url": "fixture://telemetry/alice-write",
+                "source_id": "src-alice",
+            }
+        ],
+        salt="forensic-telemetry-v1",
+    )
+    service = adapt_service_effect_logs(
+        [
+            {
+                "record_id": "bob-commit",
+                "surface": "committed_effect",
+                "origin": "synthetic_control",
+                "synthetic": True,
+                "independence_group": "synthetic:bob",
+                "publisher": "fixture",
+                "raw": "bob committed object-B",
+                "actor": "Bob",
+                "actor_binding": "bound",
+                "binding_basis": "source_stated_principal",
+                "call_id": "call-shared",
+                "object": "object-B",
+                "action": "write",
+                "result": "committed",
+                "polarity": "supports",
+                "event_time": "2026-07-11T10:10:00Z",
+                "time_basis": "source_stated",
+                "collection_boundary": boundary,
+                "canonical_url": "fixture://telemetry/bob-commit",
+                "source_id": "src-bob",
+            }
+        ],
+        salt="forensic-telemetry-v1",
+    )
+    link = reconcile_events(agent + service)["links"][0]
+    assert not (
+        link["status"] == "confirmed"
+        and link["confirmed_effect"] is True
+        and link["ambiguous"] is False
+        and not link["flags"]
+    )
+    assert link["status"] == "conflicting"
+    assert link["confirmed_effect"] is False
+    assert "actor_mismatch" in link["flags"]
+    assert "object_mismatch" in link["flags"]

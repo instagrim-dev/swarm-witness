@@ -82,13 +82,28 @@ def _decision_only(obs: dict[str, Any]) -> bool:
     return bool(types) and types <= _DECISION_TYPES
 
 
+def _verifies_target(obs: dict[str, Any], claim: dict[str, Any]) -> bool:
+    """The record is about this proposition and carries its required observations."""
+    if obs.get("literal_polarity") != "supports":
+        return False
+    if claim["id"] not in (obs.get("literal_claims") or []):
+        return False
+    required = set(claim.get("required_observation_types") or [])
+    types = set(obs.get("observation_types") or [])
+    if required and not required.issubset(types):
+        return False
+    if claim.get("kind") == "world_effect" and _decision_only(obs):
+        return False
+    return True
+
+
 def _origin(claim: dict[str, Any], admitted: list[dict[str, Any]]) -> str:
     levels = _levels(claim)
     origins: list[str] = []
     for obs in admitted:
-        if obs.get("access_level") not in levels:
+        if not _verifies_target(obs, claim):
             continue
-        if obs.get("literal_polarity") != "supports":
+        if obs.get("access_level") not in levels:
             continue
         origin = obs.get("named_origin")
         if isinstance(origin, str) and origin.strip():

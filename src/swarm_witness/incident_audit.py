@@ -169,9 +169,11 @@ def _admit(
         digest = obs.get("content_sha256") or quote_digest(obs["quote"])
         dependent = authenticity in {"copied", "derived_same_origin"}
         unusable = obs.get("freshness") == "stale" or obs.get("binding") == "misbound"
+        inauthentic = authenticity in _INAUTHENTIC
         if (
             digest in seen_hashes
             or unusable
+            or inauthentic
             or (dependent and not count_derived_as_independent)
         ):
             withheld.append(obs)
@@ -184,8 +186,6 @@ def _admit(
 def _effect_record(
     obs: dict[str, Any], claim: dict[str, Any], polarity: str
 ) -> bool:
-    if obs.get("access_level") not in _verifying_levels(claim):
-        return False
     if obs.get("literal_polarity") != polarity:
         return False
     if claim["id"] not in (obs.get("literal_claims") or []):
@@ -201,12 +201,33 @@ def _effect_record(
         "credential_use",
     }:
         return False
+    if not _authenticity_admissible(obs):
+        return False
+    if obs.get("access_level") not in _verifying_levels(claim):
+        return False
     return True
 
 
 _UNAVAILABLE_ACCESS = frozenset(
     {"withheld", "unobserved", "private_original", "unknown"}
 )
+_ADMISSIBLE_AUTHENTICITY = frozenset(
+    {
+        "authentic_public_text",
+        "released_reproduction_transcript",
+    }
+)
+_INAUTHENTIC = frozenset(
+    {
+        "spoofed_tool_line",
+        "unauthenticated_tool_line",
+    }
+)
+
+
+def _authenticity_admissible(obs: dict[str, Any]) -> bool:
+    """Explicit authenticity required before support, refutation, or an authentic status."""
+    return obs.get("authenticity") in _ADMISSIBLE_AUTHENTICITY
 
 
 def _held(obs: dict[str, Any]) -> bool:
@@ -253,13 +274,17 @@ def _held_upgrade_blocked(
 
 
 def _attributed_origin(claim: dict[str, Any], admitted: list[dict[str, Any]]) -> str:
-    """Unique verifying support origin, or undetermined. Does not read warrants."""
+    """Unique verifying support origin, or undetermined. Does not read warrants.
+
+    Only a record that verifies this proposition can carry the origin. Access
+    level is applied after that check.
+    """
     levels = _verifying_levels(claim)
     origins: list[str] = []
     for obs in admitted:
-        if obs.get("access_level") not in levels:
+        if not _verifies_support(obs, claim):
             continue
-        if obs.get("literal_polarity") != "supports":
+        if obs.get("access_level") not in levels:
             continue
         origin = obs.get("named_origin")
         if isinstance(origin, str) and origin.strip():
@@ -294,7 +319,11 @@ def _project(epistemic: str) -> dict[str, Any]:
             failure_origin="none",
         )
     elif epistemic == "refuted":
-        classified = classify_conclusion(evidence_complete=True, property_holds=False)
+        classified = classify_conclusion(
+            evidence_complete=True,
+            property_holds=False,
+            mechanism_exercised=False,
+        )
         axes = diagnosis(
             evidence_status="authentic",
             decision_status="unknown",
@@ -349,6 +378,7 @@ def swarm_witness_verdict(
     failure_origin = "none"
     evidence_status = "missing"
     epistemic = "unresolved"
+    mechanism_exercised = False
 
     if kind == "counterfactual":
         epistemic = "unresolved"
@@ -363,17 +393,24 @@ def swarm_witness_verdict(
         raw_refute = [
             obs for obs in admitted if _effect_record(obs, claim, "refutes")
         ]
-        if raw_support and not raw_refute and not refute_groups:
+        support_authentic = bool(raw_support) and all(
+            _authenticity_admissible(obs) for obs in raw_support
+        )
+        refute_authentic = bool(raw_refute) and all(
+            _authenticity_admissible(obs) for obs in raw_refute
+        )
+        if support_authentic and not raw_refute and not refute_groups:
             epistemic = "supported"
             evidence_status = "authentic"
             reason = (
                 "a declared verifying record supports the effect and nothing "
                 "admitted contradicts it"
             )
-        elif raw_refute and not raw_support and not support_groups:
+        elif refute_authentic and not raw_support and not support_groups:
             epistemic = "refuted"
             evidence_status = "authentic"
             failure_origin = "effect_boundary"
+            mechanism_exercised = True
             reason = "a declared verifying record refutes the effect"
         elif public_text_verifies_world_effects and support_groups and not refute_groups:
             epistemic = "supported"
@@ -397,21 +434,7 @@ def swarm_witness_verdict(
                 "verify it"
             )
     elif kind == "evidentiary_sufficiency":
-        covering = []
-        for obs in admitted:
-            if obs.get("authenticity") in {
-                "spoofed_tool_line",
-                "unauthenticated_tool_line",
-                "copied",
-                "derived_same_origin",
-            }:
-                continue
-            if obs.get("authenticity") not in {
-                "authentic_public_text",
-                "released_reproduction_transcript",
-            }:
-                continue
-            covering.append(obs)
+        covering = [obs for obs in admitted if _authenticity_admissible(obs)]
         tags: set[str] = set()
         for obs in covering:
             tags.update(obs.get("observation_types") or [])
@@ -425,8 +448,12 @@ def swarm_witness_verdict(
         triggers = set(claim.get("scope_collapse_triggers") or [])
         if scope_collapse and refuting:
             epistemic = "refuted"
-            evidence_status = "authentic"
-            failure_origin = str(claim.get("refutation_origin") or "effect_boundary")
+            evidence_status = (
+                "authentic"
+                if all(_authenticity_admissible(obs) for obs in refuting)
+                else "unverified"
+            )
+            failure_origin = "undetermined"
             reason = "ablation still sees an explicit public contradiction"
         elif scope_collapse and any(
             triggers.intersection(obs.get("observation_types") or [])
@@ -447,8 +474,12 @@ def swarm_witness_verdict(
             )
         elif refuting and claim.get("public_text_may_refute_sufficiency"):
             epistemic = "refuted"
-            evidence_status = "authentic"
-            failure_origin = str(claim.get("refutation_origin") or "evidence")
+            evidence_status = (
+                "authentic"
+                if all(_authenticity_admissible(obs) for obs in refuting)
+                else "unverified"
+            )
+            failure_origin = "undetermined"
             reason = (
                 "retrieved public sentences contradict the sufficiency upgrade; "
                 "this checks the published argument, not raw worker telemetry"
@@ -476,20 +507,33 @@ def swarm_witness_verdict(
             failure_origin="none" if epistemic == "unresolved" else "undetermined",
         )
     elif epistemic == "refuted":
-        projected = classify_conclusion(evidence_complete=True, property_holds=False)
-        origin = failure_origin if failure_origin != "none" else "undetermined"
-        if origin not in {
-            "none",
-            "evidence",
-            "decision_policy",
-            "effect_boundary",
-            "comparison_equality",
-            "undetermined",
-        }:
+        projected = classify_conclusion(
+            evidence_complete=True,
+            property_holds=False,
+            mechanism_exercised=mechanism_exercised,
+        )
+        if mechanism_exercised:
+            origin = failure_origin if failure_origin != "none" else "undetermined"
+            if origin not in {
+                "none",
+                "evidence",
+                "decision_policy",
+                "effect_boundary",
+                "comparison_equality",
+                "undetermined",
+            }:
+                origin = "undetermined"
+            status = "misbound" if origin == "evidence" else "authentic"
+            if evidence_status == "unverified":
+                status = "unverified"
+        else:
+            # A refuted proposition does not establish enforcement or effect origin.
             origin = "undetermined"
-        status = "misbound" if origin == "evidence" else "authentic"
-        if evidence_status == "unverified":
-            status = "unverified"
+            status = (
+                evidence_status
+                if evidence_status in {"authentic", "unverified"}
+                else "missing"
+            )
         axes = diagnosis(
             evidence_status=status,  # type: ignore[arg-type]
             decision_status="unknown",
