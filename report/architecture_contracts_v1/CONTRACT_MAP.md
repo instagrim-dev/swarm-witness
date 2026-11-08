@@ -23,7 +23,7 @@ Another implementation can adopt the contract below. This measurement does not c
 
 ## Stage table
 
-The initial settlement run contains S01 and S02. The controls run contains nine cases, including those two. Do not add the denominators. The ledger run contains six cases and 22 paired steps. A fresh compare of those retained rows still matches. Re-qualifying native BMO from the bridge files beside the comparator does not: bridge hash mismatch for bmo_adapter_test.go: file≠manifest. The retained receipt is not rewritten by this report.
+The initial settlement run contains S01 and S02. The controls run contains nine cases, including those two. Do not add the denominators. The ledger run contains six cases and 22 paired steps. A fresh compare of those retained rows still matches. Re-qualifying the working-tree bridge against that manifest fails closed: bridge hash mismatch for bmo_adapter_test.go: file≠manifest. That is source identity drift. This report does not relabel the retained receipt.
 
 | Run | Case | Arm | Stage | Contract disposition | Effect-applied | Resolving record |
 | --- | --- | --- | --- | --- | --- | --- |

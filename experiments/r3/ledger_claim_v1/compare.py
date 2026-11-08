@@ -300,9 +300,11 @@ def qualify_native_bmo(
     Defaults to false. Requires a readable source_manifest.json with
     native_bmo=true, successful process exit, expected adapter identity,
     and pinned source identity. When bridge source files are present next to
-    the comparator, recomputes their hashes and requires an exact match.
-    When cases.yaml is resolvable, recomputes cases_sha256. Archived bridge
-    log must exist. Does not re-run Go.
+    the comparator, recomputes their hashes and requires an exact match with
+    the manifest and its injected inventory. A working-tree difference is a
+    failed requalification of those bytes, not a new label for the retained
+    run. When cases.yaml is resolvable, recomputes cases_sha256. Archived
+    bridge log must exist. Does not re-run Go and does not write the run.
     """
     run_dir = Path(run_dir)
     manifest_path = run_dir / "source_manifest.json"
@@ -344,18 +346,21 @@ def qualify_native_bmo(
         inventory["git_archive_sha256"]
     ) != 64:
         return False, "source_inventory.git_archive_sha256 missing"
-    # Recompute bridge hashes from retained comparator sources when present.
+    # Exact bytes. The retained manifest is not rewritten here.
     bridge_dir = Path(__file__).resolve().parent
+    injected = inventory.get("bridge_injected_sha256") or {}
     for name in ("bmo_adapter_test.go", "bmo_adapter_fixture.go"):
+        declared = bridge.get(name)
+        recorded = injected.get(name)
+        if isinstance(recorded, str) and recorded != declared:
+            return False, f"bridge hash mismatch for {name}: manifest≠source_inventory"
         src = bridge_dir / name
         if not src.is_file():
             continue
         actual = _sha256_file(src)
-        declared = bridge.get(name)
         if actual != declared:
             return False, f"bridge hash mismatch for {name}: file≠manifest"
-        inj = (inventory.get("bridge_injected_sha256") or {}).get(name)
-        if isinstance(inj, str) and inj != actual:
+        if isinstance(recorded, str) and recorded != actual:
             return False, f"bridge hash mismatch for {name}: file≠source_inventory"
     # Bind cases.yaml when path resolves (recheck submitted evidence, not a Go rerun).
     cases_rel = manifest.get("cases_path")

@@ -352,6 +352,76 @@ def test_manifest_native_requires_exit_zero_and_adapter_identity(tmp_path: Path)
     assert summary["finding"]["label"] == "unresolved"
 
 
+def test_working_tree_bridge_mismatch_fails_closed_without_rewriting_the_receipt():
+    compare = _load("ledger_compare", PKG / "compare.py")
+    run_dir = (
+        ROOT
+        / "evidence"
+        / "r3"
+        / "ledger_claim_v1"
+        / "2026-11-07-ledger-v1-repair2"
+    )
+    before = (run_dir / "summary.json").read_bytes()
+    retained = json.loads(before)
+    summary = compare.compare_run(run_dir, cases_path=PKG / "cases.yaml")
+    assert summary["native_bmo"] is False
+    assert summary["native_qualification"] == (
+        "bridge hash mismatch for bmo_adapter_test.go: file≠manifest"
+    )
+    assert summary["agreement"]["result"] == "matched"
+    assert retained["native_bmo"] is True
+    assert retained["finding"]["label"] == "classical_baseline_matches"
+    assert (run_dir / "summary.json").read_bytes() == before
+
+
+def test_working_tree_bridge_match_has_no_drift_note(tmp_path: Path):
+    compare = _load("ledger_compare", PKG / "compare.py")
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    c_steps = _t03_happy("classical_ledger_gate")
+    b_steps = _t03_happy("bmo_l1_first_edit")
+    (run_dir / "classical.ndjson").write_text(
+        "\n".join(json.dumps(s) for s in c_steps) + "\n", encoding="utf-8"
+    )
+    (run_dir / "bmo.ndjson").write_text(
+        "\n".join(json.dumps(s) for s in b_steps) + "\n", encoding="utf-8"
+    )
+    (run_dir / "bmo_go_test.log").write_text("ok\n", encoding="utf-8")
+    manifest = _native_manifest()
+    for name in ("bmo_adapter_test.go", "bmo_adapter_fixture.go"):
+        digest = compare._sha256_file(PKG / name)
+        manifest["bmo"]["bridge"][name] = digest
+        manifest["bmo"]["source_inventory"]["bridge_injected_sha256"][name] = digest
+    (run_dir / "source_manifest.json").write_text(
+        json.dumps(manifest) + "\n", encoding="utf-8"
+    )
+    summary = compare.compare_run(run_dir, cases_path=PKG / "cases.yaml")
+    assert summary["native_bmo"] is True
+    assert summary["native_qualification"] == "native qualification ok"
+
+
+def test_manifest_inventory_disagreement_stays_unresolved(tmp_path: Path):
+    compare = _load("ledger_compare", PKG / "compare.py")
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    c_steps = _t03_happy("classical_ledger_gate")
+    b_steps = _t03_happy("bmo_l1_first_edit")
+    (run_dir / "classical.ndjson").write_text(
+        "\n".join(json.dumps(s) for s in c_steps) + "\n", encoding="utf-8"
+    )
+    (run_dir / "bmo.ndjson").write_text(
+        "\n".join(json.dumps(s) for s in b_steps) + "\n", encoding="utf-8"
+    )
+    (run_dir / "bmo_go_test.log").write_text("ok\n", encoding="utf-8")
+    bad = _native_manifest()
+    bad["bmo"]["source_inventory"]["bridge_injected_sha256"]["bmo_adapter_test.go"] = "a" * 64
+    (run_dir / "source_manifest.json").write_text(json.dumps(bad) + "\n", encoding="utf-8")
+    summary = compare.compare_run(run_dir, cases_path=PKG / "cases.yaml")
+    assert summary["native_bmo"] is False
+    assert "source_inventory" in summary["native_qualification"]
+    assert summary["finding"]["label"] == "unresolved"
+
+
 def test_manifest_without_source_inventory_is_unresolved(tmp_path: Path):
     compare = _load("ledger_compare", PKG / "compare.py")
     run_dir = tmp_path / "run"

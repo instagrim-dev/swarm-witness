@@ -365,7 +365,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "## Stage table",
         "",
         "The initial settlement run contains S01 and S02. The controls run contains nine cases, including those two. Do not add the denominators. The ledger run contains six cases and "
-        f"{report['ledger_step_count']} paired steps. A fresh compare of those retained rows still matches. Re-qualifying native BMO from the bridge files beside the comparator does not: {report['ledger_native_requalification']['note']}. The retained receipt is not rewritten by this report.",
+        f"{report['ledger_step_count']} paired steps. A fresh compare of those retained rows still matches. Re-qualifying the working-tree bridge against that manifest fails closed: {report['ledger_native_requalification']['note']}. That is source identity drift. This report does not relabel the retained receipt.",
         "",
         "| Run | Case | Arm | Stage | Contract disposition | Effect-applied | Resolving record |",
         "| --- | --- | --- | --- | --- | --- | --- |",
