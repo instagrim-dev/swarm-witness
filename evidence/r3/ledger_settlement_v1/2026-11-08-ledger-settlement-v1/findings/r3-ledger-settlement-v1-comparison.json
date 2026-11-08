@@ -1,0 +1,16 @@
+{
+  "id": "r3-ledger-settlement-v1-comparison",
+  "claim_id": "r3_ledger_settlement_v1",
+  "run_ids": [
+    "r3-ledger-settlement-meta"
+  ],
+  "proposition": "After a committed retained-grant claim, the ledger view leaves the delegated effect unresolved. BMO's existing applied settlement supports that effect, and BMO's existing definite no-effect settlement refutes it. Both continuations match the classical settlement contract on the shared ledger prefix and on the continuation's own settlement record.",
+  "scope": "r3-ledger-settlement-v1 committed claim followed by BMO SettleOrdinaryRetryFirstEditTx or SettleOrdinaryRetryFirstEditNoEffectTx; not a replacement for the retained r3-ledger-claim-v1 calibration",
+  "label": "classical_baseline_matches",
+  "basis": "computed",
+  "conclusion_class": "supported",
+  "supporting_observation_refs": [
+    "r3-ledger-settlement-meta.observations.agreement.result",
+    "r3-ledger-settlement-meta.observations.validity.valid"
+  ]
+}

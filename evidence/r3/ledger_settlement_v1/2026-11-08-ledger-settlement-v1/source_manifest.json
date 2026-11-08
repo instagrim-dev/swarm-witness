@@ -1,0 +1,41 @@
+{
+  "protocol_id": "r3-ledger-settlement-v1",
+  "claim_id": "r3_ledger_settlement_v1",
+  "run_id": "2026-11-08-ledger-settlement-v1",
+  "bmo_pin": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+  "bmo": {
+    "adapter_id": "bmo_l1_first_edit",
+    "pin": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+    "native_bmo": true,
+    "mode": "go_test_bridge_native",
+    "bridge": {
+      "bmo_adapter_test.go": "98eb38052e5c6b7c9eb136ef8aed4fd7e1b9d992d0fde9b577683fed84c14dc4",
+      "bmo_adapter_fixture.go": "45e0ca41cb5f07c88ef5878c1d67ba566aa8a7e9b5aa8ec30766e9e52060beac",
+      "bmo_settlement_probe.go": "3f426c385793a8469b17fe80595a34a5bb4509ab772287e64a356171f8282fcb"
+    },
+    "source_inventory": {
+      "pin": "c8297333b3bf31ded96ca0e8b39c531d3bcea97f",
+      "git_archive_sha256": "c79d5ff478fcf27c052694ede24073be58380b574e66de641081426dcd6c4597",
+      "bridge_injected_sha256": {
+        "bmo_adapter_test.go": "98eb38052e5c6b7c9eb136ef8aed4fd7e1b9d992d0fde9b577683fed84c14dc4",
+        "bmo_adapter_fixture.go": "45e0ca41cb5f07c88ef5878c1d67ba566aa8a7e9b5aa8ec30766e9e52060beac"
+      },
+      "materialization": "git_archive+bridge_inject"
+    },
+    "command": [
+      "go",
+      "test",
+      "-tags=swarm_witness_r3",
+      "./internal/sessioncompaction/",
+      "-run",
+      "^TestSwarmWitnessR3Probe$",
+      "-count=1"
+    ],
+    "exit_code": 0,
+    "log_path": "bmo_go_test.log",
+    "notes": "native claim plus SettleOrdinaryRetryFirstEditTx / SettleOrdinaryRetryFirstEditNoEffectTx",
+    "bmo_root": "<local-checkout>"
+  },
+  "cases_sha256": "8c61a57a5293fbfae61e3ba020ffe3163ed50687d579c651c8f541f86d62defa",
+  "created_unix": 1794166949
+}

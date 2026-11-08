@@ -61,6 +61,7 @@ type swarmWitnessR3Handle struct {
 	post       string
 	hint       runloop.DiagnosticDeliveredSourcePathHint
 	fixture    probeCaseFixture
+	taskID     string
 }
 
 type swarmWitnessR3Sidecar struct {
@@ -750,7 +751,7 @@ func seedSwarmWitnessR3(ctx context.Context, dbPath string, fixture probeCaseFix
 		dbPath: dbPath, conn: conn, release: release, owned: owned, carried: carried,
 		admissions: admissions, epoch: epoch, snapshot: snapshot, binding: binding,
 		root: root, path: path, files: files, workspace: workspace, pre: pre, post: post,
-		hint: hint, fixture: fixture,
+		hint: hint, fixture: fixture, taskID: task.ID,
 	}
 	sc := swarmWitnessR3Sidecar{
 		Root: root, Path: path, Files: files, Workspace: workspace, Pre: pre, Post: post, Fixture: fixture,

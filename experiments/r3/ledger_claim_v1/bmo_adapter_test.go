@@ -34,7 +34,12 @@ type probeCaseAction struct {
 	OwnerRevision          int64  `json:"owner_revision"`
 	RetryEpoch             string `json:"retry_epoch"`
 	TransactionCompletion  string `json:"transaction_completion"`
+	Outcome                string `json:"outcome"`
 }
+
+// swarmWitnessR3ProtocolID is the protocol stamped by the settlement wrapper.
+// The claim bridge keeps its own literal until that wrapper is injected.
+var swarmWitnessR3ProtocolID = "r3-ledger-claim-v1"
 
 type probeCaseFixture struct {
 	TaskID         string `json:"task_id"`
@@ -85,9 +90,10 @@ func TestSwarmWitnessR3Probe(t *testing.T) {
 	if err := json.Unmarshal(raw, &input); err != nil {
 		t.Fatalf("parse cases: %v", err)
 	}
-	if input.ProtocolID != "r3-ledger-claim-v1" {
+	if input.ProtocolID != "r3-ledger-claim-v1" && input.ProtocolID != "r3-ledger-settlement-v1" {
 		t.Fatalf("unexpected protocol_id %q", input.ProtocolID)
 	}
+	swarmWitnessR3ProtocolID = input.ProtocolID
 	if err := os.MkdirAll(filepath.Dir(outPath), 0o755); err != nil {
 		t.Fatalf("mkdir out: %v", err)
 	}

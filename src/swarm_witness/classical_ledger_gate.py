@@ -40,6 +40,16 @@ CREATE TABLE IF NOT EXISTS transfers (
   UNIQUE (grant_id, retry_epoch),
   FOREIGN KEY (call_id) REFERENCES claims(call_id)
 );
+
+CREATE TABLE IF NOT EXISTS executions (
+  call_id TEXT PRIMARY KEY,
+  outcome TEXT NOT NULL CHECK (outcome IN ('applied', 'not_entered')),
+  tool_bound INTEGER NOT NULL CHECK (tool_bound IN (0, 1)),
+  mutation_bound INTEGER NOT NULL CHECK (mutation_bound IN (0, 1)),
+  artifact_bound INTEGER NOT NULL CHECK (artifact_bound IN (0, 1)),
+  source_receipt_bound INTEGER NOT NULL CHECK (source_receipt_bound IN (0, 1)),
+  FOREIGN KEY (call_id) REFERENCES claims(call_id)
+);
 """
 
 
@@ -79,6 +89,7 @@ class ClassicalLedgerGate:
     def open_case(self, fixture: dict[str, Any]) -> None:
         self.open()
         spent = 1 if fixture.get("initial_spent") else 0
+        self.conn.execute("DELETE FROM executions")
         self.conn.execute("DELETE FROM transfers")
         self.conn.execute("DELETE FROM claims")
         self.conn.execute("DELETE FROM authority")
@@ -147,7 +158,110 @@ class ClassicalLedgerGate:
                 "owner_revision": auth["owner_revision"],
                 "retry_epoch": auth["retry_epoch"],
             },
+            "settlement": self._settlement_view(),
         }
+
+    def _settlement_view(self) -> dict[str, Any] | None:
+        row = self.conn.execute(
+            "SELECT call_id, outcome, tool_bound, mutation_bound, artifact_bound, "
+            "source_receipt_bound FROM executions ORDER BY call_id"
+        ).fetchall()
+        if not row:
+            return None
+        if len(row) != 1:
+            return {
+                "disposition": "multiple",
+                "call_id": None,
+                "tool_bound": False,
+                "mutation_bound": False,
+                "artifact_bound": False,
+                "source_receipt_bound": False,
+            }
+        item = row[0]
+        return {
+            "disposition": item["outcome"],
+            "call_id": item["call_id"],
+            "tool_bound": bool(item["tool_bound"]),
+            "mutation_bound": bool(item["mutation_bound"]),
+            "artifact_bound": bool(item["artifact_bound"]),
+            "source_receipt_bound": bool(item["source_receipt_bound"]),
+        }
+
+    def settle_continuation(self, *, call_id: str, outcome: str) -> dict[str, Any]:
+        """Record the declared settlement contract for one committed claim.
+
+        ``applied`` binds tool, mutation, and artifact, with no no-effect receipt.
+        ``not_entered`` binds the tool and a definite no-effect receipt, with no
+        mutation or artifact. This is the classical contract, not BMO's settler.
+        """
+        if outcome not in {"applied", "not_entered"}:
+            return {
+                "disposition": "refused",
+                "reason": "unknown_outcome",
+                "native_ok": False,
+            }
+        try:
+            self.conn.execute("BEGIN IMMEDIATE")
+            claim = self.conn.execute(
+                "SELECT call_id FROM claims WHERE call_id = ?", (call_id,)
+            ).fetchone()
+            if claim is None:
+                self.conn.execute("ROLLBACK")
+                return {
+                    "disposition": "refused",
+                    "reason": "no_claim",
+                    "native_ok": False,
+                }
+            existing = self.conn.execute(
+                "SELECT call_id FROM executions WHERE call_id = ?", (call_id,)
+            ).fetchone()
+            if existing is not None:
+                self.conn.execute("ROLLBACK")
+                return {
+                    "disposition": "refused",
+                    "reason": "already_settled",
+                    "native_ok": False,
+                }
+            if outcome == "applied":
+                flags = (1, 1, 1, 0)
+            else:
+                flags = (1, 0, 0, 1)
+            self.conn.execute(
+                "INSERT INTO executions("
+                "call_id, outcome, tool_bound, mutation_bound, artifact_bound, "
+                "source_receipt_bound) VALUES (?, ?, ?, ?, ?, ?)",
+                (call_id, outcome, *flags),
+            )
+            self.conn.execute("COMMIT")
+            return {
+                "disposition": "committed",
+                "reason": "ok",
+                "native_ok": True,
+                "call_id": call_id,
+                "outcome": outcome,
+            }
+        except sqlite3.IntegrityError as exc:
+            try:
+                self.conn.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            return {
+                "disposition": "refused",
+                "reason": "integrity_error",
+                "error": str(exc),
+                "native_ok": False,
+            }
+        except Exception as exc:  # noqa: BLE001 — surface as error disposition
+            try:
+                self.conn.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            return {
+                "disposition": "error",
+                "reason": "exception",
+                "error": str(exc),
+                "native_ok": False,
+            }
 
     def claim_first_edit(
         self,
