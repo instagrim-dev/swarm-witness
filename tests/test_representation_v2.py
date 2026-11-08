@@ -55,6 +55,7 @@ def test_truth_or_scoring_label_changes_do_not_change_predictions():
 def test_projection_is_not_counted_as_an_independent_source(tmp_path: Path):
     document = _runner().run_representation_study(ROOT, tmp_path)
     assert document["transfer_claim"] is False
+    assert document["external_empirical_transfer"] == "not_tested"
     assert document["superiority_claim"] is False
     assert document["independent_jury"] is False
     assert document["study_kind"] == "frozen_slice_representation"

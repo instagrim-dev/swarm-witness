@@ -12,11 +12,11 @@ The v1 ledger is not rewritten. A rejection is not an epistemic verdict.
 | sink-actor-mismatch | supported | unresolved | unresolved | partial_identity |
 | sink-object-mismatch | supported | unresolved | unresolved | partial_identity |
 | sink-mapped-actor-mismatch | supported | unresolved | unresolved | partial_identity |
-| mixed-unknown-authorization | entrypoint_rejected:aew-v1-h-authority-current:mixed-unknown-authorization: duplicate or blank ledger event | rejected: aew-v1-h-authority-current:mixed-unknown-authorization: duplicate or blank ledger event | unresolved | none |
+| mixed-unknown-authorization | entrypoint_rejected:aew-v1-h-authority-current:mixed-unknown-authorization: duplicate or blank ledger event | rejected: aew-v1-h-authority-current:mixed-unknown-authorization: duplicate or blank ledger event | unresolved | admission not evaluated |
 | coverage-conflict | unresolved | unresolved | unresolved | none |
 | coverage-duplicate | entrypoint_rejected:duplicate content identity: src-aew-v1-rec-coverage-authority-current-copy | supported | supported | exact_duplicate_not_independent |
-| sink-unknown-subject | entrypoint_rejected:aew-v1-h-authority-current:sink-unknown-subject: ledger/event subject_class mismatch on aew-v1-event-authority-current | rejected: aew-v1-h-authority-current:sink-unknown-subject: ledger/event subject_class mismatch on aew-v1-event-authority-current | unresolved | none |
+| sink-unknown-subject | entrypoint_rejected:aew-v1-h-authority-current:sink-unknown-subject: ledger/event subject_class mismatch on aew-v1-event-authority-current | rejected: aew-v1-h-authority-current:sink-unknown-subject: ledger/event subject_class mismatch on aew-v1-event-authority-current | unresolved | admission not evaluated |
 | coverage-operation-mismatch | unresolved | unresolved | unresolved | none |
 | coverage-interval-outside | unresolved | unresolved | unresolved | none |
-| coverage-withheld | entrypoint_rejected:src-aew-v1-rec-coverage-authority-current: pinned bytes require access_level public_bytes | rejected: src-aew-v1-rec-coverage-authority-current: pinned bytes require access_level public_bytes | unresolved | none |
+| coverage-withheld | entrypoint_rejected:src-aew-v1-rec-coverage-authority-current: pinned bytes require access_level public_bytes | rejected: src-aew-v1-rec-coverage-authority-current: pinned bytes require access_level public_bytes | unresolved | admission not evaluated |
 | clean-positive | supported | supported | supported | none |

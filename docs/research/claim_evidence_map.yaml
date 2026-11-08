@@ -1,5 +1,8 @@
 schema: swarm-witness-claim-evidence-map/v1
 framing: docs/research/FRAMING_DECISION.md
+research_flags:
+  bounded_contract_portability: demonstrated
+  external_empirical_transfer: not_tested
 claims:
   - claim_id: H1
     statement: A correctly committed first-edit claim does not by itself determine whether the edit applied.
@@ -91,12 +94,24 @@ claims:
         path: report/Swarm_Witness_Final_Submission.md
     scope: Twelve application-owned histories and forty-eight evidence packets.
     not_established: This witness does not execute the BMO retained-grant owner.
+  - claim_id: bounded_contract_portability
+    statement: Native BMO and the separately implemented SQLite gate satisfy the same selected authority and settlement contracts on the declared cases.
+    status: demonstrated
+    sources:
+      - id: S17
+        ref: 4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe
+        path: internal/sessioncompaction/ordinary_retry_retained_grant.go
+      - id: S18
+        ref: c8297333b3bf31ded96ca0e8b39c531d3bcea97f
+        path: internal/sessioncompaction/ordinary_retry_first_edit_settlement.go
+    scope: Six ledger cases and 22 paired steps, plus S01–S09 in the controls run. The initial settlement run is S01–S02 only.
+    not_established: Bounded contract portability is not full-system equivalence, not independent adjudication, and not external empirical transfer.
   - claim_id: external_empirical_transfer
     statement: The measured contracts would transfer to an unrelated agent platform or an independently selected claim family.
-    status: proposed
+    status: not_tested
     sources:
       - id: S11
         ref: 7468d2795d9c6500c68c5daf6a970ed765903885
         path: experiments/external_calibration/heldout_v1.yaml
-    scope: Proposed extension only. Architectural reuse and bounded contract portability are separate claims and remain available without this one.
-    not_established: Not established by the retained experiments. Independent jury, superiority, and transfer flags stay false.
+    scope: Optional generalization. Architectural reuse and bounded contract portability are separate claims and remain available without this one.
+    not_established: Not tested. The retained transfer_claim flag records this scope limit. It is not a measured failure of bounded contract portability.

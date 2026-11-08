@@ -14,6 +14,7 @@
   "independent_jury": false,
   "superiority_claim": false,
   "transfer_claim": false,
+  "external_empirical_transfer": "not_tested",
   "composition_fidelity_is_not_independent_correctness": true,
   "assessor_decisive": 36,
   "warrant_decisive": 26,

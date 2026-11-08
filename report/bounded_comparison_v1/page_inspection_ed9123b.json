@@ -1,0 +1,30 @@
+{
+  "revision": "ed9123b020e4cfbe0d551c2a3c5b0da708ebdce2",
+  "inspected_at": "2026-11-08",
+  "geometry_method": "pypdf.PdfReader.extract_text",
+  "visual_inspection_performed": true,
+  "visual_method": "PDFKit page renders inspected for clipping, overflow, and table readability",
+  "artifacts": [
+    {
+      "path": "report/Swarm_Witness_Templated_Submission.pdf",
+      "sha256": "03cde3071619a10679d87cefe9dfc7dc8ead39277a3897adcd935e2c2b5f3d89",
+      "page_count": 10,
+      "references_begin_page": 9,
+      "body_pages_before_references": 8,
+      "clipping_observed": false,
+      "overflow_observed": false,
+      "unreadable_table_observed": false
+    },
+    {
+      "path": "report/Swarm_Witness_Final_Submission.pdf",
+      "sha256": "0235dbd15eb03363c2c2b3fa8a946e763b7822ef12838ca1de4809f8907cdd1f",
+      "page_count": 9,
+      "references_begin_page": 8,
+      "body_pages_before_references": 7,
+      "clipping_observed": false,
+      "overflow_observed": false,
+      "unreadable_table_observed": false
+    }
+  ],
+  "notes": "Templated body ends before References. Tables 1, 2, 2b, 3, and 4 are complete. The research layout is a separate pagination. This receipt does not replace the fde17ab clean-extract log."
+}

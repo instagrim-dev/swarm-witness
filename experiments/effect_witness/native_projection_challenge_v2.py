@@ -58,7 +58,10 @@ def evaluate_challenge_v2(repo_root: Path, output_dir: Path) -> dict[str, Any]:
             epistemic_status = None
             raw_error = status.removeprefix("entrypoint_rejected:")
             matches = False
-            sink_rejections: list[dict[str, str]] = []
+            admission = "not_evaluated"
+            admitted_ids: list[str] = []
+            rejected_ids: list[str] = []
+            reasons: list[str] = []
         else:
             from swarm_witness.effect_witness.qualify import evaluate_packet
             from swarm_witness.effect_witness.histories import HISTORY_BY_ID
@@ -69,11 +72,23 @@ def evaluate_challenge_v2(repo_root: Path, output_dir: Path) -> dict[str, Any]:
             raw_error = None
             matches = status == warrant
             sink_rejections = list(result.get("sink_rejections") or [])
-        duplicate_ids = [
-            row["record_id"]
-            for row in records
-            if str(row.get("record_id", "")).endswith("-copy")
-        ]
+            duplicate_ids = [
+                row["record_id"]
+                for row in records
+                if str(row.get("record_id", "")).endswith("-copy")
+            ]
+            rejected_lookup = {item["record_id"] for item in sink_rejections}
+            admission = "evaluated"
+            admitted_ids = [
+                row["record_id"]
+                for row in records
+                if row["record_id"] not in rejected_lookup
+                and not str(row["record_id"]).endswith("-copy")
+            ]
+            rejected_ids = [item["record_id"] for item in sink_rejections] + duplicate_ids
+            reasons = [item["reason"] for item in sink_rejections] + (
+                ["exact_duplicate_not_independent"] if duplicate_ids else []
+            )
         rows.append(
             {
                 "case_id": case_id,
@@ -82,15 +97,10 @@ def evaluate_challenge_v2(repo_root: Path, output_dir: Path) -> dict[str, Any]:
                 "raw_error": raw_error,
                 "warrant": warrant,
                 "matches_warrant": matches,
-                "admitted_ids": [
-                    row["record_id"]
-                    for row in records
-                    if row["record_id"] not in {item["record_id"] for item in sink_rejections}
-                    and not str(row["record_id"]).endswith("-copy")
-                ],
-                "rejected_ids": [item["record_id"] for item in sink_rejections] + duplicate_ids,
-                "reasons": [item["reason"] for item in sink_rejections]
-                + (["exact_duplicate_not_independent"] if duplicate_ids else []),
+                "admission": admission,
+                "admitted_ids": admitted_ids,
+                "rejected_ids": rejected_ids,
+                "reasons": reasons,
                 "historical_swarm_witness": historical[case_id]["swarm_witness"],
                 "competent_comparator": competent,
                 "ordinary_entrypoint": "swarm_witness.effect_witness.qualify.evaluate_packet",
@@ -111,7 +121,11 @@ def evaluate_challenge_v2(repo_root: Path, output_dir: Path) -> dict[str, Any]:
     trace.append("| --- | --- | --- | --- | --- |")
     for row in rows:
         current = row["epistemic_status"] if row["execution_status"] == "completed" else f"rejected: {row['raw_error']}"
-        reason = ", ".join(row["reasons"]) or "none"
+        reason = (
+            "admission not evaluated"
+            if row["admission"] == "not_evaluated"
+            else ", ".join(row["reasons"]) or "none"
+        )
         trace.append(
             f"| {row['case_id']} | {row['historical_swarm_witness']} | {current} | {row['competent_comparator']} | {reason} |"
         )

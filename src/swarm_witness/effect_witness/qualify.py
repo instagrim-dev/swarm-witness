@@ -231,7 +231,11 @@ def _views_from_events(events: list[dict[str, Any]], history_id: str) -> dict[st
     sink_rejections = []
     for event, fields in pending_sinks:
         reason = _sink_premise_rejected(event, fields, deduped)
-        if reason is not None:
+        # An unbound forbidden commit still refutes. It is not a support premise.
+        keep_effect = (
+            reason == "unbound_call" and fields.get("subject_class") == "unauthorized_effect"
+        )
+        if reason is not None and not keep_effect:
             sink_rejections.append(
                 {"record_id": str(event.get("id") or ""), "reason": reason}
             )
@@ -416,6 +420,30 @@ _REJECTED_COVERAGE_AUTHENTICITY = frozenset(
 _WITHHELD_ACCESS = frozenset({"withheld", "unobserved", "unavailable", "private_original"})
 
 
+def _operation_slug(operation_id: str) -> str | None:
+    prefix = "aew-v1-op-"
+    if not operation_id.startswith(prefix):
+        return None
+    return operation_id.removeprefix(prefix)
+
+
+def _sink_names_operation(fields: dict[str, str], decision: dict[str, Any]) -> bool:
+    """The sink is the operation commit and the actor transcript is the rewrite.
+
+    All three identity fields differ on the retained misbinding counterpart
+    because the actor record was overridden. That sink still names the
+    operation. A sink rewritten off the operation does not.
+    """
+    slug = _operation_slug(str(fields.get("operation_id") or ""))
+    if slug is None or fields.get("operation_id") != decision.get("operation_id"):
+        return False
+    return (
+        fields.get("event_id") == f"aew-v1-event-{slug}"
+        and fields.get("object_scope") == f"aew-v1-object-{slug}"
+        and decision.get("event_id") != fields.get("event_id")
+    )
+
+
 def _sink_premise_rejected(
     event: dict[str, Any],
     fields: dict[str, str],
@@ -423,10 +451,9 @@ def _sink_premise_rejected(
 ) -> str | None:
     """Reason a sink is not an admitted premise, or None when it is admitted.
 
-    Shared call identity is not enough. Actor, object, and event either all
-    agree with the actor record or all differ. A one-field rewrite, a foreign
-    run, a spoofed record, or a misbound id is not admitted. A sink with no
-    same-call actor record stays admissible on its own authenticity.
+    A decisive support needs the same call, run, actor, object, event, and
+    operation. A missing call, a one-field rewrite, a sink moved off its
+    operation, or a different operation is not that premise.
     """
     history_id = str(fields.get("history_id") or "")
     record_id = str(event.get("id") or event.get("record_id") or "")
@@ -439,7 +466,7 @@ def _sink_premise_rejected(
         return "rejected_authenticity"
     same_call = [row for row in decisions if row.get("call_id") == fields.get("call_id")]
     if not same_call:
-        return None
+        return "unbound_call"
     decision = same_call[0]
     if fields.get("run_id") != decision.get("run_id"):
         return "run_mismatch"
@@ -447,6 +474,12 @@ def _sink_premise_rejected(
     differs = [fields.get(key) != decision.get(key) for key in compared]
     if any(differs) and not all(differs):
         return "partial_identity"
+    if all(differs) and not _sink_names_operation(fields, decision):
+        return "identity_mismatch"
+    if fields.get("operation") != decision.get("operation") or fields.get(
+        "operation_id"
+    ) != decision.get("operation_id"):
+        return "operation_mismatch"
     return None
 
 
@@ -859,6 +892,10 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
         ledger_complete = views.get("coverage") is not None and not census_contradicted
         if not ledger_complete:
             auth_complete = False
+    # A rejected sink is not evidence that the effect is absent.
+    if views["sink_rejections"]:
+        ledger_complete = False
+        auth_complete = False
     case = project_case(
         case_id=f"{history['history_id']}:{packet_dir.name}",
         policy=history["revocation_policy"],

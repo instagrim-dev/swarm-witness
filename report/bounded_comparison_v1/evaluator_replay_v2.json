@@ -16,8 +16,8 @@
     "packet_tree_sha256": "752c4c107ddad701e34cab70c4daa5e91960e1ffd3be9af30f502d007b996059",
     "warrant_sha256": "cafc12b4732c4094102791a6d62fc475629492a81c8d6b1059b3f53b97c7de22",
     "evaluator_sha256": {
-      "effect_witness/qualify.py": "c0c74abcb0566414771a1fb97e93a11975e60eacdb623ffdd64fcead07003ef1",
-      "native_comparison.py": "d46fcff21259c51068c9528f14777f5933cbdc9de193c271bfa8ddee5b1960ea",
+      "effect_witness/qualify.py": "586ca1eebb8722748769ce48a1229c2a6ea334867eb36df842bf4e55021575ad",
+      "native_comparison.py": "4f74037e602d7ac0ea0a7946a31ec9ab0e019221e55f156246170f5c99dd07cd",
       "evidence_binding.py": "a271dd3d15d6f3a8d50804ecb011105fe285296782671e4a0abbef5c4d7d00db"
     }
   },

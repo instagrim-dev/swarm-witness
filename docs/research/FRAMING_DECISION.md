@@ -26,8 +26,23 @@ BMO's subordinate peer supervisor explicitly requires configuration and owner-pr
 ## Transferability: three distinct claims
 
 1. **Architectural reuse:** source-backed design for maintaining authority and outcome evidence across agent boundaries. This is a defensible interpretation of the implemented BMO mechanisms, not a numerical deployment result.
-2. **Contract portability:** BMO and the separately implemented SQLite arm satisfy the same selected contract on the declared ledger and settlement cases. Describe this as **bounded two-implementation conformance**, or **bounded evidence of contract portability**. It is not formal equivalence of the complete systems. [S03–S05]
-3. **External empirical transfer:** integration and evaluation in an unrelated agent platform or independently selected claim family. Not established by the retained experiments. Its absence does not erase the first two claims and is not a prerequisite for publishing them.
+2. **Bounded contract portability:** BMO and the separately implemented SQLite arm satisfy the same selected contract on the declared ledger and settlement cases. This is demonstrated for those cases. It is not formal equivalence of the complete systems. [S03–S05]
+3. **External empirical transfer:** integration and evaluation in an unrelated agent platform or independently selected claim family. Not tested by the retained experiments. Its absence does not erase the first two claims and is not a prerequisite for publishing them.
+
+Research flags, replacing one overloaded `transfer_claim`:
+
+- `bounded_contract_portability = demonstrated`
+- `external_empirical_transfer = not_tested`
+
+Retained calibration artifacts still carry `transfer_claim: false`. That boolean is the declared scope limit for external empirical transfer. It is not a measured failure of the BMO and classical-gate comparison.
+
+> Swarm Witness demonstrates bounded portability of selected BMO-derived authority and settlement contracts across two implementations, while showing that the evidence representation determines which downstream conclusions can be justified. External empirical generalization remains untested.
+
+Track 4, Multi-Agent Oversight and Control, is the submission track. It is the setting in which inter-agent transfer is evaluated, not a later phase that would establish the result.
+
+> Bounded contract portability is already demonstrated. Track 4 evaluates transfer of authority and evidence obligations across agent handoffs and recovery boundaries, using observable execution outcomes and matched controls.
+
+External cross-platform transfer remains a separate optional claim. It does not discount the inter-agent question Track 4 evaluates.
 
 Two implementations written by the same author are separately implemented, not independently curated or independently adjudicated. Do not equate model agreement with independent verification.
 

@@ -179,7 +179,7 @@ def test_evidence_free_actor_upgrade_is_unsupported_support_not_correct_decisive
     assert result["native_strong_correct_decisive"] == 24
     text = Path(result["tables"]).read_text(encoding="utf-8")
     assert "`superiority_claim` remains false." in text
-    assert "`transfer_claim` remains false." in text
+    assert "`external_empirical_transfer` is not tested, and the retained `transfer_claim` flag records that scope limit." in text
     assert "not a set of independently correct judgments" in text
     for row in rows:
         if row["predicted"] == "supported":
@@ -205,6 +205,39 @@ def test_evidence_free_actor_upgrade_is_unsupported_support_not_correct_decisive
     after = score_native_method(upgraded, "swarm_witness")
     assert after["unsupported_support"] == 12
     assert after["correct_decisive"] == 24
+
+
+def test_manuscript_numeric_cells_equal_retained_rows():
+    spec = importlib.util.spec_from_file_location(
+        "render_release_tables",
+        ROOT / "scripts" / "render_release_tables.py",
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    generated = module.canonical_tables(ROOT)
+    text = (ROOT / "report" / "Swarm_Witness_Final_Submission.md").read_text(encoding="utf-8")
+    published: dict[str, list[list[str]]] = {}
+    caption = None
+    rows: list[list[str]] = []
+    for line in text.splitlines() + [""]:
+        match = re.match(r"\*\*(Table (?:2b|2|3|4))\.", line)
+        if match:
+            caption = match.group(1)
+            rows = []
+            continue
+        if caption and line.startswith("|"):
+            cells = [_cell_text(cell) for cell in line.strip().strip("|").split("|")]
+            if not all(re.fullmatch(r":?-+:?", cell.strip()) for cell in line.strip().strip("|").split("|")):
+                rows.append(cells)
+            continue
+        if caption and rows:
+            published[caption] = rows[1:]
+            caption = None
+            rows = []
+    assert set(published) == set(generated)
+    for name, expected in generated.items():
+        assert published[name] == expected
 
 
 def _reference_block(lines: list[str]) -> str:

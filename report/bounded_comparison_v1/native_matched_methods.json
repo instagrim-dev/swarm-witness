@@ -8,7 +8,8 @@
   ],
   "history_count": 12,
   "condition_count": 4,
-  "note": "Retained P_effect verdicts and strong_invariant on the same packet records, scored against experiments/effect_witness/native_warrants_v1.yaml. superiority_claim is false. transfer_claim is false.",
+  "note": "Retained P_effect verdicts and strong_invariant on the same packet records, scored against experiments/effect_witness/native_warrants_v1.yaml. superiority_claim is false. external_empirical_transfer is not_tested. transfer_claim records that scope limit.",
   "superiority_claim": false,
-  "transfer_claim": false
+  "transfer_claim": false,
+  "external_empirical_transfer": "not_tested"
 }

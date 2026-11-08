@@ -10,7 +10,7 @@ The same author implemented both arms. That is a separate implementation, not in
 | Ledger measurement | T01–T06 claim contract | `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe` |
 | Settlement measurement | S01–S09 terminal-record contract | `c8297333b3bf31ded96ca0e8b39c531d3bcea97f` |
 
-Another implementation can adopt the contract below. This measurement does not certify an unrelated deployment.
+Bounded contract portability is demonstrated on the six ledger cases and on S01–S09. External empirical transfer is not tested. Another implementation can adopt the contract below. This measurement does not certify an unrelated deployment.
 
 ## Obligations
 
@@ -23,18 +23,18 @@ Another implementation can adopt the contract below. This measurement does not c
 
 ## Stage table
 
-The initial settlement run contains S01 and S02. The controls run contains nine cases, including those two. Do not add the denominators. The ledger run contains six cases and 22 paired steps. A fresh compare of those retained rows still matches. Re-qualifying the working-tree bridge against that manifest fails closed: bridge hash mismatch for bmo_adapter_test.go: file≠manifest. That is source identity drift. This report does not relabel the retained receipt.
+The initial settlement run contains S01 and S02. The controls run contains nine cases, including those two. Do not add the denominators. The ledger run contains six cases and 22 paired steps. A fresh compare of those retained rows still matches. Re-qualifying the working-tree bridge against that manifest fails closed: bridge hash mismatch for bmo_adapter_test.go: file≠manifest. That is source identity drift. This report does not relabel the retained receipt. The retained settlement rows do not store an observation identifier. A resolving call id is shown only on the settlement stage.
 
 | Run | Case | Arm | Stage | Contract disposition | Effect-applied | Resolving record |
 | --- | --- | --- | --- | --- | --- | --- |
-| controls | S01 | classical | claim | committed | unresolved | step 3 unresolved to supported |
-| controls | S01 | classical | settlement | applied | supported | step 3 unresolved to supported |
-| controls | S01 | bmo | claim | committed | unresolved | step 3 unresolved to supported |
-| controls | S01 | bmo | settlement | applied | supported | step 3 unresolved to supported |
-| controls | S02 | classical | claim | committed | unresolved | step 3 unresolved to refuted |
-| controls | S02 | classical | settlement | not_entered | refuted | step 3 unresolved to refuted |
-| controls | S02 | bmo | claim | committed | unresolved | step 3 unresolved to refuted |
-| controls | S02 | bmo | settlement | not_entered | refuted | step 3 unresolved to refuted |
+| controls | S01 | classical | claim | committed | unresolved | none |
+| controls | S01 | classical | settlement | applied | supported | not retained; call_id=call-s01 |
+| controls | S01 | bmo | claim | committed | unresolved | none |
+| controls | S01 | bmo | settlement | applied | supported | not retained; call_id=call-s01 |
+| controls | S02 | classical | claim | committed | unresolved | none |
+| controls | S02 | classical | settlement | not_entered | refuted | not retained; call_id=call-s02 |
+| controls | S02 | bmo | claim | committed | unresolved | none |
+| controls | S02 | bmo | settlement | not_entered | refuted | not retained; call_id=call-s02 |
 | controls | S03 | classical | claim | committed | unresolved | none |
 | controls | S03 | classical | settlement | refused | unresolved | none |
 | controls | S03 | bmo | claim | committed | unresolved | none |

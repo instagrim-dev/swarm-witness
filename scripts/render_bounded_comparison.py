@@ -291,7 +291,7 @@ def _native_method_summary(rows: list[dict[str, Any]]) -> list[str]:
         "retained packet records. Swarm Witness contributes its retained `P_effect` "
         "verdict from `experiments/effect_witness/historical_qualification_packets_v1.json`. "
         "Replaying the witness does not rewrite that file. This layer is separate from Tables P, C, S, and A. "
-        "`superiority_claim` remains false. `transfer_claim` remains false. "
+        "`superiority_claim` remains false. `external_empirical_transfer` is not tested, and the retained `transfer_claim` flag records that scope limit. "
         "Classifier–adapter agreement on retained EvidenceGraph packets is not "
         "scored here and is not a set of independently correct judgments.",
         "",
@@ -472,7 +472,7 @@ def _current_replay_section(rows: list[dict[str, Any]], meta: dict[str, Any]) ->
         f"evaluator labels prevented in "
         f"{meta['actor_only_prevented_under_current_evaluator']}/12 of those packets; "
         "an incomplete observation is unobserved. "
-        "`superiority_claim` remains false. `transfer_claim` remains false.",
+        "`superiority_claim` remains false. `external_empirical_transfer` is not tested, and the retained `transfer_claim` flag records that scope limit.",
         "",
         "| Method | Cells | Unsupported support | Unsupported refutation | Correct decisive | Decisive coverage | Correct abstention | False proposition support |",
         "|---|---:|---:|---:|---:|---:|---:|---:|",
@@ -678,10 +678,12 @@ def render(root: Path = ROOT) -> dict[str, Any]:
         "note": (
             "Retained P_effect verdicts and strong_invariant on the same packet "
             "records, scored against experiments/effect_witness/native_warrants_v1.yaml. "
-            "superiority_claim is false. transfer_claim is false."
+            "superiority_claim is false. external_empirical_transfer is not_tested. "
+            "transfer_claim records that scope limit."
         ),
         "superiority_claim": False,
         "transfer_claim": False,
+        "external_empirical_transfer": "not_tested",
     }
     (out / "native_matched_methods.json").write_text(
         json.dumps(native_meta, indent=2) + "\n",

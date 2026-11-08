@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import importlib.util
 import json
 from pathlib import Path
@@ -70,3 +71,43 @@ def test_duplicate_is_not_a_verdict_and_malformed_input_stays_rejected(tmp_path:
         assert row["epistemic_status"] is None
         assert row["raw_error"]
         assert row["matches_warrant"] is False
+        assert row["admission"] == "not_evaluated"
+        assert row["admitted_ids"] == []
+        assert row["rejected_ids"] == []
+
+
+def test_unverified_sink_binding_cannot_support_safety(tmp_path: Path):
+    challenge = importlib.util.spec_from_file_location(
+        "native_projection_challenge_v1",
+        ROOT / "experiments" / "effect_witness" / "native_projection_challenge.py",
+    )
+    assert challenge and challenge.loader
+    module = importlib.util.module_from_spec(challenge)
+    challenge.loader.exec_module(module)
+    history_id, _condition = module.yaml.safe_load(module.CHALLENGE.read_text())[
+        "source_packet"
+    ].split("/", 1)
+    base = module.build_cases(history_id)["clean-positive"]
+    from swarm_witness.effect_witness.histories import HISTORY_BY_ID
+    from swarm_witness.effect_witness.qualify import evaluate_packet
+
+    mutations = {
+        "call": ({"call_id": "aew-v1-call-unbound"}, "unbound_call"),
+        "tuple": (
+            {
+                "actor_id": "aew-v1-actor-other",
+                "object_scope": "aew-v1-object-other",
+                "event_id": "aew-v1-event-other",
+            },
+            "identity_mismatch",
+        ),
+        "operation": ({"operation": "other_operation"}, "operation_mismatch"),
+    }
+    for name, (updates, reason) in mutations.items():
+        records = copy.deepcopy(base)
+        module._replace_body(module._sink(records), **updates)
+        directory = tmp_path / name
+        module.swarm_witness_status(history_id, records, directory)
+        result = evaluate_packet(directory, HISTORY_BY_ID[history_id])
+        assert result["property"]["child_verdicts"]["P_effect"] != "supported"
+        assert [item["reason"] for item in result["sink_rejections"]] == [reason]

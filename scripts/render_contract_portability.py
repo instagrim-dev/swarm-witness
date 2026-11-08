@@ -136,6 +136,29 @@ def _select(cases: list[Any], expected: set[str] | None) -> list[Any]:
     return [case for case in cases if case.case_id in expected]
 
 
+def _resolving_record(stage: str, observation: dict[str, Any], resolving: dict[str, Any] | None) -> dict[str, Any] | None:
+    """The later resolving row only. Retained rows have no observation id."""
+    if stage != "settlement" or not resolving:
+        return None
+    if int(observation.get("step") or 0) != int(resolving.get("step") or 0):
+        return None
+    state = observation.get("state") if isinstance(observation.get("state"), dict) else {}
+    settlement = state.get("settlement") if isinstance(state.get("settlement"), dict) else {}
+    inputs = observation.get("inputs") if isinstance(observation.get("inputs"), dict) else {}
+    call_id = settlement.get("call_id") if isinstance(settlement, dict) else None
+    if not call_id:
+        call_id = inputs.get("call_id")
+    return {
+        "step": resolving["step"],
+        "op": resolving["op"],
+        "from": resolving["from"],
+        "to": resolving["to"],
+        "observation_id": None,
+        "record_identity": "not_retained",
+        "call_id": call_id,
+    }
+
+
 def _stage_row(
     *,
     protocol_id: str,
@@ -201,6 +224,7 @@ def _run_rows(
             }
             claim_action = next(action for action in case.actions if action.op == "claim_first_edit")
             resolving = stages[arm][case.case_id]["resolving_observation"]
+            claim_observation = indexed[(case.case_id, claim_action.step)]
             rows.append(
                 _stage_row(
                     protocol_id=protocol_id,
@@ -208,8 +232,8 @@ def _run_rows(
                     case=case,
                     arm=arm,
                     stage="claim",
-                    observation=indexed[(case.case_id, claim_action.step)],
-                    resolving=resolving,
+                    observation=claim_observation,
+                    resolving=_resolving_record("claim", claim_observation, resolving),
                     scope=scope,
                     source_refs=source_refs,
                 )
@@ -217,6 +241,7 @@ def _run_rows(
             if not include_settlement:
                 continue
             settle_action = next(action for action in case.actions if str(action.op).startswith("settle_"))
+            settle_observation = indexed[(case.case_id, settle_action.step)]
             rows.append(
                 _stage_row(
                     protocol_id=protocol_id,
@@ -224,8 +249,8 @@ def _run_rows(
                     case=case,
                     arm=arm,
                     stage="settlement",
-                    observation=indexed[(case.case_id, settle_action.step)],
-                    resolving=resolving,
+                    observation=settle_observation,
+                    resolving=_resolving_record("settlement", settle_observation, resolving),
                     scope=scope,
                     source_refs=source_refs,
                 )
@@ -317,6 +342,8 @@ def build_contract_report(repo_root: Path) -> dict[str, Any]:
         "compare_only": True,
         "live_model_edit": False,
         "full_system_equivalence": False,
+        "bounded_contract_portability": "demonstrated",
+        "external_empirical_transfer": "not_tested",
         "source_pins": {
             "architecture_context": ARCHITECTURE_CONTEXT,
             "ledger_measurement": LEDGER_PIN,
@@ -351,7 +378,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"| Ledger measurement | T01–T06 claim contract | `{pins['ledger_measurement']}` |",
         f"| Settlement measurement | S01–S09 terminal-record contract | `{pins['settlement_measurement']}` |",
         "",
-        "Another implementation can adopt the contract below. This measurement does not certify an unrelated deployment.",
+        "Bounded contract portability is demonstrated on the six ledger cases and on S01–S09. External empirical transfer is not tested. Another implementation can adopt the contract below. This measurement does not certify an unrelated deployment.",
         "",
         "## Obligations",
         "",
@@ -365,7 +392,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "## Stage table",
         "",
         "The initial settlement run contains S01 and S02. The controls run contains nine cases, including those two. Do not add the denominators. The ledger run contains six cases and "
-        f"{report['ledger_step_count']} paired steps. A fresh compare of those retained rows still matches. Re-qualifying the working-tree bridge against that manifest fails closed: {report['ledger_native_requalification']['note']}. That is source identity drift. This report does not relabel the retained receipt.",
+        f"{report['ledger_step_count']} paired steps. A fresh compare of those retained rows still matches. Re-qualifying the working-tree bridge against that manifest fails closed: {report['ledger_native_requalification']['note']}. That is source identity drift. This report does not relabel the retained receipt. The retained settlement rows do not store an observation identifier. A resolving call id is shown only on the settlement stage.",
         "",
         "| Run | Case | Arm | Stage | Contract disposition | Effect-applied | Resolving record |",
         "| --- | --- | --- | --- | --- | --- | --- |",
@@ -374,7 +401,12 @@ def render_markdown(report: dict[str, Any]) -> str:
         if row["protocol_id"] != "r3-ledger-settlement-v1" or row["run_id"] != CONTROLS_RUN:
             continue
         resolving = row["resolving_observation"]
-        record = "none" if not resolving else f"step {resolving['step']} {resolving['from']} to {resolving['to']}"
+        if not resolving:
+            record = "none"
+        elif resolving.get("record_identity") == "not_retained":
+            record = f"not retained; call_id={resolving.get('call_id')}"
+        else:
+            record = "none"
         lines.append(
             f"| controls | {row['case_id']} | {row['arm']} | {row['stage']} | {row['contract_disposition']} | {row['effect_applied_verdict']} | {record} |"
         )

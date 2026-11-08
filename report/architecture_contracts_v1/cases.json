@@ -3,6 +3,8 @@
   "compare_only": true,
   "live_model_edit": false,
   "full_system_equivalence": false,
+  "bounded_contract_portability": "demonstrated",
+  "external_empirical_transfer": "not_tested",
   "source_pins": {
     "architecture_context": "e0038cc48872b274c22deaed8e24236530e9821e",
     "ledger_measurement": "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe",
@@ -362,12 +364,7 @@
       "stage": "claim",
       "contract_disposition": "committed",
       "effect_applied_verdict": "unresolved",
-      "resolving_observation": {
-        "step": 3,
-        "op": "settle_applied",
-        "from": "unresolved",
-        "to": "supported"
-      },
+      "resolving_observation": null,
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
         {
@@ -399,7 +396,10 @@
         "step": 3,
         "op": "settle_applied",
         "from": "unresolved",
-        "to": "supported"
+        "to": "supported",
+        "observation_id": null,
+        "record_identity": "not_retained",
+        "call_id": "call-s01"
       },
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
@@ -428,12 +428,7 @@
       "stage": "claim",
       "contract_disposition": "committed",
       "effect_applied_verdict": "unresolved",
-      "resolving_observation": {
-        "step": 3,
-        "op": "settle_applied",
-        "from": "unresolved",
-        "to": "supported"
-      },
+      "resolving_observation": null,
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
         {
@@ -465,7 +460,10 @@
         "step": 3,
         "op": "settle_applied",
         "from": "unresolved",
-        "to": "supported"
+        "to": "supported",
+        "observation_id": null,
+        "record_identity": "not_retained",
+        "call_id": "call-s01"
       },
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
@@ -494,12 +492,7 @@
       "stage": "claim",
       "contract_disposition": "committed",
       "effect_applied_verdict": "unresolved",
-      "resolving_observation": {
-        "step": 3,
-        "op": "settle_no_effect",
-        "from": "unresolved",
-        "to": "refuted"
-      },
+      "resolving_observation": null,
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
         {
@@ -531,7 +524,10 @@
         "step": 3,
         "op": "settle_no_effect",
         "from": "unresolved",
-        "to": "refuted"
+        "to": "refuted",
+        "observation_id": null,
+        "record_identity": "not_retained",
+        "call_id": "call-s02"
       },
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
@@ -560,12 +556,7 @@
       "stage": "claim",
       "contract_disposition": "committed",
       "effect_applied_verdict": "unresolved",
-      "resolving_observation": {
-        "step": 3,
-        "op": "settle_no_effect",
-        "from": "unresolved",
-        "to": "refuted"
-      },
+      "resolving_observation": null,
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
         {
@@ -597,7 +588,10 @@
         "step": 3,
         "op": "settle_no_effect",
         "from": "unresolved",
-        "to": "refuted"
+        "to": "refuted",
+        "observation_id": null,
+        "record_identity": "not_retained",
+        "call_id": "call-s02"
       },
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
@@ -626,12 +620,7 @@
       "stage": "claim",
       "contract_disposition": "committed",
       "effect_applied_verdict": "unresolved",
-      "resolving_observation": {
-        "step": 3,
-        "op": "settle_applied",
-        "from": "unresolved",
-        "to": "supported"
-      },
+      "resolving_observation": null,
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
         {
@@ -663,7 +652,10 @@
         "step": 3,
         "op": "settle_applied",
         "from": "unresolved",
-        "to": "supported"
+        "to": "supported",
+        "observation_id": null,
+        "record_identity": "not_retained",
+        "call_id": "call-s01"
       },
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
@@ -692,12 +684,7 @@
       "stage": "claim",
       "contract_disposition": "committed",
       "effect_applied_verdict": "unresolved",
-      "resolving_observation": {
-        "step": 3,
-        "op": "settle_applied",
-        "from": "unresolved",
-        "to": "supported"
-      },
+      "resolving_observation": null,
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
         {
@@ -729,7 +716,10 @@
         "step": 3,
         "op": "settle_applied",
         "from": "unresolved",
-        "to": "supported"
+        "to": "supported",
+        "observation_id": null,
+        "record_identity": "not_retained",
+        "call_id": "call-s01"
       },
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
@@ -758,12 +748,7 @@
       "stage": "claim",
       "contract_disposition": "committed",
       "effect_applied_verdict": "unresolved",
-      "resolving_observation": {
-        "step": 3,
-        "op": "settle_no_effect",
-        "from": "unresolved",
-        "to": "refuted"
-      },
+      "resolving_observation": null,
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
         {
@@ -795,7 +780,10 @@
         "step": 3,
         "op": "settle_no_effect",
         "from": "unresolved",
-        "to": "refuted"
+        "to": "refuted",
+        "observation_id": null,
+        "record_identity": "not_retained",
+        "call_id": "call-s02"
       },
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
@@ -824,12 +812,7 @@
       "stage": "claim",
       "contract_disposition": "committed",
       "effect_applied_verdict": "unresolved",
-      "resolving_observation": {
-        "step": 3,
-        "op": "settle_no_effect",
-        "from": "unresolved",
-        "to": "refuted"
-      },
+      "resolving_observation": null,
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [
         {
@@ -861,7 +844,10 @@
         "step": 3,
         "op": "settle_no_effect",
         "from": "unresolved",
-        "to": "refuted"
+        "to": "refuted",
+        "observation_id": null,
+        "record_identity": "not_retained",
+        "call_id": "call-s02"
       },
       "scope": "Fixture-authored terminal records checked by the production settler and the classical gate. Compare-only. Bounded conformance is not full-system equivalence and not a live model edit.",
       "source_refs": [

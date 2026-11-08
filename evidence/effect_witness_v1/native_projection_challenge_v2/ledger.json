@@ -12,6 +12,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current"
@@ -33,6 +34,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current"
@@ -54,6 +56,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current"
@@ -75,6 +78,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current",
@@ -93,6 +97,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current"
@@ -114,6 +119,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current"
@@ -135,6 +141,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current"
@@ -156,6 +163,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current"
@@ -177,12 +185,8 @@
       "raw_error": "aew-v1-h-authority-current:mixed-unknown-authorization: duplicate or blank ledger event",
       "warrant": "unresolved",
       "matches_warrant": false,
-      "admitted_ids": [
-        "aew-v1-rec-actor-authority-current",
-        "aew-v1-rec-coverage-authority-current",
-        "aew-v1-rec-sink-authority-current",
-        "aew-v1-rec-sink-authority-current-unknown"
-      ],
+      "admission": "not_evaluated",
+      "admitted_ids": [],
       "rejected_ids": [],
       "reasons": [],
       "historical_swarm_witness": "entrypoint_rejected:aew-v1-h-authority-current:mixed-unknown-authorization: duplicate or blank ledger event",
@@ -196,6 +200,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current",
@@ -215,6 +220,7 @@
       "raw_error": null,
       "warrant": "supported",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current",
@@ -237,11 +243,8 @@
       "raw_error": "aew-v1-h-authority-current:sink-unknown-subject: ledger/event subject_class mismatch on aew-v1-event-authority-current",
       "warrant": "unresolved",
       "matches_warrant": false,
-      "admitted_ids": [
-        "aew-v1-rec-actor-authority-current",
-        "aew-v1-rec-coverage-authority-current",
-        "aew-v1-rec-sink-authority-current"
-      ],
+      "admission": "not_evaluated",
+      "admitted_ids": [],
       "rejected_ids": [],
       "reasons": [],
       "historical_swarm_witness": "entrypoint_rejected:aew-v1-h-authority-current:sink-unknown-subject: ledger/event subject_class mismatch on aew-v1-event-authority-current",
@@ -255,6 +258,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current",
@@ -273,6 +277,7 @@
       "raw_error": null,
       "warrant": "unresolved",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current",
@@ -291,11 +296,8 @@
       "raw_error": "src-aew-v1-rec-coverage-authority-current: pinned bytes require access_level public_bytes",
       "warrant": "unresolved",
       "matches_warrant": false,
-      "admitted_ids": [
-        "aew-v1-rec-actor-authority-current",
-        "aew-v1-rec-coverage-authority-current",
-        "aew-v1-rec-sink-authority-current"
-      ],
+      "admission": "not_evaluated",
+      "admitted_ids": [],
       "rejected_ids": [],
       "reasons": [],
       "historical_swarm_witness": "entrypoint_rejected:src-aew-v1-rec-coverage-authority-current: pinned bytes require access_level public_bytes",
@@ -309,6 +311,7 @@
       "raw_error": null,
       "warrant": "supported",
       "matches_warrant": true,
+      "admission": "evaluated",
       "admitted_ids": [
         "aew-v1-rec-actor-authority-current",
         "aew-v1-rec-coverage-authority-current",

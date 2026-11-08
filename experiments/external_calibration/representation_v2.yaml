@@ -6,6 +6,7 @@ eligibility: external-heldout-v1
 independent_jury: false
 superiority_claim: false
 transfer_claim: false
+external_empirical_transfer: not_tested
 arms:
   - raw_strong
   - raw_qualifier

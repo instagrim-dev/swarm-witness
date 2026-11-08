@@ -61,8 +61,15 @@ def test_claim_map_covers_architecture_and_measured_contracts():
     assert settlement["status"] == "measured_contract"
     assert ledger["sources"][0]["ref"] == "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
     assert settlement["sources"][0]["ref"] == "c8297333b3bf31ded96ca0e8b39c531d3bcea97f"
-    assert claims["external_empirical_transfer"]["status"] == "proposed"
+    assert claims["bounded_contract_portability"]["status"] == "demonstrated"
+    assert claims["external_empirical_transfer"]["status"] == "not_tested"
+    assert document["research_flags"] == {
+        "bounded_contract_portability": "demonstrated",
+        "external_empirical_transfer": "not_tested",
+    }
     decision = DECISION.read_text(encoding="utf-8")
+    assert "bounded_contract_portability = demonstrated" in decision
+    assert "Track 4 evaluates transfer of authority and evidence obligations" in decision
     preexisting = PREEXISTING.read_text(encoding="utf-8")
     for needle in (
         "e0038cc48872b274c22deaed8e24236530e9821e",

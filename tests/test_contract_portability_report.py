@@ -38,6 +38,8 @@ def test_report_preserves_protocol_and_run_identity():
     assert report["compare_only"] is True
     assert report["live_model_edit"] is False
     assert report["full_system_equivalence"] is False
+    assert report["bounded_contract_portability"] == "demonstrated"
+    assert report["external_empirical_transfer"] == "not_tested"
     pins = report["source_pins"]
     assert pins["architecture_context"] == "e0038cc48872b274c22deaed8e24236530e9821e"
     assert pins["ledger_measurement"] == "4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe"
@@ -71,15 +73,21 @@ def test_settlement_stage_is_the_discriminator():
             claim = _rows(report, run_id=run, case_id=case_id, arm=arm, stage="claim")
             assert claim["effect_applied_verdict"] == "unresolved"
             assert claim["contract_disposition"] == "committed"
+            assert claim["resolving_observation"] is None
     for arm in ("classical", "bmo"):
         applied = _rows(report, run_id=run, case_id="S01", arm=arm, stage="settlement")
         absent = _rows(report, run_id=run, case_id="S02", arm=arm, stage="settlement")
         assert applied["contract_disposition"] == "applied"
         assert applied["effect_applied_verdict"] == "supported"
         assert applied["resolving_observation"]["to"] == "supported"
+        assert applied["resolving_observation"]["observation_id"] is None
+        assert applied["resolving_observation"]["record_identity"] == "not_retained"
+        assert applied["resolving_observation"]["call_id"] == "call-s01"
         assert absent["contract_disposition"] == "not_entered"
         assert absent["effect_applied_verdict"] == "refuted"
         assert absent["resolving_observation"]["to"] == "refuted"
+        assert absent["resolving_observation"]["call_id"] == "call-s02"
+        assert absent["resolving_observation"]["record_identity"] == "not_retained"
         for number in range(3, 10):
             refused = _rows(report, run_id=run, case_id=f"S0{number}", arm=arm, stage="settlement")
             assert refused["contract_disposition"] == "refused"

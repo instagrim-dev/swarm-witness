@@ -5,8 +5,7 @@
 | Title | Swarm Witness Evidence for Agent Authorization |
 | Author | Jonathan Maye-Hobbs |
 | Affiliation | Independent |
-| Primary track | Track 3, Strengthening Agent Infrastructure |
-| Application area | Track 4, multi-agent oversight |
+| Primary track | Track 4, Multi-Agent Oversight and Control |
 | Abstract | [ABSTRACT.md](ABSTRACT.md) |
 | Official-template PDF | [Swarm_Witness_Templated_Submission.pdf](Swarm_Witness_Templated_Submission.pdf) |
 | Official-template DOCX | [Swarm_Witness_Templated_Submission.docx](Swarm_Witness_Templated_Submission.docx) |
