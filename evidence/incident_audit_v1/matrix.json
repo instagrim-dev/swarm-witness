@@ -122,11 +122,11 @@
       "observation_ids": [
         "E06"
       ],
-      "assertion_status": "single_source_asserted",
+      "assertion_status": "unasserted",
       "verification_status": "raw_telemetry_unverified",
       "conclusion_class": "missing_evidence",
-      "support_group_count": 1,
-      "withheld_dependent_count": 0,
+      "support_group_count": 0,
+      "withheld_dependent_count": 1,
       "document_count": 1,
       "reason": "required observation types are absent; a non-discriminating control or an unauthenticated tool line does not establish the broader claim"
     },
@@ -664,9 +664,9 @@
       ],
       "assertion_status": "single_source_asserted",
       "verification_status": "raw_telemetry_unverified",
-      "conclusion_class": "failed_enforcement",
-      "support_group_count": 1,
-      "withheld_dependent_count": 0,
+      "conclusion_class": "refuted",
+      "support_group_count": 0,
+      "withheld_dependent_count": 1,
       "document_count": 2,
       "reason": "retrieved public sentences contradict the sufficiency upgrade; this checks the published argument, not raw worker telemetry"
     },
@@ -756,7 +756,7 @@
       ],
       "assertion_status": "single_source_asserted",
       "verification_status": "raw_telemetry_unverified",
-      "conclusion_class": "failed_enforcement",
+      "conclusion_class": "refuted",
       "support_group_count": 0,
       "withheld_dependent_count": 0,
       "document_count": 2,

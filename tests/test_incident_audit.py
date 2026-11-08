@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import copy
 import importlib.util
 import json
 import sys
@@ -21,6 +22,7 @@ from swarm_witness.incident_audit import (  # noqa: E402
     summarize,
     swarm_witness_verdict,
 )
+from swarm_witness.strong_invariant import strong_invariant_verdict  # noqa: E402
 
 EXP = ROOT / "experiments" / "incident_audit"
 
@@ -261,3 +263,117 @@ def test_source_pins_quotes_and_unavailable_telemetry():
             continue
         assert row["predicted"] == "unresolved"
         assert row["swarm"]["verification_status"] == "raw_telemetry_unverified"
+
+
+def test_sufficiency_refutation_is_not_failed_enforcement():
+    claims, observations, _protocol, _adjudication = _bundle()
+    by_id = {claim["id"]: claim for claim in claims}
+    stage_b = observations_for_stage(observations, "B")
+    for claim_id in ("C03", "C05"):
+        verdict = swarm_witness_verdict(by_id[claim_id], stage_b)
+        assert verdict["epistemic_status"] == "refuted"
+        assert verdict["conclusion_class"] == "refuted"
+        assert verdict["conclusion_class"] != "failed_enforcement"
+        assert verdict["effect_status"] == "unobserved"
+        assert verdict["decision_status"] == "unknown"
+        assert verdict["failure_origin"] == "undetermined"
+        assert verdict["evidence_status"] == "authentic"
+        assert verdict["verification_status"] == "raw_telemetry_unverified"
+        assert verdict["real_world_authenticity_certified"] is False
+        assert verdict["detection_or_prevention_claimed"] is False
+    assert swarm_witness_verdict(by_id["C05"], stage_b)["failure_origin"] != "effect_boundary"
+
+
+def _census_packet():
+    comp = ROOT / "experiments" / "incident_audit" / "comparison"
+    claims = yaml.safe_load((comp / "claims_v1.yaml").read_text())["claims"]
+    packets = prepare_observations(
+        yaml.safe_load((comp / "packets_v1.yaml").read_text())["observations"]
+    )
+    claim = next(item for item in claims if item["id"] == "K-census")
+    return claim, packets
+
+
+def test_spoofed_or_unauthenticated_census_is_not_supported():
+    claim, packets = _census_packet()
+    strong = strong_invariant_verdict(claim, packets)
+    swarm = swarm_witness_verdict(claim, packets)
+    assert strong["epistemic_status"] == "supported"
+    assert swarm["epistemic_status"] == "supported"
+    assert strong["evidence_status"] == "authentic"
+    assert swarm["evidence_status"] == "authentic"
+    for authenticity in ("spoofed_tool_line", "unauthenticated_tool_line"):
+        altered = copy.deepcopy(packets)
+        census = next(obs for obs in altered if obs["id"] == "CENSUS")
+        census["authenticity"] = authenticity
+        strong_bad = strong_invariant_verdict(claim, altered)
+        swarm_bad = swarm_witness_verdict(claim, altered)
+        assert strong_bad["epistemic_status"] == "unresolved"
+        assert swarm_bad["epistemic_status"] == "unresolved"
+        assert strong_bad["evidence_status"] == "missing"
+        assert swarm_bad["evidence_status"] == "missing"
+        assert strong_bad.get("evidence_status") != "authentic"
+        assert swarm_bad["evidence_status"] != "authentic"
+        assert swarm_bad["real_world_authenticity_certified"] is False
+
+
+def test_non_admissible_census_authenticity_does_not_decide():
+    """unavailable and not_checked are outside the admissible allowlist."""
+    claim, packets = _census_packet()
+    for authenticity in ("unavailable", "not_checked"):
+        for polarity in ("supports", "refutes"):
+            altered = copy.deepcopy(packets)
+            census = next(obs for obs in altered if obs["id"] == "CENSUS")
+            census["authenticity"] = authenticity
+            census["literal_polarity"] = polarity
+            strong = strong_invariant_verdict(claim, altered)
+            swarm = swarm_witness_verdict(claim, altered)
+            assert strong["epistemic_status"] == "unresolved"
+            assert swarm["epistemic_status"] == "unresolved"
+            assert strong["epistemic_status"] not in {"supported", "refuted"}
+            assert swarm["epistemic_status"] not in {"supported", "refuted"}
+            assert strong["evidence_status"] == "missing"
+            assert swarm["evidence_status"] == "missing"
+            assert strong["real_world_authenticity_certified"] is False
+            assert swarm["real_world_authenticity_certified"] is False
+            assert strong["detection_or_prevention_claimed"] is False
+            assert swarm["detection_or_prevention_claimed"] is False
+
+
+def test_context_record_does_not_attribute_census_to_bob():
+    claim, packets = _census_packet()
+    alone_strong = strong_invariant_verdict(claim, packets)
+    alone_swarm = swarm_witness_verdict(claim, packets)
+    assert alone_strong["epistemic_status"] == "supported"
+    assert alone_swarm["epistemic_status"] == "supported"
+    assert alone_strong["attributed_origin"] == "undetermined"
+    assert alone_swarm["attributed_origin"] == "undetermined"
+    contextual = prepare_observations(
+        [
+            {
+                "id": "CTX-BOB",
+                "source_id": "context",
+                "independence_group": "context-bob",
+                "stage": "A",
+                "publication_ordinal": 3,
+                "authenticity": "authentic_public_text",
+                "access_level": "released_reproduction_transcript",
+                "locally_held": True,
+                "quote": "Policy allows Bob to read an unrelated file.",
+                "applies_to": ["K-census"],
+                "literal_claims": ["K-other"],
+                "literal_polarity": "supports",
+                "observation_types": ["policy_allow"],
+                "named_origin": "Bob",
+            }
+        ]
+    )
+    with_bob = [*packets, *contextual]
+    strong = strong_invariant_verdict(claim, with_bob)
+    swarm = swarm_witness_verdict(claim, with_bob)
+    assert strong["epistemic_status"] == "supported"
+    assert swarm["epistemic_status"] == "supported"
+    assert strong["attributed_origin"] == "undetermined"
+    assert swarm["attributed_origin"] == "undetermined"
+    assert strong["attributed_origin"] != "Bob"
+    assert swarm["attributed_origin"] != "Bob"

@@ -26,7 +26,8 @@ _WITHHELD_AUTHENTICITY = frozenset(
         "unauthenticated_tool_line",
     }
 )
-_COVERING_AUTHENTICITY = frozenset(
+# Same admissible set as Swarm Witness. Support and refutation both require it.
+_ADMISSIBLE_AUTHENTICITY = frozenset(
     {
         "authentic_public_text",
         "released_reproduction_transcript",
@@ -77,18 +78,44 @@ def _admit(
     return admitted, withheld
 
 
+def _authenticity_admissible(obs: dict[str, Any]) -> bool:
+    return obs.get("authenticity") in _ADMISSIBLE_AUTHENTICITY
+
+
+def _evidence_status(deciding: list[dict[str, Any]]) -> str:
+    """Authentic only when every deciding record is on the admissible allowlist."""
+    if deciding and all(_authenticity_admissible(obs) for obs in deciding):
+        return "authentic"
+    return "missing"
+
+
 def _decision_only(obs: dict[str, Any]) -> bool:
     types = set(obs.get("observation_types") or [])
     return bool(types) and types <= _DECISION_TYPES
+
+
+def _verifies_target(obs: dict[str, Any], claim: dict[str, Any]) -> bool:
+    """The record is about this proposition and carries its required observations."""
+    if obs.get("literal_polarity") != "supports":
+        return False
+    if claim["id"] not in (obs.get("literal_claims") or []):
+        return False
+    required = set(claim.get("required_observation_types") or [])
+    types = set(obs.get("observation_types") or [])
+    if required and not required.issubset(types):
+        return False
+    if claim.get("kind") == "world_effect" and _decision_only(obs):
+        return False
+    return True
 
 
 def _origin(claim: dict[str, Any], admitted: list[dict[str, Any]]) -> str:
     levels = _levels(claim)
     origins: list[str] = []
     for obs in admitted:
-        if obs.get("access_level") not in levels:
+        if not _verifies_target(obs, claim):
             continue
-        if obs.get("literal_polarity") != "supports":
+        if obs.get("access_level") not in levels:
             continue
         origin = obs.get("named_origin")
         if isinstance(origin, str) and origin.strip():
@@ -137,10 +164,13 @@ def _finish(
     claim: dict[str, Any],
     admitted: list[dict[str, Any]],
     withheld: list[dict[str, Any]],
+    *,
+    evidence_status: str,
 ) -> dict[str, Any]:
     return {
         "epistemic_status": epistemic,
         "reason": reason,
+        "evidence_status": evidence_status,
         "attributed_origin": (
             _origin(claim, admitted) if epistemic == "supported" else "undetermined"
         ),
@@ -168,13 +198,15 @@ def strong_invariant_verdict(
             claim,
             admitted,
             withheld,
+            evidence_status="missing",
         )
 
     if kind == "world_effect":
         support = [
             obs
             for obs in admitted
-            if obs.get("access_level") in levels
+            if _authenticity_admissible(obs)
+            and obs.get("access_level") in levels
             and obs.get("literal_polarity") == "supports"
             and claim["id"] in (obs.get("literal_claims") or [])
             and (not required or required.issubset(set(obs.get("observation_types") or [])))
@@ -183,13 +215,16 @@ def strong_invariant_verdict(
         refute = [
             obs
             for obs in admitted
-            if obs.get("access_level") in levels
+            if _authenticity_admissible(obs)
+            and obs.get("access_level") in levels
             and obs.get("literal_polarity") == "refutes"
             and claim["id"] in (obs.get("literal_claims") or [])
             and (not required or required.issubset(set(obs.get("observation_types") or [])))
             and not _decision_only(obs)
         ]
-        if support and not refute:
+        support_status = _evidence_status(support)
+        refute_status = _evidence_status(refute)
+        if support and not refute and support_status == "authentic":
             if _upgrade_blocked(
                 claim,
                 applicable,
@@ -202,6 +237,7 @@ def strong_invariant_verdict(
                     claim,
                     admitted,
                     withheld,
+                    evidence_status="missing",
                 )
             return _finish(
                 "supported",
@@ -209,14 +245,16 @@ def strong_invariant_verdict(
                 claim,
                 admitted,
                 withheld,
+                evidence_status=support_status,
             )
-        if refute and not support:
+        if refute and not support and refute_status == "authentic":
             return _finish(
                 "refuted",
                 "verifying record refutes the claim",
                 claim,
                 admitted,
                 withheld,
+                evidence_status=refute_status,
             )
         return _finish(
             "unresolved",
@@ -224,13 +262,14 @@ def strong_invariant_verdict(
             claim,
             admitted,
             withheld,
+            evidence_status="missing",
         )
 
     if kind == "evidentiary_sufficiency":
         covering = [
             obs
             for obs in admitted
-            if obs.get("authenticity") in _COVERING_AUTHENTICITY
+            if _authenticity_admissible(obs)
             and not _decision_only(obs)
         ]
         # A decision-only row can still sit in the packet. It does not cover
@@ -246,6 +285,7 @@ def strong_invariant_verdict(
                 claim,
                 admitted,
                 withheld,
+                evidence_status="missing",
             )
         refuting = [
             obs
@@ -253,13 +293,19 @@ def strong_invariant_verdict(
             if obs.get("literal_polarity") == "refutes"
             and claim["id"] in (obs.get("literal_claims") or [])
         ]
-        if refuting and claim.get("public_text_may_refute_sufficiency"):
+        refute_status = _evidence_status(refuting)
+        if (
+            refuting
+            and claim.get("public_text_may_refute_sufficiency")
+            and refute_status == "authentic"
+        ):
             return _finish(
                 "refuted",
                 "an admitted record contradicts the sufficiency upgrade",
                 claim,
                 admitted,
                 withheld,
+                evidence_status=refute_status,
             )
         return _finish(
             "unresolved",
@@ -267,6 +313,7 @@ def strong_invariant_verdict(
             claim,
             admitted,
             withheld,
+            evidence_status="missing",
         )
 
     raise ValueError(f"unknown claim kind {kind!r}")

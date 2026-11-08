@@ -1031,6 +1031,119 @@ def test_blocks_upgrade_on_unheld_evidence_cannot_prevent_supported():
     assert qualified["incident_prevention_claimed"] is False
 
 
+def test_same_origin_excerpts_do_not_satisfy_two_groups():
+    left = _pinned(
+        "excerpt-a",
+        "excerpt-a-bytes",
+        canonical_url="fixture://excerpt-a",
+        observation_origin="synthetic_control",
+        independence_group="same-corpus",
+    )
+    right = _pinned(
+        "excerpt-b",
+        "excerpt-b-bytes",
+        canonical_url="fixture://excerpt-b",
+        observation_origin="synthetic_control",
+        independence_group="same-corpus",
+    )
+    graph = _graph(
+        "same-corpus",
+        [left, right],
+        [
+            make_extraction(
+                id="ext-a", analyst_id="a", analysis_origin="human", source_ids=["excerpt-a"]
+            ),
+            make_extraction(
+                id="ext-b", analyst_id="b", analysis_origin="human", source_ids=["excerpt-b"]
+            ),
+        ],
+        [
+            make_event(
+                id="ev-a",
+                extraction_ids=["ext-a"],
+                necessary_source_ids=["excerpt-a"],
+                event_kind="committed_effect",
+                statement="First excerpt of the same corpus.",
+                polarity="supports",
+                actor_binding="bound",
+                verification_method="independent_log_digest",
+                time_basis="source_stated",
+                event_time="2026-07-11T10:10:00Z",
+            ),
+            make_event(
+                id="ev-b",
+                extraction_ids=["ext-b"],
+                necessary_source_ids=["excerpt-b"],
+                event_kind="committed_effect",
+                statement="Second excerpt of the same corpus.",
+                polarity="supports",
+                actor_binding="bound",
+                verification_method="independent_log_digest",
+                time_basis="source_stated",
+                event_time="2026-07-11T10:10:00Z",
+            ),
+        ],
+        [
+            make_claim(
+                id="claim",
+                proposition="Two excerpts from one corpus are two origins.",
+                required_event_kinds=["committed_effect"],
+                insufficient_event_kinds=["narrative_report"],
+                minimum_independent_groups=2,
+                requires_bound_actor=True,
+                requires_event_time=True,
+                event_ids=["ev-a", "ev-b"],
+            )
+        ],
+    )
+    claim = qualify_graph(graph)["claims"]["claim"]
+    assert claim["cited_independence_groups"] == ["same-corpus"]
+    assert claim["independent_observation_count"] == 1
+    assert claim["conclusion_class"] == "missing_evidence"
+    assert not (
+        claim["conclusion_class"] == "supported"
+        and claim["independent_observation_count"] == 2
+        and claim["cited_independence_groups"] == ["same-corpus"]
+    )
+
+
+def test_untimed_observation_does_not_refute_a_claim_that_requires_event_time():
+    source = _pinned(
+        "log",
+        "log-bytes",
+        observation_origin="synthetic_control",
+        independence_group="log",
+    )
+    graph = _one_claim_graph(
+        source,
+        {
+            "id": "ev",
+            "event_kind": "committed_effect",
+            "statement": "An effect with no time.",
+            "polarity": "contradicts",
+            "actor_binding": "bound",
+            "verification_method": "independent_log_digest",
+            "time_basis": "missing",
+            "event_time": None,
+        },
+        {
+            "id": "claim",
+            "proposition": "The effect happened at a stated time.",
+            "required_event_kinds": ["committed_effect"],
+            "insufficient_event_kinds": ["narrative_report"],
+            "requires_event_time": True,
+        },
+    )
+    claim = qualify_graph(graph)["claims"]["claim"]
+    assert claim["conclusion_class"] == "missing_evidence"
+    assert claim["property_holds"] is None
+    assert claim["conclusion_class"] != "failed_enforcement"
+    assert any(
+        item["event_id"] == "ev" and item["time_basis"] == "missing"
+        for item in claim["rejected_times"]
+    )
+
+
 def test_duplicate_reports_do_not_corroborate_and_irrelevant_records_do_not_move_the_verdict():
     text = "same-log-bytes"
     first = _pinned(

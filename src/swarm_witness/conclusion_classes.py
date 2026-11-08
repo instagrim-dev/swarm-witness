@@ -4,8 +4,10 @@ Core three-way classes for a single mechanism evaluation:
 
 1. ``missing_evidence`` — discriminating observations absent/incomplete.
    Finding ``unresolved``.
-2. ``failed_enforcement`` — evidence sufficient *and authentic*, and the
+2. ``failed_enforcement`` — evidence sufficient *and authentic*, and an
    exercised mechanism violates the property. Finding ``contradicted_in_scope``.
+   A refuted proposition is ``refuted``, not ``failed_enforcement``, unless
+   that exercised violation is separately established.
 3. ``supported`` — evidence sufficient/authentic and the property holds.
    Finding ``reproduced`` (or ``classical_baseline_matches`` for matched
    baseline comparisons).
@@ -23,6 +25,7 @@ from typing import Any, Literal
 ConclusionClass = Literal[
     "missing_evidence",
     "failed_enforcement",
+    "refuted",
     "supported",
     "comparison_divergent",
 ]
@@ -30,6 +33,7 @@ ConclusionClass = Literal[
 CONCLUSION_TO_FINDING_LABEL: dict[ConclusionClass, str] = {
     "missing_evidence": "unresolved",
     "failed_enforcement": "contradicted_in_scope",
+    "refuted": "contradicted_in_scope",
     "supported": "reproduced",
     "comparison_divergent": "contradicted_in_scope",
 }
@@ -51,11 +55,14 @@ def classify_conclusion(
     evidence_complete: bool,
     property_holds: bool | None,
     comparison: bool = False,
+    mechanism_exercised: bool = True,
 ) -> dict[str, Any]:
     """Map evidence completeness + property outcome onto a conclusion class.
 
     ``property_holds`` must be ``None`` when evidence is incomplete; callers
     must not invent a pass/fail from missing observations.
+    ``property_holds=False`` is ``failed_enforcement`` only when an exercised
+    mechanism violated the property. Otherwise the proposition stays ``refuted``.
     """
     if not evidence_complete:
         return {
@@ -75,6 +82,14 @@ def classify_conclusion(
             "finding_label": finding_label_for(cls, comparison=comparison),
             "property_holds": True,
             "reason": "evidence complete and property holds in scope",
+        }
+    if not mechanism_exercised:
+        cls = "refuted"
+        return {
+            "conclusion_class": cls,
+            "finding_label": finding_label_for(cls, comparison=comparison),
+            "property_holds": False,
+            "reason": "proposition refuted; exercised enforcement was not established",
         }
     cls = "failed_enforcement"
     return {

@@ -846,28 +846,105 @@ def _lineage_root(
     return source
 
 
-def _corroboration_key(
+def _legacy_corroboration_key(
     source: dict[str, Any],
     sources: dict[str, dict[str, Any]],
     seen: set[str] | None = None,
 ) -> str:
-    """One key per underlying record. A second report of that record does not mint a key."""
+    """Previous per-record key. Used only to keep an already-unified label stable."""
     seen = set() if seen is None else seen
     if source["id"] in seen:
         return "group:" + source["independence_group"]
     seen = set(seen)
     seen.add(source["id"])
     if source.get("duplicate_of"):
-        return _corroboration_key(sources[source["duplicate_of"]], sources, seen)
+        return _legacy_corroboration_key(sources[source["duplicate_of"]], sources, seen)
     deps = source.get("depends_on") or []
     if deps:
-        root_keys = {_corroboration_key(sources[dep], sources, seen) for dep in deps}
+        root_keys = {
+            _legacy_corroboration_key(sources[dep], sources, seen) for dep in deps
+        }
         if len(root_keys) == 1:
             return next(iter(root_keys))
     digest = source.get("content_digest")
     if isinstance(digest, str) and digest:
         return "digest:" + digest
     return "group:" + _lineage_root(source, sources)["independence_group"]
+
+
+def _origin_keys(sources: dict[str, dict[str, Any]]) -> dict[str, str]:
+    """One key per shared origin.
+
+    Duplicate bytes and explicit dependency or duplicate edges collapse.
+    A different digest does not split an independence group. A component the
+    old digest key already unified keeps that label.
+    """
+    parent = {sid: sid for sid in sources}
+
+    def find(sid: str) -> str:
+        while parent[sid] != sid:
+            parent[sid] = parent[parent[sid]]
+            sid = parent[sid]
+        return sid
+
+    def union(left: str, right: str) -> None:
+        root_left, root_right = find(left), find(right)
+        if root_left == root_right:
+            return
+        if root_right < root_left:
+            root_left, root_right = root_right, root_left
+        parent[root_right] = root_left
+
+    for source in sources.values():
+        if source.get("duplicate_of"):
+            union(source["id"], source["duplicate_of"])
+        for dep in source.get("depends_on") or []:
+            union(source["id"], dep)
+    grouped: dict[str, list[str]] = {}
+    for source in sources.values():
+        grouped.setdefault(source["independence_group"], []).append(source["id"])
+    for ids in grouped.values():
+        head = ids[0]
+        for other in ids[1:]:
+            union(head, other)
+    digested: dict[str, list[str]] = {}
+    for source in sources.values():
+        digest = source.get("content_digest")
+        if isinstance(digest, str) and digest:
+            digested.setdefault(digest, []).append(source["id"])
+    for ids in digested.values():
+        head = ids[0]
+        for other in ids[1:]:
+            union(head, other)
+    legacy = {sid: _legacy_corroboration_key(sources[sid], sources) for sid in sources}
+    members: dict[str, list[str]] = {}
+    for sid in sources:
+        members.setdefault(find(sid), []).append(sid)
+    resolved: dict[str, str] = {}
+    for group in members.values():
+        old = {legacy[sid] for sid in group}
+        if len(old) == 1:
+            label = next(iter(old))
+        else:
+            groups = {sources[sid]["independence_group"] for sid in group}
+            label = (
+                "group:" + next(iter(groups))
+                if len(groups) == 1
+                else "origin:" + min(group)
+            )
+        for sid in group:
+            resolved[sid] = label
+    return resolved
+
+
+def _corroboration_key(
+    source: dict[str, Any],
+    sources: dict[str, dict[str, Any]],
+    seen: set[str] | None = None,
+) -> str:
+    """One key per shared origin. A second report of that record does not mint a key."""
+    del seen
+    return _origin_keys(sources)[source["id"]]
 
 
 def _corroboration_keys(
@@ -1268,14 +1345,16 @@ def qualify_claim(
             event["actor_binding"] == "bound" for event in selected
         )
 
+    def _stated_time(event: dict[str, Any]) -> bool:
+        return event["time_basis"] == "source_stated" and bool(event["event_time"])
+
     actor_ok = not claim["requires_bound_actor"] or _bound(verified_support)
     contra_actor_ok = not claim["requires_bound_actor"] or _bound(verified_contra)
     time_ok = not claim["requires_event_time"] or (
-        bool(verified_support)
-        and all(
-            event["time_basis"] == "source_stated" and event["event_time"]
-            for event in verified_support
-        )
+        bool(verified_support) and all(_stated_time(event) for event in verified_support)
+    )
+    contra_time_ok = not claim["requires_event_time"] or (
+        bool(verified_contra) and all(_stated_time(event) for event in verified_contra)
     )
     enough_groups = len(support_keys) >= claim["minimum_independent_groups"]
 
@@ -1395,7 +1474,7 @@ def qualify_claim(
     if verified_support and verified_contra:
         evidence_complete = False
         property_holds = None
-    elif verified_contra and not verified_support and contra_actor_ok:
+    elif verified_contra and not verified_support and contra_actor_ok and contra_time_ok:
         evidence_complete = True
         property_holds = False
     elif absence_is_no_effect:

@@ -1099,6 +1099,11 @@ def _classify_pair(
         return "unlinked", ["effect_not_held"]
     if not _held(agent):
         return "unlinked", ["agent_record_not_held"]
+    binding_flags = _effect_binding_flags(agent, effect)
+    if binding_flags:
+        if any(flag.endswith("_mismatch") for flag in binding_flags):
+            return "conflicting", binding_flags
+        return "unlinked", binding_flags
     return "confirmed", []
 
 
@@ -1148,10 +1153,7 @@ def _annotate_links(
         if link["id"] in ambiguous:
             link["ambiguous"] = True
             link["flags"].append("ambiguous_effect")
-        if (
-            link["status"] == "confirmed"
-            and link["right_id"]
-        ):
+        if link["status"] in {"confirmed", "conflicting"} and link["right_id"]:
             left = by_id[link["left_id"]]
             right = by_id[link["right_id"]]
             agent, service = _agent_effect(left, right)
@@ -1213,6 +1215,8 @@ def _confirmed_effect(link: dict[str, Any], by_id: dict[str, dict[str, Any]]) ->
     if "invalid_binding" in effect["record_flags"] or "invalid_binding" in agent["record_flags"]:
         return False
     if "invalid_scope" in effect["record_flags"] or not effect["object_scope"]:
+        return False
+    if _effect_binding_flags(agent, effect):
         return False
     return _bound_principal(agent) and _bound_principal(effect)
 
@@ -1276,6 +1280,31 @@ def _held(event: dict[str, Any]) -> bool:
         and event["access_level"] == "public_bytes"
         and event["custody"] == "intact"
     )
+
+
+def _stated(event: dict[str, Any], field: str) -> str | None:
+    value = event.get(field)
+    if isinstance(value, str) and value.strip():
+        return value.strip()
+    return None
+
+
+def _effect_binding_flags(agent: dict[str, Any], effect: dict[str, Any]) -> list[str]:
+    """Actor, object, and operation must agree, or the pair is not one effect.
+
+    A shared call id is not a verified mapping. Equal stated bindings are.
+    """
+    flags: list[str] = []
+    for field, mismatch in (
+        ("actor_ref", "actor_mismatch"),
+        ("object_scope", "object_mismatch"),
+        ("action", "operation_mismatch"),
+    ):
+        left, right = _stated(agent, field), _stated(effect, field)
+        if left and right and left == right:
+            continue
+        flags.append(mismatch if left and right else "unresolved_binding")
+    return flags
 
 
 def _bound_principal(event: dict[str, Any]) -> bool:
