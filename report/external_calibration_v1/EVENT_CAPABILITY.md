@@ -18,6 +18,8 @@ Attribution claims: 120
 | `weak_checklist` | 120 | 72 | 0 | 0 | 48 |
 | `strong_invariant` | 120 | 72 | 0 | 0 | 48 |
 | `swarm_witness` | 120 | 72 | 0 | 0 | 48 |
+| `strong_on_adapter_checks` | 120 | 110 | 48 | 10 | 0 |
+| `swarm_on_adapter_checks` | 120 | 110 | 48 | 10 | 0 |
 
 ## Boundary preservation (adapter vs native safer)
 
@@ -57,6 +59,20 @@ Classifier abstention on these raw packets means the frozen classifiers do not c
 
 Capture-window edge: real-event attributions can remain supported while invented-receipt absence contradictions become unresolved — blanket abstention cannot reproduce that split.
 
+## Classifier integration (composed arms)
+
+Expectation: `C(x ∪ P(A(x))) = A(x)` (composed classifier equals adapter on retained packets).
+
+Composed vs adapter (all 130 retained packets): strong 130/130; Swarm Witness 130/130.
+
+Composed vs native safer — attribution: 120/120 (strong and Swarm Witness).
+
+Composed vs native safer — native execution comparisons: 8/8; additional controls (no exported native executed decision): 2/2; equivalently against the execution reference mapping: 10/10.
+
+Raw strong: 0 decisive across 130 packets; raw Swarm Witness: 0 decisive across 130 packets. Composed decisive — strong: 60; Swarm Witness: 60.
+
+Frozen classifiers admit and consume the adapter derivation; they do not independently evaluate predicate prose. EG-specific inference remains part of the composed method. Raw baselines stay unchanged. Report attribution 120/120, native execution 8/8, and controls 2/2 (equivalently 10/10 against the execution reference mapping).
+
 ## Result (this freeze)
 
-Propositions and candidate sets are selected from public entities; native object_ids/candidates/outcomes are scoring-only for assessor inputs. The adapter computes receipt-commitment matching, temporal compatibility, affirmative exclusivity/independence, and absence under covering capture. Boundary agreement with native safer is the primary conformance result; warrant columns remain qualified as method-dependent. `transfer_claim` remains false.
+Both composed classifiers preserve the adapter’s decisions on all 130 retained packets, including its false-exclusivity limitation. Raw-packet classifier behavior remains unchanged. This establishes classifier–adapter integration on the retained conditions. `transfer_claim` remains false.

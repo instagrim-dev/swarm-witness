@@ -4,6 +4,9 @@ Part of the evaluated method stack: receipt matching, temporal compatibility,
 affirmative trust assumptions, and absence under covering capture are computed
 here and scored as adapter capability. Does not read native verdicts, private
 truth, or scenario names.
+
+Assessments return structured predicate records for projection into classifier
+verifying observations; decisions are unchanged by those fields.
 """
 
 from __future__ import annotations
@@ -119,7 +122,6 @@ def intervals_compatible(
     if None in (m0, m1, e0, e1):
         return False
     pad = timedelta(seconds=float(clock_bound_seconds))
-    # Event starts too late, or finishes too early, relative to mutation ± bound.
     if e0 > m1 + pad:
         return False
     if e1 < m0 - pad:
@@ -152,7 +154,6 @@ def _registry_mutations(observations: list[dict[str, Any]]) -> list[dict[str, An
             rows = obs.get("registry_mutations")
             if isinstance(rows, list):
                 return rows
-    # Fallback: single mutation record observation.
     mutation = _entity(observations, "registry_mutation_record")
     return [mutation] if mutation else []
 
@@ -218,99 +219,103 @@ def claimed_mutation_absent(
     return True, "claimed_mutation_absent_from_registry"
 
 
+def _attr_predicates(
+    *,
+    event: dict[str, Any] | None,
+    mutation: dict[str, Any] | None,
+    decl: dict[str, Any],
+) -> dict[str, Any]:
+    """Structured checks already performed; exclusivity_declared is premise only."""
+    bound_seconds = _clock_bound_seconds(decl)
+    exclusive = _exclusive(decl)
+    independent = _independent(decl)
+    binding = receipt_matches_commitment(event, mutation)
+    temporal = (
+        intervals_compatible(
+            mutation=mutation, event=event, clock_bound_seconds=bound_seconds
+        )
+        if bound_seconds is not None
+        else False
+    )
+    return {
+        "clock_bound_present": bound_seconds is not None,
+        "clock_bound_seconds": bound_seconds,
+        "independence_declared": independent is not None,
+        "independence_status": independent,
+        "exclusivity_declared": exclusive,
+        # Recorded premise only — not independently verified.
+        "exclusivity_independently_verified": False,
+        "receipt_binding": binding,
+        "temporal_compatible": temporal,
+        "event_has_event_uuid": bool(
+            event and (event.get("attrs") or {}).get("event_uuid") is not None
+        ),
+        "mutation_present": mutation is not None,
+        "event_present": event is not None,
+    }
+
+
 def assess_attribution(claim: dict[str, Any], observations: list[dict[str, Any]]) -> dict[str, Any]:
-    """Return supported | refuted | unresolved with an explicit reason."""
-    del claim  # proposition identity is carried by the observed entities.
+    """Return supported | refuted | unresolved with structured predicates."""
+    del claim
     decl = _decl(observations)
     mutation = _entity(observations, "registry_mutation_record")
     event = _entity(observations, "tool_event_record")
+    predicates = _attr_predicates(event=event, mutation=mutation, decl=decl)
 
-    # Reject mutation-as-event shortcuts: tool events carry event_uuid.
+    def _result(verdict: str, reason: str, capability: str, **extra: Any) -> dict[str, Any]:
+        out = {
+            "verdict": verdict,
+            "reason": reason,
+            "capability": capability,
+            "predicates": predicates,
+            "family": "event_attribution",
+        }
+        out.update(extra)
+        return out
+
     if event is not None and (event.get("attrs") or {}).get("event_uuid") is None:
-        return {
-            "verdict": "unresolved",
-            "reason": "proposed_entity_is_not_a_tool_event",
-            "capability": "event_identity",
-        }
+        return _result(
+            "unresolved", "proposed_entity_is_not_a_tool_event", "event_identity"
+        )
 
-    bound_seconds = _clock_bound_seconds(decl)
-    if bound_seconds is None:
-        return {
-            "verdict": "unresolved",
-            "reason": "no_clock_bound",
-            "capability": "clock_reconciliation",
-        }
+    if not predicates["clock_bound_present"]:
+        return _result("unresolved", "no_clock_bound", "clock_reconciliation")
 
-    independent = _independent(decl)
-    if independent is None:
-        return {
-            "verdict": "unresolved",
-            "reason": "independence_undeclared",
-            "capability": "witness_independence",
-        }
-    if independent is False:
-        return {
-            "verdict": "unresolved",
-            "reason": "dependent_witnesses",
-            "capability": "witness_independence",
-        }
+    if predicates["independence_status"] is None:
+        return _result("unresolved", "independence_undeclared", "witness_independence")
+    if predicates["independence_status"] is False:
+        return _result("unresolved", "dependent_witnesses", "witness_independence")
 
-    exclusive = _exclusive(decl)
-    if exclusive is None:
-        return {
-            "verdict": "unresolved",
-            "reason": "exclusivity_undeclared",
-            "capability": "token_exclusivity",
-        }
-    if exclusive is False:
-        return {
-            "verdict": "unresolved",
-            "reason": "exclusivity_not_established",
-            "capability": "token_exclusivity",
-        }
+    if predicates["exclusivity_declared"] is None:
+        return _result("unresolved", "exclusivity_undeclared", "token_exclusivity")
+    if predicates["exclusivity_declared"] is False:
+        return _result("unresolved", "exclusivity_not_established", "token_exclusivity")
 
-    binding = receipt_matches_commitment(event, mutation)
+    binding = predicates["receipt_binding"]
     if binding == "unbound":
-        return {
-            "verdict": "unresolved",
-            "reason": "missing_receipt_token_or_commitment",
-            "capability": "receipt_binding",
-        }
+        return _result(
+            "unresolved", "missing_receipt_token_or_commitment", "receipt_binding"
+        )
     if binding == "unavailable":
-        return {
-            "verdict": "unresolved",
-            "reason": "commitment_unavailable",
-            "capability": "receipt_binding",
-        }
+        return _result("unresolved", "commitment_unavailable", "receipt_binding")
     if binding == "mismatch":
-        return {
-            "verdict": "unresolved",
-            "reason": "receipt_token_commitment_mismatch",
-            "capability": "receipt_binding",
-        }
+        return _result(
+            "unresolved", "receipt_token_commitment_mismatch", "receipt_binding"
+        )
 
-    if not intervals_compatible(
-        mutation=mutation, event=event, clock_bound_seconds=bound_seconds
-    ):
-        return {
-            "verdict": "unresolved",
-            "reason": "temporal_incompatible",
-            "capability": "clock_reconciliation",
-        }
+    if not predicates["temporal_compatible"]:
+        return _result("unresolved", "temporal_incompatible", "clock_reconciliation")
 
     if event is None or mutation is None:
-        return {
-            "verdict": "unresolved",
-            "reason": "no_unique_proposed_event",
-            "capability": "receipt_binding",
-        }
+        return _result("unresolved", "no_unique_proposed_event", "receipt_binding")
 
-    return {
-        "verdict": "supported",
-        "reason": "exclusive_independent_bound_temporally_compatible",
-        "capability": "receipt_binding",
-        "binding": binding,
-    }
+    return _result(
+        "supported",
+        "exclusive_independent_bound_temporally_compatible",
+        "receipt_binding",
+        binding=binding,
+    )
 
 
 def assess_fabricated_execution(
@@ -322,46 +327,53 @@ def assess_fabricated_execution(
     event = _entity(observations, "tool_event_record", "successful_execution_claim")
     pops = _populations(observations)
     mutations = _registry_mutations(observations)
-
     independent = _independent(decl)
-    if independent is False:
-        return {
-            "verdict": "unresolved",
-            "reason": "dependent_witnesses_block_absence_contradiction",
-            "capability": "witness_independence",
-        }
-    if independent is None:
-        return {
-            "verdict": "unresolved",
-            "reason": "independence_undeclared",
-            "capability": "witness_independence",
-        }
-
     covers, cover_reason = capture_covers_execution(
         populations=pops,
         event=event,
         clock_bound_seconds=_clock_bound_seconds(decl),
     )
-    if not covers:
-        return {
-            "verdict": "unresolved",
-            "reason": cover_reason,
-            "capability": "capture_coverage",
-        }
-
     absent, absent_reason = claimed_mutation_absent(event, mutations)
-    if not absent:
-        return {
-            "verdict": "unresolved",
-            "reason": absent_reason,
-            "capability": "absence_check",
-            "coverage_detail": cover_reason,
-        }
-
-    return {
-        "verdict": "refuted",
-        "reason": "absence_under_complete_covering_capture",
-        "capability": "capture_coverage",
+    predicates = {
+        "independence_declared": independent is not None,
+        "independence_status": independent,
+        "capture_covers_execution": covers,
         "coverage_detail": cover_reason,
+        "claimed_mutation_absent": absent,
         "absence_detail": absent_reason,
+        "clock_bound_present": _clock_bound_seconds(decl) is not None,
     }
+
+    def _result(verdict: str, reason: str, capability: str, **extra: Any) -> dict[str, Any]:
+        out = {
+            "verdict": verdict,
+            "reason": reason,
+            "capability": capability,
+            "predicates": predicates,
+            "family": "fabricated_execution",
+            "coverage_detail": cover_reason,
+            "absence_detail": absent_reason,
+        }
+        out.update(extra)
+        return out
+
+    if independent is False:
+        return _result(
+            "unresolved",
+            "dependent_witnesses_block_absence_contradiction",
+            "witness_independence",
+        )
+    if independent is None:
+        return _result("unresolved", "independence_undeclared", "witness_independence")
+
+    if not covers:
+        return _result("unresolved", cover_reason, "capture_coverage")
+
+    if not absent:
+        return _result("unresolved", absent_reason, "absence_check")
+
+    return _result(
+        "refuted",
+        "absence_under_complete_covering_capture",
+        "capture_coverage",
+    )

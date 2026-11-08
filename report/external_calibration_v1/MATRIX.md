@@ -3,7 +3,7 @@
 Retrospective calibration of the frozen classifier ladder against author-translated retained prior evidence (EvidenceGraph R2 seed-0 attribution; SoundGate R1 restriction vs availability; BMO L1 ledger vs non-settlement; LessWrong reproduction scope), plus event-level EvidenceGraph expanded native conformance and an ATTR seed-repeatability check on seeds 1–2. Not agreement with the authored strong_invariant baseline alone, and not a held-out transfer claim.
 
 Claims: 161
-Matrix rows: 1097
+Matrix rows: 1357
 
 ## Calibration statements
 
@@ -35,6 +35,8 @@ Matrix rows: 1097
 | `soundgate_policy_original` | 1 | 0 | 0 | 0 | 1 | 0 |
 | `soundgate_policy_strict` | 2 | 0 | 0 | 0 | 2 | 0 |
 | `strong_invariant` | 161 | 3 | 0 | 89 | 19 | 50 |
+| `strong_on_adapter_checks` | 130 | 10 | 0 | 70 | 50 | 0 |
+| `swarm_on_adapter_checks` | 130 | 10 | 0 | 70 | 50 | 0 |
 | `swarm_witness` | 161 | 3 | 0 | 89 | 19 | 50 |
 | `weak_checklist` | 161 | 10 | 0 | 82 | 19 | 50 |
 
@@ -91,6 +93,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000007-4af90bc41e` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000007-4af90bc41e` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000007-4af90bc41e` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000007-4af90bc41e` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000007-4af90bc41e` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000006-3e3c7c0d63` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000006-3e3c7c0d63` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000006-3e3c7c0d63` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -98,6 +102,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000006-3e3c7c0d63` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000006-3e3c7c0d63` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000006-3e3c7c0d63` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000006-3e3c7c0d63` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000006-3e3c7c0d63` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000008-7e082ef500` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000008-7e082ef500` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000008-7e082ef500` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -105,6 +111,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000008-7e082ef500` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000008-7e082ef500` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000008-7e082ef500` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000008-7e082ef500` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000008-7e082ef500` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000003-e09bde816d` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000003-e09bde816d` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000003-e09bde816d` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -112,6 +120,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000003-e09bde816d` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000003-e09bde816d` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000003-e09bde816d` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000003-e09bde816d` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000003-e09bde816d` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000011-ff06f491a2` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000011-ff06f491a2` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000011-ff06f491a2` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -119,6 +129,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000011-ff06f491a2` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000011-ff06f491a2` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000011-ff06f491a2` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000011-ff06f491a2` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000011-ff06f491a2` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000004-a940ad1de0` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000004-a940ad1de0` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000004-a940ad1de0` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -126,6 +138,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000004-a940ad1de0` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000004-a940ad1de0` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000004-a940ad1de0` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000004-a940ad1de0` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000004-a940ad1de0` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000001-07b64b84e9` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000001-07b64b84e9` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000001-07b64b84e9` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -133,6 +147,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000001-07b64b84e9` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000001-07b64b84e9` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000001-07b64b84e9` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000001-07b64b84e9` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000001-07b64b84e9` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000010-eb6969b962` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000010-eb6969b962` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000010-eb6969b962` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -140,6 +156,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000010-eb6969b962` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000010-eb6969b962` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000010-eb6969b962` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000010-eb6969b962` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000010-eb6969b962` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000002-5e435ef5f7` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000002-5e435ef5f7` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000002-5e435ef5f7` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -147,6 +165,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000002-5e435ef5f7` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000002-5e435ef5f7` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000002-5e435ef5f7` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000002-5e435ef5f7` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000002-5e435ef5f7` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000009-adc7d5b3ae` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000009-adc7d5b3ae` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000009-adc7d5b3ae` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -154,6 +174,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000009-adc7d5b3ae` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000009-adc7d5b3ae` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000009-adc7d5b3ae` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000009-adc7d5b3ae` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000009-adc7d5b3ae` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000012-96a1e0aef3` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000012-96a1e0aef3` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000012-96a1e0aef3` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -161,6 +183,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000012-96a1e0aef3` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000012-96a1e0aef3` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000012-96a1e0aef3` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000012-96a1e0aef3` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000012-96a1e0aef3` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000005-2bac86e8a4` | clean | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000005-2bac86e8a4` | clean | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000005-2bac86e8a4` | clean | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -168,6 +192,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-clean-event-000005-2bac86e8a4` | clean | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000005-2bac86e8a4` | clean | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-clean-event-000005-2bac86e8a4` | clean | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000005-2bac86e8a4` | clean | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-clean-event-000005-2bac86e8a4` | clean | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000007-a3475024ee` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000007-a3475024ee` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000007-a3475024ee` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -175,6 +201,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000007-a3475024ee` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000007-a3475024ee` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000007-a3475024ee` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000007-a3475024ee` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000007-a3475024ee` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000006-3e3c7c0d63` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000006-3e3c7c0d63` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000006-3e3c7c0d63` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -182,6 +210,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000006-3e3c7c0d63` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000006-3e3c7c0d63` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000006-3e3c7c0d63` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000006-3e3c7c0d63` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000006-3e3c7c0d63` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000008-7766af65db` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000008-7766af65db` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000008-7766af65db` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -189,6 +219,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000008-7766af65db` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000008-7766af65db` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000008-7766af65db` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000008-7766af65db` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000008-7766af65db` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000003-8d441ed57e` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000003-8d441ed57e` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000003-8d441ed57e` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -196,6 +228,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000003-8d441ed57e` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000003-8d441ed57e` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000003-8d441ed57e` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000003-8d441ed57e` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000003-8d441ed57e` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000011-ff06f491a2` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000011-ff06f491a2` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000011-ff06f491a2` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -203,6 +237,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000011-ff06f491a2` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000011-ff06f491a2` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000011-ff06f491a2` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000011-ff06f491a2` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000011-ff06f491a2` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000004-a940ad1de0` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000004-a940ad1de0` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000004-a940ad1de0` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -210,6 +246,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000004-a940ad1de0` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000004-a940ad1de0` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000004-a940ad1de0` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000004-a940ad1de0` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000004-a940ad1de0` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000001-07b64b84e9` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000001-07b64b84e9` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000001-07b64b84e9` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -217,6 +255,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000001-07b64b84e9` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000001-07b64b84e9` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000001-07b64b84e9` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000001-07b64b84e9` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000001-07b64b84e9` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000010-eb6969b962` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000010-eb6969b962` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000010-eb6969b962` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -224,6 +264,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000010-eb6969b962` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000010-eb6969b962` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000010-eb6969b962` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000010-eb6969b962` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000010-eb6969b962` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000002-5e435ef5f7` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000002-5e435ef5f7` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000002-5e435ef5f7` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -231,6 +273,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000002-5e435ef5f7` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000002-5e435ef5f7` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000002-5e435ef5f7` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000002-5e435ef5f7` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000002-5e435ef5f7` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000009-adc7d5b3ae` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000009-adc7d5b3ae` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000009-adc7d5b3ae` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -238,6 +282,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000009-adc7d5b3ae` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000009-adc7d5b3ae` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000009-adc7d5b3ae` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000009-adc7d5b3ae` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000009-adc7d5b3ae` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000012-96a1e0aef3` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000012-96a1e0aef3` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000012-96a1e0aef3` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -245,6 +291,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000012-96a1e0aef3` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000012-96a1e0aef3` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000012-96a1e0aef3` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000012-96a1e0aef3` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000012-96a1e0aef3` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000005-2bac86e8a4` | fabricated | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000005-2bac86e8a4` | fabricated | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000005-2bac86e8a4` | fabricated | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -252,18 +300,24 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000005-2bac86e8a4` | fabricated | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000005-2bac86e8a4` | fabricated | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-fabricated-event-000005-2bac86e8a4` | fabricated | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000005-2bac86e8a4` | fabricated | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-fabricated-event-000005-2bac86e8a4` | fabricated | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242` | fabricated | `evidencegraph_safer_executed` | refuted | refuted | correct_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242` | fabricated | `eg_evidence_derived_adapter` | refuted | refuted | correct_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242` | fabricated | `naive` | unresolved | refuted | missed_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242` | fabricated | `weak_checklist` | unresolved | refuted | missed_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242` | fabricated | `strong_invariant` | unresolved | refuted | missed_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242` | fabricated | `swarm_witness` | unresolved | refuted | missed_decisive |
+| evidencegraph_r2_event | `EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242` | fabricated | `strong_on_adapter_checks` | refuted | refuted | correct_decisive |
+| evidencegraph_r2_event | `EG-FAB-fabricated-64SUiiUNPDThbTqHmBj8fa-d3e94242` | fabricated | `swarm_on_adapter_checks` | refuted | refuted | correct_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | fabricated | `evidencegraph_safer_executed` | refuted | refuted | correct_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | fabricated | `eg_evidence_derived_adapter` | refuted | refuted | correct_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | fabricated | `naive` | unresolved | refuted | missed_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | fabricated | `weak_checklist` | unresolved | refuted | missed_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | fabricated | `strong_invariant` | unresolved | refuted | missed_decisive |
 | evidencegraph_r2_event | `EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | fabricated | `swarm_witness` | unresolved | refuted | missed_decisive |
+| evidencegraph_r2_event | `EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | fabricated | `strong_on_adapter_checks` | refuted | refuted | correct_decisive |
+| evidencegraph_r2_event | `EG-FAB-fabricated-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | fabricated | `swarm_on_adapter_checks` | refuted | refuted | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000007-68d2582e74` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000007-68d2582e74` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000007-68d2582e74` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -271,6 +325,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000007-68d2582e74` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000007-68d2582e74` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000007-68d2582e74` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000007-68d2582e74` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000007-68d2582e74` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000006-190ccc8b36` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000006-190ccc8b36` | full_receipt_relay | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000006-190ccc8b36` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -278,6 +334,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000006-190ccc8b36` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000006-190ccc8b36` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000006-190ccc8b36` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000006-190ccc8b36` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000006-190ccc8b36` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000008-2d82c988f5` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000008-2d82c988f5` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000008-2d82c988f5` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -285,6 +343,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000008-2d82c988f5` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000008-2d82c988f5` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000008-2d82c988f5` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000008-2d82c988f5` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000008-2d82c988f5` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000003-88b2619109` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000003-88b2619109` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000003-88b2619109` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -292,6 +352,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000003-88b2619109` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000003-88b2619109` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000003-88b2619109` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000003-88b2619109` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000003-88b2619109` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000011-ff06f491a2` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000011-ff06f491a2` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000011-ff06f491a2` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -299,6 +361,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000011-ff06f491a2` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000011-ff06f491a2` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000011-ff06f491a2` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000011-ff06f491a2` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000011-ff06f491a2` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000004-a940ad1de0` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000004-a940ad1de0` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000004-a940ad1de0` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -306,6 +370,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000004-a940ad1de0` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000004-a940ad1de0` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000004-a940ad1de0` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000004-a940ad1de0` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000004-a940ad1de0` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000001-bed96d476b` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000001-bed96d476b` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000001-bed96d476b` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -313,6 +379,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000001-bed96d476b` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000001-bed96d476b` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000001-bed96d476b` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000001-bed96d476b` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000001-bed96d476b` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000010-eb6969b962` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000010-eb6969b962` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000010-eb6969b962` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -320,6 +388,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000010-eb6969b962` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000010-eb6969b962` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000010-eb6969b962` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000010-eb6969b962` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000010-eb6969b962` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000002-5e435ef5f7` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000002-5e435ef5f7` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000002-5e435ef5f7` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -327,6 +397,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000002-5e435ef5f7` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000002-5e435ef5f7` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000002-5e435ef5f7` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000002-5e435ef5f7` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000002-5e435ef5f7` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000009-adc7d5b3ae` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000009-adc7d5b3ae` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000009-adc7d5b3ae` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -334,6 +406,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000009-adc7d5b3ae` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000009-adc7d5b3ae` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000009-adc7d5b3ae` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000009-adc7d5b3ae` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000009-adc7d5b3ae` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000012-96a1e0aef3` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000012-96a1e0aef3` | full_receipt_relay | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000012-96a1e0aef3` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -341,6 +415,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000012-96a1e0aef3` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000012-96a1e0aef3` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000012-96a1e0aef3` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000012-96a1e0aef3` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000012-96a1e0aef3` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000005-ff3aef1e95` | full_receipt_relay | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000005-ff3aef1e95` | full_receipt_relay | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000005-ff3aef1e95` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -348,12 +424,16 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000005-ff3aef1e95` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000005-ff3aef1e95` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000005-ff3aef1e95` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000005-ff3aef1e95` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-full_receipt_relay-event-000005-ff3aef1e95` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | full_receipt_relay | `evidencegraph_safer_executed` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | full_receipt_relay | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | full_receipt_relay | `naive` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | full_receipt_relay | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | full_receipt_relay | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | full_receipt_relay | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | full_receipt_relay | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-full_receipt_relay-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | full_receipt_relay | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000007-68d2582e74` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000007-68d2582e74` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000007-68d2582e74` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -361,6 +441,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000007-68d2582e74` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000007-68d2582e74` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000007-68d2582e74` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000007-68d2582e74` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000007-68d2582e74` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000006-190ccc8b36` | false_exclusivity | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000006-190ccc8b36` | false_exclusivity | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000006-190ccc8b36` | false_exclusivity | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -368,6 +450,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000006-190ccc8b36` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000006-190ccc8b36` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000006-190ccc8b36` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000006-190ccc8b36` | false_exclusivity | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000006-190ccc8b36` | false_exclusivity | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000008-2d82c988f5` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000008-2d82c988f5` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000008-2d82c988f5` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -375,6 +459,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000008-2d82c988f5` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000008-2d82c988f5` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000008-2d82c988f5` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000008-2d82c988f5` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000008-2d82c988f5` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000003-88b2619109` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000003-88b2619109` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000003-88b2619109` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -382,6 +468,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000003-88b2619109` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000003-88b2619109` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000003-88b2619109` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000003-88b2619109` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000003-88b2619109` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000011-ff06f491a2` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000011-ff06f491a2` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000011-ff06f491a2` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -389,6 +477,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000011-ff06f491a2` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000011-ff06f491a2` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000011-ff06f491a2` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000011-ff06f491a2` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000011-ff06f491a2` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000004-a940ad1de0` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000004-a940ad1de0` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000004-a940ad1de0` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -396,6 +486,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000004-a940ad1de0` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000004-a940ad1de0` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000004-a940ad1de0` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000004-a940ad1de0` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000004-a940ad1de0` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000001-bed96d476b` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000001-bed96d476b` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000001-bed96d476b` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -403,6 +495,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000001-bed96d476b` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000001-bed96d476b` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000001-bed96d476b` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000001-bed96d476b` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000001-bed96d476b` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000010-eb6969b962` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000010-eb6969b962` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000010-eb6969b962` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -410,6 +504,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000010-eb6969b962` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000010-eb6969b962` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000010-eb6969b962` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000010-eb6969b962` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000010-eb6969b962` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000002-5e435ef5f7` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000002-5e435ef5f7` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000002-5e435ef5f7` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -417,6 +513,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000002-5e435ef5f7` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000002-5e435ef5f7` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000002-5e435ef5f7` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000002-5e435ef5f7` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000002-5e435ef5f7` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000009-adc7d5b3ae` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000009-adc7d5b3ae` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000009-adc7d5b3ae` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -424,6 +522,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000009-adc7d5b3ae` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000009-adc7d5b3ae` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000009-adc7d5b3ae` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000009-adc7d5b3ae` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000009-adc7d5b3ae` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000012-96a1e0aef3` | false_exclusivity | `evidencegraph_safer_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000012-96a1e0aef3` | false_exclusivity | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000012-96a1e0aef3` | false_exclusivity | `eg_evidence_derived_adapter` | supported | unresolved | unsupported_support |
@@ -431,6 +531,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000012-96a1e0aef3` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000012-96a1e0aef3` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000012-96a1e0aef3` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000012-96a1e0aef3` | false_exclusivity | `strong_on_adapter_checks` | supported | unresolved | unsupported_support |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000012-96a1e0aef3` | false_exclusivity | `swarm_on_adapter_checks` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000005-ff3aef1e95` | false_exclusivity | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000005-ff3aef1e95` | false_exclusivity | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000005-ff3aef1e95` | false_exclusivity | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -438,12 +540,16 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000005-ff3aef1e95` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000005-ff3aef1e95` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000005-ff3aef1e95` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000005-ff3aef1e95` | false_exclusivity | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-false_exclusivity-event-000005-ff3aef1e95` | false_exclusivity | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | false_exclusivity | `evidencegraph_safer_executed` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | false_exclusivity | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | false_exclusivity | `naive` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | false_exclusivity | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | false_exclusivity | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | false_exclusivity | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | false_exclusivity | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-false_exclusivity-9XkRU6n3yVJvqBPLVz5t4t-d4d60bbe` | false_exclusivity | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000007-4af90bc41e` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000007-4af90bc41e` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000007-4af90bc41e` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -451,6 +557,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000007-4af90bc41e` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000007-4af90bc41e` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000007-4af90bc41e` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000007-4af90bc41e` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000007-4af90bc41e` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000006-3e3c7c0d63` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000006-3e3c7c0d63` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000006-3e3c7c0d63` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -458,6 +566,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000006-3e3c7c0d63` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000006-3e3c7c0d63` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000006-3e3c7c0d63` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000006-3e3c7c0d63` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000006-3e3c7c0d63` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000008-7e082ef500` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000008-7e082ef500` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000008-7e082ef500` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -465,6 +575,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000008-7e082ef500` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000008-7e082ef500` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000008-7e082ef500` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000008-7e082ef500` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000008-7e082ef500` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000003-e09bde816d` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000003-e09bde816d` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000003-e09bde816d` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -472,6 +584,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000003-e09bde816d` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000003-e09bde816d` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000003-e09bde816d` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000003-e09bde816d` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000003-e09bde816d` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000011-ff06f491a2` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000011-ff06f491a2` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000011-ff06f491a2` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -479,6 +593,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000011-ff06f491a2` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000011-ff06f491a2` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000011-ff06f491a2` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000011-ff06f491a2` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000011-ff06f491a2` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000004-a940ad1de0` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000004-a940ad1de0` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000004-a940ad1de0` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -486,6 +602,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000004-a940ad1de0` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000004-a940ad1de0` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000004-a940ad1de0` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000004-a940ad1de0` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000004-a940ad1de0` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000001-07b64b84e9` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000001-07b64b84e9` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000001-07b64b84e9` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -493,6 +611,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000001-07b64b84e9` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000001-07b64b84e9` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000001-07b64b84e9` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000001-07b64b84e9` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000001-07b64b84e9` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000010-eb6969b962` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000010-eb6969b962` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000010-eb6969b962` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -500,6 +620,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000010-eb6969b962` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000010-eb6969b962` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000010-eb6969b962` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000010-eb6969b962` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000010-eb6969b962` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000002-5e435ef5f7` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000002-5e435ef5f7` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000002-5e435ef5f7` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -507,6 +629,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000002-5e435ef5f7` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000002-5e435ef5f7` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000002-5e435ef5f7` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000002-5e435ef5f7` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000002-5e435ef5f7` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000009-adc7d5b3ae` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000009-adc7d5b3ae` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000009-adc7d5b3ae` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -514,6 +638,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000009-adc7d5b3ae` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000009-adc7d5b3ae` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000009-adc7d5b3ae` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000009-adc7d5b3ae` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000009-adc7d5b3ae` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000012-96a1e0aef3` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000012-96a1e0aef3` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000012-96a1e0aef3` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -521,6 +647,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000012-96a1e0aef3` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000012-96a1e0aef3` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000012-96a1e0aef3` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000012-96a1e0aef3` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000012-96a1e0aef3` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000005-2bac86e8a4` | shared_tokens_no_attack | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000005-2bac86e8a4` | shared_tokens_no_attack | `evidencegraph_legacy_produced` | supported | unresolved | unsupported_support |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000005-2bac86e8a4` | shared_tokens_no_attack | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -528,6 +656,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000005-2bac86e8a4` | shared_tokens_no_attack | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000005-2bac86e8a4` | shared_tokens_no_attack | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000005-2bac86e8a4` | shared_tokens_no_attack | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000005-2bac86e8a4` | shared_tokens_no_attack | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-shared_tokens_no_attack-event-000005-2bac86e8a4` | shared_tokens_no_attack | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000007-cf204b4bfb` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000007-cf204b4bfb` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000007-cf204b4bfb` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -535,6 +665,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000007-cf204b4bfb` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000007-cf204b4bfb` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000007-cf204b4bfb` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000007-cf204b4bfb` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000007-cf204b4bfb` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000006-078d9f5f53` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000006-078d9f5f53` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000006-078d9f5f53` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -542,6 +674,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000006-078d9f5f53` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000006-078d9f5f53` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000006-078d9f5f53` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000006-078d9f5f53` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000006-078d9f5f53` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000008-5fde702096` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000008-5fde702096` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000008-5fde702096` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -549,6 +683,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000008-5fde702096` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000008-5fde702096` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000008-5fde702096` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000008-5fde702096` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000008-5fde702096` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000003-ec6b39af49` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000003-ec6b39af49` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000003-ec6b39af49` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -556,6 +692,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000003-ec6b39af49` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000003-ec6b39af49` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000003-ec6b39af49` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000003-ec6b39af49` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000003-ec6b39af49` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000011-33c90c4298` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000011-33c90c4298` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000011-33c90c4298` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -563,6 +701,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000011-33c90c4298` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000011-33c90c4298` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000011-33c90c4298` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000011-33c90c4298` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000011-33c90c4298` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000004-f151c6eadd` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000004-f151c6eadd` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000004-f151c6eadd` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -570,6 +710,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000004-f151c6eadd` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000004-f151c6eadd` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000004-f151c6eadd` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000004-f151c6eadd` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000004-f151c6eadd` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000001-6102ab5c3b` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000001-6102ab5c3b` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000001-6102ab5c3b` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -577,6 +719,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000001-6102ab5c3b` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000001-6102ab5c3b` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000001-6102ab5c3b` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000001-6102ab5c3b` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000001-6102ab5c3b` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000010-1e6aa6b045` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000010-1e6aa6b045` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000010-1e6aa6b045` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -584,6 +728,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000010-1e6aa6b045` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000010-1e6aa6b045` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000010-1e6aa6b045` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000010-1e6aa6b045` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000010-1e6aa6b045` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000002-29b66f60d5` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000002-29b66f60d5` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000002-29b66f60d5` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -591,6 +737,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000002-29b66f60d5` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000002-29b66f60d5` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000002-29b66f60d5` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000002-29b66f60d5` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000002-29b66f60d5` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000009-775fe14d34` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000009-775fe14d34` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000009-775fe14d34` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -598,6 +746,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000009-775fe14d34` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000009-775fe14d34` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000009-775fe14d34` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000009-775fe14d34` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000009-775fe14d34` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000012-5b5661c5b5` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000012-5b5661c5b5` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000012-5b5661c5b5` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -605,6 +755,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000012-5b5661c5b5` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000012-5b5661c5b5` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000012-5b5661c5b5` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000012-5b5661c5b5` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000012-5b5661c5b5` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000005-bde1a9d327` | missing_tokens | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000005-bde1a9d327` | missing_tokens | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000005-bde1a9d327` | missing_tokens | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -612,6 +764,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000005-bde1a9d327` | missing_tokens | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000005-bde1a9d327` | missing_tokens | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000005-bde1a9d327` | missing_tokens | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000005-bde1a9d327` | missing_tokens | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_tokens-event-000005-bde1a9d327` | missing_tokens | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000007-4af90bc41e` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000007-4af90bc41e` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000007-4af90bc41e` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -619,6 +773,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000007-4af90bc41e` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000007-4af90bc41e` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000007-4af90bc41e` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000007-4af90bc41e` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000007-4af90bc41e` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000006-3e3c7c0d63` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000006-3e3c7c0d63` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000006-3e3c7c0d63` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -626,6 +782,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000006-3e3c7c0d63` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000006-3e3c7c0d63` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000006-3e3c7c0d63` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000006-3e3c7c0d63` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000006-3e3c7c0d63` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000008-7e082ef500` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000008-7e082ef500` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000008-7e082ef500` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -633,6 +791,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000008-7e082ef500` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000008-7e082ef500` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000008-7e082ef500` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000008-7e082ef500` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000008-7e082ef500` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000003-e09bde816d` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000003-e09bde816d` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000003-e09bde816d` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -640,6 +800,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000003-e09bde816d` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000003-e09bde816d` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000003-e09bde816d` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000003-e09bde816d` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000003-e09bde816d` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000011-ff06f491a2` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000011-ff06f491a2` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000011-ff06f491a2` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -647,6 +809,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000011-ff06f491a2` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000011-ff06f491a2` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000011-ff06f491a2` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000011-ff06f491a2` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000011-ff06f491a2` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000004-a940ad1de0` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000004-a940ad1de0` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000004-a940ad1de0` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -654,6 +818,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000004-a940ad1de0` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000004-a940ad1de0` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000004-a940ad1de0` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000004-a940ad1de0` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000004-a940ad1de0` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000001-07b64b84e9` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000001-07b64b84e9` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000001-07b64b84e9` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -661,6 +827,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000001-07b64b84e9` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000001-07b64b84e9` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000001-07b64b84e9` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000001-07b64b84e9` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000001-07b64b84e9` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000010-eb6969b962` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000010-eb6969b962` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000010-eb6969b962` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -668,6 +836,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000010-eb6969b962` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000010-eb6969b962` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000010-eb6969b962` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000010-eb6969b962` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000010-eb6969b962` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000002-5e435ef5f7` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000002-5e435ef5f7` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000002-5e435ef5f7` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -675,6 +845,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000002-5e435ef5f7` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000002-5e435ef5f7` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000002-5e435ef5f7` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000002-5e435ef5f7` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000002-5e435ef5f7` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000009-adc7d5b3ae` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000009-adc7d5b3ae` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000009-adc7d5b3ae` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -682,6 +854,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000009-adc7d5b3ae` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000009-adc7d5b3ae` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000009-adc7d5b3ae` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000009-adc7d5b3ae` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000009-adc7d5b3ae` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000012-96a1e0aef3` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000012-96a1e0aef3` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000012-96a1e0aef3` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -689,6 +863,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000012-96a1e0aef3` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000012-96a1e0aef3` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000012-96a1e0aef3` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000012-96a1e0aef3` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000012-96a1e0aef3` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000005-2bac86e8a4` | missing_clock_bound | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000005-2bac86e8a4` | missing_clock_bound | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000005-2bac86e8a4` | missing_clock_bound | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -696,6 +872,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000005-2bac86e8a4` | missing_clock_bound | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000005-2bac86e8a4` | missing_clock_bound | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000005-2bac86e8a4` | missing_clock_bound | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000005-2bac86e8a4` | missing_clock_bound | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-missing_clock_bound-event-000005-2bac86e8a4` | missing_clock_bound | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000007-a3475024ee` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000007-a3475024ee` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000007-a3475024ee` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -703,6 +881,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000007-a3475024ee` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000007-a3475024ee` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000007-a3475024ee` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000007-a3475024ee` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000007-a3475024ee` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000006-3e3c7c0d63` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000006-3e3c7c0d63` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000006-3e3c7c0d63` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -710,6 +890,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000006-3e3c7c0d63` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000006-3e3c7c0d63` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000006-3e3c7c0d63` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000006-3e3c7c0d63` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000006-3e3c7c0d63` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000008-7766af65db` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000008-7766af65db` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000008-7766af65db` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -717,6 +899,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000008-7766af65db` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000008-7766af65db` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000008-7766af65db` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000008-7766af65db` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000008-7766af65db` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000003-8d441ed57e` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000003-8d441ed57e` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000003-8d441ed57e` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -724,6 +908,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000003-8d441ed57e` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000003-8d441ed57e` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000003-8d441ed57e` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000003-8d441ed57e` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000003-8d441ed57e` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000011-ff06f491a2` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000011-ff06f491a2` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000011-ff06f491a2` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -731,6 +917,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000011-ff06f491a2` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000011-ff06f491a2` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000011-ff06f491a2` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000011-ff06f491a2` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000011-ff06f491a2` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000004-a940ad1de0` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000004-a940ad1de0` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000004-a940ad1de0` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -738,6 +926,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000004-a940ad1de0` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000004-a940ad1de0` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000004-a940ad1de0` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000004-a940ad1de0` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000004-a940ad1de0` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000001-07b64b84e9` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000001-07b64b84e9` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000001-07b64b84e9` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -745,6 +935,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000001-07b64b84e9` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000001-07b64b84e9` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000001-07b64b84e9` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000001-07b64b84e9` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000001-07b64b84e9` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000010-eb6969b962` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000010-eb6969b962` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000010-eb6969b962` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -752,6 +944,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000010-eb6969b962` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000010-eb6969b962` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000010-eb6969b962` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000010-eb6969b962` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000010-eb6969b962` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000002-5e435ef5f7` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000002-5e435ef5f7` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000002-5e435ef5f7` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -759,6 +953,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000002-5e435ef5f7` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000002-5e435ef5f7` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000002-5e435ef5f7` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000002-5e435ef5f7` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000002-5e435ef5f7` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000009-adc7d5b3ae` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000009-adc7d5b3ae` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000009-adc7d5b3ae` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -766,6 +962,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000009-adc7d5b3ae` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000009-adc7d5b3ae` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000009-adc7d5b3ae` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000009-adc7d5b3ae` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000009-adc7d5b3ae` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000012-96a1e0aef3` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000012-96a1e0aef3` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000012-96a1e0aef3` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -773,6 +971,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000012-96a1e0aef3` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000012-96a1e0aef3` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000012-96a1e0aef3` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000012-96a1e0aef3` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000012-96a1e0aef3` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000005-2bac86e8a4` | dependent_witnesses | `evidencegraph_safer_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000005-2bac86e8a4` | dependent_witnesses | `evidencegraph_legacy_produced` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000005-2bac86e8a4` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
@@ -780,18 +980,24 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000005-2bac86e8a4` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000005-2bac86e8a4` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000005-2bac86e8a4` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000005-2bac86e8a4` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-EVT-dependent_witnesses-event-000005-2bac86e8a4` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242` | dependent_witnesses | `evidencegraph_safer_executed` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242` | dependent_witnesses | `naive` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-dependent_witnesses-64SUiiUNPDThbTqHmBj8fa-d3e94242` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | dependent_witnesses | `evidencegraph_safer_executed` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | dependent_witnesses | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | dependent_witnesses | `naive` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | dependent_witnesses | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | dependent_witnesses | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | dependent_witnesses | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | dependent_witnesses | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-dependent_witnesses-3X4pY96GZqzJZdPCVF9A7g-ae799ef6` | dependent_witnesses | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000007-515e49e1da` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000007-515e49e1da` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000007-515e49e1da` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -799,6 +1005,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000007-515e49e1da` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000007-515e49e1da` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000007-515e49e1da` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000007-515e49e1da` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000007-515e49e1da` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000006-3e3c7c0d63` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000006-3e3c7c0d63` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000006-3e3c7c0d63` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -806,6 +1014,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000006-3e3c7c0d63` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000006-3e3c7c0d63` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000006-3e3c7c0d63` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000006-3e3c7c0d63` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000006-3e3c7c0d63` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000008-2ebb646405` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000008-2ebb646405` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000008-2ebb646405` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -813,6 +1023,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000008-2ebb646405` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000008-2ebb646405` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000008-2ebb646405` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000008-2ebb646405` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000008-2ebb646405` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000003-01ebc88642` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000003-01ebc88642` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000003-01ebc88642` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -820,6 +1032,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000003-01ebc88642` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000003-01ebc88642` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000003-01ebc88642` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000003-01ebc88642` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000003-01ebc88642` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000011-ff06f491a2` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000011-ff06f491a2` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000011-ff06f491a2` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -827,6 +1041,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000011-ff06f491a2` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000011-ff06f491a2` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000011-ff06f491a2` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000011-ff06f491a2` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000011-ff06f491a2` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000004-a940ad1de0` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000004-a940ad1de0` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000004-a940ad1de0` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -834,6 +1050,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000004-a940ad1de0` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000004-a940ad1de0` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000004-a940ad1de0` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000004-a940ad1de0` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000004-a940ad1de0` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000001-07b64b84e9` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000001-07b64b84e9` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000001-07b64b84e9` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -841,6 +1059,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000001-07b64b84e9` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000001-07b64b84e9` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000001-07b64b84e9` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000001-07b64b84e9` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000001-07b64b84e9` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000010-eb6969b962` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000010-eb6969b962` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000010-eb6969b962` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -848,6 +1068,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000010-eb6969b962` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000010-eb6969b962` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000010-eb6969b962` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000010-eb6969b962` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000010-eb6969b962` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000002-5e435ef5f7` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000002-5e435ef5f7` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000002-5e435ef5f7` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -855,6 +1077,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000002-5e435ef5f7` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000002-5e435ef5f7` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000002-5e435ef5f7` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000002-5e435ef5f7` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000002-5e435ef5f7` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000009-adc7d5b3ae` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000009-adc7d5b3ae` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000009-adc7d5b3ae` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -862,6 +1086,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000009-adc7d5b3ae` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000009-adc7d5b3ae` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000009-adc7d5b3ae` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000009-adc7d5b3ae` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000009-adc7d5b3ae` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000012-96a1e0aef3` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000012-96a1e0aef3` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000012-96a1e0aef3` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -869,6 +1095,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000012-96a1e0aef3` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000012-96a1e0aef3` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000012-96a1e0aef3` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000012-96a1e0aef3` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000012-96a1e0aef3` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000005-2bac86e8a4` | capture_window_edge | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000005-2bac86e8a4` | capture_window_edge | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000005-2bac86e8a4` | capture_window_edge | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -876,18 +1104,24 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000005-2bac86e8a4` | capture_window_edge | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000005-2bac86e8a4` | capture_window_edge | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000005-2bac86e8a4` | capture_window_edge | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000005-2bac86e8a4` | capture_window_edge | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-capture_window_edge-event-000005-2bac86e8a4` | capture_window_edge | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1` | capture_window_edge | `evidencegraph_safer_executed` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1` | capture_window_edge | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1` | capture_window_edge | `naive` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1` | capture_window_edge | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1` | capture_window_edge | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1` | capture_window_edge | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1` | capture_window_edge | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-capture_window_edge-dtXvHnaK9farXqFbZhKqwp-146153c1` | capture_window_edge | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4` | capture_window_edge | `evidencegraph_safer_executed` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4` | capture_window_edge | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4` | capture_window_edge | `naive` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4` | capture_window_edge | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4` | capture_window_edge | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4` | capture_window_edge | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4` | capture_window_edge | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-capture_window_edge-oJjor2NkRaPt563i2rD9H6-074f55e4` | capture_window_edge | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000007-c2105fb52c` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000007-c2105fb52c` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000007-c2105fb52c` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -895,6 +1129,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000007-c2105fb52c` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000007-c2105fb52c` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000007-c2105fb52c` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000007-c2105fb52c` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000007-c2105fb52c` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000006-3e3c7c0d63` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000006-3e3c7c0d63` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000006-3e3c7c0d63` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -902,6 +1138,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000006-3e3c7c0d63` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000006-3e3c7c0d63` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000006-3e3c7c0d63` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000006-3e3c7c0d63` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000006-3e3c7c0d63` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000008-5bcb96ca7b` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000008-5bcb96ca7b` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000008-5bcb96ca7b` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -909,6 +1147,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000008-5bcb96ca7b` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000008-5bcb96ca7b` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000008-5bcb96ca7b` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000008-5bcb96ca7b` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000008-5bcb96ca7b` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000003-8323a96e91` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000003-8323a96e91` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000003-8323a96e91` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -916,6 +1156,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000003-8323a96e91` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000003-8323a96e91` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000003-8323a96e91` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000003-8323a96e91` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000003-8323a96e91` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000011-ff06f491a2` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000011-ff06f491a2` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000011-ff06f491a2` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -923,6 +1165,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000011-ff06f491a2` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000011-ff06f491a2` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000011-ff06f491a2` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000011-ff06f491a2` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000011-ff06f491a2` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000004-a940ad1de0` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000004-a940ad1de0` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000004-a940ad1de0` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -930,6 +1174,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000004-a940ad1de0` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000004-a940ad1de0` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000004-a940ad1de0` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000004-a940ad1de0` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000004-a940ad1de0` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000001-07b64b84e9` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000001-07b64b84e9` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000001-07b64b84e9` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -937,6 +1183,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000001-07b64b84e9` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000001-07b64b84e9` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000001-07b64b84e9` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000001-07b64b84e9` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000001-07b64b84e9` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000010-eb6969b962` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000010-eb6969b962` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000010-eb6969b962` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -944,6 +1192,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000010-eb6969b962` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000010-eb6969b962` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000010-eb6969b962` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000010-eb6969b962` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000010-eb6969b962` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000002-5e435ef5f7` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000002-5e435ef5f7` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000002-5e435ef5f7` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -951,6 +1201,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000002-5e435ef5f7` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000002-5e435ef5f7` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000002-5e435ef5f7` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000002-5e435ef5f7` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000002-5e435ef5f7` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000009-adc7d5b3ae` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000009-adc7d5b3ae` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000009-adc7d5b3ae` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -958,6 +1210,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000009-adc7d5b3ae` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000009-adc7d5b3ae` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000009-adc7d5b3ae` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000009-adc7d5b3ae` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000009-adc7d5b3ae` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000012-96a1e0aef3` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000012-96a1e0aef3` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000012-96a1e0aef3` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -965,6 +1219,8 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000012-96a1e0aef3` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000012-96a1e0aef3` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000012-96a1e0aef3` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000012-96a1e0aef3` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000012-96a1e0aef3` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000005-2bac86e8a4` | incomplete_capture | `evidencegraph_safer_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000005-2bac86e8a4` | incomplete_capture | `evidencegraph_legacy_produced` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000005-2bac86e8a4` | incomplete_capture | `eg_evidence_derived_adapter` | supported | supported | correct_decisive |
@@ -972,18 +1228,24 @@ Matrix rows: 1097
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000005-2bac86e8a4` | incomplete_capture | `weak_checklist` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000005-2bac86e8a4` | incomplete_capture | `strong_invariant` | unresolved | supported | missed_decisive |
 | evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000005-2bac86e8a4` | incomplete_capture | `swarm_witness` | unresolved | supported | missed_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000005-2bac86e8a4` | incomplete_capture | `strong_on_adapter_checks` | supported | supported | correct_decisive |
+| evidencegraph_r2_event | `EG-EVT-incomplete_capture-event-000005-2bac86e8a4` | incomplete_capture | `swarm_on_adapter_checks` | supported | supported | correct_decisive |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0` | incomplete_capture | `evidencegraph_safer_executed` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0` | incomplete_capture | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0` | incomplete_capture | `naive` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0` | incomplete_capture | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0` | incomplete_capture | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0` | incomplete_capture | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0` | incomplete_capture | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-incomplete_capture-XAJTYob57cioV2W33629fd-6698e7c0` | incomplete_capture | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18` | incomplete_capture | `evidencegraph_safer_executed` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18` | incomplete_capture | `eg_evidence_derived_adapter` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18` | incomplete_capture | `naive` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18` | incomplete_capture | `weak_checklist` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18` | incomplete_capture | `strong_invariant` | unresolved | unresolved | justified_abstention |
 | evidencegraph_r2_event | `EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18` | incomplete_capture | `swarm_witness` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18` | incomplete_capture | `strong_on_adapter_checks` | unresolved | unresolved | justified_abstention |
+| evidencegraph_r2_event | `EG-FAB-incomplete_capture-Z5AXks6kZr4EAztafaygRJ-80ef2b18` | incomplete_capture | `swarm_on_adapter_checks` | unresolved | unresolved | justified_abstention |
 | soundgate_r1 | `SG-R1-RESTRICT-original` | original | `soundgate_policy_original` | refuted | refuted | correct_decisive |
 | soundgate_r1 | `SG-R1-RESTRICT-original` | original | `naive` | refuted | refuted | correct_decisive |
 | soundgate_r1 | `SG-R1-RESTRICT-original` | original | `weak_checklist` | refuted | refuted | correct_decisive |

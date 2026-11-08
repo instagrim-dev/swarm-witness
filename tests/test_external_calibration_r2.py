@@ -307,6 +307,166 @@ def test_eg_adapter_behavioral_predicates_and_input_independence():
     assert base_fp == alt_fp
 
 
+def test_composed_classifiers_consume_adapter_derivations():
+    """Support / refute / unresolved / false-exclusivity + composed-input independence."""
+    import copy
+    import tempfile
+    from pathlib import Path
+
+    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
+    from eg_adapter_projector import composed_observations, project_checks
+    from r2_event_packets import (
+        assessor_input_fingerprint,
+        build_packets,
+        mutate_native_fields_for_independence_check,
+    )
+    from swarm_witness.incident_audit import swarm_witness_verdict
+    from swarm_witness.strong_invariant import strong_invariant_verdict
+
+    packets = build_packets()
+
+    def _composed(packet):
+        assessment, projected = composed_observations(
+            packet["claim"], packet["observations"]
+        )
+        obs = list(packet["observations"]) + projected
+        return assessment, projected, obs
+
+    # Support path: clean attribution.
+    clean = next(
+        p
+        for p in packets
+        if p["claim"]["scenario"] == "clean" and p["claim"]["family"] == "event_attribution"
+    )
+    assessment, projected, composed_obs = _composed(clean)
+    assert assessment["verdict"] == "supported"
+    assert len(projected) == 1
+    proj = projected[0]
+    assert proj["id"]
+    assert clean["claim"]["id"] in proj["applies_to"]
+    assert "independence_group" in proj
+    assert proj["derivation"] == "adapter_checks"
+    assert proj["literal_polarity"] == "supports"
+    assert set(proj["observation_types"]) == {
+        "registry_mutation_record",
+        "tool_event_record",
+    }
+    assert assessment["predicates"]["exclusivity_declared"] is True
+    assert assessment["predicates"]["exclusivity_independently_verified"] is False
+    assert strong_invariant_verdict(clean["claim"], composed_obs)["epistemic_status"] == (
+        "supported"
+    )
+    assert swarm_witness_verdict(clean["claim"], composed_obs)["epistemic_status"] == (
+        "supported"
+    )
+    assert (
+        strong_invariant_verdict(clean["claim"], clean["observations"])["epistemic_status"]
+        == "unresolved"
+    )
+
+    # Unresolved path: mismatched token → no decisive projection.
+    obs = copy.deepcopy(clean["observations"])
+    for row in obs:
+        if "tool_event_record" in row.get("observation_types", []):
+            row["entity"]["attrs"]["receipt"]["receipt_token"] = "deadbeef_not_matching"
+    assessment, projected = composed_observations(clean["claim"], obs)
+    assert assessment["verdict"] == "unresolved"
+    assert projected == []
+    assert (
+        strong_invariant_verdict(clean["claim"], obs + projected)["epistemic_status"]
+        == "unresolved"
+    )
+
+    # Refutation path: fabricated receipt under complete capture.
+    fab = next(
+        p
+        for p in packets
+        if p["claim"]["scenario"] == "fabricated"
+        and p["claim"]["family"] == "fabricated_execution"
+    )
+    assessment, projected, composed_obs = _composed(fab)
+    assert assessment["verdict"] == "refuted"
+    assert projected and projected[0]["literal_polarity"] == "refutes"
+    assert set(projected[0]["observation_types"]) == {
+        "successful_execution_claim",
+        "capture_declaration",
+        "registry_mutation_population",
+    }
+    assert strong_invariant_verdict(fab["claim"], composed_obs)["epistemic_status"] == (
+        "refuted"
+    )
+    assert swarm_witness_verdict(fab["claim"], composed_obs)["epistemic_status"] == (
+        "refuted"
+    )
+
+    # Premise limitation: false-exclusivity decisive support preserved.
+    false_ex = next(
+        p
+        for p in packets
+        if p["claim"]["scenario"] == "false_exclusivity"
+        and p["claim"]["family"] == "event_attribution"
+        and p["native_arms"]["eg_evidence_derived_adapter"]["verdict"] == "supported"
+    )
+    assessment, projected, composed_obs = _composed(false_ex)
+    assert assessment["verdict"] == "supported"
+    assert assessment["predicates"]["exclusivity_declared"] is True
+    assert assessment["predicates"]["exclusivity_independently_verified"] is False
+    assert strong_invariant_verdict(false_ex["claim"], composed_obs)["epistemic_status"] == (
+        "supported"
+    )
+
+    # Independence: raw fingerprints/verdicts unchanged; composed input stable from public evidence.
+    export = json.loads(
+        (ROOT / "evidence" / "external_calibration_v1" / "eg_native_relations_seed0.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    mutated = mutate_native_fields_for_independence_check(export)
+    tmp = Path(tempfile.mkdtemp()) / "mutated_export.json"
+    tmp.write_text(json.dumps(mutated), encoding="utf-8")
+    alt_packets = build_packets(tmp)
+
+    def _attr_key(packet):
+        return (packet["claim"]["scenario"], packet["claim"]["mutation_id"])
+
+    def _composed_fp(packet):
+        assessment, projected = composed_observations(
+            packet["claim"], packet["observations"]
+        )
+        # Complete composed assessor input fingerprint.
+        return assessor_input_fingerprint(list(packet["observations"]) + projected), assessment[
+            "verdict"
+        ]
+
+    base_raw = {
+        _attr_key(p): assessor_input_fingerprint(p["observations"])
+        for p in packets
+        if p["claim"]["family"] == "event_attribution"
+    }
+    alt_raw = {
+        _attr_key(p): assessor_input_fingerprint(p["observations"])
+        for p in alt_packets
+        if p["claim"]["family"] == "event_attribution"
+    }
+    assert base_raw == alt_raw
+
+    base_comp = {
+        _attr_key(p): _composed_fp(p)
+        for p in packets
+        if p["claim"]["family"] == "event_attribution"
+    }
+    alt_comp = {
+        _attr_key(p): _composed_fp(p)
+        for p in alt_packets
+        if p["claim"]["family"] == "event_attribution"
+    }
+    assert base_comp == alt_comp
+
+    # project_checks must ignore non-assessment inputs (no second algorithm).
+    empty = project_checks(clean["claim"], clean["observations"], {"verdict": "unresolved"})
+    assert empty == []
+
+
 def test_external_calibration_runner_matrix():
     out = ROOT / "evidence" / "external_calibration_v1"
     env = os.environ.copy()
@@ -392,7 +552,27 @@ def test_external_calibration_runner_matrix():
     capability_md = (out / "EVENT_CAPABILITY.md").read_text(encoding="utf-8")
     assert "8 native execution comparisons" in capability_md
     assert "2 additional controls" in capability_md
-    assert "method-dependent" in capability_md or "Method-dependent" in capability_md.lower() or "method-dependent" in capability_md
+    assert "not fully independent of evaluated methods" in capability_md
+    integ = capability["classifier_integration"]
+    assert integ["transfer_claim"] is False
+    assert integ["packet_denominator"] == 130
+    assert integ["strong_on_adapter_matches_adapter"] == integ["integration_cells"] == 130
+    assert integ["swarm_on_adapter_matches_adapter"] == integ["integration_cells"]
+    assert integ["strong_on_adapter_matches_safer_attr"] == integ["safer_attr_cells"] == 120
+    assert integ["strong_on_adapter_matches_safer_native_exec"] == integ["native_exec_cells"] == 8
+    assert integ["strong_on_adapter_matches_safer_control"] == integ["control_exec_cells"] == 2
+    assert integ["strong_on_adapter_matches_safer_exec_mapping"] == 10
+    assert integ["raw_strong_decisive"] == 0
+    assert integ["raw_swarm_decisive"] == 0
+    assert integ["raw_strong_packets"] == 130
+    assert integ["raw_swarm_packets"] == 130
+    assert integ["composed_strong_decisive"] > 0
+    assert "Raw strong:" in capability_md
+    assert "raw Swarm Witness:" in capability_md
+    assert "native execution comparisons" in capability_md
+    assert "additional controls" in capability_md
+    assert "Classifier integration" in capability_md
+    assert "preserve the adapter" in capability_md
     assert (out / "EVENT_CAPABILITY.md").exists()
     assert (ROOT / "report" / "external_calibration_v1" / "EVENT_CAPABILITY.md").exists()
     assert (out / "PROFILE_LABELS.md").exists()

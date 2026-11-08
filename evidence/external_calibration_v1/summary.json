@@ -26,7 +26,7 @@
       "claims": 130,
       "note": "Event-by-event produced/executed comparison against native attribution and capture rules; adapter scored with classifiers.",
       "role": "expanded_native_conformance",
-      "rows": 900,
+      "rows": 1160,
       "seed": 0,
       "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
       "transfer_claim": false
@@ -101,6 +101,33 @@
         "claims": 12
       }
     },
+    "classifier_integration": {
+      "composed_strong_decisive": 60,
+      "composed_swarm_decisive": 60,
+      "control_exec_cells": 2,
+      "expectation": "C(x \u222a P(A(x))) = A(x)",
+      "integration_cells": 130,
+      "native_exec_cells": 8,
+      "note": "Frozen classifiers admit and consume the adapter derivation; they do not independently evaluate predicate prose. EG-specific inference remains part of the composed method. Raw baselines stay unchanged. Report attribution 120/120, native execution 8/8, and controls 2/2 (equivalently 10/10 against the execution reference mapping).",
+      "packet_denominator": 130,
+      "raw_strong_decisive": 0,
+      "raw_strong_packets": 130,
+      "raw_swarm_decisive": 0,
+      "raw_swarm_packets": 130,
+      "safer_attr_cells": 120,
+      "safer_exec_mapping_cells": 10,
+      "strong_on_adapter_matches_adapter": 130,
+      "strong_on_adapter_matches_safer_attr": 120,
+      "strong_on_adapter_matches_safer_control": 2,
+      "strong_on_adapter_matches_safer_exec_mapping": 10,
+      "strong_on_adapter_matches_safer_native_exec": 8,
+      "swarm_on_adapter_matches_adapter": 130,
+      "swarm_on_adapter_matches_safer_attr": 120,
+      "swarm_on_adapter_matches_safer_control": 2,
+      "swarm_on_adapter_matches_safer_exec_mapping": 10,
+      "swarm_on_adapter_matches_safer_native_exec": 8,
+      "transfer_claim": false
+    },
     "fabricated_execution": {
       "adapter_matches_native_executed_mapping": 10,
       "adapter_matches_on_native_executed_only": 8,
@@ -157,6 +184,24 @@
         "unsupported_refutation": 0,
         "unsupported_support": 0
       },
+      "strong_on_adapter_checks": {
+        "cells": 120,
+        "correct_decisive": 48,
+        "justified_abstention": 62,
+        "missed_decisive": 0,
+        "native_or_warrant_agreement": 110,
+        "unsupported_refutation": 0,
+        "unsupported_support": 10
+      },
+      "swarm_on_adapter_checks": {
+        "cells": 120,
+        "correct_decisive": 48,
+        "justified_abstention": 62,
+        "missed_decisive": 0,
+        "native_or_warrant_agreement": 110,
+        "unsupported_refutation": 0,
+        "unsupported_support": 10
+      },
       "swarm_witness": {
         "cells": 120,
         "correct_decisive": 0,
@@ -184,7 +229,7 @@
       "primary_result": "adapter_vs_native_safer_conformance"
     }
   },
-  "matrix_rows": 1097,
+  "matrix_rows": 1357,
   "methods": {
     "bmo_l1_native": {
       "cells": 7,
@@ -329,6 +374,24 @@
       "missed_decisive": 50,
       "unsupported_refutation": 0,
       "unsupported_support": 3
+    },
+    "strong_on_adapter_checks": {
+      "cells": 130,
+      "correct_decisive": 50,
+      "justified_abstention": 70,
+      "mismatch": 0,
+      "missed_decisive": 0,
+      "unsupported_refutation": 0,
+      "unsupported_support": 10
+    },
+    "swarm_on_adapter_checks": {
+      "cells": 130,
+      "correct_decisive": 50,
+      "justified_abstention": 70,
+      "mismatch": 0,
+      "missed_decisive": 0,
+      "unsupported_refutation": 0,
+      "unsupported_support": 10
     },
     "swarm_witness": {
       "cells": 161,

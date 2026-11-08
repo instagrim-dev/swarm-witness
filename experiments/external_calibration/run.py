@@ -32,6 +32,7 @@ from lw_packets import SOURCE_REV as LW_REV  # noqa: E402
 from lw_packets import build_packets as build_lw_packets  # noqa: E402
 from r2_event_packets import SOURCE_REV as R2_EVT_REV  # noqa: E402
 from r2_event_packets import build_packets as build_r2_event_packets  # noqa: E402
+from eg_adapter_projector import composed_observations  # noqa: E402
 
 OUT = ROOT / "evidence" / "external_calibration_v1"
 REPORT = ROOT / "report" / "external_calibration_v1"
@@ -58,6 +59,31 @@ def _score_classifiers(claim: dict[str, Any], observations: list[dict[str, Any]]
             "reason": strong.get("reason") if isinstance(strong, dict) else None,
         },
         "swarm_witness": {
+            "verdict": _epistemic(swarm),
+            "reason": swarm.get("reason") if isinstance(swarm, dict) else None,
+            "conclusion_class": swarm.get("conclusion_class")
+            if isinstance(swarm, dict)
+            else None,
+        },
+    }
+
+
+def _score_composed_on_adapter(
+    claim: dict[str, Any], raw_observations: list[dict[str, Any]]
+) -> dict[str, Any]:
+    """assessment → project → frozen classifiers on raw + projected."""
+    assessment, projected = composed_observations(claim, raw_observations)
+    composed_obs = list(raw_observations) + projected
+    strong = strong_invariant_verdict(claim, composed_obs)
+    swarm = swarm_witness_verdict(claim, composed_obs)
+    return {
+        "assessment": assessment,
+        "projected_observation_ids": [obs["id"] for obs in projected],
+        "strong_on_adapter_checks": {
+            "verdict": _epistemic(strong),
+            "reason": strong.get("reason") if isinstance(strong, dict) else None,
+        },
+        "swarm_on_adapter_checks": {
             "verdict": _epistemic(swarm),
             "reason": swarm.get("reason") if isinstance(swarm, dict) else None,
             "conclusion_class": swarm.get("conclusion_class")
@@ -99,6 +125,15 @@ def _score_corpus(
             **{name: {"verdict": arm["verdict"]} for name, arm in native.items()},
             **classifiers,
         }
+        composed_detail: dict[str, Any] | None = None
+        if corpus == "evidencegraph_r2_event":
+            composed_detail = _score_composed_on_adapter(claim, observations)
+            methods["strong_on_adapter_checks"] = {
+                "verdict": composed_detail["strong_on_adapter_checks"]["verdict"]
+            }
+            methods["swarm_on_adapter_checks"] = {
+                "verdict": composed_detail["swarm_on_adapter_checks"]["verdict"]
+            }
         detail.append(
             {
                 "corpus": corpus,
@@ -113,6 +148,7 @@ def _score_corpus(
                 "factual_outcome": packet["factual_outcome"],
                 "row_refs": packet["row_refs"],
                 "classifier_verdicts": classifiers,
+                "composed_on_adapter": composed_detail,
             }
         )
         factual = packet.get("factual_outcome") or {}
@@ -363,6 +399,8 @@ def _event_capability_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "weak_checklist",
         "strong_invariant",
         "swarm_witness",
+        "strong_on_adapter_checks",
+        "swarm_on_adapter_checks",
     ]
     attr_ids = {
         row["claim_id"]
@@ -555,6 +593,115 @@ def _event_capability_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "Use the conformance column as the primary result."
         ),
     }
+
+    def _pred_map(method: str, family: str | None = None) -> dict[str, str]:
+        return {
+            row["claim_id"]: row["predicted"]
+            for row in rows
+            if row["corpus"] == "evidencegraph_r2_event"
+            and row["method"] == method
+            and (family is None or row["family"] == family)
+        }
+
+    adapter_all = _pred_map("eg_evidence_derived_adapter")
+    strong_raw = _pred_map("strong_invariant")
+    swarm_raw = _pred_map("swarm_witness")
+    strong_comp = _pred_map("strong_on_adapter_checks")
+    swarm_comp = _pred_map("swarm_on_adapter_checks")
+    safer_attr = _pred_map("evidencegraph_safer_produced", "event_attribution")
+    safer_exec = _pred_map("evidencegraph_safer_executed", "fabricated_execution")
+
+    def _agree_maps(a: dict[str, str], b: dict[str, str]) -> tuple[int, int]:
+        ids = sorted(set(a) & set(b))
+        return sum(1 for i in ids if a[i] == b[i]), len(ids)
+
+    strong_vs_adapter, n_strong = _agree_maps(strong_comp, adapter_all)
+    swarm_vs_adapter, n_swarm = _agree_maps(swarm_comp, adapter_all)
+    strong_vs_safer_attr, n_ssa = _agree_maps(
+        {k: v for k, v in strong_comp.items() if k in safer_attr}, safer_attr
+    )
+    swarm_vs_safer_attr, n_swa = _agree_maps(
+        {k: v for k, v in swarm_comp.items() if k in safer_attr}, safer_attr
+    )
+    # Execution: split native executed comparisons vs additional controls.
+    native_exec_ids = {
+        row["claim_id"]
+        for row in rows
+        if row["corpus"] == "evidencegraph_r2_event"
+        and row["family"] == "fabricated_execution"
+        and row["method"] == "eg_evidence_derived_adapter"
+        and row.get("comparison_role") == "native_executed_comparison"
+    }
+    control_exec_ids = {
+        row["claim_id"]
+        for row in rows
+        if row["corpus"] == "evidencegraph_r2_event"
+        and row["family"] == "fabricated_execution"
+        and row["method"] == "eg_evidence_derived_adapter"
+        and row.get("comparison_role") == "additional_control"
+    }
+    safer_native_exec = {cid: safer_exec[cid] for cid in native_exec_ids if cid in safer_exec}
+    safer_control_exec = {cid: safer_exec[cid] for cid in control_exec_ids if cid in safer_exec}
+    strong_native_exec = {cid: strong_comp[cid] for cid in native_exec_ids if cid in strong_comp}
+    swarm_native_exec = {cid: swarm_comp[cid] for cid in native_exec_ids if cid in swarm_comp}
+    strong_control_exec = {cid: strong_comp[cid] for cid in control_exec_ids if cid in strong_comp}
+    swarm_control_exec = {cid: swarm_comp[cid] for cid in control_exec_ids if cid in swarm_comp}
+    strong_vs_safer_native_exec, n_native_exec = _agree_maps(
+        strong_native_exec, safer_native_exec
+    )
+    swarm_vs_safer_native_exec, _ = _agree_maps(swarm_native_exec, safer_native_exec)
+    strong_vs_safer_control, n_control_exec = _agree_maps(
+        strong_control_exec, safer_control_exec
+    )
+    swarm_vs_safer_control, _ = _agree_maps(swarm_control_exec, safer_control_exec)
+    # Full execution reference mapping (native + controls mapped unresolved).
+    strong_exec = {cid: pred for cid, pred in strong_comp.items() if cid in safer_exec}
+    swarm_exec = {cid: pred for cid, pred in swarm_comp.items() if cid in safer_exec}
+    strong_vs_safer_exec, n_sse = _agree_maps(strong_exec, safer_exec)
+    swarm_vs_safer_exec, _ = _agree_maps(swarm_exec, safer_exec)
+
+    packet_denominator = len(adapter_all)
+    out["classifier_integration"] = {
+        "expectation": "C(x ∪ P(A(x))) = A(x)",
+        "packet_denominator": packet_denominator,
+        "strong_on_adapter_matches_adapter": strong_vs_adapter,
+        "swarm_on_adapter_matches_adapter": swarm_vs_adapter,
+        "integration_cells": n_strong,
+        "strong_on_adapter_matches_safer_attr": strong_vs_safer_attr,
+        "swarm_on_adapter_matches_safer_attr": swarm_vs_safer_attr,
+        "safer_attr_cells": n_ssa,
+        "strong_on_adapter_matches_safer_native_exec": strong_vs_safer_native_exec,
+        "swarm_on_adapter_matches_safer_native_exec": swarm_vs_safer_native_exec,
+        "native_exec_cells": n_native_exec,
+        "strong_on_adapter_matches_safer_control": strong_vs_safer_control,
+        "swarm_on_adapter_matches_safer_control": swarm_vs_safer_control,
+        "control_exec_cells": n_control_exec,
+        "strong_on_adapter_matches_safer_exec_mapping": strong_vs_safer_exec,
+        "swarm_on_adapter_matches_safer_exec_mapping": swarm_vs_safer_exec,
+        "safer_exec_mapping_cells": n_sse,
+        "raw_strong_decisive": sum(
+            1 for v in strong_raw.values() if v in {"supported", "refuted"}
+        ),
+        "raw_swarm_decisive": sum(
+            1 for v in swarm_raw.values() if v in {"supported", "refuted"}
+        ),
+        "raw_strong_packets": len(strong_raw),
+        "raw_swarm_packets": len(swarm_raw),
+        "composed_strong_decisive": sum(
+            1 for v in strong_comp.values() if v in {"supported", "refuted"}
+        ),
+        "composed_swarm_decisive": sum(
+            1 for v in swarm_comp.values() if v in {"supported", "refuted"}
+        ),
+        "note": (
+            "Frozen classifiers admit and consume the adapter derivation; they do "
+            "not independently evaluate predicate prose. EG-specific inference "
+            "remains part of the composed method. Raw baselines stay unchanged. "
+            "Report attribution 120/120, native execution 8/8, and controls 2/2 "
+            "(equivalently 10/10 against the execution reference mapping)."
+        ),
+        "transfer_claim": False,
+    }
     return out
 
 
@@ -657,15 +804,54 @@ def _write_capability_report(path: Path, capability: dict[str, Any]) -> None:
             "invented-receipt absence contradictions become unresolved — blanket "
             "abstention cannot reproduce that split.",
             "",
+            "## Classifier integration (composed arms)",
+            "",
+        ]
+    )
+    integ = capability.get("classifier_integration") or {}
+    lines.extend(
+        [
+            f"Expectation: `{integ.get('expectation')}` "
+            "(composed classifier equals adapter on retained packets).",
+            "",
+            f"Composed vs adapter (all {integ.get('packet_denominator')} retained "
+            f"packets): strong "
+            f"{integ.get('strong_on_adapter_matches_adapter')}/"
+            f"{integ.get('integration_cells')}; Swarm Witness "
+            f"{integ.get('swarm_on_adapter_matches_adapter')}/"
+            f"{integ.get('integration_cells')}.",
+            "",
+            f"Composed vs native safer — attribution: "
+            f"{integ.get('strong_on_adapter_matches_safer_attr')}/"
+            f"{integ.get('safer_attr_cells')} "
+            f"(strong and Swarm Witness).",
+            "",
+            f"Composed vs native safer — native execution comparisons: "
+            f"{integ.get('strong_on_adapter_matches_safer_native_exec')}/"
+            f"{integ.get('native_exec_cells')}; "
+            f"additional controls (no exported native executed decision): "
+            f"{integ.get('strong_on_adapter_matches_safer_control')}/"
+            f"{integ.get('control_exec_cells')}; "
+            f"equivalently against the execution reference mapping: "
+            f"{integ.get('strong_on_adapter_matches_safer_exec_mapping')}/"
+            f"{integ.get('safer_exec_mapping_cells')}.",
+            "",
+            f"Raw strong: {integ.get('raw_strong_decisive')} decisive "
+            f"across {integ.get('raw_strong_packets')} packets; "
+            f"raw Swarm Witness: {integ.get('raw_swarm_decisive')} decisive "
+            f"across {integ.get('raw_swarm_packets')} packets. "
+            f"Composed decisive — strong: {integ.get('composed_strong_decisive')}; "
+            f"Swarm Witness: {integ.get('composed_swarm_decisive')}.",
+            "",
+            integ.get("note") or "",
+            "",
             "## Result (this freeze)",
             "",
-            "Propositions and candidate sets are selected from public entities; "
-            "native object_ids/candidates/outcomes are scoring-only for assessor "
-            "inputs. The adapter computes receipt-commitment matching, temporal "
-            "compatibility, affirmative exclusivity/independence, and absence "
-            "under covering capture. Boundary agreement with native safer is "
-            "the primary conformance result; warrant columns remain qualified as "
-            "method-dependent. `transfer_claim` remains false.",
+            "Both composed classifiers preserve the adapter’s decisions on all "
+            f"{integ.get('packet_denominator')} retained packets, including its "
+            "false-exclusivity limitation. Raw-packet classifier behavior remains "
+            "unchanged. This establishes classifier–adapter integration on the "
+            "retained conditions. `transfer_claim` remains false.",
             "",
         ]
     )

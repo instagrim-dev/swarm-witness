@@ -445,6 +445,7 @@ def build_packets(export_path: Path = EXPORT) -> list[dict[str, Any]]:
                         "reason": adapter["reason"],
                         "capability": adapter.get("capability"),
                         "binding": adapter.get("binding"),
+                        "predicates": adapter.get("predicates"),
                         "reconstruction": False,
                         "note": "Evaluated evidence-derived adapter; not a native EG export.",
                     },
@@ -607,6 +608,7 @@ def build_packets(export_path: Path = EXPORT) -> list[dict[str, Any]]:
                             "capability": adapter.get("capability"),
                             "coverage_detail": adapter.get("coverage_detail"),
                             "absence_detail": adapter.get("absence_detail"),
+                            "predicates": adapter.get("predicates"),
                         },
                     },
                     "warranted_conclusion": {
