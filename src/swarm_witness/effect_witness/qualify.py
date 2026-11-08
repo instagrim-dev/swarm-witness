@@ -14,6 +14,7 @@ from swarm_witness.effect_witness.boundary import (
 from swarm_witness.effect_witness.records import parse_body
 from swarm_witness.incident_property_graph import evaluate_case
 from swarm_witness.provenance import (
+    AUTHENTICITY_VALUES,
     EVENT_KINDS,
     content_sha256,
     make_claim,
@@ -353,7 +354,11 @@ def _graph_for(
             event_time=event_time,
             observed_time=None,
             time_basis=time_basis,
-            authenticity=event["authenticity"],
+            authenticity=(
+                event["authenticity"]
+                if event["authenticity"] in AUTHENTICITY_VALUES
+                else "forged"
+            ),
             verification_method=event["verification_method"],
             conflicts_with=list(event.get("conflicts_with") or []),
             evidence_type=evidence_type,
@@ -375,6 +380,193 @@ def _graph_for(
             "Qualification reuses evidence-provenance-v1."
         ),
     }
+
+
+_COVERAGE_HEADER = "aew-v1 observer coverage"
+_ACTOR_HEADER = "aew-v1 actor record"
+_SINK_HEADER = "aew-v1 sink commit"
+_REJECTED_COVERAGE_AUTHENTICITY = frozenset(
+    {
+        "spoofed_tool_line",
+        "unauthenticated_tool_line",
+        "spoofed",
+        "unauthenticated",
+        "copied",
+        "derived_same_origin",
+        "narrative_only",
+        "invalid",
+        "stale",
+        "withheld",
+        "forged",
+        "disputed",
+    }
+)
+_WITHHELD_ACCESS = frozenset({"withheld", "unobserved", "unavailable", "private_original"})
+
+
+def _added_misbound_suffix(value: str, history_id: str) -> bool:
+    """A probe suffix, not the history slug ``binding-misbound``."""
+    slug = history_id.removeprefix("aew-v1-h-")
+    return bool(slug) and value.endswith("-misbound") and not value.endswith(slug)
+
+
+def _coverage_record_rejected(event: dict[str, Any], fields: dict[str, str]) -> str | None:
+    """A coverage row that is unheld, misbound, or explicitly inauthentic is not a census."""
+    history_id = str(fields.get("history_id") or "")
+    record_id = str(event.get("id") or fields.get("record_id") or "")
+    if (
+        event.get("binding") == "misbound"
+        or event.get("binding_basis") == "misbound"
+        or event.get("actor_binding") == "misbound"
+        or _added_misbound_suffix(record_id, history_id)
+        or _added_misbound_suffix(str(fields.get("event_id") or ""), history_id)
+    ):
+        return "coverage_misbound"
+    if event.get("locally_held") is not True:
+        return "coverage_unheld"
+    if event.get("access_level") in _WITHHELD_ACCESS or event.get("redaction") == "withheld_original":
+        return "coverage_withheld"
+    authenticity = event.get("authenticity")
+    if authenticity in _REJECTED_COVERAGE_AUTHENTICITY:
+        return "coverage_invalid_authenticity"
+    if event.get("time_basis") == "stale":
+        return "coverage_stale"
+    return None
+
+
+def _coverage_signature(fields: dict[str, str]) -> tuple[str, ...]:
+    return (
+        fields.get("run_id", ""),
+        fields.get("operations", ""),
+        fields.get("interval_start", ""),
+        fields.get("interval_end", ""),
+        fields.get("row_count", ""),
+        fields.get("event_ids", ""),
+    )
+
+
+def _listed(value: str | None) -> list[str]:
+    if not value:
+        return []
+    return [part for part in value.split(",") if part]
+
+
+def _record_event_time(
+    events: list[dict[str, Any]],
+    header: str,
+    event_id: str,
+) -> str | None:
+    found: str | None = None
+    for event in events:
+        text = event.get("public_bytes")
+        if not isinstance(text, str):
+            continue
+        fields = parse_body(text)
+        if fields.get("header") != header or fields.get("event_id") != event_id:
+            continue
+        when = event.get("event_time")
+        if not isinstance(when, str) or not when:
+            return None
+        if found is not None and found != when:
+            return None
+        found = when
+    return found
+
+
+def _interval_binds(fields: dict[str, str], when: str) -> bool:
+    start = fields.get("interval_start") or ""
+    end = fields.get("interval_end") or ""
+    if "T" not in start or "T" not in end or not start < end:
+        return False
+    return start <= when < end
+
+
+def admit_effect_coverage(
+    events: list[dict[str, Any]],
+    history: dict[str, Any],
+    commits: list[dict[str, Any]],
+    decisions: list[dict[str, Any]],
+) -> tuple[dict[str, str] | None, str]:
+    """Admit one coverage census bound to this run, its operations, and its interval.
+
+    A service file with no admitted coverage is not a complete effect ledger.
+    A complete zero-row census can establish absence. Conflicting censuses do
+    not resolve by list order. Duplicate copies of the same census do.
+    """
+    parsed: list[tuple[dict[str, Any], dict[str, str]]] = []
+    for event in events:
+        text = event.get("public_bytes")
+        if not isinstance(text, str):
+            continue
+        fields = parse_body(text)
+        if fields.get("header") != _COVERAGE_HEADER:
+            continue
+        if fields.get("history_id") != history["history_id"]:
+            continue
+        parsed.append((event, fields))
+    if not parsed:
+        return None, "missing_coverage"
+    eligible: list[dict[str, str]] = []
+    rejection = "coverage_not_admitted"
+    for event, fields in parsed:
+        reason = _coverage_record_rejected(event, fields)
+        if reason:
+            rejection = reason
+            continue
+        if fields.get("run_id") != history.get("run_id"):
+            rejection = "coverage_run_mismatch"
+            continue
+        eligible.append(fields)
+    if not eligible:
+        return None, rejection
+    if len({_coverage_signature(fields) for fields in eligible}) != 1:
+        return None, "coverage_conflict"
+    fields = eligible[0]
+    unique_ids: list[str] = []
+    for commit in commits:
+        event_id = commit["event_id"]
+        if event_id not in unique_ids:
+            unique_ids.append(event_id)
+    declared = fields.get("row_count")
+    if declared in (None, ""):
+        return None, "coverage_count_absent"
+    try:
+        count = int(declared)
+    except (TypeError, ValueError):
+        return None, "coverage_count_unreadable"
+    if count != len(unique_ids):
+        return None, "coverage_count_mismatch"
+    if "event_ids" in fields:
+        listed = _listed(fields.get("event_ids"))
+        if len(listed) != len(set(listed)) or set(listed) != set(unique_ids):
+            return None, "coverage_event_ids_mismatch"
+    operations = set(_listed(fields.get("operations")))
+    required_operations = {commit["operation_id"] for commit in commits}
+    required_operations.update(decision["operation_id"] for decision in decisions)
+    if not operations or not required_operations <= operations:
+        return None, "coverage_operation_mismatch"
+    if not _interval_binds(fields, fields.get("interval_start") or " "):
+        # Start is inside [start, end) only when end is strictly later. Re-check
+        # the bounds themselves before binding target events.
+        start = fields.get("interval_start") or ""
+        end = fields.get("interval_end") or ""
+        if "T" not in start or "T" not in end or not start < end:
+            return None, "coverage_interval_absent"
+    targets: list[tuple[str, str]] = [
+        (_SINK_HEADER, commit["event_id"]) for commit in commits
+    ]
+    targets.extend((_ACTOR_HEADER, decision["event_id"]) for decision in decisions)
+    if not targets:
+        return None, "coverage_event_time_unbound"
+    seen_targets: set[tuple[str, str]] = set()
+    for header, event_id in targets:
+        if (header, event_id) in seen_targets:
+            continue
+        seen_targets.add((header, event_id))
+        when = _record_event_time(events, header, event_id)
+        if when is None or not _interval_binds(fields, when):
+            return None, "coverage_interval_mismatch"
+    return fields, "coverage_admitted"
 
 
 def row_count_contradicts(coverage: dict[str, Any] | None, commit_count: int) -> bool:
@@ -549,6 +741,15 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
     reconciliation = reconcile_events(events)
     conflicted = apply_conflicts(events, reconciliation["links"])
     views = _views_from_events(conflicted, history["history_id"])
+    admitted_coverage, coverage_requirement = admit_effect_coverage(
+        conflicted,
+        history,
+        views["commits"],
+        views["decisions"],
+    )
+    # Only an admitted census may complete the effect ledger. The raw coverage
+    # text stays in the packet; it does not count until this check passes.
+    views = {**views, "coverage": admitted_coverage}
     service_missing = any(
         origin.get("origin") == "service_effect" and int(origin.get("rows") or 0) == 0
         for origin in loaded["missing_origins"]
@@ -579,17 +780,21 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
             for line in text.splitlines():
                 if line.startswith("event_id="):
                     confirmed_event_ids.add(line.split("=", 1)[1].strip())
-    # One census: a declared row_count must match the commit-detail rows.
-    # The service origin being present is not that census. Authorization still
+    # One census: an admitted coverage observation must match the commit-detail
+    # rows and bind this run, its operations, and its interval. A service file
+    # with no such observation is not a complete ledger. Authorization still
     # requires confirmed binding; actor/object mismatches stay open.
+    unique_commit_count = len({commit["event_id"] for commit in views["commits"]})
     census_contradicted = row_count_contradicts(
-        views.get("coverage"), len(views["commits"])
+        views.get("coverage"), unique_commit_count
     )
     if service_missing:
         admitted_commits: list[dict[str, Any]] = []
         auth_commits: list[dict[str, Any]] = []
         ledger_complete = False
         auth_complete = False
+        if coverage_requirement == "coverage_admitted":
+            coverage_requirement = "missing_coverage"
     else:
         admitted_commits = list(views["commits"])
         if confirmed_event_ids:
@@ -605,8 +810,8 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
         else:
             auth_commits = list(views["commits"])
             auth_complete = True
-        ledger_complete = not census_contradicted
-        if census_contradicted:
+        ledger_complete = views.get("coverage") is not None and not census_contradicted
+        if not ledger_complete:
             auth_complete = False
     case = project_case(
         case_id=f"{history['history_id']}:{packet_dir.name}",
@@ -668,6 +873,7 @@ def evaluate_packet(packet_dir: Path, history: dict[str, Any]) -> dict[str, Any]
         "refused": False,
         "event_count": len(conflicted),
         "missing_origins": loaded["missing_origins"],
+        "coverage_requirement": coverage_requirement,
         "truth_files_read": loaded["truth_files_read"],
         "links": links,
         "confirmed_effect_count": sum(1 for link in links if link["confirmed_effect"]),

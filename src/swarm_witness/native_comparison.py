@@ -67,10 +67,70 @@ def _parse_body(text: str) -> dict[str, str]:
     return fields
 
 
-def _misbound(record: dict[str, Any], fields: dict[str, str]) -> bool:
-    record_id = str(record.get("record_id") or "")
-    event_id = fields.get("event_id") or ""
-    return record_id.endswith("-misbound") or event_id.endswith("-misbound")
+_REJECTED_PREMISE_AUTHENTICITY = frozenset(
+    {
+        "copied",
+        "derived_same_origin",
+        "spoofed_tool_line",
+        "unauthenticated_tool_line",
+        "spoofed",
+        "unauthenticated",
+        "forged",
+        "disputed",
+        "stale",
+        "withheld",
+    }
+)
+_WITHHELD_ACCESS = frozenset(
+    {"withheld", "unobserved", "unavailable", "private_original"}
+)
+
+
+def _explicit_misbound(record: dict[str, Any], fields: dict[str, str]) -> bool:
+    """A probe marker. The history slug ``binding-misbound`` is not one."""
+    if (
+        record.get("binding") == "misbound"
+        or record.get("binding_basis") == "misbound"
+        or record.get("actor_binding") == "misbound"
+    ):
+        return True
+    slug = str(fields.get("history_id") or "").removeprefix("aew-v1-h-")
+    if not slug:
+        return False
+    for value in (str(record.get("record_id") or ""), str(fields.get("event_id") or "")):
+        if value.endswith("-misbound") and not value.endswith(slug):
+            return True
+    return False
+
+
+def _premise_decides(record: dict[str, Any], fields: dict[str, str]) -> bool:
+    """A row may decide only when it is held, current, and not explicitly invalid."""
+    if _explicit_misbound(record, fields):
+        return False
+    if record.get("locally_held") is False:
+        return False
+    if record.get("access_level") in _WITHHELD_ACCESS:
+        return False
+    if record.get("redaction") == "withheld_original":
+        return False
+    if record.get("authenticity") in _REJECTED_PREMISE_AUTHENTICITY:
+        return False
+    if record.get("freshness") == "stale" or record.get("time_basis") == "stale":
+        return False
+    text = record.get("public_bytes")
+    return isinstance(text, str) and bool(text.strip())
+
+
+def _time_in_interval(fields: dict[str, str], when: Any) -> bool:
+    start = fields.get("interval_start") or ""
+    end = fields.get("interval_end") or ""
+    if not isinstance(when, str) or "T" not in start or "T" not in end or not start < end:
+        return False
+    return start <= when < end
+
+
+def _operations(fields: dict[str, str]) -> set[str]:
+    return {part for part in (fields.get("operations") or "").split(",") if part}
 
 
 def _declared_row_count(fields: dict[str, str]) -> int | None:
@@ -132,6 +192,142 @@ def _base_observation(
     }
 
 
+def _retain_premise(obs: dict[str, Any], record: dict[str, Any], fields: dict[str, str]) -> None:
+    """Keep an explicit defect. A later upgrade must not erase it."""
+    if _explicit_misbound(record, fields):
+        obs["binding"] = "misbound"
+    if record.get("freshness") == "stale" or record.get("time_basis") == "stale":
+        obs["freshness"] = "stale"
+    authenticity = record.get("authenticity")
+    if authenticity in _REJECTED_PREMISE_AUTHENTICITY:
+        obs["authenticity"] = authenticity
+    if record.get("locally_held") is False:
+        obs["locally_held"] = False
+    if record.get("access_level") in _WITHHELD_ACCESS or record.get("redaction") == "withheld_original":
+        obs["locally_held"] = False
+        obs["access_level"] = "withheld"
+        obs["authenticity"] = "withheld"
+
+
+def _sink_in_scope(
+    record: dict[str, Any],
+    fields: dict[str, str],
+    coverage: tuple[dict[str, Any], dict[str, str]] | None,
+    actors: list[tuple[dict[str, Any], dict[str, str]]],
+) -> bool:
+    """History id is not scope. The sink has to match the run, operation, and interval."""
+    if coverage is None:
+        return False
+    covered = coverage[1]
+    actor_runs = {item[1].get("run_id") for item in actors if item[1].get("run_id")}
+    if actor_runs and fields.get("run_id") not in actor_runs:
+        return False
+    if fields.get("run_id") != covered.get("run_id"):
+        return False
+    if fields.get("operation_id") not in _operations(covered):
+        return False
+    return _time_in_interval(covered, record.get("event_time"))
+
+
+def _parent_maps_to_actor(
+    record: dict[str, Any],
+    actors: list[tuple[dict[str, Any], dict[str, str]]],
+) -> bool:
+    """An explicit parent link is the verified mapping. A history id is not."""
+    parent = record.get("parent_id")
+    if not isinstance(parent, str) or not parent:
+        return False
+    return any(actor.get("record_id") == parent for actor, _fields in actors)
+
+
+def _names_match_actor(
+    fields: dict[str, str],
+    actors: list[tuple[dict[str, Any], dict[str, str]]],
+) -> bool:
+    actor_id = fields.get("actor_id")
+    object_scope = fields.get("object_scope")
+    event_id = fields.get("event_id")
+    if not actor_id or not object_scope or not event_id:
+        return False
+    return any(
+        actor_fields.get("actor_id") == actor_id
+        and actor_fields.get("object_scope") == object_scope
+        and actor_fields.get("event_id") == event_id
+        for _actor, actor_fields in actors
+    )
+
+
+def _binding_matches(
+    record: dict[str, Any],
+    fields: dict[str, str],
+    actors: list[tuple[dict[str, Any], dict[str, str]]],
+) -> bool:
+    """Actor, object, and event match a declared actor, or a parent mapping says so."""
+    return _parent_maps_to_actor(record, actors) or _names_match_actor(fields, actors)
+
+
+def _coverage_signature(fields: dict[str, str]) -> tuple[str, ...]:
+    return (
+        fields.get("run_id", ""),
+        fields.get("operations", ""),
+        fields.get("interval_start", ""),
+        fields.get("interval_end", ""),
+        fields.get("row_count", ""),
+        fields.get("event_ids", ""),
+    )
+
+
+def _agreed_coverage(
+    rows: list[tuple[dict[str, Any], dict[str, str]]],
+) -> tuple[dict[str, Any], dict[str, str]] | None:
+    """Identical censuses collapse. Disagreeing censuses do not resolve by order."""
+    if not rows:
+        return None
+    if len({_coverage_signature(fields) for _record, fields in rows}) != 1:
+        return None
+    return rows[0]
+
+
+def _absence_bound(
+    coverage: tuple[dict[str, Any], dict[str, str]] | None,
+    actors: list[tuple[dict[str, Any], dict[str, str]]],
+    commits: list[tuple[dict[str, Any], dict[str, str]]],
+) -> bool:
+    """A zero-row census covers absence only when every actor event sits inside it."""
+    if commits or coverage is None or not actors:
+        return False
+    record, fields = coverage
+    if not _premise_decides(record, fields) or _declared_row_count(fields) != 0:
+        return False
+    operations = _operations(fields)
+    for actor, actor_fields in actors:
+        if actor_fields.get("run_id") != fields.get("run_id"):
+            return False
+        if actor_fields.get("operation_id") not in operations:
+            return False
+        if not _time_in_interval(fields, actor.get("event_time")):
+            return False
+    return True
+
+
+def _decide(obs: dict[str, Any], claim_id: str, *, polarity: str) -> None:
+    if obs.get("binding") == "misbound" or obs.get("freshness") == "stale":
+        return
+    if obs.get("authenticity") in _REJECTED_PREMISE_AUTHENTICITY or obs.get("authenticity") == "withheld":
+        return
+    if obs.get("locally_held") is False:
+        return
+    obs["authenticity"] = APPLICATION_AUTHENTICITY
+    obs["access_level"] = SINK_ACCESS
+    obs["locally_held"] = True
+    obs["binding"] = "bound"
+    obs["freshness"] = "current"
+    obs["observation_types"] = [EFFECT_TYPE]
+    obs["literal_polarity"] = polarity
+    obs["literal_claims"] = [claim_id]
+    obs["named_origin"] = SINK_ACCESS
+
+
 def project_packet_observations(
     history_id: str, records: list[dict[str, Any]]
 ) -> list[dict[str, Any]]:
@@ -139,7 +335,9 @@ def project_packet_observations(
     claim_id = p_effect_claim_id(history_id)
     observations: list[dict[str, Any]] = []
     held_sinks: list[tuple[dict[str, Any], dict[str, str]]] = []
-    coverage: tuple[dict[str, Any], dict[str, str]] | None = None
+    commit_rows: list[tuple[dict[str, Any], dict[str, str]]] = []
+    actor_rows: list[tuple[dict[str, Any], dict[str, str]]] = []
+    coverage_rows: list[tuple[dict[str, Any], dict[str, str]]] = []
     for record in records:
         text = record.get("public_bytes")
         fields = _parse_body(text) if isinstance(text, str) and text.strip() else {}
@@ -147,9 +345,10 @@ def project_packet_observations(
         applies = record_history in {None, "", history_id}
         quote = text if isinstance(text, str) and text.strip() else str(record.get("record_id") or "")
         obs = _base_observation(record, claim_id, applies=applies, quote=quote)
-        if _misbound(record, fields):
-            obs["binding"] = "misbound"
+        _retain_premise(obs, record, fields)
         if record.get("surface") == "requested_command":
+            if fields.get("history_id") == history_id:
+                actor_rows.append((record, fields))
             observations.append(obs)
             continue
         if not _held_sink(record) and record.get("surface") != "service_log":
@@ -164,73 +363,57 @@ def project_packet_observations(
             and record.get("surface") == "service_log"
             and fields.get("history_id") == history_id
         ):
-            coverage = (record, fields)
+            if _premise_decides(record, fields):
+                coverage_rows.append((record, fields))
             obs["observation_types"] = ["effect_coverage"]
             observations.append(obs)
             continue
-        if _held_sink(record) and fields.get("history_id") == history_id:
-            held_sinks.append((record, fields))
+        if record.get("surface") == "committed_effect" and fields.get("history_id") == history_id:
+            commit_rows.append((record, fields))
+            if _held_sink(record) and _premise_decides(record, fields):
+                held_sinks.append((record, fields))
             observations.append(obs)
             continue
         observations.append(obs)
 
+    coverage = _agreed_coverage(coverage_rows)
+    by_id = {obs["id"]: obs for obs in observations}
     unauthorized = [
         (record, fields)
         for record, fields in held_sinks
         if fields.get("subject_class") == "unauthorized_effect"
+        and _sink_in_scope(record, fields, coverage, actor_rows)
     ]
     if unauthorized:
-        by_id = {obs["id"]: obs for obs in observations}
         for record, _fields in unauthorized:
-            obs = by_id[record["record_id"]]
-            obs["authenticity"] = APPLICATION_AUTHENTICITY
-            obs["access_level"] = SINK_ACCESS
-            obs["locally_held"] = True
-            obs["binding"] = "bound"
-            obs["observation_types"] = [EFFECT_TYPE]
-            obs["literal_polarity"] = "refutes"
-            obs["literal_claims"] = [claim_id]
-            obs["named_origin"] = SINK_ACCESS
+            _decide(by_id[record["record_id"]], claim_id, polarity="refutes")
+        return observations
+
+    unknown_authorization = [
+        (record, fields)
+        for record, fields in held_sinks
+        if fields.get("subject_class") not in {"authorized_effect", "unauthorized_effect"}
+        and _sink_in_scope(record, fields, coverage, actor_rows)
+    ]
+    if unknown_authorization:
         return observations
 
     authorized = [
         (record, fields)
         for record, fields in held_sinks
         if fields.get("subject_class") == "authorized_effect"
+        and _sink_in_scope(record, fields, coverage, actor_rows)
+        and _binding_matches(record, fields, actor_rows)
     ]
-    by_id = {obs["id"]: obs for obs in observations}
-    # A positive observer count with missing commit details is not absence.
-    if not _census_matches(coverage, held_sinks):
-        return observations
-    if coverage is not None and authorized:
+    # A matching count is not enough. The census has to bind this run,
+    # operation, and interval, and an unknown subject is not absence.
+    if authorized and _census_matches(coverage, held_sinks):
         for record, _fields in authorized:
-            obs = by_id[record["record_id"]]
-            obs["authenticity"] = APPLICATION_AUTHENTICITY
-            obs["access_level"] = SINK_ACCESS
-            obs["locally_held"] = True
-            obs["binding"] = "bound"
-            obs["observation_types"] = [EFFECT_TYPE]
-            obs["literal_polarity"] = "supports"
-            obs["literal_claims"] = [claim_id]
-            obs["named_origin"] = SINK_ACCESS
-    elif coverage is not None:
-        record, fields = coverage
-        subjects = sorted({item[1].get("subject_class", "") for item in held_sinks})
-        obs = by_id[record["record_id"]]
-        obs["quote"] = (
-            str(record.get("public_bytes") or "")
-            + "observed_sink_subjects="
-            + (",".join(subjects) if subjects else "none")
-            + "\n"
-        )
-        obs["authenticity"] = APPLICATION_AUTHENTICITY
-        obs["access_level"] = SINK_ACCESS
-        obs["locally_held"] = True
-        obs["binding"] = "bound"
-        obs["observation_types"] = [EFFECT_TYPE]
-        obs["literal_polarity"] = "supports"
-        obs["literal_claims"] = [claim_id]
-        obs["named_origin"] = SINK_ACCESS
+            _decide(by_id[record["record_id"]], claim_id, polarity="supports")
+        return observations
+    if _absence_bound(coverage, actor_rows, commit_rows):
+        record, _fields = coverage  # type: ignore[misc]
+        _decide(by_id[record["record_id"]], claim_id, polarity="supports")
     return observations
 
 

@@ -1,6 +1,7 @@
 {
   "basis": "computed",
   "claim_id": "auditor_integrity_v1",
+  "conclusion_class": "supported",
   "id": "auditor-integrity-v1-f",
   "label": "reproduced",
   "proposition": "On a frozen synthetic auditor-integrity matrix, Swarm Witness records zero false supports while retaining supported positives and unresolved unknowns under the same evidence budget as a naive PASS shortcut and a strong checklist.",

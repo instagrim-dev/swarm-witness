@@ -34,6 +34,30 @@ def _authenticity_admitted(obs: dict[str, Any]) -> bool:
     return obs.get("authenticity") in ADMISSIBLE_PREMISE_AUTHENTICITY
 
 
+_DISQUALIFIED_BINDING = frozenset({"misbound", "unbound", "nonbinding"})
+_DISQUALIFIED_DERIVATION = frozenset({"copied", "derived_same_origin"})
+
+
+def _qualification_admitted(obs: dict[str, Any]) -> bool:
+    """Authenticity is not the only qualification a required premise carries.
+
+    Missing binding, freshness, holding, or derivation stays admissible: the
+    retained packets do not set those fields. An explicit misbinding, a stale
+    row, an unheld row, or a copied source is not admitted.
+    """
+    if not _authenticity_admitted(obs):
+        return False
+    if obs.get("binding") in _DISQUALIFIED_BINDING:
+        return False
+    if obs.get("freshness") == "stale":
+        return False
+    if obs.get("locally_held") is False:
+        return False
+    if obs.get("derivation") in _DISQUALIFIED_DERIVATION:
+        return False
+    return True
+
+
 def _decl(
     observations: list[dict[str, Any]], claim: dict[str, Any]
 ) -> tuple[dict[str, Any], str | None]:
@@ -49,7 +73,7 @@ def _decl(
     for obs in observations:
         if "declared_assumptions" not in set(obs.get("observation_types") or []):
             continue
-        if not _authenticity_admitted(obs) or not _scoped_to_claim(obs, claim_id):
+        if not _qualification_admitted(obs) or not _scoped_to_claim(obs, claim_id):
             continue
         declared = obs.get("declared_assumptions")
         found.append(declared if isinstance(declared, dict) else {})
@@ -244,9 +268,41 @@ def premise_qualification(obs: dict[str, Any]) -> dict[str, Any]:
         "observation_types": list(obs.get("observation_types") or []),
         "authenticity": obs.get("authenticity"),
         "access_level": obs.get("access_level"),
+        "binding": obs.get("binding"),
+        "freshness": obs.get("freshness"),
+        "locally_held": obs.get("locally_held"),
+        "derivation": obs.get("derivation"),
         "entity_id": _entity_identifier(obs),
         "independence_group": obs.get("independence_group"),
     }
+
+
+def _premise_signature(obs: dict[str, Any]) -> tuple[Any, ...]:
+    """Identity of a premise aside from its row id. A copy is not a new witness."""
+    return (
+        _entity_identifier(obs),
+        obs.get("authenticity"),
+        obs.get("access_level"),
+        obs.get("binding"),
+        obs.get("freshness"),
+        obs.get("locally_held"),
+        obs.get("derivation"),
+        obs.get("independence_group"),
+        obs.get("quote"),
+        tuple(sorted(_observation_types(obs))),
+    )
+
+
+def _distinct_premises(observations: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    distinct: list[dict[str, Any]] = []
+    seen: set[tuple[Any, ...]] = set()
+    for obs in observations:
+        signature = _premise_signature(obs)
+        if signature in seen:
+            continue
+        seen.add(signature)
+        distinct.append(obs)
+    return distinct
 
 
 def admit_required_premises(
@@ -272,7 +328,7 @@ def admit_required_premises(
         qualified = [
             obs
             for obs in candidates
-            if _authenticity_admitted(obs) and _scoped_to_claim(obs, claim_id)
+            if _qualification_admitted(obs) and _scoped_to_claim(obs, claim_id)
         ]
         if not qualified:
             return {
@@ -284,16 +340,24 @@ def admit_required_premises(
         target = _target_entity_id(claim, observation_type)
         if target is not None:
             bound = [obs for obs in qualified if _entity_identifier(obs) == target]
-            if len(bound) != 1:
+            if not bound:
                 return {
                     "admitted": False,
                     "reason": "premise_entity_not_bound_to_claim",
                     "premises": [],
                     "qualifications": [],
                 }
-            chosen = bound[0]
+            distinct = _distinct_premises(bound)
         else:
-            chosen = qualified[0]
+            distinct = _distinct_premises(qualified)
+        if len(distinct) != 1:
+            return {
+                "admitted": False,
+                "reason": "conflicting_premises",
+                "premises": [],
+                "qualifications": [],
+            }
+        chosen = distinct[0]
         if all(chosen is not existing for existing in premises):
             premises.append(chosen)
     return {

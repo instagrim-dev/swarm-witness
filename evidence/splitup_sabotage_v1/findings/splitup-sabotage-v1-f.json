@@ -1,6 +1,7 @@
 {
   "basis": "computed",
   "claim_id": "splitup_sabotage_v1",
+  "conclusion_class": "supported",
   "id": "splitup-sabotage-v1-f",
   "label": "reproduced",
   "proposition": "With local records held fixed, changing only settlement refutes joint safety for Swarm Witness and the whole-trace checklist. The local comparator still false-supports. Scripted actors only; emergent collusion is not claimed.",

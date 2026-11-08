@@ -113,6 +113,18 @@ def project_checks(
     access_level = _shared_field(premises, "access_level")
     if authenticity not in ADMISSIBLE_PREMISE_AUTHENTICITY or access_level is None:
         return []
+    # Carry the shared qualification through. A disqualified premise never
+    # becomes a clean derived readback, including when a caller forces a verdict.
+    binding = _shared_field(premises, "binding")
+    freshness = _shared_field(premises, "freshness")
+    derivation = _shared_field(premises, "derivation")
+    held_values = [obs.get("locally_held") for obs in premises]
+    if binding in {"misbound", "unbound", "nonbinding"}:
+        return []
+    if freshness == "stale" or derivation in {"copied", "derived_same_origin"}:
+        return []
+    if any(value is False for value in held_values):
+        return []
 
     claim_id = claim["id"]
     family = _family(claim, assessment)
@@ -154,6 +166,14 @@ def project_checks(
         },
         "composed_method_trusts_derivation": True,
     }
+    if binding is not None:
+        record["binding"] = binding
+    if freshness is not None:
+        record["freshness"] = freshness
+    if derivation is not None:
+        record["premise_derivation"] = derivation
+    if held_values and all(value is True for value in held_values):
+        record["locally_held"] = True
     return [record]
 
 

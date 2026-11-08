@@ -107,6 +107,7 @@ def main() -> dict:
             "original private incident logs; not live prevention."
         ),
         "label": "reproduced" if observations["passed"] else "contradicted_in_scope",
+        "conclusion_class": "supported" if observations["passed"] else "failed_enforcement",
         "basis": "computed",
         "supporting_observation_refs": [
             f"{RUN_ID}.observations.passed",

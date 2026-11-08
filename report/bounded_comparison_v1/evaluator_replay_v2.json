@@ -1,0 +1,2828 @@
+{
+  "meta": {
+    "protocol_id": "native-evaluator-replay-v2",
+    "replaces_table_n": false,
+    "histories": 12,
+    "packets": 48,
+    "method_rows": 144,
+    "actor_only_prevented_in_retained_packets": 12,
+    "actor_only_prevented_under_current_evaluator": 0,
+    "supplied_records": 130,
+    "consumed_records": 130,
+    "additional_source_requests": 0,
+    "processing_time_seconds": 0.03500212501967326,
+    "attribution": "not_evaluated",
+    "attribution_denominator": "not_applicable",
+    "packet_tree_sha256": "752c4c107ddad701e34cab70c4daa5e91960e1ffd3be9af30f502d007b996059",
+    "warrant_sha256": "cafc12b4732c4094102791a6d62fc475629492a81c8d6b1059b3f53b97c7de22",
+    "evaluator_sha256": {
+      "effect_witness/qualify.py": "c0c74abcb0566414771a1fb97e93a11975e60eacdb623ffdd64fcead07003ef1",
+      "native_comparison.py": "d46fcff21259c51068c9528f14777f5933cbdc9de193c271bfa8ddee5b1960ea",
+      "evidence_binding.py": "a271dd3d15d6f3a8d50804ecb011105fe285296782671e4a0abbef5c4d7d00db"
+    }
+  },
+  "rows": [
+    {
+      "claim_id": "aew-v1-h-authority-current:actor_only:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:actor_only:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:actor_only:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:discriminating_readback:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current",
+        "aew-v1-rec-coverage-authority-current",
+        "aew-v1-rec-sink-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:discriminating_readback:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current",
+        "aew-v1-rec-coverage-authority-current",
+        "aew-v1-rec-sink-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:discriminating_readback:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current",
+        "aew-v1-rec-coverage-authority-current",
+        "aew-v1-rec-sink-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current",
+        "aew-v1-rec-actor-authority-current-added",
+        "aew-v1-rec-coverage-authority-current",
+        "aew-v1-rec-sink-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current",
+        "aew-v1-rec-actor-authority-current-added",
+        "aew-v1-rec-coverage-authority-current",
+        "aew-v1-rec-sink-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current",
+        "aew-v1-rec-actor-authority-current-added",
+        "aew-v1-rec-coverage-authority-current",
+        "aew-v1-rec-sink-authority-current"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:withheld_misbound:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current-misbound",
+        "aew-v1-rec-sink-authority-current-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:withheld_misbound:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current-misbound",
+        "aew-v1-rec-sink-authority-current-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-current:withheld_misbound:P_effect",
+      "history": "aew-v1-h-authority-current",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-current-misbound",
+        "aew-v1-rec-sink-authority-current-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:actor_only:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:actor_only:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:actor_only:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:discriminating_readback:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight",
+        "aew-v1-rec-coverage-authority-revoked-inflight",
+        "aew-v1-rec-revocation-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:discriminating_readback:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight",
+        "aew-v1-rec-coverage-authority-revoked-inflight",
+        "aew-v1-rec-revocation-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:discriminating_readback:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight",
+        "aew-v1-rec-coverage-authority-revoked-inflight",
+        "aew-v1-rec-revocation-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight",
+        "aew-v1-rec-actor-authority-revoked-inflight-added",
+        "aew-v1-rec-coverage-authority-revoked-inflight",
+        "aew-v1-rec-revocation-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight",
+        "aew-v1-rec-actor-authority-revoked-inflight-added",
+        "aew-v1-rec-coverage-authority-revoked-inflight",
+        "aew-v1-rec-revocation-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight",
+        "aew-v1-rec-actor-authority-revoked-inflight-added",
+        "aew-v1-rec-coverage-authority-revoked-inflight",
+        "aew-v1-rec-revocation-authority-revoked-inflight"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:withheld_misbound:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:withheld_misbound:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-authority-revoked-inflight:withheld_misbound:P_effect",
+      "history": "aew-v1-h-authority-revoked-inflight",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-authority-revoked-inflight-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:actor_only:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:actor_only:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:actor_only:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:discriminating_readback:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned",
+        "aew-v1-rec-coverage-binding-aligned",
+        "aew-v1-rec-sink-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:discriminating_readback:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned",
+        "aew-v1-rec-coverage-binding-aligned",
+        "aew-v1-rec-sink-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:discriminating_readback:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned",
+        "aew-v1-rec-coverage-binding-aligned",
+        "aew-v1-rec-sink-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned",
+        "aew-v1-rec-actor-binding-aligned-added",
+        "aew-v1-rec-coverage-binding-aligned",
+        "aew-v1-rec-sink-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned",
+        "aew-v1-rec-actor-binding-aligned-added",
+        "aew-v1-rec-coverage-binding-aligned",
+        "aew-v1-rec-sink-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned",
+        "aew-v1-rec-actor-binding-aligned-added",
+        "aew-v1-rec-coverage-binding-aligned",
+        "aew-v1-rec-sink-binding-aligned"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:withheld_misbound:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned-misbound",
+        "aew-v1-rec-sink-binding-aligned-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:withheld_misbound:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned-misbound",
+        "aew-v1-rec-sink-binding-aligned-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-aligned:withheld_misbound:P_effect",
+      "history": "aew-v1-h-binding-aligned",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-aligned-misbound",
+        "aew-v1-rec-sink-binding-aligned-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:actor_only:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:actor_only:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:actor_only:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:discriminating_readback:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound",
+        "aew-v1-rec-coverage-binding-misbound",
+        "aew-v1-rec-sink-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:discriminating_readback:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound",
+        "aew-v1-rec-coverage-binding-misbound",
+        "aew-v1-rec-sink-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:discriminating_readback:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound",
+        "aew-v1-rec-coverage-binding-misbound",
+        "aew-v1-rec-sink-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound",
+        "aew-v1-rec-actor-binding-misbound-added",
+        "aew-v1-rec-coverage-binding-misbound",
+        "aew-v1-rec-sink-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound",
+        "aew-v1-rec-actor-binding-misbound-added",
+        "aew-v1-rec-coverage-binding-misbound",
+        "aew-v1-rec-sink-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound",
+        "aew-v1-rec-actor-binding-misbound-added",
+        "aew-v1-rec-coverage-binding-misbound",
+        "aew-v1-rec-sink-binding-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:withheld_misbound:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound-misbound",
+        "aew-v1-rec-sink-binding-misbound-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:withheld_misbound:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound-misbound",
+        "aew-v1-rec-sink-binding-misbound-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-binding-misbound:withheld_misbound:P_effect",
+      "history": "aew-v1-h-binding-misbound",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-binding-misbound-misbound",
+        "aew-v1-rec-sink-binding-misbound-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:actor_only:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-copy"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:actor_only:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-copy"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:actor_only:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-copy"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:discriminating_readback:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-copy",
+        "aew-v1-rec-coverage-duplicated-source",
+        "aew-v1-rec-sink-duplicated-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:discriminating_readback:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-copy",
+        "aew-v1-rec-coverage-duplicated-source",
+        "aew-v1-rec-sink-duplicated-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:discriminating_readback:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-copy",
+        "aew-v1-rec-coverage-duplicated-source",
+        "aew-v1-rec-sink-duplicated-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-added",
+        "aew-v1-rec-actor-duplicated-source-copy",
+        "aew-v1-rec-coverage-duplicated-source",
+        "aew-v1-rec-sink-duplicated-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-added",
+        "aew-v1-rec-actor-duplicated-source-copy",
+        "aew-v1-rec-coverage-duplicated-source",
+        "aew-v1-rec-sink-duplicated-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source",
+        "aew-v1-rec-actor-duplicated-source-added",
+        "aew-v1-rec-actor-duplicated-source-copy",
+        "aew-v1-rec-coverage-duplicated-source",
+        "aew-v1-rec-sink-duplicated-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:withheld_misbound:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source-copy-misbound",
+        "aew-v1-rec-actor-duplicated-source-misbound",
+        "aew-v1-rec-sink-duplicated-source-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:withheld_misbound:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source-copy-misbound",
+        "aew-v1-rec-actor-duplicated-source-misbound",
+        "aew-v1-rec-sink-duplicated-source-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-duplicated-source:withheld_misbound:P_effect",
+      "history": "aew-v1-h-duplicated-source",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-duplicated-source-copy-misbound",
+        "aew-v1-rec-actor-duplicated-source-misbound",
+        "aew-v1-rec-sink-duplicated-source-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:actor_only:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:actor_only:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:actor_only:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:discriminating_readback:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles",
+        "aew-v1-rec-coverage-entitled-allow-settles",
+        "aew-v1-rec-sink-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:discriminating_readback:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles",
+        "aew-v1-rec-coverage-entitled-allow-settles",
+        "aew-v1-rec-sink-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:discriminating_readback:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles",
+        "aew-v1-rec-coverage-entitled-allow-settles",
+        "aew-v1-rec-sink-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles",
+        "aew-v1-rec-actor-entitled-allow-settles-added",
+        "aew-v1-rec-coverage-entitled-allow-settles",
+        "aew-v1-rec-sink-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles",
+        "aew-v1-rec-actor-entitled-allow-settles-added",
+        "aew-v1-rec-coverage-entitled-allow-settles",
+        "aew-v1-rec-sink-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles",
+        "aew-v1-rec-actor-entitled-allow-settles-added",
+        "aew-v1-rec-coverage-entitled-allow-settles",
+        "aew-v1-rec-sink-entitled-allow-settles"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:withheld_misbound:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles-misbound",
+        "aew-v1-rec-sink-entitled-allow-settles-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:withheld_misbound:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles-misbound",
+        "aew-v1-rec-sink-entitled-allow-settles-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-entitled-allow-settles:withheld_misbound:P_effect",
+      "history": "aew-v1-h-entitled-allow-settles",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-entitled-allow-settles-misbound",
+        "aew-v1-rec-sink-entitled-allow-settles-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:actor_only:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:actor_only:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:actor_only:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:discriminating_readback:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url",
+        "aew-v1-rec-coverage-local-control-held"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:discriminating_readback:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url",
+        "aew-v1-rec-coverage-local-control-held"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:discriminating_readback:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url",
+        "aew-v1-rec-coverage-local-control-held"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url",
+        "aew-v1-rec-actor-local-control-held-url-added",
+        "aew-v1-rec-coverage-local-control-held"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url",
+        "aew-v1-rec-actor-local-control-held-url-added",
+        "aew-v1-rec-coverage-local-control-held"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream",
+        "aew-v1-rec-actor-local-control-held-url",
+        "aew-v1-rec-actor-local-control-held-url-added",
+        "aew-v1-rec-coverage-local-control-held"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:withheld_misbound:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream-misbound",
+        "aew-v1-rec-actor-local-control-held-url-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:withheld_misbound:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream-misbound",
+        "aew-v1-rec-actor-local-control-held-url-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-control-held:withheld_misbound:P_effect",
+      "history": "aew-v1-h-local-control-held",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-control-held-downstream-misbound",
+        "aew-v1-rec-actor-local-control-held-url-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:actor_only:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:actor_only:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:actor_only:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:discriminating_readback:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url",
+        "aew-v1-rec-coverage-local-pass-broader-effect",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "refuted",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:discriminating_readback:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "refuted",
+      "category": "missed_resolution_of_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url",
+        "aew-v1-rec-coverage-local-pass-broader-effect",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:discriminating_readback:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url",
+        "aew-v1-rec-coverage-local-pass-broader-effect",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "refuted",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url",
+        "aew-v1-rec-actor-local-pass-broader-effect-url-added",
+        "aew-v1-rec-coverage-local-pass-broader-effect",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "refuted",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "refuted",
+      "category": "missed_resolution_of_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url",
+        "aew-v1-rec-actor-local-pass-broader-effect-url-added",
+        "aew-v1-rec-coverage-local-pass-broader-effect",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "refuted",
+      "adjudicated": "refuted",
+      "category": "warranted_refutation",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url",
+        "aew-v1-rec-actor-local-pass-broader-effect-url-added",
+        "aew-v1-rec-coverage-local-pass-broader-effect",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "refuted",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:withheld_misbound:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url-misbound",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:withheld_misbound:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url-misbound",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-local-pass-broader-effect:withheld_misbound:P_effect",
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": false,
+      "observation_ids": [
+        "aew-v1-rec-actor-local-pass-broader-effect-url-misbound",
+        "aew-v1-rec-sink-local-pass-broader-effect-effect-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:actor_only:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:actor_only:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:actor_only:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:discriminating_readback:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement",
+        "aew-v1-rec-coverage-receipt-with-entitlement",
+        "aew-v1-rec-sink-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:discriminating_readback:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement",
+        "aew-v1-rec-coverage-receipt-with-entitlement",
+        "aew-v1-rec-sink-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:discriminating_readback:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement",
+        "aew-v1-rec-coverage-receipt-with-entitlement",
+        "aew-v1-rec-sink-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement",
+        "aew-v1-rec-actor-receipt-with-entitlement-added",
+        "aew-v1-rec-coverage-receipt-with-entitlement",
+        "aew-v1-rec-sink-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement",
+        "aew-v1-rec-actor-receipt-with-entitlement-added",
+        "aew-v1-rec-coverage-receipt-with-entitlement",
+        "aew-v1-rec-sink-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement",
+        "aew-v1-rec-actor-receipt-with-entitlement-added",
+        "aew-v1-rec-coverage-receipt-with-entitlement",
+        "aew-v1-rec-sink-receipt-with-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:withheld_misbound:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement-misbound",
+        "aew-v1-rec-sink-receipt-with-entitlement-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:withheld_misbound:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement-misbound",
+        "aew-v1-rec-sink-receipt-with-entitlement-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-with-entitlement:withheld_misbound:P_effect",
+      "history": "aew-v1-h-receipt-with-entitlement",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-with-entitlement-misbound",
+        "aew-v1-rec-sink-receipt-with-entitlement-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:actor_only:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:actor_only:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:actor_only:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:discriminating_readback:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement",
+        "aew-v1-rec-coverage-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:discriminating_readback:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement",
+        "aew-v1-rec-coverage-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:discriminating_readback:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement",
+        "aew-v1-rec-coverage-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement",
+        "aew-v1-rec-actor-receipt-without-entitlement-added",
+        "aew-v1-rec-coverage-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement",
+        "aew-v1-rec-actor-receipt-without-entitlement-added",
+        "aew-v1-rec-coverage-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement",
+        "aew-v1-rec-actor-receipt-without-entitlement-added",
+        "aew-v1-rec-coverage-receipt-without-entitlement"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:withheld_misbound:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:withheld_misbound:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-receipt-without-entitlement:withheld_misbound:P_effect",
+      "history": "aew-v1-h-receipt-without-entitlement",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-receipt-without-entitlement-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:actor_only:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:actor_only:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:actor_only:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:discriminating_readback:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source",
+        "aew-v1-rec-coverage-single-source",
+        "aew-v1-rec-sink-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:discriminating_readback:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source",
+        "aew-v1-rec-coverage-single-source",
+        "aew-v1-rec-sink-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:discriminating_readback:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source",
+        "aew-v1-rec-coverage-single-source",
+        "aew-v1-rec-sink-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source",
+        "aew-v1-rec-actor-single-source-added",
+        "aew-v1-rec-coverage-single-source",
+        "aew-v1-rec-sink-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source",
+        "aew-v1-rec-actor-single-source-added",
+        "aew-v1-rec-coverage-single-source",
+        "aew-v1-rec-sink-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source",
+        "aew-v1-rec-actor-single-source-added",
+        "aew-v1-rec-coverage-single-source",
+        "aew-v1-rec-sink-single-source"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:withheld_misbound:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source-misbound",
+        "aew-v1-rec-sink-single-source-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:withheld_misbound:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source-misbound",
+        "aew-v1-rec-sink-single-source-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-single-source:withheld_misbound:P_effect",
+      "history": "aew-v1-h-single-source",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-single-source-misbound",
+        "aew-v1-rec-sink-single-source-withheld"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:actor_only:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "actor_only",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:actor_only:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "actor_only",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:actor_only:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "actor_only",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:discriminating_readback:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "discriminating_readback",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked",
+        "aew-v1-rec-coverage-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:discriminating_readback:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "discriminating_readback",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked",
+        "aew-v1-rec-coverage-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:discriminating_readback:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "discriminating_readback",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked",
+        "aew-v1-rec-coverage-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "duplicate_irrelevant",
+      "method": "swarm_witness",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked",
+        "aew-v1-rec-actor-wrong-allow-blocked-added",
+        "aew-v1-rec-coverage-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "duplicate_irrelevant",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "supported",
+      "category": "missed_resolution_of_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked",
+        "aew-v1-rec-actor-wrong-allow-blocked-added",
+        "aew-v1-rec-coverage-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:duplicate_irrelevant:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "duplicate_irrelevant",
+      "method": "strong_invariant",
+      "predicted": "supported",
+      "adjudicated": "supported",
+      "category": "warranted_support",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked",
+        "aew-v1-rec-actor-wrong-allow-blocked-added",
+        "aew-v1-rec-coverage-wrong-allow-blocked"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "supported",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:withheld_misbound:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "withheld_misbound",
+      "method": "swarm_witness",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:withheld_misbound:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "withheld_misbound",
+      "method": "always_unresolved",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    },
+    {
+      "claim_id": "aew-v1-h-wrong-allow-blocked:withheld_misbound:P_effect",
+      "history": "aew-v1-h-wrong-allow-blocked",
+      "stage": "withheld_misbound",
+      "method": "strong_invariant",
+      "predicted": "unresolved",
+      "adjudicated": "unresolved",
+      "category": "correct_refusal",
+      "attributed_origin": "undetermined",
+      "warranted_origin": "undetermined",
+      "proposition_holds": true,
+      "observation_ids": [
+        "aew-v1-rec-actor-wrong-allow-blocked-misbound"
+      ],
+      "certifies_original_incident": false,
+      "conclusion_class": "missing_evidence",
+      "prompt_sha256": ""
+    }
+  ]
+}

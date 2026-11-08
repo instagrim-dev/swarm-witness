@@ -1,0 +1,55 @@
+# Challenge ledger for the native comparator projection.
+# These probes are not part of the 48-packet comparison. The expected status
+# is the warrant. Agreement with another method is not the label.
+protocol_id: native-projection-challenge-v1
+source_packet: aew-v1-h-authority-current/discriminating_readback
+proposition: P_effect
+cases:
+  sink-misbound:
+    mutation: append -misbound to the sink record id
+    expected: unresolved
+  sink-spoofed:
+    mutation: set sink authenticity to spoofed_tool_line
+    expected: unresolved
+  sink-unauthenticated:
+    mutation: set sink authenticity to unauthenticated_tool_line
+    expected: unresolved
+  sink-stale:
+    mutation: set sink freshness to stale
+    expected: unresolved
+  sink-run-mismatch:
+    mutation: change the sink run id
+    expected: unresolved
+  sink-actor-mismatch:
+    mutation: change the sink actor and drop its parent link
+    expected: unresolved
+  sink-object-mismatch:
+    mutation: change the sink object and drop its parent link
+    expected: unresolved
+  sink-mapped-actor-mismatch:
+    mutation: change the sink actor while its parent link still names the actor record
+    expected: supported
+  mixed-unknown-authorization:
+    mutation: add an in-scope commit whose subject class is unknown and reconcile the count
+    expected: unresolved
+  coverage-conflict:
+    mutation: add a second coverage census with a different row count
+    expected: unresolved
+  coverage-duplicate:
+    mutation: add an exact copy of the coverage census
+    expected: supported
+  sink-unknown-subject:
+    mutation: set sink subject_class to unknown
+    expected: unresolved
+  coverage-operation-mismatch:
+    mutation: replace coverage operations with an unrelated operation
+    expected: unresolved
+  coverage-interval-outside:
+    mutation: move the coverage interval to 2030
+    expected: unresolved
+  coverage-withheld:
+    mutation: withhold the coverage row
+    expected: unresolved
+  clean-positive:
+    mutation: none
+    expected: supported

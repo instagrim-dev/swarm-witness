@@ -88,6 +88,8 @@ All eleven unsupported supports occur in the withheld or misbound condition. The
 
 The invariant checker avoids these unsupported supports while recovering the same decisive conclusions. The always-unresolved reference also avoids unsupported support, but recovers none of the conclusions for which the evidence is sufficient. On this corpus, the checker provides the most informative behavior consistent with the specified warrants.
 
+Table N2 replays the same 48 packet files with the current evaluator and does not replace the retained 11 unsupported supports. That replay has 0 unsupported supports, 0 unsupported refutations, correct decisive 24 of 24, and 24 correct abstentions. The twelve retained actor-only diagnostics say prevented; the current evaluator records those incomplete observations as unobserved. Attribution is not evaluated on this layer, and the replay makes 0 additional source requests.
+
 ### 4.3 Public and translated evidence
 
 On the twenty-four public-record conditions, Swarm Witness and the invariant checker agree throughout: each returns twenty-two warranted abstentions and both warranted decisive conclusions, with no unsupported supports or refutations. A naive rule that treats a passing result as support produces twenty-four unsupported supports. The smaller controlled comparison also ties the two principal methods, with two correct decisive conclusions and two correct abstentions across four claims [7].

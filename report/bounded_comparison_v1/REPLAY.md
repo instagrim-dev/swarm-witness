@@ -41,6 +41,12 @@ These commands regenerate comparison outputs in the checkout. Use a disposable c
 
 ## Interpretation
 
-The native layer distinguishes unsupported support from support of a false proposition. Eleven current Swarm Witness outputs exceed their incomplete-evidence warrants even though the underlying controlled propositions are true. The invariant checker has no unsupported supports in this layer, and both methods recover all twenty-four warranted decisive conclusions. Unconditional abstention avoids unsupported support but recovers none of those decisive conclusions.
+The native layer distinguishes unsupported support from support of a false proposition. The retained comparison has eleven Swarm Witness outputs that exceed their incomplete-evidence warrants even though the underlying controlled propositions are true. The current evaluator replay does not replace that result. The invariant checker has no unsupported supports in this layer, and both methods recover all twenty-four warranted decisive conclusions. Unconditional abstention avoids unsupported support but recovers none of those decisive conclusions.
 
 Public-record warrants establish what the available material supports. Where the underlying event cannot be verified, they are not substituted for hidden truth. The EvidenceGraph composition has a separate protocol and denominator in `report/external_calibration_v1/EVENT_CAPABILITY.md`.
+
+## Later evaluator replay
+
+On 2026-11-08 the retained native comparison was separated from the current evaluator. Table N reads `experiments/effect_witness/historical_qualification_packets_v1.json` and still reports Swarm Witness unsupported support 11 and correct decisive 24/24. Table N2 scores the same packet files with the current evaluator. After `experiments/effect_witness/run.py` in an extracted bundle, `render_bounded_comparison.py` still reported those retained counts.
+
+The advertised local commands were run in `/tmp/sw-review-extract-g5c/swarm-witness-review-bundle` with `PYTHONPATH=src` and the source checkout's existing virtualenv. No new virtualenv was created. Private access was not used. Every advertised command exited 0, including `pytest -q` with 376 passed. The witness replay did not change the retained 11 or the 24 correct decisive conclusions. `check_evidence.py --write-index` and comparison processing times stayed in the extract.

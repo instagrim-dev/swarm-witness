@@ -36,6 +36,10 @@ STAGED_MATRIX = ROOT / "evidence" / "incident_audit_v1" / "matrix.json"
 EFFECT_SUMMARY = ROOT / "evidence" / "effect_witness_v1" / "summary.json"
 EFFECT_WITNESS = ROOT / "evidence" / "effect_witness_v1" / "witness.json"
 EFFECT_PACKETS = ROOT / "evidence" / "effect_witness_v1" / "qualification" / "packets.json"
+# Table N reads this frozen qualification. Replay may rewrite packets.json.
+HISTORICAL_PACKETS = (
+    ROOT / "experiments" / "effect_witness" / "historical_qualification_packets_v1.json"
+)
 BINDING_SUMMARY = ROOT / "evidence" / "evidence_binding_v1" / "summary.json"
 NATIVE_WARRANTS = ROOT / "experiments" / "effect_witness" / "native_warrants_v1.yaml"
 HARNESS_TRUTH = ROOT / "evidence" / "effect_witness_v1" / "harness_truth" / "truth.json"
@@ -285,7 +289,8 @@ def _native_method_summary(rows: list[dict[str, Any]]) -> list[str]:
         "warrant unresolved. The two stages that still contain the application sink "
         "warrant the controlled-truth status. `strong_invariant` is run on the "
         "retained packet records. Swarm Witness contributes its retained `P_effect` "
-        "verdict. This layer is separate from Tables P, C, S, and A. "
+        "verdict from `experiments/effect_witness/historical_qualification_packets_v1.json`. "
+        "Replaying the witness does not rewrite that file. This layer is separate from Tables P, C, S, and A. "
         "`superiority_claim` remains false. `transfer_claim` remains false. "
         "Classifier–adapter agreement on retained EvidenceGraph packets is not "
         "scored here and is not a set of independently correct judgments.",
@@ -338,6 +343,164 @@ def _native_method_summary(rows: list[dict[str, Any]]) -> list[str]:
             "Predicting support on `actor_only` does not add a verifying observation, "
             "so that prediction is unsupported support. "
             "`superiority_claim` remains false.",
+            "",
+        ]
+    )
+    return lines
+
+
+def _current_evaluator_rows(root: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Score the packet files with the current evaluator.
+
+    Table N keeps the retained verdicts. This replay does not replace them.
+    """
+    import time
+
+    from swarm_witness.effect_witness.histories import HISTORY_BY_ID
+    from swarm_witness.effect_witness.qualify import evaluate_packet
+
+    warrants = yaml.safe_load(
+        (root / NATIVE_WARRANTS.relative_to(ROOT)).read_text(encoding="utf-8")
+    )
+    protocol = yaml.safe_load(
+        (root / AUDIT_PROTOCOL.relative_to(ROOT)).read_text(encoding="utf-8")
+    )
+    packets = _load(root / HISTORICAL_PACKETS.relative_to(ROOT))
+    rows: list[dict[str, Any]] = []
+    prevented_retained = 0
+    prevented_current = 0
+    supplied_records = 0
+    consumed_records = 0
+    started = time.perf_counter()
+    for history_id, conditions in sorted(packets.items()):
+        history = HISTORY_BY_ID[history_id]
+        spec = warrants["histories"][history_id]
+        holds = bool(spec["proposition_holds"])
+        for condition in sorted(conditions):
+            directory = root / PACKET_ROOT.relative_to(ROOT) / history_id / condition
+            for name in ("actor_records.jsonl", "service_records.jsonl"):
+                path = directory / name
+                if path.is_file():
+                    supplied_records += sum(
+                        1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip()
+                    )
+            result = evaluate_packet(directory, history)
+            consumed_records += int(result.get("event_count") or 0)
+            retained_labels = (
+                ((conditions[condition].get("property") or {}).get("commitment_by_event")) or {}
+            )
+            current_labels = (result.get("property") or {}).get("commitment_by_event") or {}
+            if condition == "actor_only" and "prevented" in retained_labels.values():
+                prevented_retained += 1
+            if condition == "actor_only" and "prevented" in current_labels.values():
+                prevented_current += 1
+            warrant = spec["stages"][condition]
+            predicted_sw = result["property"]["child_verdicts"]["P_effect"]
+            records = _packet_records(root, history_id, condition)
+            strong = competent_verdict(history_id, records)
+            for method in NATIVE_METHODS:
+                if method == "swarm_witness":
+                    predicted = predicted_sw
+                elif method == "always_unresolved":
+                    predicted = "unresolved"
+                else:
+                    predicted = strong["epistemic_status"]
+                rows.append(
+                    {
+                        "claim_id": f"{history_id}:{condition}:P_effect",
+                        "history": history_id,
+                        "stage": condition,
+                        "method": method,
+                        "predicted": predicted,
+                        "adjudicated": warrant,
+                        "category": score_category(predicted, warrant, protocol),
+                        "attributed_origin": "undetermined",
+                        "warranted_origin": "undetermined",
+                        "proposition_holds": holds,
+                        "observation_ids": list(strong["observation_ids"]),
+                        "certifies_original_incident": False,
+                        "conclusion_class": conclusion_class_for_verdict(predicted),
+                        "prompt_sha256": "",
+                    }
+                )
+    elapsed = time.perf_counter() - started
+    meta = {
+        "protocol_id": "native-evaluator-replay-v2",
+        "replaces_table_n": False,
+        "histories": 12,
+        "packets": 48,
+        "method_rows": len(rows),
+        "actor_only_prevented_in_retained_packets": prevented_retained,
+        "actor_only_prevented_under_current_evaluator": prevented_current,
+        "supplied_records": supplied_records,
+        "consumed_records": consumed_records,
+        "additional_source_requests": 0,
+        "processing_time_seconds": elapsed,
+        "attribution": "not_evaluated",
+        "attribution_denominator": "not_applicable",
+        "packet_tree_sha256": _tree_sha256(root / PACKET_ROOT.relative_to(ROOT)),
+        "warrant_sha256": hashlib.sha256(
+            (root / NATIVE_WARRANTS.relative_to(ROOT)).read_bytes()
+        ).hexdigest(),
+        "evaluator_sha256": {
+            name: hashlib.sha256((root / "src" / "swarm_witness" / name).read_bytes()).hexdigest()
+            for name in (
+                "effect_witness/qualify.py",
+                "native_comparison.py",
+                "evidence_binding.py",
+            )
+        },
+    }
+    return rows, meta
+
+
+def _current_replay_section(rows: list[dict[str, Any]], meta: dict[str, Any]) -> list[str]:
+    lines = [
+        "## Table N2. Current evaluator replay",
+        "",
+        "This replay scores the same 48 packet files with the current evaluator. "
+        "It does not replace Table N. Table N remains the retained comparison: "
+        "Swarm Witness 11 unsupported supports, 24/24 correct decisive. "
+        "Denominators are 12 histories, 48 packets, and 144 method rows. "
+        "Status, abstention, coverage, and factual error stay separate columns. "
+        "Attribution is not evaluated on this native layer, so an attribution "
+        "denominator is not applicable. The replay reads the supplied packet "
+        f"records ({meta['supplied_records']} supplied, {meta['consumed_records']} "
+        "consumed) and makes 0 additional source requests. "
+        f"The retained actor-only diagnostics label commitment prevented in "
+        f"{meta['actor_only_prevented_in_retained_packets']}/12 packets. The current "
+        f"evaluator labels prevented in "
+        f"{meta['actor_only_prevented_under_current_evaluator']}/12 of those packets; "
+        "an incomplete observation is unobserved. "
+        "`superiority_claim` remains false. `transfer_claim` remains false.",
+        "",
+        "| Method | Cells | Unsupported support | Unsupported refutation | Correct decisive | Decisive coverage | Correct abstention | False proposition support |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for method in NATIVE_METHODS:
+        summary = score_native_method(rows, method)
+        lines.append(
+            "| {method} | {cells} | {us} | {ur} | {cd}/{opp} | {cov} | {abs_} | {false_s} |".format(
+                method=method,
+                cells=summary["cell_count"],
+                us=summary["unsupported_support"],
+                ur=summary["unsupported_refutation"],
+                cd=summary["correct_decisive"],
+                opp=summary["decisive_opportunities"],
+                cov=_rate(
+                    summary["correct_decisive_coverage"],
+                    summary["correct_decisive"],
+                    summary["decisive_opportunities"],
+                ),
+                abs_=summary["correct_abstention"],
+                false_s=summary["false_proposition_support"],
+            )
+        )
+    lines.extend(
+        [
+            "",
+            "Processing time and the pinned packet, warrant, and evaluator digests "
+            "are `report/bounded_comparison_v1/evaluator_replay_v2.json`.",
             "",
         ]
     )
@@ -488,8 +651,21 @@ def render(root: Path = ROOT) -> dict[str, Any]:
     ledger = _ledger_rows("public_warrants", matrix["public"])
     ledger.extend(_ledger_rows("controlled_comparison", matrix["controlled"]))
     ledger.extend(_ledger_rows("staged_author_curated", staged_matrix["rows"]))
-    native_rows = _native_matched_rows(root, packets, warrants, audit_protocol)
+    historical_packets = _load(root / HISTORICAL_PACKETS.relative_to(ROOT))
+    native_rows = _native_matched_rows(root, historical_packets, warrants, audit_protocol)
+    current_rows, current_meta = _current_evaluator_rows(root)
+    if current_meta["method_rows"] != 144:
+        raise SystemExit("current evaluator replay did not score 144 method rows")
+    if current_meta["actor_only_prevented_in_retained_packets"] != 12:
+        raise SystemExit("retained actor-only prevented diagnostics are not the historical twelve")
+    if current_meta["actor_only_prevented_under_current_evaluator"] != 0:
+        raise SystemExit("current evaluator still labels an actor-only commitment prevented")
     ledger.extend(_ledger_rows("native_matched_methods", native_rows))
+    ledger.extend(_ledger_rows("native_evaluator_replay_v2", current_rows))
+    (out / "evaluator_replay_v2.json").write_text(
+        json.dumps({"meta": current_meta, "rows": current_rows}, indent=2) + "\n",
+        encoding="utf-8",
+    )
     if not native_rows:
         raise SystemExit("native matched-method layer produced zero rows")
     _write_csv(out / "ledger.csv", ledger)
@@ -520,6 +696,9 @@ def render(root: Path = ROOT) -> dict[str, Any]:
         "effect_summary": _sha256(root / EFFECT_SUMMARY.relative_to(ROOT)),
         "effect_witness": _sha256(root / EFFECT_WITNESS.relative_to(ROOT)),
         "effect_packets": _sha256(root / EFFECT_PACKETS.relative_to(ROOT)),
+        "historical_qualification_packets": _sha256(
+            root / HISTORICAL_PACKETS.relative_to(ROOT)
+        ),
         "binding_summary": _sha256(root / BINDING_SUMMARY.relative_to(ROOT)),
         "frozen_input_sha256": _sha256(root / FROZEN_DIGESTS.relative_to(ROOT)),
         "native_warrants": _sha256(root / NATIVE_WARRANTS.relative_to(ROOT)),
@@ -644,6 +823,7 @@ def render(root: Path = ROOT) -> dict[str, Any]:
         *_worked_example(packets, witness, matrix["public"]),
         "",
         *_native_method_summary(native_rows),
+        *_current_replay_section(current_rows, current_meta),
         "## Table E. Retained workflow and native telemetry",
         "",
         "These two rows are not the twelve-history witness and not the 24-cell public layer.",

@@ -1,0 +1,66 @@
+{
+  "protocol_id": "eg-qualification-mutation-v1",
+  "claim_id": "EG-EVT-clean-event-000007-4af90bc41e",
+  "family": "event_attribution",
+  "note": "Each disqualifier is applied only to the required registry-mutation premise and then removed. False-exclusivity errors stay in the 130-packet composition result; they are not this matrix.",
+  "rows": [
+    {
+      "mutation": "none",
+      "assessment": "supported",
+      "strong": "supported",
+      "swarm": "supported"
+    },
+    {
+      "mutation": "binding=misbound",
+      "assessment": "unresolved",
+      "reason": "required_premise_not_admitted",
+      "strong": "unresolved",
+      "swarm": "unresolved"
+    },
+    {
+      "mutation": "binding restored",
+      "assessment": "supported",
+      "strong": "supported",
+      "swarm": "supported"
+    },
+    {
+      "mutation": "freshness=stale",
+      "assessment": "unresolved",
+      "reason": "required_premise_not_admitted",
+      "strong": "unresolved",
+      "swarm": "unresolved"
+    },
+    {
+      "mutation": "freshness restored",
+      "assessment": "supported",
+      "strong": "supported",
+      "swarm": "supported"
+    },
+    {
+      "mutation": "locally_held=false",
+      "assessment": "unresolved",
+      "reason": "required_premise_not_admitted",
+      "strong": "unresolved",
+      "swarm": "unresolved"
+    },
+    {
+      "mutation": "locally_held restored",
+      "assessment": "supported",
+      "strong": "supported",
+      "swarm": "supported"
+    },
+    {
+      "mutation": "derivation=copied",
+      "assessment": "unresolved",
+      "reason": "required_premise_not_admitted",
+      "strong": "unresolved",
+      "swarm": "unresolved"
+    },
+    {
+      "mutation": "derivation restored",
+      "assessment": "supported",
+      "strong": "supported",
+      "swarm": "supported"
+    }
+  ]
+}

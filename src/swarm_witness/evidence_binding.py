@@ -784,7 +784,12 @@ def _commit_authorized(
     return False
 
 
-def _complete_support(record: Mapping[str, Any], claim: Mapping[str, Any]) -> bool:
+def _complete_support(
+    record: Mapping[str, Any], claim: Mapping[str, Any], *, family: str = ""
+) -> bool:
+    """Existential commitment does not need a census. Safety support does."""
+    if family == "P_commitment" and record.get("verified") is True:
+        return True
     if record.get("coverage") == "complete":
         return True
     return _premise_complete(claim)
@@ -825,7 +830,7 @@ def _apply_polarity(
         )
         if signature in seen:
             continue
-        if polarity == "supports" and not _complete_support(record, claim):
+        if polarity == "supports" and not _complete_support(record, claim, family=family):
             # Do not consume the signature. A later complete support from the
             # same origin must still bind, independent of record order.
             continue
@@ -1116,6 +1121,9 @@ def _fault_attribution(
         if record.get("actor_binding") != "bound":
             continue
         if record.get("binding") in {"nonbinding", "unbound", "misbound"}:
+            continue
+        # A report names an actor without establishing the attribution proposition.
+        if _binding_polarity(record, family) not in {"supports", "contradicts"}:
             continue
         actor = record.get("named_origin") or record.get("actor_ref")
         if isinstance(actor, str) and actor:
@@ -1647,6 +1655,112 @@ def _commit_family_constraints(
     return constraints
 
 
+def _coverage_held(event: Mapping[str, Any]) -> bool:
+    if event.get("locally_held") is False:
+        return False
+    if event.get("access_level") in {"withheld", "unobserved", "unavailable", "private_original"}:
+        return False
+    if event.get("redaction") == "withheld_original":
+        return False
+    if event.get("authenticity") in {
+        "spoofed_tool_line",
+        "unauthenticated_tool_line",
+        "spoofed",
+        "unauthenticated",
+        "forged",
+        "copied",
+    }:
+        return False
+    text = event.get("public_bytes")
+    return isinstance(text, str) and text.startswith("aew-v1 observer coverage\n")
+
+
+def _time_inside(fields: Mapping[str, str], when: Any) -> bool:
+    start = fields.get("interval_start") or ""
+    end = fields.get("interval_end") or ""
+    if not isinstance(when, str) or "T" not in start or "T" not in end or not start < end:
+        return False
+    return start <= when < end
+
+
+def _native_census_complete(events: Sequence[Mapping[str, Any]]) -> bool:
+    """An unrelated service row is not effect coverage.
+
+    The census is complete only when one admitted observer record names this
+    run, its operations, and an interval that contains the admitted commits,
+    and its count matches those commits. A zero-row record can still be complete.
+    """
+    coverage: list[tuple[Mapping[str, Any], dict[str, str]]] = []
+    commits: list[tuple[Mapping[str, Any], dict[str, str]]] = []
+    actors: list[tuple[Mapping[str, Any], dict[str, str]]] = []
+    for event in events:
+        text = event.get("public_bytes")
+        if not isinstance(text, str) or not text.strip():
+            continue
+        fields = _public_fields(text)
+        header = text.splitlines()[0]
+        if header == "aew-v1 observer coverage" and _coverage_held(event):
+            coverage.append((event, fields))
+        elif header == "aew-v1 sink commit" and event.get("event_kind") == "committed_effect":
+            if event.get("locally_held") is False or event.get("access_level") == "withheld":
+                continue
+            if event.get("redaction") == "withheld_original":
+                continue
+            commits.append((event, fields))
+        elif header == "aew-v1 actor record":
+            actors.append((event, fields))
+    if not coverage:
+        return False
+    signatures = {
+        (
+            fields.get("run_id"),
+            fields.get("operations"),
+            fields.get("interval_start"),
+            fields.get("interval_end"),
+            fields.get("row_count"),
+            fields.get("event_ids"),
+        )
+        for _event, fields in coverage
+    }
+    if len(signatures) != 1:
+        return False
+    fields = coverage[0][1]
+    unique_ids: list[str] = []
+    for _event, commit_fields in commits:
+        event_id = commit_fields.get("event_id")
+        if event_id and event_id not in unique_ids:
+            unique_ids.append(event_id)
+    declared = fields.get("row_count")
+    if declared in (None, ""):
+        return False
+    try:
+        count = int(declared)
+    except (TypeError, ValueError):
+        return False
+    if count != len(unique_ids):
+        return False
+    if "event_ids" in fields:
+        listed = [part for part in fields.get("event_ids", "").split(",") if part]
+        if len(listed) != len(set(listed)) or set(listed) != set(unique_ids):
+            return False
+    operations = {part for part in (fields.get("operations") or "").split(",") if part}
+    required = {commit_fields.get("operation_id") for _event, commit_fields in commits}
+    required.update(actor_fields.get("operation_id") for _event, actor_fields in actors)
+    required.discard(None)
+    required.discard("")
+    if not operations or not required <= operations:
+        return False
+    targets = commits or actors
+    if not targets:
+        return False
+    for event, target_fields in targets:
+        if target_fields.get("run_id") != fields.get("run_id"):
+            return False
+        if not _time_inside(fields, event.get("event_time")):
+            return False
+    return True
+
+
 def records_from_native_packet(directory: Path, *, salt: str = SOURCE_PIN) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Load a native-witness origin packet. Does not invent the SQLite export.
 
@@ -1659,9 +1773,7 @@ def records_from_native_packet(directory: Path, *, salt: str = SOURCE_PIN) -> tu
         origin.get("origin") == "service_effect" and int(origin.get("rows") or 0) == 0
         for origin in loaded["missing_origins"]
     )
-    has_coverage = any(
-        event.get("event_kind") == "independent_service_log" for event in loaded["events"]
-    )
+    coverage_complete = _native_census_complete(loaded["events"])
     records: list[dict[str, Any]] = []
     for event in loaded["events"]:
         raw = event.get("raw_reference") or {}
@@ -1695,7 +1807,7 @@ def records_from_native_packet(directory: Path, *, salt: str = SOURCE_PIN) -> tu
         if digest_verified and authenticity in NON_DECIDING_AUTHENTICITY:
             authenticity = "byte_identified"
         coverage = event.get("coverage")
-        if coverage in (None, "", "partial") and digest_verified and has_coverage:
+        if coverage in (None, "", "partial") and digest_verified and coverage_complete:
             coverage = "complete"
         elif not coverage:
             coverage = "partial"

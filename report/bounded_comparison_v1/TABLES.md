@@ -93,7 +93,7 @@ The discriminating source on the named witness is the application-owned sink rea
 
 ## Table N. Native matched-method comparison
 
-Denominator: twelve application-owned histories × four evidence conditions (`actor_only`, `discriminating_readback`, `duplicate_irrelevant`, `withheld_misbound`), scored for `P_effect`. Evidence-stage warrants and controlled truth are `experiments/effect_witness/native_warrants_v1.yaml`. They are not Swarm Witness verdicts. `actor_only` and `withheld_misbound` warrant unresolved. The two stages that still contain the application sink warrant the controlled-truth status. `strong_invariant` is run on the retained packet records. Swarm Witness contributes its retained `P_effect` verdict. This layer is separate from Tables P, C, S, and A. `superiority_claim` remains false. `transfer_claim` remains false. Classifier–adapter agreement on retained EvidenceGraph packets is not scored here and is not a set of independently correct judgments.
+Denominator: twelve application-owned histories × four evidence conditions (`actor_only`, `discriminating_readback`, `duplicate_irrelevant`, `withheld_misbound`), scored for `P_effect`. Evidence-stage warrants and controlled truth are `experiments/effect_witness/native_warrants_v1.yaml`. They are not Swarm Witness verdicts. `actor_only` and `withheld_misbound` warrant unresolved. The two stages that still contain the application sink warrant the controlled-truth status. `strong_invariant` is run on the retained packet records. Swarm Witness contributes its retained `P_effect` verdict from `experiments/effect_witness/historical_qualification_packets_v1.json`. Replaying the witness does not rewrite that file. This layer is separate from Tables P, C, S, and A. `superiority_claim` remains false. `transfer_claim` remains false. Classifier–adapter agreement on retained EvidenceGraph packets is not scored here and is not a set of independently correct judgments.
 
 | Method | Cells | Unsupported support | Correct decisive | Decisive coverage | Correct abstention |
 |---|---:|---:|---:|---:|---:|
@@ -102,6 +102,18 @@ Denominator: twelve application-owned histories × four evidence conditions (`ac
 | strong_invariant | 48 | 0 | 24/24 | 24/24 | 24 |
 
 Swarm Witness vs strong invariant: 48 cells, 11 predicted-status mismatches. On the discriminating-readback stage, Swarm Witness matches the specified warrant on 12/12 and the competent comparator matches it on 12/12. Those counts are measured against the warrant file. They are not copied from one method to the other. Predicting support on `actor_only` does not add a verifying observation, so that prediction is unsupported support. `superiority_claim` remains false.
+
+## Table N2. Current evaluator replay
+
+This replay scores the same 48 packet files with the current evaluator. It does not replace Table N. Table N remains the retained comparison: Swarm Witness 11 unsupported supports, 24/24 correct decisive. Denominators are 12 histories, 48 packets, and 144 method rows. Status, abstention, coverage, and factual error stay separate columns. Attribution is not evaluated on this native layer, so an attribution denominator is not applicable. The replay reads the supplied packet records (130 supplied, 130 consumed) and makes 0 additional source requests. The retained actor-only diagnostics label commitment prevented in 12/12 packets. The current evaluator labels prevented in 0/12 of those packets; an incomplete observation is unobserved. `superiority_claim` remains false. `transfer_claim` remains false.
+
+| Method | Cells | Unsupported support | Unsupported refutation | Correct decisive | Decisive coverage | Correct abstention | False proposition support |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| swarm_witness | 48 | 0 | 0 | 24/24 | 24/24 | 24 | 0 |
+| always_unresolved | 48 | 0 | 0 | 0/24 | 0/24 | 24 | 0 |
+| strong_invariant | 48 | 0 | 0 | 24/24 | 24/24 | 24 | 0 |
+
+Processing time and the pinned packet, warrant, and evaluator digests are `report/bounded_comparison_v1/evaluator_replay_v2.json`.
 
 ## Table E. Retained workflow and native telemetry
 
@@ -141,9 +153,10 @@ Retained files hashed at render time:
 - `effect_summary`: `4cb42d811aab039ca7fbd8e3346898496eb716abde9f2f450eec0615ac879d74`
 - `effect_witness`: `e9c26bee430d771a7ca03dfcc24fd88b9886fb381c5b02d62ffd4780c9202e1e`
 - `effect_packets`: `e98d88e9245445a0925909f1f0c81566987335a96c812a4ef628f98d9891de43`
+- `historical_qualification_packets`: `e98d88e9245445a0925909f1f0c81566987335a96c812a4ef628f98d9891de43`
 - `binding_summary`: `cbada3c1496e55bce74eb09486c12aee33fe231bb861d87e899f8646d134d0b4`
 - `frozen_input_sha256`: `70c642989ab1e19bcbe247bc40cb7f1da3e449ad950e04470f7b907b688d6f33`
 - `native_warrants`: `cafc12b4732c4094102791a6d62fc475629492a81c8d6b1059b3f53b97c7de22`
 - `native_packet_records`: `752c4c107ddad701e34cab70c4daa5e91960e1ffd3be9af30f502d007b996059`
 
-Per-case outputs for every method, including the staged rows and the native matched-method layer, are `report/bounded_comparison_v1/ledger.csv`. Ledger rows: 352 (native matched-method rows: 144).
+Per-case outputs for every method, including the staged rows and the native matched-method layer, are `report/bounded_comparison_v1/ledger.csv`. Ledger rows: 496 (native matched-method rows: 144).

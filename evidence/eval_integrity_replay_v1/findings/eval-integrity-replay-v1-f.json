@@ -1,6 +1,7 @@
 {
   "basis": "computed",
   "claim_id": "eval_integrity_replay_v1",
+  "conclusion_class": "supported",
   "id": "eval-integrity-replay-v1-f",
   "label": "reproduced",
   "proposition": "On the pinned envsrc judge labels, source-access is replayed without establishing exposure-before-scored-behavior or an independent successful outcome. Headline eligibility stays false.",
