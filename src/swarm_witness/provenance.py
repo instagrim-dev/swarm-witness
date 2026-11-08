@@ -1494,8 +1494,12 @@ def qualify_claim(
         evidence_complete = False
         property_holds = None
 
+    # Covered absence refutes effect-existence; it is not an enforcement failure
+    # unless a mechanism was separately shown to have been exercised wrongly.
     classified = classify_conclusion(
-        evidence_complete=evidence_complete, property_holds=property_holds
+        evidence_complete=evidence_complete,
+        property_holds=property_holds,
+        mechanism_exercised=bool(property_holds is False and not absence_is_no_effect),
     )
 
     if any(event["authenticity"] == "forged" for event in offered):

@@ -492,30 +492,52 @@ def collapse_origins(
     return nodes, keys
 
 
+def _record_names_targets(record: Mapping[str, Any]) -> bool:
+    return any(
+        record.get(key) not in (None, "")
+        for key in ("actor_ref", "object_scope", "action", "subject_class", "channel")
+    )
+
+
 def in_scope(record: Mapping[str, Any], family: str, claim: Mapping[str, Any]) -> bool:
-    del claim
+    """Admit a record for a family only when it also binds the claim targets."""
     if record.get("kind") == "comparison_arm":
-        return family == "comparison_equality"
-    if record.get("family") == family or record.get("proposition_family") == family:
-        return True
-    if family in (record.get("applies_to_families") or []):
-        return True
-    channel = record.get("channel")
-    if family in BOUNDARY_FAMILIES and channel in PROPERTY_OF_CHANNEL:
-        return PROPERTY_OF_CHANNEL[channel] == family
-    if family == "P_system" and channel in PROPERTY_OF_CHANNEL:
-        return True
-    if family == "P_local_control" and channel in CHANNEL_SUBJECTS:
-        return True
-    if family in {
-        "P_decision_entitlement",
-        "P_commit_authorization",
-        "P_commitment",
-    } and record.get("kind") in {"model_event", "revocation"}:
-        return True
-    if family in {"P_dec", "P_eff"} and record.get("grant") in {"active", "revoked"}:
-        return True
-    return False
+        family_ok = family == "comparison_equality"
+    elif record.get("family") == family or record.get("proposition_family") == family:
+        family_ok = True
+    elif family in (record.get("applies_to_families") or []):
+        family_ok = True
+    else:
+        channel = record.get("channel")
+        if family in BOUNDARY_FAMILIES and channel in PROPERTY_OF_CHANNEL:
+            family_ok = PROPERTY_OF_CHANNEL[channel] == family
+        elif family == "P_system" and channel in PROPERTY_OF_CHANNEL:
+            family_ok = True
+        elif family == "P_local_control" and channel in CHANNEL_SUBJECTS:
+            family_ok = True
+        elif family in {
+            "P_decision_entitlement",
+            "P_commit_authorization",
+            "P_commitment",
+        } and record.get("kind") in {"model_event", "revocation"}:
+            family_ok = True
+        elif family in {"P_dec", "P_eff"} and record.get("grant") in {"active", "revoked"}:
+            family_ok = True
+        else:
+            family_ok = False
+    if not family_ok:
+        return False
+    targets = (
+        claim.get("target_actor"),
+        claim.get("target_object"),
+        claim.get("target_operation"),
+    )
+    if any(target not in (None, "") for target in targets) and _record_names_targets(record):
+        # Public polarity / reports about a different actor/object/op cannot
+        # constrain this claim's compatible worlds.
+        if record.get("polarity") in {"supports", "contradicts", "reports"}:
+            return effect_confirmed(record, claim)
+    return True
 
 
 def _premise_complete(claim: Mapping[str, Any]) -> bool:
@@ -774,10 +796,10 @@ def _apply_polarity(
     records: Sequence[Mapping[str, Any]],
     claim: Mapping[str, Any],
 ) -> tuple[set[str], str, list[str]]:
-    compatible = set(universe)
-    reason = "no_binding_record"
-    used: list[str] = []
+    """Apply support then contradiction in a fixed order (input-order independent)."""
     seen: set[tuple[str, str, str]] = set()
+    supports: list[Mapping[str, Any]] = []
+    contradicts: list[Mapping[str, Any]] = []
     for record in records:
         polarity = record.get("polarity")
         if polarity not in {"supports", "contradicts"}:
@@ -790,18 +812,27 @@ def _apply_polarity(
         if signature in seen:
             continue
         seen.add(signature)
-        if polarity == "supports" and not _complete_support(record, claim):
-            continue
-        used.append(record["id"])
         if polarity == "supports":
-            compatible &= set(satisfying)
-            reason = "support"
+            # Incomplete supports never constrain; contradicts may still refute.
+            if not _complete_support(record, claim):
+                continue
+            supports.append(record)
         else:
-            compatible -= set(satisfying)
-            exercised = record.get("exercised_mechanism") is True
-            reason = "forbidden_commit" if exercised else "text_contradiction"
-    if not used:
+            contradicts.append(record)
+    if not supports and not contradicts:
         return set(universe), "no_binding_record", []
+    compatible = set(universe)
+    used: list[str] = []
+    reason = "no_binding_record"
+    if supports:
+        compatible &= set(satisfying)
+        used.extend(record["id"] for record in supports)
+        reason = "support"
+    if contradicts:
+        compatible -= set(satisfying)
+        used.extend(record["id"] for record in contradicts)
+        exercised = any(record.get("exercised_mechanism") is True for record in contradicts)
+        reason = "forbidden_commit" if exercised else "text_contradiction"
     return compatible, reason, used
 
 
@@ -863,14 +894,22 @@ def _apply_comparison(
     records: Sequence[Mapping[str, Any]],
 ) -> tuple[set[str], str, list[str]]:
     arms = [record for record in records if record.get("kind") == "comparison_arm"]
-    if len(arms) != 2 or any(record.get("evidence_complete") is False for record in arms):
+    # Completeness must be explicit True; missing outcomes stay unresolved.
+    if len(arms) != 2 or any(record.get("evidence_complete") is not True for record in arms):
+        return set(universe), "pair_incomplete", []
+    if any(
+        record.get("property_holds") is None and record.get("decision") is None
+        for record in arms
+    ):
         return set(universe), "pair_incomplete", []
     used = [record["id"] for record in arms]
     if arms[0].get("decision") != arms[1].get("decision"):
         return {"arms_diverge"}, "equality_divergence", used
     if arms[0].get("property_holds") is True and arms[1].get("property_holds") is True:
         return set(satisfying), "arms_agree", used
-    return {"arms_agree_fail"}, "arms_agree_fail", used
+    if arms[0].get("property_holds") is False and arms[1].get("property_holds") is False:
+        return {"arms_agree_fail"}, "arms_agree_fail", used
+    return set(universe), "pair_incomplete", []
 
 
 def _comparison_axes(records: Sequence[Mapping[str, Any]]) -> dict[str, str]:
@@ -1039,18 +1078,26 @@ def _fault_attribution(
     records: Sequence[Mapping[str, Any]],
     statuses: Mapping[str, str],
     family: str,
+    *,
+    claim: Mapping[str, Any] | None = None,
+    admitted_ids: set[str] | None = None,
 ) -> str:
-    """Only a record that verifies this proposition can name an actor."""
+    """Only a temporally admitted, in-constraint record can name an actor."""
     actors: list[str] = []
+    claim = claim or {}
     for record in records:
+        if admitted_ids is not None and record["id"] not in admitted_ids:
+            continue
         if record.get("attribute_fault") is not True:
             continue
         if not verification_admits(statuses[record["id"]]):
             continue
+        if record.get("temporal_applicability") == "stale":
+            continue
         named_family = record.get("proposition_family") or record.get("family")
         if named_family not in {None, family}:
             continue
-        if not in_scope(record, family, {}):
+        if not in_scope(record, family, claim):
             continue
         if record.get("actor_binding") not in {None, "bound"}:
             continue
@@ -1427,7 +1474,13 @@ def bind_family(
         "conclusion_class": projected["conclusion_class"],
         "finding_label": projected["finding_label"],
         "property_holds": projected["property_holds"],
-        "fault_attribution": _fault_attribution(in_scope_records, statuses, family),
+        "fault_attribution": _fault_attribution(
+            in_scope_records,
+            statuses,
+            family,
+            claim=claim,
+            admitted_ids={record["id"] for record in admitted_for_constraints},
+        ),
         "mechanism_exercised": bool(axes_body["mechanism_exercised"]),
         "comparison_status": comparison_status,
         "independent_origin_count": len(admitted_origins) if admitted else len(origins),
@@ -1516,17 +1569,74 @@ def load_property_case(root: Path | None = None, case_id: str = "url_held_worker
     raise KeyError(case_id)
 
 
+_NATIVE_KIND_TO_FAMILY: dict[str, str] = {
+    "transcript_visible_command": "P_local_control",
+    "committed_effect": "P_commitment",
+    "independent_service_log": "P_commitment",
+    "grant_revocation": "P_decision_entitlement",
+}
+
+_NATIVE_KIND_TO_CHANNEL: dict[str, str] = {
+    "transcript_visible_command": "remote_url",
+    "committed_effect": "downstream_effect",
+    "independent_service_log": "downstream_effect",
+}
+
+
 def records_from_native_packet(directory: Path, *, salt: str = SOURCE_PIN) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    """Load a native-witness origin packet. Does not invent the SQLite export."""
+    """Load a native-witness origin packet. Does not invent the SQLite export.
+
+    Maps event kinds onto the declared family/channel selectors so ``in_scope``
+    can admit them. Digest-verified application-owned rows become admissible;
+    actor-only packets without a service origin stay non-deciding.
+    """
     loaded = load_origin_packet(directory, salt=salt)
+    service_missing = any(
+        origin.get("origin") == "service_effect" and int(origin.get("rows") or 0) == 0
+        for origin in loaded["missing_origins"]
+    )
+    has_coverage = any(
+        event.get("event_kind") == "independent_service_log" for event in loaded["events"]
+    )
     records: list[dict[str, Any]] = []
     for event in loaded["events"]:
         raw = event.get("raw_reference") or {}
+        kind = event.get("event_kind") or "native"
+        family = _NATIVE_KIND_TO_FAMILY.get(str(kind))
+        channel = event.get("channel") or _NATIVE_KIND_TO_CHANNEL.get(str(kind))
+        applies = []
+        if family:
+            applies.append(family)
+        if kind == "committed_effect":
+            applies.extend(["P_commit_authorization", "P_effect", "P_system"])
+        if kind == "transcript_visible_command":
+            applies.extend(["P_system", "P_url", "P_effect"])
+        method = event.get("verification_method") or "none"
+        # Only application-owned sink rows become deciding. Legacy telemetry
+        # independent_service_log digests stay not_checked / non-deciding.
+        digest_verified = (
+            kind == "committed_effect"
+            and method == "independent_log_digest"
+            and not service_missing
+        )
+        authenticity = event.get("authenticity") or "not_checked"
+        if digest_verified and authenticity in NON_DECIDING_AUTHENTICITY:
+            authenticity = "byte_identified"
+        coverage = event.get("coverage")
+        if coverage in (None, "", "partial") and digest_verified and has_coverage:
+            coverage = "complete"
+        elif not coverage:
+            coverage = "partial"
         records.append(
             {
                 "id": event["id"],
                 "kind": "native",
-                "authenticity": event.get("authenticity") or "not_checked",
+                "family": family,
+                "channel": channel,
+                "applies_to_families": applies,
+                "authenticity": authenticity,
+                "verified": bool(digest_verified),
+                "verification_method": method,
                 "independence_group": event.get("independence_group") or event["id"],
                 "content_digest": event.get("source_digest"),
                 "depends_on": list(event.get("depends_on") or []),
@@ -1542,12 +1652,14 @@ def records_from_native_packet(directory: Path, *, salt: str = SOURCE_PIN) -> tu
                 "observation_availability": "available"
                 if event.get("public_bytes")
                 else "unobserved",
+                "coverage": coverage,
             }
         )
     return records, {
         "missing_origins": list(loaded["missing_origins"]),
         "truth_files_read": list(loaded["truth_files_read"]),
         "event_count": len(loaded["events"]),
+        "service_origin_present": not service_missing,
     }
 
 
@@ -1641,10 +1753,12 @@ def audit_native_packet(
     root: Path | None = None,
     *,
     family: str = "P_system",
+    directory: Path | None = None,
 ) -> dict[str, Any]:
-    """Judge the retained native-witness packet. Does not build a SQLite witness."""
+    """Judge a native-witness origin packet. Does not build a SQLite witness."""
     root = root or repo_root()
-    directory = root / "experiments" / "telemetry" / "packet"
+    if directory is None:
+        directory = root / "experiments" / "telemetry" / "packet"
     records, meta = records_from_native_packet(directory)
     result = bind_family(records, family=family, claim={})
     result["input"] = "native_witness_packet"
@@ -1652,20 +1766,53 @@ def audit_native_packet(
     result["event_count"] = meta["event_count"]
     result["missing_origins"] = meta["missing_origins"]
     result["truth_files_read"] = meta["truth_files_read"]
+    result["admitted_for_family"] = sum(
+        1 for record in records if in_scope(record, family, {})
+    )
     return result
 
 
 def audit_entrypoint(root: Path | None = None) -> dict[str, Any]:
-    """Normal entrypoint: one retained workflow and one native-witness packet."""
+    """Normal entrypoint: retained workflow, legacy telemetry, and effect witness."""
     root = root or repo_root()
     system = audit_retained_workflow(root, family="P_system")
     url = audit_retained_workflow(root, family="P_url")
     native = audit_native_packet(root)
+    witness_dir = (
+        root
+        / "evidence"
+        / "effect_witness_v1"
+        / "packets"
+        / "aew-v1-h-local-pass-broader-effect"
+        / "discriminating_readback"
+    )
+    actor_only_dir = (
+        root
+        / "evidence"
+        / "effect_witness_v1"
+        / "packets"
+        / "aew-v1-h-local-pass-broader-effect"
+        / "actor_only"
+    )
+    effect_witness = None
+    effect_actor_only = None
+    if witness_dir.is_dir():
+        effect_witness = audit_native_packet(
+            root, family="P_commitment", directory=witness_dir
+        )
+        effect_witness["input"] = "application_effect_discriminating_packet"
+    if actor_only_dir.is_dir():
+        effect_actor_only = audit_native_packet(
+            root, family="P_commitment", directory=actor_only_dir
+        )
+        effect_actor_only["input"] = "application_effect_actor_only_packet"
     return {
         "protocol_id": PROTOCOL_ID,
         "retained_system": system,
         "retained_url": url,
         "native": native,
+        "effect_witness_discriminating": effect_witness,
+        "effect_witness_actor_only": effect_actor_only,
         "url_allowlist_supports_p_system": system["epistemic_status"] == "supported",
         "real_world_authenticity_certified": False,
         "detection_or_prevention_claimed": False,

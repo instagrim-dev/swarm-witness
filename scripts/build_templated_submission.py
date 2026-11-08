@@ -66,6 +66,11 @@ def _load_parts() -> dict[str, str]:
     abstract = re.sub(r"\*\*([^*]+)\*\*", r"\1", abstract)
     body = (REPORT / "body.md").read_text()
     lim = (REPORT / "LIMITATIONS_DUAL_USE.md").read_text()
+    # Split on the raw Markdown marker before stripping bold, otherwise the
+    # Discussion "Limitations" subsection would dump the whole appendix block.
+    lim_brief_raw = re.split(
+        r"\*\*Possible adversarial|\nPossible adversarial", lim, maxsplit=1
+    )[0]
     final = (REPORT / "Swarm_Witness_Final_Submission.md").read_text()
     # Heading depth is not part of the boundary: the manuscript uses
     # "# Appendix A", and a literal "## Appendix" split would keep that
@@ -81,6 +86,7 @@ def _load_parts() -> dict[str, str]:
         "discussion": _section_after(body, "## 5. Discussion and limitations", "## 6."),
         "conclusion": _section_after(body, "## 6. Conclusion", "## Code"),
         "code": _section_after(body, "## Code, data and reproducibility", None),
+        "limitations_brief": _strip_md_heading(lim_brief_raw),
         "limitations": _strip_md_heading(lim),
         "refs": refs,
         "llm": (
@@ -238,7 +244,7 @@ def fill_template() -> Path:
     add_heading("5. Discussion and Limitations", 2)
     add_blocks(parts["discussion"])
     add_heading("Limitations", 3)
-    add_blocks(parts["limitations"].split("**Possible adversarial")[0])
+    add_blocks(parts["limitations_brief"])
     add_heading("Future Work", 3)
     add_blocks(
         "Live gateway-side observation, real delegated effects, independently authored "

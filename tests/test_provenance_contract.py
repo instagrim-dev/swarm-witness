@@ -1364,8 +1364,10 @@ def test_missing_records_need_a_coverage_assumption_and_absence_needs_complete_c
     covered = qualify_graph(graph)["claims"]["claim"]
     assert covered["coverage_established"] is True
     assert covered["absence_of_sink_is_no_effect"] is True
-    assert covered["conclusion_class"] == "failed_enforcement"
+    # Covered absence refutes effect-existence; it is not an enforcement failure.
+    assert covered["conclusion_class"] == "refuted"
     assert covered["conclusion_class"] != "supported"
+    assert covered["conclusion_class"] != "failed_enforcement"
     assert covered["real_world_authenticity_certified"] is False
 
 

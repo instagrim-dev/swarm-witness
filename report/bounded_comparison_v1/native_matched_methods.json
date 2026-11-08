@@ -1,0 +1,12 @@
+{
+  "layer": "native_matched_methods",
+  "row_count": 144,
+  "methods": [
+    "always_unresolved",
+    "strong_abstention",
+    "swarm_witness"
+  ],
+  "history_count": 12,
+  "condition_count": 4,
+  "note": "Equal-access scoring of frozen application-effect packets. Not a claim of advantage over the strong public checker."
+}

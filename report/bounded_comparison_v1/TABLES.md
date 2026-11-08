@@ -16,11 +16,11 @@ Denominator: twelve public claims at two stages. Truth of the world-effect propo
 
 | Method | Cells | Unsupported support | Unsupported refutation | Correct abstention | Correct decisive | Decisive coverage | False-proposition support | Unsupported attribution | Attribution coverage | Attribution abstentions | Accuracy among concrete assignments | Record requests | Processing seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| naive | 24 | 24 | 0 | 0 | 0/2 | 0/2 |  | 2 | not applicable (0/0) | 22 | 0/2 | 0 | 4.1453e-05 |
-| weak_checklist | 24 | 11 | 1 | 10 | 1/2 | 1/2 |  | 0 | not applicable (0/0) | 24 | not applicable (0/0) | 0 | 6.5333e-05 |
-| strong_invariant | 24 | 0 | 0 | 22 | 2/2 | 2/2 |  | 0 | not applicable (0/0) | 24 | not applicable (0/0) | 0 | 0.000101633 |
-| swarm_witness | 24 | 0 | 0 | 22 | 2/2 | 2/2 |  | 0 | not applicable (0/0) | 24 | not applicable (0/0) | 0 | 0.000118738 |
-| always_unresolved | 24 | 0 | 0 | 22 | 0/2 | 0/2 |  | 0 | not applicable (0/0) | 24 | not applicable (0/0) | 0 | 5.212e-06 |
+| naive | 24 | 24 | 0 | 0 | 0/2 | 0/2 |  | 2 | not applicable (0/0) | 22 | 0/2 | 0 | 3.3e-05 |
+| weak_checklist | 24 | 11 | 1 | 10 | 1/2 | 1/2 |  | 0 | not applicable (0/0) | 24 | not applicable (0/0) | 0 | 5.4417e-05 |
+| strong_invariant | 24 | 0 | 0 | 22 | 2/2 | 2/2 |  | 0 | not applicable (0/0) | 24 | not applicable (0/0) | 0 | 0.0001275 |
+| swarm_witness | 24 | 0 | 0 | 22 | 2/2 | 2/2 |  | 0 | not applicable (0/0) | 24 | not applicable (0/0) | 0 | 9.9667e-05 |
+| always_unresolved | 24 | 0 | 0 | 22 | 0/2 | 0/2 |  | 0 | not applicable (0/0) | 24 | not applicable (0/0) | 0 | 4.292e-06 |
 
 Strong-checker tie: 24 cells, 0 predicted-status mismatches. Record requests are 0.
 
@@ -30,10 +30,10 @@ Denominator: four claims about the held LessWrong record and the released step-1
 
 | Method | Cells | Unsupported support | Unsupported refutation | Correct abstention | Correct decisive | Decisive coverage | False-proposition support | Unsupported attribution | Attribution coverage | Attribution abstentions | Accuracy among concrete assignments | Record requests | Processing seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| naive | 4 | 2 | 0 | 0 | 2/2 | 2/2 | 2 | 2 | 1/1 | 1 | 1/3 | 0 | 2.072e-05 |
-| strong_invariant | 4 | 0 | 0 | 2 | 2/2 | 2/2 | 0 | 0 | 1/1 | 3 | 1/1 | 0 | 4.0626e-05 |
-| swarm_witness | 4 | 0 | 0 | 2 | 2/2 | 2/2 | 0 | 0 | 1/1 | 3 | 1/1 | 0 | 4.9696e-05 |
-| always_unresolved | 4 | 0 | 0 | 2 | 0/2 | 0/2 | 0 | 0 | 0/1 | 4 | not applicable (0/0) | 0 | 6.415e-06 |
+| naive | 4 | 2 | 0 | 0 | 2/2 | 2/2 | 2 | 2 | 1/1 | 1 | 1/3 | 0 | 1.8e-05 |
+| strong_invariant | 4 | 0 | 0 | 2 | 2/2 | 2/2 | 0 | 0 | 1/1 | 3 | 1/1 | 0 | 4.0917e-05 |
+| swarm_witness | 4 | 0 | 0 | 2 | 2/2 | 2/2 | 0 | 0 | 1/1 | 3 | 1/1 | 0 | 4.2833e-05 |
+| always_unresolved | 4 | 0 | 0 | 2 | 0/2 | 0/2 | 0 | 0 | 0/1 | 4 | not applicable (0/0) | 0 | 4.95801e-06 |
 
 Strong-checker tie: 4 cells, 0 predicted-status mismatches. Strong checker and Swarm Witness abstain on `K-certify` and on the held `blocks_upgrade` slot `K-gate`.
 
@@ -91,6 +91,18 @@ The discriminating source on the named witness is the application-owned sink rea
 | Contaminated after `aew-v1-local-control-pass-broader-effect` | application readback | baseline system supported (false system support true) | refuted | supported / supported | refuted | readback refutes `P_effect`; allowlist stays supported |
 | Unresolved public `C04` stage B | public excerpts, stage B | strong checker unresolved; Swarm Witness unresolved | unresolved | not a URL cell | unresolved | adjudicated unresolved; not upgraded |
 
+## Table N. Native matched-method comparison
+
+Denominator: twelve application-owned histories × four evidence conditions (`actor_only`, `discriminating_readback`, `duplicate_irrelevant`, `withheld_misbound`), scored for `P_effect` under equal evidence access. Adjudication is the discriminating-readback verdict for that history. This layer is separate from Tables P, C, S, and A. It is acceptance evidence for native integration, not a superiority claim. A tie is an acceptable completion result.
+
+| Method | Cells | Correct decisive | Unsupported support | Refusal on incomplete | Match on readback |
+|---|---:|---:|---:|---:|---:|
+| swarm_witness | 48 | 35 | 0 | 13 | 12/12 |
+| always_unresolved | 48 | 0 | 0 | 36 | 0/12 |
+| strong_abstention | 48 | 12 | 0 | 36 | 12/12 |
+
+Swarm Witness vs strong abstention: 48 cells, 23 predicted-status mismatches. Mismatches are non-readback packets that still carry application sink rows; strong abstention refuses without the discriminating condition name, while Swarm Witness reads the packet. `superiority_claim` remains false.
+
 ## Table E. Retained workflow and native telemetry
 
 These two rows are not the twelve-history witness and not the 24-cell public layer.
@@ -122,14 +134,14 @@ Frozen comparison inputs (`artifacts/incident_comparison_v1/input_sha256.json`):
 
 Retained files hashed at render time:
 
-- `frozen_summary`: `055828475ff58c7f44c5b5bb858fb6701663978680fd324b001ccded5e6716a0`
+- `frozen_summary`: `e6a9c12fe21bb4e1c44b290a1cd6a68230d415f0261a26573e65441cd83d98e2`
 - `frozen_matrix`: `cb431d2cc079ca5183accc0c7d8563a1e9848608c556f7fbe992723fd897b3e0`
 - `staged_summary`: `cf5c885ea02b4669d8e07d95cdc128b7dfa0d6193f08fa3eb75d843acb7dff64`
 - `staged_matrix`: `bc5e497d96ace75f24c7b0b504e3d2a5a8cb5e096b342d80fd321dd3d243de22`
 - `effect_summary`: `4cb42d811aab039ca7fbd8e3346898496eb716abde9f2f450eec0615ac879d74`
 - `effect_witness`: `e9c26bee430d771a7ca03dfcc24fd88b9886fb381c5b02d62ffd4780c9202e1e`
-- `effect_packets`: `64a91273b7cacda2b736af16901f81be76ad5d288ac6960719411649ee340d00`
+- `effect_packets`: `e98d88e9245445a0925909f1f0c81566987335a96c812a4ef628f98d9891de43`
 - `binding_summary`: `cbada3c1496e55bce74eb09486c12aee33fe231bb861d87e899f8646d134d0b4`
 - `frozen_input_sha256`: `70c642989ab1e19bcbe247bc40cb7f1da3e449ad950e04470f7b907b688d6f33`
 
-Per-case outputs for every method, including the staged rows, are `report/bounded_comparison_v1/ledger.csv`. Ledger rows: 208.
+Per-case outputs for every method, including the staged rows and the native matched-method layer, are `report/bounded_comparison_v1/ledger.csv`. Ledger rows: 352 (native matched-method rows: 144).

@@ -160,6 +160,126 @@ def _ledger_rows(layer: str, rows: list[dict[str, Any]]) -> list[dict[str, str]]
     return published
 
 
+def _native_matched_rows(packets: dict[str, Any]) -> list[dict[str, Any]]:
+    """Score frozen native packets under equal-access matched methods.
+
+    Methods: Swarm Witness property verdict, always-unresolved null, and a
+    strong abstention baseline that only decides when application readback is
+    present. A tie remains an acceptable completion result.
+    """
+    rows: list[dict[str, Any]] = []
+    methods = ("swarm_witness", "always_unresolved", "strong_abstention")
+    for history_id, conditions in sorted(packets.items()):
+        readback = conditions.get("discriminating_readback") or {}
+        adjudicated = (
+            (readback.get("property") or {})
+            .get("child_verdicts", {})
+            .get("P_effect", "unresolved")
+        )
+        for condition, packet in sorted(conditions.items()):
+            prop = packet.get("property") or {}
+            predicted_sw = prop.get("child_verdicts", {}).get("P_effect", "unresolved")
+            claim = packet.get("committed_claim") or {}
+            for method in methods:
+                if method == "swarm_witness":
+                    predicted = predicted_sw
+                elif method == "always_unresolved":
+                    predicted = "unresolved"
+                else:
+                    # Strong abstention decides only with application readback.
+                    predicted = (
+                        adjudicated
+                        if condition == "discriminating_readback"
+                        else "unresolved"
+                    )
+                rows.append(
+                    {
+                        "claim_id": f"{history_id}:{condition}:P_effect",
+                        "history": history_id,
+                        "stage": condition,
+                        "method": method,
+                        "predicted": predicted,
+                        "adjudicated": adjudicated,
+                        "category": "native_matched_methods",
+                        "attributed_origin": "",
+                        "warranted_origin": "",
+                        "proposition_holds": ""
+                        if adjudicated == "unresolved"
+                        else str(adjudicated == "supported").lower(),
+                        "observation_ids": [condition],
+                        "certifies_original_incident": False,
+                        "conclusion_class": claim.get("conclusion_class") or "",
+                        "prompt_sha256": "",
+                    }
+                )
+    return rows
+
+
+def _native_method_summary(rows: list[dict[str, Any]]) -> list[str]:
+    methods = ("swarm_witness", "always_unresolved", "strong_abstention")
+    lines = [
+        "## Table N. Native matched-method comparison",
+        "",
+        "Denominator: twelve application-owned histories × four evidence conditions "
+        "(`actor_only`, `discriminating_readback`, `duplicate_irrelevant`, "
+        "`withheld_misbound`), scored for `P_effect` under equal evidence access. "
+        "Adjudication is the discriminating-readback verdict for that history. "
+        "This layer is separate from Tables P, C, S, and A. It is acceptance "
+        "evidence for native integration, not a superiority claim. A tie is an "
+        "acceptable completion result.",
+        "",
+        "| Method | Cells | Correct decisive | Unsupported support | Refusal on incomplete | Match on readback |",
+        "|---|---:|---:|---:|---:|---:|",
+    ]
+    for method in methods:
+        subset = [row for row in rows if row["method"] == method]
+        cells = len(subset)
+        correct_decisive = sum(
+            1
+            for row in subset
+            if row["predicted"] == row["adjudicated"] and row["predicted"] != "unresolved"
+        )
+        unsupported = sum(
+            1
+            for row in subset
+            if row["predicted"] == "supported" and row["adjudicated"] != "supported"
+        )
+        refusal = sum(
+            1
+            for row in subset
+            if row["stage"] != "discriminating_readback" and row["predicted"] == "unresolved"
+        )
+        readback = [
+            row for row in subset if row["stage"] == "discriminating_readback"
+        ]
+        match_readback = sum(
+            1 for row in readback if row["predicted"] == row["adjudicated"]
+        )
+        lines.append(
+            f"| {method} | {cells} | {correct_decisive} | {unsupported} | "
+            f"{refusal} | {match_readback}/{len(readback)} |"
+        )
+    swarm = [row for row in rows if row["method"] == "swarm_witness"]
+    strong = [row for row in rows if row["method"] == "strong_abstention"]
+    by_claim = {row["claim_id"]: row["predicted"] for row in strong}
+    mismatches = sum(
+        1 for row in swarm if by_claim.get(row["claim_id"]) != row["predicted"]
+    )
+    lines.extend(
+        [
+            "",
+            f"Swarm Witness vs strong abstention: {len(swarm)} cells, "
+            f"{mismatches} predicted-status mismatches. Mismatches are "
+            "non-readback packets that still carry application sink rows; "
+            "strong abstention refuses without the discriminating condition "
+            "name, while Swarm Witness reads the packet. "
+            "`superiority_claim` remains false.",
+            "",
+        ]
+    )
+    return lines
+
+
 def _write_csv(path: Path, rows: list[dict[str, str]]) -> None:
     fields = [
         "layer",
@@ -300,7 +420,26 @@ def render(root: Path = ROOT) -> dict[str, Any]:
     ledger = _ledger_rows("public_warrants", matrix["public"])
     ledger.extend(_ledger_rows("controlled_comparison", matrix["controlled"]))
     ledger.extend(_ledger_rows("staged_author_curated", staged_matrix["rows"]))
+    native_rows = _native_matched_rows(packets)
+    ledger.extend(_ledger_rows("native_matched_methods", native_rows))
+    if not native_rows:
+        raise SystemExit("native matched-method layer produced zero rows")
     _write_csv(out / "ledger.csv", ledger)
+    native_meta = {
+        "layer": "native_matched_methods",
+        "row_count": len(native_rows),
+        "methods": sorted({row["method"] for row in native_rows}),
+        "history_count": len({row["history"] for row in native_rows}),
+        "condition_count": len({row["stage"] for row in native_rows}),
+        "note": (
+            "Equal-access scoring of frozen application-effect packets. "
+            "Not a claim of advantage over the strong public checker."
+        ),
+    }
+    (out / "native_matched_methods.json").write_text(
+        json.dumps(native_meta, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
     sources = {
         "frozen_summary": _sha256(root / FROZEN_SUMMARY.relative_to(ROOT)),
@@ -430,6 +569,7 @@ def render(root: Path = ROOT) -> dict[str, Any]:
         "",
         *_worked_example(packets, witness, matrix["public"]),
         "",
+        *_native_method_summary(native_rows),
         "## Table E. Retained workflow and native telemetry",
         "",
         "These two rows are not the twelve-history witness and not the 24-cell public layer.",
@@ -476,9 +616,11 @@ def render(root: Path = ROOT) -> dict[str, Any]:
     lines.extend(
         [
             "",
-            "Per-case outputs for every method, including the staged rows, are "
+            "Per-case outputs for every method, including the staged rows and the "
+            "native matched-method layer, are "
             "`report/bounded_comparison_v1/ledger.csv`. "
-            f"Ledger rows: {len(ledger)}.",
+            f"Ledger rows: {len(ledger)} "
+            f"(native matched-method rows: {len(native_rows)}).",
             "",
         ]
     )
@@ -486,6 +628,7 @@ def render(root: Path = ROOT) -> dict[str, Any]:
     (out / "TABLES.md").write_text(text, encoding="utf-8")
     return {
         "ledger_rows": len(ledger),
+        "native_matched_rows": len(native_rows),
         "public_tie_cells": public_tie["cells"],
         "public_naive_unsupported_support": naive_public,
         "public_strong_unsupported_support": strong_public,
