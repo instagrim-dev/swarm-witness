@@ -67,7 +67,10 @@ def _load_parts() -> dict[str, str]:
     body = (REPORT / "body.md").read_text()
     lim = (REPORT / "LIMITATIONS_DUAL_USE.md").read_text()
     final = (REPORT / "Swarm_Witness_Final_Submission.md").read_text()
-    refs = final.split("## References", 1)[1].split("## Appendix", 1)[0].strip()
+    # Heading depth is not part of the boundary: the manuscript uses
+    # "# Appendix A", and a literal "## Appendix" split would keep that
+    # section inside References and then append a second appendix below.
+    refs = _between_headings(final, "References", "Appendix")
     refs = re.sub(r"^\d+\.\s+", "", refs, flags=re.M)
     return {
         "abstract": abstract,
@@ -89,17 +92,34 @@ def _load_parts() -> dict[str, str]:
     }
 
 
-def _section_after(text: str, start: str, end: str | None) -> str:
-    i = text.find(start)
-    if i < 0:
+def _heading_label(raw: str) -> str:
+    """Drop ATX marks so a boundary matches at any heading depth."""
+    return re.sub(r"^#+\s*", "", raw.strip())
+
+
+def _find_heading(text: str, label: str) -> re.Match[str] | None:
+    """First ATX heading of any depth whose title starts with label."""
+    label = _heading_label(label)
+    if not label:
+        raise ValueError("empty heading label")
+    return re.search(rf"^#{{1,6}}[ \t]+{re.escape(label)}.*$", text, re.M)
+
+
+def _between_headings(text: str, start: str, end: str | None) -> str:
+    start_match = _find_heading(text, start)
+    if start_match is None:
         raise ValueError(f"missing {start}")
-    rest = text[i + len(start) :]
+    rest = text[start_match.end() :]
     if end:
-        j = rest.find(end)
-        if j < 0:
+        end_match = _find_heading(rest, end)
+        if end_match is None:
             raise ValueError(f"missing end {end}")
-        rest = rest[:j]
-    return _strip_md(rest.strip())
+        rest = rest[: end_match.start()]
+    return rest.strip()
+
+
+def _section_after(text: str, start: str, end: str | None) -> str:
+    return _strip_md(_between_headings(text, start, end))
 
 
 def _strip_md_heading(text: str) -> str:
