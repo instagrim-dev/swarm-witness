@@ -35,7 +35,8 @@ def main() -> dict:
     freeze = validate_freeze(cases)
     rows, totals = evaluate_from_disk(ROOT)
     mutations = negative_mutations()
-    mutation_pass = all(m.get("passed", False) for m in mutations)
+    counted = [m for m in mutations if m.get("counted", True)]
+    mutation_pass = bool(counted) and all(m.get("passed") for m in counted)
 
     swarm = totals["by_method"]["swarm_witness"]
     naive = totals["by_method"]["naive_pass"]
@@ -154,7 +155,9 @@ def main() -> dict:
                 f"- swarm decisive coverage: {swarm['correct_decisive_coverage']}",
                 f"- naive false support: {naive['false_support']}",
                 f"- checklist false support: {checklist['false_support']}",
-                f"- mutation pass: {mutation_pass}",
+                f"- swarm attribution coverage: {swarm['correct_concrete_origin']}/{swarm['unique_origin_cases']}",
+                f"- swarm unsupported attribution: {swarm['unsupported_attribution']}",
+                f"- counted mutations passed: {mutation_pass}",
                 f"- overall passed: {observations['passed']}",
                 "",
                 "Synthetic controls only. External reproduction traces are issue #50.",

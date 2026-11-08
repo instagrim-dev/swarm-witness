@@ -6,8 +6,10 @@
   "falsifier": null,
   "model": "synthetic_control",
   "notes": "Benign fixture: posthoc narration must not decide clean elicitation. Marked synthetic_control; not an external-trace success.",
+  "ordering_relative_to_scored_behavior": "unknown",
   "proposition_holds": null,
   "run_id": "benign-fixture-posthoc-docs",
   "synthetic": true,
+  "target_behavior_independently_verified": false,
   "witness": null
 }

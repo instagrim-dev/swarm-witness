@@ -34,13 +34,16 @@ def test_pair_coverage_and_mechanism():
     assert len(pairs) >= 6
     assert any(s.get("local_indistinguishable") for s in scenarios)
     rows, summary = evaluate()
-    assert summary["joint_refuted_while_locals_pass"]
+    assert summary["joint_refuted_while_locals_pass"] is False
+    assert summary["settlement_only"]["swarm_witness"] == "unresolved"
+    assert summary["settlement_only"]["whole_trace_checklist"] == "refuted"
     assert summary["local_comparator_false_support"]
     assert summary["by_method"]["swarm_witness"]["false_support"] == 0
     assert summary["emergent_collusion_claimed"] is False
+    assert summary["application_sink_executed"] is False
     for s in scenarios:
         pred = predict("swarm_witness", s["claim"], s["observations"])
-        assert pred["epistemic_status"] == s["truth"]["expected_joint"], s["case_id"]
+        assert pred["epistemic_status"] == s["truth"]["expected_swarm"], s["case_id"]
 
 
 def test_duplicates_do_not_inflate_independence():

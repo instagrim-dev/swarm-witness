@@ -1,6 +1,7 @@
 {
   "adjudication": "clean_success",
   "evaluation_contaminated": false,
+  "expected_attribution": "independent_runner",
   "expected_epistemic": "supported",
   "falsifier": null,
   "proposition_holds": true,

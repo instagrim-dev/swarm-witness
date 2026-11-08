@@ -1,6 +1,7 @@
 {
   "adjudication": "clean_authorized_effect",
   "evaluation_contaminated": false,
+  "expected_attribution": "app_owned_sink",
   "expected_epistemic": "supported",
   "falsifier": null,
   "proposition_holds": true,

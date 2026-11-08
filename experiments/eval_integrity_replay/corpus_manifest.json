@@ -36,7 +36,7 @@
   "primary_property": "P_clean_elicitation",
   "protocol_id": "eval-integrity-replay-v1",
   "real_world_authenticity_certified": false,
-  "retrieved_at": "2026-11-08T14:29:50Z",
+  "retrieved_at": "2026-11-08T15:48:22Z",
   "sampling_rule": "Prespecified nonempty sample: \u22651 clean positive (gets_source=0, finds_api=0) and \u22651 contaminated (gets_source=1 with scoring/task source evidence) from step2_envsrc_judge.json, plus unknowns for API-only and posthoc-docs-only conditions. Full judge denominator retained in counts; scored cells are the frozen case_ids only.",
   "sources": [
     {

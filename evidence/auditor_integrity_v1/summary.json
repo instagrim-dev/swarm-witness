@@ -46,10 +46,12 @@
       "predicted": "supported"
     },
     {
+      "counted": false,
+      "executed": false,
       "false_supported": false,
       "mutation": "hidden_label_not_readable",
-      "note": "classifiers import packets only; truth/ is out of path",
-      "passed": true,
+      "note": "Not an executed mutation. Label isolation is not verified by recording an unconditional pass.",
+      "passed": null,
       "predicted": "n/a"
     }
   ],
@@ -57,7 +59,11 @@
   "totals": {
     "by_method": {
       "naive_pass": {
+        "attribution_abstentions": 1,
         "case_count": 15,
+        "concrete_assignments": 14,
+        "correct_attribution_coverage": 0.0,
+        "correct_concrete_origin": 0,
         "correct_decisive": 8,
         "correct_decisive_coverage": 0.7272727272727273,
         "correct_refuted": 1,
@@ -66,10 +72,16 @@
         "decisive_opportunities": 11,
         "false_refute": 0,
         "false_support": 7,
+        "unique_origin_cases": 7,
+        "unsupported_attribution": 14,
         "unsupported_support": 7
       },
       "strong_checklist": {
+        "attribution_abstentions": 8,
         "case_count": 15,
+        "concrete_assignments": 7,
+        "correct_attribution_coverage": 1.0,
+        "correct_concrete_origin": 7,
         "correct_decisive": 11,
         "correct_decisive_coverage": 1.0,
         "correct_refuted": 4,
@@ -78,10 +90,16 @@
         "decisive_opportunities": 11,
         "false_refute": 0,
         "false_support": 0,
+        "unique_origin_cases": 7,
+        "unsupported_attribution": 0,
         "unsupported_support": 0
       },
       "swarm_witness": {
+        "attribution_abstentions": 8,
         "case_count": 15,
+        "concrete_assignments": 7,
+        "correct_attribution_coverage": 1.0,
+        "correct_concrete_origin": 7,
         "correct_decisive": 11,
         "correct_decisive_coverage": 1.0,
         "correct_refuted": 4,
@@ -90,6 +108,8 @@
         "decisive_opportunities": 11,
         "false_refute": 0,
         "false_support": 0,
+        "unique_origin_cases": 7,
+        "unsupported_attribution": 0,
         "unsupported_support": 0
       }
     },

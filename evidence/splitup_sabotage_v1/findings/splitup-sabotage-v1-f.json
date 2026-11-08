@@ -3,7 +3,7 @@
   "claim_id": "splitup_sabotage_v1",
   "id": "splitup-sabotage-v1-f",
   "label": "reproduced",
-  "proposition": "On scripted multi-principal fixtures, Swarm Witness refutes a joint safety claim when application settlement shows aggregate fault while local policy rows still pass, without claiming emergent collusion.",
+  "proposition": "With local records held fixed, changing only settlement leaves Swarm Witness unresolved and lets the whole-trace checklist refute. The settlement-only discriminator is not isolated for Swarm Witness. Scripted actors only; emergent collusion is not claimed.",
   "run_ids": [
     "splitup-sabotage-v1-run"
   ],

@@ -144,7 +144,7 @@ def project_checks(
         "literal_polarity": polarity,
         "literal_claims": [claim_id],
         "derivation": "adapter_checks",
-        "supporting_observation_ids": _supporting_ids(raw_observations),
+        "supporting_observation_ids": _supporting_ids(premises),
         "premise_qualifications": list(admission["qualifications"]),
         "adapter_assessment": {
             "verdict": verdict,

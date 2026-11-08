@@ -11,7 +11,9 @@ Protocol `auditor-integrity-v1`. Issue #51.
 - swarm decisive coverage: 1.0
 - naive false support: 7
 - checklist false support: 0
-- mutation pass: True
+- swarm attribution coverage: 7/7
+- swarm unsupported attribution: 0
+- counted mutations passed: True
 - overall passed: True
 
 Synthetic controls only. External reproduction traces are issue #50.

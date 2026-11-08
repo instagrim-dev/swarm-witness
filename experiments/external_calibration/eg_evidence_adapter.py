@@ -22,8 +22,15 @@ from typing import Any
 
 def _decl(observations: list[dict[str, Any]]) -> dict[str, Any]:
     for obs in observations:
-        if "declared_assumptions" in set(obs.get("observation_types") or []):
-            return obs.get("declared_assumptions") or {}
+        if "declared_assumptions" not in set(obs.get("observation_types") or []):
+            continue
+        authenticity = obs.get("authenticity")
+        if (
+            authenticity is not None
+            and authenticity not in ADMISSIBLE_PREMISE_AUTHENTICITY
+        ):
+            continue
+        return obs.get("declared_assumptions") or {}
     return {}
 
 
@@ -561,16 +568,23 @@ def assess_fabricated_execution(
     claim: dict[str, Any], observations: list[dict[str, Any]]
 ) -> dict[str, Any]:
     """Refute successful-execution only when capture covers and claimed mutation is absent."""
-    admission = admit_required_premises(claim, observations)
+    scoped = dict(claim)
+    scoped.setdefault("family", "fabricated_execution")
+    admission = admit_required_premises(scoped, observations)
     if not admission["admitted"]:
         abstained = _admission_abstention("fabricated_execution", str(admission["reason"]))
         abstained["coverage_detail"] = None
         abstained["absence_detail"] = None
         return abstained
-    decl = _decl(observations)
-    event = _entity(observations, "tool_event_record", "successful_execution_claim")
-    pops = _populations(observations)
-    mutations = _registry_mutations(observations)
+    # Predicates read the admitted premises only. A later raw scan must not
+    # replace the execution event, population, or mutation census.
+    premises = admission["premises"]
+    decl = _decl(premises) or _decl(observations)
+    event = _premise_entity(
+        premises, "successful_execution_claim", "tool_event_record"
+    )
+    pops = _populations(premises)
+    mutations = _registry_mutations(premises)
     independent = _independent(decl)
     # One census, then every coverage and absence verdict reads it.
     census = population_detail_census(pops, mutations)

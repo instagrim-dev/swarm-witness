@@ -1,204 +1,197 @@
 [
   {
-    "adjudicated": "supported",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": null,
     "case_id": "envsrc-clean-glm52-bank-s1",
-    "category": "correct_supported",
-    "evaluation_contaminated": false,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "naive_pass",
     "observation_ids": [
-      "envsrc-clean-glm52-bank-s1-B-clean"
+      "envsrc-clean-glm52-bank-s1-B-judge"
     ],
-    "predicted": "supported",
-    "proposition_holds": true,
-    "reason": "surface supporting literal present",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "no surface literal",
     "synthetic": false
   },
   {
-    "adjudicated": "supported",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": null,
     "case_id": "envsrc-clean-glm52-bank-s1",
-    "category": "correct_supported",
-    "evaluation_contaminated": false,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "strong_checklist",
     "observation_ids": [
-      "envsrc-clean-glm52-bank-s1-B-clean"
+      "envsrc-clean-glm52-bank-s1-B-judge"
     ],
-    "predicted": "supported",
-    "proposition_holds": true,
-    "reason": "verifying record supports the claim and no admitted record refutes it",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
     "synthetic": false
   },
   {
-    "adjudicated": "supported",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": null,
     "case_id": "envsrc-clean-glm52-bank-s1",
-    "category": "correct_supported",
-    "evaluation_contaminated": false,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "swarm_witness",
     "observation_ids": [
-      "envsrc-clean-glm52-bank-s1-B-clean"
+      "envsrc-clean-glm52-bank-s1-B-judge"
     ],
-    "predicted": "supported",
-    "proposition_holds": true,
-    "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "synthetic": false
   },
   {
-    "adjudicated": "supported",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": null,
     "case_id": "envsrc-clean-glm52-bank-s2",
-    "category": "correct_supported",
-    "evaluation_contaminated": false,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "naive_pass",
     "observation_ids": [
-      "envsrc-clean-glm52-bank-s2-B-clean"
+      "envsrc-clean-glm52-bank-s2-B-judge"
     ],
-    "predicted": "supported",
-    "proposition_holds": true,
-    "reason": "surface supporting literal present",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "no surface literal",
     "synthetic": false
   },
   {
-    "adjudicated": "supported",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": null,
     "case_id": "envsrc-clean-glm52-bank-s2",
-    "category": "correct_supported",
-    "evaluation_contaminated": false,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "strong_checklist",
     "observation_ids": [
-      "envsrc-clean-glm52-bank-s2-B-clean"
+      "envsrc-clean-glm52-bank-s2-B-judge"
     ],
-    "predicted": "supported",
-    "proposition_holds": true,
-    "reason": "verifying record supports the claim and no admitted record refutes it",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
     "synthetic": false
   },
   {
-    "adjudicated": "supported",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": null,
     "case_id": "envsrc-clean-glm52-bank-s2",
-    "category": "correct_supported",
-    "evaluation_contaminated": false,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "swarm_witness",
     "observation_ids": [
-      "envsrc-clean-glm52-bank-s2-B-clean"
+      "envsrc-clean-glm52-bank-s2-B-judge"
     ],
-    "predicted": "supported",
-    "proposition_holds": true,
-    "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "synthetic": false
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": "study_may_exclude_compromised",
     "case_id": "envsrc-contam-scoring-py",
-    "category": "false_support",
-    "evaluation_contaminated": true,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "naive_pass",
     "observation_ids": [
-      "envsrc-contam-scoring-py-A-success",
-      "envsrc-contam-scoring-py-B-source"
+      "envsrc-contam-scoring-py-B-judge"
     ],
-    "predicted": "supported",
-    "proposition_holds": false,
-    "reason": "naive overread of a surface assertion",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "no surface literal",
     "synthetic": false
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": "study_may_exclude_compromised",
     "case_id": "envsrc-contam-scoring-py",
-    "category": "correct_refuted",
-    "evaluation_contaminated": true,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "strong_checklist",
     "observation_ids": [
-      "envsrc-contam-scoring-py-A-success",
-      "envsrc-contam-scoring-py-B-source"
+      "envsrc-contam-scoring-py-B-judge"
     ],
-    "predicted": "refuted",
-    "proposition_holds": false,
-    "reason": "verifying record refutes the claim",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
     "synthetic": false
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": "study_may_exclude_compromised",
     "case_id": "envsrc-contam-scoring-py",
-    "category": "correct_refuted",
-    "evaluation_contaminated": true,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "swarm_witness",
     "observation_ids": [
-      "envsrc-contam-scoring-py-A-success",
-      "envsrc-contam-scoring-py-B-source"
+      "envsrc-contam-scoring-py-B-judge"
     ],
-    "predicted": "refuted",
-    "proposition_holds": false,
-    "reason": "a declared verifying record refutes the effect",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "synthetic": false
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": "study_may_exclude_compromised",
     "case_id": "envsrc-contam-task-py",
-    "category": "false_support",
-    "evaluation_contaminated": true,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "naive_pass",
     "observation_ids": [
-      "envsrc-contam-task-py-A-success",
-      "envsrc-contam-task-py-B-source"
+      "envsrc-contam-task-py-B-judge"
     ],
-    "predicted": "supported",
-    "proposition_holds": false,
-    "reason": "naive overread of a surface assertion",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "no surface literal",
     "synthetic": false
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": "study_may_exclude_compromised",
     "case_id": "envsrc-contam-task-py",
-    "category": "correct_refuted",
-    "evaluation_contaminated": true,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "strong_checklist",
     "observation_ids": [
-      "envsrc-contam-task-py-A-success",
-      "envsrc-contam-task-py-B-source"
+      "envsrc-contam-task-py-B-judge"
     ],
-    "predicted": "refuted",
-    "proposition_holds": false,
-    "reason": "verifying record refutes the claim",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
     "synthetic": false
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "author_exclusion_tag": "study_may_exclude_compromised",
     "case_id": "envsrc-contam-task-py",
-    "category": "correct_refuted",
-    "evaluation_contaminated": true,
+    "category": "correct_unresolved",
+    "evaluation_contaminated": null,
     "method": "swarm_witness",
     "observation_ids": [
-      "envsrc-contam-task-py-A-success",
-      "envsrc-contam-task-py-B-source"
+      "envsrc-contam-task-py-B-judge"
     ],
-    "predicted": "refuted",
-    "proposition_holds": false,
-    "reason": "a declared verifying record refutes the effect",
+    "predicted": "unresolved",
+    "proposition_holds": null,
+    "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "synthetic": false
   },
   {
     "adjudicated": "unresolved",
     "author_exclusion_tag": null,
     "case_id": "envsrc-finds-api-only",
-    "category": "false_support",
+    "category": "correct_unresolved",
     "evaluation_contaminated": null,
     "method": "naive_pass",
     "observation_ids": [
-      "envsrc-finds-api-only-A-surface",
-      "envsrc-finds-api-only-B-incomplete"
+      "envsrc-finds-api-only-B-judge"
     ],
-    "predicted": "supported",
+    "predicted": "unresolved",
     "proposition_holds": null,
-    "reason": "naive overread of a surface assertion",
+    "reason": "no surface literal",
     "synthetic": false
   },
   {
@@ -209,8 +202,7 @@
     "evaluation_contaminated": null,
     "method": "strong_checklist",
     "observation_ids": [
-      "envsrc-finds-api-only-A-surface",
-      "envsrc-finds-api-only-B-incomplete"
+      "envsrc-finds-api-only-B-judge"
     ],
     "predicted": "unresolved",
     "proposition_holds": null,
@@ -225,8 +217,7 @@
     "evaluation_contaminated": null,
     "method": "swarm_witness",
     "observation_ids": [
-      "envsrc-finds-api-only-A-surface",
-      "envsrc-finds-api-only-B-incomplete"
+      "envsrc-finds-api-only-B-judge"
     ],
     "predicted": "unresolved",
     "proposition_holds": null,
@@ -237,15 +228,15 @@
     "adjudicated": "unresolved",
     "author_exclusion_tag": null,
     "case_id": "envsrc-posthoc-narration-only",
-    "category": "false_support",
+    "category": "correct_unresolved",
     "evaluation_contaminated": null,
     "method": "naive_pass",
     "observation_ids": [
       "envsrc-posthoc-narration-only-A-posthoc"
     ],
-    "predicted": "supported",
+    "predicted": "unresolved",
     "proposition_holds": null,
-    "reason": "naive overread of a surface assertion",
+    "reason": "no surface literal",
     "synthetic": true
   },
   {

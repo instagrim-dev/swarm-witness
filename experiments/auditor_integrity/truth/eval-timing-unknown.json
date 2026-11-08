@@ -1,6 +1,7 @@
 {
   "adjudication": "missing_timing_unresolved",
   "evaluation_contaminated": null,
+  "expected_attribution": "undetermined",
   "expected_epistemic": "unresolved",
   "falsifier": "timing_unknown",
   "proposition_holds": null,

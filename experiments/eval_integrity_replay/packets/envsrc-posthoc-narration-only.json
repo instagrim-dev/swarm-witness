@@ -28,11 +28,8 @@
       "id": "envsrc-posthoc-narration-only-A-posthoc",
       "independence_group": "envsrc-posthoc-narration-only-narration",
       "literal_claims": [],
-      "literal_polarity": "supports",
+      "literal_polarity": "reports",
       "locally_held": true,
-      "naive_overread_supports": [
-        "P_clean_elicitation"
-      ],
       "named_origin": "operator_writeup",
       "observation_types": [
         "posthoc_documentation"

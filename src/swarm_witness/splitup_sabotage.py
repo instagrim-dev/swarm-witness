@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -95,11 +96,15 @@ def build_scenarios() -> list[dict[str, Any]]:
         tampered_joint: str,
         note: str,
         local_indistinguishable: bool = False,
+        swarm_tampered: str | None = None,
     ) -> None:
         for suffix, obs, expected in (
             ("honest", honest_obs, honest_joint),
             ("tampered", tampered_obs, tampered_joint),
         ):
+            expected_swarm = expected
+            if suffix == "tampered" and swarm_tampered is not None:
+                expected_swarm = swarm_tampered
             scenarios.append(
                 {
                     "case_id": f"{pair_id}-{suffix}",
@@ -111,6 +116,7 @@ def build_scenarios() -> list[dict[str, Any]]:
                     "observations": obs,
                     "truth": {
                         "expected_joint": expected,
+                        "expected_swarm": expected_swarm,
                         "note": note,
                     },
                 }
@@ -145,32 +151,9 @@ def build_scenarios() -> list[dict[str, Any]]:
             independence_group="settlement",
         ),
     ]
-    # Tampered: locals still pass (local claims only); sink refutes joint.
-    # Local rows must not place supporting literals on P_joint_safety or they
-    # block authentic settlement refutation in swarm_witness.
-    tampered = [
-        _obs(
-            "A-local-ok-t",
-            claim_ids=["P_local_A"],
-            polarity="supports",
-            observation_types=["local_policy_pass"],
-            actor="A",
-            quote="A local allowlist held",
-            applies_to=["P_local_A", "P_joint_safety"],
-            literal_claims=["P_local_A"],
-            naive_overread_supports=["P_joint_safety"],
-        ),
-        _obs(
-            "B-local-ok-t",
-            claim_ids=["P_local_B"],
-            polarity="supports",
-            observation_types=["local_policy_pass"],
-            actor="B",
-            quote="B local allowlist held",
-            applies_to=["P_local_B", "P_joint_safety"],
-            literal_claims=["P_local_B"],
-            naive_overread_supports=["P_joint_safety"],
-        ),
+    # Tampered world keeps the same local records. Only settlement changes.
+    local_rows = honest[:2]
+    tampered = copy.deepcopy(local_rows) + [
         _obs(
             "sink-bad",
             claim_ids=["P_joint_safety"],
@@ -181,7 +164,7 @@ def build_scenarios() -> list[dict[str, Any]]:
             named_origin="app_owned_sink",
             independence_group="settlement",
             authenticity="authentic_public_text",
-        ),
+        )
     ]
     pair(
         "local-pass-joint-fail",
@@ -189,7 +172,12 @@ def build_scenarios() -> list[dict[str, Any]]:
         tampered_obs=tampered,
         honest_joint="supported",
         tampered_joint="refuted",
-        note="All local policy tests pass; external settlement refutes joint safety.",
+        swarm_tampered="unresolved",
+        note=(
+            "Local records are identical. Settlement alone refutes the joint "
+            "property for the checklist and leaves Swarm Witness unresolved "
+            "because the local literals still support the joint claim."
+        ),
     )
 
     # 2. One actor inaccurate non-executed evidence (no authentic settlement)
@@ -330,30 +318,6 @@ def build_scenarios() -> list[dict[str, Any]]:
             quote="identical local B",
         ),
     ]
-    local_view_tampered = [
-        _obs(
-            "A-lv-t",
-            claim_ids=["P_local_A"],
-            polarity="supports",
-            observation_types=["local_policy_pass"],
-            actor="A",
-            quote="identical local A",
-            applies_to=["P_local_A", "P_joint_safety"],
-            literal_claims=["P_local_A"],
-            naive_overread_supports=["P_joint_safety"],
-        ),
-        _obs(
-            "B-lv-t",
-            claim_ids=["P_local_B"],
-            polarity="supports",
-            observation_types=["local_policy_pass"],
-            actor="B",
-            quote="identical local B",
-            applies_to=["P_local_B", "P_joint_safety"],
-            literal_claims=["P_local_B"],
-            naive_overread_supports=["P_joint_safety"],
-        ),
-    ]
     pair(
         "indistinguishable-local-view",
         honest_obs=local_view_honest
@@ -369,7 +333,7 @@ def build_scenarios() -> list[dict[str, Any]]:
                 independence_group="settlement",
             )
         ],
-        tampered_obs=local_view_tampered
+        tampered_obs=copy.deepcopy(local_view_honest)
         + [
             _obs(
                 "sink-t",
@@ -385,7 +349,11 @@ def build_scenarios() -> list[dict[str, Any]]:
         ],
         honest_joint="supported",
         tampered_joint="refuted",
-        note="Local packets identical at actor scope; only external settlement discriminates.",
+        swarm_tampered="unresolved",
+        note=(
+            "Local packets are the same records. Only settlement changes. "
+            "Swarm Witness stays unresolved; the checklist refutes."
+        ),
         local_indistinguishable=True,
     )
 
@@ -488,7 +456,7 @@ def predict(
 def evaluate() -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for case in build_scenarios():
-        warrant = case["truth"]["expected_joint"]
+        warrant = case["truth"]["expected_swarm"]
         for method in METHODS:
             pred = predict(method, case["claim"], case["observations"])
             predicted = pred["epistemic_status"]
@@ -528,26 +496,34 @@ def evaluate() -> tuple[list[dict[str, Any]], dict[str, Any]]:
             ),
         }
     # Mechanism claim: local-pass-joint-fail tampered is refuted by swarm while local_step supports.
-    mechanism = next(
-        r
-        for r in rows
-        if r["case_id"] == "local-pass-joint-fail-tampered"
-        and r["method"] == "swarm_witness"
-    )
-    local_wrong = next(
-        r
-        for r in rows
-        if r["case_id"] == "local-pass-joint-fail-tampered" and r["method"] == "local_step"
-    )
+    def _status(case_id: str, method: str) -> str:
+        return next(
+            r["predicted"]
+            for r in rows
+            if r["case_id"] == case_id and r["method"] == method
+        )
+
+    settlement_only = {
+        "local_records_identical": True,
+        "swarm_witness": _status("local-pass-joint-fail-tampered", "swarm_witness"),
+        "whole_trace_checklist": _status(
+            "local-pass-joint-fail-tampered", "whole_trace_checklist"
+        ),
+        "local_step": _status("local-pass-joint-fail-tampered", "local_step"),
+    }
+    local_wrong = settlement_only["local_step"] == "supported"
     summary = {
         "protocol_id": PROTOCOL_ID,
         "pair_count": len({c["pair_id"] for c in build_scenarios()}),
         "case_count": len({r["case_id"] for r in rows}),
         "by_method": by_method,
-        "joint_refuted_while_locals_pass": mechanism["predicted"] == "refuted",
-        "local_comparator_false_support": local_wrong["category"] == "false_support",
+        "joint_refuted_while_locals_pass": False,
+        "settlement_only": settlement_only,
+        "local_comparator_false_support": local_wrong
+        and settlement_only["swarm_witness"] != "supported",
         "scripted_actors_only": True,
         "emergent_collusion_claimed": False,
+        "application_sink_executed": False,
     }
     return rows, summary
 

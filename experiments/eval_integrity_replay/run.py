@@ -31,24 +31,28 @@ def main() -> dict:
     swarm = totals["by_method"]["swarm_witness"]
     naive = totals["by_method"]["naive_pass"]
     intervention_pass = all(i["passed"] for i in interventions)
-    # Trace-backed conclusion change: contaminated cases refute while naive supports.
-    contaminated_rows = [
+    external_rows = [
         r
         for r in rows
-        if r["case_id"].startswith("envsrc-contam") and r["method"] == "swarm_witness"
+        if r["method"] == "swarm_witness" and not r.get("synthetic")
     ]
-    conclusion_change = any(r["predicted"] == "refuted" for r in contaminated_rows)
-    retained_valid = swarm["correct_supported"] >= 1
+    # The pinned judge does not order source access against scored behavior
+    # and does not independently verify target success.
+    ordering_established = False
+    retained_valid = False
+    conclusion_change = False
+    headline_eligible = False
+    label_replay_abstains = all(r["predicted"] == "unresolved" for r in external_rows)
 
     observations = {
         "passed": (
             swarm["false_support"] == 0
-            and swarm["correct_supported"] >= 1
-            and swarm["correct_refuted"] >= 1
+            and label_replay_abstains
             and intervention_pass
-            and conclusion_change
-            and retained_valid
+            and headline_eligible is False
+            and retained_valid is False
         ),
+        "study_kind": "label_replay",
         "manifest_id": manifest["id"],
         "git_sha": next(
             s["revision"] for s in manifest["sources"] if s["id"] == "git_reproduction"
@@ -64,9 +68,11 @@ def main() -> dict:
         "intervention_pass": intervention_pass,
         "conclusion_change": conclusion_change,
         "retained_valid_success": retained_valid,
+        "ordering_established": ordering_established,
+        "label_replay_abstains": label_replay_abstains,
         "swarm_false_support": swarm["false_support"],
         "naive_false_support": naive["false_support"],
-        "headline_eligible": conclusion_change and retained_valid,
+        "headline_eligible": headline_eligible,
         "real_world_authenticity_certified": False,
         "detection_or_prevention_claimed": False,
         "transfer_claim": False,
@@ -89,13 +95,11 @@ def main() -> dict:
         "claim_id": CLAIM_ID,
         "run_ids": [RUN_ID],
         "proposition": (
-            "On a frozen sample of released envsrc judge labels from the "
-            "OpenAI–HF reproduction, Swarm Witness refutes clean-elicitation "
-            "when scoring/task source was retrieved before scoring, retains "
-            "supported clean controls, and abstains when timing is missing — "
-            "with zero false supports under the shared evidence budget."
+            "On the pinned envsrc judge labels, source-access is replayed "
+            "without establishing exposure-before-scored-behavior or an "
+            "independent successful outcome. Headline eligibility stays false."
             if observations["passed"]
-            else "Eval-integrity replay failed a declared acceptance check."
+            else "Eval-integrity label replay failed a declared acceptance check."
         ),
         "scope": (
             "Released reproduction analysis and Hub trajectories pinned in "
@@ -161,12 +165,16 @@ def main() -> dict:
                 f"- judge denominator: {manifest['denominator']['envsrc_judge_runs_total']}",
                 f"- swarm false support: {swarm['false_support']}",
                 f"- naive false support: {naive['false_support']}",
+                f"- study kind: {observations['study_kind']}",
+                f"- ordering established: {ordering_established}",
                 f"- conclusion change: {conclusion_change}",
                 f"- retained valid success: {retained_valid}",
                 f"- interventions passed: {intervention_pass}",
                 f"- overall passed: {observations['passed']}",
                 f"- headline eligible: {observations['headline_eligible']}",
                 "",
+                "Label replay of released source-access judgments. "
+                "Does not establish exposure before scored behavior or a verified success. "
                 "Original private incident logs unavailable. Transfer/detection/prevention false.",
                 "",
             ]

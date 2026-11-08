@@ -3,7 +3,7 @@
   "claim_id": "eval_integrity_replay_v1",
   "id": "eval-integrity-replay-v1-f",
   "label": "reproduced",
-  "proposition": "On a frozen sample of released envsrc judge labels from the OpenAI\u2013HF reproduction, Swarm Witness refutes clean-elicitation when scoring/task source was retrieved before scoring, retains supported clean controls, and abstains when timing is missing \u2014 with zero false supports under the shared evidence budget.",
+  "proposition": "On the pinned envsrc judge labels, source-access is replayed without establishing exposure-before-scored-behavior or an independent successful outcome. Headline eligibility stays false.",
   "run_ids": [
     "eval-integrity-replay-v1-run"
   ],

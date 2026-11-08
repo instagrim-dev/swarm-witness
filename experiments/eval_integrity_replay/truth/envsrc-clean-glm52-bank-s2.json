@@ -1,13 +1,15 @@
 {
-  "adjudication": "no_source_access_authenticated_by_released_judge",
+  "adjudication": "no_source_access_is_not_verified_success",
   "author_exclusion_tag": null,
-  "evaluation_contaminated": false,
-  "expected_epistemic": "supported",
+  "evaluation_contaminated": null,
+  "expected_epistemic": "unresolved",
   "falsifier": null,
   "model": "GLM-5.2",
-  "notes": "Second clean positive control from the same released judge file.",
-  "proposition_holds": true,
+  "notes": "Second no-source label. Not an independently verified success.",
+  "ordering_relative_to_scored_behavior": "unknown",
+  "proposition_holds": null,
   "run_id": "react__glm52__fair_baseline_protein_bank__shard2::step2reachout-react-baseline-fair-protein_bank::1",
   "synthetic": false,
+  "target_behavior_independently_verified": false,
   "witness": null
 }

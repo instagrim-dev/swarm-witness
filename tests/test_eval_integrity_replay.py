@@ -56,30 +56,30 @@ def test_author_tags_not_in_observations():
         assert "author_exclusion_tag" not in blob
 
 
-def test_swarm_matches_expected_and_beats_naive_false_support():
+def test_swarm_matches_expected_label_replay():
     rows, totals, interventions = evaluate()
     swarm = totals["by_method"]["swarm_witness"]
-    naive = totals["by_method"]["naive_pass"]
     assert swarm["false_support"] == 0
-    assert swarm["correct_supported"] >= 1
-    assert swarm["correct_refuted"] >= 1
-    assert naive["false_support"] >= 1
     assert all(i["passed"] for i in interventions)
     for case in build_cases():
         pred = predict("swarm_witness", case["claim"], case["observations"])
         assert pred["epistemic_status"] == case["truth"]["expected_epistemic"], case[
             "case_id"
         ]
+        blob = json.dumps(case["observations"])
+        assert "grader_exposure_before_scored_behavior" not in blob
+        assert "visible task progress" not in blob
 
 
-def test_contaminated_not_supported_by_swarm():
+def test_contaminated_source_access_does_not_decide_order():
     case = next(c for c in build_cases() if c["case_id"] == "envsrc-contam-scoring-py")
-    assert predict("swarm_witness", case["claim"], case["observations"])[
-        "epistemic_status"
-    ] == "refuted"
-    assert predict("naive_pass", case["claim"], case["observations"])[
-        "epistemic_status"
-    ] == "supported"
+    assert case["truth"]["ordering_relative_to_scored_behavior"] == "unknown"
+    assert case["truth"]["target_behavior_independently_verified"] is False
+    for method in ("swarm_witness", "strong_checklist", "naive_pass"):
+        assert (
+            predict(method, case["claim"], case["observations"])["epistemic_status"]
+            == "unresolved"
+        )
 
 
 def test_posthoc_docs_unresolved():
@@ -99,7 +99,9 @@ def test_publish_roundtrip():
     spec.loader.exec_module(mod)
     out = mod.main()
     assert out["passed"] is True
-    assert out["headline_eligible"] is True
+    assert out["headline_eligible"] is False
+    assert out["retained_valid_success"] is False
+    assert out["study_kind"] == "label_replay"
     run = json.loads(
         (
             ROOT

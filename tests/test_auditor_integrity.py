@@ -124,9 +124,24 @@ def test_duplicate_origin_does_not_inflate_groups():
 
 def test_negative_mutations_pass():
     results = negative_mutations()
-    assert results
-    assert all(item.get("passed") for item in results)
+    counted = [item for item in results if item.get("counted", True)]
+    assert counted
+    assert all(item.get("passed") for item in counted)
     assert all(not item.get("false_supported") for item in results)
+    hidden = next(item for item in results if item["mutation"] == "hidden_label_not_readable")
+    assert hidden["counted"] is False
+    assert hidden["executed"] is False
+    assert hidden["passed"] is None
+
+
+def test_attribution_has_its_own_denominator():
+    write_split_fixtures(ROOT)
+    _rows, totals = evaluate_from_disk(ROOT)
+    swarm = totals["by_method"]["swarm_witness"]
+    assert swarm["unique_origin_cases"] >= 2
+    assert swarm["correct_concrete_origin"] == swarm["unique_origin_cases"]
+    assert swarm["unsupported_attribution"] == 0
+    assert swarm["correct_attribution_coverage"] == 1
 
 
 def test_published_evidence_roundtrip():

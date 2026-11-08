@@ -15,9 +15,11 @@ incident telemetry.
 grader/scoring-source exposure before the scored action.
 
 Verified contamination requires authenticated Stage-B evidence of
-grader/scoring-source exposure **before** scored behavior. Mere presence of
-scoring files in the image, or posthoc narration, does not suffice. Missing
-timing stays `unresolved`.
+grader/scoring-source exposure **before** scored behavior. The pinned envsrc
+judge records `gets_source` and a short evidence string. It does not order
+that access against scored behavior and does not verify target success.
+Those cases stay `unresolved`. `headline_eligible` stays false until a
+public trajectory supplies the order and an independent positive outcome.
 
 ## Stages
 

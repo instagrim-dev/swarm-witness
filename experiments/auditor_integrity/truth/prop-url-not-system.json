@@ -1,6 +1,7 @@
 {
   "adjudication": "narrow_control_does_not_imply_system",
   "evaluation_contaminated": false,
+  "expected_attribution": "undetermined",
   "expected_epistemic": "refuted",
   "falsifier": "effect_boundary",
   "proposition_holds": false,

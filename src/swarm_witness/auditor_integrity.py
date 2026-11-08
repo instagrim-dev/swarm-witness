@@ -703,6 +703,28 @@ def build_cases() -> list[dict[str, Any]]:
         }
     )
 
+    expected_origin = {
+        "eval-clean-success": "independent_runner",
+        "eval-contaminated-before": "undetermined",
+        "eval-posthoc-docs-only": "independent_runner",
+        "eval-timing-unknown": "undetermined",
+        "tx-effect-agree": "app_owned_sink",
+        "tx-missing-effect": "undetermined",
+        "tx-false-effect": "undetermined",
+        "src-duplicate-origin": "report_a",
+        "src-distinct-provider": "provider_api",
+        "prop-url-not-system": "undetermined",
+        "prop-local-control-only": "undetermined",
+        "ctrl-authorized-effect": "app_owned_sink",
+        "ctrl-forged-command": "undetermined",
+        "ctrl-irrelevant-extra": "app_owned_sink",
+        "ctrl-known-refute": "undetermined",
+    }
+    missing = {case["case_id"] for case in cases} - set(expected_origin)
+    if missing:
+        raise ValueError(f"missing expected attribution: {sorted(missing)}")
+    for case in cases:
+        case["truth"]["expected_attribution"] = expected_origin[case["case_id"]]
     return cases
 
 
@@ -812,6 +834,7 @@ def score_case(case: dict[str, Any]) -> list[dict[str, Any]]:
                 "evaluation_contaminated": truth.get("evaluation_contaminated"),
                 "category": category,
                 "attributed_origin": predicted.get("attributed_origin", "undetermined"),
+                "warranted_origin": truth.get("expected_attribution", "undetermined"),
                 "failure_origin": predicted.get("failure_origin", "undetermined"),
                 "support_group_count": predicted.get("support_group_count", 0),
                 "reason": predicted.get("reason", ""),
@@ -863,6 +886,24 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
             for row in subset
             if row["adjudicated"] in DECISIVE and row["predicted"] == row["adjudicated"]
         )
+        unique_origin_cases = 0
+        correct_concrete_origin = 0
+        unsupported_attribution = 0
+        concrete_assignments = 0
+        attribution_abstentions = 0
+        for row in subset:
+            origin = row.get("attributed_origin") or "undetermined"
+            warranted = row.get("warranted_origin") or "undetermined"
+            if origin != "undetermined":
+                concrete_assignments += 1
+                if origin != warranted:
+                    unsupported_attribution += 1
+            else:
+                attribution_abstentions += 1
+            if warranted != "undetermined":
+                unique_origin_cases += 1
+                if origin == warranted:
+                    correct_concrete_origin += 1
         by_method[method] = {
             "case_count": len(subset),
             "false_support": false_support,
@@ -875,6 +916,16 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "decisive_opportunities": decisive_ops,
             "correct_decisive_coverage": (
                 None if decisive_ops == 0 else correct_decisive / decisive_ops
+            ),
+            "unsupported_attribution": unsupported_attribution,
+            "concrete_assignments": concrete_assignments,
+            "attribution_abstentions": attribution_abstentions,
+            "unique_origin_cases": unique_origin_cases,
+            "correct_concrete_origin": correct_concrete_origin,
+            "correct_attribution_coverage": (
+                None
+                if unique_origin_cases == 0
+                else correct_concrete_origin / unique_origin_cases
             ),
         }
     return {
@@ -998,8 +1049,13 @@ def negative_mutations() -> list[dict[str, Any]]:
             "mutation": "hidden_label_not_readable",
             "predicted": "n/a",
             "false_supported": False,
-            "passed": True,
-            "note": "classifiers import packets only; truth/ is out of path",
+            "executed": False,
+            "counted": False,
+            "passed": None,
+            "note": (
+                "Not an executed mutation. Label isolation is not verified "
+                "by recording an unconditional pass."
+            ),
         },
     ]
 

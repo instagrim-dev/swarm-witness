@@ -1,6 +1,7 @@
 {
   "adjudication": "known_negative_control",
   "evaluation_contaminated": false,
+  "expected_attribution": "undetermined",
   "expected_epistemic": "refuted",
   "falsifier": "grant_revoked",
   "proposition_holds": false,

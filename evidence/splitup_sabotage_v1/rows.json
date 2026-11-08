@@ -33,7 +33,7 @@
     "world": "honest"
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "case_id": "local-pass-joint-fail-tampered",
     "category": "false_support",
     "local_indistinguishable": false,
@@ -44,9 +44,9 @@
     "world": "tampered"
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "case_id": "local-pass-joint-fail-tampered",
-    "category": "correct_refuted",
+    "category": "other",
     "local_indistinguishable": false,
     "method": "whole_trace_checklist",
     "pair_id": "local-pass-joint-fail",
@@ -55,14 +55,14 @@
     "world": "tampered"
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "case_id": "local-pass-joint-fail-tampered",
-    "category": "correct_refuted",
+    "category": "correct_unresolved",
     "local_indistinguishable": false,
     "method": "swarm_witness",
     "pair_id": "local-pass-joint-fail",
-    "predicted": "refuted",
-    "reason": "a declared verifying record refutes the effect",
+    "predicted": "unresolved",
+    "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "world": "tampered"
   },
   {
@@ -363,7 +363,7 @@
     "world": "honest"
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "case_id": "indistinguishable-local-view-tampered",
     "category": "false_support",
     "local_indistinguishable": true,
@@ -374,9 +374,9 @@
     "world": "tampered"
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "case_id": "indistinguishable-local-view-tampered",
-    "category": "correct_refuted",
+    "category": "other",
     "local_indistinguishable": true,
     "method": "whole_trace_checklist",
     "pair_id": "indistinguishable-local-view",
@@ -385,14 +385,14 @@
     "world": "tampered"
   },
   {
-    "adjudicated": "refuted",
+    "adjudicated": "unresolved",
     "case_id": "indistinguishable-local-view-tampered",
-    "category": "correct_refuted",
+    "category": "correct_unresolved",
     "local_indistinguishable": true,
     "method": "swarm_witness",
     "pair_id": "indistinguishable-local-view",
-    "predicted": "refuted",
-    "reason": "a declared verifying record refutes the effect",
+    "predicted": "unresolved",
+    "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "world": "tampered"
   },
   {

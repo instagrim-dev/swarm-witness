@@ -123,6 +123,32 @@ def test_templated_docx_matches_markdown_appendix_and_lesswrong_refs():
     assert md_refs.count(LESSWRONG) == docx_refs.count(LESSWRONG)
 
 
+def test_positive_coverage_count_without_commit_detail_stays_unresolved():
+    import json
+    import sys
+
+    sys.path.insert(0, str(ROOT / "src"))
+    from swarm_witness.native_comparison import competent_verdict
+
+    history_id = "aew-v1-h-local-pass-broader-effect"
+    directory = (
+        ROOT
+        / "evidence"
+        / "effect_witness_v1"
+        / "packets"
+        / history_id
+        / "discriminating_readback"
+    )
+    records = []
+    for name in ("actor_records.jsonl", "service_records.jsonl"):
+        for line in (directory / name).read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                records.append(json.loads(line))
+    assert competent_verdict(history_id, records)["epistemic_status"] == "refuted"
+    without_commit = [row for row in records if row.get("surface") != "committed_effect"]
+    assert competent_verdict(history_id, without_commit)["epistemic_status"] == "unresolved"
+
+
 def test_evidence_free_actor_upgrade_is_unsupported_support_not_correct_decisive():
     import copy
     import sys

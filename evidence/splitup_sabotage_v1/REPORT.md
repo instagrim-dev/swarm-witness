@@ -4,8 +4,11 @@ Protocol `splitup-sabotage-v1`. Issue #52.
 
 - pairs: 7
 - swarm false support: 0
-- joint refuted while locals pass: True
+- joint refuted while locals pass: False
+- settlement-only swarm: unresolved
+- settlement-only checklist: refuted
 - local comparator false support: True
+- application sink executed: False
 - overall passed: True
 
-Scripted actors only. Emergent collusion not claimed.
+Local records are identical on the settlement-only pair. Scripted dictionaries, not an executed application sink. Emergent collusion not claimed.

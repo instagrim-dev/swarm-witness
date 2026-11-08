@@ -5,9 +5,10 @@
 **Executable form:** `src/swarm_witness/splitup_sabotage.py`
 **Entrypoint:** `experiments/splitup_sabotage/run.py`
 
-Scripted multi-principal evidence manipulation where each actor can look
-locally compliant while the joint safety claim fails. Application-owned
-settlement is the discriminating external readback.
+Scripted multi-principal packets. The settlement-only pair keeps local
+records identical and changes only the settlement row. Under that intervention
+the checklist refutes and Swarm Witness stays unresolved. Settlement rows are
+authored dictionaries, not an execution of the application-owned sink.
 
 ## Limits
 

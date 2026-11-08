@@ -1,6 +1,7 @@
 {
   "adjudication": "evaluation_contaminated",
   "evaluation_contaminated": true,
+  "expected_attribution": "undetermined",
   "expected_epistemic": "refuted",
   "falsifier": "grader_exposure_before_scored_behavior",
   "proposition_holds": false,

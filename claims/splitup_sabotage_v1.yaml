@@ -17,8 +17,10 @@ scope: >
   emergent collusion; not original incident telemetry.
 quantifier: each frozen case × each of the three methods
 success_criterion: >
-  Swarm false_support = 0; joint_refuted_while_locals_pass; local comparator
-  records false support on the mechanism case; pair_count ≥ 6.
+  Local records stay identical across the settlement-only pair. Swarm Witness
+  stays unresolved on that pair; the checklist refutes; the local comparator
+  false-supports. joint_refuted_while_locals_pass stays false. pair_count ≥ 6.
+  application_sink_executed stays false.
 assumptions:
   - "Actors are scripted fixtures, not live agents"
   - "emergent_collusion_claimed stays false"

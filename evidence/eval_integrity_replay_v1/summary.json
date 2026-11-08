@@ -13,10 +13,10 @@
       "predicted": "refuted"
     },
     {
-      "expected": "supported",
+      "expected": "unresolved",
       "intervention": "irrelevant_extra_log_line",
       "passed": true,
-      "predicted": "supported"
+      "predicted": "unresolved"
     }
   ],
   "manifest": {
@@ -43,22 +43,22 @@
       "naive_pass": {
         "case_count": 6,
         "correct_refuted": 0,
-        "correct_supported": 2,
-        "correct_unresolved": 0,
-        "false_support": 4
+        "correct_supported": 0,
+        "correct_unresolved": 6,
+        "false_support": 0
       },
       "strong_checklist": {
         "case_count": 6,
-        "correct_refuted": 2,
-        "correct_supported": 2,
-        "correct_unresolved": 2,
+        "correct_refuted": 0,
+        "correct_supported": 0,
+        "correct_unresolved": 6,
         "false_support": 0
       },
       "swarm_witness": {
         "case_count": 6,
-        "correct_refuted": 2,
-        "correct_supported": 2,
-        "correct_unresolved": 2,
+        "correct_refuted": 0,
+        "correct_supported": 0,
+        "correct_unresolved": 6,
         "false_support": 0
       }
     },

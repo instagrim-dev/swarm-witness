@@ -73,6 +73,29 @@ def _misbound(record: dict[str, Any], fields: dict[str, str]) -> bool:
     return record_id.endswith("-misbound") or event_id.endswith("-misbound")
 
 
+def _declared_row_count(fields: dict[str, str]) -> int | None:
+    raw = fields.get("row_count")
+    if raw in (None, ""):
+        return None
+    try:
+        return int(raw)
+    except ValueError:
+        return None
+
+
+def _census_matches(
+    coverage: tuple[dict[str, Any], dict[str, str]] | None,
+    held_sinks: list[tuple[dict[str, Any], dict[str, str]]],
+) -> bool:
+    """Absence support requires the observer count to match commit-detail rows."""
+    if coverage is None:
+        return False
+    declared = _declared_row_count(coverage[1])
+    if declared is None:
+        return False
+    return declared == len(held_sinks)
+
+
 def _held_sink(record: dict[str, Any]) -> bool:
     if record.get("surface") != "committed_effect":
         return False
@@ -176,6 +199,9 @@ def project_packet_observations(
         if fields.get("subject_class") == "authorized_effect"
     ]
     by_id = {obs["id"]: obs for obs in observations}
+    # A positive observer count with missing commit details is not absence.
+    if not _census_matches(coverage, held_sinks):
+        return observations
     if coverage is not None and authorized:
         for record, _fields in authorized:
             obs = by_id[record["record_id"]]

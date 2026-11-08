@@ -4,7 +4,7 @@
   "execution_status": "completed",
   "id": "eval-integrity-replay-v1-run",
   "observations": {
-    "conclusion_change": true,
+    "conclusion_change": false,
     "denominator": {
       "clean_no_api": 1258,
       "envsrc_judge_runs_total": 1343,
@@ -14,7 +14,7 @@
     },
     "detection_or_prevention_claimed": false,
     "git_sha": "2fec98288c1777845711a4b7678d96fd84ea16fe",
-    "headline_eligible": true,
+    "headline_eligible": false,
     "hf_sha": "9b792c782a714e017bb7b4c2cbff68534d8d5c5b",
     "intervention_pass": true,
     "interventions": [
@@ -31,40 +31,43 @@
         "predicted": "refuted"
       },
       {
-        "expected": "supported",
+        "expected": "unresolved",
         "intervention": "irrelevant_extra_log_line",
         "passed": true,
-        "predicted": "supported"
+        "predicted": "unresolved"
       }
     ],
+    "label_replay_abstains": true,
     "manifest_id": "eval-integrity-corpus-v1",
-    "naive_false_support": 4,
+    "naive_false_support": 0,
+    "ordering_established": false,
     "original_incident_logs_available": false,
     "passed": true,
     "real_world_authenticity_certified": false,
-    "retained_valid_success": true,
+    "retained_valid_success": false,
+    "study_kind": "label_replay",
     "swarm_false_support": 0,
     "totals": {
       "by_method": {
         "naive_pass": {
           "case_count": 6,
           "correct_refuted": 0,
-          "correct_supported": 2,
-          "correct_unresolved": 0,
-          "false_support": 4
+          "correct_supported": 0,
+          "correct_unresolved": 6,
+          "false_support": 0
         },
         "strong_checklist": {
           "case_count": 6,
-          "correct_refuted": 2,
-          "correct_supported": 2,
-          "correct_unresolved": 2,
+          "correct_refuted": 0,
+          "correct_supported": 0,
+          "correct_unresolved": 6,
           "false_support": 0
         },
         "swarm_witness": {
           "case_count": 6,
-          "correct_refuted": 2,
-          "correct_supported": 2,
-          "correct_unresolved": 2,
+          "correct_refuted": 0,
+          "correct_supported": 0,
+          "correct_unresolved": 6,
           "false_support": 0
         }
       },

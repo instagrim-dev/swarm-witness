@@ -19,6 +19,7 @@
     "proposition_holds": true,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "independent_runner",
     "witness": "runner-clean-effect"
   },
   {
@@ -41,6 +42,7 @@
     "proposition_holds": true,
     "reason": "verifying record supports the claim and no admitted record refutes it",
     "support_group_count": 1,
+    "warranted_origin": "independent_runner",
     "witness": "runner-clean-effect"
   },
   {
@@ -63,6 +65,7 @@
     "proposition_holds": true,
     "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
     "support_group_count": 1,
+    "warranted_origin": "independent_runner",
     "witness": "runner-clean-effect"
   },
   {
@@ -86,6 +89,7 @@
     "proposition_holds": false,
     "reason": "naive overread of a surface assertion",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": "grader-read-before"
   },
   {
@@ -109,6 +113,7 @@
     "proposition_holds": false,
     "reason": "verifying record refutes the claim",
     "support_group_count": 2,
+    "warranted_origin": "undetermined",
     "witness": "grader-read-before"
   },
   {
@@ -132,6 +137,7 @@
     "proposition_holds": false,
     "reason": "a declared verifying record refutes the effect",
     "support_group_count": 0,
+    "warranted_origin": "undetermined",
     "witness": "grader-read-before"
   },
   {
@@ -155,6 +161,7 @@
     "proposition_holds": true,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "independent_runner",
     "witness": "runner-early-success"
   },
   {
@@ -178,6 +185,7 @@
     "proposition_holds": true,
     "reason": "verifying record supports the claim and no admitted record refutes it",
     "support_group_count": 2,
+    "warranted_origin": "independent_runner",
     "witness": "runner-early-success"
   },
   {
@@ -201,6 +209,7 @@
     "proposition_holds": true,
     "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
     "support_group_count": 2,
+    "warranted_origin": "independent_runner",
     "witness": "runner-early-success"
   },
   {
@@ -224,6 +233,7 @@
     "proposition_holds": null,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -247,6 +257,7 @@
     "proposition_holds": null,
     "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -270,6 +281,7 @@
     "proposition_holds": null,
     "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -293,6 +305,7 @@
     "proposition_holds": true,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "app_owned_sink",
     "witness": "settlement-ok"
   },
   {
@@ -316,6 +329,7 @@
     "proposition_holds": true,
     "reason": "verifying record supports the claim and no admitted record refutes it",
     "support_group_count": 2,
+    "warranted_origin": "app_owned_sink",
     "witness": "settlement-ok"
   },
   {
@@ -339,6 +353,7 @@
     "proposition_holds": true,
     "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
     "support_group_count": 2,
+    "warranted_origin": "app_owned_sink",
     "witness": "settlement-ok"
   },
   {
@@ -361,6 +376,7 @@
     "proposition_holds": null,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -383,6 +399,7 @@
     "proposition_holds": null,
     "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -405,6 +422,7 @@
     "proposition_holds": null,
     "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -428,6 +446,7 @@
     "proposition_holds": false,
     "reason": "naive overread of a surface assertion",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": "settlement-absent"
   },
   {
@@ -451,6 +470,7 @@
     "proposition_holds": false,
     "reason": "verifying record refutes the claim",
     "support_group_count": 2,
+    "warranted_origin": "undetermined",
     "witness": "settlement-absent"
   },
   {
@@ -474,6 +494,7 @@
     "proposition_holds": false,
     "reason": "a declared verifying record refutes the effect",
     "support_group_count": 0,
+    "warranted_origin": "undetermined",
     "witness": "settlement-absent"
   },
   {
@@ -497,6 +518,7 @@
     "proposition_holds": null,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "report_a",
     "witness": "report-a"
   },
   {
@@ -520,6 +542,7 @@
     "proposition_holds": null,
     "reason": "verifying record supports the claim and no admitted record refutes it",
     "support_group_count": 1,
+    "warranted_origin": "report_a",
     "witness": "report-a"
   },
   {
@@ -543,6 +566,7 @@
     "proposition_holds": null,
     "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
     "support_group_count": 1,
+    "warranted_origin": "report_a",
     "witness": "report-a"
   },
   {
@@ -566,6 +590,7 @@
     "proposition_holds": true,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "provider_api",
     "witness": "provider-side"
   },
   {
@@ -589,6 +614,7 @@
     "proposition_holds": true,
     "reason": "verifying record supports the claim and no admitted record refutes it",
     "support_group_count": 2,
+    "warranted_origin": "provider_api",
     "witness": "provider-side"
   },
   {
@@ -612,6 +638,7 @@
     "proposition_holds": true,
     "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
     "support_group_count": 2,
+    "warranted_origin": "provider_api",
     "witness": "provider-side"
   },
   {
@@ -635,6 +662,7 @@
     "proposition_holds": false,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": "effect-fail"
   },
   {
@@ -658,6 +686,7 @@
     "proposition_holds": false,
     "reason": "an admitted record contradicts the sufficiency upgrade",
     "support_group_count": 2,
+    "warranted_origin": "undetermined",
     "witness": "effect-fail"
   },
   {
@@ -681,6 +710,7 @@
     "proposition_holds": false,
     "reason": "retrieved public sentences contradict the sufficiency upgrade; this checks the published argument, not raw worker telemetry",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": "effect-fail"
   },
   {
@@ -703,6 +733,7 @@
     "proposition_holds": null,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -725,6 +756,7 @@
     "proposition_holds": null,
     "reason": "required observation types are absent; a narrower control does not establish the broader claim",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -747,6 +779,7 @@
     "proposition_holds": null,
     "reason": "required observation types are absent; a non-discriminating control or an unauthenticated tool line does not establish the broader claim",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -769,6 +802,7 @@
     "proposition_holds": true,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "app_owned_sink",
     "witness": "auth-settlement"
   },
   {
@@ -791,6 +825,7 @@
     "proposition_holds": true,
     "reason": "verifying record supports the claim and no admitted record refutes it",
     "support_group_count": 1,
+    "warranted_origin": "app_owned_sink",
     "witness": "auth-settlement"
   },
   {
@@ -813,6 +848,7 @@
     "proposition_holds": true,
     "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
     "support_group_count": 1,
+    "warranted_origin": "app_owned_sink",
     "witness": "auth-settlement"
   },
   {
@@ -835,6 +871,7 @@
     "proposition_holds": false,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -857,6 +894,7 @@
     "proposition_holds": false,
     "reason": "no uncontradicted verifying record; narration, a decision, a copy, a stale row, or a misbinding does not decide a world effect",
     "support_group_count": 0,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -879,6 +917,7 @@
     "proposition_holds": false,
     "reason": "postmortem text asserts a world effect, but raw telemetry is not in the public corpus; copied or same-origin reports do not verify it",
     "support_group_count": 0,
+    "warranted_origin": "undetermined",
     "witness": null
   },
   {
@@ -902,6 +941,7 @@
     "proposition_holds": true,
     "reason": "surface supporting literal present",
     "support_group_count": 1,
+    "warranted_origin": "app_owned_sink",
     "witness": "auth-settlement-2"
   },
   {
@@ -925,6 +965,7 @@
     "proposition_holds": true,
     "reason": "verifying record supports the claim and no admitted record refutes it",
     "support_group_count": 2,
+    "warranted_origin": "app_owned_sink",
     "witness": "auth-settlement-2"
   },
   {
@@ -948,6 +989,7 @@
     "proposition_holds": true,
     "reason": "a declared verifying record supports the effect and nothing admitted contradicts it",
     "support_group_count": 2,
+    "warranted_origin": "app_owned_sink",
     "witness": "auth-settlement-2"
   },
   {
@@ -970,6 +1012,7 @@
     "proposition_holds": false,
     "reason": "surface refuting literal present",
     "support_group_count": 0,
+    "warranted_origin": "undetermined",
     "witness": "deny-settlement"
   },
   {
@@ -992,6 +1035,7 @@
     "proposition_holds": false,
     "reason": "verifying record refutes the claim",
     "support_group_count": 1,
+    "warranted_origin": "undetermined",
     "witness": "deny-settlement"
   },
   {
@@ -1014,6 +1058,7 @@
     "proposition_holds": false,
     "reason": "a declared verifying record refutes the effect",
     "support_group_count": 0,
+    "warranted_origin": "undetermined",
     "witness": "deny-settlement"
   }
 ]

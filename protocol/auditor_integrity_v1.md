@@ -38,8 +38,9 @@ input.
 ## Scoring axes
 
 - Epistemic: `supported` / `refuted` / `unresolved` by exact property.
-- Attribution: `evidence` / `decision` / `effect` / `undetermined` on its own
-  denominator when a method emits an origin.
+- Attribution: expected origin is pre-registered per case. Concrete
+  assignments, abstentions, unsupported attributions, and correct-origin
+  coverage use that denominator. A zero denominator is null.
 - Labels: evidence insufficiency, ground-truth property false, and
   evaluation-contaminated are distinct adjudication fields.
 

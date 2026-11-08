@@ -1,6 +1,7 @@
 {
   "adjudication": "duplicate_not_independent",
   "evaluation_contaminated": false,
+  "expected_attribution": "report_a",
   "expected_epistemic": "supported",
   "expected_support_group_count": 1,
   "falsifier": null,

@@ -7,11 +7,13 @@ Protocol `eval-integrity-replay-v1`. Issue #50.
 - frozen cases: 6
 - judge denominator: 1343
 - swarm false support: 0
-- naive false support: 4
-- conclusion change: True
-- retained valid success: True
+- naive false support: 0
+- study kind: label_replay
+- ordering established: False
+- conclusion change: False
+- retained valid success: False
 - interventions passed: True
 - overall passed: True
-- headline eligible: True
+- headline eligible: False
 
-Original private incident logs unavailable. Transfer/detection/prevention false.
+Label replay of released source-access judgments. Does not establish exposure before scored behavior or a verified success. Original private incident logs unavailable. Transfer/detection/prevention false.

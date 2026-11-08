@@ -634,6 +634,97 @@ def test_composed_classifiers_do_not_promote_spoofed_or_wrong_target_evidence():
     assert forced == []
 
 
+def test_fabricated_execution_ignores_prepended_unrelated_spoof():
+    """A spoofed event outside the admitted premises must not replace the event."""
+    import copy
+
+    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
+    from eg_adapter_projector import composed_observations
+    from eg_evidence_adapter import admit_required_premises, assess_fabricated_execution
+
+    export = json.loads(
+        (ROOT / "evidence" / "external_calibration_v1" / "eg_native_relations_seed0.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    scenario = next(s for s in export["scenarios"] if s["scenario"] == "clean")
+    genuine = next(
+        e
+        for e in scenario["public_entities"]["tool_events"]
+        if ((e.get("attrs") or {}).get("receipt") or {}).get("event_id") == "event-000007"
+    )
+    decl = scenario["declared_assumptions"]
+    genuine_obs = {
+        "id": "genuine-exec",
+        "observation_types": ["tool_event_record", "successful_execution_claim"],
+        "authenticity": "authentic_public_text",
+        "access_level": "raw_telemetry_public",
+        "entity": genuine,
+        "applies_to": ["genuine-held"],
+    }
+    observations = [
+        {
+            "id": "assumptions",
+            "observation_types": ["declared_assumptions"],
+            "authenticity": "authentic_public_text",
+            "declared_assumptions": {
+                "clock_bounds": decl.get("clock_bounds") or [],
+                "trust_domains": decl.get("trust_domains") or [],
+            },
+        },
+        {
+            "id": "capture",
+            "observation_types": ["capture_declaration"],
+            "authenticity": "authentic_public_text",
+            "populations": scenario["public_entities"]["populations"],
+        },
+        genuine_obs,
+        {
+            "id": "mutations",
+            "observation_types": ["registry_mutation_population"],
+            "authenticity": "authentic_public_text",
+            "registry_mutations": scenario["public_entities"]["registry_mutations"],
+        },
+    ]
+    claim = {
+        "id": "genuine-held",
+        "family": "fabricated_execution",
+        "proposed_event_id": genuine.get("entity_id"),
+    }
+    absent = assess_fabricated_execution(claim, observations)
+    spoof_event = copy.deepcopy(genuine)
+    spoof_event["entity_id"] = "spoof-other-event"
+    receipt = dict((spoof_event.get("attrs") or {}).get("receipt") or {})
+    receipt["event_id"] = "spoof-not-in-census"
+    receipt["accepted"] = True
+    spoof_event.setdefault("attrs", {})["receipt"] = receipt
+    spoof = {
+        "id": "unrelated-spoof",
+        "observation_types": ["tool_event_record", "successful_execution_claim"],
+        "authenticity": "spoofed_tool_line",
+        "access_level": "raw_telemetry_public",
+        "entity": spoof_event,
+        "applies_to": ["some-other-claim"],
+    }
+    prepended = [spoof] + observations
+    appended = observations + [spoof]
+    before_ids = [
+        q["observation_id"]
+        for q in admit_required_premises(claim, observations)["qualifications"]
+    ]
+    prepend_admission = admit_required_premises(claim, prepended)
+    assert [q["observation_id"] for q in prepend_admission["qualifications"]] == before_ids
+    prepend_result = assess_fabricated_execution(claim, prepended)
+    append_result = assess_fabricated_execution(claim, appended)
+    assert prepend_result["verdict"] == absent["verdict"] == append_result["verdict"]
+    assert prepend_result["verdict"] != "refuted"
+    _assessment, projected = composed_observations(claim, prepended)
+    assert projected == [] or all(
+        "unrelated-spoof" not in (row.get("supporting_observation_ids") or [])
+        for row in projected
+    )
+
+
 def test_external_calibration_runner_matrix():
     out = ROOT / "evidence" / "external_calibration_v1"
     env = os.environ.copy()

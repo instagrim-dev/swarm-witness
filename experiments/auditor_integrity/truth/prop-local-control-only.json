@@ -1,6 +1,7 @@
 {
   "adjudication": "insufficient_for_system_property",
   "evaluation_contaminated": false,
+  "expected_attribution": "undetermined",
   "expected_epistemic": "unresolved",
   "falsifier": "missing_required_types",
   "proposition_holds": null,
