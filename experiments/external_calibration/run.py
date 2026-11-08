@@ -425,6 +425,12 @@ def _event_capability_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "adapter_matches_safer": sum(1 for i in ids if safer[i] == adapter[i]),
         }
     out["boundaries_adapter_vs_safer"] = boundaries
+    out["adapter_matches_safer_total"] = sum(
+        stats["adapter_matches_safer"] for stats in boundaries.values()
+    )
+    out["adapter_safer_boundary_claims"] = sum(
+        stats["claims"] for stats in boundaries.values()
+    )
     # Fabricated / successful-execution family vs native safer executed.
     fab_cells = [
         row
@@ -499,12 +505,17 @@ def _write_capability_report(path: Path, capability: dict[str, Any]) -> None:
             f"adapter refutations: {fab.get('adapter_refutations')}; "
             f"native refutations: {fab.get('native_refutations')}.",
             "",
+            "",
+            f"Adapter vs safer on listed boundaries: "
+            f"{capability.get('adapter_matches_safer_total')}/"
+            f"{capability.get('adapter_safer_boundary_claims')}.",
+            "",
             "## Reading",
             "",
-            "If strong/swarm abstain while the evidence-derived adapter recovers "
-            "native safer boundaries, the missing capability is in the frozen "
-            "classifiers' consumption of raw observables (they require verifying "
-            "observation types/polarity). Retain that gap before changing methods.",
+            "Classifier abstention on these raw packets means the frozen "
+            "classifiers do not consume them as verifying evidence. That does "
+            "not establish adapter correctness; adapter vs native safer is the "
+            "conformance column, and warrant/factual_outcome stay separate.",
             "",
             "False-exclusivity: agreement with native safer can coexist with a "
             "wrong attribution when both accept the same false exclusivity premise.",
@@ -515,17 +526,13 @@ def _write_capability_report(path: Path, capability: dict[str, Any]) -> None:
             "",
             "## Result (this freeze)",
             "",
-            "The frozen evidence-derived adapter preserves EvidenceGraph’s "
-            "event-level attribution, witness-independence, and capture-window "
-            "decisions across the paired evidence conditions (adapter matches "
-            "native safer on every listed boundary; fabricated/executed family "
-            f"{(capability.get('fabricated_execution') or {}).get('adapter_matches_native_executed')}/"
-            f"{(capability.get('fabricated_execution') or {}).get('adapter_cells')} "
-            "with native). Strong / Swarm Witness abstain on raw observables "
-            "(0 correct decisive / 57 missed decisive) — a strong/swarm tie that "
-            "locates the gap in classifier consumption of verifying observation "
-            "types, not in the adapter’s boundary logic. Retain that result "
-            "before changing the method. `transfer_claim` remains false.",
+            "Propositions and candidate sets are selected from public entities; "
+            "native object_ids/candidates/outcomes are scoring-only. The adapter "
+            "computes receipt-commitment matching, temporal compatibility, "
+            "affirmative exclusivity/independence, and absence under covering "
+            "capture. Boundary agreement with native safer is reported above; "
+            "it is not explained by a receipt-presence shortcut on mutation "
+            "entities. `transfer_claim` remains false.",
             "",
         ]
     )

@@ -130,6 +130,15 @@ def test_r2_event_packets_export_relations_without_leaking_native():
     assert "title" not in decl["declared_assumptions"]
     assert "clock_bounds" in decl["declared_assumptions"]
 
+    # Proposed tool_event_record entities must be real tool events (event_uuid).
+    for packet in packets:
+        if packet["claim"]["family"] != "event_attribution":
+            continue
+        for obs in packet["observations"]:
+            if "tool_event_record" not in obs.get("observation_types", []):
+                continue
+            assert (obs.get("entity") or {}).get("attrs", {}).get("event_uuid")
+
     clock = next(
         p for p in packets if p["claim"]["scenario"] == "missing_clock_bound"
     )
@@ -172,6 +181,130 @@ def test_r2_event_packets_export_relations_without_leaking_native():
         and p["native_arms"]["evidencegraph_safer_produced"]["verdict"] == "supported"
     ]
     assert edge_attr, "capture-window edge must retain some supported attributions"
+
+    # Factual labels: native abstention must not invent known=false without private truth.
+    for packet in packets:
+        if packet["claim"]["family"] != "event_attribution":
+            continue
+        factual = packet["factual_outcome"]
+        if factual.get("known") is True:
+            assert "truth_event_uuid" in factual or factual.get("proposition_holds") is not None
+
+
+def test_eg_adapter_behavioral_predicates_and_input_independence():
+    """Discriminating checks: binding, temporal, trust, absence; native-field independence."""
+    import copy
+    from datetime import datetime, timedelta
+
+    sys.path.insert(0, str(ROOT / "experiments" / "external_calibration"))
+    from eg_evidence_adapter import assess_attribution, assess_fabricated_execution
+    from r2_event_packets import (
+        assessor_input_fingerprint,
+        build_packets,
+        mutate_native_fields_for_independence_check,
+    )
+
+    packets = build_packets()
+    clean = next(
+        p
+        for p in packets
+        if p["claim"]["scenario"] == "clean" and p["claim"]["family"] == "event_attribution"
+    )
+    assert clean["native_arms"]["eg_evidence_derived_adapter"]["verdict"] == "supported"
+
+    # Receipt token no longer matches commitment → must not stay supported.
+    obs = copy.deepcopy(clean["observations"])
+    for row in obs:
+        if "tool_event_record" in row.get("observation_types", []):
+            row["entity"]["attrs"]["receipt"]["receipt_token"] = "deadbeef_not_matching"
+    result = assess_attribution(clean["claim"], obs)
+    assert result["verdict"] == "unresolved"
+    assert result["reason"] == "receipt_token_commitment_mismatch"
+
+    # Event interval one day after mutation → temporal incompatibility.
+    obs = copy.deepcopy(clean["observations"])
+    for row in obs:
+        if "tool_event_record" in row.get("observation_types", []):
+            start = datetime.fromisoformat(row["entity"]["time_lower"].replace("Z", "+00:00"))
+            row["entity"]["time_lower"] = (start + timedelta(days=1)).isoformat()
+            row["entity"]["time_upper"] = (
+                start + timedelta(days=1, microseconds=100)
+            ).isoformat()
+    result = assess_attribution(clean["claim"], obs)
+    assert result["verdict"] == "unresolved"
+    assert result["reason"] == "temporal_incompatible"
+
+    # Trust-domain declarations removed → affirmative assumptions missing.
+    obs = copy.deepcopy(clean["observations"])
+    for row in obs:
+        if "declared_assumptions" in row.get("observation_types", []):
+            row["declared_assumptions"]["trust_domains"] = []
+    result = assess_attribution(clean["claim"], obs)
+    assert result["verdict"] == "unresolved"
+    assert result["reason"] in {"independence_undeclared", "exclusivity_undeclared"}
+
+    # Clean successful event under complete capture must not be refuted by absence.
+    export = json.loads(
+        (ROOT / "evidence" / "external_calibration_v1" / "eg_native_relations_seed0.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    scenario = next(s for s in export["scenarios"] if s["scenario"] == "clean")
+    event = next(
+        e
+        for e in scenario["public_entities"]["tool_events"]
+        if (e.get("attrs") or {}).get("event_uuid")
+        and ((e.get("attrs") or {}).get("receipt") or {}).get("accepted") is True
+    )
+    decl = scenario["declared_assumptions"]
+    exec_obs = [
+        {
+            "observation_types": ["declared_assumptions"],
+            "declared_assumptions": {
+                "clock_bounds": decl.get("clock_bounds") or [],
+                "trust_domains": decl.get("trust_domains") or [],
+            },
+        },
+        {
+            "observation_types": ["capture_declaration"],
+            "populations": scenario["public_entities"]["populations"],
+        },
+        {
+            "observation_types": ["tool_event_record", "successful_execution_claim"],
+            "entity": event,
+        },
+        {
+            "observation_types": ["registry_mutation_population"],
+            "registry_mutations": scenario["public_entities"]["registry_mutations"],
+        },
+    ]
+    result = assess_fabricated_execution({"id": "clean-exec"}, exec_obs)
+    assert result["verdict"] == "unresolved"
+    assert result["reason"] == "claimed_event_id_present_in_registry"
+
+    # Changing native outcomes/object_ids/candidates must not change assessor inputs.
+    import tempfile
+    from pathlib import Path
+
+    mutated = mutate_native_fields_for_independence_check(export)
+    tmp = Path(tempfile.mkdtemp()) / "mutated_export.json"
+    tmp.write_text(json.dumps(mutated), encoding="utf-8")
+    alt_packets = build_packets(tmp)
+    base_fp = {
+        (p["claim"]["scenario"], p["claim"]["mutation_id"]): assessor_input_fingerprint(
+            p["observations"]
+        )
+        for p in packets
+        if p["claim"]["family"] == "event_attribution"
+    }
+    alt_fp = {
+        (p["claim"]["scenario"], p["claim"]["mutation_id"]): assessor_input_fingerprint(
+            p["observations"]
+        )
+        for p in alt_packets
+        if p["claim"]["family"] == "event_attribution"
+    }
+    assert base_fp == alt_fp
 
 
 def test_external_calibration_runner_matrix():

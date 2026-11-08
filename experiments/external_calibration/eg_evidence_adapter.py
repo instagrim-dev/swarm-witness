@@ -1,12 +1,14 @@
 """Evidence-derived assessor for event-level EvidenceGraph packets.
 
-Part of the evaluated method stack: any temporal / exclusivity / independence /
-capture-coverage reasoning here is scored as adapter capability, not as hidden
-packet authoring. Does not read native verdicts, private truth, or scenario names.
+Part of the evaluated method stack: receipt matching, temporal compatibility,
+affirmative trust assumptions, and absence under covering capture are computed
+here and scored as adapter capability. Does not read native verdicts, private
+truth, or scenario names.
 """
 
 from __future__ import annotations
 
+import hashlib
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
@@ -41,7 +43,9 @@ def _clock_bound_seconds(decl: dict[str, Any]) -> float | None:
     bounds = decl.get("clock_bounds") or []
     if not bounds:
         return None
-    values = [float(b.get("bound_seconds")) for b in bounds if b.get("bound_seconds") is not None]
+    values = [
+        float(b.get("bound_seconds")) for b in bounds if b.get("bound_seconds") is not None
+    ]
     return max(values) if values else None
 
 
@@ -60,22 +64,67 @@ def _parse_ts(value: Any) -> datetime | None:
     return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
-def _receipt_token(event: dict[str, Any] | None) -> str | None:
+def sha256_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def receipt_of(event: dict[str, Any] | None) -> dict[str, Any] | None:
     if not event:
         return None
-    attrs = event.get("attrs") or {}
-    receipt = attrs.get("receipt") or {}
-    if isinstance(receipt, dict):
-        tok = receipt.get("receipt_token") or receipt.get("token")
-        if tok:
-            return str(tok)
-    return None
+    receipt = (event.get("attrs") or {}).get("receipt")
+    return receipt if isinstance(receipt, dict) else None
 
 
-def _commitment(mutation: dict[str, Any] | None) -> str | None:
+def receipt_token(event: dict[str, Any] | None) -> str | None:
+    receipt = receipt_of(event)
+    if not receipt:
+        return None
+    tok = receipt.get("receipt_token") or receipt.get("token")
+    return str(tok) if isinstance(tok, str) else None
+
+
+def commitment_of(mutation: dict[str, Any] | None) -> str | None:
     if not mutation:
         return None
-    return (mutation.get("attrs") or {}).get("receipt_token_sha256")
+    value = (mutation.get("attrs") or {}).get("receipt_token_sha256")
+    return str(value) if isinstance(value, str) else None
+
+
+def receipt_matches_commitment(
+    event: dict[str, Any] | None, mutation: dict[str, Any] | None
+) -> str:
+    """bound | mismatch | unbound | unavailable — mirrors EG RegistrySubstrate.binding."""
+    commitment = commitment_of(mutation)
+    if commitment is None:
+        return "unavailable"
+    token = receipt_token(event)
+    if token is None:
+        return "unbound"
+    return "bound" if sha256_text(token) == commitment else "mismatch"
+
+
+def intervals_compatible(
+    *,
+    mutation: dict[str, Any] | None,
+    event: dict[str, Any] | None,
+    clock_bound_seconds: float,
+) -> bool:
+    """True when event and mutation intervals are compatible within the clock bound."""
+    if not mutation or not event:
+        return False
+    m0 = _parse_ts(mutation.get("time_lower"))
+    m1 = _parse_ts(mutation.get("time_upper")) or m0
+    e0 = _parse_ts(event.get("time_lower"))
+    e1 = _parse_ts(event.get("time_upper"))
+    if None in (m0, m1, e0, e1):
+        return False
+    pad = timedelta(seconds=float(clock_bound_seconds))
+    # Event starts too late, or finishes too early, relative to mutation ± bound.
+    if e0 > m1 + pad:
+        return False
+    if e1 < m0 - pad:
+        return False
+    return True
 
 
 def _entity(observations: list[dict[str, Any]], *types: str) -> dict[str, Any] | None:
@@ -95,6 +144,17 @@ def _populations(observations: list[dict[str, Any]]) -> list[dict[str, Any]]:
             if isinstance(pops, list):
                 return pops
     return []
+
+
+def _registry_mutations(observations: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    for obs in observations:
+        if "registry_mutation_population" in set(obs.get("observation_types") or []):
+            rows = obs.get("registry_mutations")
+            if isinstance(rows, list):
+                return rows
+    # Fallback: single mutation record observation.
+    mutation = _entity(observations, "registry_mutation_record")
+    return [mutation] if mutation else []
 
 
 def capture_covers_execution(
@@ -130,33 +190,77 @@ def capture_covers_execution(
     return False, "capture_does_not_cover_widened_window"
 
 
+def claimed_mutation_absent(
+    event: dict[str, Any] | None, registry_mutations: list[dict[str, Any]]
+) -> tuple[bool, str]:
+    """Whether the receipt's claimed registry key is absent from observed mutations."""
+    receipt = receipt_of(event)
+    if not receipt or receipt.get("accepted") is not True:
+        return False, "no_accepted_receipt"
+    claimed_id = receipt.get("event_id")
+    claimed_name = receipt.get("name")
+    claimed_ns = receipt.get("namespace")
+    present_ids = set()
+    present_keys = set()
+    for mutation in registry_mutations:
+        if not mutation:
+            continue
+        attrs = mutation.get("attrs") or {}
+        key = mutation.get("natural_key") or attrs.get("id")
+        if key:
+            present_ids.add(str(key))
+        if attrs.get("name") is not None:
+            present_keys.add((attrs.get("namespace"), attrs.get("name")))
+    if claimed_id and str(claimed_id) in present_ids:
+        return False, "claimed_event_id_present_in_registry"
+    if claimed_name is not None and (claimed_ns, claimed_name) in present_keys:
+        return False, "claimed_name_present_in_registry"
+    return True, "claimed_mutation_absent_from_registry"
+
+
 def assess_attribution(claim: dict[str, Any], observations: list[dict[str, Any]]) -> dict[str, Any]:
     """Return supported | refuted | unresolved with an explicit reason."""
+    del claim  # proposition identity is carried by the observed entities.
     decl = _decl(observations)
     mutation = _entity(observations, "registry_mutation_record")
     event = _entity(observations, "tool_event_record")
 
-    if _clock_bound_seconds(decl) is None:
+    # Reject mutation-as-event shortcuts: tool events carry event_uuid.
+    if event is not None and (event.get("attrs") or {}).get("event_uuid") is None:
+        return {
+            "verdict": "unresolved",
+            "reason": "proposed_entity_is_not_a_tool_event",
+            "capability": "event_identity",
+        }
+
+    bound_seconds = _clock_bound_seconds(decl)
+    if bound_seconds is None:
         return {
             "verdict": "unresolved",
             "reason": "no_clock_bound",
             "capability": "clock_reconciliation",
         }
+
     independent = _independent(decl)
+    if independent is None:
+        return {
+            "verdict": "unresolved",
+            "reason": "independence_undeclared",
+            "capability": "witness_independence",
+        }
     if independent is False:
         return {
             "verdict": "unresolved",
             "reason": "dependent_witnesses",
             "capability": "witness_independence",
         }
+
     exclusive = _exclusive(decl)
-    token = _receipt_token(event)
-    commitment = _commitment(mutation)
-    if not token or not commitment:
+    if exclusive is None:
         return {
             "verdict": "unresolved",
-            "reason": "missing_receipt_token_or_commitment",
-            "capability": "receipt_binding",
+            "reason": "exclusivity_undeclared",
+            "capability": "token_exclusivity",
         }
     if exclusive is False:
         return {
@@ -164,29 +268,61 @@ def assess_attribution(claim: dict[str, Any], observations: list[dict[str, Any]]
             "reason": "exclusivity_not_established",
             "capability": "token_exclusivity",
         }
-    # Exclusive + independent + clock + token/commitment present: support the
-    # proposed pairing when the claim names a single event.
-    if claim.get("proposed_event_id") and event and mutation:
+
+    binding = receipt_matches_commitment(event, mutation)
+    if binding == "unbound":
         return {
-            "verdict": "supported",
-            "reason": "exclusive_independent_clocked_binding",
+            "verdict": "unresolved",
+            "reason": "missing_receipt_token_or_commitment",
             "capability": "receipt_binding",
         }
+    if binding == "unavailable":
+        return {
+            "verdict": "unresolved",
+            "reason": "commitment_unavailable",
+            "capability": "receipt_binding",
+        }
+    if binding == "mismatch":
+        return {
+            "verdict": "unresolved",
+            "reason": "receipt_token_commitment_mismatch",
+            "capability": "receipt_binding",
+        }
+
+    if not intervals_compatible(
+        mutation=mutation, event=event, clock_bound_seconds=bound_seconds
+    ):
+        return {
+            "verdict": "unresolved",
+            "reason": "temporal_incompatible",
+            "capability": "clock_reconciliation",
+        }
+
+    if event is None or mutation is None:
+        return {
+            "verdict": "unresolved",
+            "reason": "no_unique_proposed_event",
+            "capability": "receipt_binding",
+        }
+
     return {
-        "verdict": "unresolved",
-        "reason": "no_unique_proposed_event",
+        "verdict": "supported",
+        "reason": "exclusive_independent_bound_temporally_compatible",
         "capability": "receipt_binding",
+        "binding": binding,
     }
 
 
 def assess_fabricated_execution(
     claim: dict[str, Any], observations: list[dict[str, Any]]
 ) -> dict[str, Any]:
-    """Successful-execution claims: contradict only when capture covers the window."""
-    del claim  # claim text is not used; coverage is computed from observables.
+    """Refute successful-execution only when capture covers and claimed mutation is absent."""
+    del claim
     decl = _decl(observations)
     event = _entity(observations, "tool_event_record", "successful_execution_claim")
     pops = _populations(observations)
+    mutations = _registry_mutations(observations)
+
     independent = _independent(decl)
     if independent is False:
         return {
@@ -194,20 +330,38 @@ def assess_fabricated_execution(
             "reason": "dependent_witnesses_block_absence_contradiction",
             "capability": "witness_independence",
         }
-    covers, reason = capture_covers_execution(
+    if independent is None:
+        return {
+            "verdict": "unresolved",
+            "reason": "independence_undeclared",
+            "capability": "witness_independence",
+        }
+
+    covers, cover_reason = capture_covers_execution(
         populations=pops,
         event=event,
         clock_bound_seconds=_clock_bound_seconds(decl),
     )
-    if covers:
+    if not covers:
         return {
-            "verdict": "refuted",
-            "reason": "absence_under_complete_covering_capture",
+            "verdict": "unresolved",
+            "reason": cover_reason,
             "capability": "capture_coverage",
-            "coverage_detail": reason,
         }
+
+    absent, absent_reason = claimed_mutation_absent(event, mutations)
+    if not absent:
+        return {
+            "verdict": "unresolved",
+            "reason": absent_reason,
+            "capability": "absence_check",
+            "coverage_detail": cover_reason,
+        }
+
     return {
-        "verdict": "unresolved",
-        "reason": reason,
+        "verdict": "refuted",
+        "reason": "absence_under_complete_covering_capture",
         "capability": "capture_coverage",
+        "coverage_detail": cover_reason,
+        "absence_detail": absent_reason,
     }

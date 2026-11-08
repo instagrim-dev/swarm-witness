@@ -11,13 +11,13 @@ Attribution claims: 120
 
 | Method | Cells | Agree warrant | Correct decisive | Unsupported support | Missed decisive |
 |---|---:|---:|---:|---:|---:|
-| `evidencegraph_safer_produced` | 120 | 119 | 57 | 1 | 0 |
-| `evidencegraph_legacy_produced` | 120 | 97 | 57 | 23 | 0 |
-| `eg_evidence_derived_adapter` | 120 | 119 | 57 | 1 | 0 |
-| `naive` | 120 | 63 | 0 | 0 | 57 |
-| `weak_checklist` | 120 | 63 | 0 | 0 | 57 |
-| `strong_invariant` | 120 | 63 | 0 | 0 | 57 |
-| `swarm_witness` | 120 | 63 | 0 | 0 | 57 |
+| `evidencegraph_safer_produced` | 120 | 110 | 48 | 10 | 0 |
+| `evidencegraph_legacy_produced` | 120 | 88 | 48 | 32 | 0 |
+| `eg_evidence_derived_adapter` | 120 | 110 | 48 | 10 | 0 |
+| `naive` | 120 | 72 | 0 | 0 | 48 |
+| `weak_checklist` | 120 | 72 | 0 | 0 | 48 |
+| `strong_invariant` | 120 | 72 | 0 | 0 | 48 |
+| `swarm_witness` | 120 | 72 | 0 | 0 | 48 |
 
 ## Boundary preservation (adapter vs native safer)
 
@@ -33,11 +33,14 @@ Attribution claims: 120
 
 ## Fabricated / successful-execution family
 
-Adapter cells: 8; matches native safer executed: 8; adapter refutations: 2; native refutations: 2.
+Adapter cells: 10; matches native safer executed: 10; adapter refutations: 2; native refutations: 2.
+
+
+Adapter vs safer on listed boundaries: 84/84.
 
 ## Reading
 
-If strong/swarm abstain while the evidence-derived adapter recovers native safer boundaries, the missing capability is in the frozen classifiers' consumption of raw observables (they require verifying observation types/polarity). Retain that gap before changing methods.
+Classifier abstention on these raw packets means the frozen classifiers do not consume them as verifying evidence. That does not establish adapter correctness; adapter vs native safer is the conformance column, and warrant/factual_outcome stay separate.
 
 False-exclusivity: agreement with native safer can coexist with a wrong attribution when both accept the same false exclusivity premise.
 
@@ -45,4 +48,4 @@ Capture-window edge: real-event attributions can remain supported while invented
 
 ## Result (this freeze)
 
-The frozen evidence-derived adapter preserves EvidenceGraph’s event-level attribution, witness-independence, and capture-window decisions across the paired evidence conditions (adapter matches native safer on every listed boundary; fabricated/executed family 8/8 with native). Strong / Swarm Witness abstain on raw observables (0 correct decisive / 57 missed decisive) — a strong/swarm tie that locates the gap in classifier consumption of verifying observation types, not in the adapter’s boundary logic. Retain that result before changing the method. `transfer_claim` remains false.
+Propositions and candidate sets are selected from public entities; native object_ids/candidates/outcomes are scoring-only. The adapter computes receipt-commitment matching, temporal compatibility, affirmative exclusivity/independence, and absence under covering capture. Boundary agreement with native safer is reported above; it is not explained by a receipt-presence shortcut on mutation entities. `transfer_claim` remains false.

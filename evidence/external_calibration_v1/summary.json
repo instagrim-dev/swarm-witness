@@ -8,7 +8,7 @@
     "Unqualified global 'strong' remains undefined; use earned profile labels in PROFILE_LABELS.md.",
     "EvidenceGraph expanded native conformance: event-level produced/executed relations vs safer/legacy native arms and the evidence-derived adapter; see EVENT_CAPABILITY.md. transfer_claim stays false."
   ],
-  "claim_count": 159,
+  "claim_count": 161,
   "corpora": {
     "bmo_l1": {
       "claims": 7,
@@ -23,10 +23,10 @@
       "source_revision": "a5ea5c9947039009ca795275d834be7b61069080"
     },
     "evidencegraph_r2_event": {
-      "claims": 128,
+      "claims": 130,
       "note": "Event-by-event produced/executed comparison against native attribution and capture rules; adapter scored with classifiers.",
       "role": "expanded_native_conformance",
-      "rows": 888,
+      "rows": 900,
       "seed": 0,
       "source_revision": "a5ea5c9947039009ca795275d834be7b61069080",
       "transfer_claim": false
@@ -55,6 +55,8 @@
     }
   },
   "evidencegraph_event_conformance": {
+    "adapter_matches_safer_total": 84,
+    "adapter_safer_boundary_claims": 84,
     "attr_claim_count": 120,
     "boundaries_adapter_vs_safer": {
       "capture_window_edge": {
@@ -87,78 +89,78 @@
       }
     },
     "fabricated_execution": {
-      "adapter_cells": 8,
-      "adapter_matches_native_executed": 8,
+      "adapter_cells": 10,
+      "adapter_matches_native_executed": 10,
       "adapter_refutations": 2,
       "native_refutations": 2
     },
     "methods": {
       "eg_evidence_derived_adapter": {
         "cells": 120,
-        "correct_decisive": 57,
+        "correct_decisive": 48,
         "justified_abstention": 62,
         "missed_decisive": 0,
-        "native_or_warrant_agreement": 119,
+        "native_or_warrant_agreement": 110,
         "unsupported_refutation": 0,
-        "unsupported_support": 1
+        "unsupported_support": 10
       },
       "evidencegraph_legacy_produced": {
         "cells": 120,
-        "correct_decisive": 57,
+        "correct_decisive": 48,
         "justified_abstention": 40,
         "missed_decisive": 0,
-        "native_or_warrant_agreement": 97,
+        "native_or_warrant_agreement": 88,
         "unsupported_refutation": 0,
-        "unsupported_support": 23
+        "unsupported_support": 32
       },
       "evidencegraph_safer_produced": {
         "cells": 120,
-        "correct_decisive": 57,
+        "correct_decisive": 48,
         "justified_abstention": 62,
         "missed_decisive": 0,
-        "native_or_warrant_agreement": 119,
+        "native_or_warrant_agreement": 110,
         "unsupported_refutation": 0,
-        "unsupported_support": 1
+        "unsupported_support": 10
       },
       "naive": {
         "cells": 120,
         "correct_decisive": 0,
-        "justified_abstention": 63,
-        "missed_decisive": 57,
-        "native_or_warrant_agreement": 63,
+        "justified_abstention": 72,
+        "missed_decisive": 48,
+        "native_or_warrant_agreement": 72,
         "unsupported_refutation": 0,
         "unsupported_support": 0
       },
       "strong_invariant": {
         "cells": 120,
         "correct_decisive": 0,
-        "justified_abstention": 63,
-        "missed_decisive": 57,
-        "native_or_warrant_agreement": 63,
+        "justified_abstention": 72,
+        "missed_decisive": 48,
+        "native_or_warrant_agreement": 72,
         "unsupported_refutation": 0,
         "unsupported_support": 0
       },
       "swarm_witness": {
         "cells": 120,
         "correct_decisive": 0,
-        "justified_abstention": 63,
-        "missed_decisive": 57,
-        "native_or_warrant_agreement": 63,
+        "justified_abstention": 72,
+        "missed_decisive": 48,
+        "native_or_warrant_agreement": 72,
         "unsupported_refutation": 0,
         "unsupported_support": 0
       },
       "weak_checklist": {
         "cells": 120,
         "correct_decisive": 0,
-        "justified_abstention": 63,
-        "missed_decisive": 57,
-        "native_or_warrant_agreement": 63,
+        "justified_abstention": 72,
+        "missed_decisive": 48,
+        "native_or_warrant_agreement": 72,
         "unsupported_refutation": 0,
         "unsupported_support": 0
       }
     }
   },
-  "matrix_rows": 1085,
+  "matrix_rows": 1097,
   "methods": {
     "bmo_l1_native": {
       "cells": 7,
@@ -179,13 +181,13 @@
       "unsupported_support": 0
     },
     "eg_evidence_derived_adapter": {
-      "cells": 128,
-      "correct_decisive": 59,
-      "justified_abstention": 68,
+      "cells": 130,
+      "correct_decisive": 50,
+      "justified_abstention": 70,
       "mismatch": 0,
       "missed_decisive": 0,
       "unsupported_refutation": 0,
-      "unsupported_support": 1
+      "unsupported_support": 10
     },
     "evidencegraph_accept_success_claims": {
       "cells": 14,
@@ -198,12 +200,12 @@
     },
     "evidencegraph_legacy_produced": {
       "cells": 120,
-      "correct_decisive": 57,
+      "correct_decisive": 48,
       "justified_abstention": 40,
       "mismatch": 0,
       "missed_decisive": 0,
       "unsupported_refutation": 0,
-      "unsupported_support": 23
+      "unsupported_support": 32
     },
     "evidencegraph_old_implicit_token_exclusivity": {
       "cells": 14,
@@ -215,9 +217,9 @@
       "unsupported_support": 9
     },
     "evidencegraph_safer_executed": {
-      "cells": 8,
+      "cells": 10,
       "correct_decisive": 2,
-      "justified_abstention": 6,
+      "justified_abstention": 8,
       "mismatch": 0,
       "missed_decisive": 0,
       "unsupported_refutation": 0,
@@ -234,19 +236,19 @@
     },
     "evidencegraph_safer_produced": {
       "cells": 120,
-      "correct_decisive": 57,
+      "correct_decisive": 48,
       "justified_abstention": 62,
       "mismatch": 0,
       "missed_decisive": 0,
       "unsupported_refutation": 0,
-      "unsupported_support": 1
+      "unsupported_support": 10
     },
     "naive": {
-      "cells": 159,
+      "cells": 161,
       "correct_decisive": 18,
-      "justified_abstention": 70,
+      "justified_abstention": 81,
       "mismatch": 0,
-      "missed_decisive": 59,
+      "missed_decisive": 50,
       "unsupported_refutation": 0,
       "unsupported_support": 12
     },
@@ -296,29 +298,29 @@
       "unsupported_support": 0
     },
     "strong_invariant": {
-      "cells": 159,
+      "cells": 161,
       "correct_decisive": 19,
-      "justified_abstention": 78,
+      "justified_abstention": 89,
       "mismatch": 0,
-      "missed_decisive": 59,
+      "missed_decisive": 50,
       "unsupported_refutation": 0,
       "unsupported_support": 3
     },
     "swarm_witness": {
-      "cells": 159,
+      "cells": 161,
       "correct_decisive": 19,
-      "justified_abstention": 78,
+      "justified_abstention": 89,
       "mismatch": 0,
-      "missed_decisive": 59,
+      "missed_decisive": 50,
       "unsupported_refutation": 0,
       "unsupported_support": 3
     },
     "weak_checklist": {
-      "cells": 159,
+      "cells": 161,
       "correct_decisive": 19,
-      "justified_abstention": 71,
+      "justified_abstention": 82,
       "mismatch": 0,
-      "missed_decisive": 59,
+      "missed_decisive": 50,
       "unsupported_refutation": 0,
       "unsupported_support": 10
     }
