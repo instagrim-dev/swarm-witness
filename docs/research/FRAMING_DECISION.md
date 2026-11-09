@@ -75,6 +75,8 @@ Version every statement about eleven versus zero. Table N is the historical qual
 
 ## Novelty and inherited mechanisms
 
+The October 26 UTC pre-sprint Swarm Witness repository was a scaffold with a preliminary research direction, not a runnable study. The evidence-sufficiency protocol, independent classical contract reference, BMO comparisons, controlled witness, negative controls, representation experiments, formal checks, and paper were developed during the November 6–8 sprint. The prior BMO, SoundGate, and EvidenceGraph implementations provide architectural and experimental inputs, not preexisting Swarm Witness results. [See the pinned scaffold and sprint-work distinction](../../PREEXISTING.md#sprint-period-research-contribution).
+
 BMO, SoundGate and EvidenceGraph are preexisting systems. The current study contributes new comparisons and observation interventions, not retroactive invention of their mechanisms. Classical reasoning is the null/reference contract. Matching it can demonstrate portability and calibration; superiority is not required. [S23]
 
 ## Out of scope for this decision

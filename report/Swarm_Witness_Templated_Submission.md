@@ -193,6 +193,10 @@ Source, protocols, and retained results are in the repository [7]. Reproduction 
 
 **Prior material.** SoundGate, EvidenceGraph, and BMO predate this protocol. Their mechanisms and retained source revisions are attributed in the repository's preexisting-material record. The protocol, controlled comparison, and evidence representations are distinguished from those underlying systems.
 
+### Sprint contribution and prior work
+
+Before the November 6–8, 2026 sprint, Swarm Witness consisted of an October 26 UTC repository scaffold and a preliminary paired-oversight research direction. Its README, license, setup check, and placeholder research directories contained no runnable experiment, implemented research protocol, retained measurement, or manuscript. The sprint produced the evidence-sufficiency protocol and qualifier, application-owned SQLite effect witness, separate classical contract reference, native BMO ledger and settlement comparisons, adversarial and representation studies, formal checks, retained results, and paper. BMO's underlying authority and settlement implementation, SoundGate, and EvidenceGraph are prior work, not sprint inventions. The contribution claimed here is the new contract extraction, experimental comparisons, and analysis of observations sufficient to warrant authorization conclusions. Bounded contract portability does not establish full-system equivalence or external empirical transfer.
+
 ## LLM Usage Statement
 
 The operator developed the preexisting BMO authority and settlement implementation and orchestrated the comparisons, the retained measurements, and which conclusions the evidence was allowed to support. AI assistants contributed counterfactual challenge of the claims, research design, implementation, validation scripts, and manuscript drafting. The author is responsible for the claims, interpretation, and released artifacts.

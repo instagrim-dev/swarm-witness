@@ -1,5 +1,5 @@
 {
-  "revision": "73a83d3bf0974e32030b8fc57dbd969c35c9aae4 working tree; operator prior-art development, not yet committed",
+  "revision": "1c4175ba37e0c76a7de88e8da968b4044359f805",
   "inspected_at": "2026-11-08",
   "geometry_method": "pypdf.PdfReader.extract_text",
   "visual_inspection_performed": true,
@@ -7,8 +7,8 @@
   "artifacts": [
     {
       "path": "report/Swarm_Witness_Templated_Submission.pdf",
-      "sha256": "9ccc9e240fdfe0857658e3081456ba7d94649bafb4a0646377aa51dfbfab5cea",
-      "page_count": 10,
+      "sha256": "89df18191d06ef9dc286fdc6b63b912e8f202a39455fa12757897179333454d7",
+      "page_count": 11,
       "references_begin_page": 9,
       "body_pages_before_references": 8,
       "clipping_observed": false,
@@ -17,8 +17,8 @@
     },
     {
       "path": "report/Swarm_Witness_Final_Submission.pdf",
-      "sha256": "c9837827bd630288d45ac7574c1500eb0ed829c42c8b4f109dbab6f394c834e3",
-      "page_count": 9,
+      "sha256": "12208a205405a2f28266fcc3e92c136801458aa0a9037bdb627c77fb8a988211",
+      "page_count": 10,
       "references_begin_page": 8,
       "body_pages_before_references": 7,
       "clipping_observed": false,
@@ -26,5 +26,5 @@
       "unreadable_table_observed": false
     }
   ],
-  "notes": "Templated body ends before References. The LLM usage statement attributes preexisting BMO development to the operator. Tables 1, 2, 2b, 3, and 4 and the evidence chain are complete. clipping_observed and overflow_observed record the PDFKit inspection; the inspector does not measure clipping. These hashes are the working-tree PDFs and are not contained in 73a83d3."
+  "notes": "Templated body ends before References on page 9 (11 pages). Research-layout references begin on page 8 (10 pages). Tables 1, 2, 2b, 3, and 4 and the evidence chain are complete. Appendix A includes the sprint-contribution subsection. PDFKit renders of the appendix and closing pages show no clipping or overflow. This receipt does not replace the fde17ab clean-extract log."
 }
