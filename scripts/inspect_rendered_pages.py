@@ -43,9 +43,15 @@ def geometry(path: Path) -> dict[str, int | None]:
 
 
 def revision() -> str:
-    return subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
-    ).strip()
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except (OSError, subprocess.CalledProcessError):
+        return "not-a-git-checkout"
 
 
 def receipt() -> dict[str, object]:

@@ -60,11 +60,15 @@ def excluded(directory, names):
             or name.endswith((".pyc", ".pyo"))
             or name == ".env"
             or (name.startswith(".env.") and name != ".env.example")
-            or (relative.parts[0] == "report" and (
-                name in {"archive", "alternatives", "slides"}
-                or name.startswith(("Swarm_Witness_Apart_Submission.", "Swarm_Witness_Slides."))
-                or name.startswith(("_build", "_templated_build", "_slides_build"))
-            ))
+            or (
+                tuple(relative.parts[:1]) == ("report",)
+                and len(relative.parts) == 2
+                and (
+                    name in {"archive", "alternatives"}
+                    or name.startswith("Swarm_Witness_Apart_Submission.")
+                    or name.startswith(("_build", "_templated_build", "_slides_build"))
+                )
+            )
         ):
             omitted.append(name)
     return omitted
