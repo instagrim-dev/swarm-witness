@@ -37,6 +37,16 @@ equality (grant_spent, counts, call_id)—not synthetic grant/epoch hash parity.
 
 Selected published run: `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/`.
 
+The affirmative native requalification is
+`evidence/r3/ledger_claim_v1/2026-11-08-ledger-bridge-requalify/`.
+Its retained summary has `native_bmo=true`, agreement `matched`,
+conclusion class `supported`, and finding label `classical_baseline_matches`. Compare that directory to re-check the
+current bridge against that manifest. Comparing the 2026-11-07 run checks
+the current bridge against the earlier manifest. A bridge-hash mismatch
+there is a source-identity rejection: agreement can stay `matched` and
+validity true while the printed label is `unresolved` and `native_bmo`
+becomes false. That result does not replace the requalified run.
+
 ## Bridge opt-in
 
 ```bash

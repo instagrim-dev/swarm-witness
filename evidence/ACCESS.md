@@ -11,7 +11,7 @@ The repository contains the observations, claim definitions, warrants, and metho
 | EvidenceGraph composition | `experiments/external_calibration/` | `report/external_calibration_v1/`, `evidence/external_calibration_v1/` |
 | SoundGate | `claims/r1_restart.yaml`, `experiments/r1/` | `evidence/r1/`, including `evidence/r1/raw.json.gz` |
 | EvidenceGraph stress confirmation | `claims/r2_receipt.yaml`, `experiments/r2/` | `evidence/r2/` |
-| Native BMO and SQLite first-edit comparison | `experiments/r3/ledger_claim_v1/` | `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` |
+| Native BMO and SQLite first-edit comparison | `experiments/r3/ledger_claim_v1/` | `evidence/r3/ledger_claim_v1/2026-11-08-ledger-bridge-requalify/` for the affirmative native run; `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` for the earlier retained manifest |
 | Four-world evidence semantics | `theory/` | `evidence/taxonomy_theory/`, `artifacts/taxonomy_proof_checks.json` |
 | Additional controlled protocols | `experiments/`, `protocol/`, `claims/` | `evidence/index.yaml` and the corresponding study directories |
 
@@ -48,6 +48,7 @@ The [comparison reproduction guide](../report/bounded_comparison_v1/REPLAY.md) d
 ## Supporting studies
 
 ```bash
+python experiments/r3/ledger_claim_v1/compare.py --run-dir evidence/r3/ledger_claim_v1/2026-11-08-ledger-bridge-requalify
 python experiments/r3/ledger_claim_v1/compare.py --run-dir evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2
 python experiments/r3/ledger_settlement_v1/compare.py --run-dir evidence/r3/ledger_settlement_v1/2026-11-08-ledger-settlement-v1
 python experiments/r3/ledger_settlement_v1/compare.py --run-dir evidence/r3/ledger_settlement_v1/2026-11-08-ledger-settlement-v1-controls
@@ -59,7 +60,7 @@ PYTHONPATH=src python experiments/multi_agent_sim/run.py
 PYTHONPATH=src python experiments/swarm_r5_v3/run.py
 ```
 
-The first three commands are compare-only. They compare the retained six-case ledger records, then the two-case settlement run, then the nine-case controls run. They do not re-execute BMO. Fixture-authored settlement rows are not live model edits. The generated contract report is `report/architecture_contracts_v1/`, and bounded conformance there is not full-system equivalence. The pipeline command rescores the frozen 70-packet set and rewrites `evidence/external_calibration_v1/heldout_v1/pipeline_v1.json`. It does not add packets. `experiments/external_calibration/representation_v2.py --output` writes a four-arm copy under the chosen directory and does not rewrite `heldout_v1`. That command compares retained packets; it does not re-execute BMO. Native BMO re-execution requires Go and access to source revision `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe` for the ledger study, and `c8297333b3bf31ded96ca0e8b39c531d3bcea97f` for the settlement study, as described in the corresponding protocol READMEs. The causal and settlement experiments use declared model schedules. They are separate from the local application execution and the public reproduction record.
+The first four commands are compare-only. They do not re-execute BMO. The first re-checks the current bridge against the affirmative native run, `evidence/r3/ledger_claim_v1/2026-11-08-ledger-bridge-requalify/`. Its retained summary has `native_bmo` true, agreement `matched`, conclusion class `supported`, and finding label `classical_baseline_matches`. The second compares the current bridge with the earlier manifest in `evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/`. A bridge hash mismatch there is a source-identity rejection: agreement can remain `matched` and validity true while the printed label is `unresolved` and `native_bmo` becomes false. That label does not replace the requalified run. The next two compare the two-case settlement run and the nine-case controls run. Fixture-authored settlement rows are not live model edits. The generated contract report is `report/architecture_contracts_v1/`, and bounded conformance there is not full-system equivalence. The pipeline command rescores the frozen 70-packet set and rewrites `evidence/external_calibration_v1/heldout_v1/pipeline_v1.json`. It does not add packets. `experiments/external_calibration/representation_v2.py --output` writes a four-arm copy under the chosen directory and does not rewrite `heldout_v1`. That command compares retained packets; it does not re-execute BMO. Native BMO re-execution requires Go and access to source revision `4b717d793f68dc1a467f6ff4e3ca24d93c8ebfbe` for the ledger study, and `c8297333b3bf31ded96ca0e8b39c531d3bcea97f` for the settlement study, as described in the corresponding protocol READMEs. The causal and settlement experiments use declared model schedules. They are separate from the local application execution and the public reproduction record.
 
 ## Build the paper
 

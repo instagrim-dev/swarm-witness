@@ -86,6 +86,18 @@ def receipt() -> dict[str, object]:
 
 def main() -> None:
     document = receipt()
+    if RECEIPT.is_file():
+        previous = json.loads(RECEIPT.read_text(encoding="utf-8"))
+        for key in ("inspection_tree_revision", "artifact_commit", "release_revision"):
+            if key in previous:
+                document[key] = previous[key]
+        if previous.get("inspection_tree_revision"):
+            document["revision"] = previous["inspection_tree_revision"]
+        for key in ("inspected_at", "visual_method", "notes"):
+            if key in previous:
+                document[key] = previous[key]
+        if previous.get("visual_inspection_performed") is True:
+            document["visual_inspection_performed"] = True
     RECEIPT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
     print(RECEIPT)
 

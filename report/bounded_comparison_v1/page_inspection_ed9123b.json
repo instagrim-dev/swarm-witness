@@ -1,5 +1,8 @@
 {
   "revision": "1c4175ba37e0c76a7de88e8da968b4044359f805",
+  "inspection_tree_revision": "1c4175ba37e0c76a7de88e8da968b4044359f805",
+  "artifact_commit": "9f12ea3e5f93e407af7390349bead868244c3944",
+  "release_revision": "ba78387071e83d924175000f3c8fedb28665b81f",
   "inspected_at": "2026-11-08",
   "geometry_method": "pypdf.PdfReader.extract_text",
   "visual_inspection_performed": true,
@@ -26,5 +29,5 @@
       "unreadable_table_observed": false
     }
   ],
-  "notes": "Templated body ends before References on page 9 (11 pages). Research-layout references begin on page 8 (10 pages). Tables 1, 2, 2b, 3, and 4 and the evidence chain are complete. Appendix A includes the sprint-contribution subsection. PDFKit renders of the appendix and closing pages show no clipping or overflow. This receipt does not replace the fde17ab clean-extract log."
+  "notes": "revision and inspection_tree_revision are the git HEAD when these PDF bytes were measured and the appendix pages were inspected with PDFKit. Those bytes were not part of that commit. artifact_commit added the PDF bytes. release_revision is published main ba78387, and the PDF files at that revision match these SHA-256 values. Templated body ends before References on page 9 (11 pages). Research-layout references begin on page 8 (10 pages). Tables 1, 2, 2b, 3, and 4 and the evidence chain are complete. Appendix A includes the sprint-contribution subsection. PDFKit renders of the appendix and closing pages show no clipping or overflow. This receipt does not replace a clean-extract log."
 }

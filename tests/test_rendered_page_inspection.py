@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,3 +47,24 @@ def test_page_receipt_matches_rendered_pdfs():
         assert row["body_pages_before_references"] == row["references_begin_page"] - 1
     templated = retained["report/Swarm_Witness_Templated_Submission.pdf"]
     assert templated["body_pages_before_references"] <= 8
+
+
+def test_page_receipt_separates_inspection_tree_from_release():
+    document = json.loads(RECEIPT.read_text(encoding="utf-8"))
+    inspection = document["inspection_tree_revision"]
+    artifact = document["artifact_commit"]
+    release = document["release_revision"]
+    assert document["revision"] == inspection
+    assert len({inspection, artifact, release}) == 3
+    for row in document["artifacts"]:
+        blob = subprocess.check_output(
+            ["git", "show", f"{release}:{row['path']}"],
+            cwd=ROOT,
+        )
+        assert hashlib.sha256(blob).hexdigest() == row["sha256"]
+        touched = subprocess.check_output(
+            ["git", "log", "-1", "--format=%H", release, "--", row["path"]],
+            cwd=ROOT,
+            text=True,
+        ).strip()
+        assert touched == artifact

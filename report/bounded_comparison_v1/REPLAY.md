@@ -45,6 +45,12 @@ The native layer distinguishes *unsupported support* from support of a false pro
 
 Public-record warrants establish what the available material supports. Where the underlying event cannot be verified, they are not substituted for hidden truth. The EvidenceGraph composition has a separate protocol and denominator in `report/external_calibration_v1/EVENT_CAPABILITY.md`.
 
+## Native ledger comparison
+
+The affirmative native six-case comparison is `evidence/r3/ledger_claim_v1/2026-11-08-ledger-bridge-requalify/`. Its retained summary has `native_bmo` true, agreement `matched`, validity true, conclusion class `supported`, and finding label `classical_baseline_matches`. Re-checking that directory with `experiments/r3/ledger_claim_v1/compare.py` qualifies the current bridge against that run's manifest. It does not re-execute Go.
+
+`evidence/r3/ledger_claim_v1/2026-11-07-ledger-v1-repair2/` keeps the earlier manifest. Comparing the current bridge with that manifest fails closed when `bmo_adapter_test.go` differs: the compare can print `unresolved` with agreement `matched` and validity true, and set `native_bmo` false with `bridge hash mismatch for bmo_adapter_test.go: file≠manifest`. That is a source-identity rejection. It leaves the requalified run in place.
+
 ## Later evaluator replay
 
 On 2026-11-08 the retained native comparison was separated from the current evaluator. Table N reads `experiments/effect_witness/historical_qualification_packets_v1.json` and still reports Swarm Witness *unsupported support* 11 and correct decisive 24/24. Table N2 scores the same packet files with the current evaluator. After `experiments/effect_witness/run.py` in an extracted bundle, `render_bounded_comparison.py` still reported those retained counts.
@@ -88,3 +94,15 @@ In `/tmp/sw-review-extract-b7319d8/swarm-witness-review-bundle`, a new virtualen
 The six-case ledger compare exited 0 with `agreement: matched`, `validity: true`, and printed label `unresolved`. It rewrote the extract's `summary.json`: `native_bmo` became false and the qualification note was `bridge hash mismatch for bmo_adapter_test.go: file≠manifest`. That is a compare-only requalification of retained records, not a native Go re-execution. Native Go re-execution was not run. The two settlement compares exited 0 with `agreement: matched` and did not change their summary files. The contract report, challenge v2, and representation study wrote only under the temporary run directory. `heldout_pipeline_v1.py` was not run, because it rewrites the retained pipeline file.
 
 The LibreOffice build in the extract produced a 9-page research PDF, with references on page 8, and a 10-page templated PDF, with references on page 9.
+
+## Clean extract of ba78387
+
+This section records a replay of the review bundle built from commit `ba78387071e83d924175000f3c8fedb28665b81f`. It was added after that commit. It does not claim to have tested the commit that contains this paragraph. It does not replace the `b7319d8` extract, and it does not reuse that extract's 411 passing tests as this measurement.
+
+The bundle is `dist/swarm-witness-review-bundle.zip`. Its SHA-256 is `efb08c6424b5a30c7f8661f4c1ba1c26047cf8999e5675972521c0219f358853`, its size is 4,480,505 bytes, and `zipfile.testzip` found no CRC error. It has 1,211 entries. The SHA-256 of the sorted entry names is `8480548de7cdb3282840f5955e310f155fe14e25ea58bf085b24c0a58aff3d37`, and those names are `distribution_ba78387.namelist.txt`. The bundle contained no workbench directory, sqlite file, or `bmo_work` tree. The manuscript in the bundle contains the sprint-contribution appendix. This receipt is not inside that zip. The command log is `clean_extract_ba78387.log`, and the digests are in `clean_extract_ba78387.json`.
+
+In `/tmp/sw-review-extract-ba78387/swarm-witness-review-bundle`, a new virtualenv installed the declared `dev` and `paper` extras, including `pypdf`. Pytest reported 411 passed. The 48 packets remain four dependent views of twelve histories. This extract does not make those views independent. Table N still showed Swarm Witness *unsupported support* 11 and correct decisive 24/24. Table N2 still showed 0 *unsupported supports*, 0 unsupported refutations, 24/24 correct decisive, and 24 correct abstentions. The historical qualification packets, the v1 challenge ledger, and `heldout_v1/result.json` kept the same digests.
+
+The compare of `2026-11-07-ledger-v1-repair2` exited 0 with agreement `matched`, validity true, and printed label `unresolved`. It rewrote the extract's copy of that summary: `native_bmo` became false and the qualification note was `bridge hash mismatch for bmo_adapter_test.go: file≠manifest`. That is a source-identity rejection, not a native Go re-execution. The compare of `2026-11-08-ledger-bridge-requalify` exited 0 with printed label `classical_baseline_matches`, agreement `matched`, validity true, `native_bmo` true, and conclusion class `supported`. Native Go re-execution was not run. The two settlement compares exited 0 with agreement `matched` and did not change their summary files. The contract report, challenge v2, and representation study wrote only under the temporary run directory. `heldout_pipeline_v1.py` was not run, because it rewrites the retained pipeline file.
+
+The LibreOffice build in the extract produced a 10-page research PDF, with references on page 8, and an 11-page templated PDF, with references on page 9. Both contain the sprint-contribution appendix. Those rebuilt files were left in the extract. The committed PDF hashes remain the page-inspection receipt.
