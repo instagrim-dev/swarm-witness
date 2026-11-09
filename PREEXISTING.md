@@ -42,6 +42,12 @@ The consulted implementation and test surfaces include:
 - `internal/app/ordinary_retry_retained_grant_projection.go`
 - `internal/db/migrations/20261101033000_ordinary_retry_retained_grant_transfers.sql`
 
+## Sprint-period research contribution
+
+The last pre-sprint state, [commit `c80cdd2`](https://github.com/instagrim-dev/swarm-witness/tree/c80cdd228c0f9e7ae789cd51c41ac020aacb09d4), was committed October 26, 2026 UTC (October 25 Pacific). It comprised a README, license, manual CI and setup checks, and placeholder research directories. The README described a preliminary paired-oversight research direction but explicitly stated that experiments, research protocols, scenarios, agents, monitors, and the paper had not yet been implemented. No runnable experiment or retained research result was present.
+
+The substantive Swarm Witness research was developed during the November 6–8 sprint: the evidence-sufficiency protocol and qualifier, controlled application-owned SQLite effect witness, separately implemented classical ledger and settlement reference, native BMO comparisons, adversarial evidence challenges, EvidenceGraph adapter and representation analyses, bounded formal checks, retained measurements, and manuscript. Those are sprint-period research contributions. The underlying BMO authority and settlement mechanisms, SoundGate, and EvidenceGraph predate this work and remain attributed as research subjects or sources rather than newly invented mechanisms. The two contract implementations match on bounded cases; they do not constitute independent adjudication or demonstrate external empirical transfer.
+
 ## Repository scaffold
 
 The October 25 scaffold supplied `protocol/`, `scenarios/`, `agents/`, `monitors/`, `analysis/`, `paper/`, `scripts/check.sh`, the MIT license, CI configuration and initial repository documentation.
