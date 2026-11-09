@@ -317,7 +317,7 @@ def render_markdown(document: dict[str, Any]) -> str:
             "",
             f"Raw classifiers recover {raw} assessor-decisive labels. With the shared admitted-premise adapter, both composed arms recover {composed}. Derived records are transformations: the composed arms still count 332 supplied records as the independent sources and make 0 further requests.",
             "",
-            f"Against the separate warrant, the composed arms have {warrant_gap} unsupported supports. Those are the retained false-exclusivity packets. Matching the assessor is composition fidelity, because the assessor and the adapter share premise logic. It is not independent correctness. `external_empirical_transfer` is not_tested. The retained `transfer_claim` flag records that scope limit. `superiority_claim` and `independent_jury` stay false.",
+            f"Against the separate warrant, the composed arms have {warrant_gap} *unsupported supports*. Those are the retained false-exclusivity packets.  Matching the assessor is composition fidelity, because the assessor and the adapter share premise logic. It is not independent correctness. `external_empirical_transfer` is not_tested. The retained `transfer_claim` flag records that scope limit. `superiority_claim` and `independent_jury` stay false.",
             "",
             f"The historical refutation nominee remains the lexicographically first fabricated claim, and its assessor label is {nominee['visible_evidence_label']}. A supplementary refuted row is an inspected representative selected from the retained labels, not a blind validation case.",
             "",

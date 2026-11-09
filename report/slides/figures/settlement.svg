@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" role="img" aria-labelledby="title desc">
+  <title id="title">Settlement decides effect-applied only</title>
+  <desc id="desc">S01 supports effect-applied. S02 refutes only that proposition. S03 to S09 leave it unresolved. The committed claim remains. This is not P_effect.</desc>
+  <defs>
+    <style>
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-regular.ttf"); font-weight: 400; }
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-bold.ttf"); font-weight: 700; }
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-italic.ttf"); font-style: italic; font-weight: 400; }
+      text { font-family: "Old Standard TT", "Times New Roman", Times, serif; fill: #1a1a1a; }
+    </style>
+  </defs>
+  <rect width="1600" height="860" fill="#ffffff"/>
+  <text x="48" y="64" font-size="22" fill="#434343" letter-spacing="1.5">NINE SETTLEMENT CASES</text>
+  <text x="48" y="118" font-size="40" font-weight="700" fill="#434343">Effect-applied is one proposition.</text>
+  <line x1="48" y1="148" x2="1552" y2="148" stroke="#000000" stroke-width="3"/>
+
+  <g>
+    <rect x="48" y="200" width="470" height="420" fill="#f3f8f5" stroke="#1F7A4D" stroke-width="2"/>
+    <rect x="48" y="200" width="470" height="12" fill="#1F7A4D"/>
+    <text x="80" y="278" font-size="28" font-weight="700" fill="#1F7A4D">S01</text>
+    <text x="80" y="348" font-size="30">Bound applied records</text>
+    <text x="80" y="398" font-size="26" fill="#434343">effect entered</text>
+    <line x1="80" y1="490" x2="486" y2="490" stroke="#d9d9d9"/>
+    <circle cx="104" cy="548" r="16" fill="none" stroke="#1F7A4D" stroke-width="3"/>
+    <path d="M94 548 l6 6 l12 -12" fill="none" stroke="#1F7A4D" stroke-width="3"/>
+    <text x="136" y="560" font-size="34" font-weight="700" fill="#1F7A4D">Supported</text>
+  </g>
+  <g>
+    <rect x="566" y="200" width="470" height="420" fill="#fbf4f4" stroke="#9B3A3A" stroke-width="2"/>
+    <rect x="566" y="200" width="470" height="12" fill="#9B3A3A"/>
+    <text x="598" y="278" font-size="28" font-weight="700" fill="#9B3A3A">S02</text>
+    <text x="598" y="348" font-size="30">Bound no-effect records</text>
+    <text x="598" y="398" font-size="26" fill="#434343">not entered</text>
+    <line x1="598" y1="490" x2="1004" y2="490" stroke="#d9d9d9"/>
+    <circle cx="622" cy="548" r="16" fill="none" stroke="#9B3A3A" stroke-width="3"/>
+    <path d="M610 536 l24 24 M634 536 l-24 24" fill="none" stroke="#9B3A3A" stroke-width="3"/>
+    <text x="654" y="560" font-size="34" font-weight="700" fill="#9B3A3A">Refuted</text>
+  </g>
+  <g>
+    <rect x="1084" y="200" width="470" height="420" fill="#fbf8f1" stroke="#9A6B12" stroke-width="2"/>
+    <rect x="1084" y="200" width="470" height="12" fill="#9A6B12"/>
+    <text x="1116" y="278" font-size="28" font-weight="700" fill="#9A6B12">S03-S09</text>
+    <text x="1116" y="348" font-size="30">Refused</text>
+    <text x="1116" y="398" font-size="26" fill="#434343">terminal evidence invalid</text>
+    <line x1="1116" y1="490" x2="1522" y2="490" stroke="#d9d9d9"/>
+    <circle cx="1140" cy="548" r="16" fill="none" stroke="#9A6B12" stroke-width="3"/>
+    <path d="M1128 548 h24" fill="none" stroke="#9A6B12" stroke-width="3"/>
+    <text x="1172" y="560" font-size="34" font-weight="700" fill="#9A6B12">Unresolved</text>
+  </g>
+  <text x="48" y="700" font-size="28">S02 refutes only the effect-applied proposition. The committed claim remains.</text>
+  <text x="48" y="752" font-size="24" fill="#434343">Both arms match. Fixture-authored records. Not a live model edit.</text>
+  <text x="48" y="800" font-size="24" font-style="italic" fill="#434343">Not P_effect. Not P_system. Not part of the six ledger cases.</text>
+</svg>

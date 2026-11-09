@@ -51,9 +51,9 @@ Attribution warrants use the adapter’s support verdict as the public-evidence 
 
 ## Reading
 
-Use regenerated attribution counts: safer/adapter 48 correct decisive, 10 unsupported supports, and 1 factually wrong supported attribution. Strong/Swarm Witness: 48 missed decisive (replacing the earlier 57).
+Use regenerated attribution counts: safer/adapter 48 correct decisive, 10 *unsupported supports*, and 1 factually wrong supported attribution. Strong/Swarm Witness: 48 missed decisive (replacing the earlier 57).
 
-The ten unsupported supports are the false-exclusivity premise convention (all ten safer/adapter supports marked unwarranted, including correct event identities).
+The ten *unsupported supports* are the false-exclusivity premise convention (all ten safer/adapter supports marked unwarranted, including correct event identities).
 
 Classifier abstention on these raw packets means the frozen classifiers do not consume them as verifying evidence. That does not establish adapter correctness; adapter vs native safer is the conformance column.
 

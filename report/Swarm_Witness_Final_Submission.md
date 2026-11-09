@@ -11,11 +11,11 @@ Delegated agents need authority and outcome evidence that retain their meaning a
 
 A correct local control can coexist with a policy violation elsewhere in the same execution. In the application studied here, a worker passes a remote URL allowlist test while a forbidden downstream write commits. The actor transcript does not establish what reached storage. A record from the application-owned sink, bound to the same run, establishes the forbidden effect. The observations answer different questions because the control and the write cross different boundaries.
 
-This creates a practical problem for authorization research. A receipt can establish that a message was delivered without identifying who caused an event. A recorded allow can establish a decision without establishing current authority at execution. A successful test can establish the tested behavior without establishing a broader system property. The research question is therefore: **what evidence is sufficient to justify a specified authorization claim?**
+This creates a practical problem for authorization research. A receipt can establish that a message was delivered without identifying who caused an event. A recorded allow can establish a decision without establishing current authority at execution. A successful test can establish the tested behavior without establishing a broader system property. The research question is therefore: **what evidence is sufficient to justify a specified authorization claim?** The studies follow that question in one chain: authority, a terminal outcome, a warrant, and translation.
 
-Swarm Witness is the research instrument for that question. BMO is the preexisting implementation of owned authority and settlement. A classical SQLite gate implements the selected contract separately and is not an independent adjudicator. The Swarm Witness qualifier is one evaluated method. The EvidenceGraph adapter derives records from admitted premises and is part of a composed method, not ground truth.
+Swarm Witness is the research instrument for that question. BMO, SoundGate, and EvidenceGraph predate it. BMO implements owned authority and settlement. SoundGate studies whether restart preserves a durable refusal. EvidenceGraph studies why a receipt does not establish event attribution. A classical SQLite gate implements the selected BMO contract separately and is not an independent adjudicator. On the application packets, the Swarm Witness qualifier and the invariant checker are the paired methods. The EvidenceGraph adapter is a composed method, not ground truth.
 
-The contribution is the extraction and comparison of those selected contracts, together with observation interventions that show which records justify a conclusion. The BMO mechanisms are preexisting. Bounded contract portability across the two implementations is demonstrated. External empirical transfer remains untested. This track evaluates whether authority and evidence obligations survive agent handoffs and recovery, using observable outcomes and matched controls.
+The contribution is the extraction and comparison of those selected contracts, together with observation interventions that show which records justify a conclusion. The BMO mechanisms are preexisting. Bounded contract portability across the two implementations is demonstrated. This track evaluates whether authority and evidence obligations survive agent handoffs and recovery, using observable outcomes and matched controls.
 
 ## 2 Claims and observations
 
@@ -75,17 +75,26 @@ An additional EvidenceGraph experiment tests whether an adapter can express prio
 
 ## 4 Results
 
-Six ledger cases are not added to the settlement cases. The initial settlement run is two cases; the controls run is those cases inside a nine-case denominator, not nine further cases. The 70-packet slice is not added to the 130-packet corpus, and the sixteen-case challenge is not added to the 48-packet comparison.
+The results follow the chain below. A later boundary needs its own observation, and it does not revise an earlier count.
 
-### 4.1 Native transaction-contract calibration
+**Evidence chain. A later claim needs its own observation.**
+
+| Boundary | What it can establish | What it cannot establish alone | Where it is tested |
+| --- | --- | --- | --- |
+| Authority and claim | A scoped one-use claim by the current owner | That the delegated edit applied | BMO and SQLite, 6 cases, 22 steps |
+| Terminal settlement | An applied edit, or a definite no-effect | System safety, or a live external agent | S01-S09, including the initial 2 |
+| Effect and warrant | A committed effect, or a justified absence | Safety from a local pass, or from an incomplete ledger | 12 histories, viewed as 48 packets |
+| Evidence translation | A classifier conclusion from admitted premises | That the adapter's premises were independently verified | 70 of 130 packets |
+
+### 4.1 Valid authority does not settle an effect
 
 The question is whether BMO and the classical gate satisfy the same bounded claim contract. The observation is the retained comparison of six cases and 22 paired steps. That comparison is compare-only: it reads recorded transactions and does not re-execute BMO. The result is that both implementations match on dispositions and the relevant ledger-state projections, covering repeated claims, spent and unspent authority after reopen, rollback, wrong-task requests, and noncurrent owner revisions [7]. The implication is a calibrated claim contract. A scope-control packet refutes the further claim that these traces establish external settlement, and Table 3 is not part of these six cases.
 
-### 4.2 From transaction authorization to observed settlement
+### 4.2 The same claim still needs a terminal record
 
 The question is which terminal records resolve the effect-applied proposition after one committed first-edit claim. The observation is fixture-authored records read by both arms. It is not a live model edit, and it is not part of the six-case ledger count. The result is Table 3. S02 refutes only the effect-applied proposition. The implication is that refusal leaves the committed claim in place and leaves that proposition unresolved. Effect-applied asks whether the delegated effect entered. It is not `P_effect`, and it is not `P_system`.
 
-**Table 3. Terminal evidence, settlement, and the effect-applied verdict. Both arms match on every row.**
+**Table 3. Terminal evidence, settlement, and the effect-applied verdict. Both arms match on every case.**
 
 | Case | Terminal evidence | Settlement | Effect-applied |
 | --- | --- | --- | --- |
@@ -101,13 +110,13 @@ The question is which terminal records resolve the effect-applied proposition af
 
 S02 refutes only the effect-applied proposition. Refusal leaves the committed claim in place and that proposition unresolved.
 
-### 4.3 A local control and a forbidden effect
+### 4.3 A local pass is not the observed effect
 
 The question is whether a passing local control establishes `P_effect` or `P_system`. The observation is the witness `aew-v1-local-control-pass-broader-effect`: `remote_url_allowlist` passes, the actor-only packet lacks the sink record, and the application readback supplies it [7]. The result is that actor-only `P_effect` stays unresolved, while the readback refutes `P_effect` and therefore `P_system`; the local control remains supported. Complete observations of the clean authority-current commit support `P_effect` and leave `P_system` unresolved. The implication is that a record answers only its proposition. `P_effect` says unauthorized downstream effects do not commit. `P_system` is the conjunction of the five boundary properties.
 
-### 4.4 Warrant and truth diverge
+### 4.4 Truth can agree with an unwarranted conclusion
 
-The question is whether the historical qualifier's supports are warranted by the packet. The observation is 48 packets from 12 histories, with warrants kept separate from controlled truth. The result is Table 2. The implication is that a true proposition can still be an unwarranted support, and a later replay does not replace Table 2.
+The question is whether the historical qualifier's supports are warranted by the packet. That qualifier is the published result for these application packets, not a measure of BMO. The observation is 48 packets from 12 histories, with warrants kept separate from controlled truth. The result is Table 2. The implication is that a true proposition can still be an unwarranted support, and a later replay does not replace Table 2.
 
 **Table 2. Native comparison on 48 evidence packets from 12 executed histories. Decisive coverage and abstention have separate denominators of 24.**
 
@@ -117,7 +126,7 @@ The question is whether the historical qualifier's supports are warranted by the
 | Invariant checker | 0 | 24/24 | 24/24 |
 | Always unresolved | 0 | 0/24 | 24/24 |
 
-Table 2 is the historical comparison. Its eleven unsupported supports are withheld or misbound packets whose controlled propositions happen to be true. The current evaluator is a separate replay of those same 48 files and does not replace Table 2. The sixteen-case challenge is a separate denominator: the historical record still marks the spoofed sink supported, while the later admission check leaves it unresolved and records a malformed packet as a rejection rather than a verdict.
+Table 2 is the historical comparison. Its eleven *unsupported supports* are withheld or misbound packets whose controlled propositions happen to be true. The current evaluator is a separate replay of those same 48 files and does not replace Table 2. The sixteen-case challenge is a separate denominator: the historical record still marks the spoofed sink supported, while the later admission check leaves it unresolved and records a malformed packet as a rejection rather than a verdict.
 
 **Table 2b. Historical Swarm Witness and the current evaluator on the same 48 packets.**
 
@@ -128,11 +137,11 @@ Table 2 is the historical comparison. Its eleven unsupported supports are withhe
 
 The current replay also has 0 unsupported refutations. On the twelve actor-only packets, the historical record says prevented and the current evaluator says unobserved. Attribution is not evaluated on this layer, and the replay makes 0 additional source requests.
 
-### 4.5 Public and translated evidence
+### 4.5 Translation can carry a premise forward
 
-The question is what public records and translated packets justify. The observation on the public layer is 24 conditions, separate from the 48 packets. The result is that Swarm Witness and the invariant checker each return 22 warranted abstentions and both warranted decisive conclusions, with no unsupported supports; a naive passing rule produces 24 unsupported supports. Four controlled claims remain a smaller, separate denominator [7]. The implication is that public agreement is not the application result.
+The question is what public records and translated packets justify. The observation on the public layer is 24 conditions, separate from the 48 packets. The result is that Swarm Witness and the invariant checker each return 22 warranted abstentions and both warranted decisive conclusions, with no *unsupported supports*; a naive passing rule produces 24 *unsupported supports*. Four controlled claims remain a smaller, separate denominator [7]. The implication is that public agreement is not the application result.
 
-The translated-evidence question is whether composition adds a source or only a representation. The observation is the 130-packet corpus and, inside it, the frozen 70-packet slice: 332 supplied records and no further request. Both composed classifiers preserve all 130 adapter decisions, including ten unsupported attribution supports and one factually wrong supported attribution [6, 7]. The result on the slice is Table 4. The implication is composition fidelity on packets already inside that corpus, not unseen validation and not external empirical transfer. The historical refutation nominee on the slice stays unresolved.
+The translated-evidence question is whether composition adds a source or only a representation. The observation is the 130-packet corpus and, inside it, the frozen 70-packet slice: 332 supplied records and no further request. Both composed classifiers preserve all 130 adapter decisions, including ten unsupported attribution supports and one factually wrong supported attribution [6, 7]. The result on the slice is Table 4. The implication is composition fidelity on packets already inside that corpus, not unseen validation. The historical refutation nominee on the slice stays unresolved.
 
 **Table 4. Frozen-slice representation study: 70 of the 130 packets. Raw arms abstain on all 70. Composed arms abstain on 34. Derived records are not extra sources.**
 
@@ -141,19 +150,19 @@ The translated-evidence question is whether composition adds a source or only a 
 | Raw, either method | 0/36 | 0/26 | 0 |
 | Adapted, either method | 36/36 | 26/26 | 10 |
 
-The ten unsupported supports are false-exclusivity packets the assessor supports and the warrant leaves unresolved. Both classifiers accept the adapter's projected polarity, so the result is not a Swarm Witness-specific advantage and does not establish external empirical transfer.
+The ten *unsupported supports* are false-exclusivity packets the assessor supports and the warrant leaves unresolved. Both classifiers accept the adapter's projected polarity, so the result is not a Swarm Witness-specific advantage.
 
 ## 5 Related work and interpretation
 
 Complete mediation, causal order, and possible-worlds semantics motivate the distinction between a local check and the observations that establish an effect [1, 2, 3, 4]. SoundGate studies whether restart preserves a durable refusal [5]. EvidenceGraph studies why possession of a receipt does not establish event attribution [6].
 
-The corpus is small and deliberately constructed. Packet conditions are dependent views of the same histories, so their counts are neither population rates nor estimates of deployment reliability. Public warrants are author specified, and external empirical transfer to independently authored claim families remains untested. The historical qualifier's eleven unsupported supports remain the published comparison. Table 2b shows the current evaluator on the same files and does not replace that count. Further validation would require new families with explicit warrants and observations obtained under the trust boundaries of the intended deployment.
+The corpus is small and deliberately constructed. Packet conditions are dependent views of the same histories, so their counts are neither population rates nor estimates of deployment reliability. Public warrants are author specified. The historical qualifier's eleven *unsupported supports* remain the published comparison. Table 2b shows the current evaluator on the same files and does not replace that count. Further validation would require new families with explicit warrants and observations obtained under the trust boundaries of the intended deployment.
 
 ## 6 Conclusion
 
-BMO and the classical ledger satisfy the same retained claim contract. The comparison that shows this reads recorded transactions and does not re-execute BMO. Table 3 then separates the effect-applied proposition from that claim: bound applied records support it, bound no-effect records refute only that proposition, and refusal leaves it unresolved while the committed claim remains.
+BMO and the classical ledger satisfy the same retained claim contract. The comparison that shows this reads recorded transactions and does not re-execute BMO. Table 3 then separates the effect-applied proposition from that claim: bound applied records support it, bound no-effect records refute only that proposition, and refusal leaves it unresolved while the committed claim remains. Those are the first two boundaries in the evidence chain.
 
-The other studies qualify what may be concluded next, and what translation adds. The historical qualifier's eleven unsupported supports remain the published 48-packet comparison; the current evaluator and the sixteen-case challenge do not replace that count. Table 4 shows that an admitted-premise adapter makes 36 assessor labels and 26 warrant labels decisive for both classifiers, and still supports ten false-exclusivity packets the warrant leaves unresolved. Those 70 packets already belong to the 130-packet corpus. Recovery is fidelity to the shared adapter. External empirical transfer remains untested.
+The other studies qualify what may be concluded next, and what translation adds. The historical qualifier's eleven *unsupported supports* remain the published 48-packet comparison; the current evaluator and the sixteen-case challenge do not replace that count. Table 4 shows that an admitted-premise adapter makes 36 assessor labels and 26 warrant labels decisive for both classifiers, and still supports ten false-exclusivity packets the warrant leaves unresolved. Those 70 packets already belong to the 130-packet corpus. Recovery is fidelity to the shared adapter. External empirical transfer remains untested. These are the later boundaries in the same chain.
 
 ## Code and data
 
@@ -184,4 +193,4 @@ Source, protocols, and retained results are in the repository [7]. Reproduction 
 
 ## LLM Usage Statement
 
-AI assistants contributed to research design, implementation, validation scripts, and manuscript drafting. The author is responsible for the claims, interpretation, and released artifacts.
+The operator developed the preexisting BMO authority and settlement implementation and orchestrated the comparisons, the retained measurements, and which conclusions the evidence was allowed to support. AI assistants contributed counterfactual challenge of the claims, research design, implementation, validation scripts, and manuscript drafting. The author is responsible for the claims, interpretation, and released artifacts.

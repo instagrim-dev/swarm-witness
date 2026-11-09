@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" role="img" aria-labelledby="title desc">
+  <title id="title">Historical Table 2 and the current replay</title>
+  <desc id="desc">The same 48 packets. Historical Swarm Witness has eleven unsupported supports. The current evaluator does not replace Table 2.</desc>
+  <defs>
+    <style>
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-regular.ttf"); font-weight: 400; }
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-bold.ttf"); font-weight: 700; }
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-italic.ttf"); font-style: italic; font-weight: 400; }
+      text { font-family: "Old Standard TT", "Times New Roman", Times, serif; fill: #1a1a1a; }
+    </style>
+  </defs>
+  <rect width="1600" height="860" fill="#ffffff"/>
+  <text x="48" y="56" font-size="22" fill="#434343" letter-spacing="1.5">PUBLISHED APPLICATION QUALIFIER, NOT A BMO RESULT</text>
+  <text x="48" y="112" font-size="36" font-weight="700" fill="#434343">The replay does not replace Table 2.</text>
+  <line x1="48" y1="148" x2="1552" y2="148" stroke="#000000" stroke-width="3"/>
+
+  <path d="M792 390 v90" fill="none" stroke="#5C6B73" stroke-width="4"/>
+  <circle cx="792" cy="360" r="18" fill="#ffffff" stroke="#5C6B73" stroke-width="3"/>
+  <path d="M780 348 l24 24" fill="none" stroke="#5C6B73" stroke-width="3"/>
+  <g>
+    <rect x="48" y="190" width="720" height="470" fill="#fff7f2" stroke="#C2410C" stroke-width="2"/>
+    <text x="80" y="250" font-size="22" fill="#C2410C" letter-spacing="1.2">HISTORICAL SWARM WITNESS</text>
+    <text x="80" y="370" font-size="92" font-weight="700" fill="#C2410C">11</text>
+    <path d="M250 292 l16 28 h-32 z" fill="none" stroke="#C2410C" stroke-width="3"/>
+    <text x="284" y="330" font-size="28" fill="#C2410C" font-style="italic">unsupported supports</text>
+    <text x="80" y="470" font-size="30" fill="#1F7A4D">24/24 correct decisive</text>
+    <text x="80" y="522" font-size="30" fill="#9A6B12">13/24 correct abstentions</text>
+    <text x="80" y="600" font-size="24" fill="#C2410C">Table 2. The eleven stay.</text>
+  </g>
+  <g>
+    <rect x="832" y="190" width="720" height="470" fill="#f3f8f5" stroke="#1F7A4D" stroke-width="2"/>
+    <text x="864" y="250" font-size="22" fill="#1F7A4D" letter-spacing="1.2">CURRENT EVALUATOR</text>
+    <text x="864" y="370" font-size="92" font-weight="700" fill="#1F7A4D">0</text>
+    <circle cx="990" cy="312" r="16" fill="none" stroke="#1F7A4D" stroke-width="3"/>
+    <path d="M980 312 l6 6 l12 -12" fill="none" stroke="#1F7A4D" stroke-width="3"/>
+    <text x="1020" y="322" font-size="28" fill="#1F7A4D" font-style="italic">unsupported supports</text>
+    <text x="864" y="470" font-size="30" fill="#1F7A4D">24/24 correct decisive</text>
+    <text x="864" y="522" font-size="30" fill="#1F7A4D">24/24 correct abstentions</text>
+    <text x="864" y="600" font-size="24" fill="#5C6B73">Table 2b. A later replay.</text>
+  </g>
+  <text x="48" y="740" font-size="28">The sixteen-case challenge is its own denominator.</text>
+  <text x="48" y="796" font-size="24" font-style="italic" fill="#434343">A true proposition can still be an unwarranted support.</text>
+</svg>

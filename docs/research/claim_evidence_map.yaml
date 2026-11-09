@@ -35,7 +35,7 @@ claims:
       - id: S06
         ref: 7468d2795d9c6500c68c5daf6a970ed765903885
         path: report/bounded_comparison_v1/TABLES.md
-    scope: Table 2 is the historical qualifier on 48 packets, with eleven unsupported supports. Table 2b is the current evaluator on the same files.
+    scope: Table 2 is the historical qualifier on 48 packets, with eleven *unsupported supports*. Table 2b is the current evaluator on the same files.
     not_established: The current evaluator does not replace the historical eleven, and the sixteen-case challenge is a separate denominator.
   - claim_id: H4
     statement: An observation representation and its translation are part of the evaluated method.

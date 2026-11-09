@@ -37,7 +37,7 @@ Twelve propositions, four adversarial controls, two stages, 24 cells per method.
 | Checklist | 12 | 10 | 1 | 0 |
 | Swarm Witness | 0 | 22 | 2 | 0 |
 
-This table is the earlier author-curated staged comparison against naive PASS and a weak checklist. It is not a comparison with the strong checker. Mechanical withholding of later-stage evidence is not independent curation. The frozen public comparison, regenerated in `report/bounded_comparison_v1/TABLES.md`, puts the strong-checker tie beside it: Swarm Witness and the strong checker both have 0 unsupported supports, and naive PASS has 24. `superiority_claim` stays false. The zero warranted supports are part of the staged result: with raw telemetry absent, the difference from the weak baselines is refusing unsupported upgrades, not confirming the intrusion.
+This table is the earlier author-curated staged comparison against naive PASS and a weak checklist. It is not a comparison with the strong checker. Mechanical withholding of later-stage evidence is not independent curation. The frozen public comparison, regenerated in `report/bounded_comparison_v1/TABLES.md`, puts the strong-checker tie beside it: Swarm Witness and the strong checker both have 0 *unsupported supports*, and naive PASS has 24. `superiority_claim` stays false. The zero warranted supports are part of the staged result: with raw telemetry absent, the difference from the weak baselines is refusing unsupported upgrades, not confirming the intrusion.
 
 The two warranted refutations are sufficiency claims, and only after stage B:
 

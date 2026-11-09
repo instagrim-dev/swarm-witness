@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build both paper layouts and Markdown extracts from the canonical manuscript.
 
-Requires Pandoc and python-docx. The committed Apart template supplies page
-geometry, embedded fonts, and branding; its legacy styles and prose are omitted.
+Requires Pandoc and python-docx. The templated export fills the Apart title
+card and uses its heading color. Guidance text and the info box are omitted.
 """
 from __future__ import annotations
 
@@ -65,12 +65,142 @@ def write_extracts(text: str, headings: dict[str, re.Match[str]], branding: str)
         (REPORT / filename).write_text(content + "\n", encoding="utf-8")
 
 
+def _paragraph_text(element) -> str:
+    return "".join(node.text or "" for node in element.iter(qn("w:t"))).strip()
+
+
+def _set_paragraph_text(element, text: str, *, keep_italic: bool = False) -> None:
+    runs = element.findall(qn("w:r"))
+    if not runs:
+        raise ValueError("template paragraph has no run")
+    first = runs[0]
+    for extra in runs[1:]:
+        element.remove(extra)
+    properties = first.find(qn("w:rPr"))
+    if properties is not None and not keep_italic:
+        for tag in ("w:i", "w:iCs", "w:u"):
+            node = properties.find(qn(tag))
+            if node is not None:
+                properties.remove(node)
+    node = first.find(qn("w:t"))
+    if node is None:
+        node = OxmlElement("w:t")
+        first.append(node)
+    node.set(qn("xml:space"), "preserve")
+    node.text = text
+
+
+def _fill_title_table(table, metadata: dict[str, str], abstract: str) -> None:
+    """Put the manuscript into the template title card and drop unused author slots."""
+    author_table = None
+    for nested in table.iter(qn("w:tbl")):
+        texts = [_paragraph_text(paragraph) for paragraph in nested.iter(qn("w:p"))]
+        if any(text.startswith("Author name 1") for text in texts) and not any(
+            "Apart Research" in text or text.startswith("PROJECT") or text.startswith("Summarize")
+            for text in texts
+        ):
+            author_table = nested
+    affiliation_used = False
+    for paragraph in table.iter(qn("w:p")):
+        text = _paragraph_text(paragraph)
+        if "PROJECT TITLE" in text:
+            for node in paragraph.iter(qn("w:t")):
+                if node.text and "PROJECT TITLE" in node.text:
+                    node.text = node.text.replace("PROJECT TITLE", metadata["title"])
+        elif text.startswith("Summarize your project"):
+            _set_paragraph_text(paragraph, abstract)
+        else:
+            for node in paragraph.iter(qn("w:t")):
+                if node.text == "Author name 1":
+                    node.text = metadata["author"]
+                    break_mark = OxmlElement("w:br")
+                    node.getparent().append(break_mark)
+                elif node.text and node.text.startswith("Author name"):
+                    node.text = ""
+                elif node.text == "Affiliation":
+                    node.text = "" if affiliation_used else metadata["affiliation"]
+                    affiliation_used = True
+    if author_table is None:
+        raise ValueError("template author table was not filled")
+    rows = author_table.findall(qn("w:tr"))
+    for row in rows[1:]:
+        author_table.remove(row)
+    first_row = author_table.find(qn("w:tr"))
+    cells = first_row.findall(qn("w:tc"))
+    for cell in cells[1:]:
+        first_row.remove(cell)
+    grid = author_table.find(qn("w:tblGrid"))
+    if grid is not None:
+        columns = grid.findall(qn("w:gridCol"))
+        if columns:
+            columns[0].set(qn("w:w"), "4320")
+        for column in columns[1:]:
+            grid.remove(column)
+    preferred = author_table.find(qn("w:tblPr") + "/" + qn("w:tblW"))
+    if preferred is not None:
+        preferred.set(qn("w:w"), "4320")
+        preferred.set(qn("w:type"), "dxa")
+
+
 def template_branding(template) -> tuple[object, str]:
     for element in template.element.body.iter(qn("w:p")):
         words = [node.text for node in element.iter(qn("w:t")) if node.text]
         if "Apart Research" in words and "With" in words:
             return deepcopy(element), " ".join(words)
     raise ValueError("The committed template has no Apart Research branding paragraph.")
+
+
+def template_title_table(template, metadata: dict[str, str], abstract: str):
+    table = deepcopy(template.tables[0]._tbl)
+    _fill_title_table(table, metadata, abstract)
+    # The card's Table1–Table4 styles are not in the Pandoc document. Keep the
+    # borders written on each table so the title card still draws.
+    for nested in (table, *table.iter(qn("w:tbl"))):
+        style = nested.find(qn("w:tblPr") + "/" + qn("w:tblStyle"))
+        if style is not None:
+            style.getparent().remove(style)
+    return table
+
+
+def attach_template_footnote(converted: Path) -> None:
+    """Keep the template's hackathon footnote on the title."""
+    relationship_ns = "http://schemas.openxmlformats.org/package/2006/relationships"
+    footnote_id = "1"
+    link_id = "rIdSwarmAlignment"
+    with ZipFile(TEMPLATE) as reference:
+        template_footnotes = etree.fromstring(reference.read("word/footnotes.xml"))
+        source_note = next(
+            note for note in template_footnotes.findall(qn("w:footnote"))
+            if note.get(qn("w:id")) == "0"
+        )
+    source_note.set(qn("w:id"), footnote_id)
+    for link in source_note.iter(qn("w:hyperlink")):
+        link.set(qn("r:id"), link_id)
+    with ZipFile(converted) as source:
+        footnotes = etree.fromstring(source.read("word/footnotes.xml"))
+        footnotes.append(source_note)
+        relationships = etree.fromstring(source.read("word/_rels/footnotes.xml.rels"))
+        link = etree.Element(f"{{{relationship_ns}}}Relationship")
+        link.set("Id", link_id)
+        link.set("Type", "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink")
+        link.set("Target", "https://apartresearch.com/sprints/swarm-alignment-2026")
+        link.set("TargetMode", "External")
+        relationships.append(link)
+        document = etree.fromstring(source.read("word/document.xml"))
+        references = document.findall(".//" + qn("w:footnoteReference"))
+        if len(references) != 1:
+            raise ValueError("the title card should keep one template footnote reference")
+        references[0].set(qn("w:id"), footnote_id)
+        replacements = {
+            "word/footnotes.xml": etree.tostring(footnotes, xml_declaration=True, encoding="UTF-8"),
+            "word/_rels/footnotes.xml.rels": etree.tostring(relationships, xml_declaration=True, encoding="UTF-8"),
+            "word/document.xml": etree.tostring(document, xml_declaration=True, encoding="UTF-8"),
+        }
+        updated = converted.with_suffix(".footnote.docx")
+        with ZipFile(updated, "w", compression=ZIP_DEFLATED) as output:
+            for item in source.infolist():
+                output.writestr(item, replacements.get(item.filename, source.read(item.filename)))
+    updated.replace(converted)
 
 
 def retain_template_fonts(converted: Path) -> None:
@@ -115,18 +245,18 @@ def style_document(doc, metadata: dict[str, str], template, *, templated: bool) 
         style.font.name = font_name
         style.font.size = Pt(11)
         style.font.color.rgb = RGBColor(0, 0, 0)
-        style.paragraph_format.line_spacing = 1.1
+        style.paragraph_format.line_spacing = 1.0 if templated else 1.1
         style.paragraph_format.space_before = Pt(0)
-        style.paragraph_format.space_after = Pt(5)
+        style.paragraph_format.space_after = Pt(3 if templated else 5)
         style.paragraph_format.widow_control = True
     for name, size in (("Title", 18), ("Heading1", 13), ("Heading2", 11.5), ("Heading3", 11)):
         style = styles[name]
         style.font.name = font_name
         style.font.size = Pt(size)
         style.font.bold = True
-        style.font.color.rgb = RGBColor(0, 0, 0)
-        style.paragraph_format.space_before = Pt(12 if name != "Title" else 0)
-        style.paragraph_format.space_after = Pt(5)
+        style.font.color.rgb = RGBColor(0x43, 0x43, 0x43) if templated else RGBColor(0, 0, 0)
+        style.paragraph_format.space_before = Pt((8 if templated else 12) if name != "Title" else 0)
+        style.paragraph_format.space_after = Pt(3 if templated else 5)
         style.paragraph_format.keep_with_next = True
         borders = style.element.find("w:pPr/w:pBdr", style.element.nsmap)
         if borders is not None:
@@ -164,8 +294,11 @@ def style_document(doc, metadata: dict[str, str], template, *, templated: bool) 
             for run in paragraph.runs:
                 run.font.size = Pt(9.5)
         if paragraph.style.style_id.startswith("Heading") or paragraph.style.style_id == "Title":
+            color = RGBColor(0x43, 0x43, 0x43) if templated and paragraph.style.style_id.startswith("Heading") else RGBColor(0, 0, 0)
             for run in paragraph.runs:
-                run.font.color.rgb = RGBColor(0, 0, 0)
+                run.font.color.rgb = color
+                if templated:
+                    run.font.name = font_name
         if paragraph.text.startswith("Appendix A"):
             paragraph.paragraph_format.page_break_before = True
         if paragraph.text.startswith("Table "):
@@ -266,10 +399,26 @@ def main() -> None:
             doc = Document(converted)
             style_document(doc, metadata, template, templated=templated)
             if templated:
-                abstract = next(p for p in doc.paragraphs if p.text == "Abstract")
-                abstract._p.addprevious(deepcopy(brand_element))
+                abstract = next(paragraph.text for paragraph in doc.paragraphs if len(paragraph.text.split()) > 80)
+                title_table = template_title_table(template, metadata, abstract)
+                doc.element.body.insert(0, title_table)
+                remove = []
+                for paragraph in doc.paragraphs:
+                    paragraph_text = paragraph.text.strip()
+                    if (
+                        paragraph_text == metadata["title"]
+                        or paragraph_text in {"Abstract", brand_text}
+                        or paragraph_text.startswith("Author:")
+                        or paragraph_text.startswith("With")
+                        or paragraph_text == abstract
+                    ):
+                        remove.append(paragraph._p)
+                for element in remove:
+                    element.getparent().remove(element)
             destination = REPORT / f"Swarm_Witness_{variant}_Submission.docx"
             doc.save(destination)
+            if templated:
+                attach_template_footnote(destination)
             retain_template_fonts(destination)
             print(destination.relative_to(ROOT))
     write_extracts(text, headings, brand_text)

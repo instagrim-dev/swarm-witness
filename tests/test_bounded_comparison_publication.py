@@ -135,7 +135,13 @@ def test_docx_exports_preserve_sections_references_and_table_cells():
         assert LESSWRONG in source_refs
         assert LESSWRONG in docx_refs
         assert source_refs.count(LESSWRONG) == docx_refs.count(LESSWRONG)
-        assert _docx_tables(docx) == source_tables
+        assert _manuscript_docx_tables(docx, source_tables) == source_tables
+        if variant == "Templated":
+            paragraphs = "\n".join(paragraphs)
+            assert "PROJECT TITLE" not in paragraphs
+            assert "How to use this template" not in paragraphs
+            assert "Author name 2" not in paragraphs
+            assert metadata_present(docx)
 
 
 def test_positive_coverage_count_without_commit_detail_stays_unresolved():
@@ -268,6 +274,38 @@ def _markdown_tables(text: str) -> list[list[list[str]]]:
             tables.append(rows)
             rows = []
     return tables
+
+
+def metadata_present(path: Path) -> bool:
+    with zipfile.ZipFile(path) as archive:
+        root = ET.fromstring(archive.read("word/document.xml"))
+        footnote_root = ET.fromstring(archive.read("word/footnotes.xml"))
+        footnotes = "".join(node.text or "" for node in footnote_root.iter(f"{W_NS}t"))
+    title_tables = []
+    for table in root.findall(f"{W_NS}body/{W_NS}tbl"):
+        text = _cell_text("".join(node.text or "" for node in table.iter(f"{W_NS}t")))
+        title_tables.append(text)
+    if not title_tables:
+        return False
+    card = title_tables[0]
+    return (
+        "Swarm Witness Evidence for Agent Authorization" in card
+        and "Jonathan Maye-Hobbs" in card
+        and "Independent" in card
+        and "Apart Research" in card
+        and "How to use this template" not in card
+        and "Research conducted at the Swarm Alignment Hackathon, November 2026" in footnotes
+    )
+
+
+def _manuscript_docx_tables(path: Path, source_tables: list[list[list[str]]]) -> list[list[list[str]]]:
+    remaining = list(source_tables)
+    found = []
+    for table in _docx_tables(path):
+        if remaining and table == remaining[0]:
+            found.append(table)
+            remaining.pop(0)
+    return found
 
 
 def _docx_tables(path: Path) -> list[list[list[str]]]:

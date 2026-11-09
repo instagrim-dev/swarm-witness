@@ -11,6 +11,7 @@ The paper studies how observations warrant claims about agent authorization and 
 | [Official-template PDF](Swarm_Witness_Templated_Submission.pdf) and [DOCX](Swarm_Witness_Templated_Submission.docx) | Apart Research template layout |
 | [Templated Markdown](Swarm_Witness_Templated_Submission.md) | Generated manuscript mirror |
 | [Abstract](ABSTRACT.md), [body](body.md) and [limitations](LIMITATIONS_DUAL_USE.md) | Generated extracts from the canonical manuscript |
+| [Slides](slides/Swarm_Witness_Slides.pdf) and [figures](slides/figures/) | Current deck. The guide figure is generated from the manuscript table. |
 
 Edit `Swarm_Witness_Final_Submission.md` to change the paper. Install Pandoc and LibreOffice, then build both layouts and refresh the Markdown extracts from the repository root:
 

@@ -12,4 +12,4 @@
 
 ## LLM Usage Statement
 
-AI assistants contributed to research design, implementation, validation scripts, and manuscript drafting. The author is responsible for the claims, interpretation, and released artifacts.
+The operator developed the preexisting BMO authority and settlement implementation and orchestrated the comparisons, the retained measurements, and which conclusions the evidence was allowed to support. AI assistants contributed counterfactual challenge of the claims, research design, implementation, validation scripts, and manuscript drafting. The author is responsible for the claims, interpretation, and released artifacts.

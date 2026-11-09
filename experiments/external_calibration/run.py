@@ -785,13 +785,13 @@ def _write_capability_report(path: Path, capability: dict[str, Any]) -> None:
             "",
             "Use regenerated attribution counts: safer/adapter "
             f"{attrc.get('correct_decisive')} correct decisive, "
-            f"{attrc.get('unsupported_support')} unsupported supports, "
+            f"{attrc.get('unsupported_support')} *unsupported supports*, "
             f"and {attrc.get('factually_wrong_supported_attributions')} factually "
             "wrong supported attribution. Strong/Swarm Witness: "
             f"{attrc.get('missed_decisive_strong')} missed decisive "
             "(replacing the earlier 57).",
             "",
-            "The ten unsupported supports are the false-exclusivity premise "
+            "The ten *unsupported supports* are the false-exclusivity premise "
             "convention (all ten safer/adapter supports marked unwarranted, "
             "including correct event identities).",
             "",

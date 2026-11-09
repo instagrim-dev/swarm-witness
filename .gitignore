@@ -29,6 +29,7 @@ evidence/r3/ledger_settlement_v1/**/bmo_work/
 !report/*.pdf
 !report/archive/**/*.pdf
 !report/official-template.pdf
+!report/slides/*.pdf
 .DS_Store
 ~$*.docx
 .env

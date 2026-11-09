@@ -341,7 +341,7 @@ def _native_method_summary(rows: list[dict[str, Any]]) -> list[str]:
             f"{strong_readback}/{len(readback)}. Those counts are measured against the "
             "warrant file. They are not copied from one method to the other. "
             "Predicting support on `actor_only` does not add a verifying observation, "
-            "so that prediction is unsupported support. "
+            "so that prediction is *unsupported support*. "
             "`superiority_claim` remains false.",
             "",
         ]
@@ -460,7 +460,7 @@ def _current_replay_section(rows: list[dict[str, Any]], meta: dict[str, Any]) ->
         "",
         "This replay scores the same 48 packet files with the current evaluator. "
         "It does not replace Table N. Table N remains the retained comparison: "
-        "Swarm Witness 11 unsupported supports, 24/24 correct decisive. "
+        "Swarm Witness 11 *unsupported supports*, 24/24 correct decisive. "
         "Denominators are 12 histories, 48 packets, and 144 method rows. "
         "Status, abstention, coverage, and factual error stay separate columns. "
         "Attribution is not evaluated on this native layer, so an attribution "

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Swarm Witness Evidence for Agent Authorization</title>
+<style>
+@font-face {
+  font-family: "Old Standard TT";
+  src: url("../fonts/OldStandardTT-regular.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Old Standard TT";
+  src: url("../fonts/OldStandardTT-bold.ttf") format("truetype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Old Standard TT";
+  src: url("../fonts/OldStandardTT-italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+}
+@page { size: 13.333in 7.5in; margin: 0; }
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: "Old Standard TT", "Times New Roman", Times, serif;
+}
+.slide {
+  width: 13.333in;
+  height: 7.5in;
+  padding: 0.42in 0.62in 0.62in;
+  page-break-after: always;
+  break-after: page;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+.slide:last-child { page-break-after: auto; break-after: auto; }
+.eyebrow {
+  margin: 0 0 0.12in;
+  font-size: 13pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #434343;
+}
+h1, h2 { color: #434343; font-weight: 700; margin: 0; }
+h1 { font-size: 40pt; line-height: 1.08; text-align: center; }
+h2 { font-size: 28pt; line-height: 1.15; margin-bottom: 0.16in; }
+.rule { border: 0; border-top: 3px solid #000000; margin: 0.14in 0; }
+.figure {
+  display: block;
+  width: 100%;
+  height: 6.15in;
+  object-fit: contain;
+  object-position: left center;
+}
+.title-slide { text-align: center; padding-top: 1.15in; }
+.title-slide .who { margin: 0.28in 0 0; font-size: 20pt; line-height: 1.35; }
+.title-slide .with { margin: 0.35in 0 0; font-size: 18pt; }
+.title-slide .track { margin: 0.42in 0 0; font-size: 16pt; color: #434343; }
+.footer {
+  position: absolute;
+  left: 0.62in;
+  right: 0.62in;
+  bottom: 0.28in;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #d9d9d9;
+  padding-top: 0.08in;
+  font-size: 12pt;
+  color: #434343;
+}
+.roles {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.28in;
+  margin-top: 0.2in;
+}
+.card {
+  border: 1px solid #d9d9d9;
+  background: #f7f5f0;
+  padding: 0.28in 0.3in 0.32in;
+  min-height: 3.3in;
+}
+.card h3 { margin: 0 0 0.16in; font-size: 22pt; color: #434343; }
+.card p { margin: 0; font-size: 18pt; line-height: 1.35; }
+.note { margin: 0.32in 0 0; font-size: 20pt; line-height: 1.4; }
+.yes { color: #1F7A4D; }
+.hold { color: #9A6B12; }
+.no { color: #9B3A3A; }
+.warn, em.warn { color: #C2410C; font-style: italic; }
+.open { color: #5C6B73; }
+.close p { font-size: 26pt; line-height: 1.35; margin: 0 0 0.22in; }
+.close .source { margin-top: 0.45in; font-size: 18pt; color: #434343; }
+</style>
+</head>
+<body>
+
+<section class="slide title-slide">
+  <hr class="rule"/>
+  <h1>Swarm Witness Evidence<br/>for Agent Authorization</h1>
+  <hr class="rule"/>
+  <p class="who">Jonathan Maye-Hobbs<br/>Independent</p>
+  <p class="with"><strong>With</strong><br/>Apart Research</p>
+  <p class="track">Track 4, Multi-Agent Oversight and Control</p>
+  <div class="footer"><span>Swarm Alignment Hackathon, November 2026</span><span>1 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">The scene</div>
+  <img class="figure" src="figures/boundaries.svg" alt="One execution with three observations: the allowlist is supported, the actor transcript leaves P_effect unresolved, and the sink readback refutes P_effect and P_system."/>
+  <div class="footer"><span>Swarm Witness</span><span>2 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Prior art</div>
+  <img class="figure" src="figures/prior-art.svg" alt="BMO, SoundGate, and EvidenceGraph predate this paper. The contract comparison is BMO with a SQLite gate. The application comparison is the qualifier with the invariant checker."/>
+  <div class="footer"><span>Swarm Witness</span><span>3 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Evidence chain</div>
+  <h2>A later boundary needs its own observation.</h2>
+  <img class="figure" style="height: 5.35in;" src="figures/results-guide.svg" alt="Guide of seven separate comparisons and the claim each one can establish."/>
+  <div class="footer"><span>A later boundary does not revise an earlier count.</span><span>4 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Settlement</div>
+  <img class="figure" src="figures/settlement.svg" alt="S01 supports effect-applied, S02 refutes only that proposition, and S03 through S09 leave it unresolved."/>
+  <div class="footer"><span>Swarm Witness</span><span>5 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Application packets</div>
+  <img class="figure" src="figures/replay.svg" alt="Historical Swarm Witness has eleven unsupported supports. The current evaluator on the same 48 files does not replace Table 2."/>
+  <div class="footer"><span>Swarm Witness</span><span>6 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Translated evidence</div>
+  <img class="figure" src="figures/composition.svg" alt="Seventy of 130 packets. Raw arms abstain. Adapted arms cover 36 of 36 and 26 of 26, with ten unsupported supports remaining."/>
+  <div class="footer"><span>Swarm Witness</span><span>7 / 8</span></div>
+</section>
+
+<section class="slide close">
+  <div class="eyebrow">What the studies establish</div>
+  <h2>Each boundary justifies its own claim, and no later one.</h2>
+  <p class="yes">Bounded contract portability is demonstrated across the two implementations.</p>
+  <p>The <em class="warn">eleven unsupported supports</em> remain Table 2. The <em class="warn">ten unsupported supports</em> remain Table 4.</p>
+  <p class="open">External empirical transfer remains untested.</p>
+  <p class="source">github.com/instagrim-dev/swarm-witness<br/>Reproduction commands are in evidence/ACCESS.md.</p>
+  <div class="footer"><span>Swarm Witness</span><span>8 / 8</span></div>
+</section>
+
+</body>
+</html>

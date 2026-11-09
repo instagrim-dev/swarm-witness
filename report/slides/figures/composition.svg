@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" role="img" aria-labelledby="title desc">
+  <title id="title">Seventy packets inside the corpus of 130</title>
+  <desc id="desc">Raw arms abstain. Composed arms decide and still leave ten unsupported supports. External empirical transfer is untested.</desc>
+  <defs>
+    <style>
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-regular.ttf"); font-weight: 400; }
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-bold.ttf"); font-weight: 700; }
+      @font-face { font-family: "Old Standard TT"; src: url("../../fonts/OldStandardTT-italic.ttf"); font-style: italic; font-weight: 400; }
+      text { font-family: "Old Standard TT", "Times New Roman", Times, serif; fill: #1a1a1a; }
+    </style>
+  </defs>
+  <rect width="1600" height="860" fill="#ffffff"/>
+  <text x="48" y="64" font-size="22" fill="#434343" letter-spacing="1.5">COMPOSITION</text>
+  <text x="48" y="118" font-size="40" font-weight="700" fill="#434343">The slice already belongs to the corpus.</text>
+  <line x1="48" y1="148" x2="1552" y2="148" stroke="#000000" stroke-width="3"/>
+
+  <rect x="48" y="200" width="1504" height="120" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="48" y="200" width="810" height="120" fill="#e7f2ec"/>
+  <text x="80" y="255" font-size="32" font-weight="700" fill="#1F7A4D">70-packet slice</text>
+  <text x="880" y="268" font-size="28" fill="#434343">inside 130</text>
+  <text x="48" y="380" font-size="24" fill="#434343">Derived records are not extra sources.</text>
+
+  <g>
+    <rect x="48" y="430" width="720" height="250" fill="#fbf8f1" stroke="#9A6B12" stroke-width="2"/>
+    <circle cx="104" cy="478" r="14" fill="none" stroke="#9A6B12" stroke-width="3"/>
+    <path d="M92 478 h24" fill="none" stroke="#9A6B12" stroke-width="3"/>
+    <text x="132" y="488" font-size="22" fill="#9A6B12" letter-spacing="1.2">RAW, EITHER METHOD</text>
+    <text x="80" y="570" font-size="40" font-weight="700" fill="#9A6B12">0/36  /  0/26</text>
+    <text x="80" y="630" font-size="26">Assessor and warrant coverage. Abstains.</text>
+  </g>
+  <g>
+    <rect x="832" y="430" width="720" height="250" fill="#f3f8f5" stroke="#1F7A4D" stroke-width="2"/>
+    <text x="864" y="488" font-size="22" fill="#1F7A4D" letter-spacing="1.2">ADAPTED, EITHER METHOD</text>
+    <text x="864" y="560" font-size="40" font-weight="700" fill="#1F7A4D">36/36  /  26/26</text>
+    <path d="M876 604 l12 20 h-24 z" fill="none" stroke="#C2410C" stroke-width="3"/>
+    <text x="904" y="622" font-size="26" fill="#C2410C">Ten <tspan font-style="italic">unsupported supports</tspan> remain.</text>
+  </g>
+  <text x="48" y="770" font-size="28">Both methods accept the adapter. The ten are the assessor's supports.</text>
+  <text x="48" y="822" font-size="24" font-style="italic" fill="#434343">Not a Swarm Witness-specific advantage.</text>
+</svg>
