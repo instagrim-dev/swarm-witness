@@ -30,6 +30,7 @@ evidence/r3/ledger_settlement_v1/**/bmo_work/
 !report/archive/**/*.pdf
 !report/official-template.pdf
 !report/slides/*.pdf
+!report/epistemics_trust_v1/**/*.pdf
 .DS_Store
 ~$*.docx
 .env

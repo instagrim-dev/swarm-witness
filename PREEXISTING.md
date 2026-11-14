@@ -53,3 +53,7 @@ The substantive Swarm Witness research was developed during the November 6–8 s
 The October 25 scaffold supplied `protocol/`, `scenarios/`, `agents/`, `monitors/`, `analysis/`, `paper/`, `scripts/check.sh`, the MIT license, CI configuration and initial repository documentation.
 
 The claim schema, evidence qualification implementation, application witness, comparison harnesses and synthetic evidence-sufficiency protocols are maintained in this repository. The synthetic protocols use authored inputs; they are distinct from the external source re-executions above.
+
+## AI x Epistemics sprint, November 13–15, 2026
+
+The Track 2 measurement in `experiments/epistemics_trust_v1/` reads the retained 48 packets, the evidence-stage warrants, the historical labels, the invariant checker, and the sixteen-case challenge. Those inputs predate this sprint. The consumer ladder and the report rendered from it are the sprint-new work. The November 6–8 manuscript is not rewritten. The challenge v1 ledger is not rewritten.

@@ -10,6 +10,12 @@ The central example is a local application whose URL allowlist passes while its 
 
 [Official-template PDF](report/Swarm_Witness_Templated_Submission.pdf) · [Report contents and build instructions](report/README.md) · [Evidence access](evidence/ACCESS.md)
 
+## AI x Epistemics, November 13–15, 2026
+
+Track 2 asks whether an intact actor log justifies an effect conclusion. The consumer ladder and the report rendered from it are sprint-new. The packets, warrants, invariant checker, and sixteen-case challenge are preexisting. [Preexisting material](PREEXISTING.md) records that boundary. The November 6–8 manuscript is unchanged.
+
+[Report source](report/epistemics_trust_v1/manuscript.md) · [Official-template PDF](report/epistemics_trust_v1/Epistemics_Trust_Templated.pdf) · [Slides PDF](report/epistemics_trust_v1/slides/Epistemics_Trust_Slides.pdf) · [Slides PPTX](report/epistemics_trust_v1/slides/Epistemics_Trust_Slides.pptx) · [Narration](report/epistemics_trust_v1/slides/Epistemics_Trust_Narration.mp4)
+
 ## Method
 
 Each claim specifies the property, relevant execution, required observations and assumptions. Evidence records carry source and scope information to make the premises of each conclusion explicit. Qualification distinguishes the system's behavior from what the available evidence warrants.

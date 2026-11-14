@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>An Intact Actor Log Is Not an Effect Warrant</title>
+<style>
+@font-face {
+  font-family: "Old Standard TT";
+  src: url("../../fonts/OldStandardTT-regular.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Old Standard TT";
+  src: url("../../fonts/OldStandardTT-bold.ttf") format("truetype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Old Standard TT";
+  src: url("../../fonts/OldStandardTT-italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+}
+@page { size: 13.333in 7.5in; margin: 0; }
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: "Old Standard TT", "Times New Roman", Times, serif;
+}
+.slide {
+  width: 13.333in;
+  height: 7.5in;
+  padding: 0.38in 0.58in 0.58in;
+  page-break-after: always;
+  break-after: page;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+.slide:last-child { page-break-after: auto; break-after: auto; }
+.eyebrow {
+  margin: 0 0 0.08in;
+  font-size: 13pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #434343;
+}
+h1, h2 { color: #434343; font-weight: 700; margin: 0; }
+h1 { font-size: 36pt; line-height: 1.08; text-align: center; }
+h2 { font-size: 26pt; line-height: 1.15; margin-bottom: 0.14in; }
+.rule { border: 0; border-top: 3px solid #000000; margin: 0.12in 0; }
+.title-slide { text-align: center; padding-top: 0.95in; }
+.title-slide .who { margin: 0.24in 0 0; font-size: 20pt; line-height: 1.35; }
+.title-slide .with { margin: 0.28in 0 0; font-size: 18pt; }
+.title-slide .track { margin: 0.36in 0 0; font-size: 16pt; color: #434343; }
+.footer {
+  position: absolute;
+  left: 0.58in;
+  right: 0.58in;
+  bottom: 0.22in;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #d9d9d9;
+  padding-top: 0.06in;
+  font-size: 12pt;
+  color: #434343;
+}
+.cards {
+  display: grid;
+  gap: 0.22in;
+  margin-top: 0.08in;
+}
+.cards.three { grid-template-columns: 1fr 1fr 1fr; }
+.cards.two { grid-template-columns: 1fr 1fr; }
+.card {
+  border: 1px solid #d9d9d9;
+  background: #f7f5f0;
+  padding: 0.22in 0.24in 0.24in;
+}
+.card h3 { margin: 0 0 0.1in; font-size: 18pt; color: #434343; }
+.card p, .card li { margin: 0; font-size: 16pt; line-height: 1.32; }
+.card ul { margin: 0; padding-left: 0.28in; }
+.card li { margin: 0 0 0.08in; }
+.note { margin: 0.2in 0 0; font-size: 18pt; line-height: 1.35; }
+.yes { color: #1F7A4D; }
+.hold { color: #9A6B12; }
+.no { color: #9B3A3A; }
+.warn, em.warn { color: #C2410C; font-style: italic; }
+.open { color: #5C6B73; }
+table { width: 100%; border-collapse: collapse; margin-top: 0.06in; }
+th {
+  text-align: left;
+  font-size: 13pt;
+  color: #434343;
+  border-bottom: 2px solid #000000;
+  padding: 0.06in 0.08in 0.08in 0;
+  vertical-align: bottom;
+}
+td {
+  border-bottom: 1px solid #d9d9d9;
+  padding: 0.09in 0.08in 0.09in 0;
+  font-size: 16pt;
+  vertical-align: top;
+}
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.ladder td, .ladder th { font-size: 14pt; padding-top: 0.07in; padding-bottom: 0.07in; }
+.close p { font-size: 22pt; line-height: 1.32; margin: 0 0 0.16in; }
+.close .source { margin-top: 0.28in; font-size: 16pt; color: #434343; }
+</style>
+</head>
+<body>
+
+<section class="slide title-slide">
+  <hr class="rule"/>
+  <h1>An Intact Actor Log<br/>Is Not an Effect Warrant</h1>
+  <hr class="rule"/>
+  <p class="who">Jonathan Maye-Hobbs<br/>Independent</p>
+  <p class="with"><strong>With</strong><br/>Apart Research</p>
+  <p class="track">Track 2, Trust Infrastructure<br/>AI x Epistemics Research Sprint, November 13–15, 2026</p>
+  <div class="footer"><span>Sprint-new reading of preexisting Swarm Witness records</span><span>1 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">The question</div>
+  <h2>An actor log can already be intact.</h2>
+  <div class="cards three">
+    <div class="card">
+      <h3>Intact actor</h3>
+      <p>Support <em>P_effect</em> when a requested-command record is locally held, custody intact, marked bound, and carrying public bytes.</p>
+    </div>
+    <div class="card">
+      <h3>Historical label</h3>
+      <p>Read the retained Swarm Witness verdict on the same packet. That label is the published comparison.</p>
+    </div>
+    <div class="card">
+      <h3>Admission</h3>
+      <p>Run the invariant checker on the packet records and score it against the evidence-stage warrant.</p>
+    </div>
+  </div>
+  <p class="note">A tamper-evident copy preserves those bytes. Admission asks whether they are evidence for the effect claim.</p>
+  <div class="footer"><span>Does not replace November Table 2 or Table 2b</span><span>2 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Denominators</div>
+  <h2>The counts stay apart.</h2>
+  <div class="cards two">
+    <div class="card">
+      <h3>48 packets</h3>
+      <p>Four views of twelve histories, scored for <em>P_effect</em>. Actor-only and withheld-or-misbound warrant unresolved. The two sink views warrant the controlled truth: 24 decisive opportunities.</p>
+    </div>
+    <div class="card">
+      <h3>16 probes</h3>
+      <p>Sixteen mutations of one discriminating readback, <em>aew-v1-h-authority-current</em>. Those probes are not added to the 48. The challenge ledger is not rewritten.</p>
+    </div>
+  </div>
+  <p class="note">Preexisting: the packets, warrants, historical labels, invariant checker, and challenge. Sprint-new: the consumer ladder.</p>
+  <div class="footer"><span>An unsupported support is a support the warrant does not justify</span><span>3 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">48 packets</div>
+  <h2>Three consumers of the same records.</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Consumer</th>
+        <th class="num">Unsupported support</th>
+        <th class="num">False-proposition support</th>
+        <th class="num">Correct decisive</th>
+        <th class="num">Correct abstention</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Intact actor record</td>
+        <td class="num"><em class="warn">26</em></td>
+        <td class="num"><em class="warn">4</em></td>
+        <td class="num">22/24</td>
+        <td class="num">0</td>
+      </tr>
+      <tr>
+        <td>Historical Swarm Witness label</td>
+        <td class="num"><em class="warn">11</em></td>
+        <td class="num">0</td>
+        <td class="num">24/24</td>
+        <td class="num">13</td>
+      </tr>
+      <tr>
+        <td>Invariant checker</td>
+        <td class="num"><span class="yes">0</span></td>
+        <td class="num">0</td>
+        <td class="num">24/24</td>
+        <td class="num">24</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">The historical <em class="warn">eleven unsupported supports</em> remain that comparison. The checker’s zero does not replace them.</p>
+  <div class="footer"><span>Four views of twelve histories</span><span>4 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">The eleven</div>
+  <h2>Every one looks like an intact actor record.</h2>
+  <div class="cards two">
+    <div class="card">
+      <h3 class="warn">11 withheld or misbound</h3>
+      <ul>
+        <li>The controlled proposition holds.</li>
+        <li>Deciding records sum to 0.</li>
+        <li>All 11 packets contain such an actor record: 13 records, and two packets hold two.</li>
+        <li>4 have no effect row. 7 have a withheld effect row labeled supports.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>One further withheld packet</h3>
+      <p><em>aew-v1-h-local-pass-broader-effect</em> has that withheld effect row. The historical label is unresolved. The controlled proposition is false.</p>
+      <p style="margin-top: 0.16in;">A withheld row labeled supports does not account for the eleven.</p>
+    </div>
+  </div>
+  <div class="footer"><span>withheld_misbound is its own condition inside the 48</span><span>5 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">What carries the warrant here</div>
+  <h2>Subject class, or the zero-row absence census.</h2>
+  <table class="ladder">
+    <thead>
+      <tr>
+        <th>Stop-rule on the same 48</th>
+        <th class="num">Unsupported</th>
+        <th class="num">False prop.</th>
+        <th class="num">Decisive</th>
+        <th class="num">Abstention</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Intact actor, unless every such actor is the misbound probe</td>
+        <td class="num"><em class="warn">14</em></td>
+        <td class="num"><em class="warn">3</em></td>
+        <td class="num">22/24</td>
+        <td class="num">12</td>
+      </tr>
+      <tr>
+        <td>Held effect whose own label says supports</td>
+        <td class="num"><em class="warn">2</em></td>
+        <td class="num"><em class="warn">2</em></td>
+        <td class="num">14/24</td>
+        <td class="num">24</td>
+      </tr>
+      <tr>
+        <td>Subject class, no absence census</td>
+        <td class="num">0</td>
+        <td class="num">0</td>
+        <td class="num">16/24</td>
+        <td class="num">24</td>
+      </tr>
+      <tr>
+        <td>That support label, or the absence census</td>
+        <td class="num"><em class="warn">2</em></td>
+        <td class="num"><em class="warn">2</em></td>
+        <td class="num">22/24</td>
+        <td class="num">24</td>
+      </tr>
+      <tr>
+        <td>Subject class, or the absence census</td>
+        <td class="num"><span class="yes">0</span></td>
+        <td class="num">0</td>
+        <td class="num">24/24</td>
+        <td class="num">24</td>
+      </tr>
+      <tr>
+        <td>Full projection</td>
+        <td class="num"><span class="yes">0</span></td>
+        <td class="num">0</td>
+        <td class="num">24/24</td>
+        <td class="num">24</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Inside this set, scope, parent binding, and the non-zero census change no verdict. Dropping absence leaves 8 warranted supports unresolved.</p>
+  <div class="footer"><span>Both sink views of the four histories with no effect row</span><span>6 / 8</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Separate challenge</div>
+  <h2>Nine probes where subject class still supports.</h2>
+  <p class="note" style="margin-top: 0;">Subject class or the absence census: <em class="warn">9 unsupported supports</em>, 2/2 correct decisive, 5 correct abstentions. The projection: <span class="yes">0</span> unsupported supports, 2/2 correct decisive, 14 correct abstentions.</p>
+  <div class="cards two" style="margin-top: 0.16in;">
+    <div class="card">
+      <h3>The blocking check</h3>
+      <ul>
+        <li>Scope: run, operation, interval.</li>
+        <li>Binding: actor, object, and a parent that still names the actor.</li>
+        <li>An unknown subject beside an authorized sink.</li>
+        <li>A disagreeing census. A withheld census.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Already settled without those checks</h3>
+      <ul>
+        <li>An exact duplicate census stays supported.</li>
+        <li>A sink whose only subject is unknown stays unresolved.</li>
+        <li>Misbound, spoofed, unauthenticated, and stale sinks fail the deciding-premise check.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span>Sixteen mutations of one source packet. Not added to the 48.</span><span>7 / 8</span></div>
+</section>
+
+<section class="slide close">
+  <div class="eyebrow">What this reading establishes</div>
+  <h2>Subject class, or the zero-row absence census.</h2>
+  <p>On these records, an intact actor log is not the effect warrant.</p>
+  <p class="yes">On the 48, subject class or the zero-row absence census matches the checker.</p>
+  <p>SoundGate’s protocol is a separate pair of claims. The projection returns supported for the barrier and refuted for the original policy. An intact run record still supports the original policy.</p>
+  <p class="source">python experiments/epistemics_trust_v1/run.py<br/>Public commit d406f4e does not yet contain that runner.</p>
+  <div class="footer"><span>AI x Epistemics Research Sprint</span><span>8 / 8</span></div>
+</section>
+
+</body>
+</html>

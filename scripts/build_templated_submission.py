@@ -28,8 +28,8 @@ SOURCE = REPORT / "Swarm_Witness_Final_Submission.md"
 TEMPLATE = REPORT / "official-template.docx"
 
 
-def read_manuscript() -> tuple[str, dict[str, str], dict[str, re.Match[str]]]:
-    text = SOURCE.read_text(encoding="utf-8").strip() + "\n"
+def read_manuscript(source: Path | None = None) -> tuple[str, dict[str, str], dict[str, re.Match[str]]]:
+    text = (SOURCE if source is None else source).read_text(encoding="utf-8").strip() + "\n"
     title = re.search(r"^# ([^\n]+)$", text, re.M)
     if title is None:
         raise ValueError("The manuscript needs a level-one title.")
@@ -162,11 +162,16 @@ def template_title_table(template, metadata: dict[str, str], abstract: str):
     return table
 
 
-def attach_template_footnote(converted: Path) -> None:
+def attach_template_footnote(
+    converted: Path,
+    *,
+    event_label: str = "Swarm Alignment Hackathon",
+    event_url: str = "https://apartresearch.com/sprints/swarm-alignment-2026",
+) -> None:
     """Keep the template's hackathon footnote on the title."""
     relationship_ns = "http://schemas.openxmlformats.org/package/2006/relationships"
     footnote_id = "1"
-    link_id = "rIdSwarmAlignment"
+    link_id = "rIdSprintEvent"
     with ZipFile(TEMPLATE) as reference:
         template_footnotes = etree.fromstring(reference.read("word/footnotes.xml"))
         source_note = next(
@@ -174,6 +179,9 @@ def attach_template_footnote(converted: Path) -> None:
             if note.get(qn("w:id")) == "0"
         )
     source_note.set(qn("w:id"), footnote_id)
+    for node in source_note.iter(qn("w:t")):
+        if node.text == "Swarm Alignment Hackathon":
+            node.text = event_label
     for link in source_note.iter(qn("w:hyperlink")):
         link.set(qn("r:id"), link_id)
     with ZipFile(converted) as source:
@@ -183,7 +191,7 @@ def attach_template_footnote(converted: Path) -> None:
         link = etree.Element(f"{{{relationship_ns}}}Relationship")
         link.set("Id", link_id)
         link.set("Type", "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink")
-        link.set("Target", "https://apartresearch.com/sprints/swarm-alignment-2026")
+        link.set("Target", event_url)
         link.set("TargetMode", "External")
         relationships.append(link)
         document = etree.fromstring(source.read("word/document.xml"))
@@ -422,6 +430,52 @@ def main() -> None:
             retain_template_fonts(destination)
             print(destination.relative_to(ROOT))
     write_extracts(text, headings, brand_text)
+
+
+def export_templated_docx(source: Path, destination: Path) -> None:
+    """Fill the Apart title card for one manuscript. Does not rewrite the closed exports."""
+    _text, metadata, _headings = read_manuscript(source)
+    template = Document(TEMPLATE)
+    with TemporaryDirectory(prefix="swarm-witness-epistemics-") as directory:
+        converted = Path(directory) / "manuscript.docx"
+        subprocess.run(
+            [
+                os.environ.get("PANDOC", "pandoc"),
+                str(source),
+                "--from=gfm",
+                "--to=docx",
+                "--standalone",
+                f"--resource-path={source.parent}",
+                "--output",
+                str(converted),
+            ],
+            check=True,
+        )
+        doc = Document(converted)
+        style_document(doc, metadata, template, templated=True)
+        abstract = next(paragraph.text for paragraph in doc.paragraphs if len(paragraph.text.split()) > 80)
+        doc.element.body.insert(0, template_title_table(template, metadata, abstract))
+        remove = []
+        for paragraph in doc.paragraphs:
+            paragraph_text = paragraph.text.strip()
+            if (
+                paragraph_text == metadata["title"]
+                or paragraph_text in {"Abstract", "With Apart Research"}
+                or paragraph_text.startswith("Author:")
+                or paragraph_text.startswith("Affiliation:")
+                or paragraph_text == abstract
+            ):
+                remove.append(paragraph._p)
+        for element in remove:
+            element.getparent().remove(element)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        doc.save(destination)
+        attach_template_footnote(
+            destination,
+            event_label="AI x Epistemics Research Sprint",
+            event_url="https://apartresearch.com/sprints/ai-x-epistemics-research-sprint-2026-11-13-to-2026-11-15",
+        )
+        retain_template_fonts(destination)
 
 
 if __name__ == "__main__":

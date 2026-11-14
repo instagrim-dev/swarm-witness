@@ -1,0 +1,939 @@
+{
+  "sprint": "AI x Epistemics Research Sprint",
+  "sprint_url": "https://apartresearch.com/sprints/ai-x-epistemics-research-sprint-2026-11-13-to-2026-11-15",
+  "track": "Track 2, Trust Infrastructure",
+  "question": "An actor log can already be intact. Does that record justify the effect conclusion, or does a consumer still have to admit the record as evidence?",
+  "prior_work": "Swarm Witness Swarm Alignment submission",
+  "denominator": {
+    "histories": 12,
+    "packets": 48,
+    "dependence": "four views of twelve histories"
+  },
+  "intact_actor_consumer": {
+    "signal": "support P_effect when a requested-command record is locally held, custody intact, actor_binding bound, and has public bytes",
+    "unsupported_supports": 26,
+    "false_proposition_supports": 4,
+    "correct_decisive": 22,
+    "decisive_opportunities": 24,
+    "correct_abstentions": 0
+  },
+  "retained_verdict_consumer": {
+    "signal": "historical Swarm Witness P_effect verdict on the retained packet",
+    "unsupported_supports": 11,
+    "false_proposition_supports": 0,
+    "correct_decisive": 24,
+    "decisive_opportunities": 24,
+    "correct_abstentions": 13
+  },
+  "admission_consumer": {
+    "signal": "invariant checker on the same packet records, scored against the warrant",
+    "unsupported_supports": 0,
+    "false_proposition_supports": 0,
+    "correct_decisive": 24,
+    "decisive_opportunities": 24,
+    "correct_abstentions": 24
+  },
+  "retained_unsupported_supports": {
+    "count": 11,
+    "stage": "withheld_misbound",
+    "deciding_records": 0,
+    "packets_with_intact_misbound_actor": 11,
+    "misbound_actor_only": [
+      "aew-v1-h-authority-revoked-inflight",
+      "aew-v1-h-local-control-held",
+      "aew-v1-h-receipt-without-entitlement",
+      "aew-v1-h-wrong-allow-blocked"
+    ],
+    "withheld_effect_row": [
+      "aew-v1-h-authority-current",
+      "aew-v1-h-binding-aligned",
+      "aew-v1-h-binding-misbound",
+      "aew-v1-h-duplicated-source",
+      "aew-v1-h-entitled-allow-settles",
+      "aew-v1-h-receipt-with-entitlement",
+      "aew-v1-h-single-source"
+    ],
+    "packets": [
+      {
+        "history": "aew-v1-h-authority-current",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 1,
+        "withheld_effect_rows_marked_supports": 1,
+        "shape": "withheld_effect_row"
+      },
+      {
+        "history": "aew-v1-h-authority-revoked-inflight",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 0,
+        "withheld_effect_rows_marked_supports": 0,
+        "shape": "misbound_actor_only"
+      },
+      {
+        "history": "aew-v1-h-binding-aligned",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 1,
+        "withheld_effect_rows_marked_supports": 1,
+        "shape": "withheld_effect_row"
+      },
+      {
+        "history": "aew-v1-h-binding-misbound",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 1,
+        "withheld_effect_rows_marked_supports": 1,
+        "shape": "withheld_effect_row"
+      },
+      {
+        "history": "aew-v1-h-duplicated-source",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 2,
+        "effect_rows": 1,
+        "withheld_effect_rows_marked_supports": 1,
+        "shape": "withheld_effect_row"
+      },
+      {
+        "history": "aew-v1-h-entitled-allow-settles",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 1,
+        "withheld_effect_rows_marked_supports": 1,
+        "shape": "withheld_effect_row"
+      },
+      {
+        "history": "aew-v1-h-local-control-held",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 2,
+        "effect_rows": 0,
+        "withheld_effect_rows_marked_supports": 0,
+        "shape": "misbound_actor_only"
+      },
+      {
+        "history": "aew-v1-h-receipt-with-entitlement",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 1,
+        "withheld_effect_rows_marked_supports": 1,
+        "shape": "withheld_effect_row"
+      },
+      {
+        "history": "aew-v1-h-receipt-without-entitlement",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 0,
+        "withheld_effect_rows_marked_supports": 0,
+        "shape": "misbound_actor_only"
+      },
+      {
+        "history": "aew-v1-h-single-source",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 1,
+        "withheld_effect_rows_marked_supports": 1,
+        "shape": "withheld_effect_row"
+      },
+      {
+        "history": "aew-v1-h-wrong-allow-blocked",
+        "stage": "withheld_misbound",
+        "retained_verdict": "supported",
+        "warrant": "unresolved",
+        "proposition_holds": true,
+        "deciding_records": 0,
+        "intact_misbound_actor_records": 1,
+        "effect_rows": 0,
+        "withheld_effect_rows_marked_supports": 0,
+        "shape": "misbound_actor_only"
+      }
+    ]
+  },
+  "withheld_packet_where_retained_label_abstains": [
+    {
+      "history": "aew-v1-h-local-pass-broader-effect",
+      "stage": "withheld_misbound",
+      "retained_verdict": "unresolved",
+      "warrant": "unresolved",
+      "proposition_holds": false,
+      "deciding_records": 0,
+      "intact_misbound_actor_records": 1,
+      "effect_rows": 1,
+      "withheld_effect_rows_marked_supports": 1,
+      "shape": "withheld_effect_row"
+    }
+  ],
+  "admission_ladder": {
+    "intact_actor": {
+      "unsupported_supports": 26,
+      "false_proposition_supports": 4,
+      "correct_decisive": 22,
+      "decisive_opportunities": 24,
+      "correct_abstentions": 0,
+      "warrant_mismatches": [
+        {
+          "history": "aew-v1-h-authority-current",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-authority-current",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-authority-revoked-inflight",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-authority-revoked-inflight",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-binding-aligned",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-binding-aligned",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-binding-misbound",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-binding-misbound",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-duplicated-source",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-duplicated-source",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-entitled-allow-settles",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-entitled-allow-settles",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-control-held",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-control-held",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "discriminating_readback",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "duplicate_irrelevant",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-receipt-with-entitlement",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-receipt-with-entitlement",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-receipt-without-entitlement",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-receipt-without-entitlement",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-single-source",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-single-source",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-wrong-allow-blocked",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-wrong-allow-blocked",
+          "stage": "withheld_misbound",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        }
+      ]
+    },
+    "reject_misbound_actor": {
+      "unsupported_supports": 14,
+      "false_proposition_supports": 3,
+      "correct_decisive": 22,
+      "decisive_opportunities": 24,
+      "correct_abstentions": 12,
+      "warrant_mismatches": [
+        {
+          "history": "aew-v1-h-authority-current",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-authority-revoked-inflight",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-binding-aligned",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-binding-misbound",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-duplicated-source",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-entitled-allow-settles",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-control-held",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "discriminating_readback",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "duplicate_irrelevant",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-receipt-with-entitlement",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-receipt-without-entitlement",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-single-source",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-wrong-allow-blocked",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        }
+      ]
+    },
+    "any_deciding_record": {
+      "unsupported_supports": 14,
+      "false_proposition_supports": 3,
+      "correct_decisive": 22,
+      "decisive_opportunities": 24,
+      "correct_abstentions": 12,
+      "warrant_mismatches": [
+        {
+          "history": "aew-v1-h-authority-current",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-authority-revoked-inflight",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-binding-aligned",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-binding-misbound",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-duplicated-source",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-entitled-allow-settles",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-control-held",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "discriminating_readback",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "duplicate_irrelevant",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-receipt-with-entitlement",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-receipt-without-entitlement",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-single-source",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        },
+        {
+          "history": "aew-v1-h-wrong-allow-blocked",
+          "stage": "actor_only",
+          "predicted": "supported",
+          "warrant": "unresolved"
+        }
+      ]
+    },
+    "held_effect_polarity": {
+      "unsupported_supports": 2,
+      "false_proposition_supports": 2,
+      "correct_decisive": 14,
+      "decisive_opportunities": 24,
+      "correct_abstentions": 24,
+      "warrant_mismatches": [
+        {
+          "history": "aew-v1-h-authority-revoked-inflight",
+          "stage": "discriminating_readback",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-authority-revoked-inflight",
+          "stage": "duplicate_irrelevant",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-local-control-held",
+          "stage": "discriminating_readback",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-local-control-held",
+          "stage": "duplicate_irrelevant",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "discriminating_readback",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "duplicate_irrelevant",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-receipt-without-entitlement",
+          "stage": "discriminating_readback",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-receipt-without-entitlement",
+          "stage": "duplicate_irrelevant",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-wrong-allow-blocked",
+          "stage": "discriminating_readback",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-wrong-allow-blocked",
+          "stage": "duplicate_irrelevant",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        }
+      ]
+    },
+    "subject_class": {
+      "unsupported_supports": 0,
+      "false_proposition_supports": 0,
+      "correct_decisive": 16,
+      "decisive_opportunities": 24,
+      "correct_abstentions": 24,
+      "warrant_mismatches": [
+        {
+          "history": "aew-v1-h-authority-revoked-inflight",
+          "stage": "discriminating_readback",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-authority-revoked-inflight",
+          "stage": "duplicate_irrelevant",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-local-control-held",
+          "stage": "discriminating_readback",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-local-control-held",
+          "stage": "duplicate_irrelevant",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-receipt-without-entitlement",
+          "stage": "discriminating_readback",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-receipt-without-entitlement",
+          "stage": "duplicate_irrelevant",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-wrong-allow-blocked",
+          "stage": "discriminating_readback",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        },
+        {
+          "history": "aew-v1-h-wrong-allow-blocked",
+          "stage": "duplicate_irrelevant",
+          "predicted": "unresolved",
+          "warrant": "supported"
+        }
+      ]
+    },
+    "polarity_or_absence": {
+      "unsupported_supports": 2,
+      "false_proposition_supports": 2,
+      "correct_decisive": 22,
+      "decisive_opportunities": 24,
+      "correct_abstentions": 24,
+      "warrant_mismatches": [
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "discriminating_readback",
+          "predicted": "supported",
+          "warrant": "refuted"
+        },
+        {
+          "history": "aew-v1-h-local-pass-broader-effect",
+          "stage": "duplicate_irrelevant",
+          "predicted": "supported",
+          "warrant": "refuted"
+        }
+      ]
+    },
+    "subject_class_or_absence": {
+      "unsupported_supports": 0,
+      "false_proposition_supports": 0,
+      "correct_decisive": 24,
+      "decisive_opportunities": 24,
+      "correct_abstentions": 24,
+      "warrant_mismatches": []
+    },
+    "projection": {
+      "unsupported_supports": 0,
+      "false_proposition_supports": 0,
+      "correct_decisive": 24,
+      "decisive_opportunities": 24,
+      "correct_abstentions": 24,
+      "warrant_mismatches": []
+    }
+  },
+  "ladder_mismatches_against_projection": {
+    "intact_actor": 26,
+    "reject_misbound_actor": 14,
+    "any_deciding_record": 14,
+    "held_effect_polarity": 10,
+    "subject_class": 8,
+    "polarity_or_absence": 2,
+    "subject_class_or_absence": 0,
+    "projection": 0
+  },
+  "projection_mismatches_against_invariant_checker": 0,
+  "rule_disagreements": {
+    "reject_misbound_actor_vs_any_deciding_record": 0
+  },
+  "challenge_probes": {
+    "denominator": {
+      "probes": 16,
+      "source_packet": "aew-v1-h-authority-current/discriminating_readback",
+      "dependence": "sixteen mutations of one discriminating-readback packet",
+      "relation_to_48": "separate"
+    },
+    "subject_class_or_absence": {
+      "unsupported_supports": 9,
+      "false_proposition_supports": 0,
+      "correct_decisive": 2,
+      "decisive_opportunities": 2,
+      "correct_abstentions": 5
+    },
+    "projection": {
+      "unsupported_supports": 0,
+      "false_proposition_supports": 0,
+      "correct_decisive": 2,
+      "decisive_opportunities": 2,
+      "correct_abstentions": 14
+    },
+    "projection_mismatches_against_invariant_checker": 0,
+    "projection_mismatches_against_warrant": 0,
+    "separating_cases": {
+      "scope_run": [
+        "sink-run-mismatch"
+      ],
+      "binding": [
+        "sink-actor-mismatch",
+        "sink-object-mismatch",
+        "sink-mapped-actor-mismatch"
+      ],
+      "unknown_subject_beside_authorized": [
+        "mixed-unknown-authorization"
+      ],
+      "disagreeing_census": [
+        "coverage-conflict"
+      ],
+      "scope_operation": [
+        "coverage-operation-mismatch"
+      ],
+      "scope_interval": [
+        "coverage-interval-outside"
+      ],
+      "withheld_census": [
+        "coverage-withheld"
+      ]
+    },
+    "probes": [
+      {
+        "case_id": "sink-misbound",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "unresolved",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": false,
+        "blocking_check": null
+      },
+      {
+        "case_id": "sink-spoofed",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "unresolved",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": false,
+        "blocking_check": null
+      },
+      {
+        "case_id": "sink-unauthenticated",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "unresolved",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": false,
+        "blocking_check": null
+      },
+      {
+        "case_id": "sink-stale",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "unresolved",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": false,
+        "blocking_check": null
+      },
+      {
+        "case_id": "sink-run-mismatch",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "scope_run"
+      },
+      {
+        "case_id": "sink-actor-mismatch",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "binding"
+      },
+      {
+        "case_id": "sink-object-mismatch",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "binding"
+      },
+      {
+        "case_id": "sink-mapped-actor-mismatch",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "binding"
+      },
+      {
+        "case_id": "mixed-unknown-authorization",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "unknown_subject_beside_authorized"
+      },
+      {
+        "case_id": "coverage-conflict",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "disagreeing_census"
+      },
+      {
+        "case_id": "coverage-duplicate",
+        "warrant": "supported",
+        "subject_class_or_absence": "supported",
+        "projection": "supported",
+        "invariant_checker": "supported",
+        "separates_subject_from_projection": false,
+        "blocking_check": null
+      },
+      {
+        "case_id": "sink-unknown-subject",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "unresolved",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": false,
+        "blocking_check": null
+      },
+      {
+        "case_id": "coverage-operation-mismatch",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "scope_operation"
+      },
+      {
+        "case_id": "coverage-interval-outside",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "scope_interval"
+      },
+      {
+        "case_id": "coverage-withheld",
+        "warrant": "unresolved",
+        "subject_class_or_absence": "supported",
+        "projection": "unresolved",
+        "invariant_checker": "unresolved",
+        "separates_subject_from_projection": true,
+        "blocking_check": "withheld_census"
+      },
+      {
+        "case_id": "clean-positive",
+        "warrant": "supported",
+        "subject_class_or_absence": "supported",
+        "projection": "supported",
+        "invariant_checker": "supported",
+        "separates_subject_from_projection": false,
+        "blocking_check": null
+      }
+    ]
+  },
+  "reading": "On these 48 packets, subject class on a held deciding effect, or the zero-row absence census, matches the projection and the invariant checker. Rejecting the misbound actor probe leaves the actor log able to support. A held effect labeled supports, without subject class, still supports the false proposition.",
+  "does_not_establish": [
+    "that this 48-packet ladder is the SoundGate transfer test",
+    "that the current evaluator replay replaces the historical count",
+    "full-system equivalence of BMO and the SQLite gate",
+    "that a withheld effect row labeled supports is why the retained verdict supports",
+    "that scope, parent binding, and the non-zero census are idle outside these 48 packets",
+    "that the sixteen challenge mutations are a new population"
+  ]
+}
