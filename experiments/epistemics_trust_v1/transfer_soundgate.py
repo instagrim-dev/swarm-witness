@@ -1,4 +1,4 @@
-"""Empirical transfer onto SoundGate R1, a platform outside the twelve histories.
+"""Bounded SoundGate representation probe, a platform outside the twelve histories.
 
 The effect-field consumer reads the same SoundGate field the warrant uses.
 Its match is fidelity to that field, not a second adjudicator. The intact-run

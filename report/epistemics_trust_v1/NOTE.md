@@ -55,6 +55,6 @@ The probes where subject class supports and the projection stays unresolved:
 
 An exact duplicate census stays supported for both rules. A sink whose only subject is unknown stays unresolved for both. Misbinding, a spoofed line, an unauthenticated line, and a stale sink are already rejected by the deciding-premise check.
 
-## SoundGate transfer
+## SoundGate representation probe
 
-SoundGate R1 is 153 cuts under 3 policies, 459 retained rows, separate from the 48 and the 16. An intact-run rule has 143 *unsupported supports* on the restriction claim and 151 on availability. Reading the effect field matches that field. It is not a second adjudicator.
+Two SoundGate protocol claims are a separate denominator. Effect records are built from retained status, so this is a representation test, not independent external validation. The projection returns supported for the barrier and refuted for the original policy. An intact-run rule has 1 unsupported support on that pair. The strict policy is not in the warrant set.

@@ -29,7 +29,10 @@ def test_epistemics_slides_repeat_the_report_counts():
         "aew-v1-h-local-pass-broader-effect",
         "9 unsupported supports",
         "supported for the barrier and refuted for the original policy",
+        "SoundGate is a representation probe",
+        "not a cryptographic guarantee",
         "python experiments/epistemics_trust_v1/run.py",
+        "Public commit ea58c7d contains that runner.",
         "November Table 2 or Table 2b",
         "13 records",
         "unknown subject beside an authorized sink",
@@ -76,4 +79,7 @@ def test_epistemics_slide_pdf_is_eight_pages():
     assert "Not added to the 48" in combined
     folded = " ".join(combined.split())
     assert "supported for the barrier and refuted for the original policy" in folded
+    assert "SoundGate is a representation probe" in folded
+    assert "Public commit ea58c7d contains that runner." in folded
+    assert "d406f4e" not in combined
     assert "External empirical transfer remains untested" not in combined

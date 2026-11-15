@@ -46,7 +46,7 @@ Status: not submitted. An earlier dialog held the pre-SoundGate abstract. The fi
 | Narration | [Epistemics_Trust_Narration.mp4](epistemics_trust_v1/slides/Epistemics_Trust_Narration.mp4) |
 | Email | Not entered |
 
-The current PDF scores two SoundGate protocol claims with the existing projection. Public commit `d406f4e` does not contain this measurement. No contact email is on file, and none was invented.
+The current PDF scores two SoundGate protocol claims as a representation probe. Public commit `ea58c7d` contains the measurement. No contact email is on file, and none was invented.
 
 ## Venue references
 

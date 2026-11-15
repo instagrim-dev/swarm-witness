@@ -599,9 +599,9 @@ def _soundgate_lines() -> list[str]:
     proof = module.protocol_transfer()
     by_policy = {row["policy"]: row for row in proof["claims"]}
     return [
-        "## SoundGate transfer",
+        "## SoundGate representation probe",
         "",
-        "Two SoundGate protocol claims are a separate denominator. The projection returns "
+        "Two SoundGate protocol claims are a separate denominator. Effect records are built from retained status, so this is a representation test, not independent external validation. The projection returns "
         f"{by_policy['barrier']['projection']} for the barrier and {by_policy['original']['projection']} for the original policy. "
         f"An intact-run rule has {proof['intact_run_unsupported_supports']} unsupported support on that pair. "
         "The strict policy is not in the warrant set.",

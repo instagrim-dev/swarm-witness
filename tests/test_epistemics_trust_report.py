@@ -50,6 +50,14 @@ def test_report_counts_come_from_the_measurement():
     assert "Table N" not in text
     assert "13 records" in text
     assert f"{intact['correct_abstentions']}/24" in text
+    assert "not a cryptographic guarantee" in text
+    assert "not 16 successful end-to-end packet admissions" in text
+    assert "not independent external validation" in text
+    assert "five alternates and that reference" in text
+    assert "Public commit `ea58c7d`" in text
+    assert "d406f4e" not in text
+    assert "C2PA" in text
+    assert "OpenTelemetry GenAI" in text
     abstract = module.abstract_text(text)
     assert 150 <= module.word_count(abstract) <= 250
     for heading in (
