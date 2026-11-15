@@ -7,7 +7,7 @@ With Apart Research
 
 ## Abstract
 
-Delegated agents leave logs of what they were allowed to do. This report asks whether an intact actor log warrants the conclusion that an unauthorized effect did not commit. The packets, warrants, invariant checker, and sixteen-case challenge are preexisting Swarm Witness material. The sprint-new work scores alternate stop-rules on those retained records. It does not replace Table 2 or Table 2b of the November submission. On 48 packets, four views of twelve histories, subject class on a held deciding effect, or a zero-row absence census, matches the projection and the invariant checker. Both arms already keep the deciding-premise screen. Subject class alone leaves 8 warranted supports unresolved. A support label plus that census still supports a false proposition on 2 packets. The intact-actor predicate holds on every packet, so supporting from it supports all 48. On a separate challenge of 16 mutations of one source packet, subject class supports 9 probes the projection leaves unresolved. Those are unsupported supports inside the sixteen, not a new denominator. The nine are scope, binding, an unknown subject beside an authorized sink, and the census. A bounded SoundGate probe maps retained statuses into this representation. The projection matches two protocol warrants, and the intact-run rule supports the warrant that is refuted.
+Delegated agents leave logs of what they were allowed to do. This report asks whether an intact actor log warrants the conclusion that an unauthorized effect did not commit. The packets, warrants, invariant checker, and sixteen-case challenge are preexisting Swarm Witness material. The sprint-new work scores alternate stop-rules on those retained records. It does not replace Table 2 or Table 2b of the November submission. On 48 packets, four views of twelve histories, subject class on a held deciding effect, or a zero-row absence census, matches the projection and the invariant checker. Both arms already keep the deciding-premise screen. Subject class alone leaves 8 warranted supports unresolved. A support label plus that census still supports a false proposition on 2 packets. The intact-actor predicate holds on every packet, so supporting from it supports all 48. On a separate challenge of 16 mutations of one source packet, the subject-class-or-absence stop-rule supports 9 probes the projection leaves unresolved. Those are unsupported supports inside the sixteen, not a new denominator. The nine are scope, binding, an unknown subject beside an authorized sink, and the census. A bounded SoundGate probe maps retained statuses into this representation. The projection matches two protocol warrants, and the intact-run rule supports the warrant that is refuted.
 
 ## 1 Introduction
 
@@ -37,12 +37,12 @@ A held deciding effect is a committed-effect row that is locally held, carries p
 
 | Stop-rule | Checks it keeps | Checks it does not read |
 | --- | --- | --- |
-| Intact actor, unless every such actor is the misbound probe | Intact-actor metadata, then withhold support when every such actor is the misbound probe | Deciding-premise check, scope, binding, census |
-| Held deciding effect whose own label says supports | Held deciding effect whose polarity says supports | Subject class, sink scope, binding, census count |
-| Subject class, no absence census | Held deciding effect's authorized or unauthorized class | Sink scope, binding, census count, absence |
-| Support label, or the zero-row absence census | That support label, otherwise the zero-row absence census | Subject class, sink scope, binding |
-| Subject class, or the zero-row absence census | Subject class, otherwise the zero-row absence census | Sink scope, binding, non-zero census count |
-| Full projection | Deciding premise, then sink scope, binding, and census |  |
+| Intact actor, unless every such actor is the misbound probe | Intact-actor metadata, then withhold support when every such actor is the misbound probe | Deciding-premise check, additional cross-record scope and binding checks, census |
+| Held deciding effect whose own label says supports | Held deciding effect whose polarity says supports | Subject class, additional cross-record scope and binding checks, census count |
+| Subject class, no absence census | Held deciding effect's authorized or unauthorized class | Additional cross-record scope and binding checks, census count, absence |
+| Support label, or the zero-row absence census | That support label, otherwise the zero-row absence census | Subject class, additional cross-record scope and binding checks |
+| Subject class, or the zero-row absence census | Subject class, otherwise the zero-row absence census | Additional cross-record scope and binding checks, non-zero census count |
+| Full projection | Deciding premise, then additional cross-record scope and binding checks, and census |  |
 
 The projection is the preexisting observation rule. The invariant checker scores that projection, so their agreement is agreement inside one pipeline.
 
@@ -52,7 +52,8 @@ Public commit `ea58c7d` of https://github.com/instagrim-dev/swarm-witness contai
 
 ```bash
 python experiments/epistemics_trust_v1/run.py
-python -m pytest tests/test_epistemics_trust_v1.py tests/test_epistemics_trust_report.py -q
+python -m pytest tests/test_epistemics_trust_v1.py -q
+python -m pytest tests/test_epistemics_trust_report.py -q
 ```
 
 ## 4 Results

@@ -62,6 +62,10 @@ def test_report_counts_come_from_the_measurement():
     assert "not a bare two-field evaluator" in text
     assert "not a deployment failure rate" in text
     assert "not evidence that subject class and a census, read alone" in text
+    assert "the subject-class-or-absence stop-rule supports" in text
+    assert "additional cross-record scope and binding checks" in text
+    assert "python -m pytest tests/test_epistemics_trust_v1.py -q" in text
+    assert "python -m pytest tests/test_epistemics_trust_report.py -q" in text
     abstract = module.abstract_text(text)
     assert 150 <= module.word_count(abstract) <= 250
     for heading in (
