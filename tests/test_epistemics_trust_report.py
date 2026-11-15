@@ -63,6 +63,8 @@ def test_report_counts_come_from_the_measurement():
     assert "not a deployment failure rate" in text
     assert "not evidence that subject class and a census, read alone" in text
     assert "the subject-class-or-absence stop-rule supports" in text
+    assert "Both the subject-class-or-absence rule and full projection retain the deciding-premise screen" in text
+    assert "Both arms" not in text
     assert "additional cross-record scope and binding checks" in text
     assert "python -m pytest tests/test_epistemics_trust_v1.py -q" in text
     assert "python -m pytest tests/test_epistemics_trust_report.py -q" in text

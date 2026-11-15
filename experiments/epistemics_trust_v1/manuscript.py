@@ -99,8 +99,8 @@ def render_manuscript(result: dict[str, Any]) -> str:
         "and sixteen-case challenge are preexisting Swarm Witness material. The sprint-new work scores alternate "
         "stop-rules on those retained records. It does not replace Table 2 or Table 2b of the November submission. "
         f"On {result['denominator']['packets']} packets, {result['denominator']['dependence']}, subject class on a held "
-        "deciding effect, or a zero-row absence census, matches the projection and the invariant checker. Both arms "
-        "already keep the deciding-premise screen. Subject class "
+        "deciding effect, or a zero-row absence census, matches the projection and the invariant checker. Both the "
+        "subject-class-or-absence rule and full projection retain the deciding-premise screen. Subject class "
         f"alone leaves {len(ladder['subject_class']['warrant_mismatches'])} warranted supports unresolved. A support label "
         f"plus that census still supports a false proposition on {ladder['polarity_or_absence']['false_proposition_supports']} "
         "packets. The intact-actor predicate holds on every packet, so supporting from it supports all "
@@ -214,7 +214,7 @@ def render_manuscript(result: dict[str, Any]) -> str:
             "",
             "## 5 Discussion",
             "",
-            "Subject class on a held deciding effect, or the zero-row absence census, matches the full projection on all 48 retained packets. Both arms already keep the deciding-premise screen, so the match is which further checks are idle on these packets. It is not evidence that subject class and a census, read alone, are sufficient trust infrastructure. On the sixteen mutations the same rule still supports nine probes the projection leaves unresolved. Those nine are discriminating counterexamples inside one source packet, not a deployment failure rate.",
+            "Subject class on a held deciding effect, or the zero-row absence census, matches the full projection on all 48 retained packets. Both the subject-class-or-absence rule and full projection retain the deciding-premise screen, so the match is which further checks are idle on these packets. It is not evidence that subject class and a census, read alone, are sufficient trust infrastructure. On the sixteen mutations the same rule still supports nine probes the projection leaves unresolved. Those nine are discriminating counterexamples inside one source packet, not a deployment failure rate.",
             "",
             "An intact copy of the actor log preserves the record the first consumer trusts. On these 48 packets, admission does not treat that intact actor record as the effect warrant. The record is still present on packets the checker supports. Subject class alone misses the eight absence supports. The support-label-or-census rule still has two supports of a false proposition.",
             "",
