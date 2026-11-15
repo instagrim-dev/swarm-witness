@@ -57,7 +57,11 @@ def test_report_counts_come_from_the_measurement():
     assert "Public commit `ea58c7d`" in text
     assert "d406f4e" not in text
     assert "C2PA" in text
-    assert "OpenTelemetry GenAI" in text
+    assert "OpenTelemetry" in text
+    assert "deciding-premise check" in text
+    assert "not a bare two-field evaluator" in text
+    assert "not a deployment failure rate" in text
+    assert "not evidence that subject class and a census, read alone" in text
     abstract = module.abstract_text(text)
     assert 150 <= module.word_count(abstract) <= 250
     for heading in (

@@ -7,7 +7,7 @@ With Apart Research
 
 ## Abstract
 
-Delegated agents leave logs of what they were allowed to do. This report asks whether an intact actor log warrants the conclusion that an unauthorized effect did not commit. The packets, warrants, invariant checker, and sixteen-case challenge are preexisting Swarm Witness material. The sprint-new work scores alternate stop-rules on those retained records. It does not replace Table 2 or Table 2b of the November submission. On 48 packets, four views of twelve histories, subject class on a held deciding effect, or a zero-row absence census, matches the projection and the invariant checker. Subject class alone leaves 8 warranted supports unresolved. A support label plus that census still supports a false proposition on 2 packets. The intact-actor predicate holds on every packet, so supporting from it supports all 48. On a separate challenge of 16 mutations of one source packet, subject class supports 9 probes the projection leaves unresolved. Those are unsupported supports inside the sixteen, not a new denominator. The nine are scope, binding, an unknown subject beside an authorized sink, and the census. A bounded SoundGate probe maps retained statuses into this representation. The projection matches two protocol warrants, and the intact-run rule supports the warrant that is refuted.
+Delegated agents leave logs of what they were allowed to do. This report asks whether an intact actor log warrants the conclusion that an unauthorized effect did not commit. The packets, warrants, invariant checker, and sixteen-case challenge are preexisting Swarm Witness material. The sprint-new work scores alternate stop-rules on those retained records. It does not replace Table 2 or Table 2b of the November submission. On 48 packets, four views of twelve histories, subject class on a held deciding effect, or a zero-row absence census, matches the projection and the invariant checker. Both arms already keep the deciding-premise screen. Subject class alone leaves 8 warranted supports unresolved. A support label plus that census still supports a false proposition on 2 packets. The intact-actor predicate holds on every packet, so supporting from it supports all 48. On a separate challenge of 16 mutations of one source packet, subject class supports 9 probes the projection leaves unresolved. Those are unsupported supports inside the sixteen, not a new denominator. The nine are scope, binding, an unknown subject beside an authorized sink, and the census. A bounded SoundGate probe maps retained statuses into this representation. The projection matches two protocol warrants, and the intact-run rule supports the warrant that is refuted.
 
 ## 1 Introduction
 
@@ -23,7 +23,7 @@ Preexisting, relative to November 13–15, 2026: BMO, the SQLite gate, the twelv
 
 Sprint-new: the consumer ladder in `experiments/epistemics_trust_v1/run.py`, the record-level reading of the eleven, and this report. The ladder calls the preexisting admission predicates. It does not add a packet to the 48.
 
-The sprint's Track 2 resources name the C2PA provenance specification and a proposed signed log on the OpenTelemetry GenAI conventions [2]. This experiment implements neither. It scores which retained check has to succeed before an actor record supports an effect conclusion.
+C2PA specifies provenance metadata for media [3]. OpenTelemetry's GenAI semantic conventions specify spans, metrics, and events for generative-AI clients [4]. The sprint proposes a signed log on those conventions [2]. This experiment implements neither. It scores which retained check has to succeed before an actor record supports an effect conclusion.
 
 ## 3 Method
 
@@ -31,7 +31,20 @@ The first denominator is 48 packets: four views of twelve histories. Each packet
 
 Five alternate stop-rules are scored on those packets. The full projection is scored beside them as the reference row, so the later table has five alternates and that reference.
 
-The intact-actor rule supports `P_effect` when a requested-command record is locally held, custody intact, marked bound, and carrying public bytes. On this corpus that predicate holds on every packet, so the rule supports every packet. That predicate reads retained metadata. It does not verify a signed log or a completeness proof. The historical-label rule reads the retained Swarm Witness verdict. The misbound-probe rule uses the intact-actor test and withholds support when every such actor record is the misbound probe. The subject-class rule reads a held deciding effect: unauthorized refutes, authorized supports, and anything else stays unresolved. When subject class is unresolved, the zero-row absence census can still support the claim if it covers the actor events and no commit row is held. Those two checks are alternatives in one stop-rule. The projection is the preexisting observation rule. The invariant checker scores that projection, so their agreement is agreement inside one pipeline.
+The intact-actor rule supports `P_effect` when a requested-command record is locally held, custody intact, marked bound, and carrying public bytes. On this corpus that predicate holds on every packet, so the rule supports every packet. That predicate reads retained metadata. It does not verify a signed log or a completeness proof. The historical-label rule reads the retained Swarm Witness verdict. It is not one of the five alternates.
+
+A held deciding effect is a committed-effect row that is locally held, carries public bytes, and passes the preexisting deciding-premise check: not misbound, not withheld, not rejected for authenticity, and not stale. The zero-row absence census is preexisting too. It passes that premise check, declares no commit rows, and every actor event sits inside its run, operation, and interval. The table names the read that happens after the checks that row keeps. Subject class or the census is not a bare two-field evaluator.
+
+| Stop-rule | Checks it keeps | Checks it does not read |
+| --- | --- | --- |
+| Intact actor, unless every such actor is the misbound probe | Intact-actor metadata, then withhold support when every such actor is the misbound probe | Deciding-premise check, scope, binding, census |
+| Held deciding effect whose own label says supports | Held deciding effect whose polarity says supports | Subject class, sink scope, binding, census count |
+| Subject class, no absence census | Held deciding effect's authorized or unauthorized class | Sink scope, binding, census count, absence |
+| Support label, or the zero-row absence census | That support label, otherwise the zero-row absence census | Subject class, sink scope, binding |
+| Subject class, or the zero-row absence census | Subject class, otherwise the zero-row absence census | Sink scope, binding, non-zero census count |
+| Full projection | Deciding premise, then sink scope, binding, and census |  |
+
+The projection is the preexisting observation rule. The invariant checker scores that projection, so their agreement is agreement inside one pipeline.
 
 The second denominator is the preexisting sixteen-case challenge: sixteen mutations of one discriminating-readback packet. Its source packet is `aew-v1-h-authority-current/discriminating_readback`. Those sixteen probes are not added to the 48.
 
@@ -77,7 +90,7 @@ An exact duplicate census stays supported for both rules. A sink whose only subj
 
 ## 5 Discussion
 
-Subject class on a held deciding effect, or the zero-row absence census, matches the full projection on all 48 retained packets and still supports nine probes the projection leaves unresolved. Those nine are mutations of one source packet. Agreement on the 48 does not show that the smaller rule kept the scope, binding, and census checks.
+Subject class on a held deciding effect, or the zero-row absence census, matches the full projection on all 48 retained packets. Both arms already keep the deciding-premise screen, so the match is which further checks are idle on these packets. It is not evidence that subject class and a census, read alone, are sufficient trust infrastructure. On the sixteen mutations the same rule still supports nine probes the projection leaves unresolved. Those nine are discriminating counterexamples inside one source packet, not a deployment failure rate.
 
 An intact copy of the actor log preserves the record the first consumer trusts. On these 48 packets, admission does not treat that intact actor record as the effect warrant. The record is still present on packets the checker supports. Subject class alone misses the eight absence supports. The support-label-or-census rule still has two supports of a false proposition.
 
@@ -89,6 +102,8 @@ A bounded cross-system transfer probe maps retained SoundGate outcomes into the 
 
 1. Maye-Hobbs, J. Swarm Witness: evidence for agent authorization. Swarm Alignment submission, November 2026. Repository: https://github.com/instagrim-dev/swarm-witness
 2. Apart Research. AI x Epistemics Research Sprint, 13–15 November 2026. https://apartresearch.com/sprints/ai-x-epistemics-research-sprint-2026-11-13-to-2026-11-15
+3. Coalition for Content Provenance and Authenticity. C2PA Technical Specification, section 1.1. https://spec.c2pa.org/specifications/specifications/2.5/specs/C2PA_Specification.html. Retrieved 2026-11-15.
+4. OpenTelemetry. Semantic conventions for generative AI, including spans, metrics, and events. https://github.com/open-telemetry/semantic-conventions-genai. Retrieved 2026-11-15.
 
 ## Appendix A Limitations and dual use
 
